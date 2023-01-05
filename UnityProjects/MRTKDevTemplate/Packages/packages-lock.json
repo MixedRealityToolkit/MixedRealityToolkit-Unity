@@ -434,6 +434,17 @@
         "com.microsoft.mrtk.graphicstools.unity": "0.8.0"
       }
     },
+    "org.mixedrealitytoolkit.theming": {
+      "version": "file:../../../org.mixedrealitytoolkit.theming",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.microsoft.mrtk.graphicstools.unity": "0.8.0",
+        "org.mixedrealitytoolkit.core": "4.0.0",
+        "org.mixedrealitytoolkit.uxcore": "4.0.0",
+        "com.unity.textmeshpro": "3.0.6"
+      }
+    },
     "org.mixedrealitytoolkit.tools": {
       "version": "file:../../../org.mixedrealitytoolkit.tools",
       "depth": 0,

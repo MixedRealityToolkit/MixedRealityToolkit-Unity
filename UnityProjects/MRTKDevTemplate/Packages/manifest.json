@@ -33,6 +33,7 @@
     "org.mixedrealitytoolkit.input": "file:../../../org.mixedrealitytoolkit.input",
     "org.mixedrealitytoolkit.spatialmanipulation": "file:../../../org.mixedrealitytoolkit.spatialmanipulation",
     "org.mixedrealitytoolkit.standardassets": "file:../../../org.mixedrealitytoolkit.standardassets",
+    "org.mixedrealitytoolkit.theming": "file:../../../org.mixedrealitytoolkit.theming",
     "org.mixedrealitytoolkit.tools": "file:../../../org.mixedrealitytoolkit.tools",
     "org.mixedrealitytoolkit.uxcomponents": "file:../../../org.mixedrealitytoolkit.uxcomponents",
     "org.mixedrealitytoolkit.uxcomponents.noncanvas": "file:../../../org.mixedrealitytoolkit.uxcomponents.noncanvas",

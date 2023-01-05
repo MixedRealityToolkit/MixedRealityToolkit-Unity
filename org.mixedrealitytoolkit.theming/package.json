@@ -1,0 +1,25 @@
+{
+  "name": "org.mixedrealitytoolkit.theming",
+  "version": "1.0.0-development.pre.1",
+  "description": "Core theming scripts for building MR UI components. Intended to be consumed when building UX libraries. For pre-existing library of components, see the UX Components package.",
+  "displayName": "MRTK UX Theming",
+  "msftFeatureCategory": "MRTK3",
+  "author": "Mixed Reality Toolkit Contributors",
+  "license": "BSD 3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
+  },
+  "unity": "6000.0",
+  "unityRelease": "66f2",
+  "documentationUrl": "https://www.mixedrealitytoolkit.org",
+  "dependencies": {
+    "com.microsoft.mrtk.graphicstools.unity": "0.8.0",
+    "org.mixedrealitytoolkit.core": "4.0.0",
+    "org.mixedrealitytoolkit.uxcore": "4.0.0",
+    "com.unity.textmeshpro": "3.0.6"
+  }
+}
