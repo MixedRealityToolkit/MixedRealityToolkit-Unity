@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.Subsystems;
-using UnityEngine.InputSystem;
 
 #if MROPENXR_PRESENT && (UNITY_EDITOR_WIN || UNITY_WSA || UNITY_STANDALONE_WIN || UNITY_ANDROID)
 using Microsoft.MixedReality.OpenXR;
@@ -25,7 +24,7 @@ namespace MixedReality.Toolkit.Input
         Name = "org.mixedrealitytoolkit.openxrhands",
         DisplayName = "Subsystem for OpenXR Hands API",
         Author = "Mixed Reality Toolkit Contributors",
-        ProviderType = typeof(OpenXRProvider),
+        ProviderType = typeof(HandsProvider<OpenXRHandContainer>),
         SubsystemTypeOverride = typeof(OpenXRHandsSubsystem),
         ConfigType = typeof(BaseSubsystemConfig))]
 #endif // MROPENXR_PRESENT
@@ -64,7 +63,7 @@ namespace MixedReality.Toolkit.Input
             private static readonly HandJointLocation[] HandJointLocations = new HandJointLocation[HandTracker.JointCount];
 
             private static readonly ProfilerMarker TryGetEntireHandPerfMarker =
-                new ProfilerMarker("[MRTK] OpenXRHandsSubsystem.TryGetEntireHand");
+                new ProfilerMarker("[MRTK] OpenXRHandContainer.TryGetEntireHand");
 
             /// <inheritdoc/>
             public override bool TryGetEntireHand(out IReadOnlyList<HandJointPose> result)
@@ -82,7 +81,7 @@ namespace MixedReality.Toolkit.Input
             }
 
             private static readonly ProfilerMarker TryGetJointPerfMarker =
-                new ProfilerMarker("[MRTK] OpenXRHandsSubsystem.TryGetJoint");
+                new ProfilerMarker("[MRTK] OpenXRHandContainer.TryGetJoint");
 
             /// <inheritdoc/>
             public override bool TryGetJoint(TrackedHandJoint joint, out HandJointPose pose)
@@ -129,7 +128,7 @@ namespace MixedReality.Toolkit.Input
             }
 
             private static readonly ProfilerMarker TryCalculateEntireHandPerfMarker =
-                new ProfilerMarker("[MRTK] OpenXRHandsSubsystem.TryCalculateEntireHand");
+                new ProfilerMarker("[MRTK] OpenXRHandContainer.TryCalculateEntireHand");
 
             /// <summary>
             /// For a certain hand, query every Bone in the hand, and write all results to the
@@ -171,7 +170,7 @@ namespace MixedReality.Toolkit.Input
             }
 
             private static readonly ProfilerMarker UpdateJointPerfMarker =
-                new ProfilerMarker("[MRTK] OpenXRHandsSubsystem.UpdateJoint");
+                new ProfilerMarker("[MRTK] OpenXRHandContainer.UpdateJoint");
 
             /// <summary>
             /// Given a destination jointID, apply the Bone info to the correct struct
@@ -257,63 +256,6 @@ namespace MixedReality.Toolkit.Input
                 (int)HandJoint.LittleDistal,
                 (int)HandJoint.LittleTip,
             };
-        }
-
-        /// <summary>
-        /// A hand subsystem that extends the <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem.Provider">Provider</see> class, and 
-        /// obtains hand joint poses from the <see cref="OpenXRHandContainer"/> class.
-        /// </summary>
-        [Preserve]
-        private class OpenXRProvider : Provider, IHandsSubsystem
-        {
-            private Dictionary<XRNode, OpenXRHandContainer> hands = null;
-
-            /// <inheritdoc/>
-            public override void Start()
-            {
-                base.Start();
-
-                hands ??= new Dictionary<XRNode, OpenXRHandContainer>
-                {
-                    { XRNode.LeftHand, new OpenXRHandContainer(XRNode.LeftHand) },
-                    { XRNode.RightHand, new OpenXRHandContainer(XRNode.RightHand) }
-                };
-
-                InputSystem.onBeforeUpdate += ResetHands;
-            }
-
-            public override void Stop()
-            {
-                ResetHands();
-                InputSystem.onBeforeUpdate -= ResetHands;
-                base.Stop();
-            }
-
-            private void ResetHands()
-            {
-                hands[XRNode.LeftHand].Reset();
-                hands[XRNode.RightHand].Reset();
-            }
-
-            #region IHandsSubsystem implementation
-
-            /// <inheritdoc/>
-            public override bool TryGetEntireHand(XRNode handNode, out IReadOnlyList<HandJointPose> jointPoses)
-            {
-                Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand, "Non-hand XRNode used in TryGetEntireHand query");
-
-                return hands[handNode].TryGetEntireHand(out jointPoses);
-            }
-
-            /// <inheritdoc/>
-            public override bool TryGetJoint(TrackedHandJoint joint, XRNode handNode, out HandJointPose jointPose)
-            {
-                Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand, "Non-hand XRNode used in TryGetJoint query");
-
-                return hands[handNode].TryGetJoint(joint, out jointPose);
-            }
-
-            #endregion IHandsSubsystem implementation
         }
 #endif // MROPENXR_PRESENT
     }
