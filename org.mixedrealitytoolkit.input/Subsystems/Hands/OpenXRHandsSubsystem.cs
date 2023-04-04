@@ -111,8 +111,7 @@ namespace MixedReality.Toolkit.Input
                             return false;
                         }
 
-                        var jointLocation = HandJointLocations[HandJointIndexFromTrackedHandJointIndex[index]];
-                        UpdateJoint(index, jointLocation, origin);
+                        UpdateJoint(index, HandJointLocations[HandJointIndexFromTrackedHandJointIndex[index]], origin);
                         thisQueryValid = true;
                     }
                     else
