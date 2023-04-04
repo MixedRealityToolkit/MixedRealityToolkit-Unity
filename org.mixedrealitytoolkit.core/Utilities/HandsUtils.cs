@@ -30,6 +30,11 @@ namespace MixedReality.Toolkit
             InputDeviceCharacteristics.HandTracking | InputDeviceCharacteristics.Right;
 
         /// <summary>
+        /// Provides the MRTK-default value for hand joint radius when the platform API doesn't provide one.
+        /// </summary>
+        internal const float DefaultHandJointRadius = 0.005f;
+
+        /// <summary>
         /// Converts a Unity finger bone into an MRTK hand joint.
         /// </summary>
         /// <remarks>
@@ -65,7 +70,7 @@ namespace MixedReality.Toolkit
         /// </summary>
         internal static TrackedHandJoint ConvertFromIndex(int index)
         {
-            return (TrackedHandJoint)(index);
+            return (TrackedHandJoint)index;
         }
 
         /// <summary>
@@ -240,7 +245,7 @@ namespace MixedReality.Toolkit
                     jointPoses[index].Rotation = item.Pose.rotation;
 
                     // No joint radii from the JSON poses.. yet!
-                    jointPoses[index].Radius = 0.005f;
+                    jointPoses[index].Radius = DefaultHandJointRadius;
                 }
             }
         }
