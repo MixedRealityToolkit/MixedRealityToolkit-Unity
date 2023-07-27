@@ -84,7 +84,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 0
-      type: {class: AnimationEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
+      type: {class: AnimationEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
       data:
         name: Animation
         clip: {fileID: 7400000, guid: 8a553d183be585243a05eb67656324f7, type: 2}
@@ -93,7 +93,7 @@ MonoBehaviour:
         weightMode: 0
         transitionDuration: 0
     - rid: 1
-      type: {class: TwoWayAnimationEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
+      type: {class: TwoWayAnimationEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
       data:
         name: Two Way Animation
         forwardClip: {fileID: 7400000, guid: 376a441245b6d0e40b11001e28c88df9, type: 2}
@@ -102,7 +102,7 @@ MonoBehaviour:
         weightMode: 0
         transitionDuration: 0
     - rid: 2
-      type: {class: GraphicTintEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
+      type: {class: GraphicTintEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
       data:
         name: GraphicTint
         transitionDuration: 0.15

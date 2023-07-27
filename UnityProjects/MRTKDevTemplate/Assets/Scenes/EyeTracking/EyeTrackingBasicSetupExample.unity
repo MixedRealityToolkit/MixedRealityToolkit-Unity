@@ -273,7 +273,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 81134810}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
           Assembly-CSharp
         m_MethodName: OnSelectEntered
         m_Mode: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 81134810}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
           Assembly-CSharp
         m_MethodName: OnSelectExited
         m_Mode: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 81134810}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -359,7 +359,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 81134810}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1
@@ -401,7 +401,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 81134810}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazeHoverEntered
           m_Mode: 1
@@ -417,7 +417,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 81134810}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazeHoverExited
           m_Mode: 1
@@ -435,7 +435,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 81134810}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -451,7 +451,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 81134810}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1
@@ -786,7 +786,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   disabledInteractorTypes:
-  - reference: Microsoft.MixedReality.Toolkit.IPokeInteractor, Microsoft.MixedReality.Toolkit.Core
+  - reference: MixedReality.Toolkit.IPokeInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 0
   <SelectThreshold>k__BackingField: 0.9
   <DeselectThreshold>k__BackingField: 0.1
@@ -828,8 +828,8 @@ MonoBehaviour:
   rotationAnchorFar: 1
   releaseBehavior: 3
   transformSmoothingLogicType:
-    reference: Microsoft.MixedReality.Toolkit.SpatialManipulation.DefaultTransformSmoothingLogic,
-      Microsoft.MixedReality.Toolkit.SpatialManipulation
+    reference: MixedReality.Toolkit.SpatialManipulation.DefaultTransformSmoothingLogic,
+      MixedReality.Toolkit.SpatialManipulation
   smoothingFar: 1
   smoothingNear: 1
   moveLerpTime: 0.001
@@ -839,12 +839,12 @@ MonoBehaviour:
   constraintsManager: {fileID: 0}
   manipulationLogicTypes:
     moveLogicType:
-      reference: Microsoft.MixedReality.Toolkit.SpatialManipulation.MoveLogic, Microsoft.MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.MoveLogic, MixedReality.Toolkit.SpatialManipulation
     rotateLogicType:
-      reference: Microsoft.MixedReality.Toolkit.SpatialManipulation.RotateLogic,
-        Microsoft.MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic,
+        MixedReality.Toolkit.SpatialManipulation
     scaleLogicType:
-      reference: Microsoft.MixedReality.Toolkit.SpatialManipulation.ScaleLogic, Microsoft.MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.ScaleLogic, MixedReality.Toolkit.SpatialManipulation
 --- !u!114 &365753910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1361,7 +1361,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1015847543}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
           Assembly-CSharp
         m_MethodName: OnSelectEntered
         m_Mode: 0
@@ -1377,7 +1377,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1015847543}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
           Assembly-CSharp
         m_MethodName: OnSelectExited
         m_Mode: 0
@@ -1431,7 +1431,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1015847543}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -1447,7 +1447,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1015847543}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1
@@ -1489,7 +1489,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1015847543}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazeHoverEntered
           m_Mode: 1
@@ -1505,7 +1505,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1015847543}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazeHoverExited
           m_Mode: 1
@@ -1523,7 +1523,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1015847543}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -1539,7 +1539,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1015847543}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1
@@ -1778,7 +1778,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1027535239}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
           Assembly-CSharp
         m_MethodName: OnSelectEntered
         m_Mode: 0
@@ -1794,7 +1794,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1027535239}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
           Assembly-CSharp
         m_MethodName: OnSelectExited
         m_Mode: 0
@@ -1848,7 +1848,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1027535239}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -1864,7 +1864,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1027535239}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1
@@ -1906,7 +1906,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1027535239}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazeHoverEntered
           m_Mode: 1
@@ -1922,7 +1922,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1027535239}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazeHoverExited
           m_Mode: 1
@@ -1940,7 +1940,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1027535239}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -1956,7 +1956,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1027535239}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1
@@ -2267,7 +2267,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1288200911}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
           Assembly-CSharp
         m_MethodName: OnSelectEntered
         m_Mode: 0
@@ -2283,7 +2283,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1288200911}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
           Assembly-CSharp
         m_MethodName: OnSelectExited
         m_Mode: 0
@@ -2337,7 +2337,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1288200911}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -2353,7 +2353,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1288200911}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1
@@ -2395,7 +2395,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1288200911}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazeHoverEntered
           m_Mode: 1
@@ -2411,7 +2411,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1288200911}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazeHoverExited
           m_Mode: 1
@@ -2429,7 +2429,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1288200911}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -2445,7 +2445,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1288200911}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1
@@ -3229,7 +3229,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2014063039}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
           Assembly-CSharp
         m_MethodName: OnSelectEntered
         m_Mode: 0
@@ -3245,7 +3245,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2014063039}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
           Assembly-CSharp
         m_MethodName: OnSelectExited
         m_Mode: 0
@@ -3299,7 +3299,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2014063039}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -3315,7 +3315,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2014063039}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1
@@ -3357,7 +3357,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2014063039}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazeHoverEntered
           m_Mode: 1
@@ -3373,7 +3373,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2014063039}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazeHoverExited
           m_Mode: 1
@@ -3391,7 +3391,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2014063039}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -3407,7 +3407,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2014063039}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1

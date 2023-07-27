@@ -553,7 +553,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7861801676748397993}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderFeedback,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.UserInputRecorderFeedback,
           Assembly-CSharp
         m_MethodName: PlaybackCompleted
         m_Mode: 1
@@ -566,7 +566,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5685716680725385779}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderUIController,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.UserInputRecorderUIController,
           Assembly-CSharp
         m_MethodName: ShowStartButton
         m_Mode: 1
@@ -776,7 +776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderUIController,
+      value: MixedReality.Toolkit.Examples.UserInputRecorderUIController,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
@@ -785,16 +785,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderUIController,
+      value: MixedReality.Toolkit.Examples.UserInputRecorderUIController,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputPlayback, Assembly-CSharp
+      value: MixedReality.Toolkit.Examples.UserInputPlayback, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderFeedback, Assembly-CSharp
+      value: MixedReality.Toolkit.Examples.UserInputRecorderFeedback, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -968,7 +968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging.UserInputRecorderUIController,
+      value: MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging.UserInputRecorderUIController,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
@@ -977,7 +977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging.UserInputRecorderFeedback,
+      value: MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging.UserInputRecorderFeedback,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
@@ -1172,7 +1172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderUIController,
+      value: MixedReality.Toolkit.Examples.UserInputRecorderUIController,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
@@ -1181,16 +1181,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderUIController,
+      value: MixedReality.Toolkit.Examples.UserInputRecorderUIController,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputPlayback, Assembly-CSharp
+      value: MixedReality.Toolkit.Examples.UserInputPlayback, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderFeedback, Assembly-CSharp
+      value: MixedReality.Toolkit.Examples.UserInputRecorderFeedback, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1336,7 +1336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging.UserInputRecorderUIController,
+      value: MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging.UserInputRecorderUIController,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
@@ -1345,7 +1345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging.UserInputRecorderFeedback,
+      value: MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging.UserInputRecorderFeedback,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
@@ -1536,7 +1536,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderUIController,
+      value: MixedReality.Toolkit.Examples.UserInputRecorderUIController,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
@@ -1545,16 +1545,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderUIController,
+      value: MixedReality.Toolkit.Examples.UserInputRecorderUIController,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputPlayback, Assembly-CSharp
+      value: MixedReality.Toolkit.Examples.UserInputPlayback, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.UserInputRecorderFeedback, Assembly-CSharp
+      value: MixedReality.Toolkit.Examples.UserInputRecorderFeedback, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1503546110793399400, guid: cd0f0697f0939504389ec612388f609a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

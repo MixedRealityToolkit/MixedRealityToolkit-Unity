@@ -189,7 +189,7 @@ namespace MixedReality.Toolkit.Speech.Windows
 #elif (UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN)
                 return await Task<byte[]>.Run(() =>
                 {
-                    if (!Microsoft.MixedReality.Toolkit.Speech.Windows.WinRTTextToSpeechPInvokes.TrySynthesizePhraseWithCustomVoice(phrase, config.VoiceName, out IntPtr nativeData, out int length))
+                    if (!MixedReality.Toolkit.Speech.Windows.WinRTTextToSpeechPInvokes.TrySynthesizePhraseWithCustomVoice(phrase, config.VoiceName, out IntPtr nativeData, out int length))
                     {
                         Debug.LogError("Failed to synthesize the phrase");
                         return null;
@@ -198,7 +198,7 @@ namespace MixedReality.Toolkit.Speech.Windows
                     byte[] waveData = new byte[length];
                     Marshal.Copy(nativeData, waveData, 0, length);
                     // We can safely free the native data.
-                    Microsoft.MixedReality.Toolkit.Speech.Windows.WinRTTextToSpeechPInvokes.FreeSynthesizedData(nativeData);
+                    MixedReality.Toolkit.Speech.Windows.WinRTTextToSpeechPInvokes.FreeSynthesizedData(nativeData);
 
                     return waveData;
                 });

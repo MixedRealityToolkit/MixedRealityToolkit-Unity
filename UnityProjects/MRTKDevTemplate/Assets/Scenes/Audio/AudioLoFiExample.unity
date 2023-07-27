@@ -2185,7 +2185,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1130815452}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.BandPassFilterSelection,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.BandPassFilterSelection,
           Assembly-CSharp
         m_MethodName: SetFilter
         m_Mode: 0

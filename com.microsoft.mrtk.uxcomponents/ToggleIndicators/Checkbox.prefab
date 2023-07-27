@@ -84,7 +84,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 0
-      type: {class: GraphicTintEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
+      type: {class: GraphicTintEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
       data:
         name: GraphicTint
         transitionDuration: 0.15
@@ -94,7 +94,7 @@ MonoBehaviour:
         playbackMode: 0
         blendMode: 2
     - rid: 1
-      type: {class: GraphicTintEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
+      type: {class: GraphicTintEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
       data:
         name: GraphicTint
         transitionDuration: 0.15
@@ -104,7 +104,7 @@ MonoBehaviour:
         playbackMode: 0
         blendMode: 0
     - rid: 2
-      type: {class: SpriteSwapEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
+      type: {class: SpriteSwapEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
       data:
         name: Sprite Swap
         activationThreshold: 0.001

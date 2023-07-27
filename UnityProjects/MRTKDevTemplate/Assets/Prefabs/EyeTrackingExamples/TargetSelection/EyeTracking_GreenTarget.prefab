@@ -325,7 +325,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 5482834646519813981}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.EyeTrackingTarget,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.EyeTrackingTarget,
             Assembly-CSharp
           m_MethodName: OnGazeHoverEntered
           m_Mode: 1
@@ -341,7 +341,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 5482834646519813981}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.EyeTrackingTarget,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.EyeTrackingTarget,
             Assembly-CSharp
           m_MethodName: OnGazeHoverExited
           m_Mode: 1
@@ -359,7 +359,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchEntered
           m_Mode: 1
@@ -375,7 +375,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.ColorTap,
             Assembly-CSharp
           m_MethodName: OnGazePinchExited
           m_Mode: 1
@@ -444,7 +444,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5482834646519813981}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.EyeTrackingTarget,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.EyeTrackingTarget,
           Assembly-CSharp
         m_MethodName: OnTargetSelected
         m_Mode: 1
@@ -498,7 +498,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 5482834646519813981}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.EyeTrackingTarget,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.EyeTrackingTarget,
             Assembly-CSharp
           m_MethodName: OnTargetSelected
           m_Mode: 1

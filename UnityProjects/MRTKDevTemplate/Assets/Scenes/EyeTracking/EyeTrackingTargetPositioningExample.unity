@@ -206,7 +206,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 66248578}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedEntered
           m_Mode: 1
@@ -235,7 +235,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 66248578}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedExited
           m_Mode: 1
@@ -304,7 +304,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 66248584}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverEntered
         m_Mode: 1
@@ -332,7 +332,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 66248584}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverExited
         m_Mode: 1
@@ -354,7 +354,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 66248584}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchEntered
         m_Mode: 1
@@ -370,7 +370,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 66248584}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchExited
         m_Mode: 1
@@ -454,7 +454,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 66248578}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -470,7 +470,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 66248578}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -488,7 +488,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 66248578}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -504,7 +504,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 66248578}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -530,7 +530,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 66248578}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -546,7 +546,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 66248578}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -656,7 +656,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 508791418}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
           Assembly-CSharp
         m_MethodName: TargetDropped
         m_Mode: 1
@@ -935,7 +935,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 111582320}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedEntered
           m_Mode: 1
@@ -964,7 +964,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 111582320}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedExited
           m_Mode: 1
@@ -1033,7 +1033,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 111582326}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverEntered
         m_Mode: 1
@@ -1061,7 +1061,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 111582326}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverExited
         m_Mode: 1
@@ -1083,7 +1083,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 111582326}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchEntered
         m_Mode: 1
@@ -1099,7 +1099,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 111582326}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchExited
         m_Mode: 1
@@ -1183,7 +1183,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 111582320}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -1199,7 +1199,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 111582320}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -1217,7 +1217,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 111582320}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -1233,7 +1233,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 111582320}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -1259,7 +1259,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 111582320}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -1275,7 +1275,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 111582320}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -1385,7 +1385,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 132521880}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
           Assembly-CSharp
         m_MethodName: TargetDropped
         m_Mode: 1
@@ -2423,7 +2423,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   disabledInteractorTypes:
-  - reference: Microsoft.MixedReality.Toolkit.IPokeInteractor, Microsoft.MixedReality.Toolkit.Core
+  - reference: MixedReality.Toolkit.IPokeInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 0
   <SelectThreshold>k__BackingField: 0.9
   <DeselectThreshold>k__BackingField: 0.1
@@ -2465,8 +2465,8 @@ MonoBehaviour:
   rotationAnchorFar: 1
   releaseBehavior: 3
   transformSmoothingLogicType:
-    reference: Microsoft.MixedReality.Toolkit.SpatialManipulation.DefaultTransformSmoothingLogic,
-      Microsoft.MixedReality.Toolkit.SpatialManipulation
+    reference: MixedReality.Toolkit.SpatialManipulation.DefaultTransformSmoothingLogic,
+      MixedReality.Toolkit.SpatialManipulation
   smoothingFar: 1
   smoothingNear: 1
   moveLerpTime: 0.001
@@ -2476,12 +2476,12 @@ MonoBehaviour:
   constraintsManager: {fileID: 0}
   manipulationLogicTypes:
     moveLogicType:
-      reference: Microsoft.MixedReality.Toolkit.SpatialManipulation.MoveLogic, Microsoft.MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.MoveLogic, MixedReality.Toolkit.SpatialManipulation
     rotateLogicType:
-      reference: Microsoft.MixedReality.Toolkit.SpatialManipulation.RotateLogic,
-        Microsoft.MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic,
+        MixedReality.Toolkit.SpatialManipulation
     scaleLogicType:
-      reference: Microsoft.MixedReality.Toolkit.SpatialManipulation.ScaleLogic, Microsoft.MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.ScaleLogic, MixedReality.Toolkit.SpatialManipulation
 --- !u!114 &376689154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13235,7 +13235,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1007007014}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedEntered
           m_Mode: 1
@@ -13264,7 +13264,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1007007014}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedExited
           m_Mode: 1
@@ -13333,7 +13333,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1007007020}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverEntered
         m_Mode: 1
@@ -13361,7 +13361,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1007007020}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverExited
         m_Mode: 1
@@ -13383,7 +13383,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1007007020}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchEntered
         m_Mode: 1
@@ -13399,7 +13399,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1007007020}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchExited
         m_Mode: 1
@@ -13483,7 +13483,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1007007014}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -13499,7 +13499,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1007007014}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -13517,7 +13517,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1007007014}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -13533,7 +13533,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1007007014}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -13559,7 +13559,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1007007014}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -13575,7 +13575,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1007007014}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -13685,7 +13685,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 508791418}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
           Assembly-CSharp
         m_MethodName: TargetDropped
         m_Mode: 1
@@ -14158,7 +14158,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1196524889}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverEntered
         m_Mode: 1
@@ -14186,7 +14186,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1196524889}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverExited
         m_Mode: 1
@@ -14208,7 +14208,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1196524889}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchEntered
         m_Mode: 1
@@ -14224,7 +14224,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1196524889}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchExited
         m_Mode: 1
@@ -14308,7 +14308,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1196524885}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -14324,7 +14324,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1196524885}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -14342,7 +14342,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1196524885}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -14358,7 +14358,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1196524885}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -14384,7 +14384,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1196524885}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -14400,7 +14400,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1196524885}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -14510,7 +14510,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 132521880}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
           Assembly-CSharp
         m_MethodName: TargetDropped
         m_Mode: 1
@@ -14636,7 +14636,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1196524885}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedEntered
           m_Mode: 1
@@ -14665,7 +14665,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1196524885}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedExited
           m_Mode: 1
@@ -34970,7 +34970,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1857432975}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedEntered
           m_Mode: 1
@@ -34999,7 +34999,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1857432975}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedExited
           m_Mode: 1
@@ -35068,7 +35068,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1857432981}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverEntered
         m_Mode: 1
@@ -35096,7 +35096,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1857432981}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverExited
         m_Mode: 1
@@ -35118,7 +35118,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1857432981}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchEntered
         m_Mode: 1
@@ -35134,7 +35134,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1857432981}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchExited
         m_Mode: 1
@@ -35218,7 +35218,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1857432975}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -35234,7 +35234,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1857432975}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -35252,7 +35252,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1857432975}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -35268,7 +35268,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1857432975}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -35294,7 +35294,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1857432975}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -35310,7 +35310,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1857432975}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -35420,7 +35420,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2059103973}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
           Assembly-CSharp
         m_MethodName: TargetDropped
         m_Mode: 1
@@ -36006,7 +36006,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2004111535}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedEntered
           m_Mode: 1
@@ -36035,7 +36035,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2004111535}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.MoveObjectByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnVoiceSelectedExited
           m_Mode: 1
@@ -36104,7 +36104,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 2004111541}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverEntered
         m_Mode: 1
@@ -36132,7 +36132,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2004111541}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazeHoverExited
         m_Mode: 1
@@ -36154,7 +36154,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2004111541}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchEntered
         m_Mode: 1
@@ -36170,7 +36170,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2004111541}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.ColorTap,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.ColorTap,
           Assembly-CSharp
         m_MethodName: OnGazePinchExited
         m_Mode: 1
@@ -36254,7 +36254,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2004111535}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -36270,7 +36270,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2004111535}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -36288,7 +36288,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2004111535}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -36304,7 +36304,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2004111535}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -36330,7 +36330,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2004111535}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedEntered
           m_Mode: 1
@@ -36346,7 +36346,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2004111535}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.MoveObjByEyeGaze,
             Assembly-CSharp
           m_MethodName: OnGrabSelectedExited
           m_Mode: 1
@@ -36456,7 +36456,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2059103973}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.TriggerZonePlaceObjsWithin,
           Assembly-CSharp
         m_MethodName: TargetDropped
         m_Mode: 1

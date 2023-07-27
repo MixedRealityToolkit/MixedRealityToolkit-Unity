@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataSourceTypes: []
   classBindings:
-  - className: Microsoft.MixedReality.Toolkit.Data.DataConsumerTextStyle
+  - className: MixedReality.Toolkit.Data.DataConsumerTextStyle
     bindings:
     - dataKeyPath: 
       themeKeyPath: UX.Common.TextStyleSheet
@@ -22,7 +22,7 @@ MonoBehaviour:
       gameObjectNameRegex: 
       retrievalMethod: 0
       valueToThemeKeypathLookup: []
-  - className: Microsoft.MixedReality.Toolkit.Data.DataConsumerMaterial
+  - className: MixedReality.Toolkit.Data.DataConsumerMaterial
     bindings:
     - dataKeyPath: 
       themeKeyPath: UX.Button.BackplateHighlightMaterial
@@ -168,7 +168,7 @@ MonoBehaviour:
       gameObjectNameRegex: UX.Slate.InnerQuadBackplate
       retrievalMethod: 0
       valueToThemeKeypathLookup: []
-  - className: Microsoft.MixedReality.Toolkit.Data.DataConsumerSprite
+  - className: MixedReality.Toolkit.Data.DataConsumerSprite
     bindings:
     - dataKeyPath: 
       themeKeyPath: UX.Toggle.ThumbShadowSprite

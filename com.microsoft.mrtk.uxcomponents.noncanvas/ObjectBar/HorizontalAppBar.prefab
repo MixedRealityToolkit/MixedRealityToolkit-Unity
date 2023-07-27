@@ -343,11 +343,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: OnClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -379,11 +379,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: OnClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -530,11 +530,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: OnClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -566,11 +566,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.ObjectBarAddRemoveItems, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 2381766503070149263, guid: e5b53b02ddc453d49a3a36a85164095f, type: 3}
       propertyPath: OnClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
