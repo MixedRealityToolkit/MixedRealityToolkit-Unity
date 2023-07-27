@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// The base class that all subsystem configuration data inherits from.

@@ -3,11 +3,11 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// A simple visuals script to provide a visual layer on top of a 
-    /// <see cref="Microsoft.MixedReality.Toolkit.UX.PressableButton">PressableButton</see>.
+    /// <see cref="MixedReality.Toolkit.UX.PressableButton">PressableButton</see>.
     /// </summary>
     [RequireComponent(typeof(PressableButton))]
     [ExecuteAlways]

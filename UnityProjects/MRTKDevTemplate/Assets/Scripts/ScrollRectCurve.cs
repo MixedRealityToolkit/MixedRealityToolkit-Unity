@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// This component works on the content of a <see cref="ScrollRect"/> window.

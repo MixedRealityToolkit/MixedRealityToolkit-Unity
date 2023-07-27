@@ -1,12 +1,12 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Core.Runtime.Tests",
+    "name": "MixedReality.Toolkit.Core.Runtime.Tests",
     "rootNamespace": "",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core",
         "Unity.XR.Interaction.Toolkit",
         "UnityEditor.TestRunner",
         "UnityEngine.TestRunner",
-        "Microsoft.MixedReality.Toolkit.Core.TestUtilities"
+        "MixedReality.Toolkit.Core.TestUtilities"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

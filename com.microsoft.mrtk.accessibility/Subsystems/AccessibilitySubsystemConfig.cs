@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Accessibility
+namespace MixedReality.Toolkit.Accessibility
 {
     /// <summary>
     /// The configuration object for all AccessibilitySubsystems

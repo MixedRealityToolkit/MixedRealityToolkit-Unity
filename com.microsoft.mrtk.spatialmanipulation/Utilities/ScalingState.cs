@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// The current state of an object being scaled.

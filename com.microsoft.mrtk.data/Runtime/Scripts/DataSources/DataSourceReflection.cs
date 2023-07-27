@@ -14,7 +14,7 @@ using System.Reflection;
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// A data source that uses reflection to determine the structure of an object,
@@ -500,5 +500,5 @@ namespace Microsoft.MixedReality.Toolkit.Data
             _collectionObservers.Remove(resolvedKeyPath);
         }
     } // End of class DataSourceObjects
-} // End of namespace Microsoft.MixedReality.Toolkit.Data
+} // End of namespace MixedReality.Toolkit.Data
 #pragma warning restore CS1591

@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// Base class for all constraints that be applied to <see cref="ObjectManipulator"/>

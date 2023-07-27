@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Speech.Windows
+namespace MixedReality.Toolkit.Speech.Windows
 {
     /// <summary>
     /// Configuration for Windows Text To Speech Subsystem

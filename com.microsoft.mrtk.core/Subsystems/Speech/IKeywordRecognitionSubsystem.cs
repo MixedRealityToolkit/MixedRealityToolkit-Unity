@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// Specification for what a KeywordRecognitionSubsystem needs to be able to provide.

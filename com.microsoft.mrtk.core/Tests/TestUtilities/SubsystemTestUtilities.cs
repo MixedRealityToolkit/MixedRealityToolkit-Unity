@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Core.Tests
+namespace MixedReality.Toolkit.Core.Tests
 {
     /// <summary>
     /// Useful utilities for testing subsystems.

@@ -1,8 +1,8 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Diagnostics.Runtime.Tests",
+    "name": "MixedReality.Toolkit.Diagnostics.Runtime.Tests",
     "rootNamespace": "",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Diagnostics",
+        "MixedReality.Toolkit.Diagnostics",
         "UnityEditor.TestRunner",
         "UnityEngine.TestRunner"
     ],

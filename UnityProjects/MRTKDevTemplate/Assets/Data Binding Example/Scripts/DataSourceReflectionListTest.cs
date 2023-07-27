@@ -7,7 +7,7 @@
 using System.Collections.ObjectModel;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Simple test data source that programmatically changes variables in a data source.

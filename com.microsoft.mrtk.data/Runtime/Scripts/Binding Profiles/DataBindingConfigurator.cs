@@ -8,7 +8,7 @@
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Automatically configures and adds DataConsumer components needed to manage all data bound and/or themable

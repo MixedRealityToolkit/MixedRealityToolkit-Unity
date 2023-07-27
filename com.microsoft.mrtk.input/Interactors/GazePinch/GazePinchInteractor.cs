@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// An indirectly-targeted interactor that performs interactions driven by variable pinch distance.

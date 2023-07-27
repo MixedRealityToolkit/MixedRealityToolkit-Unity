@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// Event data for when a slider's value changes

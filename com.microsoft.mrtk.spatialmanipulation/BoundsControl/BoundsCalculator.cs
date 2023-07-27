@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// Static class that contains various useful methods for computing the total bounds of a collection of objects.

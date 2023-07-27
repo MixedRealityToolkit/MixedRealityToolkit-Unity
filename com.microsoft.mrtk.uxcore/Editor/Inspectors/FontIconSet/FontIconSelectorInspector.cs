@@ -2,12 +2,12 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License
 
-using Microsoft.MixedReality.Toolkit.UX;
+using MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     [CustomEditor(typeof(FontIconSelector))]
     class FontIconSelectorInspector : UnityEditor.Editor

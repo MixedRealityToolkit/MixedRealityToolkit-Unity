@@ -5,7 +5,7 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// Provides a solver that follows the TrackedObject/TargetTransform in an orbital motion.

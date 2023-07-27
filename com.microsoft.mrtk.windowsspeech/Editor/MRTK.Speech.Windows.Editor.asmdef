@@ -1,10 +1,10 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Speech.Windows.Editor",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit.Speech.Windows.Editor",
+    "name": "MixedReality.Toolkit.Speech.Windows.Editor",
+    "rootNamespace": "MixedReality.Toolkit.Speech.Windows.Editor",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Core",
-        "Microsoft.MixedReality.Toolkit.Core.Editor",
-        "Microsoft.MixedReality.Toolkit.Speech.Windows",
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core.Editor",
+        "MixedReality.Toolkit.Speech.Windows",
         "Unity.XR.CoreUtils.Editor"
     ],
     "includePlatforms": [

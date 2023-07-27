@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// A <see cref="IEffect"/> implementation that generates a 

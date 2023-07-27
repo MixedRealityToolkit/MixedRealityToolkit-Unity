@@ -5,7 +5,7 @@
 // While nice to have, documentation is not required for this experimental package.
 #pragma warning disable CS1591
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Utility functions for string truncation

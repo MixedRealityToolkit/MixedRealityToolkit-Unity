@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// Extended version of XRBaseInteractable to enable multi-hand interactions.

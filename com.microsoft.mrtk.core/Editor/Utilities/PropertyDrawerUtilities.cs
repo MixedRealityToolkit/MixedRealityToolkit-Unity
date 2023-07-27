@@ -4,7 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// Utilities which make creating property drawers easier.

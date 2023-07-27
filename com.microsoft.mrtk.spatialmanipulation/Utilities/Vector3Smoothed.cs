@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// Encapsulated vector that smoothly moves toward a goal.

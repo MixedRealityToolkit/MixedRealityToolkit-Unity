@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Editor
+namespace MixedReality.Toolkit.Input.Editor
 { 
     /// <summary>
     /// A custom property drawer for <see cref="InteractionMode"/> fields.

@@ -3,13 +3,13 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A wrapper for the XRRayInteractor which stores extra information for MRTK management/services

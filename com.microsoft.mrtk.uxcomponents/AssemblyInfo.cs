@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit UX")]
 [assembly: AssemblyCopyright("Copyright © Microsoft Corporation")]
 
-[assembly: InternalsVisibleTo("Microsoft.MixedReality.Toolkit.UXComponents.Runtime.Tests")]
+[assembly: InternalsVisibleTo("MixedReality.Toolkit.UXComponents.Runtime.Tests")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.
 // https://docs.microsoft.com/troubleshoot/visualstudio/general/assembly-version-assembly-file-version

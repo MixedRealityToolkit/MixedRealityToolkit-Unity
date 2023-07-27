@@ -7,7 +7,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// Allows the user to record a log file of eye gaze interactions for playback at another time.

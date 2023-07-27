@@ -8,7 +8,7 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// Custom build processor that determines the correct <see cref="MRTKProfile"/> to bundle

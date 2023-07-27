@@ -16,13 +16,13 @@ using UnityEngine.InputSystem;
 using UnityEditor;
 #endif
 
-namespace Microsoft.MixedReality.Toolkit.Core.Tests
+namespace MixedReality.Toolkit.Core.Tests
 {
     /// <summary>
     /// Utilities that are useful for all runtime tests. Mainly used for scene setup and controlling test flow.
     /// </summary>
     /// <remarks>
-    /// Does not include utilities for input tests; see <c>Microsoft.MixedReality.Toolkit.Input.Tests.InputTestUtilities</c>
+    /// Does not include utilities for input tests; see <c>MixedReality.Toolkit.Input.Tests.InputTestUtilities</c>
     /// for utilities for working with simulated input devices.
     /// </remarks>
     public static class RuntimeTestUtilities

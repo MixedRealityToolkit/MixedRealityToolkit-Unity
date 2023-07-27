@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// Extension methods for Unity's Transform class

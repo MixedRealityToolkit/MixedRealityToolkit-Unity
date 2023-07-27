@@ -5,7 +5,7 @@ using Microsoft.MixedReality.GraphicsTools;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// A script to enable pulse effect on <see cref="StatefulInteractable"/>.

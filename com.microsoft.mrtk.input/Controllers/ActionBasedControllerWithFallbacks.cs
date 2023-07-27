@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A specilized version of Unity's ActionBasedController that will fallback to other Input System actions for

@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// Constraint that allows selection of classes that implement a specific interface

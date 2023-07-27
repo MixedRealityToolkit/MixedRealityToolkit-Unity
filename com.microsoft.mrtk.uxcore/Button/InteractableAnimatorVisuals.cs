@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// This visual driver sets various float parameters on the specified <see cref="Animator"/> based on the

@@ -5,7 +5,7 @@ using System;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// Utilities for retrieving the XR rig's offset transform, for use in transforming tracked object coordinates.

@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Test data source which programmatically triggers an update of a url that changes

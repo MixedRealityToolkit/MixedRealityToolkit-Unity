@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// Specification for what a HandsSubsystem needs to be able to provide.

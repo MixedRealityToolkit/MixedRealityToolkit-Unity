@@ -1,14 +1,14 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// Custom editor for MRTKProfile, enabling the selection

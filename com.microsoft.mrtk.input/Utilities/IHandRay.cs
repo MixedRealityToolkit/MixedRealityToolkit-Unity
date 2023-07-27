@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Interface defining a hand ray, which is used by far pointers to direct interactions.

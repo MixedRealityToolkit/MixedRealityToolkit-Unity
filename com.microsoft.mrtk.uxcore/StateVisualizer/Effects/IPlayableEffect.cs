@@ -3,7 +3,7 @@
 
 using UnityEngine.Playables;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// An <see cref="IEffect"/> that is backed by a <see cref="Playable"/>.

@@ -7,16 +7,16 @@
 using System.Collections;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.MixedReality.Toolkit.Core.Tests;
-using Microsoft.MixedReality.Toolkit.Input;
-using Microsoft.MixedReality.Toolkit.Input.Tests;
+using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Runtime.Tests
+namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
     /// <summary>
     /// Tests for the See-It Say-It label generator

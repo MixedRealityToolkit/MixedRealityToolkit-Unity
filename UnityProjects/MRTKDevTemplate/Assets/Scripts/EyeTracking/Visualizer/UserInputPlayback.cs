@@ -12,7 +12,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// Allows the user to playback a recorded log file of eye gaze interactions with a heat map.

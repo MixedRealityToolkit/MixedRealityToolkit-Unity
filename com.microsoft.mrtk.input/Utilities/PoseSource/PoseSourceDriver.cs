@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Uses a specified <see cref="IPoseSource"/> to drive the pose of the object this is placed on.

@@ -5,7 +5,7 @@
 using UnityEngine.Windows.Speech;
 #endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 
-namespace Microsoft.MixedReality.Toolkit.Speech.Windows
+namespace MixedReality.Toolkit.Speech.Windows
 {
     /// <summary>
     /// The recognition confidence level for WindowsDictationSubsystem and WindowsKeywordRecognitionSubsystem.

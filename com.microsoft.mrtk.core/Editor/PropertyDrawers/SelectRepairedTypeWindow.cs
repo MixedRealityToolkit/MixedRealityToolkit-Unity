@@ -5,7 +5,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// A Unity editor window for repairing <see cref="SystemType"/> field serializations. 

@@ -4,7 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// Draws a customer decorator drawer that displays a help box with rich text tagging implementation as experimental.

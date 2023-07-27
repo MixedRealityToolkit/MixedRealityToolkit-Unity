@@ -7,7 +7,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// Demonstration script showing how to squeeze or resize

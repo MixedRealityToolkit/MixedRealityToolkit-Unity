@@ -1,6 +1,6 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Core",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit",
+    "name": "MixedReality.Toolkit.Core",
+    "rootNamespace": "MixedReality.Toolkit",
     "references": [
         "Unity.XR.CoreUtils",
         "Unity.XR.Interaction.Toolkit",

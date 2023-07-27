@@ -4,7 +4,7 @@
 using Unity.Profiling;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// ConstantViewSize solver scales to maintain a constant size relative to the view (currently tied to the Camera)

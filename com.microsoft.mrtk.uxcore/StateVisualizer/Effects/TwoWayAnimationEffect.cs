@@ -5,9 +5,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
-using WeightType = Microsoft.MixedReality.Toolkit.UX.IAnimationMixableEffect.WeightType;
+using WeightType = MixedReality.Toolkit.UX.IAnimationMixableEffect.WeightType;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// An <see cref="IEffect" /> that plays two different Unity 

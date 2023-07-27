@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Experimental
+namespace MixedReality.Toolkit.UX.Experimental
 {
     /// <summary>
     /// All theme elements of a MRTK UX <c>Slate</c>.

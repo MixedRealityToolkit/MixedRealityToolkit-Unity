@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using UnityEngine;
 using UnityEngine.Scripting;
 
@@ -9,15 +9,15 @@ using UnityEngine.Scripting;
 using UnityEngine.Windows.Speech;
 #endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 
-namespace Microsoft.MixedReality.Toolkit.Speech.Windows
+namespace MixedReality.Toolkit.Speech.Windows
 {
     /// <summary>
-    /// A Unity subsystem that extends <see cref="Microsoft.MixedReality.Toolkit.Subsystems.DictationSubsystem">DictationSubsystem</see>
+    /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.DictationSubsystem">DictationSubsystem</see>
     /// so to expose the dictation services available on Windows platforms. This subsystem is enabled for Windows Standalone and
     /// Universal Windows Applications. 
     /// </summary>
     /// <remarks>
-    /// This subsystem can be configured using the <see cref="Microsoft.MixedReality.Toolkit.Speech.Windows.WindowsDictationSubsystemConfig">WindowsDictationSubsystemConfig</see> Unity asset.
+    /// This subsystem can be configured using the <see cref="MixedReality.Toolkit.Speech.Windows.WindowsDictationSubsystemConfig">WindowsDictationSubsystemConfig</see> Unity asset.
     /// </remarks>
     [Preserve]
     [MRTKSubsystem(

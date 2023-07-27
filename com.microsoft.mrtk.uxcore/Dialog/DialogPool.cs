@@ -12,11 +12,11 @@ using UnityEngine.Events;
 using UnityEditor;
 #endif
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
-    /// Spawns <see cref="Microsoft.MixedReality.Toolkit.UX.IDialog">IDialog</see> with the requested parameters and manages
-    /// the lifecycle of the resulting <see cref="Microsoft.MixedReality.Toolkit.UX.IDialog">IDialog</see> component.
+    /// Spawns <see cref="MixedReality.Toolkit.UX.IDialog">IDialog</see> with the requested parameters and manages
+    /// the lifecycle of the resulting <see cref="MixedReality.Toolkit.UX.IDialog">IDialog</see> component.
     /// </summary>
     [ExecuteAlways]
     [AddComponentMenu("MRTK/UX/Dialog Pool")]
@@ -37,7 +37,7 @@ namespace Microsoft.MixedReality.Toolkit.UX
 
         /// <summary>
         /// The default prefab to instantiate when spawning a dialog. This prefab must
-        /// contain a <see cref="Microsoft.MixedReality.Toolkit.UX.IDialog">IDialog</see> component.
+        /// contain a <see cref="MixedReality.Toolkit.UX.IDialog">IDialog</see> component.
         /// </summary>
         [field: SerializeField, Tooltip("The default prefab to instantiate when spawning a dialog. This prefab must contain a IDialog component.")]
         public GameObject DialogPrefab { get; set; }

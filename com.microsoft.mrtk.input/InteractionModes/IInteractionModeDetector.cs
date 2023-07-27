@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Defines some base properties that a MRTK Interactor has

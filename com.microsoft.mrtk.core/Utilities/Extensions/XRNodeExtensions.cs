@@ -3,7 +3,7 @@
 
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// Methods which extend the functionality of the Unity XRNode struct.

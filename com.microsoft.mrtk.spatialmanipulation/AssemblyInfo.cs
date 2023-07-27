@@ -7,8 +7,8 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit Spatial Manipulation")]
 [assembly: AssemblyCopyright("Copyright © Microsoft Corporation")]
 
-[assembly: InternalsVisibleTo("Microsoft.MixedReality.Toolkit.SpatialManipulation.Editor")]
-[assembly: InternalsVisibleTo("Microsoft.MixedReality.Toolkit.SpatialManipulation.Runtime.Tests")]
+[assembly: InternalsVisibleTo("MixedReality.Toolkit.SpatialManipulation.Editor")]
+[assembly: InternalsVisibleTo("MixedReality.Toolkit.SpatialManipulation.Runtime.Tests")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.
 // https://docs.microsoft.com/troubleshoot/visualstudio/general/assembly-version-assembly-file-version

@@ -4,7 +4,7 @@
 using System;
 using UnityEngine.SubsystemsImplementation;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// Encapsulates the parameters for creating a new <see cref="MRTKSubsystemDescriptor{T, U}"/>.

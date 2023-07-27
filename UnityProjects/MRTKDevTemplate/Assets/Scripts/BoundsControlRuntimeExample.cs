@@ -4,14 +4,14 @@
 // Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
 #pragma warning disable CS1591
 
-using Microsoft.MixedReality.Toolkit.SpatialManipulation;
-using Microsoft.MixedReality.Toolkit.UX;
+using MixedReality.Toolkit.SpatialManipulation;
+using MixedReality.Toolkit.UX;
 using System.Collections;
 using System.Text;
 using TMPro;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// This example script demonstrates various bounds control runtime configurations.

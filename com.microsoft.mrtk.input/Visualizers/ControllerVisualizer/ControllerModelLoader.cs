@@ -13,7 +13,7 @@ using Microsoft.MixedReality.OpenXR;
 using GLTFast;
 #endif // MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT && KTX_PRESENT
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A helper class which loads and caches controller models fetched from the controller's platform SDK.

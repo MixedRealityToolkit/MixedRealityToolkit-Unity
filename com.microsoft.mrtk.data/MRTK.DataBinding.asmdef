@@ -1,8 +1,8 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Data",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit.Data",
+    "name": "MixedReality.Toolkit.Data",
+    "rootNamespace": "MixedReality.Toolkit.Data",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core",
         "Unity.TextMeshPro"
     ],
     "includePlatforms": [],

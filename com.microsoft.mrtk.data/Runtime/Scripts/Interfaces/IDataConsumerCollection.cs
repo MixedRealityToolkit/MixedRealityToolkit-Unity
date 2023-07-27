@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Interface for all data consumers that manage collections.

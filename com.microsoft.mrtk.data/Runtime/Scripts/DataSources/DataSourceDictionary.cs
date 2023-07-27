@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Data Source that stores arbitrary information in a Dictionary where
@@ -60,5 +60,5 @@ namespace Microsoft.MixedReality.Toolkit.Data
             _dataDictionary[resolvedKeyPath] = newValue;
         }
     } // End of class DataSourceDictionary
-} // End of namespace Microsoft.MixedReality.Toolkit.Data
+} // End of namespace MixedReality.Toolkit.Data
 #pragma warning restore CS1591

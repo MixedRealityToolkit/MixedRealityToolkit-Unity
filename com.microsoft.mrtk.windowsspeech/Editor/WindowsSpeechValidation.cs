@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Unity.XR.CoreUtils.Editor;
 using UnityEditor;
 
-namespace Microsoft.MixedReality.Toolkit.Speech.Windows.Editor
+namespace MixedReality.Toolkit.Speech.Windows.Editor
 {
     /// <summary>
     /// A class adding Windows Speech related rule(s) to the validator

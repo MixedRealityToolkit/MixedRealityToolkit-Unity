@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     using UnityEngine.Serialization;
 

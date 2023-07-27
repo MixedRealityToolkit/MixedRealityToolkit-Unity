@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Interface for placing items from a list into the game object hierarchy in a meaningful way.

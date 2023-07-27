@@ -4,7 +4,7 @@
 using Unity.Profiling;
 using UnityEngine.SubsystemsImplementation;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// A SubsystemWithProvider that supports Mixed Reality Toolkit lifecycle methods.

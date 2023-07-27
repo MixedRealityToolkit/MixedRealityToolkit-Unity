@@ -7,7 +7,7 @@
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Core.Tests
+namespace MixedReality.Toolkit.Core.Tests
 {
     public static class TestUtilities
     {

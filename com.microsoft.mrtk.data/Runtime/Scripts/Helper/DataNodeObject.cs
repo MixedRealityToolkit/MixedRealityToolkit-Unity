@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// A generic DOM style data node that implements the IDataNode interface.

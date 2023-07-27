@@ -5,9 +5,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
-using WeightType = Microsoft.MixedReality.Toolkit.UX.IAnimationMixableEffect.WeightType;
+using WeightType = MixedReality.Toolkit.UX.IAnimationMixableEffect.WeightType;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// An <see cref="IEffect"/> implementation that plays a Unity <see href="https://docs.unity3d.com/ScriptReference/AnimationClip.html">AnimationClip"</see>.

@@ -3,7 +3,7 @@
 
 using UnityEngine.SubsystemsImplementation;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// A provider that supports MRTK-specific lifecycle events.

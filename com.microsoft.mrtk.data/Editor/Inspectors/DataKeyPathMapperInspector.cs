@@ -7,7 +7,7 @@
 
 using UnityEditor;
 
-namespace Microsoft.MixedReality.Toolkit.Data.Editor
+namespace MixedReality.Toolkit.Data.Editor
 {
     [CustomEditor(typeof(DataKeyPathMapperGODictionary.ViewToDataKeypathMap))]
     public class DataKeyPathMapperInspector : UnityEditor.Editor

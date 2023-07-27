@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// The base abstract class for all Solvers to derive from. It provides state tracking, smoothing parameters

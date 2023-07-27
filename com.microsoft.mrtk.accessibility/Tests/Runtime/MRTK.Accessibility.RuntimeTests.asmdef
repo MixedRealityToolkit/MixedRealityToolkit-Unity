@@ -1,13 +1,13 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Accessibility.Runtime.Tests",
+    "name": "MixedReality.Toolkit.Accessibility.Runtime.Tests",
     "rootNamespace": "",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Accessibility",
-        "Microsoft.MixedReality.Toolkit.Core",
-        "Microsoft.MixedReality.Toolkit.Core.TestUtilities",
+        "MixedReality.Toolkit.Accessibility",
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core.TestUtilities",
         "UnityEditor.TestRunner",
         "UnityEngine.TestRunner",
-        "Microsoft.MixedReality.Toolkit.Input.Runtime.Tests",
+        "MixedReality.Toolkit.Input.Runtime.Tests",
         ""
     ],
     "includePlatforms": [],

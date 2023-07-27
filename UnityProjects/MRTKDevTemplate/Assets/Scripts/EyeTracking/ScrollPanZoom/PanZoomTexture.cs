@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// This script allows to scroll a texture both horizontally and vertically.

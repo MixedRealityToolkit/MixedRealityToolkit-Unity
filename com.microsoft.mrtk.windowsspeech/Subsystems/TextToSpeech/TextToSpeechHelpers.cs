@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Speech.Windows
+namespace MixedReality.Toolkit.Speech.Windows
 {
     /// <summary>
     /// Helper methods used by the Windows Text-To-Speech subsystems.

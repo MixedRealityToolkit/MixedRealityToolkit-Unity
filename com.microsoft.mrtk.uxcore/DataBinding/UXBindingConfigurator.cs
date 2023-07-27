@@ -5,10 +5,10 @@ using System;
 using UnityEngine;
 
 #if MRTK_DATA_PRESENT && MRTK_UX_DATABINDING_THEMING_ENABLED
-using Microsoft.MixedReality.Toolkit.Data;
+using MixedReality.Toolkit.Data;
 #endif // MRTK_DATA_PRESENT && MRTK_UX_DATABINDING_THEMING_ENABLED
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// Automatically configures and adds DataConsumer components needed to manage all data bound and/or can customizable

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.Scripting;
 using UnityEngine.SubsystemsImplementation;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// A subsystem that exposes information about the user's KeywordRecognition.

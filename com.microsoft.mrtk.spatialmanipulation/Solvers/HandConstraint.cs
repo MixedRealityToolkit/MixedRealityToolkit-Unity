@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// Provides a solver that constrains the target to a region safe for
@@ -191,7 +191,7 @@ namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
         private Handedness previousHandedness = Handedness.None;
 
         /// <summary>
-        /// Get the <see cref="Microsoft.MixedReality.Toolkit.Handedness">Handedness</see> value from the used input device.
+        /// Get the <see cref="MixedReality.Toolkit.Handedness">Handedness</see> value from the used input device.
         /// </summary>
         public Handedness Handedness => previousHandedness;
 
@@ -200,7 +200,7 @@ namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
         private HandBounds handBounds = null;
 
         /// <summary>
-        /// Get the <see cref="Microsoft.MixedReality.Toolkit.HandBounds">HandBounds</see> component this is using to
+        /// Get the <see cref="MixedReality.Toolkit.HandBounds">HandBounds</see> component this is using to
         /// apply the hand constraints.
         /// </summary>
         protected HandBounds HandBounds => handBounds;

@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// Change the mesh of the on a mesh filter. 

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
+namespace MixedReality.Toolkit.UX.Deprecated
 {
     /// <summary>
     /// This class implements the abstract class Dialog.
@@ -14,13 +14,13 @@ namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
     /// If you try to open a dialog with more than two option buttons, it will show the first two.
     /// </summary>
     /// <remarks>
-    /// This and the <see cref="Microsoft.MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> are deprecated. Please migrate to the 
-    /// new <see cref="Microsoft.MixedReality.Toolkit.UX.Dialog">Dialog</see>. If you'd like to continue using the 
-    /// <see cref="Microsoft.MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> implementation, it is recommended that the legacy code 
+    /// This and the <see cref="MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> are deprecated. Please migrate to the 
+    /// new <see cref="MixedReality.Toolkit.UX.Dialog">Dialog</see>. If you'd like to continue using the 
+    /// <see cref="MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> implementation, it is recommended that the legacy code 
     /// be copied to the application's code base, and maintained independently by the application developer. Otherwise, it is strongly recommended 
-    /// that the application be updated to use the new <see cref="Microsoft.MixedReality.Toolkit.UX.DialogPool">DialogPool</see> system.
+    /// that the application be updated to use the new <see cref="MixedReality.Toolkit.UX.DialogPool">DialogPool</see> system.
     /// </remarks>
-    [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+    [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
     public class DialogShell : Dialog
     {
         [SerializeField]
@@ -30,7 +30,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
         /// <summary>
         /// Title text of the dialog
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public TMP_Text TitleText
         {
             get { return titleText; }
@@ -44,7 +44,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
         /// <summary>
         /// Description text of the dialog
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public TMP_Text DescriptionText
         {
             get { return descriptionText; }
@@ -52,11 +52,11 @@ namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
         }
 
         /// <inheritdoc />
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         protected override void FinalizeLayout() { }
 
         /// <inheritdoc />
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         protected override void GenerateButtons()
         {
             // Find all buttons on dialog...
@@ -113,7 +113,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
         /// <summary>
         /// Set Title and Text on the Dialog.
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         protected override void SetTitleAndMessage()
         {
             if (titleText != null)

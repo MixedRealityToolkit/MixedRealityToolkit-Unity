@@ -7,7 +7,7 @@
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     [CreateAssetMenu(fileName = "Example_BatteryInformation_Profile", menuName = "MRTK/Examples/Battery Information Profile")]
     [Serializable]

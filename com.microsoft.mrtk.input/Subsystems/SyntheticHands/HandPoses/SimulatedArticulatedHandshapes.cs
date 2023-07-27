@@ -4,9 +4,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using HandshapeId = Microsoft.MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// This stores the joint pose JSON data that defines various articulated hand poses for input simulation.

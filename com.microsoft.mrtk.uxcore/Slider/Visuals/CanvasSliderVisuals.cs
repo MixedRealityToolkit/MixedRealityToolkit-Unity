@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>    
     /// A canvas-based visuals script to provide a visual layer on top of <see cref="Slider"/>.

@@ -11,7 +11,7 @@ using UnityEngine.Scripting;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Simulation
+namespace MixedReality.Toolkit.Input.Simulation
 {
     /// <summary>
     /// A derived XRSimulatedHMD, mostly to add the missing sync command

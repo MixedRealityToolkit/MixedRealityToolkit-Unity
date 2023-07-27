@@ -1,6 +1,6 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Accessibility.Editor",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit.Accessibility.Editor",
+    "name": "MixedReality.Toolkit.Accessibility.Editor",
+    "rootNamespace": "MixedReality.Toolkit.Accessibility.Editor",
     "references": [],
     "includePlatforms": [
         "Editor"

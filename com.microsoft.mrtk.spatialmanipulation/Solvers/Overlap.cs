@@ -4,7 +4,7 @@
 using Unity.Profiling;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// Provides a solver that overlaps with the tracked object.

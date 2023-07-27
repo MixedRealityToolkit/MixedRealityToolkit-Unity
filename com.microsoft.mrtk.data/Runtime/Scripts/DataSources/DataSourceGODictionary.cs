@@ -9,7 +9,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     [AddComponentMenu("MRTK/Data Binding/Sources/Data Source Dictionary")]
     public class DataSourceGODictionary : DataSourceGOBase

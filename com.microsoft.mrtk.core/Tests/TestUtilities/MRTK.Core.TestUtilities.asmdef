@@ -1,8 +1,8 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Core.TestUtilities",
+    "name": "MixedReality.Toolkit.Core.TestUtilities",
     "rootNamespace": "",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core",
         "Unity.InputSystem",
         "UnityEditor.TestRunner",
         "UnityEngine.TestRunner"

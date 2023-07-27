@@ -4,7 +4,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Microsoft.MixedReality.Toolkit.Data.Editor")]
+[assembly: InternalsVisibleTo("MixedReality.Toolkit.Data.Editor")]
 
 [assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit Data Binding and Theming")]
 [assembly: AssemblyCopyright("Copyright © Microsoft Corporation")]

@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// This script allows the user to move a GameObject to the center of their view,

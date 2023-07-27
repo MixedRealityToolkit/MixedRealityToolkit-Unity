@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Microsoft.MixedReality.Toolkit.Diagnostics
+namespace MixedReality.Toolkit.Diagnostics
 {
     /// <summary>
     /// Helper methods for working with Performance Stats components.

@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A structure representing an interactor's mode or state.

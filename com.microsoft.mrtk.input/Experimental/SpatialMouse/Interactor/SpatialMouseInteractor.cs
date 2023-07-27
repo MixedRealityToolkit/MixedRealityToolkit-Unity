@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
@@ -10,7 +10,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Experimental
+namespace MixedReality.Toolkit.Input.Experimental
 {
     /// <summary>
     /// An extension of XRRayInteractor which has extra functionality for handling spatial mouse movement and scrolling. 

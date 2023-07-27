@@ -7,7 +7,7 @@
 using System.Collections;
 using UnityEngine.TestTools;
 
-namespace Microsoft.MixedReality.Toolkit.Core.Tests
+namespace MixedReality.Toolkit.Core.Tests
 {
     internal class SmokeTest
     {

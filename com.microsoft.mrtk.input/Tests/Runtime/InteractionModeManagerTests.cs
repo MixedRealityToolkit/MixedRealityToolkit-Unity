@@ -7,14 +7,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.MixedReality.Toolkit.Core.Tests;
-using Microsoft.MixedReality.Toolkit.Input.Simulation;
+using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input.Simulation;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Tests
+namespace MixedReality.Toolkit.Input.Tests
 {
     /// <summary>
     /// Tests to ensure the proper behavior of the interaction mode manager.

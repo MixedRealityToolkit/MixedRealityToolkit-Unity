@@ -8,7 +8,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     [CreateAssetMenu(fileName = "MRTK_Theme", menuName = "MRTK/Theme")]
     public class ThemeProfile : ScriptableObject

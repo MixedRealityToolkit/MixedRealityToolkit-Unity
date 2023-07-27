@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 
 using Unity.Profiling;
 using UnityEngine;
@@ -13,7 +13,7 @@ using Windows.System;
 using UnityEngine.Profiling;
 #endif // WINDOWS_UWP
 
-namespace Microsoft.MixedReality.Toolkit.Diagnostics
+namespace MixedReality.Toolkit.Diagnostics
 {
     /// <summary>
     /// Default implementation of the <see cref="PerformanceStatsSubsystem"/>, supporting

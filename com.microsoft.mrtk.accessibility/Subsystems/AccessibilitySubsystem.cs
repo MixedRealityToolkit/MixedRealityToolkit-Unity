@@ -1,14 +1,14 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.SubsystemsImplementation;
 
-namespace Microsoft.MixedReality.Toolkit.Accessibility
+namespace MixedReality.Toolkit.Accessibility
 {
     /// <summary>
     /// A subsystem that exposes information about the current enabled 

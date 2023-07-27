@@ -1,9 +1,9 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Accessibility",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit.Accessibility",
+    "name": "MixedReality.Toolkit.Accessibility",
+    "rootNamespace": "MixedReality.Toolkit.Accessibility",
     "references": [
         "Microsoft.MixedReality.GraphicsTools",
-        "Microsoft.MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core",
         "Unity.TextMeshPro"
     ],
     "includePlatforms": [],

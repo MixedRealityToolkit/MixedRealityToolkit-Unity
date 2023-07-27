@@ -8,7 +8,7 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Used to manage interactors and ensure that each several interactors for a 'controller' aren't clashing and firing at the same time

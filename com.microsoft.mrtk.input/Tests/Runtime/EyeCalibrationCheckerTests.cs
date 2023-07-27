@@ -4,9 +4,9 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using Microsoft.MixedReality.Toolkit.Core.Tests;
-using Microsoft.MixedReality.Toolkit.Input.Tests;
-using Microsoft.MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input.Tests;
+using MixedReality.Toolkit.Input;
 using NUnit.Framework;
 using System.Collections;
 using System.Threading.Tasks;
@@ -15,7 +15,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Runtime.Tests
+namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
     /// <summary>
     /// Tests for the EyeCalibrationChecker. 

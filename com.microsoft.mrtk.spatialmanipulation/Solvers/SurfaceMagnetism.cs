@@ -5,7 +5,7 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// SurfaceMagnetism casts rays to surfaces in the world and aligns

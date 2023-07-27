@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using UnityEngine.InputSystem;
 
 #if MROPENXR_PRESENT && (UNITY_EDITOR_WIN || UNITY_WSA || UNITY_STANDALONE_WIN || UNITY_ANDROID)
@@ -13,10 +13,10 @@ using UnityEngine.Scripting;
 using UnityEngine.XR;
 #endif // MROPENXR_PRESENT
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// A Unity subsystem that extends <see cref="Microsoft.MixedReality.Toolkit.Subsystems.HandsSubsystem">HandsSubsystem</see>, and 
+    /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem">HandsSubsystem</see>, and 
     /// obtains hand joint poses from the Microsoft.MixedReality.OpenXR.HandTracker class.
     /// </summary>
 #if MROPENXR_PRESENT && (UNITY_EDITOR_WIN || UNITY_WSA || UNITY_STANDALONE_WIN || UNITY_ANDROID)
@@ -48,7 +48,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// A class that extends <see cref="Microsoft.MixedReality.Toolkit.Input.HandDataContainer">HandDataContainer</see>, and 
+        /// A class that extends <see cref="MixedReality.Toolkit.Input.HandDataContainer">HandDataContainer</see>, and 
         /// obtains hand joint poses from the Microsoft.MixedReality.OpenXR.HandTracker class.
         /// </summary>
         private class OpenXRHandContainer : HandDataContainer
@@ -260,7 +260,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// A hand subsystem that extends the <see cref="Microsoft.MixedReality.Toolkit.Subsystems.HandsSubsystem.Provider">Provider</see> class, and 
+        /// A hand subsystem that extends the <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem.Provider">Provider</see> class, and 
         /// obtains hand joint poses from the <see cref="OpenXRHandContainer"/> class.
         /// </summary>
         [Preserve]

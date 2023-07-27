@@ -4,10 +4,10 @@
 // Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
 #pragma warning disable CS1591
 
-using Microsoft.MixedReality.Toolkit.UX;
+using MixedReality.Toolkit.UX;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     [AddComponentMenu("MRTK/Examples/Toggle Collection Object Activate")]
     public class ToggleCollectionObjectActivate : MonoBehaviour

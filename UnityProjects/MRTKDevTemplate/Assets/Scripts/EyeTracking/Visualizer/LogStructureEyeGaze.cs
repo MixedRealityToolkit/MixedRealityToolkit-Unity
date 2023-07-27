@@ -2,9 +2,9 @@
 // Licensed under the MIT License.
 
 using UnityEngine;
-using Microsoft.MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.Input;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// A CSV file logging structure for eye gaze data.

@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System;
 using UnityEngine.SubsystemsImplementation;
 
-namespace Microsoft.MixedReality.Toolkit.Diagnostics
+namespace MixedReality.Toolkit.Diagnostics
 {
     /// <summary>
     /// Encapsulates the parameters for creating a new <see cref="PerformanceStatsSubsystemDescriptor"/>.

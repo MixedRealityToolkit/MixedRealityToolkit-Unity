@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// Encapsulates the parameters for creating a new <see cref="TextToSpeechSubsystemDescriptor"/>.

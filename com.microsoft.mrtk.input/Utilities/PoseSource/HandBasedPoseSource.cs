@@ -2,10 +2,10 @@
 // Licensed under the MIT License.
 
 using System;
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Helps define a pose source that's based on a specific handedness with access to the current <see cref="HandsAggregatorSubsystem"/>.

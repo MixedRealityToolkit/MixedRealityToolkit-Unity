@@ -5,7 +5,7 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// Follow solver positions an element in front of the of the tracked target (relative to its local forward axis).

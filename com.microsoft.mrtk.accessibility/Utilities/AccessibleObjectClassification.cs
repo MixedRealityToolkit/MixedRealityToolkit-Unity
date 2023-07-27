@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Accessibility
+namespace MixedReality.Toolkit.Accessibility
 {
     /// <summary>
     /// Classification for accessible objects that may appear in the scene.

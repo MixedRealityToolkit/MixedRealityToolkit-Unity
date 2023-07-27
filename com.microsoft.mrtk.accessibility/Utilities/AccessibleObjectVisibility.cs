@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Microsoft.MixedReality.Toolkit.Accessibility
+namespace MixedReality.Toolkit.Accessibility
 {
     /// <summary>
     /// The 'visibility window' that the accessibility subsystem will use to determine the object

@@ -4,7 +4,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// Interface defining the functionality of the Text-To-Speech subsystem.

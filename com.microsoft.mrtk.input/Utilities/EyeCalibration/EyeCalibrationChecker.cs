@@ -12,7 +12,7 @@ using Windows.Perception.Spatial;
 using Windows.UI.Input.Spatial;
 #endif
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A helper class used to check eye calibration status. Only for UWP Platforms. 

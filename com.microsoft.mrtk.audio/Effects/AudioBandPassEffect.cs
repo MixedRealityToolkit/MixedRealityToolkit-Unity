@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Audio
+namespace MixedReality.Toolkit.Audio
 {
     /// <summary>
     /// An audio effect that limits the frequencies of a sound to a defined range.

@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEditor.XR.Interaction.Toolkit;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// A base class for custom <see cref="MRTKBaseInteractable"/> editors.

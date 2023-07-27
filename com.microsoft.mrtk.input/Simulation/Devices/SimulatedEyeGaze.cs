@@ -11,7 +11,7 @@ using UnityEngine.InputSystem.XR;
 using UnityEngine.Scripting;
 using TrackingState = UnityEngine.XR.InputTrackingState;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Simulation
+namespace MixedReality.Toolkit.Input.Simulation
 {
     /// <summary>
     /// A simulated eye gaze device patterned after the Unity OpenXR Plugin <see href="https://docs.unity3d.com/Packages/com.unity.xr.openxr%401.4/api/UnityEngine.XR.OpenXR.Features.Interactions.EyeGazeInteraction.EyeGazeDevice.html">EyeGazeDevice</see>.

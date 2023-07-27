@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Simple data source that generates a large list of randomly generated entries.

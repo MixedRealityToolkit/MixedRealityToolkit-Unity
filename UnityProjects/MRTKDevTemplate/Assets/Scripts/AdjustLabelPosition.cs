@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// Script to adjust the position of this <see cref="GameObject"/> when another

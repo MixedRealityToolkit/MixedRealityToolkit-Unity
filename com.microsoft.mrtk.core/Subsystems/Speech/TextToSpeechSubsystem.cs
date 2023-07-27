@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.SubsystemsImplementation;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// A subsystem to enable text-to-speech.

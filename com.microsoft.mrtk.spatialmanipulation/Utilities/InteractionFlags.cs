@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// Flags used to represent a combination of different interaction methodologies.
@@ -15,17 +15,17 @@ namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
         None = 0,
 
         /// <summary>
-        /// Near interaction, typically from a <c>Microsoft.MixedReality.Toolkit.Input.GrabInteractor</c> object.
+        /// Near interaction, typically from a <c>MixedReality.Toolkit.Input.GrabInteractor</c> object.
         /// </summary>
         Near = 1 << 0,
 
         /// <summary>
-        /// Far-ray interaction, typically from a <c>Microsoft.MixedReality.Toolkit.Input.MRTKRayInteractor</c> object.
+        /// Far-ray interaction, typically from a <c>MixedReality.Toolkit.Input.MRTKRayInteractor</c> object.
         /// </summary>
         Ray = 1 << 1,
 
         /// <summary>
-        /// Gaze-pinch interaction, typically from a <c>Microsoft.MixedReality.Toolkit.Input.GazePinchInteractor</c> object.
+        /// Gaze-pinch interaction, typically from a <c>MixedReality.Toolkit.Input.GazePinchInteractor</c> object.
         /// </summary>
         Gaze = 1 << 2,
 

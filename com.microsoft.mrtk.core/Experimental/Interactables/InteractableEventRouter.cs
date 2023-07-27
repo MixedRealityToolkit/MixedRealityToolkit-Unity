@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
-namespace Microsoft.MixedReality.Toolkit.Experimental
+namespace MixedReality.Toolkit.Experimental
 {
     /// <summary>
     /// A Unity component that is capable of routing child events to other child and parent target objects that contain

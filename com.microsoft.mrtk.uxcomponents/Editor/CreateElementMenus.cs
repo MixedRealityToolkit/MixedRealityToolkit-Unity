@@ -12,7 +12,7 @@ using TMPro;
 using System.Reflection;
 using System.Linq;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// Add-GameObject-menus for creating common MRTK UX components. Most of these

@@ -5,7 +5,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// Allows the user to select a specific icon for display via a Unity text component.

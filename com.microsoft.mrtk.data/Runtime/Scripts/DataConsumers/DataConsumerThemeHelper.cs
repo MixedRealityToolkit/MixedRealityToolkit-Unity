@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// A theme data consumer used to help another primary data consumer derived from <see cref="DataConsumerThemableBase{T}"/>

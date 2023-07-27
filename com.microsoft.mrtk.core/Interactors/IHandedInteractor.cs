@@ -3,7 +3,7 @@
 
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// An interface that all interactors with the concept of handedness implement.

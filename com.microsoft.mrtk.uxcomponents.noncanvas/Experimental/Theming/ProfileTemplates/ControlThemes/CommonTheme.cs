@@ -5,7 +5,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Experimental
+namespace MixedReality.Toolkit.UX.Experimental
 {
     /// <summary>
     /// Common MRTK control theme elements.

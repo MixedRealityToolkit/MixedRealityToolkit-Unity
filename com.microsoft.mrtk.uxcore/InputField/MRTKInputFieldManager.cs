@@ -3,7 +3,7 @@
 
 using UnityEngine.UI;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// Static class recording the currently active input field in the scene.

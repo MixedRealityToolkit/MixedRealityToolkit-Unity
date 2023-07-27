@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Collections;
 using UnityEngine.XR.Interaction.Toolkit;
-using Microsoft.MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.Input;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// Basic example of how to use interactors to create a simple whiteboard-like drawing system.

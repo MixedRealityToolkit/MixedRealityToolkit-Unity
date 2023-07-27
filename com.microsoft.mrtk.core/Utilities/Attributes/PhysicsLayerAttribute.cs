@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// Attribute used to make an <see langword="int"/> field render a dropdown generated from the current layers defined in the Unity tag manager.

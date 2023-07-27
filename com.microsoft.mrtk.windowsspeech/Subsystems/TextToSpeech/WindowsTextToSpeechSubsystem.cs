@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -15,15 +15,15 @@ using Windows.Media.SpeechSynthesis;
 using Windows.Storage.Streams;
 #endif // WINDOWS_UWP
 
-namespace Microsoft.MixedReality.Toolkit.Speech.Windows
+namespace MixedReality.Toolkit.Speech.Windows
 {
     /// <summary>
-    /// A Unity subsystem that extends <see cref="Microsoft.MixedReality.Toolkit.Subsystems.TextToSpeechSubsystem">TextToSpeechSubsystem</see>
+    /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.TextToSpeechSubsystem">TextToSpeechSubsystem</see>
     /// so to expose the text to speech services available on Windows platforms. This subsystem is enabled for Windows Standalone and
     /// Universal Windows Applications. 
     /// </summary>
     /// <remarks>
-    /// This subsystem can be configured using the <see cref="Microsoft.MixedReality.Toolkit.Speech.Windows.WindowsKeywordRecognitionSubsystemConfig">WindowsKeywordRecognitionSubsystemConfig</see> Unity asset.
+    /// This subsystem can be configured using the <see cref="MixedReality.Toolkit.Speech.Windows.WindowsKeywordRecognitionSubsystemConfig">WindowsKeywordRecognitionSubsystemConfig</see> Unity asset.
     /// </remarks>
     [Preserve]
     [MRTKSubsystem(
@@ -189,7 +189,7 @@ namespace Microsoft.MixedReality.Toolkit.Speech.Windows
 #elif (UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN)
                 return await Task<byte[]>.Run(() =>
                 {
-                    if (!WinRTTextToSpeechPInvokes.TrySynthesizePhraseWithCustomVoice(phrase, config.VoiceName, out IntPtr nativeData, out int length))
+                    if (!Microsoft.MixedReality.Toolkit.Speech.Windows.WinRTTextToSpeechPInvokes.TrySynthesizePhraseWithCustomVoice(phrase, config.VoiceName, out IntPtr nativeData, out int length))
                     {
                         Debug.LogError("Failed to synthesize the phrase");
                         return null;
@@ -198,7 +198,7 @@ namespace Microsoft.MixedReality.Toolkit.Speech.Windows
                     byte[] waveData = new byte[length];
                     Marshal.Copy(nativeData, waveData, 0, length);
                     // We can safely free the native data.
-                    WinRTTextToSpeechPInvokes.FreeSynthesizedData(nativeData);
+                    Microsoft.MixedReality.Toolkit.Speech.Windows.WinRTTextToSpeechPInvokes.FreeSynthesizedData(nativeData);
 
                     return waveData;
                 });

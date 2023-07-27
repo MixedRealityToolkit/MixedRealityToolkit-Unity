@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System;
 using Unity.Profiling;
 using UnityEngine;
@@ -13,9 +13,9 @@ using UnityEngine.Scripting;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation;
 
-using HandshapeId = Microsoft.MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Simulation
+namespace MixedReality.Toolkit.Input.Simulation
 {
     /// <summary>
     /// A derived XRController that adds pointerPosition and pointerRotation,

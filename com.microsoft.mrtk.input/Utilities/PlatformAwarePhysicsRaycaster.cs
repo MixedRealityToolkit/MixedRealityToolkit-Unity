@@ -3,7 +3,7 @@
 
 using UnityEngine.EventSystems;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A wrapper around <see cref="UnityEngine.EventSystems.PhysicsRaycaster"/>, which

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// Specification for what a subsystem needs to be able to provide to aggregator multiple 
@@ -78,7 +78,7 @@ namespace Microsoft.MixedReality.Toolkit.Subsystems
         /// Get a read-only reference to the entire hand.
         /// </summary>
         /// <remarks>
-        /// Joint poses are returned in an order consistent where each index matches up with the <see cref="Microsoft.MixedReality.Toolkit.TrackedHandJoint"/> enumeration.
+        /// Joint poses are returned in an order consistent where each index matches up with the <see cref="MixedReality.Toolkit.TrackedHandJoint"/> enumeration.
         /// </remarks>
         /// <param name="hand">The hand node being queried.</param>
         /// <param name="jointPoses">The resulting joint poses that were found.</param>

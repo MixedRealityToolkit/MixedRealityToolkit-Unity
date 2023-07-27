@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System;
 using System.Collections.Generic;
 using Unity.Profiling;
@@ -10,9 +10,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.Scripting;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
-using HandshapeId = Microsoft.MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A Unity subsystem that enables articulated hand simulation.

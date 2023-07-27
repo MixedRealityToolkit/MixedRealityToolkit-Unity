@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Accessibility
+namespace MixedReality.Toolkit.Accessibility
 {
     /// <summary>
     /// Class enabling assistive technologies to provide descriptive data (ex: purpose,

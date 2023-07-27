@@ -4,7 +4,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// The pose of an individual hand joint. Superset

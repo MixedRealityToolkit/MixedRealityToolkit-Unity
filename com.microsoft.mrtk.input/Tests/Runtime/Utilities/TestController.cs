@@ -7,7 +7,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Tests
+namespace MixedReality.Toolkit.Input.Tests
 {
     /// <summary>
     /// Convenience wrapper around the underlying <see cref="InputTestUtilities"/> functions

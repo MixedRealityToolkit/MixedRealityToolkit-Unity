@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// A wrapper around the MRTKSettings asset file to display it in the Unity Project Settings window.

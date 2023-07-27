@@ -6,7 +6,7 @@
 #pragma warning disable CS1591
 using System;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// A data pool of objects that can be used for object re-use.

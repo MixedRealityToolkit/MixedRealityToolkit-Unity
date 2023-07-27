@@ -4,7 +4,7 @@
 using Unity.Profiling;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// RadialViewPoser solver locks a tag-along type object within a view cone

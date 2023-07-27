@@ -5,13 +5,13 @@
 #pragma warning disable CS1591
 
 using System.Collections;
-using Microsoft.MixedReality.Toolkit.Core.Tests;
-using Microsoft.MixedReality.Toolkit.Input.Simulation;
+using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input.Simulation;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Tests
+namespace MixedReality.Toolkit.Input.Tests
 {
     /// <summary>
     /// Tests for verifying the dwell behavior of interactors.

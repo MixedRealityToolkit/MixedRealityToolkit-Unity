@@ -4,13 +4,13 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using Microsoft.MixedReality.Toolkit.Core.Tests;
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Subsystems;
 using System.Collections;
 using UnityEngine.TestTools;
 
 
-namespace Microsoft.MixedReality.Toolkit.Input.Tests
+namespace MixedReality.Toolkit.Input.Tests
 {
     using AggregatorDescriptor = MRTKSubsystemDescriptor<HandsAggregatorSubsystem, HandsAggregatorSubsystem.Provider>;
 

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// This script fits a Unity <see href="https://docs.unity3d.com/ScriptReference/BoxCollider.html">BoxCollider</see>

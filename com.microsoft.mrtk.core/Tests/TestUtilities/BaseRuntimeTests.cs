@@ -7,7 +7,7 @@
 using System.Collections;
 using UnityEngine.TestTools;
 
-namespace Microsoft.MixedReality.Toolkit.Core.Tests
+namespace MixedReality.Toolkit.Core.Tests
 {
     /// <summary>
     /// Base class to handle typical code setup/teardown and test utilities

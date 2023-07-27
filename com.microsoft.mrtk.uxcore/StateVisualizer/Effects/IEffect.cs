@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// An interface defining a state effect that <see cref="StateVisualizer"/> can use.

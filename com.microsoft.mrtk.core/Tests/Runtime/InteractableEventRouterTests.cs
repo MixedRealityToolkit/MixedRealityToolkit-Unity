@@ -4,14 +4,14 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using Microsoft.MixedReality.Toolkit.Experimental;
+using MixedReality.Toolkit.Experimental;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Runtime.Tests
+namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
     /// <summary>
     /// Tests for the <see cref="InteractableEventRouter"/> class.

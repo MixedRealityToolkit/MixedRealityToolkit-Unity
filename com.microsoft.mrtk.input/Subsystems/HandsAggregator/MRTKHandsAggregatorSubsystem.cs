@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System;
 using System.Collections.Generic;
 using Unity.Profiling;
@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Scripting;
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// The MRTK implementation of a <see cref="HandsAggregatorSubsystem"/>, which supports
@@ -198,7 +198,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// A Unity subsystem provider used with the <see cref="Microsoft.MixedReality.Toolkit.Input.MRTKHandsAggregatorSubsystem">MRTKHandsAggregatorSubsystem</see> subsystem.
+        /// A Unity subsystem provider used with the <see cref="MixedReality.Toolkit.Input.MRTKHandsAggregatorSubsystem">MRTKHandsAggregatorSubsystem</see> subsystem.
         /// </summary>
         [Preserve]
         protected class MRTKAggregator : Provider

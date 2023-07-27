@@ -4,7 +4,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Diagnostics
+namespace MixedReality.Toolkit.Diagnostics
 {
     /// <summary>
     /// Script to display performance statistics as simple text objects.

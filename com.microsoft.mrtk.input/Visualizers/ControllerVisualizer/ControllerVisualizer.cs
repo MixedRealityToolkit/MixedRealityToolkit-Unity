@@ -2,8 +2,8 @@
 // Licensed under the MIT License.
 
 using System;
-using Microsoft.MixedReality.Toolkit.Input.Simulation;
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Input.Simulation;
+using MixedReality.Toolkit.Subsystems;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
@@ -11,7 +11,7 @@ using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
 using UnityInputSystem = UnityEngine.InputSystem;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Basic controller visualizer which renders the a controller model when one is detected.

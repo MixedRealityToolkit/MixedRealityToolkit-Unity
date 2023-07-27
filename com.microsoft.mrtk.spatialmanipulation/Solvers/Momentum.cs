@@ -4,7 +4,7 @@
 using Unity.Profiling;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// Applies acceleration/velocity/friction to simulate momentum for an object being moved by other solvers/components
