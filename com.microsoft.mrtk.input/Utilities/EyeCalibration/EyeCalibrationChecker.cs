@@ -115,7 +115,7 @@ namespace MixedReality.Toolkit.Input
         private EyeCalibrationStatus CheckCalibrationStatus()
         {
 #if WINDOWS_UWP
-            if (MixedReality.OpenXR.PerceptionInterop.GetSceneCoordinateSystem(Pose.identity) is SpatialCoordinateSystem worldOrigin)
+            if (Microsoft.MixedReality.OpenXR.PerceptionInterop.GetSceneCoordinateSystem(Pose.identity) is SpatialCoordinateSystem worldOrigin)
             {
                 SpatialPointerPose pointerPose = SpatialPointerPose.TryGetAtTimestamp(worldOrigin, PerceptionTimestampHelper.FromHistoricalTargetTime(DateTimeOffset.Now));
                 if (pointerPose != null)
