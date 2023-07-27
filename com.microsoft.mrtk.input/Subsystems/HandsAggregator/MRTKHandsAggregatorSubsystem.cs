@@ -19,7 +19,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [Preserve]
     [MRTKSubsystem(
-        Name = "com.microsoft.mixedreality.hands",
+        Name = "com.mixedreality.hands",
         DisplayName = "MRTK Hands Aggregator Subsystem",
         Author = "Microsoft",
         ProviderType = typeof(MRTKAggregator),

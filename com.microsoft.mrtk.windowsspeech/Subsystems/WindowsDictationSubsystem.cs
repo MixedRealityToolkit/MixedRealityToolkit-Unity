@@ -21,7 +21,7 @@ namespace MixedReality.Toolkit.Speech.Windows
     /// </remarks>
     [Preserve]
     [MRTKSubsystem(
-        Name = "com.microsoft.mixedreality.windowsdictation",
+        Name = "com.mixedreality.windowsdictation",
         DisplayName = "MRTK Windows Dictation Subsystem",
         Author = "Microsoft",
         ProviderType = typeof(WindowsDictationProvider),

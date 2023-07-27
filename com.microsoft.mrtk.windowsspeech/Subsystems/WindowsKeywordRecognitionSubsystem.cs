@@ -29,7 +29,7 @@ namespace MixedReality.Toolkit.Speech.Windows
     /// </remarks>
     [Preserve]
     [MRTKSubsystem(
-        Name = "com.microsoft.mixedreality.windowskeywordrecognition",
+        Name = "com.mixedreality.windowskeywordrecognition",
         DisplayName = "MRTK Windows KeywordRecognition Subsystem",
         Author = "Microsoft",
         ProviderType = typeof(WindowsKeywordRecognitionProvider),

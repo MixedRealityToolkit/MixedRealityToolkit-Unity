@@ -101,7 +101,7 @@ namespace MixedReality.Toolkit.Editor
                     foreach (PackageInfo packageInfo in installedPackages)
                     {
                         if (packageInfo.name.StartsWith("com.microsoft.mrtk") ||
-                            packageInfo.name.StartsWith("com.microsoft.mixedreality"))
+                            packageInfo.name.StartsWith("com.mixedreality"))
                         {
                             sb.AppendLine($"{packageInfo.name}: {packageInfo.version}");
                         }

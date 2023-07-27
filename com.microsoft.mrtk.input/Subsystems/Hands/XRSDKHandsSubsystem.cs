@@ -19,7 +19,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [Preserve]
     [MRTKSubsystem(
-        Name = "com.microsoft.mixedreality.xrsdkhands",
+        Name = "com.mixedreality.xrsdkhands",
         DisplayName = "Subsystem for XRSDK Hands API",
         Author = "Microsoft",
         ProviderType = typeof(XRSDKProvider),

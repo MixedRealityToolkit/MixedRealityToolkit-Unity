@@ -19,7 +19,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>    
     [Preserve]
     [MRTKSubsystem(
-        Name = "com.microsoft.mixedreality.synthhands",
+        Name = "com.mixedreality.synthhands",
         DisplayName = "Subsystem for Hand Synthesis",
         Author = "Microsoft",
         ProviderType = typeof(SyntheticHandsProvider),

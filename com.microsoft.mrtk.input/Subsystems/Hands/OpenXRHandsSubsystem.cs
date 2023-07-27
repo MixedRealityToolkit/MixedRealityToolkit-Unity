@@ -22,7 +22,7 @@ namespace MixedReality.Toolkit.Input
 #if MROPENXR_PRESENT && (UNITY_EDITOR_WIN || UNITY_WSA || UNITY_STANDALONE_WIN || UNITY_ANDROID)
     [Preserve]
     [MRTKSubsystem(
-        Name = "com.microsoft.mixedreality.openxrhands",
+        Name = "com.mixedreality.openxrhands",
         DisplayName = "Subsystem for OpenXR Hands API",
         Author = "Microsoft",
         ProviderType = typeof(OpenXRProvider),
