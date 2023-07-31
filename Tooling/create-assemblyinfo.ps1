@@ -4,7 +4,7 @@
 $gitRoot = ((git -C $PSScriptRoot rev-parse --show-toplevel) | Out-String).Trim()
 
 Get-ChildItem -Path (Join-Path $gitRoot * package.json) | ForEach-Object {
-    $packageName = Select-String -Pattern "com\.mrtk\.\w+" -Path $_ | Select-Object -First 1
+    $packageName = Select-String -Pattern "com\.microsoft\.mrtk\.\w+" -Path $_ | Select-Object -First 1
 
     if (-not $packageName) {
         return # this is not an MRTK package, so skip
@@ -21,7 +21,7 @@ Get-ChildItem -Path (Join-Path $gitRoot * package.json) | ForEach-Object {
 
         if (-not (Test-Path -Path $filename)) {
             # Parse the assembly name for embedding into the AssemblyInfo file
-            $assemblyName = Select-String -Pattern "MixedReality\.Toolkit\.(\w+(?:.\w+)*)" -Path $asmdef.FullName | Select-Object -First 1
+            $assemblyName = Select-String -Pattern "Microsoft\.MixedReality\.Toolkit\.(\w+(?:.\w+)*)" -Path $asmdef.FullName | Select-Object -First 1
 
             if (-not $assemblyName) {
                 return # assembly isn't MRTK-branded, so skip
