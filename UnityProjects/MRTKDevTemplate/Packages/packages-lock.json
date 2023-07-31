@@ -40,26 +40,26 @@
       "dependencies": {},
       "hash": "22d727d4d1641c27fa85a7519cf76b81890c8f3d"
     },
-    "com.microsoft.mrtk.accessibility": {
-      "version": "file:../../../com.microsoft.mrtk.accessibility",
+    "com.mrtk.accessibility": {
+      "version": "file:../../../com.mrtk.accessibility",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
+        "com.mrtk.core": "3.0.0",
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
         "com.unity.textmeshpro": "3.0.6"
       }
     },
-    "com.microsoft.mrtk.audio": {
-      "version": "file:../../../com.microsoft.mrtk.audio",
+    "com.mrtk.audio": {
+      "version": "file:../../../com.mrtk.audio",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0"
+        "com.mrtk.core": "3.0.0"
       }
     },
-    "com.microsoft.mrtk.core": {
-      "version": "file:../../../com.microsoft.mrtk.core",
+    "com.mrtk.core": {
+      "version": "file:../../../com.mrtk.core",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -68,31 +68,31 @@
         "com.unity.xr.core-utils": "2.1.0"
       }
     },
-    "com.microsoft.mrtk.data": {
-      "version": "file:../../../com.microsoft.mrtk.data",
+    "com.mrtk.data": {
+      "version": "file:../../../com.mrtk.data",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
+        "com.mrtk.core": "3.0.0",
         "com.unity.nuget.newtonsoft-json": "2.0.2",
         "com.unity.textmeshpro": "3.0.6"
       }
     },
-    "com.microsoft.mrtk.diagnostics": {
-      "version": "file:../../../com.microsoft.mrtk.diagnostics",
+    "com.mrtk.diagnostics": {
+      "version": "file:../../../com.mrtk.diagnostics",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
+        "com.mrtk.core": "3.0.0",
         "com.unity.xr.management": "4.2.1"
       }
     },
-    "com.microsoft.mrtk.extendedassets": {
-      "version": "file:../../../com.microsoft.mrtk.extendedassets",
+    "com.mrtk.extendedassets": {
+      "version": "file:../../../com.mrtk.extendedassets",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.standardassets": "3.0.0"
+        "com.mrtk.standardassets": "3.0.0"
       }
     },
     "com.microsoft.mrtk.graphicstools.unity": {
@@ -102,12 +102,12 @@
       "dependencies": {},
       "hash": "96743038a313c93322c935d99d2deb18e831aa2d"
     },
-    "com.microsoft.mrtk.input": {
-      "version": "file:../../../com.microsoft.mrtk.input",
+    "com.mrtk.input": {
+      "version": "file:../../../com.mrtk.input",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
+        "com.mrtk.core": "3.0.0",
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
         "com.unity.inputsystem": "1.6.1",
         "com.unity.xr.arfoundation": "5.0.5",
@@ -115,31 +115,31 @@
         "com.unity.xr.core-utils": "2.1.0"
       }
     },
-    "com.microsoft.mrtk.spatialmanipulation": {
-      "version": "file:../../../com.microsoft.mrtk.spatialmanipulation",
+    "com.mrtk.spatialmanipulation": {
+      "version": "file:../../../com.mrtk.spatialmanipulation",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
-        "com.microsoft.mrtk.uxcore": "3.0.0",
+        "com.mrtk.core": "3.0.0",
+        "com.mrtk.uxcore": "3.0.0",
         "com.unity.inputsystem": "1.6.1",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
     },
-    "com.microsoft.mrtk.standardassets": {
-      "version": "file:../../../com.microsoft.mrtk.standardassets",
+    "com.mrtk.standardassets": {
+      "version": "file:../../../com.mrtk.standardassets",
       "depth": 0,
       "source": "local",
       "dependencies": {
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12"
       }
     },
-    "com.microsoft.mrtk.tools": {
-      "version": "file:../../../com.microsoft.mrtk.tools",
+    "com.mrtk.tools": {
+      "version": "file:../../../com.mrtk.tools",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0"
+        "com.mrtk.core": "3.0.0"
       }
     },
     "com.microsoft.mrtk.tts.windows": {
@@ -148,46 +148,46 @@
       "source": "local-tarball",
       "dependencies": {}
     },
-    "com.microsoft.mrtk.uxcomponents": {
-      "version": "file:../../../com.microsoft.mrtk.uxcomponents",
+    "com.mrtk.uxcomponents": {
+      "version": "file:../../../com.mrtk.uxcomponents",
       "depth": 0,
       "source": "local",
       "dependencies": {
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-        "com.microsoft.mrtk.uxcore": "3.0.0",
-        "com.microsoft.mrtk.spatialmanipulation": "3.0.0",
-        "com.microsoft.mrtk.standardassets": "3.0.0",
+        "com.mrtk.uxcore": "3.0.0",
+        "com.mrtk.spatialmanipulation": "3.0.0",
+        "com.mrtk.standardassets": "3.0.0",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
     },
-    "com.microsoft.mrtk.uxcomponents.noncanvas": {
-      "version": "file:../../../com.microsoft.mrtk.uxcomponents.noncanvas",
+    "com.mrtk.uxcomponents.noncanvas": {
+      "version": "file:../../../com.mrtk.uxcomponents.noncanvas",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.uxcore": "3.0.0",
-        "com.microsoft.mrtk.spatialmanipulation": "3.0.0",
-        "com.microsoft.mrtk.standardassets": "3.0.0"
+        "com.mrtk.uxcore": "3.0.0",
+        "com.mrtk.spatialmanipulation": "3.0.0",
+        "com.mrtk.standardassets": "3.0.0"
       }
     },
-    "com.microsoft.mrtk.uxcore": {
-      "version": "file:../../../com.microsoft.mrtk.uxcore",
+    "com.mrtk.uxcore": {
+      "version": "file:../../../com.mrtk.uxcore",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
+        "com.mrtk.core": "3.0.0",
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
         "com.unity.inputsystem": "1.6.1",
         "com.unity.textmeshpro": "3.0.6",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
     },
-    "com.microsoft.mrtk.windowsspeech": {
-      "version": "file:../../../com.microsoft.mrtk.windowsspeech",
+    "com.mrtk.windowsspeech": {
+      "version": "file:../../../com.mrtk.windowsspeech",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
+        "com.mrtk.core": "3.0.0",
         "com.microsoft.mrtk.tts.windows": "1.0.1"
       }
     },

@@ -67,8 +67,8 @@ As of June 2022, the following components are considered to be in early preview.
 
 | Name | Package Name |
 | --- | --- |
-| Accessibility | com.microsoft.mrtk.accessibility |
-| Data Binding and Theming | com.microsoft.mrtk.data |
+| Accessibility | com.mrtk.accessibility |
+| Data Binding and Theming | com.mrtk.data |
  
 The MRTK team is fully committed to releasing this functionality. It is important to note that the packages may not contain the complete feature set that is planned to be released or they may undergo major, breaking architectural changes before release.
 

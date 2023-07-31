@@ -156,8 +156,8 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.Microsoft.MRTK3Sample
-    Standalone: com.Microsoft.MRTK3Sample
+    Android: com.mrtk3Sample
+    Standalone: com.mrtk3Sample
   buildNumber:
     Standalone: 0
     iPhone: 0

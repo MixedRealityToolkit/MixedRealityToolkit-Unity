@@ -38,7 +38,7 @@ try {
     }
 
     # Get the list of package (.tgz) files
-    Get-ChildItem -Path $PackageDirectory -Filter "com.microsoft.mrtk.*.tgz" | ForEach-Object {
+    Get-ChildItem -Path $PackageDirectory -Filter "com.mrtk.*.tgz" | ForEach-Object {
         Write-Output "======================="
         Write-Output "Publishing: $($_.Name) "
         Write-Output "======================="
