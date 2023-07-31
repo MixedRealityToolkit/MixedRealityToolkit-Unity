@@ -4,7 +4,7 @@
     "references": [
         "MixedReality.Toolkit.Core",
         "Microsoft.MixedReality.OpenXR",
-        "MixedReality.Toolkit.TextToSpeech.Windows"
+        "Microsoft.MixedReality.Toolkit.TextToSpeech.Windows"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
