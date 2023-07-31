@@ -27,20 +27,20 @@
 /Tooling/ @marlenaklein-msft @AMollis @shaynie
 
 # Feature packages
-/com.mrtk.accessibility/ @marlenaklein-msft @AMollis @shaynie
-/com.mrtk.audio/ @marlenaklein-msft @AMollis @shaynie
-/com.mrtk.core/ @marlenaklein-msft @AMollis @shaynie
-/com.mrtk.data/ @marlenaklein-msft @AMollis @shaynie
-/com.mrtk.diagnostics/ @marlenaklein-msft @AMollis @shaynie
-/com.mrtk.input/ @marlenaklein-msft @AMollis @shaynie
-/com.mrtk.spatialmanipulation/ @marlenaklein-msft @AMollis @shaynie
-/com.mrtk.tools/ @marlenaklein-msft @AMollis @shaynie
-/com.mrtk.uxcomponents/ @marlenaklein-msft @AMollis @shaynie
-/com.mrtk.uxcore/ @marlenaklein-msft @AMollis @shaynie
-/com.mrtk.windowsspeech/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.accessibility/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.audio/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.core/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.data/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.diagnostics/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.input/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.spatialmanipulation/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.tools/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.uxcomponents/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.uxcore/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.windowsspeech/ @marlenaklein-msft @AMollis @shaynie
 
 # Input Simulation
-/com.mrtk.input/Simulation/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.input/Simulation/ @marlenaklein-msft @AMollis @shaynie
 
 # Examples and templates
 /UnityProjects/ @marlenaklein-msft @AMollis @shaynie

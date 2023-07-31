@@ -1,0 +1,29 @@
+{
+  "name": "com.microsoft.mrtk.spatialmanipulation",
+  "version": "3.0.0-development",
+  "description": "Spatial manipulation features, including ObjectManipulator, BoundsControl, and the Solvers/Constraints systems.",
+  "displayName": "MRTK Spatial Manipulation",
+  "msftFeatureCategory": "MRTK3",
+  "author": "Microsoft",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/MixedRealityToolkit-Unity.git"
+  },
+  "bugs": {
+    "url": "https://github.com/microsoft/MixedRealityToolkit-Unity/issues"
+  },
+  "unity": "2021.3",
+  "dependencies": {
+    "com.microsoft.mrtk.core": "3.0.0",
+    "com.microsoft.mrtk.uxcore": "3.0.0",
+    "com.unity.inputsystem": "1.6.1",
+    "com.unity.xr.interaction.toolkit": "2.3.0"
+  },
+  "msftOptionalPackages": {
+    "com.microsoft.mrtk.input": "3.0.0"
+  },
+  "msftTestPackages": {
+    "com.microsoft.mrtk.input": "3.0.0"
+  }
+}

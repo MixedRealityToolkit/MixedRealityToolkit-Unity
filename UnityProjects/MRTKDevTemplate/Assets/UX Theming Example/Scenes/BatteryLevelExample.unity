@@ -269,7 +269,7 @@ MonoBehaviour:
     in Player Settings -> Scripting Define Symbols.
 
     2. Include the Data Binding
-    and Theming (com.mrtk.data) package.
+    and Theming (com.microsoft.mrtk.data) package.
 
     3. Press Play, then change
     the <i>Battery Level 0 to 1</i> and <i>Charging State</i> values on the BatteryLevelDataSource.'
