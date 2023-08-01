@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT License.
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
 
 using Microsoft.MixedReality.GraphicsTools;
 using MixedReality.Toolkit.Subsystems;

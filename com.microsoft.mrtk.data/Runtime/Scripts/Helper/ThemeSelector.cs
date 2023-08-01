@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT License.
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
 
 // Disable "missing XML comment" warning for the experimental package.
 // While nice to have, documentation is not required for this experimental package.

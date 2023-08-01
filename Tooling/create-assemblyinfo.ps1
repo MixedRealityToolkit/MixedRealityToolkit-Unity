@@ -38,8 +38,8 @@ Get-ChildItem -Path (Join-Path $gitRoot * package.json) | ForEach-Object {
             # ends up looking reasonable.
             $copyright =
             @"
-// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT License.
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
 "@
 
             $content =
