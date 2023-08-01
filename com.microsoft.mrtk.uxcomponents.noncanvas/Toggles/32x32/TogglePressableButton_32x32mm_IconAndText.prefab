@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8259050266689090269, guid: ebf6a177e3199274b8bd12a0c8157f29, type: 3}
       propertyPath: managedReferences[1393819269385945103]
-      value: Microsoft.MixedReality.Toolkit.UXCore Microsoft.MixedReality.Toolkit.UX.SetTargetsActiveEffect
+      value: MixedReality.Toolkit.UXCore MixedReality.Toolkit.UX.SetTargetsActiveEffect
       objectReference: {fileID: 0}
     - target: {fileID: 8259050266689090269, guid: ebf6a177e3199274b8bd12a0c8157f29, type: 3}
       propertyPath: managedReferences[1393819269385945103].name

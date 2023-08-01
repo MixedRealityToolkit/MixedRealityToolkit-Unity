@@ -6,7 +6,7 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A <see cref="ISpeechInteractor"/> that is driven by a <see cref="Subsystems.IKeywordRecognitionSubsystem"/>.

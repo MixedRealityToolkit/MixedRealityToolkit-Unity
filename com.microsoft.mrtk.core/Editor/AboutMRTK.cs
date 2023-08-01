@@ -9,7 +9,7 @@ using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// Dialog that displays information about MRTK.
@@ -101,7 +101,7 @@ namespace Microsoft.MixedReality.Toolkit.Editor
                     foreach (PackageInfo packageInfo in installedPackages)
                     {
                         if (packageInfo.name.StartsWith("com.microsoft.mrtk") ||
-                            packageInfo.name.StartsWith("com.microsoft.mixedreality"))
+                            packageInfo.name.StartsWith("com.mixedreality"))
                         {
                             sb.AppendLine($"{packageInfo.name}: {packageInfo.version}");
                         }

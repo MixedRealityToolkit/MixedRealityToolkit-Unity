@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.﻿
 
-using Microsoft.MixedReality.Toolkit.Editor;
+using MixedReality.Toolkit.Editor;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation.Editor
+namespace MixedReality.Toolkit.SpatialManipulation.Editor
 {
     /// <summary>
     /// A custom editor for the <see cref="SurfaceMagnetism"/> class.

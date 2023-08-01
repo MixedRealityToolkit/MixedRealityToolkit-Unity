@@ -7,7 +7,7 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Interactor used for interacting with interactables at a distance. This is handled via raycasts
@@ -176,7 +176,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
 
         /// <summary>
         /// A structure representing a raycast hit result that originated
-        /// from a <see cref="Microsoft.MixedReality.Toolkit.Input.FuzzyGazeInteractor">FuzzyGazeInteractor</see> object.
+        /// from a <see cref="MixedReality.Toolkit.Input.FuzzyGazeInteractor">FuzzyGazeInteractor</see> object.
         /// </summary>
         public struct GazeRaycastHitResult
         {

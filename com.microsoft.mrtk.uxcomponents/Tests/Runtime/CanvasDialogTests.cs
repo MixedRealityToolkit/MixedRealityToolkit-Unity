@@ -6,8 +6,8 @@
 
 using System.Collections;
 using System.Threading.Tasks;
-using Microsoft.MixedReality.Toolkit.Core.Tests;
-using Microsoft.MixedReality.Toolkit.Input.Tests;
+using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
 using TMPro;
 using UnityEditor;
@@ -15,7 +15,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Runtime.Tests
+namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
     /// <summary>
     /// Tests for the Canvas Dialog UX component.

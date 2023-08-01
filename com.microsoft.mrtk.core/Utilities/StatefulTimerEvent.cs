@@ -3,7 +3,7 @@
 
 using UnityEngine.Events;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// A Unity event used by <see cref="TimedFlag"/> instances.

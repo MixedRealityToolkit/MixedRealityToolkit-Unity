@@ -3,9 +3,9 @@
 
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using static Microsoft.MixedReality.Toolkit.Input.XRRayInteractorExtensions;
+using static MixedReality.Toolkit.Input.XRRayInteractorExtensions;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Experimental
+namespace MixedReality.Toolkit.Input.Experimental
 {
     /// <summary>
     /// The cursor visual for a spatial mouse interactor. This behavior takes care of

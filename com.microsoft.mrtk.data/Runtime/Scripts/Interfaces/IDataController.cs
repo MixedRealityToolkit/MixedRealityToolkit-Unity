@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Interface for processing dispatched commands related to the bound data.

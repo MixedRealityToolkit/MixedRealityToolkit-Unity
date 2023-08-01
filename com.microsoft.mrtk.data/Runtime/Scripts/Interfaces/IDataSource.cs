@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Specify the nature of the data change in notifications

@@ -8,7 +8,7 @@
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// A simple data key path mapper that can be assigned to a data source in the Unity inspector.

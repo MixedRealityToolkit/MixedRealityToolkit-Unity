@@ -9,7 +9,7 @@ using Windows.UI.ViewManagement;
 using System.Collections;
 #endif
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Class allowing for launching and hiding a system keyboard specifically for Windows Mixed Reality

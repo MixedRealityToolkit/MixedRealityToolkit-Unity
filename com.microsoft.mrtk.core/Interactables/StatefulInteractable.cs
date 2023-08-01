@@ -8,10 +8,10 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {    
     /// <summary>
-    /// An extended version of <see cref="Microsoft.MixedReality.Toolkit.MRTKBaseInteractable">MRTKBaseInteractable</see> that adds additional
+    /// An extended version of <see cref="MixedReality.Toolkit.MRTKBaseInteractable">MRTKBaseInteractable</see> that adds additional
     /// functionality such as speech support, gaze support, and toggle behaviors.
     /// </summary>
     [AddComponentMenu("MRTK/Core/Stateful Interactable")]

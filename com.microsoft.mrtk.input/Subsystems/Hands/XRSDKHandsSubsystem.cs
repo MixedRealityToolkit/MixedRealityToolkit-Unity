@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
@@ -11,15 +11,15 @@ using UnityEngine.XR;
 using CommonUsages = UnityEngine.XR.CommonUsages;
 using InputDevice = UnityEngine.XR.InputDevice;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// A Unity subsystem that extends <see cref="Microsoft.MixedReality.Toolkit.Subsystems.HandsSubsystem">HandsSubsystem</see>, and 
+    /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem">HandsSubsystem</see>, and 
     /// obtains hand joint poses from the Unity Engine's XR <see href="https://docs.unity3d.com/ScriptReference/XR.Hand.html">Hand</see> class.
     /// </summary>
     [Preserve]
     [MRTKSubsystem(
-        Name = "com.microsoft.mixedreality.xrsdkhands",
+        Name = "com.mixedreality.xrsdkhands",
         DisplayName = "Subsystem for XRSDK Hands API",
         Author = "Microsoft",
         ProviderType = typeof(XRSDKProvider),
@@ -43,7 +43,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// A class that extends <see cref="Microsoft.MixedReality.Toolkit.Input.HandDataContainer">HandDataContainer</see>, and 
+        /// A class that extends <see cref="MixedReality.Toolkit.Input.HandDataContainer">HandDataContainer</see>, and 
         /// obtains hand joint poses from the Unity Engine's XR <see href="https://docs.unity3d.com/ScriptReference/XR.Hand.html">Hand</see> class.
         /// </summary>
         private class XRSDKHandContainer : HandDataContainer

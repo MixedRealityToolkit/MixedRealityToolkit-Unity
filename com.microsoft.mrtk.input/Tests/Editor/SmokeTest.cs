@@ -6,7 +6,7 @@
 
 using NUnit.Framework;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Tests.EditMode
+namespace MixedReality.Toolkit.Input.Tests.EditMode
 {
     internal class SmokeTest
     {

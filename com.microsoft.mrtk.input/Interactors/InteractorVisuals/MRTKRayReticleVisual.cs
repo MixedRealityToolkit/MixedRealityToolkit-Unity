@@ -4,9 +4,9 @@
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using static Microsoft.MixedReality.Toolkit.Input.XRRayInteractorExtensions;
+using static MixedReality.Toolkit.Input.XRRayInteractorExtensions;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// The reticle visual for a ray interactor. This behavior takes care of
@@ -160,7 +160,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// An enumeration used to control when a <see cref="Microsoft.MixedReality.Toolkit.Input.MRTKRayReticleVisual">MRTKRayReticleVisual</see> 
+        /// An enumeration used to control when a <see cref="MixedReality.Toolkit.Input.MRTKRayReticleVisual">MRTKRayReticleVisual</see> 
         /// is visible. 
         /// </summary>
         public enum ReticleVisibilitySettings

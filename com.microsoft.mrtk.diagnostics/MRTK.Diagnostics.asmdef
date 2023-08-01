@@ -1,8 +1,8 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Diagnostics",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit.Diagnostics",
+    "name": "MixedReality.Toolkit.Diagnostics",
+    "rootNamespace": "MixedReality.Toolkit.Diagnostics",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core",
         "Unity.XR.Management"
     ],
     "includePlatforms": [],

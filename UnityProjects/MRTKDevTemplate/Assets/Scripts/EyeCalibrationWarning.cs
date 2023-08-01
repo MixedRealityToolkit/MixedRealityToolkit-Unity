@@ -6,10 +6,10 @@
 
 using UnityEngine;
 using UnityEngine.Events;
-using Microsoft.MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.Input;
 using TMPro;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// Checks whether eyes are calibrated and prompts a notification to encourage the user to calibrate.

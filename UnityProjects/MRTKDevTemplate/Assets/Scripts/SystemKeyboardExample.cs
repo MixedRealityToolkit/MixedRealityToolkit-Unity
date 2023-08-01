@@ -4,12 +4,12 @@
 // Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
 #pragma warning disable CS1591
 
-using Microsoft.MixedReality.Toolkit.Input;
-using Microsoft.MixedReality.Toolkit.UX;
+using MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// An example script that delegates keyboard API access either to the WinRT <c>MixedRealityKeyboard</c> class

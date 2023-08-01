@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A pose source which tries to obtain the pinch pose from a hand specified by the <see cref="HandBasedPoseSource.Hand"/> property.

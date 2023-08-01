@@ -3,7 +3,7 @@
 
 using UnityEngine.InputSystem;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Methods that make working with InputAction objects easier.

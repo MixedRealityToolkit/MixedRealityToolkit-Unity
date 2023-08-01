@@ -51,33 +51,33 @@ MonoBehaviour:
   prioritizedInteractionModes:
   - modeName: Far
     associatedTypes:
-    - reference: Microsoft.MixedReality.Toolkit.Input.GazeInteractor, Microsoft.MixedReality.Toolkit.Input
-    - reference: Microsoft.MixedReality.Toolkit.Input.FuzzyGazeInteractor, Microsoft.MixedReality.Toolkit.Input
-    - reference: Microsoft.MixedReality.Toolkit.Input.MRTKRayInteractor, Microsoft.MixedReality.Toolkit.Input
-    - reference: Microsoft.MixedReality.Toolkit.Input.GazePinchInteractor, Microsoft.MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.GazeInteractor, MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.FuzzyGazeInteractor, MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.MRTKRayInteractor, MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.GazePinchInteractor, MixedReality.Toolkit.Input
   - modeName: FarRayHover
     associatedTypes:
-    - reference: Microsoft.MixedReality.Toolkit.Input.MRTKRayInteractor, Microsoft.MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.MRTKRayInteractor, MixedReality.Toolkit.Input
   - modeName: Near
     associatedTypes:
-    - reference: Microsoft.MixedReality.Toolkit.Input.GazeInteractor, Microsoft.MixedReality.Toolkit.Input
-    - reference: Microsoft.MixedReality.Toolkit.Input.FuzzyGazeInteractor, Microsoft.MixedReality.Toolkit.Input
-    - reference: Microsoft.MixedReality.Toolkit.Input.GrabInteractor, Microsoft.MixedReality.Toolkit.Input
-    - reference: Microsoft.MixedReality.Toolkit.Input.PokeInteractor, Microsoft.MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.GazeInteractor, MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.FuzzyGazeInteractor, MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.GrabInteractor, MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.PokeInteractor, MixedReality.Toolkit.Input
   - modeName: FarRaySelect
     associatedTypes:
-    - reference: Microsoft.MixedReality.Toolkit.Input.MRTKRayInteractor, Microsoft.MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.MRTKRayInteractor, MixedReality.Toolkit.Input
   - modeName: GazeSelect
     associatedTypes:
-    - reference: Microsoft.MixedReality.Toolkit.Input.GazeInteractor, Microsoft.MixedReality.Toolkit.Input
-    - reference: Microsoft.MixedReality.Toolkit.Input.FuzzyGazeInteractor, Microsoft.MixedReality.Toolkit.Input
-    - reference: Microsoft.MixedReality.Toolkit.Input.GazePinchInteractor, Microsoft.MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.GazeInteractor, MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.FuzzyGazeInteractor, MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.GazePinchInteractor, MixedReality.Toolkit.Input
   - modeName: GrabSelect
     associatedTypes:
-    - reference: Microsoft.MixedReality.Toolkit.Input.GrabInteractor, Microsoft.MixedReality.Toolkit.Input
+    - reference: MixedReality.Toolkit.Input.GrabInteractor, MixedReality.Toolkit.Input
   - modeName: FlatScreen
     associatedTypes:
-    - reference: Microsoft.MixedReality.Toolkit.UX.CanvasProxyInteractor, Microsoft.MixedReality.Toolkit.UXCore
+    - reference: MixedReality.Toolkit.UX.CanvasProxyInteractor, MixedReality.Toolkit.UXCore
   defaultMode:
     name: Far
     priority: 0

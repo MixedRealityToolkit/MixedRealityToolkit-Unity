@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// Utilities for the management of constraints.

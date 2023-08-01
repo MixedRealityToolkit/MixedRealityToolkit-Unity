@@ -10,7 +10,7 @@ using UnityEngine;
 
 using Object = UnityEngine.Object;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// This class has handy inspector UI utilities and functions.

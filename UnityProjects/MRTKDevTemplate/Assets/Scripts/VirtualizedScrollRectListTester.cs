@@ -6,9 +6,9 @@
 
 using TMPro;
 using UnityEngine;
-using Microsoft.MixedReality.Toolkit.UX.Experimental;
+using MixedReality.Toolkit.UX.Experimental;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     [AddComponentMenu("MRTK/Examples/Virtualized Scroll Rect List Tester")]
     public class VirtualizedScrollRectListTester : MonoBehaviour

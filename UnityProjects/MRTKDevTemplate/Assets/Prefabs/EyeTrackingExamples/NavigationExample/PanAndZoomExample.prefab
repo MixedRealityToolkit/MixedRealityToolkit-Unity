@@ -194,7 +194,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: EnableHandZoom
           m_Mode: 1
@@ -207,7 +207,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: OnSelectEntered
           m_Mode: 1
@@ -223,7 +223,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: DisableHandZoom
           m_Mode: 1
@@ -236,7 +236,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: OnSelectExited
           m_Mode: 1
@@ -254,7 +254,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: EnableHandZoom
           m_Mode: 1
@@ -267,7 +267,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: OnSelectEntered
           m_Mode: 1
@@ -283,7 +283,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: DisableHandZoom
           m_Mode: 1
@@ -296,7 +296,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: OnSelectExited
           m_Mode: 1
@@ -322,7 +322,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: EnableHandZoom
           m_Mode: 1
@@ -335,7 +335,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: OnSelectEntered
           m_Mode: 1
@@ -351,7 +351,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: DisableHandZoom
           m_Mode: 1
@@ -364,7 +364,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.PanZoomBase,
             Assembly-CSharp
           m_MethodName: OnSelectExited
           m_Mode: 1
@@ -449,7 +449,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 348134654325234971}
-        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.PanZoomBase,
+        m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.PanZoomBase,
           Assembly-CSharp
         m_MethodName: OnSelected
         m_Mode: 1
@@ -501,7 +501,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.PanZoomBase,
             Assembly-CSharp
           m_MethodName: ZoomIn_Timed
           m_Mode: 1
@@ -518,7 +518,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 348134654325234971}
-          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.PanZoomBase,
+          m_TargetAssemblyTypeName: MixedReality.Toolkit.Examples.Demos.EyeTracking.PanZoomBase,
             Assembly-CSharp
           m_MethodName: ZoomOut_Timed
           m_Mode: 1

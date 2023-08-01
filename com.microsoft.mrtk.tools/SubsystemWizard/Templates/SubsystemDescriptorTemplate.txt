@@ -1,7 +1,7 @@
 // TODO: [Optional] Add copyright and license statement(s).
 
-using Microsoft.MixedReality.Toolkit;
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit;
+using MixedReality.Toolkit.Subsystems;
 using System;
 
 namespace %NAMESPACE%

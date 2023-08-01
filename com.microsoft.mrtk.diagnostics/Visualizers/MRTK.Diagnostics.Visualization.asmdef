@@ -1,6 +1,6 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Diagnostics.Visualization",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit.Diagnostics",
+    "name": "MixedReality.Toolkit.Diagnostics.Visualization",
+    "rootNamespace": "MixedReality.Toolkit.Diagnostics",
     "references": [
         "GUID:56255bd5d851a6243b63cb370cfc40b1",
         "GUID:901d021619f44d54cb1a965e4aea2d01",

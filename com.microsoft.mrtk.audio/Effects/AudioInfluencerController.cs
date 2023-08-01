@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityPhysics = UnityEngine.Physics;
 
-namespace Microsoft.MixedReality.Toolkit.Audio
+namespace MixedReality.Toolkit.Audio
 {
     /// <summary>
     /// Class which supports components implementing <see cref="IAudioInfluencer"/>.

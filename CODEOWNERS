@@ -18,32 +18,32 @@
 # first in this file, followed by more specific rules.
 
 # Build / CI Pipeline
-/Pipelines/ @marlenaklein-msft @AMollis @shaynie @srinjoym
+/Pipelines/ @marlenaklein-msft @AMollis @shaynie
 
 # Checked-in external dependencies
-/ExternalDependencies/ @marlenaklein-msft @AMollis @shaynie @srinjoym
+/ExternalDependencies/ @marlenaklein-msft @AMollis @shaynie
 
 # Tooling
-/Tooling/ @marlenaklein-msft @AMollis @shaynie @srinjoym
+/Tooling/ @marlenaklein-msft @AMollis @shaynie
 
 # Feature packages
-/com.microsoft.mrtk.accessibility/ @marlenaklein-msft @AMollis @shaynie @srinjoym
-/com.microsoft.mrtk.audio/ @marlenaklein-msft @AMollis @shaynie @srinjoym
-/com.microsoft.mrtk.core/ @marlenaklein-msft @AMollis @shaynie @srinjoym
-/com.microsoft.mrtk.data/ @marlenaklein-msft @AMollis @shaynie @srinjoym
-/com.microsoft.mrtk.diagnostics/ @marlenaklein-msft @AMollis @shaynie @srinjoym
-/com.microsoft.mrtk.input/ @marlenaklein-msft @AMollis @shaynie @srinjoym
-/com.microsoft.mrtk.spatialmanipulation/ @marlenaklein-msft @AMollis @shaynie @srinjoym
-/com.microsoft.mrtk.tools/ @marlenaklein-msft @AMollis @shaynie @srinjoym
-/com.microsoft.mrtk.uxcomponents/ @marlenaklein-msft @AMollis @shaynie @srinjoym
-/com.microsoft.mrtk.uxcore/ @marlenaklein-msft @AMollis @shaynie @srinjoym
-/com.microsoft.mrtk.windowsspeech/ @marlenaklein-msft @AMollis @shaynie @srinjoym
+/com.microsoft.mrtk.accessibility/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.audio/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.core/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.data/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.diagnostics/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.input/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.spatialmanipulation/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.tools/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.uxcomponents/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.uxcore/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.windowsspeech/ @marlenaklein-msft @AMollis @shaynie
 
 # Input Simulation
-/com.microsoft.mrtk.input/Simulation/ @marlenaklein-msft @AMollis @shaynie @srinjoym
+/com.microsoft.mrtk.input/Simulation/ @marlenaklein-msft @AMollis @shaynie
 
 # Examples and templates
-/UnityProjects/ @marlenaklein-msft @AMollis @shaynie @srinjoym
+/UnityProjects/ @marlenaklein-msft @AMollis @shaynie
 # Packaging
-*.asmdef @marlenaklein-msft @AMollis @shaynie @srinjoym
-package.json @marlenaklein-msft @AMollis @shaynie @srinjoym
+*.asmdef @marlenaklein-msft @AMollis @shaynie
+package.json @marlenaklein-msft @AMollis @shaynie

@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Editor
+namespace MixedReality.Toolkit.Input.Editor
 {
     /// <summary>
     /// A custom inspector for the <see cref="UnboundedTrackingMode"/> component.

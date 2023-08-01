@@ -8,7 +8,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Experimental
+namespace MixedReality.Toolkit.UX.Experimental
 {
     /// <summary>
     /// A helper for rendering large amounts of data within a Unity <see cref="ScrollRect"/>.

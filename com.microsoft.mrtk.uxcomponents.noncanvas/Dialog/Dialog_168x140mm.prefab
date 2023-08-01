@@ -577,7 +577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4972717407899353996, guid: 3e816bc244e720a44bdea29af72e0b8b, type: 3}
       propertyPath: OnClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.DialogButton, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.DialogButton, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 4972717407899353996, guid: 3e816bc244e720a44bdea29af72e0b8b, type: 3}
       propertyPath: isVoiceSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -585,7 +585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4972717407899353996, guid: 3e816bc244e720a44bdea29af72e0b8b, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.DialogButton, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.DialogButton, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 4972717407899353996, guid: 3e816bc244e720a44bdea29af72e0b8b, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -609,11 +609,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4972717407899353996, guid: 3e816bc244e720a44bdea29af72e0b8b, type: 3}
       propertyPath: isVoiceSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.DialogButton, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.DialogButton, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 4972717407899353996, guid: 3e816bc244e720a44bdea29af72e0b8b, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.DialogButton, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.DialogButton, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 4972717407899353996, guid: 3e816bc244e720a44bdea29af72e0b8b, type: 3}
       propertyPath: OnClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -911,11 +911,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: OnClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.DialogButton, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.DialogButton, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.DialogButton, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.DialogButton, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -931,7 +931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.DialogButton, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.DialogButton, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: OnClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1095,11 +1095,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: OnClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.DialogButton, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.DialogButton, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.DialogButton, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.DialogButton, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1115,7 +1115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.DialogButton, Microsoft.MixedReality.Toolkit.UXComponents
+      value: MixedReality.Toolkit.UX.DialogButton, MixedReality.Toolkit.UXComponents
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: OnClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

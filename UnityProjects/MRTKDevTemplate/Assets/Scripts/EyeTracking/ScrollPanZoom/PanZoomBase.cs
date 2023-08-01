@@ -4,13 +4,13 @@
 // Disable "missing XML comment" warning for sample. While nice to have, this documentation is not required for samples.
 #pragma warning disable CS1591
 
-using Microsoft.MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.Input;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     using Subsystems;
     using UnityEngine.XR;

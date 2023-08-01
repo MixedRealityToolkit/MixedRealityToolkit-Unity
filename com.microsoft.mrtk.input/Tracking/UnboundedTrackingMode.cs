@@ -13,7 +13,7 @@ using Microsoft.MixedReality.OpenXR.Remoting;
 using UnityEngine.XR.Management;
 #endif
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// This component works along side Unity's <see cref="XROrigin"/> to ensure that the <see cref="XRInputSubsystem"/> has

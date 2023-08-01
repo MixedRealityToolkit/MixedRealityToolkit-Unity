@@ -280,7 +280,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 0
-      type: {class: AnimationEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
+      type: {class: AnimationEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
       data:
         name: Animation
         clip: {fileID: 7400000, guid: f0742d64635c9344db4dcfb5f0c7f16d, type: 2}
@@ -289,7 +289,7 @@ MonoBehaviour:
         weightMode: 1
         transitionDuration: 0.1
     - rid: 1
-      type: {class: AnimationEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
+      type: {class: AnimationEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
       data:
         name: Animation
         clip: {fileID: 7400000, guid: 12e7419373c27b34db01f72290065161, type: 2}
@@ -298,7 +298,7 @@ MonoBehaviour:
         weightMode: 1
         transitionDuration: 0.1
     - rid: 2
-      type: {class: AnimationEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
+      type: {class: AnimationEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
       data:
         name: Animation
         clip: {fileID: 7400000, guid: 22d3dbda7b68e97459446b80bc81ccc3, type: 2}

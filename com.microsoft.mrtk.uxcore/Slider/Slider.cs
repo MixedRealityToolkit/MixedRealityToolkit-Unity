@@ -7,9 +7,9 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 
-using SliderEvent = UnityEngine.Events.UnityEvent<Microsoft.MixedReality.Toolkit.UX.SliderEventData>;
+using SliderEvent = UnityEngine.Events.UnityEvent<MixedReality.Toolkit.UX.SliderEventData>;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// A slider that can be moved by grabbing / pinching a slider thumb

@@ -373,7 +373,7 @@ function CheckScript {
         # Only validate that there is a namespace declaration if it's not an AssemblyInfo.cs file.
         # These do not contain namespace declarations.
         if ((-not $containsNamespaceDeclaration) -and ($FileName -notmatch "AssemblyInfo.cs$")) {
-            Write-Warning "$FileName is missing a namespace declaration (i.e. missing namespace Microsoft.MixedReality.Toolkit.*)"
+            Write-Warning "$FileName is missing a namespace declaration (i.e. missing namespace MixedReality.Toolkit.*)"
             $containsIssue = $true;
         }
 

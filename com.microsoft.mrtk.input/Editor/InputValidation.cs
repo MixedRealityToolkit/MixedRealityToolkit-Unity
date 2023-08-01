@@ -1,14 +1,14 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.XR.CoreUtils.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Editor
+namespace MixedReality.Toolkit.Input.Editor
 {
     /// <summary>
     /// A class adding input related rule(s) to the validator

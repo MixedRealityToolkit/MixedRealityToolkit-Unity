@@ -11,12 +11,12 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 
-namespace Microsoft.MixedReality.Toolkit.Core.Tests.EditMode
+namespace MixedReality.Toolkit.Core.Tests.EditMode
 {
     internal class MRTK3ProfileEditorTest
     {
         /// <summary>
-        /// Verify that the <see cref="Microsoft.MixedReality.Toolkit.Editor.MRTKProfileEditor"/> window can be opened.
+        /// Verify that the <see cref="MixedReality.Toolkit.Editor.MRTKProfileEditor"/> window can be opened.
         /// </summary>v
         /// <remarks>
         /// This test is disabled when executing in batch mode, since it requires a Unity graphic device.

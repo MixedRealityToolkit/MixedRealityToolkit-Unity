@@ -4,8 +4,8 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using Microsoft.MixedReality.Toolkit.Core.Tests;
-using Microsoft.MixedReality.Toolkit.Input.Tests;
+using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Microsoft.MixedReality.Toolkit.Accessibility.Tests
+namespace MixedReality.Toolkit.Accessibility.Tests
 {
     /// <summary>
     /// Tests for verifying the behavior of the accessible objects.

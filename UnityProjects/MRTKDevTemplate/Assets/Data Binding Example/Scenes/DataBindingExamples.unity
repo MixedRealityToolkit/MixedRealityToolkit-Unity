@@ -496,8 +496,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
-        Microsoft.MixedReality.Toolkit.Data
+      value: MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
+        MixedReality.Toolkit.Data
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -976,8 +976,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
-        Microsoft.MixedReality.Toolkit.Data
+      value: MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
+        MixedReality.Toolkit.Data
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1797,8 +1797,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
-        Microsoft.MixedReality.Toolkit.Data
+      value: MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
+        MixedReality.Toolkit.Data
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1904,8 +1904,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
-        Microsoft.MixedReality.Toolkit.Data
+      value: MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
+        MixedReality.Toolkit.Data
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3318,8 +3318,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
-        Microsoft.MixedReality.Toolkit.Data
+      value: MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
+        MixedReality.Toolkit.Data
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3445,7 +3445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.ThemeSelector, Microsoft.MixedReality.Toolkit.Data
+      value: MixedReality.Toolkit.Data.ThemeSelector, MixedReality.Toolkit.Data
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -3513,7 +3513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
+      value: MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3525,11 +3525,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.Demos.ColorChanger, Assembly-CSharp
+      value: MixedReality.Toolkit.Examples.Demos.ColorChanger, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
+      value: MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
@@ -4935,7 +4935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.ThemeSelector, Microsoft.MixedReality.Toolkit.Data
+      value: MixedReality.Toolkit.Data.ThemeSelector, MixedReality.Toolkit.Data
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -5003,7 +5003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
+      value: MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5015,11 +5015,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.Demos.ColorChanger, Assembly-CSharp
+      value: MixedReality.Toolkit.Examples.Demos.ColorChanger, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
+      value: MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
@@ -5456,8 +5456,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
-        Microsoft.MixedReality.Toolkit.Data
+      value: MixedReality.Toolkit.Data.DataCollectionItemPlacerGOBase,
+        MixedReality.Toolkit.Data
       objectReference: {fileID: 0}
     - target: {fileID: 8020123736222291503, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -5551,7 +5551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.ThemeSelector, Microsoft.MixedReality.Toolkit.Data
+      value: MixedReality.Toolkit.Data.ThemeSelector, MixedReality.Toolkit.Data
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -5619,7 +5619,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
+      value: MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5631,11 +5631,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.Demos.ColorChanger, Assembly-CSharp
+      value: MixedReality.Toolkit.Examples.Demos.ColorChanger, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
+      value: MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
@@ -7698,7 +7698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.ThemeSelector, Microsoft.MixedReality.Toolkit.Data
+      value: MixedReality.Toolkit.Data.ThemeSelector, MixedReality.Toolkit.Data
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -7762,7 +7762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
+      value: MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -7770,11 +7770,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Examples.Demos.ColorChanger, Assembly-CSharp
+      value: MixedReality.Toolkit.Examples.Demos.ColorChanger, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onTimerStarted.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
+      value: MixedReality.Toolkit.Data.DataSourceThemeTest, MRTK.SDK.Features.DataBinding
       objectReference: {fileID: 0}
     - target: {fileID: 8174955776655707806, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
       propertyPath: isStatefulSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

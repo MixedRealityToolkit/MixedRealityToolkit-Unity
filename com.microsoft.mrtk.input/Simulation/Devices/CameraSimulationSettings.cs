@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Simulation
+namespace MixedReality.Toolkit.Input.Simulation
 {
     /// <summary>
     /// Class containing the camera simulation settings.

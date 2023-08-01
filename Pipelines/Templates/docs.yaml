@@ -31,7 +31,7 @@ steps:
       -OutputDirectory: '${{ parameters.outputDirectory }}'
       -ImportPackagePath '${{ parameters.docToolProjectRoot }}/Export/DocTool.unitypackage'
       -ProductName 'MRTK3'
-      -ProductDLLPrefix 'Microsoft.MixedReality.Toolkit.'
+      -ProductDLLPrefix 'MixedReality.Toolkit.'
       -TargetPlatform 'WindowsStoreApps'
       -DocsPackagePrefixes 'Accessibility Audio Core Data Diagnostics Environment Input SpatialManipulation UXComponents UXCore Speech.Windows'
       -IgnoreTestAssemblies $true

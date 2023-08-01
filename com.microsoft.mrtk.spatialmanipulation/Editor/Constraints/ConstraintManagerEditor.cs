@@ -1,14 +1,14 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Editor;
+using MixedReality.Toolkit.Editor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation.Editor
+namespace MixedReality.Toolkit.SpatialManipulation.Editor
 {
     /// <summary>
     /// Custom editor for constraint manager.

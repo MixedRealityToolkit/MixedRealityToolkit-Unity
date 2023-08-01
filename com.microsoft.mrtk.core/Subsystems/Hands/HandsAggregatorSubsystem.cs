@@ -7,7 +7,7 @@ using UnityEngine.Scripting;
 using UnityEngine.SubsystemsImplementation;
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// Subsystem for aggregating skeletal hand joint data from all available sources.

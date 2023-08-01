@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using Assembly = System.Reflection.Assembly;
 
-namespace Microsoft.MixedReality.Toolkit.Editor
+namespace MixedReality.Toolkit.Editor
 {
     /// <summary>
     /// Custom property drawer for <see cref="SystemType"/> properties.

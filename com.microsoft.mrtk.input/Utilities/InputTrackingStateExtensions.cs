@@ -3,7 +3,7 @@
 
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Useful extensions for parsing <see cref="InputTrackingState"/> flags.

@@ -3,7 +3,7 @@
 
 using UnityEditor;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation.Editor
+namespace MixedReality.Toolkit.SpatialManipulation.Editor
 {
     /// <summary>
     /// A custom editor for the <see cref="Solver"/> class.

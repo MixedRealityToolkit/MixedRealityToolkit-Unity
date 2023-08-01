@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Simulation
+namespace MixedReality.Toolkit.Input.Simulation
 {
     /// <summary>
     /// Input device and HMD navigation simulator.

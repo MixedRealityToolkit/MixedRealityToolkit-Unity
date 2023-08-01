@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// Every dialog event emits these parameters.
@@ -21,7 +21,7 @@ namespace Microsoft.MixedReality.Toolkit.UX
     }
 
     /// <summary>
-    /// Event arguments used when buttons in a <see cref="Microsoft.MixedReality.Toolkit.UX.IDialog">IDialog</see>
+    /// Event arguments used when buttons in a <see cref="MixedReality.Toolkit.UX.IDialog">IDialog</see>
     /// are clicked or activated.
     /// </summary>
     public class DialogButtonEventArgs : BaseDialogEventArgs
@@ -43,7 +43,7 @@ namespace Microsoft.MixedReality.Toolkit.UX
     }
 
     /// <summary>
-    /// Event arguments used a <see cref="Microsoft.MixedReality.Toolkit.UX.IDialog">IDialog</see>
+    /// Event arguments used a <see cref="MixedReality.Toolkit.UX.IDialog">IDialog</see>
     /// is dismissed or closed.
     /// </summary>
     public class DialogDismissedEventArgs : BaseDialogEventArgs

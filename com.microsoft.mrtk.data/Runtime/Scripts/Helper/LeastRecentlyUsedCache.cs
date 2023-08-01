@@ -10,7 +10,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     public interface LRUValue<KT>
     {

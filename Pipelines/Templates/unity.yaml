@@ -12,7 +12,7 @@ parameters:
 
   - name: CommandLineBuildMethod
     type: string
-    default: Microsoft.MixedReality.Toolkit.Examples.Build.BuildApp.StartCommandLineBuild
+    default: MixedReality.Toolkit.Examples.Build.BuildApp.StartCommandLineBuild
 
   - name: PathToProject
     type: string

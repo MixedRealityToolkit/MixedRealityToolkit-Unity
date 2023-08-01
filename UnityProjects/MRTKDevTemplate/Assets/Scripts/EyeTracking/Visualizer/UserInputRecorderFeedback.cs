@@ -8,7 +8,7 @@ using UnityEngine;
 // Disable "missing XML comment" warning for sample. While nice to have, this documentation is not required for samples.
 #pragma warning disable CS1591
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// This script displays on screen status updates user recording and playback control system.

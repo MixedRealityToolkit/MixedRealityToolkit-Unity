@@ -5,9 +5,9 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using static Microsoft.MixedReality.Toolkit.Input.HandshapeTypes;
+using static MixedReality.Toolkit.Input.HandshapeTypes;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Simulation
+namespace MixedReality.Toolkit.Input.Simulation
 {
     /// <summary>
     /// Setting that control simulation settings for motion controls, including hands.

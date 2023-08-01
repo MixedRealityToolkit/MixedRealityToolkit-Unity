@@ -5,15 +5,15 @@
 #pragma warning disable CS1591
 
 using System.Collections;
-using Microsoft.MixedReality.Toolkit.Input.Tests;
-using Microsoft.MixedReality.Toolkit.UX.Experimental;
+using MixedReality.Toolkit.Input.Tests;
+using MixedReality.Toolkit.UX.Experimental;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Runtime.Tests
+namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
     /// <summary>
     /// Tests for the NonNative keyboard

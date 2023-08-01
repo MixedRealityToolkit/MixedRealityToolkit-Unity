@@ -9,9 +9,9 @@ using UnityEngine.Animations;
 using UnityEngine.Events;
 using UnityEngine.Playables;
 
-using WeightType = Microsoft.MixedReality.Toolkit.UX.IAnimationMixableEffect.WeightType;
+using WeightType = MixedReality.Toolkit.UX.IAnimationMixableEffect.WeightType;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// A high-performance Playables API-powered interaction feedback system with extensible effects.

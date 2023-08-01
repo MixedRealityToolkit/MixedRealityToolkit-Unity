@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using UnityEngine.SubsystemsImplementation;
 
-namespace Microsoft.MixedReality.Toolkit.Diagnostics
+namespace MixedReality.Toolkit.Diagnostics
 {
     /// <summary>
     /// A subsystem that exposes performance statistics (ex: memory usage, frame rate).

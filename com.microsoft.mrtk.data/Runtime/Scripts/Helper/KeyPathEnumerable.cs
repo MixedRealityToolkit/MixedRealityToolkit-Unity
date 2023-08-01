@@ -9,7 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Efficient enumerable for collections that only creates exactly what is requested.
@@ -87,5 +87,5 @@ namespace Microsoft.MixedReality.Toolkit.Data
         void IDisposable.Dispose() { }
 
     } // End of class KeyPathEnumerable
-} // End of namespace Microsoft.MixedReality.Toolkit.Data
+} // End of namespace MixedReality.Toolkit.Data
 #pragma warning restore CS1591

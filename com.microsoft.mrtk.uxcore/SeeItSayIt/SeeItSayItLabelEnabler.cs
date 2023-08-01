@@ -4,10 +4,10 @@
 using TMPro;
 using UnityEngine;
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
-using Microsoft.MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.Input;
 #endif
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// When applied to a Unity game object along with a <see cref="PressableButton"/>, this component

@@ -9,7 +9,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEditor;
 #endif
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation
+namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
     /// A <see cref="BoundsControl"/> creates a bounds visual around the specified object.

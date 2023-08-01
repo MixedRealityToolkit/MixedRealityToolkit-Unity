@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Editor;
+using MixedReality.Toolkit.Editor;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Text;
 using UnityEngine;
 using UnityEditor;
 
-namespace Microsoft.MixedReality.Toolkit.Tools
+namespace MixedReality.Toolkit.Tools
 {
     /// <summary>
     /// Editor window to guide developers through the process of creating a

@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,19 +17,19 @@ using Microsoft.MixedReality.OpenXR;
 using UnityEngine.Windows.Speech;
 #endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 
-namespace Microsoft.MixedReality.Toolkit.Speech.Windows
+namespace MixedReality.Toolkit.Speech.Windows
 {
     /// <summary>
-    /// A Unity subsystem that extends <see cref="Microsoft.MixedReality.Toolkit.Subsystems.KeywordRecognitionSubsystem">KeywordRecognitionSubsystem</see>
+    /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.KeywordRecognitionSubsystem">KeywordRecognitionSubsystem</see>
     /// so to expose the keyword recognition services available on Windows platforms. This subsystem is enabled for Windows Standalone and
     /// Universal Windows Applications. 
     /// </summary>
     /// <remarks>
-    /// This subsystem can be configured using the <see cref="Microsoft.MixedReality.Toolkit.Speech.Windows.WindowsKeywordRecognitionSubsystemConfig">WindowsKeywordRecognitionSubsystemConfig</see> Unity asset.
+    /// This subsystem can be configured using the <see cref="MixedReality.Toolkit.Speech.Windows.WindowsKeywordRecognitionSubsystemConfig">WindowsKeywordRecognitionSubsystemConfig</see> Unity asset.
     /// </remarks>
     [Preserve]
     [MRTKSubsystem(
-        Name = "com.microsoft.mixedreality.windowskeywordrecognition",
+        Name = "com.mixedreality.windowskeywordrecognition",
         DisplayName = "MRTK Windows KeywordRecognition Subsystem",
         Author = "Microsoft",
         ProviderType = typeof(WindowsKeywordRecognitionProvider),

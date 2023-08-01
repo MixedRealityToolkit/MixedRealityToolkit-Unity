@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Editor;
+using MixedReality.Toolkit.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Simulation.Editor
+namespace MixedReality.Toolkit.Input.Simulation.Editor
 {
     /// <summary>
     /// A custom property drawer for <see cref="ControllerSimulationSettings"/> fields.

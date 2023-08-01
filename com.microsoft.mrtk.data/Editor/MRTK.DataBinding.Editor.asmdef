@@ -1,8 +1,8 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Data.Editor",
+    "name": "MixedReality.Toolkit.Data.Editor",
     "rootNamespace": "",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Data"
+        "MixedReality.Toolkit.Data"
     ],
     "includePlatforms": [
         "Editor"

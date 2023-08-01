@@ -4,14 +4,14 @@
 // Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
 #pragma warning disable CS1591
 
-using Microsoft.MixedReality.Toolkit.Input;
-using Microsoft.MixedReality.Toolkit.UX;
-using Microsoft.MixedReality.Toolkit.Diagnostics;
+using MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.UX;
+using MixedReality.Toolkit.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// Helper script to implement the demo scene hand menu actions.

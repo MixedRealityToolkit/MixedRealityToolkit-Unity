@@ -5,11 +5,11 @@
 #pragma warning disable CS1591
 
 using System.Collections.Generic;
-using Microsoft.MixedReality.Toolkit.Audio;
+using MixedReality.Toolkit.Audio;
 using TMPro;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// Example script that changes the audio fidelity of the specified emitter and

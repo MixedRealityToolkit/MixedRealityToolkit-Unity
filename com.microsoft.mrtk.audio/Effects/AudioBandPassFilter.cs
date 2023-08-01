@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Audio
+namespace MixedReality.Toolkit.Audio
 {
     /// <summary>
     /// Defines an audio band pass filter.

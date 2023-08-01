@@ -1,14 +1,14 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Editor;
+using MixedReality.Toolkit.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Editor
+namespace MixedReality.Toolkit.Input.Editor
 {
     /// <summary>
-    /// A custom class used when rendering a Unity inspector window editor for a <see cref="Microsoft.MixedReality.Toolkit.Input.InteractionModeManager">InteractionModeManager</see>
+    /// A custom class used when rendering a Unity inspector window editor for a <see cref="MixedReality.Toolkit.Input.InteractionModeManager">InteractionModeManager</see>
     /// class.
     /// </summary>
     [CustomEditor(typeof(InteractionModeManager))]

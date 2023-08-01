@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 
-namespace Microsoft.MixedReality.Toolkit.Accessibility
+namespace MixedReality.Toolkit.Accessibility
 {
     /// <summary>
     /// Enumeration defining how screen reader audio should be spatialized.

@@ -8,9 +8,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using System;
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// Sample for binding speech recognition keywords to Unity Event functions.

@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// An abstract <see cref="IPlayableEffect"/> that controls a Unity <see href="https://docs.unity3d.com/ScriptReference/Playables.Playable.html">Playable</see> 

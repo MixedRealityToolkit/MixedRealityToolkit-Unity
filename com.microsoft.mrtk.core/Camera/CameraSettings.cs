@@ -4,10 +4,10 @@
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
-    /// Class that contains settings which are applied to <see cref="Microsoft.MixedReality.Toolkit.CameraSettingsManager">CameraSettingsManager</see>.
+    /// Class that contains settings which are applied to <see cref="MixedReality.Toolkit.CameraSettingsManager">CameraSettingsManager</see>.
     /// </summary>
     [Serializable]
     [AddComponentMenu("MRTK/Core/Camera Settings")]

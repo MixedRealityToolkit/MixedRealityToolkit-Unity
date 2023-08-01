@@ -1,8 +1,8 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Core.Editor",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit.Editor",
+    "name": "MixedReality.Toolkit.Core.Editor",
+    "rootNamespace": "MixedReality.Toolkit.Editor",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core",
         "Unity.XR.Interaction.Toolkit",
         "Unity.XR.Interaction.Toolkit.Editor",
         "Unity.XR.CoreUtils.Editor"

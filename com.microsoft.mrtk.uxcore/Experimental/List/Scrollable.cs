@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Microsoft.MixedReality.Toolkit.Experimental;
+using MixedReality.Toolkit.Experimental;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -9,10 +9,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Experimental
+namespace MixedReality.Toolkit.UX.Experimental
 {
     /// <summary>
-    /// An <see cref="Microsoft.MixedReality.Toolkit.IScrollable">IScrollable</see> that allows a
+    /// An <see cref="MixedReality.Toolkit.IScrollable">IScrollable</see> that allows a
     /// <see href="https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/script-ScrollRect.html">ScrollRect</see> to be scrolled by
     /// Unity <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.3/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractor.html">IXRInteractors</see>.
     /// </summary>
@@ -91,7 +91,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Experimental
         /// When the <see cref="ScrollingInteractor"/> moves this distance away from the starting point, the positions of <see cref="ScrollRect"/>
         /// will start being altered.
         ///
-        /// If <see cref="ScrollingInteractor"/> implements <see cref="Microsoft.MixedReality.Toolkit.IPokeInteractor">IPokeInteractor</see>,
+        /// If <see cref="ScrollingInteractor"/> implements <see cref="MixedReality.Toolkit.IPokeInteractor">IPokeInteractor</see>,
         /// the <see cref="PokeDeadZone"/> property will be used instead.
         /// </remarks>
         public float DeadZone
@@ -111,7 +111,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Experimental
         /// After the 2D plane has been scrolled this total distance, and if there is an active child selection, the child
         /// selection will be canceled.
         ///
-        /// If <see cref="ScrollingInteractor"/> implements <see cref="Microsoft.MixedReality.Toolkit.IPokeInteractor">IPokeInteractor</see>, the <see cref="PokeCancelSelectDistance"/>
+        /// If <see cref="ScrollingInteractor"/> implements <see cref="MixedReality.Toolkit.IPokeInteractor">IPokeInteractor</see>, the <see cref="PokeCancelSelectDistance"/>
         /// property is used instead.
         /// </remarks>
         public float CancelSelectDistance
@@ -133,7 +133,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Experimental
         /// When the <see cref="ScrollingInteractor"/> moves this distance away from the starting point, the positions of <see cref="ScrollRect"/>
         /// will start being altered.
         ///
-        /// If <see cref="ScrollingInteractor"/> does not implement <see cref="Microsoft.MixedReality.Toolkit.IPokeInteractor">IPokeInteractor</see>,
+        /// If <see cref="ScrollingInteractor"/> does not implement <see cref="MixedReality.Toolkit.IPokeInteractor">IPokeInteractor</see>,
         /// the <see cref="DeadZone"/> property will be used instead.
         /// </remarks>
         public float PokeDeadZone
@@ -153,7 +153,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Experimental
         /// After the 2D plane has been scrolled this total distance, and if there is an active child selection, the child
         /// selection will be canceled.
         ///
-        /// If <see cref="ScrollingInteractor"/> does not implement <see cref="Microsoft.MixedReality.Toolkit.IPokeInteractor">IPokeInteractor</see>, the <see cref="CancelSelectDistance"/>
+        /// If <see cref="ScrollingInteractor"/> does not implement <see cref="MixedReality.Toolkit.IPokeInteractor">IPokeInteractor</see>, the <see cref="CancelSelectDistance"/>
         /// property is used instead.
         /// </remarks>
         public float PokeCancelSelectDistance

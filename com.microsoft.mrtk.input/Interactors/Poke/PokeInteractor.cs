@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using PokePath = Microsoft.MixedReality.Toolkit.IPokeInteractor.PokePath;
+using PokePath = MixedReality.Toolkit.IPokeInteractor.PokePath;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// An interactor that is used for poking/pressing near interactions.

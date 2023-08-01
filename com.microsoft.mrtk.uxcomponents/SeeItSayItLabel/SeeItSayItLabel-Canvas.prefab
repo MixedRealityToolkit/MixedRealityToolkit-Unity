@@ -315,7 +315,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 7001448244017627138
-      type: {class: AnimationEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
+      type: {class: AnimationEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
       data:
         name: Animation
         clip: {fileID: 7400000, guid: db3fc7cc13721f64dbb178a22ada2195, type: 2}

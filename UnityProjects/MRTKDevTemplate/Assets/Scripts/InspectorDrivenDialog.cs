@@ -6,12 +6,12 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.MixedReality.Toolkit.UX;
+using MixedReality.Toolkit.UX;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Events;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// A helper component for creating a <see cref="DialogPool"/> and showing <see cref="IDialog"/> objects.

@@ -2,13 +2,13 @@
 // Licensed under the MIT License.
 
 using Microsoft.MixedReality.GraphicsTools;
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace Microsoft.MixedReality.Toolkit.Accessibility
+namespace MixedReality.Toolkit.Accessibility
 {
     /// <summary>
     /// The MRTK subsystem that exposes information about the current enabled 
@@ -16,7 +16,7 @@ namespace Microsoft.MixedReality.Toolkit.Accessibility
     /// </summary>
     [Preserve]
     [MRTKSubsystem(
-        Name = "com.microsoft.mixedreality.accessibility",
+        Name = "com.mixedreality.accessibility",
         DisplayName = "MRTK Accessibility Subsystem",
         Author = "Microsoft",
         ProviderType = typeof(AccessibilityProvider),

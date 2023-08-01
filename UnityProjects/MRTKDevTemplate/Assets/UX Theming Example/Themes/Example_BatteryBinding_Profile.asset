@@ -16,7 +16,7 @@ MonoBehaviour:
   - batteryData
   - batteryTheme
   classBindings:
-  - className: Microsoft.MixedReality.Toolkit.Data.DataConsumerSprite
+  - className: MixedReality.Toolkit.Data.DataConsumerSprite
     bindings:
     - dataKeyPath: batteryIcon
       themeKeyPath: 

@@ -517,11 +517,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11401954, guid: 74b589d1efab94a4cb70e4b5c22783f8, type: 3}
       propertyPath: <OnTextUpdate>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.KeyboardPreview, Microsoft.MixedReality.Toolkit.UXCore
+      value: MixedReality.Toolkit.UX.KeyboardPreview, MixedReality.Toolkit.UXCore
       objectReference: {fileID: 0}
     - target: {fileID: 11401954, guid: 74b589d1efab94a4cb70e4b5c22783f8, type: 3}
       propertyPath: <OnCaretIndexUpdate>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Microsoft.MixedReality.Toolkit.UX.KeyboardPreview, Microsoft.MixedReality.Toolkit.UXCore
+      value: MixedReality.Toolkit.UX.KeyboardPreview, MixedReality.Toolkit.UXCore
       objectReference: {fileID: 0}
     - target: {fileID: 11401954, guid: 74b589d1efab94a4cb70e4b5c22783f8, type: 3}
       propertyPath: <OnTextUpdate>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

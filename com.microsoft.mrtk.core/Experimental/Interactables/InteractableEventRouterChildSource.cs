@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Microsoft.MixedReality.Toolkit.Experimental
+namespace MixedReality.Toolkit.Experimental
 {
     /// <summary>
     /// A Unity component that provides a mechanism to handle children being dynamically

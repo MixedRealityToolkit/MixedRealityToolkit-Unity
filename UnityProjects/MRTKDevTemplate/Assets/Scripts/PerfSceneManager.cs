@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// Manager for the performance evaluation scene.

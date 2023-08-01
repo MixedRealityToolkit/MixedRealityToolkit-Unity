@@ -5,9 +5,9 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.XR.Interaction.Toolkit;
-using static Microsoft.MixedReality.Toolkit.Input.XRRayInteractorExtensions;
+using static MixedReality.Toolkit.Input.XRRayInteractorExtensions;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// This visual component helps align a <see cref="LineRenderer"/> with the Interactor, while giving it "bendy" qualities

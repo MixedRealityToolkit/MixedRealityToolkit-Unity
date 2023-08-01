@@ -4,19 +4,19 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
+namespace MixedReality.Toolkit.UX.Deprecated
 {
     /// <summary>
     /// Object containing properties about a dialog.
     /// </summary>
     /// <remarks>
-    /// This and the <see cref="Microsoft.MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> are deprecated. Please migrate to the 
-    /// new <see cref="Microsoft.MixedReality.Toolkit.UX.Dialog">Dialog</see>. If you'd like to continue using the 
-    /// <see cref="Microsoft.MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> implementation, it is recommended that the legacy code 
+    /// This and the <see cref="MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> are deprecated. Please migrate to the 
+    /// new <see cref="MixedReality.Toolkit.UX.Dialog">Dialog</see>. If you'd like to continue using the 
+    /// <see cref="MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> implementation, it is recommended that the legacy code 
     /// be copied to the application's code base, and maintained independently by the application developer. Otherwise, it is strongly recommended 
-    /// that the application be updated to use the new <see cref="Microsoft.MixedReality.Toolkit.UX.DialogPool">DialogPool</see> system.
+    /// that the application be updated to use the new <see cref="MixedReality.Toolkit.UX.DialogPool">DialogPool</see> system.
     /// </remarks>
-    [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+    [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
     public class DialogProperty
     {
         /// <summary>
@@ -25,7 +25,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
         /// <param name="title">The title bar string (top-most) on the dialog.</param>
         /// <param name="message">The message content string of the dialog.</param>
         /// <param name="buttonContexts">The button type(s) available on the dialog.</param>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public DialogProperty(string title, string message, params DialogButtonContext[] buttonContexts)
         {
             Title = title;
@@ -43,7 +43,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
         /// <summary>
         /// Initializes a new instance of the <see cref="DialogProperty"/> class.
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public DialogProperty(string title, string message, DialogButtonTypes buttonTypes) : this(title, message)
         {
             List<DialogButtonContext> buttonTypesList = new List<DialogButtonContext>();
@@ -62,7 +62,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
         /// <summary>
         /// Convert a <see cref="DialogButtonTypes"/> enumeration value to a see <see cref="DialogButtonType"/> enumeration value 
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         private static DialogButtonType Convert(DialogButtonTypes dialogButtonTypes)
         {
             switch (dialogButtonTypes)
@@ -82,7 +82,7 @@ namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
         /// <summary>
         /// Convert a <see cref="DialogButtonType"/> enumeration value to a see <see cref="DialogButtonTypes"/> enumeration value 
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         internal static DialogButtonTypes Convert(DialogButtonType dialogButtonTypes)
         {
             switch (dialogButtonTypes)
@@ -102,43 +102,43 @@ namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
         /// <summary>
         /// The title bar string (top-most) on the dialog.
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public string Title { get; } = string.Empty;
 
         /// <summary>
         /// The message content string of the dialog.
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public string Message { get; } = string.Empty;
 
         /// <summary>
         /// The button type(s) available on the dialog.
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public DialogButtonTypes ButtonTypes { get; } = DialogButtonTypes.Close;
 
         /// <summary>
         /// Contexts for the buttons, in order of their appearance on the dialog.
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public IReadOnlyList<DialogButtonContext> ButtonContexts { get; } = null;
 
         /// <summary>
         /// Which button was clicked to dismiss the dialog.
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public DialogButtonTypes Result => Convert(ResultContext.ButtonType);
 
         /// <summary>
         /// Which button was clicked to dismiss the dialog.
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public DialogButtonContext ResultContext { get; internal set; } = default;
 
         /// <summary>
         /// Reference to the dialog this property applies to.
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public Dialog TargetDialog { get; internal set; }
     }
 }

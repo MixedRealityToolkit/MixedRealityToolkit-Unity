@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Build
+namespace MixedReality.Toolkit.Examples.Build
 {
     /// <summary>
     /// A static class that provides functions for compiling the example scenes via command line.

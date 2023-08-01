@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// A data source that manages structured data similar to what can be
@@ -278,5 +278,5 @@ namespace Microsoft.MixedReality.Toolkit.Data
             return _rootNode != null;
         }
     } // End of class DataSourceObjects
-} // End of namespace Microsoft.MixedReality.Toolkit.Data
+} // End of namespace MixedReality.Toolkit.Data
 #pragma warning restore CS1591

@@ -6,7 +6,7 @@ using UnityEngine.Scripting;
 using UnityEngine.SubsystemsImplementation;
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// A subsystem that exposes information about the user's hands.

@@ -1,9 +1,9 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Core.Editor.Tests",
+    "name": "MixedReality.Toolkit.Core.Editor.Tests",
     "rootNamespace": "",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Core",
-        "Microsoft.MixedReality.Toolkit.Core.Editor",
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core.Editor",
         "UnityEditor.TestRunner",
         "UnityEngine.TestRunner"
     ],

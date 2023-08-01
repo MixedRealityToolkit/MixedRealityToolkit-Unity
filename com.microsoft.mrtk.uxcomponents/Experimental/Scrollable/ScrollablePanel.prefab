@@ -173,9 +173,9 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 4538478793802383364
-      type: {class: HoverParentEventRoute, ns: Microsoft.MixedReality.Toolkit, asm: Microsoft.MixedReality.Toolkit.Core}
+      type: {class: HoverParentEventRoute, ns: MixedReality.Toolkit, asm: MixedReality.Toolkit.Core}
     - rid: 4538478793802383365
-      type: {class: SelectParentEventRoute, ns: Microsoft.MixedReality.Toolkit, asm: Microsoft.MixedReality.Toolkit.Core}
+      type: {class: SelectParentEventRoute, ns: MixedReality.Toolkit, asm: MixedReality.Toolkit.Core}
 --- !u!114 &6449560764903005711
 MonoBehaviour:
   m_ObjectHideFlags: 0

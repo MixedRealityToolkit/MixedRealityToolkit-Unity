@@ -5,9 +5,9 @@
 #pragma warning disable CS1591
 
 using UnityEngine;
-using Microsoft.MixedReality.Toolkit.UX;
+using MixedReality.Toolkit.UX;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     public class DialogExample : MonoBehaviour
     {

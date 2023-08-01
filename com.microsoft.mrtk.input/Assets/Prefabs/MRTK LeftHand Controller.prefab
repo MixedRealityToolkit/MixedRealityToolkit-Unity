@@ -164,21 +164,21 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 0
-      type: {class: FallbackCompositePoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: FallbackCompositePoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         poseSourceList:
         - rid: 2
         - rid: 3
         poseSources: []
     - rid: 1
-      type: {class: FallbackCompositePoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: FallbackCompositePoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         poseSourceList:
         - rid: 4
         - rid: 5
         poseSources: []
     - rid: 2
-      type: {class: InputActionPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: InputActionPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         trackingStateActionProperty:
           m_UseReference: 1
@@ -217,11 +217,11 @@ MonoBehaviour:
             m_Flags: 0
           m_Reference: {fileID: 8248158260566104461, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - rid: 3
-      type: {class: PolyfillHandRayPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: PolyfillHandRayPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         hand: 1
     - rid: 4
-      type: {class: InputActionPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: InputActionPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         trackingStateActionProperty:
           m_UseReference: 1
@@ -260,7 +260,7 @@ MonoBehaviour:
             m_Flags: 0
           m_Reference: {fileID: -4531104493956672492, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - rid: 5
-      type: {class: HandJointPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: HandJointPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         hand: 1
         joint: 0
@@ -608,18 +608,18 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 0
-      type: {class: FallbackCompositePoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: FallbackCompositePoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         poseSourceList:
         - rid: 1
         - rid: 2
         poseSources: []
     - rid: 1
-      type: {class: PinchPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: PinchPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         hand: 1
     - rid: 2
-      type: {class: InputActionPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: InputActionPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         trackingStateActionProperty:
           m_UseReference: 1
@@ -1038,19 +1038,19 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 0
-      type: {class: FallbackCompositePoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: FallbackCompositePoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         poseSourceList:
         - rid: 1
         - rid: 2
         poseSources: []
     - rid: 1
-      type: {class: HandJointPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: HandJointPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         hand: 1
         joint: 10
     - rid: 2
-      type: {class: InputActionPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: InputActionPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         trackingStateActionProperty:
           m_UseReference: 1
@@ -1338,25 +1338,25 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 0
-      type: {class: FallbackCompositePoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: FallbackCompositePoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         poseSourceList:
         - rid: 3
         - rid: 4
         poseSources: []
     - rid: 1
-      type: {class: PinchPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: PinchPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         hand: 1
     - rid: 2
-      type: {class: FallbackCompositePoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: FallbackCompositePoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         poseSourceList:
         - rid: 5
         - rid: 6
         poseSources: []
     - rid: 3
-      type: {class: InputActionPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: InputActionPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         trackingStateActionProperty:
           m_UseReference: 1
@@ -1395,12 +1395,12 @@ MonoBehaviour:
             m_Flags: 0
           m_Reference: {fileID: -4531104493956672492, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - rid: 4
-      type: {class: HandJointPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: HandJointPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         hand: 1
         joint: 0
     - rid: 5
-      type: {class: InputActionPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: InputActionPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         trackingStateActionProperty:
           m_UseReference: 1
@@ -1439,7 +1439,7 @@ MonoBehaviour:
             m_Flags: 0
           m_Reference: {fileID: 8248158260566104461, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - rid: 6
-      type: {class: PolyfillHandRayPoseSource, ns: Microsoft.MixedReality.Toolkit.Input, asm: Microsoft.MixedReality.Toolkit.Input}
+      type: {class: PolyfillHandRayPoseSource, ns: MixedReality.Toolkit.Input, asm: MixedReality.Toolkit.Input}
       data:
         hand: 1
 --- !u!114 &6618093373316033540

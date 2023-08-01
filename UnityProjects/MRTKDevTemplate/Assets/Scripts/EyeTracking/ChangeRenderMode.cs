@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Examples
+namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// This class allows changing the render mode on-the-fly. This is, for example, useful when trying to show a semi-transparent preview of an 

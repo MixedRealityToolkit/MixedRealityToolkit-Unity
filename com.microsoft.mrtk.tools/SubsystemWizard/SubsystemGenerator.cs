@@ -9,7 +9,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Tools
+namespace MixedReality.Toolkit.Tools
 {
     /// <summary>
     /// Class which generates subsystem source files from templates contained within

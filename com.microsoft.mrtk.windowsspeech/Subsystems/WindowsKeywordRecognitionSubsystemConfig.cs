@@ -7,10 +7,10 @@ using UnityEngine;
 using UnityEngine.Windows.Speech;
 #endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
 
-namespace Microsoft.MixedReality.Toolkit.Speech.Windows
+namespace MixedReality.Toolkit.Speech.Windows
 {
     /// <summary>
-    /// The configuration object for <see cref="Microsoft.MixedReality.Toolkit.Speech.Windows.WindowsKeywordRecognitionSubsystem">WindowsKeywordRecognitionSubsystem</see>.
+    /// The configuration object for <see cref="MixedReality.Toolkit.Speech.Windows.WindowsKeywordRecognitionSubsystem">WindowsKeywordRecognitionSubsystem</see>.
     /// </summary>
     [CreateAssetMenu(
         fileName = "WindowsKeywordRecognitionSubsystemConfig.asset",

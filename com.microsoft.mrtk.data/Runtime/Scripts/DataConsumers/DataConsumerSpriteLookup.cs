@@ -9,7 +9,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Microsoft.MixedReality.Toolkit.Data
+namespace MixedReality.Toolkit.Data
 {
     /// <summary>
     /// Given a value from a data source, use that value to look up the correct Sprite

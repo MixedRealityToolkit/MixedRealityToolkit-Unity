@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// A <see cref="TintEffect{T}"/> implementation that wraps a Unity <see href="https://docs.unity3d.com/ScriptReference/Playables.PlayableBehaviour.html">PlayableBehaviour</see> 

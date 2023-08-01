@@ -5,7 +5,7 @@ using System;
 using UnityEngine.Scripting;
 using UnityEngine.SubsystemsImplementation;
 
-namespace Microsoft.MixedReality.Toolkit.Subsystems
+namespace MixedReality.Toolkit.Subsystems
 {
     /// <summary>
     /// A Unity subsystem that enables dictation.

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging
+namespace MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging
 {
     public static class AsyncHelpers
     {

@@ -6,10 +6,10 @@ using TMPro;
 using UnityEngine;
 
 #if MRTK_SPATIAL_PRESENT
-using Microsoft.MixedReality.Toolkit.SpatialManipulation;
+using MixedReality.Toolkit.SpatialManipulation;
 #endif
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// Component to manage the visuals for a Mixed Reality Keyboard Preview window.

@@ -1,8 +1,8 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Audio",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit.Audio",
+    "name": "MixedReality.Toolkit.Audio",
+    "rootNamespace": "MixedReality.Toolkit.Audio",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Core"
+        "MixedReality.Toolkit.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

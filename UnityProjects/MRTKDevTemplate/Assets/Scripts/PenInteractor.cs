@@ -11,9 +11,9 @@ using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
-using PokePath = Microsoft.MixedReality.Toolkit.IPokeInteractor.PokePath;
+using PokePath = MixedReality.Toolkit.IPokeInteractor.PokePath;
 
-namespace Microsoft.MixedReality.Toolkit.Examples.Demos
+namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
     /// A simple interactor that can live on inanimate or on objects that

@@ -3,7 +3,7 @@
 
 using UnityEditor;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Editor
+namespace MixedReality.Toolkit.Input.Editor
 {
     /// <summary>
     /// A custom editor for the <see cref="InteractionDetector"/> class.

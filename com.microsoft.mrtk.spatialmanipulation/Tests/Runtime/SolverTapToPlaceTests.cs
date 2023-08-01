@@ -7,12 +7,12 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Microsoft.MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.Input;
 using System.Collections;
-using Microsoft.MixedReality.Toolkit.Input.Tests;
-using Microsoft.MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input.Tests;
+using MixedReality.Toolkit.Core.Tests;
 
-namespace Microsoft.MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
+namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 {
     /// <summary>
     /// Tests for TapToPlace solver

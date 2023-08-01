@@ -15,7 +15,7 @@ MonoBehaviour:
   dataSourceTypes:
   - notes
   classBindings:
-  - className: Microsoft.MixedReality.Toolkit.Data.DataConsumerAudioClip
+  - className: MixedReality.Toolkit.Data.DataConsumerAudioClip
     bindings:
     - dataKeyPath: 
       themeKeyPath: Notes[0].MusicalNote

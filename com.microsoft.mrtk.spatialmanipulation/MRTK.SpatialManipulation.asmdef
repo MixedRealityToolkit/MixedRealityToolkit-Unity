@@ -1,8 +1,8 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.SpatialManipulation",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit.SpatialManipulation",
+    "name": "MixedReality.Toolkit.SpatialManipulation",
+    "rootNamespace": "MixedReality.Toolkit.SpatialManipulation",
     "references": [
-        "Microsoft.MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core",
         "Unity.InputSystem",
         "Unity.XR.Interaction.Toolkit"
     ],

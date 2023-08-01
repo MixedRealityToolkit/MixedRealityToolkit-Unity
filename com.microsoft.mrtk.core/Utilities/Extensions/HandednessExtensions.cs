@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit
+namespace MixedReality.Toolkit
 {
     /// <summary>
     /// Extension methods that make working with the <see cref="Handedness"/> enum easier.

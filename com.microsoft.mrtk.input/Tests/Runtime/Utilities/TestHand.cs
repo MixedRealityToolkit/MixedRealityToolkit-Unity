@@ -7,9 +7,9 @@
 using System.Collections;
 using UnityEngine;
 
-using HandshapeId = Microsoft.MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 
-namespace Microsoft.MixedReality.Toolkit.Input.Tests
+namespace MixedReality.Toolkit.Input.Tests
 {
     /// <summary>
     /// Convenience wrapper around the underlying <see cref="InputTestUtilities"/> functions

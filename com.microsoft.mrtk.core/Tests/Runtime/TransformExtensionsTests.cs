@@ -11,7 +11,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Microsoft.MixedReality.Toolkit.Core.Tests
+namespace MixedReality.Toolkit.Core.Tests
 {
     public class TransformExtensionsTests : BaseRuntimeTests
     {

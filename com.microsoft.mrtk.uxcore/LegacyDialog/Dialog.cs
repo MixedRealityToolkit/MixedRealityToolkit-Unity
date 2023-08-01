@@ -4,25 +4,25 @@
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.UX.Deprecated
+namespace MixedReality.Toolkit.UX.Deprecated
 {
     /// <summary>
     /// Abstract class that presents a Dialog object.
     /// </summary>
     /// <remarks>
-    /// The <see cref="Microsoft.MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> is deprecated. Please migrate to the 
-    /// new <see cref="Microsoft.MixedReality.Toolkit.UX.Dialog">Dialog</see>. If you'd like to continue using the 
-    /// <see cref="Microsoft.MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> implementation, it is recommended that the legacy code 
+    /// The <see cref="MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> is deprecated. Please migrate to the 
+    /// new <see cref="MixedReality.Toolkit.UX.Dialog">Dialog</see>. If you'd like to continue using the 
+    /// <see cref="MixedReality.Toolkit.UX.Deprecated.Dialog">Legacy Dialog</see> implementation, it is recommended that the legacy code 
     /// be copied to the application's code base, and maintained independently by the application developer. Otherwise, it is strongly recommended 
-    /// that the application be updated to use the new <see cref="Microsoft.MixedReality.Toolkit.UX.DialogPool">DialogPool</see> system.
+    /// that the application be updated to use the new <see cref="MixedReality.Toolkit.UX.DialogPool">DialogPool</see> system.
     /// </remarks>
-    [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+    [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
     public abstract class Dialog : MonoBehaviour
     {
         /// <summary>
         /// The current state of the dialog.
         /// </summary>
-        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see Microsoft.MixedReality.Toolkit.UX.DialogPool for more details.")]
+        [Obsolete("This legacy dialog system has been deprecated. Please migrate to the new dialog system, see MixedReality.Toolkit.UX.DialogPool for more details.")]
         public DialogState State { get; protected set; } = DialogState.Uninitialized;
 
         /// <summary>

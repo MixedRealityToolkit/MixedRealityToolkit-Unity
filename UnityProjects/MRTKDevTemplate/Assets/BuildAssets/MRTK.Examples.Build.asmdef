@@ -1,5 +1,5 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Examples.Build",
+    "name": "MixedReality.Toolkit.Examples.Build",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [

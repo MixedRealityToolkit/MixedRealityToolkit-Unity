@@ -1,9 +1,9 @@
 {
-    "name": "Microsoft.MixedReality.Toolkit.Input",
-    "rootNamespace": "Microsoft.MixedReality.Toolkit.Input",
+    "name": "MixedReality.Toolkit.Input",
+    "rootNamespace": "MixedReality.Toolkit.Input",
     "references": [
         "Microsoft.MixedReality.OpenXR",
-        "Microsoft.MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core",
         "Unity.InputSystem",
         "Unity.XR.CoreUtils",
         "Unity.XR.Interaction.Toolkit",

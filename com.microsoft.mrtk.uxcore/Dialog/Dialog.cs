@@ -11,10 +11,10 @@ using UnityEngine.Serialization;
 using UnityEngine.Events;
 
 #if MRTK_SPATIAL_PRESENT
-using Microsoft.MixedReality.Toolkit.SpatialManipulation;
+using MixedReality.Toolkit.SpatialManipulation;
 #endif
 
-namespace Microsoft.MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.UX
 {
     /// <summary>
     /// The Dialog script hydrates and controls the various sub-components
@@ -22,7 +22,7 @@ namespace Microsoft.MixedReality.Toolkit.UX
     /// </summary> 
     /// <remarks>
     /// Dialogs are typically spawned, pooled, and destroyed
-    /// by <see cref="Microsoft.MixedReality.Toolkit.UX.DialogPool">DialogPools</see>. 
+    /// by <see cref="MixedReality.Toolkit.UX.DialogPool">DialogPools</see>. 
     /// Generally, developers should not directly manage or instantiate instances of their dialogs,
     /// as it is essential that they are pooled and managed correctly by a coordinator.
     /// </remarks>

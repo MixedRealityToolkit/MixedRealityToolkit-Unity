@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine.XR;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Base class for obtaining and holding hand data.
