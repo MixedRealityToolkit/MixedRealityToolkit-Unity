@@ -5,6 +5,8 @@ This document lists the Maintainers of the Mixed Reality Toolkit for Unity Proje
 | Name        | Alias   | Affiliated Organization |
 |-------------|---------|-------------------------|
 | Adam Mollis | AMollis | Microsoft               |
+| Scott Haynie | shaynie | Microsoft               |
+|  |  |               |
 
 ---
 Part of MVG-0.1-beta.
