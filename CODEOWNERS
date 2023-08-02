@@ -16,15 +16,17 @@
 # Note that order in this file is EXTREMELY important - the last matching
 # rule will win. This means that the most general rules should be listed
 # first in this file, followed by more specific rules.
+# 
+# Maintainers can add to CODEOWNERS by following the CONTRIBUTING.md rules.
+
+# Default Owners (Must include Maintainers)
+* @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
 
 # Build / CI Pipeline
-/Pipelines/ @marlenaklein-msft @AMollis @shaynie
-
-# Checked-in external dependencies
-/ExternalDependencies/ @marlenaklein-msft @AMollis @shaynie
+/Pipelines/ @shaynie
 
 # Tooling
-/Tooling/ @marlenaklein-msft @AMollis @shaynie
+/Tooling/ @shaynie
 
 # Feature packages
 /com.microsoft.mrtk.accessibility/ @marlenaklein-msft @AMollis @shaynie
@@ -39,11 +41,12 @@
 /com.microsoft.mrtk.uxcore/ @marlenaklein-msft @AMollis @shaynie
 /com.microsoft.mrtk.windowsspeech/ @marlenaklein-msft @AMollis @shaynie
 
-# Input Simulation
-/com.microsoft.mrtk.input/Simulation/ @marlenaklein-msft @AMollis @shaynie
-
 # Examples and templates
 /UnityProjects/ @marlenaklein-msft @AMollis @shaynie
-# Packaging
-*.asmdef @marlenaklein-msft @AMollis @shaynie
-package.json @marlenaklein-msft @AMollis @shaynie
+
+# Goverance documents (Must include Maintainers)
+CODEOWNERS @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
+CONTRIBUTING.md @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
+MAINTAINERS.md @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
+GOVERNANCE.md @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
+

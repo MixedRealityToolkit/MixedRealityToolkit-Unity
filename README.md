@@ -1,25 +1,26 @@
+# Mixed Reality Toolkit for Unity
+
 ![Mixed Reality Toolkit](https://user-images.githubusercontent.com/13754172/122838732-89ea3400-d2ab-11eb-8c79-32dd84944989.png)
 
+![MRTK3 Banner](./Images/MRTK3_banner.png)
 
-![MRTK3 Banner](Images/MRTK3_banner.png)
+**MRTK3** is the third generation of the Mixed Reality Toolkit for Unity. It's an open source project designed to accelerate cross-platform mixed reality development in Unity. MRTK3 is built on top of [Unity's XR Interaction Toolkit (XRI)](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.1/manual/index.html) and OpenXR. This new generation of MRTK is intended to be faster, cleaner, and more modular, with an easier cross-platform development workflow enabled by OpenXR and the Unity Input System.
 
-**MRTK3** is the third generation of the Microsoft Mixed Reality Toolkit for Unity. It's a Microsoft driven open source project designed to accelerate cross-platform mixed reality development in Unity. MRTK3 is built on top of [Unity's XR Interaction Toolkit (XRI)](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.1/manual/index.html) and OpenXR. This new generation of MRTK is intended to be faster, cleaner, and more modular, with an easier cross-platform development workflow enabled by OpenXR and the Unity Input System. 
+## Key improvements
 
-### Key improvements
-
-**Architecture**
+### Architecture
 
 * Built on Unity XR Interaction Toolkit and the Unity Input System.
 * Dedicated to OpenXR, with flexibility for other XRSDK backends
 * Open-ended and extensible interaction paradigms across devices, platforms, and applications
 
-**Performance**
+### Performance
 
 * Rewrote and redesigned most features and systems, from UX to input to subsystems.
 * Zero per-frame memory allocation.
 * Tuned for maximum performance on HoloLens 2 and other resource-constrained mobile platforms.
 
-**UI**
+### UI
 
 * New interaction models (gaze-pinch indirect manipulation).
 * Updated Mixed Reality Design Language.
@@ -34,6 +35,7 @@ MRTK3 is currently in **public preview.** We appreciate your feedback and contri
 MRTK3 requires Unity 2021.3.22f1 or higher. In addition, you need the [Mixed Reality Feature Tool for Unity](https://aka.ms/mrfeaturetool) to find, download, and add the packages to your project.
 
 ## Getting started
+
 [Follow the documentation for setting up MRTK3 packages as dependencies in your project here.](https://learn.microsoft.com/windows/mixed-reality/mrtk-unity/mrtk3-overview/getting-started/setting-up/setup-new-project) Alternatively, you can clone this repo directly to experiment with our template project. However, we *strongly* recommend adding MRTK3 packages as dependencies through the Feature Tool, as it makes updating, managing, and consuming MRTK3 packages far easier and less error-prone.
 
 ## Supported devices
@@ -69,17 +71,17 @@ As of June 2022, the following components are considered to be in early preview.
 | --- | --- |
 | Accessibility | com.microsoft.mrtk.accessibility |
 | Data Binding and Theming | com.microsoft.mrtk.data |
- 
+
 The MRTK team is fully committed to releasing this functionality. It is important to note that the packages may not contain the complete feature set that is planned to be released or they may undergo major, breaking architectural changes before release.
 
 We very much encourage you to provide any and all feedback to help shape the final form of these early preview features.
 
-# Roadmap
+## Contributing
 
-The roadmap from public preview to GA is detailed in the following table.
+This project welcomes contributions, suggestions, and feedback. All contributions, suggestions, and feedback you submitted are accepted under the [Project's license](./LICENSE.md). You represent that if you do not own copyright in the code that you have the authority to submit it under the [Project's license](./LICENSE.md). All feedback, suggestions, or contributions are not confidential.
 
-| Release | Timeline |
-| --- | --- |
-| Public Preview | June 8, 2022 |
-| Preview updates | Approximately every 2-4 weeks until GA |
-| General Availability | First quarter of 2023 |
+For more information on how to contribute Mixed Reality Toolkit for Unity Project, please read [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+## Governance
+
+For information on how the Mixed Reality Toolkit for Unity Project is governed, please read [GOVERNANCE.md](./GOVERNANCE.md).
