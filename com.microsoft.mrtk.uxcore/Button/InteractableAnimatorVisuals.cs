@@ -1,0 +1,71 @@
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
+
+using UnityEngine;
+
+namespace MixedReality.Toolkit.UX
+{
+    /// <summary>
+    /// This visual driver sets various float parameters on the specified <see cref="Animator"/> based on the
+    /// <see cref="StatefulInteractable"/>'s state. This is a temporary solution that will be mostly subsumed
+    /// by the StateVisualizer architecture.
+    /// </summary>
+    [RequireComponent(typeof(StatefulInteractable))]
+    [AddComponentMenu("MRTK/UX/Interactable Animator Visuals")]
+    internal class InteractableAnimatorVisuals : MonoBehaviour
+    {
+        [SerializeField]
+        [Tooltip("The Interactable whose events and interaction state are forwarded to the Animator.")]
+        private StatefulInteractable interactable;
+
+        /// <summary>
+        /// The Interactable whose events and interaction state are forwarded to the Animator.
+        /// </summary>
+        public StatefulInteractable Interactable
+        {
+            get
+            {
+                if (interactable == null)
+                {
+                    interactable = GetComponent<StatefulInteractable>();
+                }
+                return interactable;
+            }
+            set => interactable = value;
+        }
+
+        [SerializeField]
+        [Tooltip("The Animator component to which this driver will feed interactable state.")]
+        private Animator targetAnimator;
+
+        /// <summary>
+        /// The Animator component to feed interactable state to.
+        /// </summary>
+        public Animator TargetAnimator
+        {
+            get
+            {
+                if (targetAnimator == null)
+                {
+                    targetAnimator = GetComponent<Animator>();
+                }
+                return targetAnimator;
+            }
+            set => targetAnimator = value;
+        }
+
+        /// <summary>
+        /// A Unity event function that is called every frame, if this object is enabled.
+        /// </summary>
+        protected virtual void Update()
+        {
+            if (Interactable != null && TargetAnimator != null)
+            {
+                TargetAnimator.SetFloat("Selected", Interactable.GetSelectionProgress());
+                TargetAnimator.SetFloat("ActiveFocus", Interactable.IsActiveHovered ? 1 : 0);
+                TargetAnimator.SetFloat("PassiveFocus", Interactable.isHovered ? 1 : 0);
+            }
+        }
+    }
+}
+

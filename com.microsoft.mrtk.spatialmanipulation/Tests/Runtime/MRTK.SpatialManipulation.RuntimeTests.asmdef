@@ -1,0 +1,27 @@
+{
+    "name": "MixedReality.Toolkit.SpatialManipulation.Runtime.Tests",
+    "rootNamespace": "",
+    "references": [
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core.TestUtilities",
+        "MixedReality.Toolkit.Input",
+        "MixedReality.Toolkit.Input.Runtime.Tests",
+        "MixedReality.Toolkit.SpatialManipulation",
+        "UnityEditor.TestRunner",
+        "UnityEngine.TestRunner",
+        "Unity.XR.Interaction.Toolkit"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,36 @@
+﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
+
+using System;
+using UnityEngine;
+
+namespace MixedReality.Toolkit
+{
+    /// <summary>
+    /// A PropertyAttribute for showing a warning box that the tagged implementation is experimental.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Field, Inherited = true)]
+    public class ExperimentalAttribute : PropertyAttribute
+    {
+        /// <summary>
+        /// The text to display in the warning box.
+        /// </summary>
+        public string Text;
+
+        private const string defaultText = "<b><color=yellow>This is an experimental feature.</color></b>\n" +
+                                           "Parts of the MRTK3 appear to have a lot of value even if the details " +
+                                           "haven't fully been fleshed out. For these types of features, we want " +
+                                           "the community to see them and get value out of them early. Because " +
+                                           "they are early in the cycle, we label them as experimental to indicate " +
+                                           "that they are still evolving, and subject to change over time.";
+
+        /// <summary>
+        /// Initializes a new instance of a <see cref="ExperimentalAttribute"/> class.
+        /// </summary>
+        /// <param name="experimentalText">The experimental text to display in the warning box.</param>
+        public ExperimentalAttribute(string experimentalText = defaultText)
+        {
+            Text = experimentalText;
+        }
+    }
+}

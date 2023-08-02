@@ -1,0 +1,45 @@
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
+
+using UnityEngine;
+
+namespace MixedReality.Toolkit.Audio
+{
+    /// <summary>
+    /// Defines an audio band pass filter.
+    /// </summary>
+    /// <remarks>
+    /// Frequencies between a lower and upper value are preserved.
+    /// </remarks>
+    [CreateAssetMenu(fileName = "BandPassFilter.asset", menuName = "MRTK/Audio/Bandpass Filter")]
+    public class AudioBandPassFilter : ScriptableObject
+    {
+        [SerializeField]
+        [Tooltip("The frequency below which sound will not be heard")]
+        [Range(10f, 22000f)]
+        private float lowFrequencyCutoff = 10f;
+
+        /// <summary>
+        /// The frequency below which sound will not be heard.
+        /// </summary>
+        public float LowFrequencyCutoff
+        {
+            get => lowFrequencyCutoff;
+            set => lowFrequencyCutoff = value;
+        }
+
+        [SerializeField]
+        [Tooltip("The frequency above which sound will not be heard")]
+        [Range(10f, 22000f)]
+        private float highFrequencyCutoff = 22000f;
+
+        /// <summary>
+        /// The frequency above which sound will not be heard.
+        /// </summary>
+        public float HighFrequencyCutoff
+        {
+            get => highFrequencyCutoff;
+            set => highFrequencyCutoff = value;
+        }
+    }
+}

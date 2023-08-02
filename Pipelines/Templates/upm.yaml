@@ -1,0 +1,41 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+# [Template] Pack and optionally publish UPM packages.
+
+parameters:
+  projectRoot: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
+  outputDirectory: $(Build.ArtifactStagingDirectory)/build/upm/output
+  buildNumber: $(Build.BuildNumber)
+  previewTag: $(ReleaseTagPrefix)$(MRTKReleaseTag)
+  publishToArtifacts: true
+  publishToFeed: true
+
+steps:
+- task: PowerShell@2
+  displayName: 'Pack preview UPM packages'
+  inputs:
+    pwsh: true
+    targetType: filePath
+    filePath: ${{ parameters.projectRoot }}/Pipelines/Scripts/pack-upm.ps1
+    arguments: >
+      -ProjectRoot: ${{ parameters.projectRoot }}
+      -OutputDirectory: ${{ parameters.outputDirectory }}
+      -BuildNumber: ${{ parameters.buildNumber }}
+      -PreviewTag: $(ReleaseTagPrefix)$(MRTKReleaseTag)
+      -Revision: $(Version.DateCode).$(Version.DateCodeRevision)
+      -ReleasePackages: $(ReleasePackages)
+
+- ${{ if eq(parameters.publishToArtifacts, true) }}:
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish UPM artifacts'
+    inputs:
+      pathToPublish: ${{ parameters.outputDirectory }}
+      artifactName: "mrtk-upm"
+
+- ${{ if eq(parameters.publishToFeed, true) }}:
+  - template: Tasks/publish-upm.yaml
+    parameters:
+      packageDirectory: ${{ parameters.outputDirectory }}
+      registryPath: $(UpmRegistry)
+      authenticationEndpoint: $(ServiceConnectionName)

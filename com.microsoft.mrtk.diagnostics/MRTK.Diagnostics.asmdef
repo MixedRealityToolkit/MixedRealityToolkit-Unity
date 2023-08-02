@@ -1,0 +1,17 @@
+{
+    "name": "MixedReality.Toolkit.Diagnostics",
+    "rootNamespace": "MixedReality.Toolkit.Diagnostics",
+    "references": [
+        "MixedReality.Toolkit.Core",
+        "Unity.XR.Management"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

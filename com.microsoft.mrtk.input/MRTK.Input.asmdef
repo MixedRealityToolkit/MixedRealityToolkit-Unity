@@ -1,0 +1,49 @@
+{
+    "name": "MixedReality.Toolkit.Input",
+    "rootNamespace": "MixedReality.Toolkit.Input",
+    "references": [
+        "Microsoft.MixedReality.OpenXR",
+        "MixedReality.Toolkit.Core",
+        "Unity.InputSystem",
+        "Unity.XR.CoreUtils",
+        "Unity.XR.Interaction.Toolkit",
+        "Unity.XR.Management",
+        "glTFast",
+        "Ktx"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.microsoft.mixedreality.openxr",
+            "expression": "",
+            "define": "MROPENXR_PRESENT"
+        },
+        {
+            "name": "com.microsoft.mixedreality.openxr",
+            "expression": "1.5",
+            "define": "MROPENXR_ANIM_PRESENT"
+        },
+        {
+            "name": "com.atteneder.gltfast",
+            "expression": "",
+            "define": "GLTFAST_PRESENT"
+        },
+        {
+            "name": "com.atteneder.ktx",
+            "expression": "",
+            "define": "KTX_PRESENT"
+        },
+        {
+            "name": "com.unity.xr.management",
+            "expression": "4.2",
+            "define": "UNITYXR_MANAGEMENT_PRESENT"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,26 @@
+{
+    "name": "MixedReality.Toolkit.Accessibility.Runtime.Tests",
+    "rootNamespace": "",
+    "references": [
+        "MixedReality.Toolkit.Accessibility",
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core.TestUtilities",
+        "UnityEditor.TestRunner",
+        "UnityEngine.TestRunner",
+        "MixedReality.Toolkit.Input.Runtime.Tests",
+        ""
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

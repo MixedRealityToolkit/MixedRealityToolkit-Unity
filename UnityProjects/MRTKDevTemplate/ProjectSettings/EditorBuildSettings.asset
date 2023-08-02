@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/BoundsControlExamples.unity
+    guid: 384e6c80fec551842a329aa6fdb67c00
+  - enabled: 1
+    path: Assets/Scenes/BoundsControlRuntimeExample.unity
+    guid: 5c5bd8aafc6e8f24688a5be83e975c2e
+  - enabled: 1
+    path: Assets/Scenes/CanvasExample.unity
+    guid: 24da6686da5c91c40add71f019626f80
+  - enabled: 1
+    path: Assets/Scenes/CanvasUITearsheet.unity
+    guid: 826e2653482e5304ca8be3552e34f5c9
+  - enabled: 1
+    path: Assets/Scenes/ClippingExamples.unity
+    guid: 8fba33ef2ac2d1241a18842f1f6ffcc2
+  - enabled: 1
+    path: Assets/Scenes/ClippingInstancedExamples.unity
+    guid: ddd904b1863ddfc44aab4e4767d47cfa
+  - enabled: 1
+    path: Assets/Scenes/DiagnosticsDemo.unity
+    guid: f33adb2534f521e4a9892edb30fae861
+  - enabled: 1
+    path: Assets/Scenes/DialogExample.unity
+    guid: 9a9b5ebb20dad464f82939c1919f3c29
+  - enabled: 1
+    path: Assets/Scenes/DictationExample.unity
+    guid: dc82ad31a6851824b9bb8475ceffd466
+  - enabled: 1
+    path: Assets/Scenes/DirectionalIndicatorExample.unity
+    guid: 4404a8cddee74154ab66fbfbe8f4b745
+  - enabled: 1
+    path: Assets/Scenes/DisableInteractorsExample.unity
+    guid: 39e159e61b3eabf4b8bee31c6bd084f6
+  - enabled: 1
+    path: Assets/Scenes/DwellExample.unity
+    guid: 214a3eff40efe654484f95e0bcb7d473
+  - enabled: 1
+    path: Assets/Scenes/EyeGazeExample.unity
+    guid: 34c7b3d86b487dd48818ba9904ee5c31
+  - enabled: 1
+    path: Assets/Scenes/FontIconExample.unity
+    guid: a3ce810af8da0ff438d98e8ebac2f69c
+  - enabled: 1
+    path: Assets/Scenes/HandInteractionExamples.unity
+    guid: 1300a9dceb058844b865199dcd557fc7
+  - enabled: 1
+    path: Assets/Scenes/HandMenuExamples.unity
+    guid: 160f5fe1138c53249862f20e854a6edd
+  - enabled: 1
+    path: Assets/Scenes/InputFieldExamples.unity
+    guid: e71ef4cb633b9a3468b05f4508f95ad8
+  - enabled: 1
+    path: Assets/Scenes/InteractableButtonExamples.unity
+    guid: 889ca949e5d6ea548835fdb4c00c0e3f
+  - enabled: 1
+    path: Assets/Scenes/LegacyConstraintsExample.unity
+    guid: 88763918c04d8fe44893aa3eb5b89476
+  - enabled: 1
+    path: Assets/Scenes/MagicWindowExample.unity
+    guid: 7741dcfc529d3a642859d9790b1a1c8d
+  - enabled: 1
+    path: Assets/Scenes/NearMenuExamples.unity
+    guid: 343b770c087be99448d42ff77946fb9a
+  - enabled: 1
+    path: Assets/Scenes/NonCanvasDialogExample.unity
+    guid: 6bf12aa0a2d03d943ad4d7c91e6bd8c3
+  - enabled: 1
+    path: Assets/Scenes/NonCanvasObjectBarExample.unity
+    guid: 78199fe2a7fdc7f49ab4eb49cfc50d47
+  - enabled: 1
+    path: Assets/Scenes/NonCanvasUIBackplateExample.unity
+    guid: 7b91b43ca8b84c940a30d2cfccde4b75
+  - enabled: 1
+    path: Assets/Scenes/NonCanvasUITearSheet.unity
+    guid: 4536a9189b7299b4ca9473a366fdcd15
+  - enabled: 1
+    path: Assets/Scenes/OutlineExamples.unity
+    guid: c53962871a3392542bd7c86d82c89533
+  - enabled: 1
+    path: Assets/Scenes/PerformanceEvaluation.unity
+    guid: c244cebc7bd23084d948cdfff4d006a5
+  - enabled: 1
+    path: Assets/Scenes/SeeItSayIt Example.unity
+    guid: cb7d2aaea1c5a4d469a6408ee9ddc5fc
+  - enabled: 1
+    path: Assets/Scenes/SlateDrawingExample.unity
+    guid: 8053107f934864d488f1cebf7b5caff3
+  - enabled: 1
+    path: Assets/Scenes/SolverExamples.unity
+    guid: a14d0e4053bdebb42bffb3c882b44d41
+  - enabled: 1
+    path: Assets/Scenes/SpatialMappingExample.unity
+    guid: 8d84241a7f0d0514f862c8f99a1c97ba
+  - enabled: 1
+    path: Assets/Scenes/SpeechInputExamples.unity
+    guid: 705953704c9e9754a9fe5dbb38dcb586
+  - enabled: 1
+    path: Assets/Scenes/TapToPlaceExample.unity
+    guid: 21985977b81e22949be133537a0732d7
+  - enabled: 1
+    path: Assets/Scenes/TextPrefabExamples.unity
+    guid: b9966f8d35a034d4faa8600b69ba5d34
+  - enabled: 1
+    path: Assets/Scenes/TextToSpeechExamples.unity
+    guid: 3f1cdd1c1a4ad334db8edbcde93c0bdf
+  - enabled: 1
+    path: Assets/Scenes/ToggleCollectionExample.unity
+    guid: 0acf7ee4108a007468a1a56ddb6a3630
+  - enabled: 1
+    path: Assets/Scenes/TopNavigationExample.unity
+    guid: eeb74eddd45c57d4babdb922992caf89
+  - enabled: 1
+    path: Assets/Scenes/VanillaUGUIExample.unity
+    guid: de559429d95050746be9456af0fa1e6f
+  m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 87467803e919cef4394e7f39c6521b51, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: e61946fb8f8ff5e418d6ebb56cca2034, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 4ce0884cff002f24f83e8b0ceef94646, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 90a3b98e6a849104285d1183acd66c0b, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a03b04948b0cbde4498320e6e1bd5cd6, type: 2}

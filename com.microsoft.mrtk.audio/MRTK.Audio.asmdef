@@ -1,0 +1,16 @@
+{
+    "name": "MixedReality.Toolkit.Audio",
+    "rootNamespace": "MixedReality.Toolkit.Audio",
+    "references": [
+        "MixedReality.Toolkit.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,52 @@
+# This file contains information about the code owners for various
+# files in the MRTK codebase.
+#
+# For more information on CODEOWNERS, see:
+# https://help.github.com/en/articles/about-code-owners
+#
+# For syntax, see:
+# https://help.github.com/en/articles/about-code-owners#codeowners-syntax
+#
+# The intent of this file is to list, on a per-file/per-area basis:
+# 1) Who is the most familiar with an area of code.
+# OR
+# 2) Who can take a first pass at pull request review, or delegate the review
+# to someone else who may be more appropriate.
+#
+# Note that order in this file is EXTREMELY important - the last matching
+# rule will win. This means that the most general rules should be listed
+# first in this file, followed by more specific rules.
+# 
+# Maintainers can add to CODEOWNERS by following the CONTRIBUTING.md rules.
+
+# Default Owners (Must include Maintainers)
+* @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
+
+# Build / CI Pipeline
+/Pipelines/ @shaynie
+
+# Tooling
+/Tooling/ @shaynie
+
+# Feature packages
+/com.microsoft.mrtk.accessibility/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.audio/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.core/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.data/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.diagnostics/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.input/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.spatialmanipulation/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.tools/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.uxcomponents/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.uxcore/ @marlenaklein-msft @AMollis @shaynie
+/com.microsoft.mrtk.windowsspeech/ @marlenaklein-msft @AMollis @shaynie
+
+# Examples and templates
+/UnityProjects/ @marlenaklein-msft @AMollis @shaynie
+
+# Goverance documents (Must include Maintainers)
+CODEOWNERS @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
+CONTRIBUTING.md @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
+MAINTAINERS.md @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
+GOVERNANCE.md @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
+

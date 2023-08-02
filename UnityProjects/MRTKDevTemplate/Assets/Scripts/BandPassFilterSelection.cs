@@ -1,0 +1,43 @@
+﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
+
+// Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
+#pragma warning disable CS1591
+
+using System.Collections.Generic;
+using MixedReality.Toolkit.Audio;
+using TMPro;
+using UnityEngine;
+
+namespace MixedReality.Toolkit.Examples
+{
+    /// <summary>
+    /// Example script that changes the audio fidelity of the specified emitter and
+    /// updates an on-screen caption to indicate which filter is being used.
+    /// </summary>
+    [AddComponentMenu("MRTK/Examples/Bandpass Filter Selection")]
+    public class BandPassFilterSelection : MonoBehaviour
+    {
+        [SerializeField]
+        private GameObject audioEmitter = null;
+
+        [SerializeField]
+        private List<AudioBandPassFilter> filters = new List<AudioBandPassFilter>();
+
+        private AudioBandPassEffect effect = null;
+
+        /// <summary>
+        /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
+        /// </summary> 
+        private void Start()
+        {
+            effect = audioEmitter.EnsureComponent<AudioBandPassEffect>();
+        }
+        
+        public void SetFilter(int index)
+        {
+            effect.Filter = filters[index];
+        }
+    }
+}
+#pragma warning restore CS1591

@@ -1,0 +1,37 @@
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
+
+using System;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace MixedReality.Toolkit.Input
+{
+	/// <summary>
+	/// Event arguments used when eye tracking status changes. 
+	/// </summary>
+	[Serializable]
+	public struct EyeCalibrationStatusEventArgs
+	{
+		/// <summary>
+		/// The eye tracking calibration status. 
+		/// </summary>
+		public EyeCalibrationStatus CalibratedStatus { get; set; }
+
+        /// <summary>
+        /// Initializes a <see cref="EyeCalibrationStatusEventArgs"/> struct.
+        /// </summary>
+		/// <param name="calibratedStatus">The eye tracking calibration status.</param>
+		public EyeCalibrationStatusEventArgs(EyeCalibrationStatus calibratedStatus)
+		{
+			CalibratedStatus = calibratedStatus;
+		}
+	}
+
+	/// <summary>
+	/// Event fired whenever eye tracking status changes. Passes the new status as an argument.
+	/// </summary>
+	[Serializable]
+	public class EyeCalibrationStatusEvent : UnityEvent<EyeCalibrationStatusEventArgs> { }
+}

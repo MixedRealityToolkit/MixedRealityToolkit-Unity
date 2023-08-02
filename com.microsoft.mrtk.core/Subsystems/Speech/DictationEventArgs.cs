@@ -1,0 +1,55 @@
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
+
+namespace MixedReality.Toolkit.Subsystems
+{
+    /// <summary>
+    /// Event data associated with the result of dictation.
+    /// </summary>
+    public readonly struct DictationResultEventArgs
+    {
+        /// <summary>
+        /// The result of dictation.
+        /// </summary>
+        public string Result { get; }
+
+        /// <summary>
+        /// The confidence of the dictation result on a scale of 0 to 1.
+        /// Null when the confidence is not available.
+        /// </summary>
+        public float? Confidence { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DictationResultEventArgs"/> class.
+        /// </summary>
+        public DictationResultEventArgs(string result, float? confidence)
+        {
+            Confidence = confidence;
+            Result = result;
+        }
+    }
+
+    /// <summary>
+    ///  Event data associated with the session of dictation.
+    /// </summary>
+    public readonly struct DictationSessionEventArgs
+    {
+        /// <summary>
+        /// The reason for this dictation session event.
+        /// </summary>
+        public DictationEventReason Reason { get; }
+        /// <summary>
+        /// The reason for this dictation session event in string.
+        /// </summary>
+        public string ReasonString { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DictationSessionEventArgs"/> class.
+        /// </summary>
+        public DictationSessionEventArgs(DictationEventReason reason, string reasonString)
+        {
+            Reason = reason;
+            ReasonString = reasonString;
+        }
+    }
+}
