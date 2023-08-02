@@ -1,6 +1,6 @@
 # Code Contributions
 
-This project is an open-source project under the BSD 3-Clause license. Community contributions are welcome and appreciated, both for new features and bug fixes.
+This project is an open source project under the BSD 3-Clause license. Community contributions are welcome and appreciated, both for new features and bug fixes.
 
 Contributing to this project is easy. We recommend using the `MRTKDevTemplate` Unity project as a convenient development testbed, as it already includes all of the Project packages as local on-disk dependencies. See [Exploring MRTK3 sample scenes](https://learn.microsoft.com/windows/mixed-reality/mrtk-unity/mrtk3-overview/getting-started/exploring-features/mrtk3-sample-scenes) for more information on how to use this Unity project.
 
@@ -22,7 +22,7 @@ Contributing to this project is easy. We recommend using the `MRTKDevTemplate` U
 
 4. Open the `MRTKDevTemplate` template project located in `UnityProjects/MRTKDevTemplate`. You can add the project to your Unity Hub for easy access.
 
-5. Make your desired changes and create unit tests that ensure your changes work as expected. Make sure to test across in-editor and deployed to device. Commit your changes to your branch. Publish your branch to your fork upstream.
+5. Make your desired changes and create unit tests that ensure your changes work as expected. Make sure to test in-editor and deployed to device. Commit your changes to your branch. Publish your branch to your fork upstream.
 
 6. Open a pull request on the Project repo, targeting the `main` branch. Make sure to accurately describe the changes you've made, and apply relevant labels to your pull request for better categorization and triage. If you're a new contributor to the Project, you may need to sign our contribution agreement.
 
