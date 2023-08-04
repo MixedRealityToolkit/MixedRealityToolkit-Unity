@@ -4,9 +4,7 @@ This project welcomes contributions, suggestions, and feedback. All contribution
 
 ## Contributors
 
-Contributors must abide by the Organization's [code of conduct](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CODE-OF-CONDUCT.md) and [trademark policy](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/TRADEMARKS.md).
-
-Contributors must also follow the procedures outlined in the following sections:
+Contributors must abide by the Mixed Reality Toolkit Organization's [code of conduct](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CODE-OF-CONDUCT.md), [trademark policy](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/TRADEMARKS.md), and observe the following procedures:
 
 * [Code Contributions](contributions/code-contributions.md)
 * [Opening and Assessing Issues](contributions/opening-and-assessing-issues.md)
