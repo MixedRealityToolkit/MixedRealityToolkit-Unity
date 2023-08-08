@@ -35,6 +35,8 @@ steps:
       -TargetPlatform 'WindowsStoreApps'
       -DocsPackagePrefixes 'Accessibility Audio Core Data Diagnostics Environment Input SpatialManipulation UXComponents UXCore Speech.Windows'
       -IgnoreTestAssemblies $true
+      -OutputFolderPrefix 'mrtk'
+      -OutputFolderVersionPostFix
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish binaries for API reference docs'
