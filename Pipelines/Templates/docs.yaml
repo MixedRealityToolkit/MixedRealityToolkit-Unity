@@ -31,13 +31,11 @@ steps:
       -OutputDirectory: '${{ parameters.outputDirectory }}'
       -ImportPackagePath '${{ parameters.docToolProjectRoot }}/Export/DocTool.unitypackage'
       -ProductName 'MRTK3'
-      -ProductDLLPrefix 'MixedReality.Toolkit.'
       -TargetPlatform 'WindowsStoreApps'
-      -DocsPackagePrefixes 'Accessibility Audio Core Data Diagnostics Environment Input SpatialManipulation UXComponents UXCore Speech.Windows'
+      -DocsPackageMap @{'MixedReality.Toolkit.Accessibility'='mrtkaccessibility', 'MixedReality.Toolkit.Audio'='mrtkaudio', 'MixedReality.Toolkit.Core'='mrtkcore', 'MixedReality.Toolkit.Data'='mrtkdata', 'MixedReality.Toolkit.Diagnostics'='mrtkdiagnostics', 'MixedReality.Toolkit.Input'='mrtkinput', 'MixedReality.Toolkit.SpatialManipulation'='mrtkspatialmanipulation', 'MixedReality.Toolkit.UXComponents'='mrtkuxcomponents', 'MixedReality.Toolkit.UXCore'='mrtkuxcore', 'MixedReality.Toolkit.Speech.Windows'='mrtkwindowsspeech'
       -IgnoreTestAssemblies $true
-      -OutputFolderPrefix 'mrtk'
-      -OutputFolderVersionPostFix
-      -OutputCommonDependenciesDirectory
+      -OutputDirectoryPostfixVersion
+      -CommonDependenciesDirectory
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish binaries for API reference docs'
