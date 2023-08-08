@@ -37,6 +37,7 @@ steps:
       -IgnoreTestAssemblies $true
       -OutputFolderPrefix 'mrtk'
       -OutputFolderVersionPostFix
+      -OutputCommonDependenciesDirectory
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish binaries for API reference docs'
