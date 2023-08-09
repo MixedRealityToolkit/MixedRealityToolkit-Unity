@@ -12,7 +12,7 @@ resources:
       type: git
       endpoint: ToolsAccess
       name: tools.internal
-      ref: 26723e6afa6d2adb44a734bd6ce0bc2bd90638b5
+      ref: 78ecf591964ecf511b4c7a0cd84d98ce11e8be16
 
 trigger: none # disable CI
 
