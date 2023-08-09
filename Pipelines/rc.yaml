@@ -23,7 +23,7 @@ resources:
       type: git
       endpoint: ToolsAccess
       name: lib.doctools
-      ref: d2083b9fab4bb6c599048bdc46270d70b45bc86a
+      ref: d9c63b545d93ede992ff3f6a8d17dc28603eda26
 
 trigger: none # only manual runs
 
