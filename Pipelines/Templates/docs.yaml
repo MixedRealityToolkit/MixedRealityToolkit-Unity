@@ -29,11 +29,11 @@ steps:
       -ProjectDirectory: "${{ parameters.mrtkProjectRoot }}/UnityProjects/MRTKDevTemplate"
       -UnityDirectory: "${{ parameters.unityDirectory }}"
       -OutputDirectory: "${{ parameters.outputDirectory }}"
-      -ImportPackagePath "${{ parameters.docToolProjectRoot }}/Export/DocTool.unitypackage"
-      -ProductName "MRTK3"
-      -TargetPlatform "WindowsStoreApps"
-      -DocsPackageMap @{"MixedReality.Toolkit.Accessibility"="mrtkaccessibility";"MixedReality.Toolkit.Audio"="mrtkaudio";"MixedReality.Toolkit.Core"="mrtkcore";"MixedReality.Toolkit.Data"="mrtkdata";"MixedReality.Toolkit.Diagnostics"="mrtkdiagnostics";"MixedReality.Toolkit.Input"="mrtkinput";"MixedReality.Toolkit.SpatialManipulation"="mrtkspatialmanipulation";"MixedReality.Toolkit.UXComponents"="mrtkuxcomponents";"MixedReality.Toolkit.UXCore"="mrtkuxcore";"MixedReality.Toolkit.Speech.Windows"="mrtkwindowsspeech"}
-      -IgnoreTestAssemblies $true
+      -ImportPackagePath: "${{ parameters.docToolProjectRoot }}/Export/DocTool.unitypackage"
+      -ProductName: "MRTK3"
+      -TargetPlatform: "WindowsStoreApps"
+      -DocsPackageMap: @{"MixedReality.Toolkit.Accessibility"="mrtkaccessibility";"MixedReality.Toolkit.Audio"="mrtkaudio";"MixedReality.Toolkit.Core"="mrtkcore";"MixedReality.Toolkit.Data"="mrtkdata";"MixedReality.Toolkit.Diagnostics"="mrtkdiagnostics";"MixedReality.Toolkit.Input"="mrtkinput";"MixedReality.Toolkit.SpatialManipulation"="mrtkspatialmanipulation";"MixedReality.Toolkit.UXComponents"="mrtkuxcomponents";"MixedReality.Toolkit.UXCore"="mrtkuxcore";"MixedReality.Toolkit.Speech.Windows"="mrtkwindowsspeech"}
+      -IgnoreTestAssemblies: $true
       -OutputDirectoryPostfixVersion
       -CommonDependenciesDirectory
 
