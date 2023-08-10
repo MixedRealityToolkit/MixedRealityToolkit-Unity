@@ -67,11 +67,6 @@ namespace MixedReality.Toolkit.Examples
         public event Action<bool> onGazeToggled;
 
         /// <summary>
-        /// event triggered when gaze pinch interactors are toggled on/off
-        /// </summary>
-        public event Action<bool> onGazePinchToggled;
-
-        /// <summary>
         /// Enable all interactors
         /// </summary>
         public void EnableAll()

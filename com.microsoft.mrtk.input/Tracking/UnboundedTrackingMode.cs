@@ -51,28 +51,32 @@ namespace MixedReality.Toolkit.Input
             XRGeneralSettings xrSettings = XRGeneralSettings.Instance;
             if (xrSettings == null)
             {
-                Debug.LogWarning($"EyeLevelSceneOrigin: XRGeneralSettings is null.");
+                Debug.LogWarning($"UnboundedTrackingMode: XRGeneralSettings is null.");
                 return;
             }
 
             XRManagerSettings xrManager = xrSettings.Manager;
             if (xrManager == null)
             {
-                Debug.LogWarning($"EyeLevelSceneOrigin: XRManagerSettings is null.");
+                Debug.LogWarning($"UnboundedTrackingMode: XRManagerSettings is null.");
                 return;
             }
 
             XRLoader xrLoader = xrManager.activeLoader;
             if (xrLoader == null)
             {
-                Debug.LogWarning($"EyeLevelSceneOrigin: XRLoader is null.");
+                if (!Application.isEditor)
+                {
+                    // This warning is only actionable on a XR device.
+                    Debug.LogWarning($"UnboundedTrackingMode: XRLoader is null.");
+                }
                 return;
             }
 
             m_inputSubsystem = xrLoader.GetLoadedSubsystem<XRInputSubsystem>();
             if (m_inputSubsystem == null)
             {
-                Debug.LogWarning($"EyeLevelSceneOrigin: XRInputSubsystem is null.");
+                Debug.LogWarning($"UnboundedTrackingMode: XRInputSubsystem is null.");
                 return;
             }
 
