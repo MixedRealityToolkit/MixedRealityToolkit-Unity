@@ -23,7 +23,7 @@ resources:
       type: git
       endpoint: ToolsAccess
       name: lib.doctools
-      ref: f6dcb5efd248fbe486757cb5a7198aed81c180d5
+      ref: 26723e6afa6d2adb44a734bd6ce0bc2bd90638b5
 
 pr: none # disable PR validation
 
