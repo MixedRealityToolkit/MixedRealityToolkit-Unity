@@ -244,6 +244,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
             // Useful when flattening bounds on an object that isn't actually flat.
             if (boundsControl != null && boundsControl.IsFlat)
             {
+                // Make sure flattenVector is up to date
+                flattenVector = BoundsCalculator.CalculateFlattenVector(transform.lossyScale);
+
                 if (Mathf.Abs(flattenVector.x) > 0)
                 {
                     transform.localScale = new Vector3(flattenThickness / transform.parent.localScale.x, transform.localScale.y, transform.localScale.z);
