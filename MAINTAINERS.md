@@ -6,6 +6,7 @@ This document lists the Maintainers of the Mixed Reality Toolkit for Unity Proje
 |-------------------|---------------|---------------------------------|
 | Adam Mollis       | AMollis       | Microsoft                       |
 | Scott Haynie      | SHaynie       | Microsoft                       |
+| Dave Kline        | david-c-kline | Qualcomm                        |
 
 ---
 Part of MVG-0.1-beta.
