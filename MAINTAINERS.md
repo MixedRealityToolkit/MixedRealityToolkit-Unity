@@ -6,6 +6,7 @@ This document lists the Maintainers of the Mixed Reality Toolkit for Unity Proje
 |-------------------|---------------|---------------------------------|
 | Adam Mollis       | AMollis       | Microsoft                       |
 | Scott Haynie      | SHaynie       | Microsoft                       |
+| Griff Hazen       | GHazen-ML     | Magic Leap                      |
 | Wyck Hebert       | whebertML     | Magic Leap                      |
 
 ---
