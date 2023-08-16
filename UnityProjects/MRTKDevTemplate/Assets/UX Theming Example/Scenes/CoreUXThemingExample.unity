@@ -1694,7 +1694,7 @@ PrefabInstance:
 
 
         2. Include
-        the Data Binding and Theming (com.microsoft.mrtk.data) package.'
+        the Data Binding and Theming (org.mixedreality.mrtk.data) package.'
       objectReference: {fileID: 0}
     - target: {fileID: 2446705927233332293, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
       propertyPath: m_fontSize

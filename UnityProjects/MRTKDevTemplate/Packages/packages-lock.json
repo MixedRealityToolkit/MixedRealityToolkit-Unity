@@ -40,26 +40,26 @@
       "dependencies": {},
       "hash": "22d727d4d1641c27fa85a7519cf76b81890c8f3d"
     },
-    "com.microsoft.mrtk.accessibility": {
-      "version": "file:../../../com.microsoft.mrtk.accessibility",
+    "org.mixedreality.mrtk.accessibility": {
+      "version": "file:../../../org.mixedreality.mrtk.accessibility",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
+        "org.mixedreality.mrtk.core": "3.0.0",
         "com.unity.textmeshpro": "3.0.6"
       }
     },
-    "com.microsoft.mrtk.audio": {
-      "version": "file:../../../com.microsoft.mrtk.audio",
+    "org.mixedreality.mrtk.audio": {
+      "version": "file:../../../org.mixedreality.mrtk.audio",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0"
+        "org.mixedreality.mrtk.core": "3.0.0"
       }
     },
-    "com.microsoft.mrtk.core": {
-      "version": "file:../../../com.microsoft.mrtk.core",
+    "org.mixedreality.mrtk.core": {
+      "version": "file:../../../org.mixedreality.mrtk.core",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -68,31 +68,31 @@
         "com.unity.xr.core-utils": "2.1.0"
       }
     },
-    "com.microsoft.mrtk.data": {
-      "version": "file:../../../com.microsoft.mrtk.data",
+    "org.mixedreality.mrtk.data": {
+      "version": "file:../../../org.mixedreality.mrtk.data",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
+        "org.mixedreality.mrtk.core": "3.0.0",
         "com.unity.nuget.newtonsoft-json": "2.0.2",
         "com.unity.textmeshpro": "3.0.6"
       }
     },
-    "com.microsoft.mrtk.diagnostics": {
-      "version": "file:../../../com.microsoft.mrtk.diagnostics",
+    "org.mixedreality.mrtk.diagnostics": {
+      "version": "file:../../../org.mixedreality.mrtk.diagnostics",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
+        "org.mixedreality.mrtk.core": "3.0.0",
         "com.unity.xr.management": "4.2.1"
       }
     },
-    "com.microsoft.mrtk.extendedassets": {
-      "version": "file:../../../com.microsoft.mrtk.extendedassets",
+    "org.mixedreality.mrtk.extendedassets": {
+      "version": "file:../../../org.mixedreality.mrtk.extendedassets",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.standardassets": "3.0.0"
+        "org.mixedreality.mrtk.standardassets": "3.0.0"
       }
     },
     "com.microsoft.mrtk.graphicstools.unity": {
@@ -102,44 +102,44 @@
       "dependencies": {},
       "hash": "96743038a313c93322c935d99d2deb18e831aa2d"
     },
-    "com.microsoft.mrtk.input": {
-      "version": "file:../../../com.microsoft.mrtk.input",
+    "org.mixedreality.mrtk.input": {
+      "version": "file:../../../org.mixedreality.mrtk.input",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
-        "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
+        "org.mixedreality.mrtk.core": "3.0.0",
+        "org.mixedreality.mrtk.graphicstools.unity": "0.5.12",
         "com.unity.inputsystem": "1.6.1",
         "com.unity.xr.arfoundation": "5.0.5",
         "com.unity.xr.interaction.toolkit": "2.3.0",
         "com.unity.xr.core-utils": "2.1.0"
       }
     },
-    "com.microsoft.mrtk.spatialmanipulation": {
-      "version": "file:../../../com.microsoft.mrtk.spatialmanipulation",
+    "org.mixedreality.mrtk.spatialmanipulation": {
+      "version": "file:../../../org.mixedreality.mrtk.spatialmanipulation",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
-        "com.microsoft.mrtk.uxcore": "3.0.0",
+        "org.mixedreality.mrtk.core": "3.0.0",
+        "org.mixedreality.mrtk.uxcore": "3.0.0",
         "com.unity.inputsystem": "1.6.1",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
     },
-    "com.microsoft.mrtk.standardassets": {
-      "version": "file:../../../com.microsoft.mrtk.standardassets",
+    "org.mixedreality.mrtk.standardassets": {
+      "version": "file:../../../org.mixedreality.mrtk.standardassets",
       "depth": 0,
       "source": "local",
       "dependencies": {
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12"
       }
     },
-    "com.microsoft.mrtk.tools": {
-      "version": "file:../../../com.microsoft.mrtk.tools",
+    "org.mixedreality.mrtk.tools": {
+      "version": "file:../../../org.mixedreality.mrtk.tools",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0"
+        "org.mixedreality.mrtk.core": "3.0.0"
       }
     },
     "com.microsoft.mrtk.tts.windows": {
@@ -148,47 +148,47 @@
       "source": "local-tarball",
       "dependencies": {}
     },
-    "com.microsoft.mrtk.uxcomponents": {
-      "version": "file:../../../com.microsoft.mrtk.uxcomponents",
+    "org.mixedreality.mrtk.uxcomponents": {
+      "version": "file:../../../org.mixedreality.mrtk.uxcomponents",
       "depth": 0,
       "source": "local",
       "dependencies": {
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-        "com.microsoft.mrtk.uxcore": "3.0.0",
-        "com.microsoft.mrtk.spatialmanipulation": "3.0.0",
-        "com.microsoft.mrtk.standardassets": "3.0.0",
+        "org.mixedreality.mrtk.uxcore": "3.0.0",
+        "org.mixedreality.mrtk.spatialmanipulation": "3.0.0",
+        "org.mixedreality.mrtk.standardassets": "3.0.0",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
     },
-    "com.microsoft.mrtk.uxcomponents.noncanvas": {
-      "version": "file:../../../com.microsoft.mrtk.uxcomponents.noncanvas",
+    "org.mixedreality.mrtk.uxcomponents.noncanvas": {
+      "version": "file:../../../org.mixedreality.mrtk.uxcomponents.noncanvas",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.uxcore": "3.0.0",
-        "com.microsoft.mrtk.spatialmanipulation": "3.0.0",
-        "com.microsoft.mrtk.standardassets": "3.0.0"
+        "org.mixedreality.mrtk.uxcore": "3.0.0",
+        "org.mixedreality.mrtk.spatialmanipulation": "3.0.0",
+        "org.mixedreality.mrtk.standardassets": "3.0.0"
       }
     },
-    "com.microsoft.mrtk.uxcore": {
-      "version": "file:../../../com.microsoft.mrtk.uxcore",
+    "org.mixedreality.mrtk.uxcore": {
+      "version": "file:../../../org.mixedreality.mrtk.uxcore",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
+        "org.mixedreality.mrtk.core": "3.0.0",
         "com.unity.inputsystem": "1.6.1",
         "com.unity.textmeshpro": "3.0.6",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
     },
-    "com.microsoft.mrtk.windowsspeech": {
-      "version": "file:../../../com.microsoft.mrtk.windowsspeech",
+    "org.mixedreality.mrtk.windowsspeech": {
+      "version": "file:../../../org.mixedreality.mrtk.windowsspeech",
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.core": "3.0.0",
-        "com.microsoft.mrtk.tts.windows": "1.0.1"
+        "org.mixedreality.mrtk.core": "3.0.0",
+        "org.mixedreality.mrtk.tts.windows": "1.0.1"
       }
     },
     "com.microsoft.spatialaudio.spatializer.unity": {
