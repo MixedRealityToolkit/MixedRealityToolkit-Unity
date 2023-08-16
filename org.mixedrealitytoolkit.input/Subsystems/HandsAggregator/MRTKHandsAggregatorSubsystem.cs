@@ -21,7 +21,7 @@ namespace MixedReality.Toolkit.Input
     [MRTKSubsystem(
         Name = "org.mixedrealitytoolkit.hands",
         DisplayName = "MRTK Hands Aggregator Subsystem",
-        Author = "MixedRealityToolkit",
+        Author = "Mixed Reality Toolkit Contributors",
         ProviderType = typeof(MRTKAggregator),
         SubsystemTypeOverride = typeof(MRTKHandsAggregatorSubsystem),
         ConfigType = typeof(MRTKHandsAggregatorConfig))]

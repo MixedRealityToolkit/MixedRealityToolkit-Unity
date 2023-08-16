@@ -23,7 +23,7 @@ namespace MixedReality.Toolkit.Speech.Windows
     [MRTKSubsystem(
         Name = "org.mixedrealitytoolkit.windowsdictation",
         DisplayName = "MRTK Windows Dictation Subsystem",
-        Author = "MixedRealityToolkit",
+        Author = "Mixed Reality Toolkit Contributors",
         ProviderType = typeof(WindowsDictationProvider),
         SubsystemTypeOverride = typeof(WindowsDictationSubsystem),
         ConfigType = typeof(WindowsDictationSubsystemConfig))]

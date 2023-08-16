@@ -21,7 +21,7 @@ namespace MixedReality.Toolkit.Input
     [MRTKSubsystem(
         Name = "org.mixedrealitytoolkit.synthhands",
         DisplayName = "Subsystem for Hand Synthesis",
-        Author = "MixedRealityToolkit",
+        Author = "Mixed Reality Toolkit Contributors",
         ProviderType = typeof(SyntheticHandsProvider),
         SubsystemTypeOverride = typeof(SyntheticHandsSubsystem),
         ConfigType = typeof(SyntheticHandsConfig))]

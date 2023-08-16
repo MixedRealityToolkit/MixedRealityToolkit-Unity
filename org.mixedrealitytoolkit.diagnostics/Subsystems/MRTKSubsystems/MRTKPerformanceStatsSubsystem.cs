@@ -23,7 +23,7 @@ namespace MixedReality.Toolkit.Diagnostics
     [MRTKSubsystem(
         Name = "org.mixedrealitytoolkit.performancestats",
         DisplayName = "MRTK Performance Stats Subsystem",
-        Author = "MixedRealityToolkit",
+        Author = "Mixed Reality Toolkit Contributors",
         ProviderType = typeof(PerformanceStatsProvider),
         SubsystemTypeOverride = typeof(MRTKPerformanceStatsSubsystem),
         ConfigType = typeof(BaseSubsystemConfig))]

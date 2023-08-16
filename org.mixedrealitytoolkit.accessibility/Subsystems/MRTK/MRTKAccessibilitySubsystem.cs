@@ -18,7 +18,7 @@ namespace MixedReality.Toolkit.Accessibility
     [MRTKSubsystem(
         Name = "org.mixedrealitytoolkit.accessibility",
         DisplayName = "MRTK Accessibility Subsystem",
-        Author = "MixedRealityToolkit",
+        Author = "Mixed Reality Toolkit Contributors",
         ProviderType = typeof(AccessibilityProvider),
         SubsystemTypeOverride = typeof(MRTKAccessibilitySubsystem),
         ConfigType = typeof(AccessibilitySubsystemConfig))]
