@@ -29,17 +29,17 @@
 /Tooling/ @shaynie
 
 # Feature packages
-/com.microsoft.mrtk.accessibility/ @marlenaklein-msft @AMollis @shaynie
-/com.microsoft.mrtk.audio/ @marlenaklein-msft @AMollis @shaynie
-/com.microsoft.mrtk.core/ @marlenaklein-msft @AMollis @shaynie
-/com.microsoft.mrtk.data/ @marlenaklein-msft @AMollis @shaynie
-/com.microsoft.mrtk.diagnostics/ @marlenaklein-msft @AMollis @shaynie
-/com.microsoft.mrtk.input/ @marlenaklein-msft @AMollis @shaynie
-/com.microsoft.mrtk.spatialmanipulation/ @marlenaklein-msft @AMollis @shaynie
-/com.microsoft.mrtk.tools/ @marlenaklein-msft @AMollis @shaynie
-/com.microsoft.mrtk.uxcomponents/ @marlenaklein-msft @AMollis @shaynie
-/com.microsoft.mrtk.uxcore/ @marlenaklein-msft @AMollis @shaynie
-/com.microsoft.mrtk.windowsspeech/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.accessibility/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.audio/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.core/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.data/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.diagnostics/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.input/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.spatialmanipulation/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.tools/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.uxcomponents/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.uxcore/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.windowsspeech/ @marlenaklein-msft @AMollis @shaynie
 
 # Examples and templates
 /UnityProjects/ @marlenaklein-msft @AMollis @shaynie
