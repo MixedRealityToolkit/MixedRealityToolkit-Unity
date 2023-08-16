@@ -1,0 +1,45 @@
+{
+    "name": "MixedReality.Toolkit.UXCore",
+    "rootNamespace": "MixedReality.Toolkit.UX",
+    "references": [
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Data",
+        "Microsoft.MixedReality.GraphicsTools",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "Unity.XR.Interaction.Toolkit",
+        "Unity.XR.CoreUtils",
+        "MixedReality.Toolkit.SpatialManipulation",
+        "MixedReality.Toolkit.Input"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "org.mixedrealitytoolkit.data",
+            "expression": "",
+            "define": "MRTK_DATA_PRESENT"
+        },
+        {
+            "name": "org.mixedrealitytoolkit.spatialmanipulation",
+            "expression": "",
+            "define": "MRTK_SPATIAL_PRESENT"
+        },
+        {
+            "name": "org.mixedrealitytoolkit.input",
+            "expression": "",
+            "define": "MRTK_INPUT_PRESENT"
+        },
+        {
+            "name": "org.mixedrealitytoolkit.windowsspeech",
+            "expression": "",
+            "define": "MRTK_SPEECH_PRESENT"
+        }
+    ],
+    "noEngineReferences": false
+}
