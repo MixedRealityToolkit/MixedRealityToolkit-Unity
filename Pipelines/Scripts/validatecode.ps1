@@ -257,11 +257,11 @@ function GetProjectRelativePath {
 # While individual handlers may not be that significant, the sum total of time across all handlers
 # (which run serially) causes noticeable delays in responsiveness in the Unity editor.
 $InitializeOnLoadExceptions = [System.Collections.Generic.HashSet[String]]@(
-    "org.mixedreality.mrtk.core/Editor/MRTKSettings.cs",
-    "org.mixedreality.mrtk.core/Editor/EditorProjectUtilities.cs",
-    "org.mixedreality.mrtk.core/Editor/MRTKProjectValidation.cs",
-    "org.mixedreality.mrtk.input/Editor/InputValidation.cs",
-    "org.mixedreality.mrtk.windowsspeech/Editor/WindowsSpeechValidation.cs"
+    "org.mixedrealitytoolkit.core/Editor/MRTKSettings.cs",
+    "org.mixedrealitytoolkit.core/Editor/EditorProjectUtilities.cs",
+    "org.mixedrealitytoolkit.core/Editor/MRTKProjectValidation.cs",
+    "org.mixedrealitytoolkit.input/Editor/InputValidation.cs",
+    "org.mixedrealitytoolkit.windowsspeech/Editor/WindowsSpeechValidation.cs"
 )
 
 <#
@@ -304,7 +304,7 @@ to `$InitializeOnLoadExceptions after discussion with the rest of the team.
 # Note that this is used in a rough regex to check for any references to ".GetTypes()"
 # which is generally good enough catch those incorrect use cases.
 $AssemblyTypesExceptions = [System.Collections.Generic.HashSet[String]]@(
-    "org.mixedreality.mrtk.core/Utilities/Extensions/AssemblyExtensions.cs"
+    "org.mixedrealitytoolkit.core/Utilities/Extensions/AssemblyExtensions.cs"
 )
 
 <#
@@ -471,7 +471,7 @@ function CheckAsmDef {
         # "@
         #             $containsIssue = $true
         #         }
-        if ($FileName -match "org.mixedreality.mrtk" -and -not (Test-Path (Join-Path (Split-Path $FileName) "AssemblyInfo.cs"))) {
+        if ($FileName -match "org.mixedrealitytoolkit." -and -not (Test-Path (Join-Path (Split-Path $FileName) "AssemblyInfo.cs"))) {
             Write-Warning @"
 New Assembly Definition asset was added but a corresponding AssemblyInfo.cs wasn't committed.
 Please run create-assemblyinfo.ps1 from the Tooling folder in the repo, open the project in Unity to generate a meta, and commit the resulting files.

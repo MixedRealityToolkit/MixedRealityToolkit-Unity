@@ -69,8 +69,8 @@ As of June 2022, the following components are considered to be in early preview.
 
 | Name | Package Name |
 | --- | --- |
-| Accessibility | org.mixedreality.mrtk.accessibility |
-| Data Binding and Theming | org.mixedreality.mrtk.data |
+| Accessibility | org.mixedrealitytoolkit.accessibility |
+| Data Binding and Theming | org.mixedrealitytoolkit.data |
 
 The MRTK team is fully committed to releasing this functionality. It is important to note that the packages may not contain the complete feature set that is planned to be released or they may undergo major, breaking architectural changes before release.
 
