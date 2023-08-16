@@ -9,6 +9,7 @@ This document lists the Maintainers of the Mixed Reality Toolkit for Unity Proje
 | Griff Hazen       | GHazen-ML     | Magic Leap                      |
 | Wyck Hebert       | whebertML     | Magic Leap                      |
 | Dave Kline        | david-c-kline | Qualcomm                        |
+| Kurtis Eveleigh   | keveleigh     | Qualcomm                        |
 
 ---
 Part of MVG-0.1-beta.
