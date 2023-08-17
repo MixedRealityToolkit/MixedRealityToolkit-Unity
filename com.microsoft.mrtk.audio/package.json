@@ -2,7 +2,7 @@
   "name": "com.microsoft.mrtk.audio",
   "version": "3.0.0-development",
   "description": "This package has been deprecated",
-  "displayName": "MRTK Audio Effects",
+  "displayName": "MRTK Audio Effects (deprecated)",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",
   "license": "BSD 3-Clause",
@@ -15,6 +15,6 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "org.mixedrealitytoolkit.core": "3.0.0"
+    "org.mixedrealitytoolkit.audio": "3.0.0"
   }
 }

@@ -1,8 +1,7 @@
 {
-    "name": "MixedReality.Toolkit.Core.Deprecated.Editor",
+    "name": "MixedReality.Toolkit.UXCore.Deprecated.Editor",
     "rootNamespace": "",
-    "references": [
-    ],
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],

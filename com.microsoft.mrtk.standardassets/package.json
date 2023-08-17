@@ -2,7 +2,7 @@
   "name": "com.microsoft.mrtk.standardassets",
   "version": "3.0.0-development",
   "description": "This package has been deprecated",
-  "displayName": "MRTK Standard Assets",
+  "displayName": "MRTK Standard Assets (deprecated)",
   "msftFeatureCategory": "MRTK3",
   "unity": "2021.3",
   "author": "Microsoft",
@@ -15,6 +15,6 @@
     "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
   },
   "dependencies": {
-    "com.microsoft.mrtk.graphicstools.unity": "0.5.12"
+    "org.mixedrealitytoolkit.standardassets": "3.0.0"
   }
 }

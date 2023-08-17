@@ -1,8 +1,7 @@
 {
-    "name": "MixedReality.Toolkit.Data.Editor",
+    "name": "MixedReality.Toolkit.Diagnostics.Deprecated.Editor",
     "rootNamespace": "",
     "references": [
-        "MixedReality.Toolkit.Data"
     ],
     "includePlatforms": [
         "Editor"

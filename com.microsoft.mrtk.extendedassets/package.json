@@ -2,7 +2,7 @@
   "name": "com.microsoft.mrtk.extendedassets",
   "version": "3.0.0-development",
   "description": "This package has been deprecated",
-  "displayName": "MRTK Extended Assets",
+  "displayName": "MRTK Extended Assets (deprecated)",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",
   "license": "BSD 3-Clause",
@@ -15,6 +15,6 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "com.microsoft.mrtk.standardassets": "3.0.0"
+    "org.mixedrealitytoolkit.extendedassets": "3.0.0"
   }
 }

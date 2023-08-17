@@ -2,7 +2,7 @@
   "name": "com.microsoft.mrtk.uxcore",
   "version": "3.0.0-development",
   "description": "This package has been deprecated",
-  "displayName": "MRTK UX Core Scripts",
+  "displayName": "MRTK UX Core Scripts (deprecated)",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",
   "license": "BSD 3-Clause",
@@ -15,17 +15,6 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "com.microsoft.mrtk.core": "3.0.0",
-    "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-    "com.unity.inputsystem": "1.6.1",
-    "com.unity.textmeshpro": "3.0.6",
-    "com.unity.xr.interaction.toolkit": "2.3.0"
-  },
-  "msftOptionalPackages": {
-    "com.microsoft.mrtk.data": "1.0.0",
-    "com.microsoft.mrtk.spatialmanipulation": "3.0.0"
-  },
-  "msftTestDependencies": {
-    "com.microsoft.mrtk.input": "3.0.0"
+    "org.mixedrealitytoolkit.uxcore": "3.0.0"
   }
 }

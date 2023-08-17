@@ -1,11 +1,7 @@
 {
-    "name": "MixedReality.Toolkit.UXComponents.Editor",
-    "rootNamespace": "MixedReality.Toolkit.Editor",
-    "references": [
-        "Unity.TextMeshPro",
-        "Unity.XR.Interaction.Toolkit",
-        "Microsoft.MixedReality.GraphicsTools"
-    ],
+    "name": "MixedReality.Toolkit.UXComponents.Deprecated.Editor",
+    "rootNamespace": "",
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],

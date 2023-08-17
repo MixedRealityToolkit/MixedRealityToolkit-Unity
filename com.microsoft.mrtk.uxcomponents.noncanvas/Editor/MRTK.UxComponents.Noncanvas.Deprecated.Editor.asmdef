@@ -1,11 +1,7 @@
 {
-    "name": "MixedReality.Toolkit.Speech.Windows.Editor",
-    "rootNamespace": "MixedReality.Toolkit.Speech.Windows.Editor",
+    "name": "MixedReality.Toolkit.UXComponents.Noncanvas.Deprecated.Editor",
+    "rootNamespace": "",
     "references": [
-        "MixedReality.Toolkit.Core",
-        "MixedReality.Toolkit.Core.Editor",
-        "MixedReality.Toolkit.Speech.Windows",
-        "Unity.XR.CoreUtils.Editor"
     ],
     "includePlatforms": [
         "Editor"
