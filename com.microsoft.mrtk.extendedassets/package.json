@@ -1,7 +1,7 @@
 {
   "name": "com.microsoft.mrtk.extendedassets",
   "version": "3.0.0-development",
-  "description": "This package offers additional assets helpful for example scenes or rapid prototyping. These assets are in addition to the more commonly-used assets located in StandardAssets.",
+  "description": "This package has been deprecated",
   "displayName": "MRTK Extended Assets",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",

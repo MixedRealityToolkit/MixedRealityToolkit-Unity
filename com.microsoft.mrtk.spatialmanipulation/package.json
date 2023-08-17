@@ -1,7 +1,7 @@
 {
   "name": "com.microsoft.mrtk.spatialmanipulation",
   "version": "3.0.0-development",
-  "description": "Spatial manipulation features, including ObjectManipulator, BoundsControl, and the Solvers/Constraints systems.",
+  "description": "This package has been deprecated",
   "displayName": "MRTK Spatial Manipulation",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",

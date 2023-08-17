@@ -1,7 +1,7 @@
 {
   "name": "com.microsoft.mrtk.accessibility",
   "version": "1.0.0-development",
-  "description": "*** Please note ***\nThe MRTK3 accessibility features are in early preview and may not contain all planned features. Early preview releases also may undergo significant, breaking architectural changes before release.\n\nFeatures and subsystem to enable accessibility in mixed reality experiences.",
+  "description": "This package has been deprecated",
   "displayName": "MRTK Accessibility Early Preview",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",

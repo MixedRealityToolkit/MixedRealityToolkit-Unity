@@ -1,7 +1,7 @@
 {
   "name": "com.microsoft.mrtk.uxcore",
   "version": "3.0.0-development",
-  "description": "Core interaction and visualization scripts for building MR user interface components.\n\nNote: this is intended to be consumed in order to build UX libraries. To build MR interfaces with a pre-existing library of components, see com.microsoft.mrtk.uxcomponents.",
+  "description": "This package has been deprecated",
   "displayName": "MRTK UX Core Scripts",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",

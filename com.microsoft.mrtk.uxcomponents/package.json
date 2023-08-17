@@ -1,7 +1,7 @@
 {
   "name": "com.microsoft.mrtk.uxcomponents",
   "version": "3.0.0-development",
-  "description": "MRTK UX component library, leveraging RectTransform/Canvas for dynamic layout and presentation. Contains prefabs, visuals, pre-made controls, and everything to get started building 3D user interfaces for mixed reality.",
+  "description": "This package has been deprecated",
   "displayName": "MRTK UX Components",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",

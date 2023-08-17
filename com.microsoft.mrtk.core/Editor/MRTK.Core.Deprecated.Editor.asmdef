@@ -1,11 +1,8 @@
 {
-    "name": "MixedReality.Toolkit.Core.Editor",
-    "rootNamespace": "MixedReality.Toolkit.Editor",
+    "name": "MixedReality.Toolkit.Core.Deprecated.Editor",
+    "rootNamespace": "MixedReality.Toolkit.Core.Deprecated.Editor",
     "references": [
-        "MixedReality.Toolkit.Core",
-        "Unity.XR.Interaction.Toolkit",
-        "Unity.XR.Interaction.Toolkit.Editor",
-        "Unity.XR.CoreUtils.Editor"
+        "MixedReality.Toolkit.Core.Deprecated.Editor"
     ],
     "includePlatforms": [
         "Editor"

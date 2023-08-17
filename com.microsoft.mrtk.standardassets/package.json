@@ -1,7 +1,7 @@
 {
   "name": "com.microsoft.mrtk.standardassets",
   "version": "3.0.0-development",
-  "description": "Common assets used by the MRTK packages, including common fonts, materials, and models. Relies on the Graphics Tools collection of shaders.",
+  "description": "This package has been deprecated",
   "displayName": "MRTK Standard Assets",
   "msftFeatureCategory": "MRTK3",
   "unity": "2021.3",
