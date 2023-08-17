@@ -4,7 +4,7 @@
 $gitRoot = ((git -C $PSScriptRoot rev-parse --show-toplevel) | Out-String).Trim()
 
 Get-ChildItem -Path (Join-Path $gitRoot * package.json) | ForEach-Object {
-    $packageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+" -Path $_ | Select-Object -First 1
+    $packageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+|com\.microsoft\.mrtk\.\w+" -Path $_ | Select-Object -First 1
 
     if (-not $packageName) {
         return # this is not an MRTK package, so skip
