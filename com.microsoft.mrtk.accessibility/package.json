@@ -5,7 +5,7 @@
   "displayName": "MRTK Accessibility Early Preview",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",
-  "license": "MIT",
+  "license": "BSD 3-Clause",
   "repository": {
     "type": "git",
     "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity.git"
@@ -15,11 +15,6 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "com.microsoft.mrtk.core": "3.0.0",
-    "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-    "com.unity.textmeshpro": "3.0.6"
-  },
-  "msftTestDependencies": {
-    "com.microsoft.mrtk.input": "3.0.0"
+    "org.mixedrealitytoolkit.accessibility": "3.0.0" 
   }
 }

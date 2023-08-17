@@ -5,7 +5,7 @@
   "displayName": "MRTK Extended Assets",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",
-  "license": "MIT",
+  "license": "BSD 3-Clause",
   "repository": {
     "type": "git",
     "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity.git"
