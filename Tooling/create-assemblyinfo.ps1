@@ -48,7 +48,7 @@ Get-ChildItem -Path (Join-Path $gitRoot * package.json) | ForEach-Object {
 using System.Reflection;
 
 [assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit $assemblyName")]
-[assembly: AssemblyCopyright("Copyright © Microsoft Corporation")]
+[assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.
 // https://docs.microsoft.com/troubleshoot/visualstudio/general/assembly-version-assembly-file-version

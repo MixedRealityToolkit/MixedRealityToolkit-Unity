@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit Spatial Manipulation")]
-[assembly: AssemblyCopyright("Copyright © Microsoft Corporation")]
+[assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.SpatialManipulation.Editor")]
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.SpatialManipulation.Runtime.Tests")]
