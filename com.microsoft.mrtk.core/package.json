@@ -8,10 +8,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/microsoft/MixedRealityToolkit-Unity.git"
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity.git"
   },
   "bugs": {
-    "url": "https://github.com/microsoft/MixedRealityToolkit-Unity/issues"
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
   },
   "unity": "2021.3",
   "dependencies": {

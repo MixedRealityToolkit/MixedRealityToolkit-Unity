@@ -59,7 +59,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         /// <summary>
         /// Some apps will instantiate a button, disable it while they do other setup, then enable it.  This caused a bug where the button front plate would be flattened against the button.
         /// This tests to confirm that this has not regressed.
-        /// https://github.com/microsoft/MixedRealityToolkit-Unity/issues/6024
+        /// https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/6024
         /// </summary>
         [UnityTest]
         public IEnumerator ButtonInstantiateDisableThenEnableBeforeStart([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
@@ -86,7 +86,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
         /// <summary>
         /// This test reproduces P0 issue 4263 which caused null pointers when pressing buttons with poke interactors
-        /// See https://github.com/microsoft/MixedRealityToolkit-Unity/issues/4683
+        /// See https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/4683
         /// </summary>
         [UnityTest]
         public IEnumerator PokeButtonTest([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
@@ -259,7 +259,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         /// <summary>
         /// There was an issue where rotating a button after Start() had executed resulted in the front plate going in the wrong direction.
         /// This tests that it has not regressed.
-        /// https://github.com/microsoft/MixedRealityToolkit-Unity/issues/6025
+        /// https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/6025
         /// </summary>
         [UnityTest]
         public IEnumerator RotateButton([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)

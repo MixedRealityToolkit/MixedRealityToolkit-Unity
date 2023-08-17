@@ -9,10 +9,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/microsoft/MixedRealityToolkit-Unity.git"
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity.git"
   },
   "bugs": {
-    "url": "https://github.com/microsoft/MixedRealityToolkit-Unity/issues"
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
   },
   "dependencies": {
     "com.microsoft.mrtk.graphicstools.unity": "0.5.12"
