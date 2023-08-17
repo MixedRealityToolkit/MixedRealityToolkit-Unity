@@ -1,0 +1,21 @@
+{
+    "name": "MixedReality.Toolkit.Core.Editor",
+    "rootNamespace": "MixedReality.Toolkit.Editor",
+    "references": [
+        "MixedReality.Toolkit.Core",
+        "Unity.XR.Interaction.Toolkit",
+        "Unity.XR.Interaction.Toolkit.Editor",
+        "Unity.XR.CoreUtils.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

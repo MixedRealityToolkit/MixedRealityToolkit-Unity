@@ -1,0 +1,21 @@
+{
+    "name": "MixedReality.Toolkit.Speech.Windows.Editor",
+    "rootNamespace": "MixedReality.Toolkit.Speech.Windows.Editor",
+    "references": [
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core.Editor",
+        "MixedReality.Toolkit.Speech.Windows",
+        "Unity.XR.CoreUtils.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
