@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-# Copyright (c) Microsoft Corporation.
-# Licensed under the MIT License.
+# Copyright (c) Mixed Reality Toolkit Contributors
+# Licensed under the BSD 3-Clause
 
 """
 Prints code that can be copy / pasted to run multiple Unity Playmode tests

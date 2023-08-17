@@ -1,5 +1,5 @@
-# Copyright (c) Microsoft Corporation.
-# Licensed under the MIT License.
+# Copyright (c) Mixed Reality Toolkit Contributors
+# Licensed under the BSD 3-Clause
 
 $gitRoot = ((git -C $PSScriptRoot rev-parse --show-toplevel) | Out-String).Trim()
 
@@ -48,7 +48,7 @@ Get-ChildItem -Path (Join-Path $gitRoot * package.json) | ForEach-Object {
 using System.Reflection;
 
 [assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit $assemblyName")]
-[assembly: AssemblyCopyright("Copyright © Microsoft Corporation")]
+[assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.
 // https://docs.microsoft.com/troubleshoot/visualstudio/general/assembly-version-assembly-file-version
