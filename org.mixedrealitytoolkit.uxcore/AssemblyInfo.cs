@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit UX Core")]
-[assembly: AssemblyCopyright("Copyright © Microsoft Corporation")]
+[assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.UXComponents.Runtime.Tests")]
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.UXComponents.NonCanvas.Runtime.Tests")]

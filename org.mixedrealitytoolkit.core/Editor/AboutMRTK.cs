@@ -86,7 +86,7 @@ namespace MixedReality.Toolkit.Editor
                     // Only add additional space if the text fallback is used in RenderMixedRealityToolkitLogo().
                     EditorGUILayout.Space(3);
                 }
-                EditorGUILayout.LabelField("Copyright (c) Microsoft Corporation. Licensed under the MIT License.", MRTKEditorStyles.LicenseStyle);
+                EditorGUILayout.LabelField("Copyright (c) Mixed Reality Toolkit Contributors, Licensed under the BSD 3-Clause", MRTKEditorStyles.LicenseStyle);
                 EditorGUILayout.Space(12);
 
                 if (packageListRequest != null && packageListRequest.IsCompleted == false)
