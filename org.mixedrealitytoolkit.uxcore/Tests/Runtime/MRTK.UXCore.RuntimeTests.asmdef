@@ -1,0 +1,39 @@
+{
+    "name": "MixedReality.Toolkit.UXCore.Runtime.Tests",
+    "rootNamespace": "",
+    "references": [
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core.TestUtilities",
+        "MixedReality.Toolkit.UXCore",
+        "MixedReality.Toolkit.Input",
+        "MixedReality.Toolkit.Input.Runtime.Tests",
+        "UnityEditor.TestRunner",
+        "UnityEngine.TestRunner",
+        "Unity.TextMeshPro",
+        "Unity.XR.Interaction.Toolkit"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [
+        {
+            "name": "org.mixedrealitytoolkit.input",
+            "expression": "",
+            "define": "MRTK_INPUT_PRESENT"
+        },
+        {
+            "name": "org.mixedrealitytoolkit.windowsspeech",
+            "expression": "",
+            "define": "MRTK_SPEECH_PRESENT"
+        }
+    ],
+    "noEngineReferences": false
+}

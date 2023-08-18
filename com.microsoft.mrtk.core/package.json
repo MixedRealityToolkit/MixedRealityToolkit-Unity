@@ -1,22 +1,20 @@
 {
   "name": "com.microsoft.mrtk.core",
   "version": "3.0.0-development",
-  "description": "A limited collection of common interfaces and utilities that most MRTK packages share. Most implementations of these interfaces are contained in other packages in the MRTK ecosystem.",
-  "displayName": "MRTK Core Definitions",
+  "description": "This package has been deprecated",
+  "displayName": "MRTK Core Definitions (deprecated)",
   "msftFeatureCategory": "MRTK3",
   "author": "Microsoft",
-  "license": "MIT",
+  "license": "BSD 3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/microsoft/MixedRealityToolkit-Unity.git"
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity.git"
   },
   "bugs": {
-    "url": "https://github.com/microsoft/MixedRealityToolkit-Unity/issues"
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
   },
   "unity": "2021.3",
   "dependencies": {
-    "com.unity.xr.interaction.toolkit": "2.3.0",
-    "com.unity.xr.management": "4.2.1",
-    "com.unity.xr.core-utils": "2.1.0"
+    "org.mixedrealitytoolkit.core": "3.0.0"
   }
 }

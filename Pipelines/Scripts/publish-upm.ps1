@@ -1,5 +1,5 @@
-# Copyright (c) Microsoft Corporation.
-# Licensed under the MIT License.
+# Copyright (c) Mixed Reality Toolkit Contributors
+# Licensed under the BSD 3-Clause
 
 <#
 .SYNOPSIS
@@ -38,12 +38,21 @@ try {
     }
 
     # Get the list of package (.tgz) files
+    Get-ChildItem -Path $PackageDirectory -Filter "org.mixedrealitytoolkit.*.tgz" | ForEach-Object {
+        Write-Output "======================="
+        Write-Output "Publishing: $($_.Name) "
+        Write-Output "======================="
+        npm publish $_
+    }
+    
+    # Publish the deprecated package files
     Get-ChildItem -Path $PackageDirectory -Filter "com.microsoft.mrtk.*.tgz" | ForEach-Object {
         Write-Output "======================="
         Write-Output "Publishing: $($_.Name) "
         Write-Output "======================="
         npm publish $_
     }
+    
 }
 finally {
     if ($RegistryPath) {

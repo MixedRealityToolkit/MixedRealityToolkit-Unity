@@ -1,0 +1,20 @@
+{
+  "name": "org.mixedrealitytoolkit.extendedassets",
+  "version": "3.0.0-development",
+  "description": "This package offers additional assets helpful for example scenes or rapid prototyping. These assets are in addition to the more commonly-used assets located in StandardAssets.",
+  "displayName": "MRTK Extended Assets",
+  "msftFeatureCategory": "MRTK3",
+  "author": "Microsoft",
+  "license": "BSD 3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
+  },
+  "unity": "2021.3",
+  "dependencies": {
+    "org.mixedrealitytoolkit.standardassets": "3.0.0"
+  }
+}

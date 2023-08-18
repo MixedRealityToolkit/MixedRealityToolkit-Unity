@@ -1,5 +1,5 @@
-# Copyright (c) Microsoft Corporation.
-# Licensed under the MIT License.
+# Copyright (c) Mixed Reality Toolkit Contributors
+# Licensed under the BSD 3-Clause
 
 <#
 .SYNOPSIS
@@ -66,7 +66,7 @@ try {
 
     # loop through package directories, update package version, assembly version, and build version hash for updating dependencies
     Get-ChildItem -Path $ProjectRoot/*/package.json | ForEach-Object {
-        $packageName = Select-String -Pattern "com\.microsoft\.mrtk\.\w+" -Path $_ | Select-Object -First 1
+        $packageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+|com\.microsoft\.mrtk\.\w+" -Path $_ | Select-Object -First 1
 
         if (-not $packageName) {
             return # this is not an MRTK package, so skip
@@ -130,7 +130,7 @@ try {
 
     # update dependencies using the versionHash map
     Get-ChildItem -Path $ProjectRoot/*/package.json | ForEach-Object {
-        $currentPackageName = Select-String -Pattern "com\.microsoft\.mrtk\.\w+" -Path $_ | Select-Object -First 1
+        $currentPackageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+|com\.microsoft\.mrtk\.\w+" -Path $_ | Select-Object -First 1
         if (-not $currentPackageName) {
             return # this is not an MRTK package, so skip
         }
