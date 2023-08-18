@@ -46,7 +46,7 @@ try {
     Write-Output "PackageSearchPath: $packageSearchPath"
 
     Get-ChildItem -Path $packageSearchPath | ForEach-Object {
-        $packageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+|com\.microsoft\.mrtk\.\w+" -Path $_.FullName | Select-Object -First 1
+        $packageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*|com\.microsoft\.mrtk\.\w+(\.\w+)*" -Path $_.FullName | Select-Object -First 1
 
         if (-not $packageName) {
             return # this is not an MRTK package, so skip
@@ -91,7 +91,7 @@ try {
     }
     # update all dependencies and repackage
     Get-ChildItem -Path $packageSearchPath | ForEach-Object {
-        $currentPackageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+|com\.microsoft\.mrtk\.\w+" -Path $_.FullName | Select-Object -First 1
+        $currentPackageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*|com\.microsoft\.mrtk\.\w+(\.\w+)*" -Path $_.FullName | Select-Object -First 1
 
         if (-not $currentPackageName) {
             return # this is not an MRTK package, so skip
