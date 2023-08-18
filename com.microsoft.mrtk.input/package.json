@@ -1,0 +1,20 @@
+{
+  "name": "com.microsoft.mrtk.input",
+  "version": "3.0.0-development",
+  "description": "This package has been deprecated",
+  "displayName": "MRTK Input (deprecated)",
+  "msftFeatureCategory": "MRTK3",
+  "author": "Microsoft",
+  "license": "BSD 3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
+  },
+  "unity": "2021.3",
+  "dependencies": {
+    "org.mixedrealitytoolkit.input": "3.0.0"
+  }
+}
