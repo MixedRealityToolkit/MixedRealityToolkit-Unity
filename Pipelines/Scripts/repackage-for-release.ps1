@@ -60,7 +60,7 @@ try {
         Write-Output "Creating $packageName"
         Write-Output "====================="
 
-        $inlineVersion = Select-String '^.*"version":.*"(?<sem>[0-9]\.[0-9]\.[0-9])-(?<prerelease>prerelease\.)*(?<tag>pre\.\d*)*\.*(?<build>\d{6}\.\d*)' -InputObject (Get-Content -Path $_)
+        $inlineVersion = Select-String '^.*"version":\s*"(?<sem>[0-9]\.[0-9]\.[0-9])-(?<prerelease>prerelease\.)*(?<tag>pre\.\d*)*\.*(?<build>\d{6}\.\d*)' -InputObject (Get-Content -Path $_)
         $version = $inlineVersion.Matches[0].Groups['sem'].Value
         $prerelease = $inlineVersion.Matches[0].Groups['prerelease'].Value
         $tag = $inlineVersion.Matches[0].Groups['tag'].Value
