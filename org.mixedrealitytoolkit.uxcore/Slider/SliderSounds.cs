@@ -109,6 +109,13 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public float MinSecondsBetweenTicks { get => minSecondsBetweenTicks; set => minSecondsBetweenTicks = value; }
 
+        [SerializeField]
+        [Tooltip("The source of the grab and release sounds")]
+        private AudioSource grabReleaseAudioSource = null;
+
+        [SerializeField]
+        [Tooltip("The source of the pass notch sounds")]
+        private AudioSource passNotchAudioSource = null;
 
         #region Private members
         private Slider slider;
@@ -119,9 +126,6 @@ namespace MixedReality.Toolkit.UX
         // Play sound when passing through slider notches
         private float accumulatedDeltaSliderValue = 0;
         private float lastSoundPlayTime;
-
-        private AudioSource grabReleaseAudioSource = null;
-        private AudioSource passNotchAudioSource = null;
         #endregion
 
         /// <summary>
