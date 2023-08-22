@@ -12,6 +12,9 @@ namespace MixedReality.Toolkit.Editor
     [CustomPropertyDrawer(typeof(ExperimentalAttribute))]
     public class ExperimentalDrawer : DecoratorDrawer
     {
+        // Cached height calculated in OnGUI
+        private float lastHeight = 18;
+
         /// <summary>
         /// A function called by Unity to render and handle GUI events.
         /// </summary>
@@ -24,6 +27,7 @@ namespace MixedReality.Toolkit.Editor
                 EditorStyles.helpBox.richText = true;
                 EditorGUI.HelpBox(position, experimental.Text, MessageType.Warning);
                 EditorStyles.helpBox.richText = defaultValue;
+                lastHeight = EditorStyles.helpBox.CalcHeight(new GUIContent(experimental.Text), EditorGUIUtility.currentViewWidth);
             }
         }
 
@@ -35,7 +39,7 @@ namespace MixedReality.Toolkit.Editor
         {
             if (attribute is ExperimentalAttribute experimental)
             {
-                return EditorStyles.helpBox.CalcHeight(new GUIContent(experimental.Text), EditorGUIUtility.currentViewWidth);
+                return lastHeight;
             }
 
             return base.GetHeight();
