@@ -113,9 +113,27 @@ namespace MixedReality.Toolkit.UX
         [Tooltip("The source of the grab and release sounds")]
         private AudioSource grabReleaseAudioSource = null;
 
+        /// <summary>
+        /// Gets or sets the AudioSource used to play grab and release sounds.
+        /// </summary>
+        public AudioSource GrabReleaseAudioSource
+        {
+            get => grabReleaseAudioSource;
+            set => grabReleaseAudioSource = value;
+        }
+
         [SerializeField]
         [Tooltip("The source of the pass notch sounds")]
         private AudioSource passNotchAudioSource = null;
+
+        /// <summary>
+        /// Gets or sets the AudioSource used to play sound when the user moves the slider thumb past a notch.
+        /// </summary>
+        public AudioSource PassNotchAudioSource
+        {
+            get => passNotchAudioSource;
+            set => passNotchAudioSource = value;
+        }
 
         #region Private members
         private Slider slider;
