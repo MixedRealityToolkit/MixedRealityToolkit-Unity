@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Microsoft
+  companyName: Mixed Reality Toolkit Organization
   productName: MRTK3 Sample
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
