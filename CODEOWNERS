@@ -23,26 +23,26 @@
 * @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
 
 # Build / CI Pipeline
-/Pipelines/ @shaynie
+/Pipelines/ @shaynie @keveleigh
 
 # Tooling
-/Tooling/ @shaynie
+/Tooling/ @shaynie @keveleigh @david-c-kline
 
 # Feature packages
-/org.mixedrealitytoolkit.accessibility/ @marlenaklein-msft @AMollis @shaynie
-/org.mixedrealitytoolkit.audio/ @marlenaklein-msft @AMollis @shaynie
-/org.mixedrealitytoolkit.core/ @marlenaklein-msft @AMollis @shaynie
-/org.mixedrealitytoolkit.data/ @marlenaklein-msft @AMollis @shaynie
-/org.mixedrealitytoolkit.diagnostics/ @marlenaklein-msft @AMollis @shaynie
-/org.mixedrealitytoolkit.input/ @marlenaklein-msft @AMollis @shaynie
-/org.mixedrealitytoolkit.spatialmanipulation/ @marlenaklein-msft @AMollis @shaynie
-/org.mixedrealitytoolkit.tools/ @marlenaklein-msft @AMollis @shaynie
-/org.mixedrealitytoolkit.uxcomponents/ @marlenaklein-msft @AMollis @shaynie
-/org.mixedrealitytoolkit.uxcore/ @marlenaklein-msft @AMollis @shaynie
-/org.mixedrealitytoolkit.windowsspeech/ @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.accessibility/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.audio/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.core/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.data/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.diagnostics/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.input/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.spatialmanipulation/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.tools/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.uxcomponents/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.uxcore/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
+/org.mixedrealitytoolkit.windowsspeech/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
 
 # Examples and templates
-/UnityProjects/ @marlenaklein-msft @AMollis @shaynie
+/UnityProjects/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
 
 # Goverance documents (Must include Maintainers)
 CODEOWNERS @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
