@@ -28,8 +28,6 @@
 * Unified 2D & 3D input for gamepad, mouse, and accessibility support.
 * Data binding for branding, theming, dynamic data, and complex lists.
 
-MRTK3 is currently in **public preview.** We appreciate your feedback and contributions, but we caution that many APIs are still subject to change, and many features are either missing or buggy! We value your patience and your feedback as we work towards general availability (GA).
-
 ## Requirements
 
 MRTK3 requires Unity 2021.3.22f1 or higher. In addition, you need the [Mixed Reality Feature Tool for Unity](https://aka.ms/mrfeaturetool) to find, download, and add the packages to your project.
