@@ -40,7 +40,7 @@ MRTK3 requires Unity 2021.3.22f1 or higher. In addition, you need the [Mixed Rea
 
 | Platform | Supported Devices |
 |---|---|
-| OpenXR devices | Microsoft HoloLens 2 <br> Meta Quest 1/2 <br> Windows Mixed Reality (experimental) <br> SteamVR (experimental) <br> Oculus Rift on OpenXR (experimental) <br> Varjo XR-3 (experimental) <br> **If your OpenXR device already works with MRTK3, let us know!**
+| OpenXR devices | Microsoft HoloLens 2 <br> Magic Leap 2 <br> Meta Quest 1/2 <br> Windows Mixed Reality (experimental) <br> SteamVR (experimental) <br> Oculus Rift on OpenXR (experimental) <br> Varjo XR-3 (experimental) <br> **If your OpenXR device already works with MRTK3, let us know!**
 | Windows | Traditional flat-screen desktop (experimental)
 | And more coming soon! |
 
