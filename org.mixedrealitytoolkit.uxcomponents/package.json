@@ -16,13 +16,13 @@
   "unity": "2021.3",
   "dependencies": {
     "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-    "org.mixedrealitytoolkit.uxcore": "3.0.0",
-    "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0",
-    "org.mixedrealitytoolkit.standardassets": "3.0.0",
+    "org.mixedrealitytoolkit.uxcore": "3",
+    "org.mixedrealitytoolkit.spatialmanipulation": "3",
+    "org.mixedrealitytoolkit.standardassets": "3",
     "com.unity.xr.interaction.toolkit": "2.3.0"
   },
   "msftTestDependencies": {
-    "org.mixedrealitytoolkit.input": "3.0.0",
+    "org.mixedrealitytoolkit.input": "3",
     "com.unity.textmeshpro": "3.0.6"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "org.mixedrealitytoolkit.uxcore",
-  "version": "3.0.0-development",
+  "version": "3.1.0-development",
   "description": "Core interaction and visualization scripts for building MR user interface components.\n\nNote: this is intended to be consumed in order to build UX libraries. To build MR interfaces with a pre-existing library of components, see org.mixedrealitytoolkit.uxcomponents.",
   "displayName": "MRTK UX Core Scripts",
   "msftFeatureCategory": "MRTK3",
@@ -16,16 +16,16 @@
   "unity": "2021.3",
   "dependencies": {
     "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-    "org.mixedrealitytoolkit.core": "3.0.0",
+    "org.mixedrealitytoolkit.core": "3",
     "com.unity.inputsystem": "1.6.1",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.xr.interaction.toolkit": "2.3.0"
   },
   "msftOptionalPackages": {
     "org.mixedrealitytoolkit.data": "1.0.0-development",
-    "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0"
+    "org.mixedrealitytoolkit.spatialmanipulation": "3"
   },
   "msftTestDependencies": {
-    "org.mixedrealitytoolkit.input": "3.0.0"
+    "org.mixedrealitytoolkit.input": "3"
   }
 }

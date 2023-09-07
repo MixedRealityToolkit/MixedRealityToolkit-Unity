@@ -15,6 +15,6 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "org.mixedrealitytoolkit.standardassets": "3.0.0"
+    "org.mixedrealitytoolkit.standardassets": "3"
   }
 }
