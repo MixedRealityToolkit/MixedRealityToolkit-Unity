@@ -16,7 +16,7 @@ To help identify specific packages and their versions, the Project provides an "
 
 Package versioning is managed by the Project Maintainers. During pull request reviews, Maintainers should decide if package versions need to be changed. Maintainers should consider the following questions, and then if needed, request that the pull request author update package versions.
 
-> During this time Maintainers should be aware of the released packages published to the Project's [releases](https://github.com/MixedRealityToolkit/MixedRealityToolkit-ProjectDocs/releases) page.
+> During this time Maintainers should be aware of the released packages published to the Project's [releases](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/releases) page.
 
 ### Is this a breaking change?
 
@@ -32,15 +32,15 @@ If the change only contains backward compatible bug fixes, the package's patch v
 
 ## Package release process
 
-A release can be made to the Project's [releases](https://github.com/MixedRealityToolkit/MixedRealityToolkit-ProjectDocs/releases) page by using the following process:
+Releases should be made on a per-package basis. A release can be made to the Project's [releases](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/releases) page by using the following process:
 
-1. Create release notes using [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
-2. Create UPM package.
-3. Verify that the UPM package is in stable condition and has no release blocking issues.
-4. Create ZIP file containing source code.
-5. Present changelog and release candidate files to Project Maintainers.
-6. Project Maintainers then must agree to the release.
-7. Once approved, add a `git` tag to the commit hash being released, following the format [package-postfix]-vMAJOR.MINOR.PATCH. For example, core-v3.0.1 or input-v3.2.0.
-8. Finally, the release notes, UPM package, and source code are posted under project's [releases](https://github.com/MixedRealityToolkit/MixedRealityToolkit-ProjectDocs/releases) page.
+1. Verify that the package's semantic version has been properly updated per guidelines.
+2. Create a branch for the package release, using the following the format `releases/[package-postfix]/MAJOR.MINOR.PATCH` (e.g. `releases/core/3.0.1` or `releases/input/3.2.0`). If the package is a preview, append `-preview` to the branch name.
+3. Create release notes (or changelog) using [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+4. Create UPM package (*.tgz).
+5. Verify that the UPM package is in stable condition (i.e. no release blockers), and that dependent packages work with the new version.
+6. Present release notes and package to Project Maintainers.
+7. Project Maintainers must agree to the release per [governance decision](../GOVERNANCE.md#2-decisions) guidelines.
+8. Once approved, a release is created at the project's [releases](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/releases) page. The release must contain the approved release notes, UPM package, and be given a tag following the format `[package-postfix]-vMAJOR.MINOR.PATCH` (e.g. `core-v3.0.1` or `input-v3.2.0`). If the package is a preview, append `-preview` to the tag name.
 
-This process only applies when releasing to the Project's [releases](https://github.com/MixedRealityToolkit/MixedRealityToolkit-ProjectDocs/releases) page. This means Contributors are permitted to release versions of Project packages via other mechanisms, outside of this Project.
+This process only applies when releasing to the Project's [releases](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/releases) page. Contributors are permitted to release versions of Project packages via other mechanisms, outside of this Project.
