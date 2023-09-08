@@ -128,7 +128,7 @@ try {
 
     }
 
-    # update dependencies using the versionHash map
+    # package
     Get-ChildItem -Path $ProjectRoot/*/package.json | ForEach-Object {
         $currentPackageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*|com\.microsoft\.mrtk\.\w+(\.\w+)*" -Path $_ | Select-Object -First 1
         
@@ -141,26 +141,6 @@ try {
 
         $packagePath = $_.Directory
         $docFolder = "$packagePath/Documentation~"
-
-        
-        Write-Output "____________________________________________________________________________"
-        Write-Output "   Package: $($currentPackageName)"
-
-        foreach ($packageName in $versionHash.Keys) {
-            if ($currentPackageName -eq $packageName) {
-                continue
-            }
-
-            $searchRegex = "$($packageName)\s*"":\s*""(.*)"""
-            $searchMatches = Select-String $searchRegex -InputObject (Get-Content -Path $_)
-            if ($searchMatches.Matches.Groups) {
-                $newVersion = $versionHash["$($packageName)"]
-                Write-Output "        Patching dependency $($packageName) from $($searchMatches.Matches.Groups[1].Value) to $($newVersion)"
-                (Get-Content -Path $_ -Raw) -Replace $searchRegex, "$($packageName)"": ""$($newVersion)""" | Set-Content -Path $_ -NoNewline
-            }
-        }
-
-        Write-Output "____________________________________________________________________________`n"
 
         # build the package
         Write-Output "Packing $packageFriendlyName"

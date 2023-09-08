@@ -89,7 +89,7 @@ try {
         }
 
     }
-    # update all dependencies and repackage
+    # repackage
     Get-ChildItem -Path $packageSearchPath | ForEach-Object {
         $currentPackageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*|com\.microsoft\.mrtk\.\w+(\.\w+)*" -Path $_.FullName | Select-Object -First 1
 
@@ -101,25 +101,6 @@ try {
         $packageFriendlyName = (Select-String -Pattern "`"displayName`": `"(.+)`"" -Path $_ | Select-Object -First 1).Matches.Groups[1].Value
 
         $packagePath = $_.Directory
-
-        Write-Output "____________________________________________________________________________"
-        Write-Output "   Package: $($currentPackageName)"
-
-        foreach ($packageName in $versionHash.Keys) {
-            if ($currentPackageName -eq $packageName) {
-                continue
-            }
-
-            $searchRegex = "$($packageName)""\s*:.*""(.*)"""
-            $searchMatches = Select-String $searchRegex -InputObject (Get-Content -Path $_)
-            if ($searchMatches.Matches.Groups) {
-                $newVersion = $versionHash["$($packageName)"]
-                Write-Output "        Patching dependency $($packageName) from $($searchMatches.Matches.Groups[1].Value) to $($newVersion)"
-                (Get-Content -Path $_ -Raw) -Replace $searchRegex, "$($packageName)"": ""$($newVersion)""" | Set-Content -Path $_ -NoNewline
-            }
-        }
-
-        Write-Output "____________________________________________________________________________`n"
 
         Write-Output "Packing $packageFriendlyName to $OutputDirectory"
         npm pack $packagePath -pack-destination $OutputDirectory
