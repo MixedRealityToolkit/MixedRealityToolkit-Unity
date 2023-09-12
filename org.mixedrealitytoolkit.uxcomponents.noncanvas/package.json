@@ -15,14 +15,14 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "org.mixedrealitytoolkit.uxcore": "3.0.0",
-    "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0",
-    "org.mixedrealitytoolkit.standardassets": "3.0.0"
+    "org.mixedrealitytoolkit.uxcore": "3",
+    "org.mixedrealitytoolkit.spatialmanipulation": "3",
+    "org.mixedrealitytoolkit.standardassets": "3"
   },
   "msftOptionalPackages": {
     "org.mixedrealitytoolkit.data": "1.0.0-development"
   },
   "msftTestDependencies": {
-    "org.mixedrealitytoolkit.input": "3.0.0"
+    "org.mixedrealitytoolkit.input": "3"
   }
 }

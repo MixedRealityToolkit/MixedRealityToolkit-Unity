@@ -16,10 +16,10 @@
   "unity": "2021.3",
   "dependencies": {
     "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-    "org.mixedrealitytoolkit.core": "3.0.0",
+    "org.mixedrealitytoolkit.core": "3",
     "com.unity.textmeshpro": "3.0.6"
   },
   "msftTestDependencies": {
-    "org.mixedrealitytoolkit.input": "3.0.0"
+    "org.mixedrealitytoolkit.input": "3"
   }
 }
