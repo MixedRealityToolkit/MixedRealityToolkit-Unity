@@ -15,6 +15,6 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "org.mixedrealitytoolkit.uxcomponents": "3"
+    "org.mixedrealitytoolkit.uxcomponents": "3.0.0"
   }
 }

@@ -15,6 +15,6 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "org.mixedrealitytoolkit.audio": "3"
+    "org.mixedrealitytoolkit.audio": "3.0.0"
   }
 }

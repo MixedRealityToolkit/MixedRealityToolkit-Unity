@@ -15,6 +15,6 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "org.mixedrealitytoolkit.extendedassets": "3"
+    "org.mixedrealitytoolkit.extendedassets": "3.0.0"
   }
 }

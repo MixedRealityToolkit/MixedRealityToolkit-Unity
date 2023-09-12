@@ -15,15 +15,15 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "org.mixedrealitytoolkit.core": "3",
-    "org.mixedrealitytoolkit.uxcore": "3",
+    "org.mixedrealitytoolkit.core": "3.0.0",
+    "org.mixedrealitytoolkit.uxcore": "3.0.0",
     "com.unity.inputsystem": "1.6.1",
     "com.unity.xr.interaction.toolkit": "2.3.0"
   },
   "msftOptionalPackages": {
-    "org.mixedrealitytoolkit.input": "3"
+    "org.mixedrealitytoolkit.input": "3.0.0"
   },
   "msftTestPackages": {
-    "org.mixedrealitytoolkit.input": "3"
+    "org.mixedrealitytoolkit.input": "3.0.0"
   }
 }
