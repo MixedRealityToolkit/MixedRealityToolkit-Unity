@@ -14,6 +14,7 @@
     "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
   },
   "unity": "2021.3",
+  "unityRelease": "22f1",
   "dependencies": {
     "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
     "org.mixedrealitytoolkit.core": "3.0.0",
