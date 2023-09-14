@@ -23,10 +23,10 @@
 * @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers
 
 # Build / CI Pipeline
-/Pipelines/ @shaynie @keveleigh
+/Pipelines/ @shaynie @amollis @keveleigh
 
 # Tooling
-/Tooling/ @shaynie @keveleigh @david-c-kline
+/Tooling/ @shaynie @amollis @keveleigh @david-c-kline
 
 # Feature packages
 /org.mixedrealitytoolkit.accessibility/ @MixedRealityToolkit/mixedrealitytoolkit-unity-maintainers @marlenaklein-msft @AMollis @shaynie
