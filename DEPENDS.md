@@ -12,7 +12,7 @@ Needed for all MRTK packages.
 
 | Min Version | Max Version | Date          | Author          | Change Reason                        |
 |-------------|-------------|---------------|-----------------|--------------------------------------|
-| 2021.3.22   |             | Sep. 20, 2023 | @AMollis        | Initial versions                     |
+| 2021.3 LTS  |             | Sep. 20, 2023 | @AMollis        | Initial versions                     |
 
 ## com.microsoft.mrtk.graphicstools.unity
 
