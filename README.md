@@ -30,7 +30,7 @@
 
 ## Requirements
 
-MRTK3 requires Unity 2021.3.22f1 or higher. In addition, you need the [Mixed Reality Feature Tool for Unity](https://aka.ms/mrfeaturetool) to find, download, and add the packages to your project.
+MRTK3 requires Unity 2021.3.21 or higher. In addition, you need the [Mixed Reality Feature Tool for Unity](https://aka.ms/mrfeaturetool) to find, download, and add the packages to your project.
 
 ## Getting started
 
