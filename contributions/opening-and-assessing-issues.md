@@ -117,4 +117,4 @@ In place of assigning a milestone, consider assigning issues to a GitHub [projec
 
 Such a priority must be used sparingly and only applies to released package issues that severely impact a large number of users. For example, an issue that results in data loss for all users can be considered critical, while an issue causing compile errors for some developers does not warrant a critical priority.
 
-When a critical bug is discovered, the Project Maintainers must be contacted immediately, and the issue must be tagged with “Priority: Critical”. The Project Maintainers must then meet as soon as possible to decide if the issue warrants a patch release.
+When a critical bug is discovered, the Project Maintainers must be contacted immediately, and the issue must be tagged with "Priority: Critical". All Project Maintainers must then meet as soon as possible to decide if the issue warrants a patch release. The Project Maintainers can use an agreed upon communication method, such as a group email or messaging platform, to arrange a meeting.
