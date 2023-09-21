@@ -109,6 +109,12 @@ GitHub [milestones](https://docs.github.com/en/issues/using-labels-and-milestone
 
 Before a new milestone can be created in the repository, the new milestone must be approved by the project Maintainers, following the decision making rules in the [GOVERNANCE.md](../GOVERNANCE.md) file.
 
-### GitHub project assignments
+## GitHub project assignments
 
 In place of assigning a milestone, consider assigning issues to a GitHub [project](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects). An issue can have multiple project assignments, and each Project Maintainer can manage their own GitHub projects and the priorities within those projects.
+
+## Critical priority issues
+
+Such a priority must be used sparingly and only applies to released package issues that severely impact a large number of users. For example, an issue that results in data loss for all users can be considered critical, while an issue causing compile errors for some developers does not warrant a critical priority.
+
+When a critical bug is discovered, the Project Maintainers must be contacted immediately, and the issue must be tagged with “Priority: Critical”. The Project Maintainers must then meet as soon as possible to decide if the issue warrants a patch release.
