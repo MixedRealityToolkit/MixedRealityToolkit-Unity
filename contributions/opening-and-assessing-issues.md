@@ -115,7 +115,7 @@ In place of assigning a milestone, consider assigning issues to a GitHub [projec
 
 ## Critical priority issues
 
-Such a priority must be used sparingly and only applies to released package issues that severely impact a large number of users. For example, an issue that results in data loss for all users can be considered critical, while an issue causing compile errors for some developers does not warrant a critical priority.
+Such a priority must be used sparingly and only applies to released package issues that severely impact a large number of users. For an issue to be deemed critical it must be sever enough to require the immediate attention of the Project Maintainers. Security and data loss bugs, while unlikely in MRTK, are examples of issues that may warrant critical status.
 
 High priority issues that aren't deemed critical should be addressed during scheduled Project Maintainer meetings. These meetings typically occur every two weeks.
 
