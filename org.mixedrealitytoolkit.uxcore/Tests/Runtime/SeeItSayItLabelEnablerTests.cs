@@ -27,7 +27,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         public IEnumerator TestEnableAndSetLabel()
         {
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
-            SpeechInteractor interactor = Object.FindAnyObjectByType<SpeechInteractor>(FindObjectsInactive.Include);
+            SpeechInteractor interactor = Object.FindObjectOfType<SpeechInteractor>(true);
             interactor.gameObject.SetActive(true);
 
             GameObject testButton = SetUpButton(true, Control.None);
@@ -71,7 +71,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         public IEnumerator TestPositionCanvasLabel()
         {
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
-            SpeechInteractor interactor = Object.FindAnyObjectByType<SpeechInteractor>(FindObjectsInactive.Include);
+            SpeechInteractor interactor = Object.FindObjectOfType<SpeechInteractor>(true);
             interactor.gameObject.SetActive(true);
 
             GameObject testButton = SetUpButton(true, Control.Canvas);
@@ -97,7 +97,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         public IEnumerator TestPositionNonCanvasLabel()
         {
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
-            SpeechInteractor interactor = Object.FindAnyObjectByType<SpeechInteractor>(FindObjectsInactive.Include);
+            SpeechInteractor interactor = Object.FindObjectOfType<SpeechInteractor>(true);
             interactor.gameObject.SetActive(true);
 
             GameObject testButton = SetUpButton(true, Control.NonCanvas);
