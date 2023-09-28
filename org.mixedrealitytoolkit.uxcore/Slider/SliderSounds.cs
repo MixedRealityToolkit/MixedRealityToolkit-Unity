@@ -42,8 +42,6 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public AudioClip InteractionEndSound { get => interactionEndSound; set => interactionEndSound = value; }
 
-
-
         [Header("Tick Notch Sounds")]
         [SerializeField]
         [Tooltip("Whether to play 'tick tick' sounds as the slider passes notches")]
@@ -110,29 +108,16 @@ namespace MixedReality.Toolkit.UX
         public float MinSecondsBetweenTicks { get => minSecondsBetweenTicks; set => minSecondsBetweenTicks = value; }
 
         [SerializeField]
-        [Tooltip("The source of the grab and release sounds")]
-        private AudioSource grabReleaseAudioSource = null;
+        [Tooltip("The AudioSource to be used when playing slider sounds.")]
+        private AudioSource audioSource = null;
 
         /// <summary>
-        /// Gets or sets the AudioSource used to play grab and release sounds.
+        /// Gets or sets the AudioSource used to play slider sounds.
         /// </summary>
-        public AudioSource GrabReleaseAudioSource
+        public AudioSource AudioSource
         {
-            get => grabReleaseAudioSource;
-            set => grabReleaseAudioSource = value;
-        }
-
-        [SerializeField]
-        [Tooltip("The source of the pass notch sounds")]
-        private AudioSource passNotchAudioSource = null;
-
-        /// <summary>
-        /// Gets or sets the AudioSource used to play sound when the user moves the slider thumb past a notch.
-        /// </summary>
-        public AudioSource PassNotchAudioSource
-        {
-            get => passNotchAudioSource;
-            set => passNotchAudioSource = value;
+            get => audioSource;
+            set => audioSource = value;
         }
 
         #region Private members
@@ -151,13 +136,9 @@ namespace MixedReality.Toolkit.UX
         /// </summary> 
         private void Start()
         {
-            if (grabReleaseAudioSource == null)
+            if (audioSource == null)
             {
-                grabReleaseAudioSource = gameObject.AddComponent<AudioSource>();
-            }
-            if (passNotchAudioSource == null)
-            {
-                passNotchAudioSource = gameObject.AddComponent<AudioSource>();
+                audioSource = gameObject.AddComponent<AudioSource>();
             }
 
             slider = GetComponent<Slider>();
@@ -171,45 +152,51 @@ namespace MixedReality.Toolkit.UX
             slider.OnValueUpdated.AddListener(OnValueUpdated);
         }
 
+        private static float NeutralPitchShift = 1f;
+        private float passNotchPitchShift = NeutralPitchShift;
+ 
         private void OnValueUpdated(SliderEventData eventData)
         {
-            if (!(playSoundsOnlyOnInteract && !isInteracting) && playTickSounds && passNotchAudioSource != null && passNotchSound != null)
+
+            if (!(playSoundsOnlyOnInteract && !isInteracting) && playTickSounds && AudioSource != null && passNotchSound != null)
             {
+                AudioSource.pitch = passNotchPitchShift;
                 float delta = eventData.NewValue - eventData.OldValue;
                 accumulatedDeltaSliderValue += Mathf.Abs(delta);
                 var now = Time.timeSinceLevelLoad;
                 if (accumulatedDeltaSliderValue >= tickEvery && now - lastSoundPlayTime > minSecondsBetweenTicks)
                 {
-                    passNotchAudioSource.pitch = Mathf.Lerp(startPitch, endPitch, eventData.NewValue);
-                    if (passNotchAudioSource.isActiveAndEnabled)
+                    AudioSource.pitch = Mathf.Lerp(startPitch, endPitch, eventData.NewValue);
+                    if (AudioSource.isActiveAndEnabled)
                     {
-                        passNotchAudioSource.PlayOneShot(passNotchSound);
+                        AudioSource.PlayOneShot(passNotchSound);
                     }
 
                     accumulatedDeltaSliderValue = 0;
                     lastSoundPlayTime = now;
                 }
+                passNotchPitchShift = AudioSource.pitch;
             }
         }
 
         private void OnInteractionStarted(SelectEnterEventArgs args)
         {
             isInteracting = true;
-            if (interactionStartSound != null && grabReleaseAudioSource != null && grabReleaseAudioSource.isActiveAndEnabled)
+            if (interactionStartSound != null && AudioSource != null && AudioSource.isActiveAndEnabled)
             {
-                grabReleaseAudioSource.PlayOneShot(interactionStartSound);
+                AudioSource.pitch = NeutralPitchShift;
+                AudioSource.PlayOneShot(interactionStartSound);
             }
         }
 
         private void OnInteractionEnded(SelectExitEventArgs args)
         {
             isInteracting = false;
-            if (interactionEndSound != null && grabReleaseAudioSource != null && grabReleaseAudioSource.isActiveAndEnabled)
+            if (interactionEndSound != null && AudioSource != null && AudioSource.isActiveAndEnabled)
             {
-                grabReleaseAudioSource.PlayOneShot(interactionEndSound);
+                AudioSource.pitch = NeutralPitchShift;
+                AudioSource.PlayOneShot(interactionEndSound);
             }
         }
     }
-
-
 }
