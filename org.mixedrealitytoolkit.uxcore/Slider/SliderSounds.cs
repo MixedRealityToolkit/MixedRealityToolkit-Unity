@@ -138,7 +138,7 @@ namespace MixedReality.Toolkit.UX
         {
             if (audioSource == null)
             {
-                audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource = gameObject.GetComponent<AudioSource>();
             }
 
             slider = GetComponent<Slider>();
