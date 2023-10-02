@@ -1,3 +1,6 @@
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
+
 using MixedReality.Toolkit.Subsystems;
 using System;
 using System.Collections.Generic;
@@ -10,7 +13,7 @@ namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Provides a generic, base hands provider for subsystem use.
-    /// Extends the <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem.Provider">Provider</see> class, and
+    /// Extends the <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem.Provider">Provider</see> class and
     /// obtains hand joint poses from a <see cref="MixedReality.Toolkit.Input.HandDataContainer">HandDataContainer</see> class.
     /// </summary>
     /// <typeparam name="T">
