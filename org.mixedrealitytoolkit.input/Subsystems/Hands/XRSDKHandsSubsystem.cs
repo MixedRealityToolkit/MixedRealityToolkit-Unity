@@ -232,8 +232,9 @@ namespace MixedReality.Toolkit.Input
                     }
 
                     // Write root bone into HandJoints as palm joint.
-                    handDevice.Value.TryGetRootBone(out Bone rootBone);
-                    FullQueryValid &= TryUpdateJoint(HandsUtils.ConvertToIndex(TrackedHandJoint.Palm), rootBone, origin);
+                    FullQueryValid &=
+                        handDevice.Value.TryGetRootBone(out Bone rootBone)
+                        && TryUpdateJoint(HandsUtils.ConvertToIndex(TrackedHandJoint.Palm), rootBone, origin);
 
                     // Mark this hand as having been fully queried this frame.
                     // If any joint is queried again this frame, we'll reuse the
