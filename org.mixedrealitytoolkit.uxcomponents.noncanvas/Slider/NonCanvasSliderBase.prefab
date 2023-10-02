@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 7429095020531837141}
   - component: {fileID: 4552659453827628730}
   - component: {fileID: 5234196699703300340}
-  - component: {fileID: 1305814423258078558}
+  - component: {fileID: 3522167078609283624}
   m_Layer: 0
   m_Name: NonCanvasSliderBase
   m_TagString: Untagged
@@ -382,7 +382,6 @@ MonoBehaviour:
     m_Bits: 1
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
-  m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
@@ -413,18 +412,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FirstFocusEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastFocusExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FocusEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FocusExited:
     m_PersistentCalls:
       m_Calls: []
   m_Activated:
@@ -624,7 +611,7 @@ MonoBehaviour:
   startPitch: 0.75
   endPitch: 1.25
   minSecondsBetweenTicks: 0.01
-  audioSource: {fileID: 1305814423258078558}
+  audioSource: {fileID: 3522167078609283624}
 --- !u!114 &5234196699703300340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,7 +655,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!82 &1305814423258078558
+--- !u!82 &3522167078609283624
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
