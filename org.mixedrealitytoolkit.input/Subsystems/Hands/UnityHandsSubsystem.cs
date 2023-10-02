@@ -1,7 +1,7 @@
-// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT License.
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
 
-using Microsoft.MixedReality.Toolkit.Subsystems;
+using MixedReality.Toolkit.Subsystems;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
@@ -9,13 +9,13 @@ using UnityEngine.Scripting;
 using UnityEngine.XR;
 using UnityEngine.XR.Hands;
 
-namespace Microsoft.MixedReality.Toolkit.Input
+namespace MixedReality.Toolkit.Input
 {
     [Preserve]
     [MRTKSubsystem(
-        Name = "com.qualcomm.mixedreality.unityhands",
+        Name = "org.mixedrealitytoolkit.unityhands",
         DisplayName = "Subsystem for Unity Hands API",
-        Author = "Qualcomm",
+        Author = "Mixed Reality Toolkit Contributors",
         ProviderType = typeof(HandsProvider<UnityHandContainer>),
         SubsystemTypeOverride = typeof(UnityHandsSubsystem),
         ConfigType = typeof(BaseSubsystemConfig))]
@@ -59,7 +59,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
                         TryCalculateEntireHand();
                     }
 
-                    result = handJoints;
+                    result = HandJoints;
                     return FullQueryValid;
                 }
             }
@@ -87,7 +87,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
                         // and return immediately.
                         if (!hand.HasValue)
                         {
-                            pose = handJoints[index];
+                            pose = HandJoints[index];
                             return false;
                         }
 
@@ -95,7 +95,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
                         Transform origin = PlayspaceUtilities.XROrigin.CameraFloorOffsetObject.transform;
                         if (origin == null)
                         {
-                            pose = handJoints[index];
+                            pose = HandJoints[index];
                             return false;
                         }
 
@@ -108,7 +108,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
                         thisQueryValid = FullQueryValid;
                     }
 
-                    pose = handJoints[index];
+                    pose = HandJoints[index];
                     return thisQueryValid;
                 }
             }
@@ -208,7 +208,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
                         radius = HandsUtils.DefaultHandJointRadius;
                     }
 
-                    handJoints[jointIndex] = new HandJointPose(
+                    HandJoints[jointIndex] = new HandJointPose(
                         playspaceTransform.TransformPoint(pose.position),
                         playspaceTransform.rotation * pose.rotation,
                         radius);
