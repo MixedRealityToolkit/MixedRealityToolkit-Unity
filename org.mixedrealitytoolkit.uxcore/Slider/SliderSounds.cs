@@ -152,7 +152,7 @@ namespace MixedReality.Toolkit.UX
             slider.OnValueUpdated.AddListener(OnValueUpdated);
         }
 
-        private static float NeutralPitchShift = 1f;
+        private const float NeutralPitchShift = 1f;
         private float passNotchPitchShift = NeutralPitchShift;
  
         private void OnValueUpdated(SliderEventData eventData)
