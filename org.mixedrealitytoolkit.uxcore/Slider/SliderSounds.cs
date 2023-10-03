@@ -114,11 +114,7 @@ namespace MixedReality.Toolkit.UX
         /// <summary>
         /// Gets or sets the AudioSource used to play slider sounds.
         /// </summary>
-        public AudioSource AudioSource
-        {
-            get => audioSource;
-            set => audioSource = value;
-        }
+        public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
 
         #region Private members
         private Slider slider;
@@ -136,9 +132,14 @@ namespace MixedReality.Toolkit.UX
         /// </summary> 
         private void Start()
         {
+            // Ensure that we have a valid audio source to work with.
             if (audioSource == null)
             {
                 audioSource = gameObject.GetComponent<AudioSource>();
+                if (audioSource == null)
+                {
+                    audioSource = gameObject.AddComponent<AudioSource>();
+                }
             }
 
             slider = GetComponent<Slider>();
@@ -153,14 +154,12 @@ namespace MixedReality.Toolkit.UX
         }
 
         private const float NeutralPitchShift = 1f;
-        private float passNotchPitchShift = NeutralPitchShift;
  
         private void OnValueUpdated(SliderEventData eventData)
         {
 
             if (!(playSoundsOnlyOnInteract && !isInteracting) && playTickSounds && AudioSource != null && passNotchSound != null)
             {
-                AudioSource.pitch = passNotchPitchShift;
                 float delta = eventData.NewValue - eventData.OldValue;
                 accumulatedDeltaSliderValue += Mathf.Abs(delta);
                 var now = Time.timeSinceLevelLoad;
@@ -175,7 +174,6 @@ namespace MixedReality.Toolkit.UX
                     accumulatedDeltaSliderValue = 0;
                     lastSoundPlayTime = now;
                 }
-                passNotchPitchShift = AudioSource.pitch;
             }
         }
 
@@ -184,6 +182,7 @@ namespace MixedReality.Toolkit.UX
             isInteracting = true;
             if (interactionStartSound != null && AudioSource != null && AudioSource.isActiveAndEnabled)
             {
+                // Moving the slider destructively changes the pitch, reset to non-shifted
                 AudioSource.pitch = NeutralPitchShift;
                 AudioSource.PlayOneShot(interactionStartSound);
             }
@@ -194,6 +193,7 @@ namespace MixedReality.Toolkit.UX
             isInteracting = false;
             if (interactionEndSound != null && AudioSource != null && AudioSource.isActiveAndEnabled)
             {
+                // Moving the slider destructively changes the pitch, reset to non-shifted
                 AudioSource.pitch = NeutralPitchShift;
                 AudioSource.PlayOneShot(interactionEndSound);
             }
