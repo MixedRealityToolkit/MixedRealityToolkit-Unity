@@ -384,7 +384,7 @@
       "source": "local",
       "dependencies": {
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-        "org.mixedrealitytoolkit.uxcore": "3.0.0",
+        "org.mixedrealitytoolkit.uxcore": "3.1.0",
         "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0",
         "org.mixedrealitytoolkit.standardassets": "3.0.0",
         "com.unity.xr.interaction.toolkit": "2.3.0"
@@ -395,7 +395,7 @@
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "org.mixedrealitytoolkit.uxcore": "3.0.0",
+        "org.mixedrealitytoolkit.uxcore": "3.1.0",
         "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0",
         "org.mixedrealitytoolkit.standardassets": "3.0.0"
       }
