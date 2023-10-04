@@ -13,9 +13,11 @@ namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Provides a generic, base hands provider for subsystem use.
+    /// </summary>
+    /// <remarks>
     /// Extends the <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem.Provider">Provider</see> class and
     /// obtains hand joint poses from a <see cref="MixedReality.Toolkit.Input.HandDataContainer">HandDataContainer</see> class.
-    /// </summary>
+    /// </remarks>
     /// <typeparam name="T">
     /// The type of <see cref="MixedReality.Toolkit.Input.HandDataContainer">HandDataContainer</see> to query hand data from.
     /// </typeparam>
