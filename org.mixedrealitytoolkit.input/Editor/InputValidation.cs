@@ -33,6 +33,17 @@ namespace MixedReality.Toolkit.Input.Editor
         {
             return new BuildValidationRule()
             {
+#if UNITY_2021_3_18_OR_NEWER
+                IsRuleEnabled = () => (MRTKProjectValidation.GetLoadedSubsystemsForBuildTarget(buildTargetGroup)?.Any(s => typeof(KeywordRecognitionSubsystem).IsAssignableFrom(s.Type))).GetValueOrDefault()
+                    && Object.FindFirstObjectOfType<SpeechInteractor>(true),
+                Category = "MRTK3",
+                Message = "The speech interactor needs to be active and enabled in the scene to allow for speech interactions with interactables (e.g. buttons).",
+                CheckPredicate = () => Object.FindFirstObjectOfType<SpeechInteractor>(true).isActiveAndEnabled,
+                FixIt = () => EditorGUIUtility.PingObject(Object.FindFirstbjectOfType<SpeechInteractor>(true)),
+                FixItMessage = "Make sure the speech interactor component is enabled and in active in the hierarchy",
+                FixItAutomatic = false,
+                Error = false
+#else
                 IsRuleEnabled = () => (MRTKProjectValidation.GetLoadedSubsystemsForBuildTarget(buildTargetGroup)?.Any(s => typeof(KeywordRecognitionSubsystem).IsAssignableFrom(s.Type))).GetValueOrDefault()
                     && Object.FindObjectOfType<SpeechInteractor>(true),
                 Category = "MRTK3",
@@ -42,6 +53,7 @@ namespace MixedReality.Toolkit.Input.Editor
                 FixItMessage = "Make sure the speech interactor component is enabled and in active in the hierarchy",
                 FixItAutomatic = false,
                 Error = false
+#endif
             };
         }
 

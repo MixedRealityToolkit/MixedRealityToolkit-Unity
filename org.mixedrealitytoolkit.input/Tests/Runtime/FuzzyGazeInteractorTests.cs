@@ -25,7 +25,11 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator BasicFuzzyGazeTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
+#if UNITY_2021_3_18_OR_NEWER
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectOfType<FuzzyGazeInteractor>();
+#else
             FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
+#endif
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
             // Instantiate two foregound cubes and one background cube for testing
@@ -101,7 +105,11 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator FuzzyGazePrecisionTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene and configure it for the test
+#if UNITY_2021_3_18_OR_NEWER
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectOfType<FuzzyGazeInteractor>();
+#else
             FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
+#endif
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
             fuzzyGazeInteractor.precision = 0;
             fuzzyGazeInteractor.performAdditionalRaycast = false;
@@ -159,7 +167,11 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator GazeFallbackWhenEyeGazeLosesTrackingTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
+#if UNITY_2021_3_18_OR_NEWER
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectOfType<FuzzyGazeInteractor>();
+#else
             FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
+#endif
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
             // Instantiate two foregound cubes and one background cube for testing
@@ -228,7 +240,11 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator GazeFallbackWhenEyeGazeIsDisabledTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
+#if UNITY_2021_3_18_OR_NEWER
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectOfType<FuzzyGazeInteractor>();
+#else
             FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
+#endif
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
             // Instantiate two foregound cubes and one background cube for testing

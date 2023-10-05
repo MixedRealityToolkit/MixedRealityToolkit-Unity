@@ -33,6 +33,11 @@
             "name": "org.mixedrealitytoolkit.windowsspeech",
             "expression": "",
             "define": "MRTK_SPEECH_PRESENT"
+        },
+        {
+            "name": "Unity",
+            "expression": "2021.3.18",
+            "define": "UNITY_2021_3_18_OR_NEWER"
         }
     ],
     "noEngineReferences": false
