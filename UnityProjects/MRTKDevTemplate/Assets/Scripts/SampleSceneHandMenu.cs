@@ -54,8 +54,8 @@ namespace MixedReality.Toolkit.Examples.Demos
             previousSceneButton.enabled = IsSceneValid(SceneManager.GetActiveScene().buildIndex - 1);
             nextSceneButton.enabled = IsSceneValid(SceneManager.GetActiveScene().buildIndex + 1);
 
-#if UNITY_2022_NEWER
-            SimpleProfiler profiler = Object.FindFirstObjectOfType<SimpleProfiler>(true);
+#if UNITY_2022_1_OR_NEWER
+            SimpleProfiler profiler = Object.FindFirstObjectByType<SimpleProfiler>(FindObjectsInactive.Include);
 #else
             SimpleProfiler profiler = Object.FindObjectOfType<SimpleProfiler>(true);
 #endif

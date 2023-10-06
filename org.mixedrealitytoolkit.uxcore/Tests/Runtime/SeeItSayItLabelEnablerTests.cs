@@ -28,7 +28,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         {
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT 
 #if UNITY_2021_3_18_OR_NEWER
-            SpeechInteractor interactor = Object.FindAnyObjectOfType<SpeechInteractor>(true);
+            SpeechInteractor interactor = Object.FindAnyObjectByType<SpeechInteractor>(FindObjectsInactive.Include);
 #else
             SpeechInteractor interactor = Object.FindObjectOfType<SpeechInteractor>(true);
 #endif
@@ -76,7 +76,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         {
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
 #if UNITY_2021_3_18_OR_NEWER
-            SpeechInteractor interactor = Object.FindAnyObjectOfType<SpeechInteractor>(true);
+            SpeechInteractor interactor = Object.FindAnyObjectByType<SpeechInteractor>(FindObjectsInactive.Include);
 #else
             SpeechInteractor interactor = Object.FindObjectOfType<SpeechInteractor>(true);
 #endif
@@ -106,7 +106,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         {
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
 #if UNITY_2021_3_18_OR_NEWER
-            SpeechInteractor interactor = Object.FindAnyObjectOfType<SpeechInteractor>(true);
+            SpeechInteractor interactor = Object.FindAnyObjectByType<SpeechInteractor>(FindObjectsInactive.Include);
 #else
             SpeechInteractor interactor = Object.FindObjectOfType<SpeechInteractor>(true);
 #endif

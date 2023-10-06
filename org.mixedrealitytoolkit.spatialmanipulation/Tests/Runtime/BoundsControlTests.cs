@@ -374,7 +374,11 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             Assert.IsTrue(handle.isHovered, $"Handle should be hovered for {handleName}.");
+#if UNITY_2021_3_18_OR_NEWER
+            SpatialManipulationReticle[] reticles = Object.FindObjectsByType<SpatialManipulationReticle>(FindObjectsSortMode.None);
+#else
             SpatialManipulationReticle[] reticles = Object.FindObjectsOfType<SpatialManipulationReticle>();
+#endif
             Assert.AreEqual(reticles.Length, 1, "Cursor should appear.");
             GameObject cursor = reticles[0].gameObject;
             Assert.IsTrue(ApproximatelyEquals(cursor.transform.eulerAngles, expectedRotation), $"Cursor should be rotated for {handleName}.  Expected euler angles: {expectedRotation}.  Actual: {cursor.transform.eulerAngles}");
@@ -386,7 +390,11 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 
             Assert.IsTrue(handle.isSelected, $"Handle should be selected for {handleName}.");
             Assert.IsTrue(handle.isHovered, $"Handle should be hovered for {handleName}.");
+#if UNITY_2021_3_18_OR_NEWER
+            reticles = Object.FindObjectsByType<SpatialManipulationReticle>(FindObjectsSortMode.None);
+#else
             reticles = Object.FindObjectsOfType<SpatialManipulationReticle>();
+#endif
             Assert.AreEqual(reticles.Length, 1, $"Cursor should stay during select for {handleName}.");
             cursor = reticles[0].gameObject;
             Assert.IsTrue(ApproximatelyEquals(cursor.transform.eulerAngles, expectedRotation), $"Cursor should be rotated for {handleName}.");
@@ -398,7 +406,11 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 
             Assert.IsTrue(handle.isSelected, $"Handle should be selected for {handleName}.");
             Assert.IsTrue(handle.isHovered, $"Handle should be hovered for {handleName}.");
+#if UNITY_2021_3_18_OR_NEWER
+            reticles = Object.FindObjectsByType<SpatialManipulationReticle>(FindObjectsSortMode.None);
+#else
             reticles = Object.FindObjectsOfType<SpatialManipulationReticle>();
+#endif
             Assert.AreEqual(reticles.Length, 1, $"Cursor should stay during move for {handleName}.");
             cursor = reticles[0].gameObject;
             Assert.IsTrue(ApproximatelyEquals(cursor.transform.eulerAngles, expectedRotation), $"Cursor should be rotated for {handleName}.");

@@ -26,7 +26,7 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
 #if UNITY_2021_3_18_OR_NEWER
-            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectOfType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectByType<FuzzyGazeInteractor>();
 #else
             FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
 #endif
@@ -106,7 +106,7 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             // Confirm a FuzzyGazeInteractor is active in the scene and configure it for the test
 #if UNITY_2021_3_18_OR_NEWER
-            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectOfType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectByType<FuzzyGazeInteractor>();
 #else
             FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
 #endif
@@ -168,7 +168,7 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
 #if UNITY_2021_3_18_OR_NEWER
-            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectOfType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectByType<FuzzyGazeInteractor>();
 #else
             FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
 #endif
@@ -241,7 +241,7 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
 #if UNITY_2021_3_18_OR_NEWER
-            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectOfType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectByType<FuzzyGazeInteractor>();
 #else
             FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
 #endif

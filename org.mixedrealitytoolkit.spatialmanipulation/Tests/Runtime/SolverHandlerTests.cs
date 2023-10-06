@@ -42,7 +42,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             solverHandler.TrackedHandedness = Handedness.Both;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
 #if UNITY_2021_3_18_OR_NEWER
-            var lookup = GameObject.FindAnyObjectOfType<ControllerLookup>();
+            var lookup = GameObject.FindAnyObjectByType<ControllerLookup>();
 #else
             var lookup = GameObject.FindObjectOfType<ControllerLookup>();
 #endif
@@ -104,7 +104,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             solverHandler.TrackedHandedness = (Handedness)(-1);
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
 #if UNITY_2021_3_18_OR_NEWER
-            var lookup = GameObject.FindAnyObjectOfType<ControllerLookup>();
+            var lookup = GameObject.FindAnyObjectByType<ControllerLookup>();
 #else
             var lookup = GameObject.FindObjectOfType<ControllerLookup>();
 #endif
@@ -163,7 +163,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             solverHandler.TrackedHandedness = Handedness.Left;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
 #if UNITY_2021_3_18_OR_NEWER
-            var lookup = GameObject.FindAnyObjectOfType<ControllerLookup>();
+            var lookup = GameObject.FindAnyObjectByType<ControllerLookup>();
 #else
             var lookup = GameObject.FindObjectOfType<ControllerLookup>();
 #endif
@@ -222,7 +222,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             solverHandler.TrackedHandedness = Handedness.Right;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
 #if UNITY_2021_3_18_OR_NEWER
-            var lookup = GameObject.FindAnyObjectOfType<ControllerLookup>();
+            var lookup = GameObject.FindAnyObjectByType<ControllerLookup>();
 #else
             var lookup = GameObject.FindObjectOfType<ControllerLookup>();
 #endif
@@ -282,7 +282,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
 #if UNITY_2021_3_18_OR_NEWER
-            var lookup = GameObject.FindAnyObjectOfType<ControllerLookup>();
+            var lookup = GameObject.FindAnyObjectByType<ControllerLookup>();
 #else
             var lookup = GameObject.FindObjectOfType<ControllerLookup>();
 #endif
@@ -327,7 +327,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
 #if UNITY_2021_3_18_OR_NEWER
-            var lookup = GameObject.FindAnyObjectOfType<ControllerLookup>();
+            var lookup = GameObject.FindAnyObjectByType<ControllerLookup>();
 #else
             var lookup = GameObject.FindObjectOfType<ControllerLookup>();
 #endif
@@ -373,7 +373,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
 #if UNITY_2021_3_18_OR_NEWER
-            var lookup = GameObject.FindAnyObjectOfType<ControllerLookup>();
+            var lookup = GameObject.FindAnyObjectByType<ControllerLookup>();
 #else
             var lookup = GameObject.FindObjectOfType<ControllerLookup>();
 #endif

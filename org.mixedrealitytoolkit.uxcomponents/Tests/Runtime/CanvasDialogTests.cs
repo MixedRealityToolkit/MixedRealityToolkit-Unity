@@ -236,7 +236,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
             
             // We have to query by the impl here.
+#if UNITY_2021_3_18_OR_NEWER
+            object[] dialogs = GameObject.FindObjectsByType(typeof(Dialog), FindObjectsInactive.Include, FindObjectsSortMode.None);
+#else
             object[] dialogs = GameObject.FindObjectsOfType(typeof(Dialog), true);
+#endif
             Assert.AreEqual(1, dialogs.Length, "There should be only one pooled dialog in the scene.");
         }
 
@@ -262,7 +266,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
             
             // We have to query by the impl here.
+#if UNITY_2021_3_18_OR_NEWER
+            object[] dialogs = GameObject.FindObjectsByType(typeof(Dialog), FindObjectsInactive.Include, FindObjectsSortMode.None);
+#else
             object[] dialogs = GameObject.FindObjectsOfType(typeof(Dialog), true);
+#endif
             Assert.AreEqual(5, dialogs.Length, "There should have been 5 total dialogs used.");
             
         }

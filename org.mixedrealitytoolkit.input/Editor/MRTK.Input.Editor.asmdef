@@ -4,7 +4,7 @@
     "references": [
         "MixedReality.Toolkit.Core",
         "MixedReality.Toolkit.Core.Editor",
-        "MixedReality.Toolkit.Input",        
+        "MixedReality.Toolkit.Input",
         "Unity.XR.CoreUtils",
         "Unity.XR.CoreUtils.Editor",
         "Unity.XR.Interaction.Toolkit",
@@ -35,6 +35,11 @@
             "name": "com.unity.xr.management",
             "expression": "4.2",
             "define": "UNITYXR_MANAGEMENT_PRESENT"
+        },
+        {
+            "name": "Unity",
+            "expression": "2021.3.18",
+            "define": "UNITY_2021_3_18_OR_NEWER"
         }
     ],
     "noEngineReferences": false
