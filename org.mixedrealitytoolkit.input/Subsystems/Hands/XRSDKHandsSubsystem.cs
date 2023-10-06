@@ -191,7 +191,7 @@ namespace MixedReality.Toolkit.Input
 
             /// <summary>
             /// For a certain hand, query every Bone in the hand, and write all results to the
-            /// HandJoints collection. This will also mark handsQueriedThisFrame[handNode] = true.
+            /// HandJoints collection.
             /// </summary>
             private void TryCalculateEntireHand()
             {

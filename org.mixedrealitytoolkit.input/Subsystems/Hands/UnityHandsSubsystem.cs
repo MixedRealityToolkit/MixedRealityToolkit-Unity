@@ -118,7 +118,7 @@ namespace MixedReality.Toolkit.Input
 
             /// <summary/>
             /// For a certain hand, query every Bone in the hand, and write all results to the
-            /// handJoints collection. This will also mark handsQueriedThisFrame[handNode] = true.
+            /// HandJoints collection.
             /// </summary>
             private void TryCalculateEntireHand()
             {
@@ -162,8 +162,8 @@ namespace MixedReality.Toolkit.Input
                 new ProfilerMarker("[MRTK] UnityHandContainer.TryUpdateJoint");
 
             /// <summary/>
-            /// Given a destination jointID, apply the Bone info to the correct struct
-            /// in the handJoints collection.
+            /// Given a destination jointIndex, apply the pose and radius to the correct struct
+            /// in the HandJoints collection.
             /// </summary>
             private bool TryUpdateJoint(int jointIndex, XRHandJoint xrHandJoint, Transform playspaceTransform)
             {
@@ -195,7 +195,7 @@ namespace MixedReality.Toolkit.Input
 
             /// <summary>
             /// Obtains a reference to the actual XRHand object representing the tracked hand
-            /// functionality present on HandNode. Returns null if no Hand reference available.
+            /// functionality present on HandNode. Returns null if no XRHand reference is available.
             /// </summary>
             private XRHand? GetTrackedHand()
             {
@@ -217,6 +217,10 @@ namespace MixedReality.Toolkit.Input
                 }
             }
 
+            /// <summary>
+            /// Cached mapping of <see cref="MixedReality.Toolkit.TrackedHandJoint"/> index to <see cref="UnityEngine.XR.Hands.XRHandJointID"/>
+            /// to ease calculation each frame, since the mapping doesn't change.
+            /// </summary>
             private static readonly XRHandJointID[] TrackedHandJointIndexToXRHandJointID = new XRHandJointID[]
             {
                 XRHandJointID.Palm,
