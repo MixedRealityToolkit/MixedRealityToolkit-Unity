@@ -38,7 +38,7 @@ namespace MixedReality.Toolkit.Input
 
         private class UnityHandContainer : HandDataContainer
         {
-            private XRHand? hand;
+            private XRHand hand;
             private XRHandSubsystem xrHandSubsystem;
 
             public UnityHandContainer(XRNode handNode) : base(handNode)
@@ -83,9 +83,9 @@ namespace MixedReality.Toolkit.Input
                     {
                         hand = GetTrackedHand();
 
-                        // If the tracked hand is null, we obviously have no data,
+                        // If the hand is not tracked, we obviously have no data,
                         // and return immediately.
-                        if (!hand.HasValue)
+                        if (!hand.isTracked)
                         {
                             pose = HandJoints[index];
                             return false;
@@ -99,7 +99,7 @@ namespace MixedReality.Toolkit.Input
                             return false;
                         }
 
-                        thisQueryValid |= TryUpdateJoint(index, hand.Value.GetJoint(TrackedHandJointIndexToXRHandJointID[index]), origin);
+                        thisQueryValid |= TryUpdateJoint(index, hand.GetJoint(TrackedHandJointIndexToXRHandJointID[index]), origin);
                     }
                     else
                     {
@@ -126,7 +126,7 @@ namespace MixedReality.Toolkit.Input
                 {
                     hand = GetTrackedHand();
 
-                    if (!hand.HasValue)
+                    if (!hand.isTracked)
                     {
                         // No articulated hand device available this frame.
                         FullQueryValid = false;
@@ -148,7 +148,7 @@ namespace MixedReality.Toolkit.Input
 
                     for (int i = 0; i < (int)TrackedHandJoint.TotalJoints; i++)
                     {
-                        FullQueryValid &= TryUpdateJoint(i, hand.Value.GetJoint(TrackedHandJointIndexToXRHandJointID[i]), origin);
+                        FullQueryValid &= TryUpdateJoint(i, hand.GetJoint(TrackedHandJointIndexToXRHandJointID[i]), origin);
                     }
 
                     // Mark this hand as having been fully queried this frame.
@@ -195,9 +195,9 @@ namespace MixedReality.Toolkit.Input
 
             /// <summary>
             /// Obtains a reference to the actual XRHand object representing the tracked hand
-            /// functionality present on HandNode. Returns null if no XRHand reference is available.
+            /// functionality present on HandNode.
             /// </summary>
-            private XRHand? GetTrackedHand()
+            private XRHand GetTrackedHand()
             {
                 using (GetTrackedHandPerfMarker.Auto())
                 {
@@ -208,12 +208,12 @@ namespace MixedReality.Toolkit.Input
                         if (xrHandSubsystem == null)
                         {
                             // No hand subsystem running this frame.
-                            return null;
+                            return default;
                         }
                     }
 
                     XRHand hand = HandNode == XRNode.LeftHand ? xrHandSubsystem.leftHand : xrHandSubsystem.rightHand;
-                    return hand.isTracked ? hand : null;
+                    return hand;
                 }
             }
 
