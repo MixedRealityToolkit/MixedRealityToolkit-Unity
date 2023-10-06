@@ -17,8 +17,7 @@ namespace MixedReality.Toolkit.Input
         DisplayName = "Subsystem for Unity XR Hands API",
         Author = "Mixed Reality Toolkit Contributors",
         ProviderType = typeof(HandsProvider<UnityHandContainer>),
-        SubsystemTypeOverride = typeof(UnityHandsSubsystem),
-        ConfigType = typeof(BaseSubsystemConfig))]
+        SubsystemTypeOverride = typeof(UnityHandsSubsystem))]
     public class UnityHandsSubsystem : HandsSubsystem
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
