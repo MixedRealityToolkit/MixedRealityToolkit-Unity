@@ -113,33 +113,6 @@ namespace MixedReality.Toolkit.Input
                 }
             }
 
-            private static readonly ProfilerMarker GetTrackedHandPerfMarker =
-                new ProfilerMarker("[MRTK] UnityHandContainer.GetTrackedHand");
-
-            /// <summary>
-            /// Obtains a reference to the actual Hand object representing the tracked hand
-            /// functionality present on handNode. Returns null if no Hand reference available.
-            /// </summary>
-            private XRHand? GetTrackedHand()
-            {
-                using (GetTrackedHandPerfMarker.Auto())
-                {
-                    if (xrHandSubsystem == null || !xrHandSubsystem.running)
-                    {
-                        xrHandSubsystem = XRSubsystemHelpers.GetFirstRunningSubsystem<XRHandSubsystem>();
-
-                        if (xrHandSubsystem == null)
-                        {
-                            // No hand subsystem running this frame.
-                            return null;
-                        }
-                    }
-
-                    XRHand hand = HandNode == XRNode.LeftHand ? xrHandSubsystem.leftHand : xrHandSubsystem.rightHand;
-                    return hand.isTracked ? hand : null;
-                }
-            }
-
             private static readonly ProfilerMarker TryCalculateEntireHandPerfMarker =
                 new ProfilerMarker("[MRTK] UnityHandContainer.TryCalculateEntireHand");
 
@@ -214,6 +187,33 @@ namespace MixedReality.Toolkit.Input
                         radius);
 
                     return true;
+                }
+            }
+
+            private static readonly ProfilerMarker GetTrackedHandPerfMarker =
+                new ProfilerMarker("[MRTK] UnityHandContainer.GetTrackedHand");
+
+            /// <summary>
+            /// Obtains a reference to the actual XRHand object representing the tracked hand
+            /// functionality present on HandNode. Returns null if no Hand reference available.
+            /// </summary>
+            private XRHand? GetTrackedHand()
+            {
+                using (GetTrackedHandPerfMarker.Auto())
+                {
+                    if (xrHandSubsystem == null || !xrHandSubsystem.running)
+                    {
+                        xrHandSubsystem = XRSubsystemHelpers.GetFirstRunningSubsystem<XRHandSubsystem>();
+
+                        if (xrHandSubsystem == null)
+                        {
+                            // No hand subsystem running this frame.
+                            return null;
+                        }
+                    }
+
+                    XRHand hand = HandNode == XRNode.LeftHand ? xrHandSubsystem.leftHand : xrHandSubsystem.rightHand;
+                    return hand.isTracked ? hand : null;
                 }
             }
 

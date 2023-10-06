@@ -148,7 +148,7 @@ namespace MixedReality.Toolkit.Input
 
             /// <summary>
             /// Obtains a reference to the actual Hand object representing the tracked hand
-            /// functionality present on handNode. Returns null if no Hand reference available.
+            /// functionality present on HandNode. Returns null if no Hand reference available.
             /// </summary>
             private Hand? GetTrackedHand()
             {
