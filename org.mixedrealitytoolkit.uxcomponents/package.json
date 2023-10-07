@@ -22,6 +22,7 @@
     "com.unity.xr.interaction.toolkit": "2.3.0"
   },
   "msftTestDependencies": {
-    "org.mixedrealitytoolkit.input": "3.0.0"
+    "org.mixedrealitytoolkit.input": "3.0.0",
+    "com.unity.textmeshpro": "3.0.6"
   }
 }
