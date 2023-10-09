@@ -142,7 +142,7 @@ namespace MixedReality.Toolkit
         LittleTip,
 
         /// <summary>
-        /// Number of joints total (not counting None).
+        /// Number of joints total.
         /// </summary>
         TotalJoints = LittleTip + 1
     }
