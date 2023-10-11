@@ -30,6 +30,8 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
         private SerializedProperty manipulationLogicTypes;
 
+        private SerializedProperty addDefaultManipulationSpecializations;
+
         private SerializedProperty releaseBehavior;
 
         private SerializedProperty transformSmoothingLogicType;
@@ -69,6 +71,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
             // Manipulation logic
             manipulationLogicTypes = serializedObject.FindProperty("manipulationLogicTypes");
+
+            // Add Default Manipulation Specializations
+            addDefaultManipulationSpecializations = serializedObject.FindProperty("addDefaultManipulationSpecializations");
 
             // Physics
             releaseBehavior = serializedObject.FindProperty("releaseBehavior");
@@ -163,6 +168,8 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                 EditorGUILayout.PropertyField(smoothingFar);
                 EditorGUILayout.PropertyField(smoothingNear);
             }
+
+            EditorGUILayout.PropertyField(addDefaultManipulationSpecializations);
 
             EditorGUILayout.Space();
 

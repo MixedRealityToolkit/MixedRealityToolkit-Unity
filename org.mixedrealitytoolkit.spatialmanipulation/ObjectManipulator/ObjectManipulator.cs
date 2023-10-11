@@ -457,6 +457,19 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
+        [SerializeField]
+        [Tooltip("Whether to add the default manipulation specializations to the object if not already present.")]
+        private bool addDefaultManipulationSpecializations = true;
+
+        /// <summary>
+        /// Whether to add the default manipulation specializations to the object if not already present.
+        /// </summary>
+        public bool AddDefaultManipulationOverrides
+        {
+            get => addDefaultManipulationSpecializations;
+            set => addDefaultManipulationSpecializations = value;
+        }
+
         #endregion Serialized Fields
 
         #region Protected Properties
@@ -531,6 +544,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private bool wasKinematic = false;
 
+        private IManipulationSpecialization activeSpecialization = null;
+
+        private bool specializedManipulationActive => activeSpecialization != null;
+
         // Reusable list for fetching interactionPoints from interactors.
         private List<Pose> interactionPoints = new List<Pose>();
 
@@ -586,6 +603,14 @@ namespace MixedReality.Toolkit.SpatialManipulation
             InstantiateManipulationLogic();
         }
 
+        /// <summary>
+        /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
+        /// </summary> 
+        private void Start()
+        {
+            EnsureDefaultManipulationSpecializations();
+        }
+
         #endregion
         
         /// <summary>
@@ -607,6 +632,49 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 RotateLogic = Activator.CreateInstance(ManipulationLogicTypes.rotateLogicType) as ManipulationLogic<Quaternion>,
                 ScaleLogic = Activator.CreateInstance(ManipulationLogicTypes.scaleLogicType) as ManipulationLogic<Vector3>,
             };
+        }
+
+        private void EnsureDefaultManipulationSpecializations()
+        {
+            if (!addDefaultManipulationSpecializations)
+            {
+                return;
+            }
+
+            // Ensure the default set of manipulation specializations is present.
+            gameObject.EnsureComponent<SocketManipulationSpecialization>();
+        }
+
+        private void UpdateSelectManipulationSpecialization()
+        {
+            var previousSpecialization = activeSpecialization;
+            activeSpecialization = null;
+
+            foreach (var specialization in GetComponents<IManipulationSpecialization>())
+            {
+                if (specialization.CanProcessSelection(interactorsSelecting, this))
+                {
+                    activeSpecialization = specialization;
+                    break;
+                }
+            }
+
+            if (previousSpecialization != null && previousSpecialization != activeSpecialization)
+            {
+                previousSpecialization.OnSelectManipulationEnded(interactorsSelecting, this, HostTransform, rigidBody);
+            }
+
+            if (activeSpecialization != null)
+            {
+                if (activeSpecialization != previousSpecialization)
+                {
+                    activeSpecialization.OnSelectManipulationStarted(interactorsSelecting, this, HostTransform, rigidBody);
+                }
+                else
+                {
+                    activeSpecialization.OnSelectionChanged(interactorsSelecting, this, HostTransform, rigidBody);
+                }
+            }
         }
 
         private InteractionFlags GetInteractionFlagsFromInteractor(IXRInteractor interactor)
@@ -676,27 +744,36 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 {
                     wasGravity = rigidBody.useGravity;
                     wasKinematic = rigidBody.isKinematic;
-
-                    rigidBody.useGravity = false;
-                    rigidBody.isKinematic = false;
                 }
 
-                targetTransform = new MixedRealityTransform(HostTransform.position, HostTransform.rotation, HostTransform.localScale);
+                UpdateSelectManipulationSpecialization();
 
-                ManipulationLogic.ScaleLogic.Setup(interactorsSelecting, this, targetTransform);
-                ManipulationLogic.RotateLogic.Setup(interactorsSelecting, this, targetTransform);
-                ManipulationLogic.MoveLogic.Setup(interactorsSelecting, this, targetTransform);
-
-                if (constraintsManager != null && EnableConstraints)
+                if (!specializedManipulationActive)
                 {
-                    constraintsManager.OnManipulationStarted(targetTransform);
+                    // Default Manipulation Behavior
+                    if (rigidBody != null)
+                    {
+                        rigidBody.useGravity = false;
+                        rigidBody.isKinematic = false;
+                    }
+
+                    targetTransform = new MixedRealityTransform(HostTransform.position, HostTransform.rotation, HostTransform.localScale);
+
+                    ManipulationLogic.ScaleLogic.Setup(interactorsSelecting, this, targetTransform);
+                    ManipulationLogic.RotateLogic.Setup(interactorsSelecting, this, targetTransform);
+                    ManipulationLogic.MoveLogic.Setup(interactorsSelecting, this, targetTransform);
+
+                    if (constraintsManager != null && EnableConstraints)
+                    {
+                        constraintsManager.OnManipulationStarted(targetTransform);
+                    }
+
+                    useForces = rigidBody != null && !rigidBody.isKinematic;
+
+                    // ideally, the reference frame should be that of the camera. Here the interactorObject transform is the best available alternative.
+                    referenceFrameTransform = GetReferenceFrameTransform(args);
+                    referenceFrameHasLastPos = false;
                 }
-
-                useForces = rigidBody != null && !rigidBody.isKinematic;
-
-                // ideally, the reference frame should be that of the camera. Here the interactorObject transform is the best available alternative.
-                referenceFrameTransform = GetReferenceFrameTransform(args);
-                referenceFrameHasLastPos = false;
             }
         }
 
@@ -710,11 +787,24 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 base.OnSelectExited(args);
 
-                // Only release the rigidbody (restore rigidbody settings/configuration)
-                // if this is the last select event!
-                if (rigidBody != null && interactorsSelecting.Count == 0)
+                // Handle object release
+                if (interactorsSelecting.Count == 0)
                 {
-                    ReleaseRigidBody(rigidBody.velocity, rigidBody.angularVelocity);
+                    if (specializedManipulationActive)
+                    {
+                        activeSpecialization.OnSelectManipulationEnded(interactorsSelecting, this, HostTransform, rigidBody);
+                        activeSpecialization = null;
+                    }
+                    // Default Manipulation Behavior
+                    else
+                    {
+                        // Only release the rigidbody (restore rigidbody settings/configuration)
+                        // if this is the last select event!
+                        if (rigidBody != null)
+                        {
+                            ReleaseRigidBody(rigidBody.velocity, rigidBody.angularVelocity);
+                        }
+                    }
                 }
             }
         }
@@ -738,64 +828,72 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     return;
                 }
 
-                // Evaluate user input in the UI Update() function.
-                // If we are using physics, targetTransform is not applied directly but instead deferred
-                // to the ApplyForcesToRigidbody() function called from FixedUpdate()
-                if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
+                if (specializedManipulationActive)
                 {
-                    RotateAnchorType rotateType = CurrentInteractionType == InteractionFlags.Near ? RotationAnchorNear : RotationAnchorFar;
-                    bool useCenteredAnchor = rotateType == RotateAnchorType.RotateAboutObjectCenter;
-                    bool isOneHanded = interactorsSelecting.Count == 1;
-
-                    targetTransform = new MixedRealityTransform(HostTransform.position, HostTransform.rotation, HostTransform.localScale);
-
-                    using (ScaleLogicMarker.Auto())
-                    {
-                        if (allowedManipulations.IsMaskSet(TransformFlags.Scale))
-                        {
-                            targetTransform.Scale = ManipulationLogic.ScaleLogic.Update(interactorsSelecting, this, targetTransform, useCenteredAnchor);
-                        }
-                    }
-
-                    // Immediately apply scale constraints after computing the user's desired scale input.
-                    if (EnableConstraints && constraintsManager != null)
-                    {
-                        constraintsManager.ApplyScaleConstraints(ref targetTransform, isOneHanded, IsGrabSelected);
-                    }
-
-                    using (RotateLogicMarker.Auto())
-                    {
-                        if (allowedManipulations.IsMaskSet(TransformFlags.Rotate))
-                        {
-                            targetTransform.Rotation = ManipulationLogic.RotateLogic.Update(interactorsSelecting, this, targetTransform, useCenteredAnchor);
-                        }
-                    }
-
-                    // Immediately apply rotation constraints after computing the user's desired rotation input.
-                    if (EnableConstraints && constraintsManager != null)
-                    {
-                        constraintsManager.ApplyRotationConstraints(ref targetTransform, isOneHanded, IsGrabSelected);
-                    }
-
-                    using (MoveLogicMarker.Auto())
-                    {
-                        if (allowedManipulations.IsMaskSet(TransformFlags.Move))
-                        {
-                            targetTransform.Position = ManipulationLogic.MoveLogic.Update(interactorsSelecting, this, targetTransform, useCenteredAnchor);
-                        }
-                    }
-
-                    // Immediately apply translation constraints after computing the user's desired scale input.
-                    if (EnableConstraints && constraintsManager != null)
-                    {
-                        constraintsManager.ApplyTranslationConstraints(ref targetTransform, isOneHanded, IsGrabSelected);
-                    }
-
-                    ApplyTargetTransform();
+                    activeSpecialization.Process(updatePhase, interactorsSelecting, this, HostTransform, rigidBody);
                 }
-                else if (useForces && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Fixed)
+                // Default Manipulation Behavior
+                else
                 {
-                    ApplyForcesToRigidbody();
+                    // Evaluate user input in the UI Update() function.
+                    // If we are using physics, targetTransform is not applied directly but instead deferred
+                    // to the ApplyForcesToRigidbody() function called from FixedUpdate()
+                    if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
+                    {
+                        RotateAnchorType rotateType = CurrentInteractionType == InteractionFlags.Near ? RotationAnchorNear : RotationAnchorFar;
+                        bool useCenteredAnchor = rotateType == RotateAnchorType.RotateAboutObjectCenter;
+                        bool isOneHanded = interactorsSelecting.Count == 1;
+
+                        targetTransform = new MixedRealityTransform(HostTransform.position, HostTransform.rotation, HostTransform.localScale);
+
+                        using (ScaleLogicMarker.Auto())
+                        {
+                            if (allowedManipulations.IsMaskSet(TransformFlags.Scale))
+                            {
+                                targetTransform.Scale = ManipulationLogic.ScaleLogic.Update(interactorsSelecting, this, targetTransform, useCenteredAnchor);
+                            }
+                        }
+
+                        // Immediately apply scale constraints after computing the user's desired scale input.
+                        if (EnableConstraints && constraintsManager != null)
+                        {
+                            constraintsManager.ApplyScaleConstraints(ref targetTransform, isOneHanded, IsGrabSelected);
+                        }
+
+                        using (RotateLogicMarker.Auto())
+                        {
+                            if (allowedManipulations.IsMaskSet(TransformFlags.Rotate))
+                            {
+                                targetTransform.Rotation = ManipulationLogic.RotateLogic.Update(interactorsSelecting, this, targetTransform, useCenteredAnchor);
+                            }
+                        }
+
+                        // Immediately apply rotation constraints after computing the user's desired rotation input.
+                        if (EnableConstraints && constraintsManager != null)
+                        {
+                            constraintsManager.ApplyRotationConstraints(ref targetTransform, isOneHanded, IsGrabSelected);
+                        }
+
+                        using (MoveLogicMarker.Auto())
+                        {
+                            if (allowedManipulations.IsMaskSet(TransformFlags.Move))
+                            {
+                                targetTransform.Position = ManipulationLogic.MoveLogic.Update(interactorsSelecting, this, targetTransform, useCenteredAnchor);
+                            }
+                        }
+
+                        // Immediately apply translation constraints after computing the user's desired scale input.
+                        if (EnableConstraints && constraintsManager != null)
+                        {
+                            constraintsManager.ApplyTranslationConstraints(ref targetTransform, isOneHanded, IsGrabSelected);
+                        }
+
+                        ApplyTargetTransform();
+                    }
+                    else if (useForces && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Fixed)
+                    {
+                        ApplyForcesToRigidbody();
+                    }
                 }
             }
         }
