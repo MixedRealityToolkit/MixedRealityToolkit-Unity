@@ -15,7 +15,7 @@ using UnityEngine.XR;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem">HandsSubsystem</see>, and 
+    /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem">HandsSubsystem</see> and
     /// obtains hand joint poses from the Microsoft.MixedReality.OpenXR.HandTracker class.
     /// </summary>
 #if MROPENXR_PRESENT && (UNITY_EDITOR_WIN || UNITY_WSA || UNITY_STANDALONE_WIN || UNITY_ANDROID)

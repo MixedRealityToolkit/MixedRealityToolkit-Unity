@@ -11,6 +11,10 @@ using UnityEngine.XR.Hands;
 
 namespace MixedReality.Toolkit.Input
 {
+    /// <summary>
+    /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem">HandsSubsystem</see> and
+    /// obtains hand joint poses from Unity's <see href="https://docs.unity3d.com/Packages/com.unity.xr.hands@1.3">XR Hands package</see>.
+    /// </summary>
     [Preserve]
     [MRTKSubsystem(
         Name = "org.mixedrealitytoolkit.unityxrhands",
