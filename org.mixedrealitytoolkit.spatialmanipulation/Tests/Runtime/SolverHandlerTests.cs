@@ -41,7 +41,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = Handedness.Both;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindFirstObjectByType<ControllerLookup>();
+            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -99,7 +99,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = (Handedness)(-1);
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindFirstObjectByType<ControllerLookup>();
+            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -154,7 +154,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = Handedness.Left;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindFirstObjectByType<ControllerLookup>();
+            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -209,7 +209,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = Handedness.Right;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindFirstObjectByType<ControllerLookup>();
+            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -265,7 +265,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
             // Set it to track interactors
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindFirstObjectByType<ControllerLookup>();
+            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -306,7 +306,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 
             // Set it to track interactors
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindFirstObjectByType<ControllerLookup>();
+            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -348,7 +348,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 
             // Set it to track interactors
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindFirstObjectByType<ControllerLookup>();
+            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
