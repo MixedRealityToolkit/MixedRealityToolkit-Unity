@@ -198,7 +198,7 @@ namespace MixedReality.Toolkit.Input.Tests
         // Returns true iff any of the ProximityDetectors in the scene are currently triggered.
         private bool AnyProximityDetectorsTriggered()
         {
-            ProximityDetector[] detectors = FindObjectUtility.FindObjectsOfType<ProximityDetector>();
+            ProximityDetector[] detectors = FindObjectUtility.FindObjectsByType<ProximityDetector>();
             foreach (var detector in detectors)
             {
                 if (detector.IsModeDetected())

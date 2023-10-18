@@ -52,7 +52,7 @@ namespace MixedReality.Toolkit
         /// </remarks>
         /// <param name="includeInactive">If true, inactive objects will be included in the search. False by default.</param>
         /// <param name="sort">If false, results will not sorted by InstanceID. True by default.</param>
-        public static T[] FindObjectsOfType<T>(bool includeInactive = false, bool sort = true) where T : Component
+        public static T[] FindObjectsByType<T>(bool includeInactive = false, bool sort = true) where T : Component
         {
 #if UNITY_2021_3_18_OR_NEWER
         return UnityEngine.Object.FindObjectsByType<T>(includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude, sort ? FindObjectsSortMode.InstanceID : FindObjectsSortMode.None);
@@ -70,7 +70,7 @@ namespace MixedReality.Toolkit
         /// <param name="includeInactive">If true, inactive objects will be included in the search. False by default.</param>
         /// <param name="sort">If false, results will not sorted by InstanceID. True by default.</param>
         /// <param name="type">The type to search for.</param>
-        public static UnityEngine.Object[] FindObjectsOfType(Type type, bool includeInactive = false, bool sort = true)
+        public static UnityEngine.Object[] FindObjectsByType(Type type, bool includeInactive = false, bool sort = true)
         {
 #if UNITY_2021_3_18_OR_NEWER
             return UnityEngine.Object.FindObjectsByType(type, includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude, sort ? FindObjectsSortMode.InstanceID : FindObjectsSortMode.None);

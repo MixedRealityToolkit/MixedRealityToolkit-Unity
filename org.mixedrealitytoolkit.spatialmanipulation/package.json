@@ -15,7 +15,7 @@
   },
   "unity": "2021.3",
   "dependencies": {
-    "org.mixedrealitytoolkit.core": "3.0.0",
+    "org.mixedrealitytoolkit.core": "3.1.0",
     "org.mixedrealitytoolkit.uxcore": "3.0.0",
     "com.unity.inputsystem": "1.6.1",
     "com.unity.xr.interaction.toolkit": "2.3.0"
