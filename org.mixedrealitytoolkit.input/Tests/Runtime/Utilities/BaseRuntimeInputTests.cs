@@ -36,7 +36,7 @@ namespace MixedReality.Toolkit.Input.Tests
             {
                 if (cachedInteractionManager == null)
                 {
-                    cachedInteractionManager = Object.FindObjectOfType<XRInteractionManager>();
+                    cachedInteractionManager = FindObjectUtility.FindFirstObjectByType<XRInteractionManager>();
                 }
                 return cachedInteractionManager;
             }

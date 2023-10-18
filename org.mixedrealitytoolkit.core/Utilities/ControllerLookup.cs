@@ -61,17 +61,10 @@ namespace MixedReality.Toolkit
         /// </summary>
         private void OnValidate()
         {
-#if UNITY_2021_3_18_OR_NEWER
-            if (FindObjectsByType<ControllerLookup>(FindObjectsSortMode.None).Length > 1)
+            if (FindObjectUtility.FindObjectsOfType<ControllerLookup>(false, false).Length > 1)
             {
                 Debug.LogWarning("Found more than one instance of the ControllerLookup class in the hierarchy. There should only be one");
             }
-#else
-            if (FindObjectsOfType<ControllerLookup>().Length > 1)
-            {
-                Debug.LogWarning("Found more than one instance of the ControllerLookup class in the hierarchy. There should only be one");
-            }
-#endif
         }
     }
 }

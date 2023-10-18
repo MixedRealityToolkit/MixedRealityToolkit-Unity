@@ -236,7 +236,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
 
             // We have to query by the impl here.
-            object[] dialogs = GameObject.FindObjectsOfType(typeof(Dialog), true);
+            object[] dialogs = FindObjectUtility.FindObjectsOfType(typeof(Dialog), true);
             Assert.AreEqual(1, dialogs.Length, "There should be only one pooled dialog in the scene.");
         }
 
@@ -262,7 +262,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
 
             // We have to query by the impl here.
-            object[] dialogs = GameObject.FindObjectsOfType(typeof(Dialog), true);
+            object[] dialogs = FindObjectUtility.FindObjectsOfType(typeof(Dialog), true);
             Assert.AreEqual(5, dialogs.Length, "There should have been 5 total dialogs used.");
 
         }
