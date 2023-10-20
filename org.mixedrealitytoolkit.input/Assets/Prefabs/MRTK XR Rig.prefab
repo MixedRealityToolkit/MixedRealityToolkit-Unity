@@ -235,7 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   opaqueDisplay:
     clearMode: 1
-    clearColor: {r: 0, g: 0, b: 0, a: 1}
+    clearColor: {r: 0, g: 0, b: 0, a: 0}
     nearPlaneDistance: 0.1
     farPlaneDistance: 1000
     adjustTrackingOrigin: 1
@@ -243,7 +243,7 @@ MonoBehaviour:
     qualityLevel: 5
   transparentDisplay:
     clearMode: 2
-    clearColor: {r: 0, g: 0, b: 0, a: 1}
+    clearColor: {r: 0, g: 0, b: 0, a: 0}
     nearPlaneDistance: 0.1
     farPlaneDistance: 50
     adjustTrackingOrigin: 1

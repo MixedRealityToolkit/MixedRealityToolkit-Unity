@@ -5,10 +5,6 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR;
 
-#if MROPENXR_PRESENT
-using Microsoft.MixedReality.OpenXR.Remoting;
-#endif
-
 #if UNITYXR_MANAGEMENT_PRESENT
 using UnityEngine.XR.Management;
 #endif
