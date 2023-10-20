@@ -162,6 +162,36 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         [SerializeField]
+        [Tooltip("The preferred movement type of the rigid body during manipulation. Selecting interactors may override this and define a different movement type.")]
+        private MovementType rigidbodyMovementType = MovementType.VelocityTracking;
+
+        /// <summary>
+        /// The <see cref="XRBaseInteractable.MovementType"/> of the rigid body during manipulation.
+        /// </summary>
+        /// <remarks>
+        /// This is the default <see cref="XRBaseInteractable.MovementType"/> of the rigid body during manipulation,
+        /// however, the type can be overridden by an interactor with <see cref="XRBaseInteractor.selectedInteractableMovementTypeOverride"/>.
+        /// The overriding value, if any, will be set by the most recent selecting interactor that has an override.
+        /// </remarks>
+        public MovementType RigidbodyMovementType
+        {
+            get => rigidbodyMovementType;
+            set
+            {
+                if (rigidbodyMovementType != value)
+                {
+                    rigidbodyMovementType = value;
+
+                    if (isSelected && rigidBody != null)
+                    {
+                        UpdateCurrentRigidbodyMovementType();
+                        SetupRigidbodyManipulation();
+                    }
+                }
+            }
+        }
+
+        [SerializeField]
         [Tooltip(
             "Apply torque to control orientation of the body")]
         private bool applyTorque = true;
@@ -517,6 +547,16 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         protected LogicImplementation ManipulationLogic { get; private set; }
 
+        /// <summary>
+        /// The current <see cref="XRBaseInteractable.MovementType"/> of the rigid body during manipulation.
+        /// </summary>
+        /// <remarks>
+        /// This defaults to <see cref="RigidbodyMovementType"/>, but can be overridden
+        /// by an interactor with <see cref="XRBaseInteractor.selectedInteractableMovementTypeOverride"/>.
+        /// The overriding value, if any, will be set by the most recent selecting interactor that has an override.
+        /// </remarks>
+        protected MovementType CurrentRigidbodyMovementType { get; private set; } = MovementType.VelocityTracking;
+
         #endregion Protected Properties
 
         #region Private Properties
@@ -524,6 +564,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private ITransformSmoothingLogic smoothingLogic;
 
         private bool ShouldSmooth => (IsGrabSelected && SmoothingNear) || (!IsGrabSelected && SmoothingFar);
+
+        private bool UseForces => rigidBody != null && !rigidBody.isKinematic;
 
         private Rigidbody rigidBody;
 
@@ -647,7 +689,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private Vector3 referenceFrameLastPos;
 
         private MixedRealityTransform targetTransform;
-        private bool useForces;
 
         private static readonly ProfilerMarker OnSelectEnteredPerfMarker =
             new ProfilerMarker("[MRTK] ObjectManipulator.OnSelectEntered");
@@ -669,16 +710,19 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 base.OnSelectEntered(args);
 
-                // Only record rigidbody settings if this is the *first*
-                // selection event! Otherwise, we'll record the during-interaction
-                // rigidbody information, which we've already dirtied.
-                if (rigidBody != null && interactorsSelecting.Count == 1)
+                if (rigidBody != null)
                 {
-                    wasGravity = rigidBody.useGravity;
-                    wasKinematic = rigidBody.isKinematic;
+                    // Only record rigidbody settings if this is the *first*
+                    // selection event! Otherwise, we'll record the during-interaction
+                    // rigidbody information, which we've already dirtied.
+                    if (interactorsSelecting.Count == 1)
+                    {
+                        wasGravity = rigidBody.useGravity;
+                        wasKinematic = rigidBody.isKinematic;
+                    }
 
-                    rigidBody.useGravity = false;
-                    rigidBody.isKinematic = false;
+                    UpdateCurrentRigidbodyMovementType();
+                    SetupRigidbodyManipulation();
                 }
 
                 targetTransform = new MixedRealityTransform(HostTransform.position, HostTransform.rotation, HostTransform.localScale);
@@ -691,8 +735,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 {
                     constraintsManager.OnManipulationStarted(targetTransform);
                 }
-
-                useForces = rigidBody != null && !rigidBody.isKinematic;
 
                 // ideally, the reference frame should be that of the camera. Here the interactorObject transform is the best available alternative.
                 referenceFrameTransform = GetReferenceFrameTransform(args);
@@ -712,9 +754,17 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
                 // Only release the rigidbody (restore rigidbody settings/configuration)
                 // if this is the last select event!
-                if (rigidBody != null && interactorsSelecting.Count == 0)
+                if (rigidBody != null)
                 {
-                    ReleaseRigidBody(rigidBody.velocity, rigidBody.angularVelocity);
+                    if (interactorsSelecting.Count == 0)
+                    {
+                        ReleaseRigidBody(rigidBody.velocity, rigidBody.angularVelocity);
+                    }
+                    else
+                    {
+                        UpdateCurrentRigidbodyMovementType();
+                        SetupRigidbodyManipulation();
+                    }
                 }
             }
         }
@@ -793,7 +843,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
                     ApplyTargetTransform();
                 }
-                else if (useForces && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Fixed)
+                else if (UseForces && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Fixed)
                 {
                     ApplyForcesToRigidbody();
                 }
@@ -811,7 +861,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             TransformFlags modifiedTransformFlags = TransformFlags.None;
             ModifyTargetPose(ref targetTransform, ref modifiedTransformFlags);
 
-            if (rigidBody == null)
+            if (rigidBody == null || (rigidBody.isKinematic && CurrentRigidbodyMovementType == MovementType.Instantaneous))
             {
                 HostTransform.SetPositionAndRotation(targetTransform.Position, targetTransform.Rotation);
                 HostTransform.localScale = targetTransform.Scale;
@@ -819,7 +869,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             else
             {
                 // There is a Rigidbody. Potential different paths for near vs far manipulation
-                if (!useForces)
+                if (!UseForces)
                 {
                     rigidBody.MovePosition(targetTransform.Position);
                     rigidBody.MoveRotation(targetTransform.Rotation);
@@ -939,9 +989,35 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
             bool applySmoothing = ShouldSmooth && smoothingLogic != null;
 
-            targetPose.Position = (applySmoothing && !useForces) ? smoothingLogic.SmoothPosition(HostTransform.position, targetPose.Position, moveLerpTime, Time.deltaTime) : targetPose.Position;
-            targetPose.Rotation = (applySmoothing && !useForces) ? smoothingLogic.SmoothRotation(HostTransform.rotation, targetPose.Rotation, rotateLerpTime, Time.deltaTime) : targetPose.Rotation;
+            targetPose.Position = (applySmoothing && !UseForces) ? smoothingLogic.SmoothPosition(HostTransform.position, targetPose.Position, moveLerpTime, Time.deltaTime) : targetPose.Position;
+            targetPose.Rotation = (applySmoothing && !UseForces) ? smoothingLogic.SmoothRotation(HostTransform.rotation, targetPose.Rotation, rotateLerpTime, Time.deltaTime) : targetPose.Rotation;
             targetPose.Scale = applySmoothing ? smoothingLogic.SmoothScale(HostTransform.localScale, targetPose.Scale, scaleLerpTime, Time.deltaTime) : targetPose.Scale;
+        }
+
+        private void UpdateCurrentRigidbodyMovementType()
+        {
+            CurrentRigidbodyMovementType = rigidbodyMovementType;
+
+            // Find the most recent interactor that has a movement type override, if any, using reverse order of selecting interactors.
+            // This matches XRI's treatment of overrides as the default behavior.
+            for (var index = interactorsSelecting.Count - 1; index >= 0; --index)
+            {
+                var xrBaseInteractor = interactorsSelecting[index] as XRBaseInteractor;
+                if (xrBaseInteractor != null && xrBaseInteractor.selectedInteractableMovementTypeOverride.HasValue)
+                {
+                    CurrentRigidbodyMovementType = xrBaseInteractor.selectedInteractableMovementTypeOverride.Value;
+                    break;
+                }
+            }
+        }
+
+        private void SetupRigidbodyManipulation()
+        {
+            if (rigidBody != null)
+            {
+                rigidBody.useGravity = false;
+                rigidBody.isKinematic = CurrentRigidbodyMovementType == MovementType.Kinematic || CurrentRigidbodyMovementType == MovementType.Instantaneous;
+            }
         }
 
         private void ReleaseRigidBody(Vector3 velocity, Vector3 angularVelocity)
