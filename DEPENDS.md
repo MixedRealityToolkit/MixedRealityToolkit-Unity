@@ -78,6 +78,14 @@ Required by org.mixedrealitytoolkit.core, and org.mixedrealitytoolkit.input.
 |-------------|-------------|---------------|-----------------|--------------------------------------|
 | 2.1.0       |             | Sep. 20, 2023 | @AMollis        | Initial version                      |
 
+## com.unity.xr.hands
+
+Required by org.mixedrealitytoolkit.input.
+
+| Min Version | Max Version | Date          | Author          | Change Reason                           |
+|-------------|-------------|---------------|-----------------|-----------------------------------------|
+| 1.3.0       |             | Oct. 6, 2023  | @keveleigh      | Added support for Unity's XR Hands API. |
+
 ## com.unity.xr.interaction.toolkit
 
 Required by org.mixedrealitytoolkit.core, org.mixedrealitytoolkit.input, org.mixedrealitytoolkit.spatialmanipulation, org.mixedrealitytoolkit.uxcomponents, and org.mixedrealitytoolkit.uxcore.

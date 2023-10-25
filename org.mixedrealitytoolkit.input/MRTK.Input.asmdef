@@ -2,14 +2,14 @@
     "name": "MixedReality.Toolkit.Input",
     "rootNamespace": "MixedReality.Toolkit.Input",
     "references": [
+        "glTFast",
         "Microsoft.MixedReality.OpenXR",
         "MixedReality.Toolkit.Core",
         "Unity.InputSystem",
         "Unity.XR.CoreUtils",
+        "Unity.XR.Hands",
         "Unity.XR.Interaction.Toolkit",
-        "Unity.XR.Management",
-        "glTFast",
-        "Ktx"
+        "Unity.XR.Management"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
