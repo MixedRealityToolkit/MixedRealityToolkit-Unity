@@ -15,7 +15,7 @@ using UnityEngine.XR;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem">HandsSubsystem</see>, and 
+    /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem">HandsSubsystem</see> and
     /// obtains hand joint poses from the Microsoft.MixedReality.OpenXR.HandTracker class.
     /// </summary>
 #if MROPENXR_PRESENT && (UNITY_EDITOR_WIN || UNITY_WSA || UNITY_STANDALONE_WIN || UNITY_ANDROID)
@@ -131,7 +131,7 @@ namespace MixedReality.Toolkit.Input
 
             /// <summary>
             /// For a certain hand, query every Bone in the hand, and write all results to the
-            /// HandJoints collection. This will also mark handsQueriedThisFrame[handNode] = true.
+            /// HandJoints collection.
             /// </summary>
             private void TryCalculateEntireHand()
             {
@@ -172,7 +172,7 @@ namespace MixedReality.Toolkit.Input
                 new ProfilerMarker("[MRTK] OpenXRHandContainer.UpdateJoint");
 
             /// <summary>
-            /// Given a destination jointID, apply the Bone info to the correct struct
+            /// Given a destination jointIndex, apply the HandJointLocation info to the correct struct
             /// in the HandJoints collection.
             /// </summary>
             private void UpdateJoint(int jointIndex, in HandJointLocation handJointLocation, Transform playspaceTransform)
