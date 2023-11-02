@@ -119,7 +119,7 @@ namespace MixedReality.Toolkit.Input
                         foreach (var sys in handsSubsystems)
                         {
                             // Don't scrape subsystems that aren't running.
-                            if (sys.running == false) { continue; }
+                            if (!sys.running) { continue; }
 
                             if (sys.TryGetJoint(joint, HandNode, out HandJointPose data))
                             {

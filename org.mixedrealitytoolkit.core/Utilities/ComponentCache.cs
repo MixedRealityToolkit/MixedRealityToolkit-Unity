@@ -35,7 +35,7 @@ namespace MixedReality.Toolkit
         {
             if (cacheFirstInstance == null || !cacheFirstInstance.gameObject.activeInHierarchy)
             {
-                cacheFirstInstance = Object.FindFirstObjectByType<T>();
+                cacheFirstInstance = FindObjectUtility.FindFirstObjectByType<T>();
             }
 
             result = cacheFirstInstance;

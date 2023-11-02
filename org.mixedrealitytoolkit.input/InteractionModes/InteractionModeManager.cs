@@ -71,7 +71,7 @@ namespace MixedReality.Toolkit.Input
         public void InitializeControllers()
         {
             controllerMapping.Clear();
-            foreach (XRController xrController in FindObjectsOfType<XRController>())
+            foreach (XRController xrController in FindObjectUtility.FindObjectsByType<XRController>())
             {
                 if (!controllerMapping.ContainsKey(xrController.gameObject))
                 {
@@ -127,7 +127,7 @@ namespace MixedReality.Toolkit.Input
             // PERFORMANCE FIXME: This is not great for performance. Find better way to register detectors?
             // We would query interactors and then add all interactors that happen to be a detector, but
             // detectors may not necessarily be interactors.
-            foreach (IInteractionModeDetector detector in FindObjectsOfType<MonoBehaviour>().OfType<IInteractionModeDetector>())
+            foreach (IInteractionModeDetector detector in FindObjectUtility.FindObjectsByType<MonoBehaviour>().OfType<IInteractionModeDetector>())
             {
                 interactionModeDectectors.Add(detector);
             }
