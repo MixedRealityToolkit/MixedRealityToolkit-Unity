@@ -411,7 +411,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             int poolSize = screenCount + layoutRowsOrColumns;
             for (int i = 0; i < poolSize; i++)
             {
-                GameObject go = Instantiate(prefab, ItemLocation(-(i + 1)), Quaternion.identity, scrollRect.content);
+                GameObject go = Instantiate(prefab, ItemLocation(-(i + 1)), scrollRect.content.rotation, scrollRect.content);
                 pool.Enqueue(go);
             }
         }
