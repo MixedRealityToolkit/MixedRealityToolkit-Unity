@@ -82,7 +82,12 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 max = InitialWorldPose.Scale.Mul(max);
             }
 
-            transform.Scale = Vector3.Max(min, Vector3.Min(max, transform.Scale));
+            // Apply the min and max constraints per axis
+            transform.Scale = new Vector3(
+                Mathf.Clamp(transform.Scale.x, min.x, max.x),
+                Mathf.Clamp(transform.Scale.y, min.y, max.y),
+                Mathf.Clamp(transform.Scale.z, min.z, max.z)
+            );
         }
 
         #endregion Public Methods
