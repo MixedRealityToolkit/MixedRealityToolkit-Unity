@@ -313,14 +313,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// </summary>
         private void OnValidate()
         {
-            // We only want to reset things if it has already been initialized,
-            // we don't want to initialize it prematurely!
-            if (initialized == false) { return; }
-
-            if (margin < gutter) { margin = gutter; }
-
-            visibleValid = false;
-            Initialize();
+            Reset();
         }
 
         /// <summary>
@@ -394,7 +387,7 @@ namespace MixedReality.Toolkit.UX.Experimental
 
         private void InitializePool()
         {
-            // Support resetting everything from OnValidate
+            // Support resetting everything from Reset
             foreach (int i in poolDict.Keys.ToArray())
             {
                 MakeInvisible(i);
@@ -530,6 +523,22 @@ namespace MixedReality.Toolkit.UX.Experimental
 
             visibleValid = false;
             UpdateScrollView(scroll);
+        }
+
+        /// <summary>
+        /// Resets the VirtualizedScrollRectList. This may remove items aready
+        /// visible and create new items.
+        /// </summary>
+        public void Reset()
+        {
+            // We only want to reset things if it has already been initialized,
+            // we don't want to initialize it prematurely!
+            if (initialized == false) { return; }
+
+            if (margin < gutter) { margin = gutter; }
+
+            visibleValid = false;
+            Initialize();
         }
         #endregion
     }
