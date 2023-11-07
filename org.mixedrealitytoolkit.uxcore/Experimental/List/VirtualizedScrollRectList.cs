@@ -313,7 +313,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// </summary>
         private void OnValidate()
         {
-            Reset();
+            ResetLayout();
         }
 
         /// <summary>
@@ -387,7 +387,7 @@ namespace MixedReality.Toolkit.UX.Experimental
 
         private void InitializePool()
         {
-            // Support resetting everything from Reset
+            // Support resetting everything from ResetLayout
             foreach (int i in poolDict.Keys.ToArray())
             {
                 MakeInvisible(i);
@@ -529,7 +529,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// Resets the VirtualizedScrollRectList. This may remove items aready
         /// visible and create new items.
         /// </summary>
-        public void Reset()
+        public void ResetLayout()
         {
             // We only want to reset things if it has already been initialized,
             // we don't want to initialize it prematurely!
