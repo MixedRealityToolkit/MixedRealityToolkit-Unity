@@ -156,6 +156,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         private float contentStart;
         private float layoutPrefabSize;
         private bool initialized = false;
+        private bool resetCalled = false;
 
         private int visibleStart;
         private int visibleEnd;
@@ -164,6 +165,8 @@ namespace MixedReality.Toolkit.UX.Experimental
         private Queue<GameObject> pool = new Queue<GameObject>();
         private Dictionary<int, GameObject> poolDict = new Dictionary<int, GameObject>();
 
+        private Action<GameObject, int> onVisible;
+        private Action<GameObject, int> onInvisible;
         #endregion
 
         #region Public properties and fields
@@ -187,6 +190,21 @@ namespace MixedReality.Toolkit.UX.Experimental
             {
                 requestScroll = value;
                 UpdateScrollView(requestScroll);
+            }
+        }
+
+        /// <summary>
+        /// The pool of list item objects will be composed of this Prefab. When
+        /// the value changes the items are all repopulated.
+        /// <see cref="ResetLayout"/>
+        /// </summary>
+        public GameObject Prefab
+        {
+            get => prefab;
+            set
+            {
+                prefab = value;
+                ResetLayout();
             }
         }
 
@@ -236,18 +254,38 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// content area, this callback is called, with an integer representing
         /// the index of the item in the list. This callback is invoked after
         /// the GameObject has been positioned, but just before it is made
-        /// visible.
+        /// visible. When the value is set the list of items get reset.
+        /// <see cref="ResetLayout"/>.
         /// </summary>
-        public Action<GameObject, int> OnVisible { get; set; }
+        public Action<GameObject, int> OnVisible
+        {
+            get => onVisible;
+            set
+            {
+                onVisible = value;
+                // If this is changeing, it means how the items are populated is changing, hence reset.
+                ResetLayout();
+            }
+        }
 
         /// <summary>
         /// When a pooled prefab instance is just removed from visibility on
         /// the scroll content area, this callback is called, with an integer
         /// representing the index of the item in the list. VirtualizedScrollRectList
         /// will make this GameObject invisible for you after this callback is
-        /// invoked.
+        /// invoked. When the value is set the list of items get reset
+        /// <see cref="ResetLayout"/>.
         /// </summary>
-        public Action<GameObject, int> OnInvisible { get; set; }
+        public Action<GameObject, int> OnInvisible
+        {
+            get => onInvisible;
+            set
+            {
+                onInvisible = value;
+                // If this is changeing, it means how the items are populated is changing, hence reset.
+                ResetLayout();
+            }
+        }
 
         #endregion
 
@@ -477,6 +515,15 @@ namespace MixedReality.Toolkit.UX.Experimental
             OnVisible?.Invoke(go, i);
         }
 
+        private IEnumerator ResetLayoutAtEndOfFrame()
+        {
+            yield return new WaitForEndOfFrame();
+            if (margin < gutter) { margin = gutter; }
+
+            resetCalled = false;
+            visibleValid = false;
+            Initialize();
+        }
         #endregion
 
         #region Public Methods
@@ -533,12 +580,17 @@ namespace MixedReality.Toolkit.UX.Experimental
         {
             // We only want to reset things if it has already been initialized,
             // we don't want to initialize it prematurely!
-            if (initialized == false) { return; }
+            if (initialized == false)
+            {
+                return;
+            }
 
-            if (margin < gutter) { margin = gutter; }
-
-            visibleValid = false;
-            Initialize();
+            // We don't want to reset multiple times in one frame.
+            if (resetCalled)
+            {
+                return;
+            }
+            StartCoroutine(ResetLayoutAtEndOfFrame());
         }
         #endregion
     }
