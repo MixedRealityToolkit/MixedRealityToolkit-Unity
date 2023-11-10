@@ -599,6 +599,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             {
                 return;
             }
+            resetCalled = true;
             StartCoroutine(ResetLayoutAtEndOfFrame());
         }
         #endregion
