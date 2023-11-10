@@ -203,8 +203,11 @@ namespace MixedReality.Toolkit.UX.Experimental
             get => prefab;
             set
             {
-                prefab = value;
-                ResetLayout();
+                if (prefab != value)
+                {
+                    prefab = value;
+                    ResetLayout();
+                }
             }
         }
 
@@ -262,9 +265,12 @@ namespace MixedReality.Toolkit.UX.Experimental
             get => onVisible;
             set
             {
-                onVisible = value;
-                // If this is changeing, it means how the items are populated is changing, hence reset.
-                ResetLayout();
+                if (onVisible != value)
+                {
+                    onVisible = value;
+                    // If this is changeing, it means how the items are populated is changing, hence reset.
+                    ResetLayout();
+                }
             }
         }
 
@@ -281,9 +287,12 @@ namespace MixedReality.Toolkit.UX.Experimental
             get => onInvisible;
             set
             {
-                onInvisible = value;
-                // If this is changeing, it means how the items are populated is changing, hence reset.
-                ResetLayout();
+                if (onInvisible != value)
+                {
+                    onInvisible = value;
+                    // If this is changeing, it means how the items are populated is changing, hence reset.
+                    ResetLayout();
+                }
             }
         }
 

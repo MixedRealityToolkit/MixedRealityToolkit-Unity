@@ -41,12 +41,20 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.IsNotNull(virtualizedScrollRectList, "VirtualizedScrollRectList was not found in spawned prefab.");
         }
 
-        private void SetList(string[] words)
+        /// <summary>
+        /// Callback to set for the OnVisible callback for wordSet1
+        /// </summary>
+        private void OnVisibleCallbackForSet1(GameObject go, int i)
         {
-            virtualizedScrollRectList.OnVisible = (go, i) =>
-            {
-                go.transform.name = words[i % words.Length];
-            };
+            go.transform.name = wordSet1[i % wordSet1.Length];
+        }
+
+        /// <summary>
+        /// Callback to set for the OnVisible callback for wordSet2
+        /// </summary>
+        private void OnVisibleCallbackForSet2(GameObject go, int i)
+        {
+            go.transform.name = wordSet2[i % wordSet2.Length];
         }
 
         [TearDown]
@@ -63,26 +71,36 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         public IEnumerator TestVirtualizedScrollRectList_ResetLayout()
         {
             yield return SetupVirtualizedScrollRectList();
-            SetList(wordSet1);
+            virtualizedScrollRectList.OnVisible = OnVisibleCallbackForSet1;
             yield return null;
 
             GameObject item;
+            GameObject refItem = null;
 
-            int i, foundItems = 0;
+            int i, refI = 0, foundItems = 0;
 
             for (i = 0; i < wordSet1.Length; i++)
             {
                 if(virtualizedScrollRectList.TryGetVisible(i, out item))
                 {
+                    refItem = item;
+                    refI = i;
                     Assert.IsTrue(wordSet1.Contains(item.transform.name), $"Item seen does't belong to the items passed in (set1). Got {item.transform.name} at {i}");
                     foundItems++;
                 }
             }
             Assert.IsTrue(foundItems > 0, "Non of the expected items were found in the scollable list (set1).");
 
+            virtualizedScrollRectList.OnVisible = OnVisibleCallbackForSet1;
+
+            // Setting the same value shouldn't reset the layout.
+            // If foundItems > 0, refI and refItem should not be empty/null
+            virtualizedScrollRectList.TryGetVisible(refI, out item);
+            Assert.IsTrue(item == refItem, "Setting the same value should not trigger ResetLayout");
+
             virtualizedScrollRectList.ResetLayout();
 
-            SetList(wordSet2);
+            virtualizedScrollRectList.OnVisible = OnVisibleCallbackForSet2;
             yield return null;
 
             for (i = 0; i < wordSet2.Length; i++)
