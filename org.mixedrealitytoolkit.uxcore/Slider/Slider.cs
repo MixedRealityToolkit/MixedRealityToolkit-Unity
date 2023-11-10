@@ -153,6 +153,7 @@ namespace MixedReality.Toolkit.UX
             {
                 if (this.value != value)
                 {
+                    value = Mathf.Clamp(value, minValue, maxValue);
                     var oldSliderValue = this.value;
                     this.value = value;
                     OnValueUpdated.Invoke(new SliderEventData(oldSliderValue, value));
