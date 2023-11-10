@@ -151,7 +151,11 @@ namespace MixedReality.Toolkit.UX
             get => value;
             set
             {
-                if (this.value != value)
+                if (value < minValue || value > maxValue)
+                {
+                    Debug.Log($"{this.value} is outside of the slider range.");
+                }
+                else
                 {
                     var oldSliderValue = this.value;
                     this.value = value;
