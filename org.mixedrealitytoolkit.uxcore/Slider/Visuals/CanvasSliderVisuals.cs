@@ -199,23 +199,30 @@ namespace MixedReality.Toolkit.UX
         // Update the things that depend on the slider value.
         void UpdateHandle(float value)
         {
-            handle.position = SliderState.SliderStart.position + (value * SliderState.SliderTrackDirection);
-
             switch (SliderDirection)
             {
                 case Direction.LeftToRight:
                     fillVisual.anchorMax = new Vector2(value, 1.0f);
+                    handle.anchorMin = new Vector2(value, handle.anchorMin.y);
+                    handle.anchorMax = new Vector2(value, handle.anchorMax.y);
                     break;
                 case Direction.RightToLeft:
                     fillVisual.anchorMin = new Vector2(1.0f - value, 0.0f);
+                    handle.anchorMin = new Vector2(1.0f - value, handle.anchorMin.y);
+                    handle.anchorMax = new Vector2(1.0f - value, handle.anchorMax.y);
                     break;
                 case Direction.BottomToTop:
                     fillVisual.anchorMax = new Vector2(1.0f, value);
+                    handle.anchorMin = new Vector2(handle.anchorMin.x, value);
+                    handle.anchorMax = new Vector2(handle.anchorMax.x, value);
                     break;
                 case Direction.TopToBottom:
                     fillVisual.anchorMin = new Vector2(0.0f, 1.0f - value);
+                    handle.anchorMin = new Vector2(handle.anchorMin.x, 1.0f - value);
+                    handle.anchorMax = new Vector2(handle.anchorMax.x, 1.0f - value);
                     break;
             }
+            handle.anchoredPosition = Vector3.zero;
         }
 
         void SetLayout(Direction direction)
