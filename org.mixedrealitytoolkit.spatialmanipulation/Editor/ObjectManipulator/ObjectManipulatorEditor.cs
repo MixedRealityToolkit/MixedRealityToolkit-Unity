@@ -4,6 +4,7 @@
 using MixedReality.Toolkit.Editor;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace MixedReality.Toolkit.SpatialManipulation.Editor
 {
@@ -31,6 +32,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
         private SerializedProperty manipulationLogicTypes;
 
         private SerializedProperty releaseBehavior;
+        private SerializedProperty rigidbodyMovementType;
 
         private SerializedProperty transformSmoothingLogicType;
         private SerializedProperty smoothingFar;
@@ -72,6 +74,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
             // Physics
             releaseBehavior = serializedObject.FindProperty("releaseBehavior");
+            rigidbodyMovementType = serializedObject.FindProperty("rigidbodyMovementType");
             applyTorque = serializedObject.FindProperty("applyTorque");
             springForceSoftness = serializedObject.FindProperty("springForceSoftness");
             springTorqueSoftness = serializedObject.FindProperty("springTorqueSoftness");
@@ -119,6 +122,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
             ObjectManipulator objectManipulator = (ObjectManipulator)target;
             Rigidbody rb = objectManipulator.HostTransform.GetComponent<Rigidbody>();
+            XRBaseInteractable.MovementType rbMovementType = objectManipulator.RigidbodyMovementType;
 
             constraintsFoldout = ConstraintManagerEditor.DrawConstraintManagerFoldout(objectManipulator.gameObject,
                                                                                         enableConstraints,
@@ -129,14 +133,21 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
             if (physicsFoldout)
             {
-                if (rb != null && !rb.isKinematic)
+                if (rb != null)
                 {
-                    EditorGUILayout.PropertyField(releaseBehavior);
-                    EditorGUILayout.PropertyField(applyTorque);
-                    EditorGUILayout.PropertyField(springForceSoftness);
-                    EditorGUILayout.PropertyField(springTorqueSoftness);
-                    EditorGUILayout.PropertyField(springDamping);
-                    EditorGUILayout.PropertyField(springForceLimit);
+                    if (!rb.isKinematic)
+                    {
+                        EditorGUILayout.PropertyField(releaseBehavior);
+                    }
+                    EditorGUILayout.PropertyField(rigidbodyMovementType);
+                    if (rbMovementType == XRBaseInteractable.MovementType.VelocityTracking)
+                    {
+                        EditorGUILayout.PropertyField(applyTorque);
+                        EditorGUILayout.PropertyField(springForceSoftness);
+                        EditorGUILayout.PropertyField(springTorqueSoftness);
+                        EditorGUILayout.PropertyField(springDamping);
+                        EditorGUILayout.PropertyField(springForceLimit);
+                    }
                 }
                 else
                 {
@@ -148,7 +159,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
             if (smoothingFoldout)
             {
-                if (rb == null || rb.isKinematic)
+                if (rb == null || rbMovementType != XRBaseInteractable.MovementType.VelocityTracking)
                 {
                     EditorGUILayout.PropertyField(moveLerpTime);
                     EditorGUILayout.PropertyField(rotateLerpTime);
