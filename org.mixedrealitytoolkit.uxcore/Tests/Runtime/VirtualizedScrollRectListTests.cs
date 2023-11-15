@@ -71,8 +71,10 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         public IEnumerator TestVirtualizedScrollRectList_ResetLayout()
         {
             yield return SetupVirtualizedScrollRectList();
+            yield return null; // changes happens in next frame
+
             virtualizedScrollRectList.OnVisible = OnVisibleCallbackForSet1;
-            yield return null;
+            yield return null; // changes happens in next frame
 
             GameObject item;
             GameObject refItem = null;
@@ -92,6 +94,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.IsTrue(foundItems > 0, "Non of the expected items were found in the scollable list (set1).");
 
             virtualizedScrollRectList.OnVisible = OnVisibleCallbackForSet1;
+            yield return null; // changes happens in next frame
 
             // Setting the same value shouldn't reset the layout.
             // If foundItems > 0, refI and refItem should not be empty/null
@@ -99,9 +102,10 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.IsTrue(item == refItem, "Setting the same value should not trigger ResetLayout");
 
             virtualizedScrollRectList.ResetLayout();
+            yield return null; // changes happens in next frame
 
             virtualizedScrollRectList.OnVisible = OnVisibleCallbackForSet2;
-            yield return null;
+            yield return null; // changes happens in next frame
 
             for (i = 0; i < wordSet2.Length; i++)
             {
