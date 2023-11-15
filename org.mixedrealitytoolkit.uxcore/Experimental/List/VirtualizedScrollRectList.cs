@@ -374,12 +374,12 @@ namespace MixedReality.Toolkit.UX.Experimental
 
             // Unity RectTransforms don't know anything about sizes until after
             // a frame has passed after Start.
-            StartCoroutine(EndOfFrameInitialize());
+            StartCoroutine(InitializeInNextFrame());
         }
 
-        private IEnumerator EndOfFrameInitialize()
+        private IEnumerator InitializeInNextFrame()
         {
-            yield return new WaitForEndOfFrame();
+            yield return null;
 
             Initialize();
         }
@@ -524,9 +524,9 @@ namespace MixedReality.Toolkit.UX.Experimental
             OnVisible?.Invoke(go, i);
         }
 
-        private IEnumerator ResetLayoutAtEndOfFrame()
+        private IEnumerator ResetLayoutNextFrame()
         {
-            yield return new WaitForEndOfFrame();
+            yield return null;
             if (margin < gutter) { margin = gutter; }
 
             resetCalled = false;
@@ -600,7 +600,7 @@ namespace MixedReality.Toolkit.UX.Experimental
                 return;
             }
             resetCalled = true;
-            StartCoroutine(ResetLayoutAtEndOfFrame());
+            StartCoroutine(ResetLayoutNextFrame());
         }
         #endregion
     }
