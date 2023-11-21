@@ -90,6 +90,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private float initialParentScale;
 
+        private bool hasUpdated = false;
+
         /// <inheritdoc/>
         protected override void Awake()
         {
@@ -100,6 +102,14 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
             handleRenderer = GetComponentInChildren<MeshRenderer>();
             HideOnStartup();
+        }
+
+        /// <summary>
+        /// A Unity event function that is called every frame, if this object is enabled.
+        /// </summary>
+        protected virtual void Update()
+        {
+            hasUpdated = true;
         }
 
         /// <summary>
@@ -117,29 +127,33 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         protected virtual void LateUpdate()
         {
-            // Do our IsOccluded "setter" in Update so we don't do this multiple times a frame.
-            if (IsOccluded != wasOccludedLastFrame)
+            //If initialized at runtime, ensure LateUpdate is called after the first Update.
+            if (hasUpdated)
             {
-                wasOccludedLastFrame = IsOccluded;
-                if (handleRenderer != null)
+                // Do our IsOccluded "setter" in Update so we don't do this multiple times a frame.
+                if (IsOccluded != wasOccludedLastFrame)
                 {
-                    handleRenderer.enabled = !IsOccluded;
+                    wasOccludedLastFrame = IsOccluded;
+                    if (handleRenderer != null)
+                    {
+                        handleRenderer.enabled = !IsOccluded;
+                    }
+                    colliders[0].enabled = !IsOccluded;
                 }
-                colliders[0].enabled = !IsOccluded;
-            }
 
-            // Maintain the aspect ratio/proportion of the handles, globally.
-            transform.localScale = Vector3.one;
-            transform.localScale = new Vector3(1.0f / transform.lossyScale.x,
-                                               1.0f / transform.lossyScale.y,
-                                               1.0f / transform.lossyScale.z);
-            
-            // If we don't want to maintain the overall *size*, we scale
-            // by the maximum component of the box so that the handles grow/shrink
-            // with the overall box manipulation.
-            if (!maintainGlobalSize)
-            {
-                transform.localScale = transform.localScale * (MaxComponent(transform.parent.lossyScale) / initialParentScale);
+                // Maintain the aspect ratio/proportion of the handles, globally.
+                transform.localScale = Vector3.one;
+                transform.localScale = new Vector3(1.0f / transform.lossyScale.x,
+                                                   1.0f / transform.lossyScale.y,
+                                                   1.0f / transform.lossyScale.z);
+
+                // If we don't want to maintain the overall *size*, we scale
+                // by the maximum component of the box so that the handles grow/shrink
+                // with the overall box manipulation.
+                if (!maintainGlobalSize)
+                {
+                    transform.localScale = transform.localScale * (MaxComponent(transform.parent.lossyScale) / initialParentScale);
+                }
             }
         }
 
