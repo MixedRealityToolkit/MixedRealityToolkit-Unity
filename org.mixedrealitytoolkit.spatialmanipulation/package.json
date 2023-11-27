@@ -1,10 +1,10 @@
 {
   "name": "org.mixedrealitytoolkit.spatialmanipulation",
-  "version": "3.1.0-development",
+  "version": "3.1.1-development",
   "description": "Spatial manipulation features, including ObjectManipulator, BoundsControl, and the Solvers/Constraints systems.",
   "displayName": "MRTK Spatial Manipulation",
   "msftFeatureCategory": "MRTK3",
-  "author": "Microsoft",
+  "author": "Mixed Reality Toolkit Contributors",
   "license": "BSD 3-Clause",
   "repository": {
     "type": "git",
