@@ -268,7 +268,7 @@ namespace MixedReality.Toolkit.UX.Experimental
                 if (onVisible != value)
                 {
                     onVisible = value;
-                    // If this is changeing, it means how the items are populated is changing, hence reset.
+                    // If this is changing, it means how the items are populated is changing, hence reset.
                     ResetLayout();
                 }
             }
@@ -558,6 +558,7 @@ namespace MixedReality.Toolkit.UX.Experimental
                 visibleObject = poolDict[i];
                 return true;
             }
+    
             visibleObject = null;
             return false;
         }
@@ -599,6 +600,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             {
                 return;
             }
+
             resetCalled = true;
             StartCoroutine(ResetLayoutNextFrame());
         }
