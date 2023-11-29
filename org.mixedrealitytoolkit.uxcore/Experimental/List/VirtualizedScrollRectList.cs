@@ -290,7 +290,7 @@ namespace MixedReality.Toolkit.UX.Experimental
                 if (onInvisible != value)
                 {
                     onInvisible = value;
-                    // If this is changeing, it means how the items are populated is changing, hence reset.
+                    // If this is changing, it means how the items are populated is changing, hence reset.
                     ResetLayout();
                 }
             }
