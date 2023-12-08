@@ -90,8 +90,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private float initialParentScale;
 
-        private bool hasUpdated = false;
-
         /// <inheritdoc/>
         protected override void Awake()
         {
