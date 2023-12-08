@@ -194,6 +194,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
             // Compute flatten vector at startup.
             flattenVector = BoundsCalculator.CalculateFlattenVector(transform.lossyScale);
+            Update();
         }
 
         /// <summary>
