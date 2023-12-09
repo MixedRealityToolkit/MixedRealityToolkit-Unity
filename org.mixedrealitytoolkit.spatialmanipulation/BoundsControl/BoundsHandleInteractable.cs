@@ -149,19 +149,18 @@ namespace MixedReality.Toolkit.SpatialManipulation
             return Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
         }
 
-
         /// <summary>
         /// Occludes the handle so it is not initially visible when it should start disabled.
         /// </summary>
         [Obsolete("Force hiding handles is no longer supported. Use IsOccluded instead.")]
         public void HideOnStartup()
         {
-            wasOccludedLastFrame = true;
             if (handleRenderer != null)
             {
                 handleRenderer.enabled = false;
             }
             colliders[0].enabled = false;
+            wasOccludedLastFrame = true;
         }
 
         /// <summary>
