@@ -22,7 +22,7 @@ PrefabInstance:
     - target: {fileID: -7366846053233975685, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
       propertyPath: fallbackControllerModel
       value: 
-      objectReference: {fileID: 5565954080554097683, guid: 1102adc710b58ee45adb08bdd5d4767c, type: 3}
+      objectReference: {fileID: 5976469751327894969, guid: 1102adc710b58ee45adb08bdd5d4767c, type: 3}
     - target: {fileID: -7366846053233975685, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
       propertyPath: myAction.m_UseReference
       value: 1

@@ -146,7 +146,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private float MaxComponent(Vector3 v)
         {
-            return Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
+            return Mathf.Max(Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y)), Mathf.Abs(v.z));
         }
 
         /// <summary>
