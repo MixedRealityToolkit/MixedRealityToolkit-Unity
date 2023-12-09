@@ -194,15 +194,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
             // Compute flatten vector at startup.
             flattenVector = BoundsCalculator.CalculateFlattenVector(transform.lossyScale);
-
-            float initialActiveFocus = 0;
-            float initialActivation = 0;
-            float initialShrink = 0;
-            // Write the initial values into the bounds renderer.
-            if (boundsRenderer != null)
-            {
-                WritePropertyValues(boundsRenderer, propertyBlock, initialActiveFocus, initialActivation, initialShrink);
-            }
         }
 
         /// <summary>

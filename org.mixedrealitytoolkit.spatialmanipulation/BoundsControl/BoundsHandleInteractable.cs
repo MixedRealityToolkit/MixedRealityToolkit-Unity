@@ -152,7 +152,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Occludes the handle so it is not initially visible when it should start disabled.
         /// </summary>
-        [Obsolete("Force hiding handles is no longer supported. Use IsOccluded instead.")]
+        [Obsolete("Force hiding is no longer supported. Use IsOccluded instead.")]
         public void HideOnStartup()
         {
             if (handleRenderer != null)
@@ -164,7 +164,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         /// <summary>
-        /// Sets <see cref="IsOccluded"/> to true, and forces handling of occlusion immediately."/>
+        /// Sets <see cref="IsOccluded"/> to true, and forces handling of occlusion immediately.
         /// </summary>
         internal void ForceOcclusion()
         {
