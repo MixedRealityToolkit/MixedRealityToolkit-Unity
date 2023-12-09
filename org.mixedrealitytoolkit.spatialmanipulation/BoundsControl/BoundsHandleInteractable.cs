@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -99,24 +100,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
             DisableInteractorType(typeof(IPokeInteractor));
 
             handleRenderer = GetComponentInChildren<MeshRenderer>();
-            HideOnStartup();
-        }
-
-        /// <summary>
-        /// A Unity event function that is called every frame, if this object is enabled.
-        /// </summary>
-        protected virtual void Update()
-        {
-            // Do our IsOccluded "setter" in Update so we don't do this multiple times a frame.
-            if (IsOccluded != wasOccludedLastFrame)
-            {
-                wasOccludedLastFrame = IsOccluded;
-                if (handleRenderer != null)
-                {
-                    handleRenderer.enabled = !IsOccluded;
-                }
-                colliders[0].enabled = !IsOccluded;
-            }
         }
 
         /// <summary>
@@ -134,13 +117,23 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         protected virtual void LateUpdate()
         {
+            // Do our IsOccluded "setter" in Update so we don't do this multiple times a frame.
+            if (IsOccluded != wasOccludedLastFrame)
+            {
+                wasOccludedLastFrame = IsOccluded;
+                if (handleRenderer != null)
+                {
+                    handleRenderer.enabled = !IsOccluded;
+                }
+                colliders[0].enabled = !IsOccluded;
+            }
+
             // Maintain the aspect ratio/proportion of the handles, globally.
             transform.localScale = Vector3.one;
-            transform.localScale = new Vector3(1.0f / (transform.lossyScale.x == 0 ? 1 : transform.lossyScale.x),
-                                1.0f / (transform.lossyScale.y == 0 ? 1 : transform.lossyScale.y),
-                                1.0f / (transform.lossyScale.z == 0 ? 1 : transform.lossyScale.z));
-
-
+            transform.localScale = new Vector3(
+                transform.lossyScale.x == 0 ? transform.localScale.x : (1.0f / transform.lossyScale.x),
+                transform.lossyScale.y == 0 ? transform.localScale.y : (1.0f / transform.lossyScale.y),
+                transform.lossyScale.z == 0 ? transform.localScale.z : (1.0f / transform.lossyScale.z));
 
             // If we don't want to maintain the overall *size*, we scale
             // by the maximum component of the box so that the handles grow/shrink
@@ -156,17 +149,36 @@ namespace MixedReality.Toolkit.SpatialManipulation
             return Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
         }
 
+
         /// <summary>
         /// Occludes the handle so it is not initially visible when it should start disabled.
         /// </summary>
+        [Obsolete("Force hiding handles is no longer supported. Use IsOccluded instead.")]
         public void HideOnStartup()
         {
+            wasOccludedLastFrame = true;
             if (handleRenderer != null)
             {
                 handleRenderer.enabled = false;
             }
             colliders[0].enabled = false;
-            wasOccludedLastFrame = true;
+        }
+
+        /// <summary>
+        /// Sets <see cref="IsOccluded"/> to true, and forces handling of occlusion immediately."/>
+        /// </summary>
+        internal void ForceOcclusion()
+        {
+            if (!wasOccludedLastFrame)
+            {
+                IsOccluded = true;
+                wasOccludedLastFrame = true;
+                if (handleRenderer != null)
+                {
+                    handleRenderer.enabled = false;
+                }
+                colliders[0].enabled = false;
+            }
         }
 
         /// <inheritdoc />

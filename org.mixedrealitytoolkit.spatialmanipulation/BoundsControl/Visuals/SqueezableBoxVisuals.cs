@@ -194,7 +194,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
             // Compute flatten vector at startup.
             flattenVector = BoundsCalculator.CalculateFlattenVector(transform.lossyScale);
-            Update();
         }
 
         /// <summary>
@@ -277,11 +276,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
         protected virtual void OnEnable()
         {
             // Ensures that when the GameObject is re-enabled, the handles are occluded by default.
-            // If the handles are active, they will be un-occluded by the next frame.
+            // If the handles are active, they will be un-occluded by the next Update().
             // Prevents undesirable behaviour from the handle animations.
             foreach (var handle in handles)
             {
-                handle.HideOnStartup();
+                handle.ForceOcclusion();
             }
         }
 
