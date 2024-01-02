@@ -25,12 +25,6 @@ namespace MixedReality.Toolkit.Examples.Demos
         private Material darkGrayMaterial;
 
         [SerializeField]
-        private Material redMaterial;
-
-        [SerializeField]
-        private Material cyanMaterial;
-
-        [SerializeField]
         private GameObject boundsVisualsPrefab;
 
         [SerializeField]
