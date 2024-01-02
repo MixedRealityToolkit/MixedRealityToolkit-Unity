@@ -5,6 +5,8 @@
   "displayName": "MRTK Standard Assets",
   "msftFeatureCategory": "MRTK3",
   "unity": "2021.3",
+  "unityRelease": "26f1",
+  "documentationUrl": "https://www.mixedrealitytoolkit.org",
   "author": "Microsoft",
   "license": "BSD 3-Clause",
   "repository": {

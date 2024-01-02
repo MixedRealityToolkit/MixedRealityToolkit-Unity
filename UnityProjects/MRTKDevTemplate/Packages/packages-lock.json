@@ -59,6 +59,15 @@
       "source": "local-tarball",
       "dependencies": {}
     },
+    "com.unity.asset-store-validation": {
+      "version": "0.3.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "2.0.2"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.burst": {
       "version": "1.6.6",
       "depth": 1,
