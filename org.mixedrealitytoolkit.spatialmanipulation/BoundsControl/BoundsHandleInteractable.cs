@@ -91,6 +91,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private float initialParentScale;
 
+        private float initialHandleScale;
+
         /// <inheritdoc/>
         protected override void Awake()
         {
@@ -110,6 +112,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             // Record initial values at Start(), so that we
             // capture the bounds sizing, etc.
             initialParentScale = MaxComponent(transform.parent.lossyScale);
+            initialHandleScale = MaxComponent(transform.localScale);
         }
 
         /// <summary>
@@ -129,11 +132,12 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
 
             // Maintain the aspect ratio/proportion of the handles, globally.
+            // Setting localScale to ensure that lossyScale remains equal to initialHandleScale across all axes. 
             transform.localScale = Vector3.one;
             transform.localScale = new Vector3(
-                transform.lossyScale.x == 0 ? transform.localScale.x : (1.0f / transform.lossyScale.x),
-                transform.lossyScale.y == 0 ? transform.localScale.y : (1.0f / transform.lossyScale.y),
-                transform.lossyScale.z == 0 ? transform.localScale.z : (1.0f / transform.lossyScale.z));
+                transform.lossyScale.x == 0 ? transform.localScale.x : (initialHandleScale / transform.lossyScale.x),
+                transform.lossyScale.y == 0 ? transform.localScale.y : (initialHandleScale / transform.lossyScale.y),
+                transform.lossyScale.z == 0 ? transform.localScale.z : (initialHandleScale / transform.lossyScale.z));
 
             // If we don't want to maintain the overall *size*, we scale
             // by the maximum component of the box so that the handles grow/shrink
