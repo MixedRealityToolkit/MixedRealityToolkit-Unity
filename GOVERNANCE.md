@@ -6,7 +6,7 @@ This document provides the governance policy for the Mixed Reality Toolkit for U
 
 This project may include the following roles. Additional roles may be adopted and documented by the Project.
 
-**1.1. Maintainers**. Maintainers are responsible for organizing activities around developing, maintaining, and updating the Project. Maintainers are also responsible for determining consensus. This Project may add or remove Maintainers with the approval of the current Maintainers. Maintainers must be part of an Affiliated Organization as listed in the [steering-committee.md](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/STEERING-COMMITTEE.md) organization file.
+**1.1. Maintainers**. Maintainers are responsible for organizing activities around developing, maintaining, and updating the Project. Maintainers are also responsible for determining consensus. This Project may add or remove Maintainers with the approval of the current Maintainers. Approved Maintainers and their Affiliated Organization must be listed in the [MAINTAINERS.md](./MAINTAINERS.md) file.
 
 **1.2. Contributors**. Contributors are those that have made contributions to the Project.
 
