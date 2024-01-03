@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.Data.Editor")]
 
-[assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit Data Binding and Theming")]
+[assembly: AssemblyProduct("Mixed Reality Toolkit Data Binding and Theming")]
 [assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.
