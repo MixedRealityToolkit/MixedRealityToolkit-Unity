@@ -1,6 +1,6 @@
 # Governance Policy
 
-This document provides the governance policy for the Mixed Reality Toolkit for Unity Project. Maintainers agree to this policy and to abide by all Project polices, including the [code of conduct](../org-docs/CODE-OF-CONDUCT.md), [trademark policy](../org-docs/TRADEMARKS.md), and [antitrust policy](../org-docs/ANTITRUST.md) by adding their name to the [maintainers.md file](./MAINTAINERS.md).
+This document provides the governance policy for the Mixed Reality Toolkit for Unity Project. Maintainers agree to this policy and to abide by all Project polices, including the [code of conduct](../org-docs/CODE-OF-CONDUCT.md), [trademark policy](../org-docs/TRADEMARKS.md), and [antitrust policy](../org-docs/ANTITRUST.md) by adding their name to the [MAINTAINERS.md](./MAINTAINERS.md) file.
 
 ## 1. Roles
 
