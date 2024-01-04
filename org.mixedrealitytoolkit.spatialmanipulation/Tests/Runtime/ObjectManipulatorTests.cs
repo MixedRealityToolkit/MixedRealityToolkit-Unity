@@ -13,7 +13,10 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.XR.Interaction.Toolkit;
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using MovementType = UnityEngine.XR.Interaction.Toolkit.XRBaseInteractable.MovementType;
+using MixedReality.Toolkit.Input;
 
 namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 {
@@ -981,6 +984,184 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 
             Assert.AreNotEqual(Vector3.zero, backgroundRigidbody.velocity);
             Assert.AreEqual(1, collisionListener.CollisionCount);
+        }
+
+        /// <summary>
+        /// Test that objects with both ObjectManipulator and Rigidbody respond
+        /// correctly to RigidbodyMovementType settings.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator ObjectManipulatorRigidbodyMovementType()
+        {
+            InputTestUtilities.InitializeCameraToOriginAndForward();
+
+            // set up cube with manipulation handler
+            var testObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            testObject.transform.localScale = Vector3.one * 0.5f;
+            testObject.transform.position = InputTestUtilities.InFrontOfUser(1f);
+
+            var rigidbody = testObject.AddComponent<Rigidbody>();
+            rigidbody.useGravity = false;
+
+            var objectManipulator = testObject.AddComponent<ObjectManipulator>();
+            objectManipulator.HostTransform = testObject.transform;
+            objectManipulator.SmoothingFar = false;
+            objectManipulator.SmoothingNear = false;
+
+            var collisionListener = testObject.AddComponent<TestCollisionListener>();
+
+            // set up static cube to test collision with
+            var backgroundObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            backgroundObject.transform.localScale = Vector3.one;
+            backgroundObject.transform.position = InputTestUtilities.InFrontOfUser(2f);
+            backgroundObject.GetComponent<MeshRenderer>().material.color = Color.green;
+
+            TestHand hand = new TestHand(Handedness.Right);
+            yield return hand.Show(testObject.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Grab the cube and move towards the collider
+            yield return hand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Initially verify the Object Manipulator's RigidbodyMovementType is VelocityTracking,
+            // and that the Rigidbody upon being selected is non-kinematic.
+            Assert.AreEqual(MovementType.VelocityTracking, objectManipulator.RigidbodyMovementType,
+                $"The ObjectManipulator should have a default RigidodyMovementType of {MovementType.VelocityTracking} instead of {objectManipulator.RigidbodyMovementType}.");
+            Assert.IsFalse(rigidbody.isKinematic, "The Rigidbody of the object should be non-kinematic after selection by default.");
+
+            // Test changing the RigidbodyovementType to the other, non-default (kinematic) types.
+            var testMovementTypes = new MovementType[] { MovementType.Instantaneous, MovementType.Kinematic };
+
+            foreach (var movementType in testMovementTypes)
+            {
+                objectManipulator.RigidbodyMovementType = movementType;
+                // Verify the Rigidbody is now kinematic.
+                Assert.IsTrue(rigidbody.isKinematic,
+                    $"The Rigidbody of the object should be kinematic after setting RigidbodyMovementType to {movementType}.");
+            }
+
+            yield return hand.Move(Vector3.forward * 3f);
+            yield return RuntimeTestUtilities.WaitForFixedUpdates();
+
+            Assert.AreEqual(0, collisionListener.CollisionCount,
+                "The ObjectManipulator with kinematic RigidbodyMovementType should not cause collision with a static collider.");
+        }
+
+        /// <summary>
+        /// Test that objects with both ObjectManipulator and Rigidbody properly interact with a
+        /// XRSocketInteractor.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator ObjectManipulatorAndSocketInteractor()
+        {
+            InputTestUtilities.InitializeCameraToOriginAndForward();
+
+            // set up cube with manipulation handler
+            var testObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            testObject.transform.localScale = Vector3.one * 0.5f;
+            testObject.transform.position = InputTestUtilities.InFrontOfUser(1f);
+
+            var rigidbody = testObject.AddComponent<Rigidbody>();
+            rigidbody.useGravity = false;
+
+            var objectManipulator = testObject.AddComponent<ObjectManipulator>();
+            objectManipulator.HostTransform = testObject.transform;
+
+            // set up socket interactor to test interaction with.
+            var socketObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            socketObject.transform.localScale = Vector3.one;
+            socketObject.transform.position = InputTestUtilities.InFrontOfUser(3f);
+            var socketTriggerCollider = socketObject.AddComponent<BoxCollider>();
+            socketTriggerCollider.isTrigger = true;
+            socketTriggerCollider.size = Vector3.one * 2f;
+            var socketInteractor = socketObject.AddComponent<XRSocketInteractor>();
+
+            TestHand hand = new TestHand(Handedness.Right);
+            yield return hand.Show(testObject.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Grab the cube and move within the socket interactor's trigger collider range.
+            yield return hand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            yield return hand.Move(Vector3.forward * 1f);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // At this point the socket should be hovering the objectManipulator but no selection yet since it is still held by hand.
+            Assert.IsTrue(socketInteractor.IsHovering(objectManipulator), "The socket interactor should be hovering the test object.");
+            Assert.IsFalse(socketInteractor.IsSelecting(objectManipulator), "The socket interactor should not be selecting the test object still held by hand.");
+
+            // Release the cube, now within the socket's trigger area, which will cause the socket to select the object.
+            yield return hand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Verify the socket has selected the test object and snapped it to the socket attach point.
+            Assert.IsTrue(socketInteractor.IsSelecting(objectManipulator), "The socket interactor should be selecting the test object.");
+
+            var attachTransform = socketInteractor.GetAttachTransform(objectManipulator).position;
+            Vector3 attachOffset = attachTransform - objectManipulator.transform.position;
+            Assert.IsTrue(attachOffset.magnitude < 0.001f, "The selected ObjectManipulator was not moved to the socket interactor's attach transform.");
+
+            // The rigibody of the test object should now be kinematic by default due to the socket's override of RigidbodyMovementType.
+            Assert.IsTrue(rigidbody.isKinematic, "The Rigidbody of the object should be kinematic after being selected by the socket interactor.");
+
+            // Move the socket and verify the test object moves along with the socket's attach transform.
+            socketObject.transform.position = InputTestUtilities.InFrontOfUser(30f);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            attachTransform = socketInteractor.GetAttachTransform(objectManipulator).position;
+            attachOffset = attachTransform - objectManipulator.transform.position;
+            Assert.IsTrue(attachOffset.magnitude < 0.001f, "The selected ObjectManipulator is not moving along with the socket.");
+        }
+
+        /// <summary>
+        /// Test that ObjectManipulator responds to being force grabbed.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator ObjectManipulatorForceGrab()
+        {
+            // Disable gaze interactions for this unit test;
+            InputTestUtilities.DisableGazeInteractor();
+
+            // set up cube with manipulation handler
+            var testObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            testObject.transform.localScale = Vector3.one * 0.25f;
+            testObject.transform.position = InputTestUtilities.InFrontOfUser(10f);
+
+            var objectManipulator = testObject.AddComponent<ObjectManipulator>();
+            objectManipulator.HostTransform = testObject.transform;
+            objectManipulator.SmoothingFar = false;
+
+            // Select the cube with a pinch using far ray.
+            Vector3 initialHandPosition = InputTestUtilities.InFrontOfUser(new Vector3(0.25f, 0.0f, .5f));
+            TestHand hand = new TestHand(Handedness.Right);
+
+            yield return hand.Show(initialHandPosition);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return hand.AimAt(testObject.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return hand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Get the ray interactor, which will be the MRTKRayInteractor, "Far Ray", within the hand prefab.
+            var rayInteractor = (MRTKRayInteractor)objectManipulator.firstInteractorSelecting;
+
+            // Release the cube to modify the rayInteractor.
+            yield return hand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Set force grab on the ray interactor to verify functionality.
+            rayInteractor.useForceGrab = true;
+
+            // Select the cube again with far ray, now with force grab enabled.
+            yield return hand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Verify the object has been brought to the interactor's attach transform with force grab.
+            var attachTransform = rayInteractor.GetAttachTransform(objectManipulator).position;
+            Vector3 attachOffset = attachTransform - objectManipulator.transform.position;
+            Assert.IsTrue(attachOffset.magnitude < 0.001f, "The selected ObjectManipulator was not force grabbed.");
         }
 
         class TestCollisionListener : MonoBehaviour
