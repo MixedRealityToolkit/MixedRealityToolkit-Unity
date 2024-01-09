@@ -70,12 +70,12 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeField]
         [Tooltip("The interactor we're using to query potential gaze pinch targets")]
-        private XRBaseControllerInteractor dependentInteractor;
+        private XRBaseInteractor dependentInteractor;
 
         /// <summary>
         /// The pose source representing the ray this interactor uses for aiming and positioning.
         /// </summary>
-        protected XRBaseControllerInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
+        protected XRBaseInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
 
         [SerializeField]
         [Range(0, 1)]
