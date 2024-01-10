@@ -20,6 +20,8 @@ namespace MixedReality.Toolkit.UX
     [AddComponentMenu("MRTK/UX/Pressable Button")]
     public class PressableButton : StatefulInteractable
     {
+        private const string FRONT_PLATE_NAME = "Frontplate";
+
         [SerializeField]
         [FormerlySerializedAs("smoothSelectedness")]
         [Tooltip("Should this button's selectionProgress be smoothed, or absolute?")]
@@ -147,6 +149,20 @@ namespace MixedReality.Toolkit.UX
         [SerializeField]
         [Tooltip("Speed for extending the moving button visuals when selected by a non-touch source.")]
         private float extendSpeed = 0.5f;
+
+        /// <summary>
+        /// Flag that enables (true) or disables (false) the Canvas Rounded Rect on hover only.
+        /// </summary>
+        [SerializeField]
+        [Tooltip("Enables (true) or disables (false) the Canvas Rounded Rect on hover only.")]
+        public bool EnableOnHoverOnlyCanvasRoundedRect = false;
+
+        /// <summary>
+        /// Flag that enables (true) or disables (false) the Front plate Raw Image on hover only.
+        /// </summary>
+        [SerializeField]
+        [Tooltip("Enables (true) or disables (false) the Front plate Raw Image on hover only.")]
+        public bool EnableOnHoverOnlyFrontPlateRawImage = false;
 
         #region Private Members
 
@@ -277,6 +293,21 @@ namespace MixedReality.Toolkit.UX
         {
             base.Reset();
             ApplyRequiredSettings();
+        }
+
+        /// <summary>
+        /// A Unity event function that is called when the script is loaded.
+        /// </summary>
+        private void Start()
+        {
+            if (EnableOnHoverOnlyCanvasRoundedRect)
+            {
+                SetEnabledCanvasElementRoundedRectIfAny(false);
+            }
+            if (EnableOnHoverOnlyFrontPlateRawImage)
+            {
+                SetEnableFrontPlateRawImage(false);
+            }
         }
 
         #region XRI methods
@@ -448,6 +479,15 @@ namespace MixedReality.Toolkit.UX
         {
             base.OnHoverEntered(args);
 
+            if (EnableOnHoverOnlyCanvasRoundedRect)
+            {
+                SetEnabledCanvasElementRoundedRectIfAny(true);
+            }
+            if (EnableOnHoverOnlyFrontPlateRawImage)
+            {
+                SetEnableFrontPlateRawImage(true);
+            }
+
             // If we decide this interactor has begun its hover in a well-behaved way,
             // we add it to our hash set of valid pokes.
             if (args.interactorObject is IPokeInteractor pokeInteractor && !IsOutsideFootprint(pokeInteractor.PokeTrajectory.End, 0.0001f))
@@ -469,6 +509,15 @@ namespace MixedReality.Toolkit.UX
         protected override void OnHoverExited(HoverExitEventArgs args)
         {
             base.OnHoverExited(args);
+
+            if (EnableOnHoverOnlyCanvasRoundedRect)
+            {
+                SetEnabledCanvasElementRoundedRectIfAny(false);
+            }
+            if (EnableOnHoverOnlyFrontPlateRawImage)
+            {
+                SetEnableFrontPlateRawImage(false);
+            }
 
             if (args.interactorObject is IPokeInteractor pokeInteractor)
             {
@@ -620,6 +669,33 @@ namespace MixedReality.Toolkit.UX
             else
             {
                 return -1;
+            }
+        }
+
+        /// <summary>
+        /// Set the enabled state of the Front plate Raw Image if any.
+        /// </summary>
+        /// <param name="enable">True to enable, false to disable</param>
+        protected void SetEnableFrontPlateRawImage(bool enable)
+        {
+            GameObject frontPlateGameObject = transform.Find(FRONT_PLATE_NAME).gameObject;
+            UnityEngine.UI.RawImage frontPlateRawImage = frontPlateGameObject?.GetComponent<UnityEngine.UI.RawImage>();
+            if (frontPlateRawImage != null)
+            {
+                frontPlateRawImage.enabled = enable;
+            }
+        }
+
+        /// <summary>
+        /// Set the enabled state of the CanvasElementRoundedRectMonoBehaviour MonoBehaviour if any.
+        /// </summary>
+        /// <param name="enable">True to enable, false to disable</param>
+        protected void SetEnabledCanvasElementRoundedRectIfAny(bool enable)
+        {
+            Microsoft.MixedReality.GraphicsTools.CanvasElementRoundedRect canvasElementRoundedRect = gameObject.FindAncestorComponent<Microsoft.MixedReality.GraphicsTools.CanvasElementRoundedRect>();
+            if (canvasElementRoundedRect != null)
+            {
+                canvasElementRoundedRect.enabled = enable;
             }
         }
 
