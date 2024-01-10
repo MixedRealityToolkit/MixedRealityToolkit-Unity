@@ -290,7 +290,7 @@ namespace MixedReality.Toolkit.UX
         /// <summary>
         /// A Unity event function that is called when the script is loaded.
         /// </summary>
-        private void Start()
+        protected virtual void Start()
         {
             if (EnableOnHoverOnlyCanvasRoundedRect)
             {
