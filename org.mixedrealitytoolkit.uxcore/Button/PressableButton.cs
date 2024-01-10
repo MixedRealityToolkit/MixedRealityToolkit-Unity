@@ -150,19 +150,11 @@ namespace MixedReality.Toolkit.UX
         [Tooltip("Speed for extending the moving button visuals when selected by a non-touch source.")]
         private float extendSpeed = 0.5f;
 
-        /// <summary>
-        /// Flag that enables (true) or disables (false) the Canvas Rounded Rect on hover only.
-        /// </summary>
-        [SerializeField]
-        [Tooltip("Enables (true) or disables (false) the Canvas Rounded Rect on hover only.")]
-        public bool EnableOnHoverOnlyCanvasRoundedRect = false;
+        [field: SerializeField, Tooltip("Enables (true) or disables (false) the Canvas Rounded Rect on hover only.")]
+        public bool EnableOnHoverOnlyCanvasRoundedRect { get; set; } = false;
 
-        /// <summary>
-        /// Flag that enables (true) or disables (false) the Front plate Raw Image on hover only.
-        /// </summary>
-        [SerializeField]
-        [Tooltip("Enables (true) or disables (false) the Front plate Raw Image on hover only.")]
-        public bool EnableOnHoverOnlyFrontPlateRawImage = false;
+        [field: SerializeField, Tooltip("Enables (true) or disables (false) the Front plate Raw Image on hover only.")]
+        public bool EnableOnHoverOnlyFrontPlateRawImage { get; set; } = false;
 
         #region Private Members
 
