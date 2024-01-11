@@ -1,10 +1,12 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using Microsoft.MixedReality.GraphicsTools;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace MixedReality.Toolkit.UX
@@ -20,8 +22,6 @@ namespace MixedReality.Toolkit.UX
     [AddComponentMenu("MRTK/UX/Pressable Button")]
     public class PressableButton : StatefulInteractable
     {
-        private const string FRONT_PLATE_NAME = "Frontplate";
-
         [SerializeField]
         [FormerlySerializedAs("smoothSelectedness")]
         [Tooltip("Should this button's selectionProgress be smoothed, or absolute?")]
@@ -156,6 +156,22 @@ namespace MixedReality.Toolkit.UX
         [field: SerializeField, Tooltip("Enables (true) or disables (false) the Front plate Raw Image on hover only.")]
         public bool EnableOnHoverOnlyFrontPlateRawImage { get; set; } = false;
 
+        /// <summary>
+        /// ActionButton's Front plate.
+        /// </summary>
+        [SerializeField]
+        [Tooltip("ActionButton's Front plate.")]
+        private GameObject frontPlate;
+
+        /// <summary>
+        /// ActionButton's Front plate.
+        /// </summary>
+        public GameObject FrontPlate
+        {
+            get => frontPlate;
+            set => frontPlate = value;
+        }
+
         #region Private Members
 
         /// <summary>
@@ -186,6 +202,16 @@ namespace MixedReality.Toolkit.UX
         /// If the <see cref="GetSelectionProgress"/> value is smoothed to within this threshold of 0 or 1, the <see cref="GetSelectionProgress"/> will snap to 0 or 1.
         /// </summary>
         private const float selectionProgressEpsilon = 0.00001f;
+
+        /// <summary>
+        /// Reference to the Front plate's Raw Image.
+        /// </summary>
+        private RawImage frontPlateRawImage;
+
+        /// <summary>
+        /// Reference to the CanvasElementRoundedRectMonoBehaviour MonoBehaviour.
+        /// </summary>
+        private CanvasElementRoundedRect canvasElementRoundedRect;
 
         #endregion Private Members
 
@@ -292,6 +318,13 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         protected virtual void Start()
         {
+            canvasElementRoundedRect = gameObject.FindAncestorComponent<CanvasElementRoundedRect>();
+
+            if (FrontPlate != null)
+            {
+                frontPlateRawImage = FrontPlate.GetComponent<RawImage>();
+            }
+
             if (EnableOnHoverOnlyCanvasRoundedRect)
             {
                 SetEnabledCanvasElementRoundedRectIfAny(false);
@@ -670,8 +703,6 @@ namespace MixedReality.Toolkit.UX
         /// <param name="enable">True to enable, false to disable</param>
         protected void SetEnableFrontPlateRawImage(bool enable)
         {
-            GameObject frontPlateGameObject = transform.Find(FRONT_PLATE_NAME).gameObject;
-            UnityEngine.UI.RawImage frontPlateRawImage = frontPlateGameObject?.GetComponent<UnityEngine.UI.RawImage>();
             if (frontPlateRawImage != null)
             {
                 frontPlateRawImage.enabled = enable;
@@ -684,7 +715,6 @@ namespace MixedReality.Toolkit.UX
         /// <param name="enable">True to enable, false to disable</param>
         protected void SetEnabledCanvasElementRoundedRectIfAny(bool enable)
         {
-            Microsoft.MixedReality.GraphicsTools.CanvasElementRoundedRect canvasElementRoundedRect = gameObject.FindAncestorComponent<Microsoft.MixedReality.GraphicsTools.CanvasElementRoundedRect>();
             if (canvasElementRoundedRect != null)
             {
                 canvasElementRoundedRect.enabled = enable;
