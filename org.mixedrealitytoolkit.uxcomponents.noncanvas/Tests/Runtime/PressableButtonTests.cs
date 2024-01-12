@@ -784,6 +784,72 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         */
+
+        /// <summary>
+        /// Tests if changing the button speech recognition settings is possible.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator ChangeSpeechSettings([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+
+            PressableButton button = testButton.GetComponent<PressableButton>();
+            Assert.IsNotNull(button);
+
+            // check default speech recognition keyword value
+            Assert.AreEqual("select", button.SpeechRecognitionKeyword);
+            Assert.IsTrue(button.AllowSelectByVoice);
+            Assert.IsTrue(button.VoiceRequiresFocus);
+
+            button.SpeechRecognitionKeyword = "An other speech";
+            button.AllowSelectByVoice = false;
+            button.VoiceRequiresFocus = false;
+
+            Assert.IsTrue(button.enabled);
+            Assert.AreEqual("An other speech", button.SpeechRecognitionKeyword);
+            Assert.IsFalse(button.AllowSelectByVoice);
+            Assert.IsFalse(button.VoiceRequiresFocus);
+
+            yield return null;
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a chance to actually destroy the object
+            yield return null;
+        }
+
+        /// <summary>
+        /// Tests if changing the button speech recognition settings doesn't trigger warning nor event OnClicked when the button is disabled.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator ChangeSpeechSettingsDisabled([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+
+            PressableButton button = testButton.GetComponent<PressableButton>();
+            Assert.IsNotNull(button);
+            button.OnClicked.AddListener(() => { throw new System.Exception("OnClicked shouldn't have been triggered!"); });
+
+            yield return null; // wait for the button to register at an InteractionManager
+
+            button.enabled = false;
+            button.SpeechRecognitionKeyword = "An other speech";
+            button.AllowSelectByVoice = false;
+
+            Assert.IsFalse(button.enabled);
+            Assert.AreEqual("An other speech", button.SpeechRecognitionKeyword);
+            Assert.IsFalse(button.AllowSelectByVoice);
+            LogAssert.NoUnexpectedReceived(); // assert that XRI has not triggered a warning
+
+            yield return PressAndReleaseButtonWithHand(testButton.transform.position + Vector3.forward * 0.1f); // assert that OnClicked wasn't called
+
+            yield return null;
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a chance to actually destroy the object
+            yield return null;
+        }
         #endregion Tests
 
         #region Private methods
