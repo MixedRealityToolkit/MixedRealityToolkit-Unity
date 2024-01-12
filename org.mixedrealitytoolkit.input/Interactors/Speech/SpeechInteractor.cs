@@ -58,23 +58,26 @@ namespace MixedReality.Toolkit.Input
         /// <param name="keyword">The keyword to listen for.</param>
         public void RegisterInteractable(StatefulInteractable interactable, string keyword)
         {
-            keyword = keyword.ToLower();
-            if (keywordDictionary.TryGetValue(keyword, out List<StatefulInteractable> interactableList))
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
-                interactableList.Add(interactable);
-            }
-            else
-            {
-                keywordDictionary.Add(keyword, new List<StatefulInteractable> { interactable });
-                var subsystem = XRSubsystemHelpers.KeywordRecognitionSubsystem;
-                if (subsystem != null)
+                keyword = keyword.ToLower();
+                if (keywordDictionary.TryGetValue(keyword, out List<StatefulInteractable> interactableList))
                 {
-                    subsystem.CreateOrGetEventForKeyword(keyword).AddListener(() => OnKeywordRecognized(keyword));
+                    interactableList.Add(interactable);
                 }
                 else
                 {
-                    Debug.LogError("Failed to retrieve a running KeywordRecognitionSubsystem while registering an interactable. " +
-                        "Please make sure the subsystem is correctly set up or disable this speech interactor.");
+                    keywordDictionary.Add(keyword, new List<StatefulInteractable> { interactable });
+                    var subsystem = XRSubsystemHelpers.KeywordRecognitionSubsystem;
+                    if (subsystem != null)
+                    {
+                        subsystem.CreateOrGetEventForKeyword(keyword).AddListener(() => OnKeywordRecognized(keyword));
+                    }
+                    else
+                    {
+                        Debug.LogError("Failed to retrieve a running KeywordRecognitionSubsystem while registering an interactable. " +
+                            "Please make sure the subsystem is correctly set up or disable this speech interactor.");
+                    }
                 }
             }
         }
@@ -86,14 +89,17 @@ namespace MixedReality.Toolkit.Input
         /// <param name="keyword">The keyword to stop using with the provided <paramref name="interactable"/>.</param>
         public void UnregisterInteractable(StatefulInteractable interactable, string keyword)
         {
-            keyword = keyword.ToLower();
-            if (keywordDictionary.TryGetValue(keyword, out List<StatefulInteractable> interactableList) && interactableList.Remove(interactable))
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
-                return;
-            }
-            else
-            {
-                Debug.LogError("The interactable to unregister is not registered with the speech interactor");
+                keyword = keyword.ToLower();
+                if (keywordDictionary.TryGetValue(keyword, out List<StatefulInteractable> interactableList) && interactableList.Remove(interactable))
+                {
+                    return;
+                }
+                else
+                {
+                    Debug.LogError("The interactable to unregister is not registered with the speech interactor");
+                }
             }
         }
 
