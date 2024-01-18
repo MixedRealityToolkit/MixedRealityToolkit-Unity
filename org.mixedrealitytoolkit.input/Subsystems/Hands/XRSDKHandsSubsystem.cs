@@ -14,7 +14,7 @@ namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.HandsSubsystem">HandsSubsystem</see>, and 
-    /// obtains hand joint poses from the Unity Engine's XR <see href="https://docs.unity3d.com/ScriptReference/XR.Hand.html">Hand</see> class.
+    /// obtains hand joint poses from the Unity engine's XR <see href="https://docs.unity3d.com/ScriptReference/XR.Hand.html">Hand</see> class.
     /// </summary>
     [Preserve]
     [MRTKSubsystem(
@@ -148,7 +148,7 @@ namespace MixedReality.Toolkit.Input
 
             /// <summary>
             /// Obtains a reference to the actual Hand object representing the tracked hand
-            /// functionality present on handNode. Returns null if no Hand reference available.
+            /// functionality present on HandNode. Returns null if no Hand reference available.
             /// </summary>
             private Hand? GetTrackedHand()
             {
@@ -191,7 +191,7 @@ namespace MixedReality.Toolkit.Input
 
             /// <summary>
             /// For a certain hand, query every Bone in the hand, and write all results to the
-            /// HandJoints collection. This will also mark handsQueriedThisFrame[handNode] = true.
+            /// HandJoints collection.
             /// </summary>
             private void TryCalculateEntireHand()
             {

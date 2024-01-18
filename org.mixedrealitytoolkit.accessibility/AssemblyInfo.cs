@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.Accessibility.Runtime.Tests")]
 
-[assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit Accessibility")]
+[assembly: AssemblyProduct("Mixed Reality Toolkit Accessibility")]
 [assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.

@@ -1,10 +1,10 @@
 {
   "name": "org.mixedrealitytoolkit.diagnostics",
-  "version": "3.0.0-development",
+  "version": "3.0.1-development",
   "description": "Subsystems and utilities for common diagnostic and performance monitoring tasks.",
   "displayName": "MRTK Diagnostics",
   "msftFeatureCategory": "MRTK3",
-  "author": "Microsoft",
+  "author": "Mixed Reality Toolkit Contributors",
   "license": "BSD 3-Clause",
   "repository": {
     "type": "git",

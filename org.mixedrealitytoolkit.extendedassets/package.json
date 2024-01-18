@@ -1,10 +1,10 @@
 {
   "name": "org.mixedrealitytoolkit.extendedassets",
-  "version": "3.0.0-development",
+  "version": "3.0.1-development",
   "description": "This package offers additional assets helpful for example scenes or rapid prototyping. These assets are in addition to the more commonly-used assets located in StandardAssets.",
   "displayName": "MRTK Extended Assets",
   "msftFeatureCategory": "MRTK3",
-  "author": "Microsoft",
+  "author": "Mixed Reality Toolkit Contributors",
   "license": "BSD 3-Clause",
   "repository": {
     "type": "git",

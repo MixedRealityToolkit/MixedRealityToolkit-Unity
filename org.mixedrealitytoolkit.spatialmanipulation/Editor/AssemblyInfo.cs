@@ -3,7 +3,7 @@
 
 using System.Reflection;
 
-[assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit Spatial Manipulation - Editor")]
+[assembly: AssemblyProduct("Mixed Reality Toolkit Spatial Manipulation - Editor")]
 [assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.

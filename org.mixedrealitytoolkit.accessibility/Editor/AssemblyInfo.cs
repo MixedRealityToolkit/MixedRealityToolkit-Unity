@@ -3,7 +3,7 @@
 
 using System.Reflection;
 
-[assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit Accessibility - Editor")]
+[assembly: AssemblyProduct("Mixed Reality Toolkit Accessibility - Editor")]
 [assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.
