@@ -4,7 +4,7 @@
     "com.atteneder.ktx": "https://github.com/atteneder/KtxUnity.git#v2.1.2",
     "com.microsoft.mixedreality.openxr": "file:../../../ExternalDependencies/com.microsoft.mixedreality.openxr-1.7.0.tgz",
     "com.microsoft.mixedreality.visualprofiler": "https://github.com/microsoft/VisualProfiler-Unity.git#v2.2.0",
-    "com.microsoft.mrtk.graphicstools.unity": "https://github.com/microsoft/MixedReality-GraphicsTools-Unity.git?path=/com.microsoft.mrtk.graphicstools.unity#v0.5.14",
+    "com.microsoft.mrtk.graphicstools.unity": "https://github.com/microsoft/MixedReality-GraphicsTools-Unity.git?path=/com.microsoft.mrtk.graphicstools.unity#v0.6.6",
     "com.microsoft.mrtk.tts.windows": "file:../../../ExternalDependencies/com.microsoft.mrtk.tts.windows-1.0.1.tgz",
     "com.microsoft.spatialaudio.spatializer.unity": "file:../../../ExternalDependencies/com.microsoft.spatialaudio.spatializer.unity-2.0.37.tgz",
     "org.mixedrealitytoolkit.accessibility": "file:../../../org.mixedrealitytoolkit.accessibility",
