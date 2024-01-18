@@ -60,7 +60,7 @@
       "dependencies": {}
     },
     "com.unity.asset-store-validation": {
-      "version": "0.3.0",
+      "version": "0.2.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
