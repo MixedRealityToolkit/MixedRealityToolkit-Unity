@@ -2,6 +2,8 @@
 // Licensed under the BSD 3-Clause
 
 using Microsoft.MixedReality.GraphicsTools;
+using MixedReality.Toolkit.Input;
+using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
@@ -20,7 +22,7 @@ namespace MixedReality.Toolkit.UX
     /// to obtain a selection progress value or a local displacement, respectively, to implement a visual layer.
     /// </remarks>
     [AddComponentMenu("MRTK/UX/Pressable Button")]
-    public class PressableButton : StatefulInteractable
+    public class PressableButton : StatefulInteractable, IPressableButtonForNearInteractionModeDetector
     {
         [SerializeField]
         [FormerlySerializedAs("smoothSelectedness")]
@@ -150,11 +152,11 @@ namespace MixedReality.Toolkit.UX
         [Tooltip("Speed for extending the moving button visuals when selected by a non-touch source.")]
         private float extendSpeed = 0.5f;
 
-        [field: SerializeField, Tooltip("Enables (true) or disables (false) the Canvas Rounded Rect on hover only.")]
-        public bool EnableOnHoverOnlyCanvasRoundedRect { get; set; } = false;
+        [field: SerializeField, Tooltip("Enables (true) or disables (false) the Canvas Rounded Rect on proximity only.")]
+        public bool EnableOnProximityOnlyCanvasRoundedRect { get; set; } = false;
 
-        [field: SerializeField, Tooltip("Enables (true) or disables (false) the Front plate Raw Image on hover only.")]
-        public bool EnableOnHoverOnlyFrontPlateRawImage { get; set; } = false;
+        [field: SerializeField, Tooltip("Enables (true) or disables (false) the Front plate Raw Image on proximity only.")]
+        public bool EnableOnProximityOnlyFrontPlateRawImage { get; set; } = false;
 
         /// <summary>
         /// ActionButton's Front plate.
@@ -212,6 +214,8 @@ namespace MixedReality.Toolkit.UX
         /// Reference to the CanvasElementRoundedRectMonoBehaviour MonoBehaviour.
         /// </summary>
         private CanvasElementRoundedRect canvasElementRoundedRect;
+
+        private bool delayedFrontPlateAndRoundedRectDisableRoutineAlreadyStarted = false;
 
         #endregion Private Members
 
@@ -325,13 +329,13 @@ namespace MixedReality.Toolkit.UX
                 frontPlateRawImage = FrontPlate.GetComponent<RawImage>();
             }
 
-            if (EnableOnHoverOnlyCanvasRoundedRect)
+            if (EnableOnProximityOnlyCanvasRoundedRect)
             {
                 SetEnabledCanvasElementRoundedRectIfAny(false);
             }
-            if (EnableOnHoverOnlyFrontPlateRawImage)
+            if (EnableOnProximityOnlyFrontPlateRawImage)
             {
-                SetEnableFrontPlateRawImage(false);
+                SetEnabledFrontPlateRawImage(false);
             }
         }
 
@@ -504,15 +508,6 @@ namespace MixedReality.Toolkit.UX
         {
             base.OnHoverEntered(args);
 
-            if (EnableOnHoverOnlyCanvasRoundedRect)
-            {
-                SetEnabledCanvasElementRoundedRectIfAny(true);
-            }
-            if (EnableOnHoverOnlyFrontPlateRawImage)
-            {
-                SetEnableFrontPlateRawImage(true);
-            }
-
             // If we decide this interactor has begun its hover in a well-behaved way,
             // we add it to our hash set of valid pokes.
             if (args.interactorObject is IPokeInteractor pokeInteractor && !IsOutsideFootprint(pokeInteractor.PokeTrajectory.End, 0.0001f))
@@ -534,15 +529,6 @@ namespace MixedReality.Toolkit.UX
         protected override void OnHoverExited(HoverExitEventArgs args)
         {
             base.OnHoverExited(args);
-
-            if (EnableOnHoverOnlyCanvasRoundedRect)
-            {
-                SetEnabledCanvasElementRoundedRectIfAny(false);
-            }
-            if (EnableOnHoverOnlyFrontPlateRawImage)
-            {
-                SetEnableFrontPlateRawImage(false);
-            }
 
             if (args.interactorObject is IPokeInteractor pokeInteractor)
             {
@@ -701,9 +687,9 @@ namespace MixedReality.Toolkit.UX
         /// Set the enabled state of the Front plate Raw Image if any.
         /// </summary>
         /// <param name="enable">True to enable, false to disable</param>
-        protected void SetEnableFrontPlateRawImage(bool enable)
+        protected void SetEnabledFrontPlateRawImage(bool enable)
         {
-            if (frontPlateRawImage != null)
+            if (frontPlateRawImage != null && frontPlateRawImage.enabled != enable)
             {
                 frontPlateRawImage.enabled = enable;
             }
@@ -715,9 +701,26 @@ namespace MixedReality.Toolkit.UX
         /// <param name="enable">True to enable, false to disable</param>
         protected void SetEnabledCanvasElementRoundedRectIfAny(bool enable)
         {
-            if (canvasElementRoundedRect != null)
+            if (canvasElementRoundedRect != null && canvasElementRoundedRect.enabled != enable)
             {
                 canvasElementRoundedRect.enabled = enable;
+            }
+        }
+
+        /// <summary>
+        /// Set the enabled state of the Front plate Raw Image and Canvas Element Rounded Rect if they
+        /// are flagged for dynamic enabling/disabling based on proximity.
+        /// </summary>
+        /// <param name="enable"></param>
+        public void UpdateFrontPlateAndRoundedRectIfDynamic(bool enable)
+        {
+            if (EnableOnProximityOnlyCanvasRoundedRect)
+            {
+                SetEnabledCanvasElementRoundedRectIfAny(enable);
+            }
+            if (EnableOnProximityOnlyFrontPlateRawImage)
+            {
+                SetEnabledFrontPlateRawImage(enable);
             }
         }
 
