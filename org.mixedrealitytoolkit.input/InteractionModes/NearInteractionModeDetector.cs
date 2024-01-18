@@ -46,7 +46,7 @@ namespace MixedReality.Toolkit.Input
                 for (int i = 0; i < previouslyDetectedColliders.Count; i++)
                 {
                     Collider previouslyDetectedCollider = previouslyDetectedColliders[i];
-                    if (!DetectedColliders.Contains(previouslyDetectedCollider))
+                    if (!DetectedColliders.Contains(previouslyDetectedCollider) && previouslyDetectedCollider != null)
                     {
                         previouslyDetectedCollider.GetComponent<IPressableButtonForNearInteractionModeDetector>()?.UpdateFrontPlateAndRoundedRectIfDynamic(false);
                         previouslyDetectedColliders.Remove(previouslyDetectedCollider);
