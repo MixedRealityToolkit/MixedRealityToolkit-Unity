@@ -977,6 +977,25 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             yield return null;
         }
+
+        /// <summary>
+        /// Test the PressableButton script has get and set EnableOnHoverOnlyFrontPlate accessors.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonHasEnableOnHoverOnlyFrontPlateRawImageAccessors()
+        {
+            MethodInfo[] methodInfos;
+            System.Type pressableButtonType = typeof(PressableButton);
+
+            methodInfos = pressableButtonType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            var getAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("get_EnableOnProximityOnlyFrontPlateRawImage")).ToArray();
+            var setAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("set_EnableOnProximityOnlyFrontPlateRawImage")).ToArray();
+
+            Assert.IsTrue(getAccessors.Length == 1);
+            Assert.IsTrue(setAccessors.Length == 1);
+
+            yield return null;
+        }
         #endregion Tests
 
         #region Private methods
