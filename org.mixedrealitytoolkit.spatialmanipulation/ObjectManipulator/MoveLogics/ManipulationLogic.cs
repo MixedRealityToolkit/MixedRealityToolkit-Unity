@@ -23,6 +23,16 @@ namespace MixedReality.Toolkit.SpatialManipulation
         protected int NumInteractors { get; private set; }
 
         /// <summary>
+        /// Whether the object is selected by a singular <see cref="XRSocketInteractor"/>.
+        /// </summary>
+        protected bool SelectedBySocket { get; private set; }
+
+        /// <summary>
+        /// Whether the object is force grabbed by a singular <see cref="XRRayInteractor"/>.
+        /// </summary>
+        protected bool ForceGrabbed { get; private set; }
+
+        /// <summary>
         /// Setup the manipulation logic. Called automatically by Update if the number of interactor points has changed.
         /// </summary>
         /// <param name="interactors">
@@ -38,6 +48,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
         public virtual void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
         {
             NumInteractors = interactors.Count;
+            SelectedBySocket = NumInteractors == 1 && interactors[0] is XRSocketInteractor;
+            ForceGrabbed = NumInteractors == 1 && interactors[0] is XRRayInteractor rayInteractor && rayInteractor.useForceGrab;
         }
 
         /// <summary>
