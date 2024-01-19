@@ -850,6 +850,24 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             // Wait for a frame to give Unity a chance to actually destroy the object
             yield return null;
         }
+
+        /// <summary>
+        /// This tests verifies the that EnableOnProximityOnlyCanvasRoundedRectDisabled is false by default
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonEnableOnProximityOnlyCanvasRoundedRectDisabledByDefault([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+            yield return null;
+
+            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
+            Assert.IsFalse(buttonComponent.EnableOnProximityOnlyCanvasRoundedRect);
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+            yield return null;
+        }
         #endregion Tests
 
         #region Private methods
