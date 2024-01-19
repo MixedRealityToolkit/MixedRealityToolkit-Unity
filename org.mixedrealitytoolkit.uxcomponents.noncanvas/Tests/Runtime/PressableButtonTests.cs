@@ -868,6 +868,24 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             // Wait for a frame to give Unity a change to actually destroy the object
             yield return null;
         }
+
+        /// <summary>
+        /// This tests verifies the that EnableOnProximityOnlyFrontPlateRawImage is false by default
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonEnableOnProximityOnlyFrontPlateRawImageDisabledByDefault([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+            yield return null;
+
+            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
+            Assert.IsFalse(buttonComponent.EnableOnProximityOnlyFrontPlateRawImage);
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+            yield return null;
+        }
         #endregion Tests
 
         #region Private methods
