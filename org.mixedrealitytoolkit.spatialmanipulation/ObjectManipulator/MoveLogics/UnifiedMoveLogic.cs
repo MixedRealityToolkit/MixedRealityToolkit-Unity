@@ -20,6 +20,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private Vector3 attachToObject;
         private Vector3 objectLocalAttachPoint;
 
+        private bool ShouldMatchAttachPosition => SelectedBySocket || ForceGrabbed;
+
         /// <inheritdoc />
         public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
         {
@@ -39,7 +41,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
             Vector3 attachCentroid = GetAttachCentroid(interactors, interactable);
 
-            if (centeredAnchor)
+            if (ShouldMatchAttachPosition)
+            {
+                return attachCentroid;
+            }
+            else if (centeredAnchor)
             {
                 return attachCentroid + attachToObject;
             }

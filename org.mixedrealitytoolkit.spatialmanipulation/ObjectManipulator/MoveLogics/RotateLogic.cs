@@ -22,6 +22,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private Quaternion startInputRotation;
         private Quaternion startRotation;
 
+        private bool ShouldMatchAttachRotation => SelectedBySocket;
+
         /// <inheritdoc />
         public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
         {
@@ -41,7 +43,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             base.Update(interactors, interactable, currentTarget, centeredAnchor);
 
-            if (NumInteractors == 1)
+            if (ShouldMatchAttachRotation)
+            {
+                return interactors[0].GetAttachTransform(interactable).rotation;
+            }
+            else if (NumInteractors == 1)
             {
                 return interactors[0].GetAttachTransform(interactable).rotation * Quaternion.Inverse(startInputRotation) * startRotation;
             }

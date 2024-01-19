@@ -567,6 +567,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private bool UseForces => rigidBody != null && !rigidBody.isKinematic;
 
+        private bool SelectedBySocket => interactorsSelecting.Count == 1 && interactorsSelecting[0] is XRSocketInteractor;
+
         private Rigidbody rigidBody;
 
         private bool wasGravity = false;
@@ -987,7 +989,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             // TODO: Elastics. Compute elastics here and apply to modifiedTransformFlags.
 
-            bool applySmoothing = ShouldSmooth && smoothingLogic != null;
+            bool applySmoothing = ShouldSmooth && smoothingLogic != null && !SelectedBySocket;
 
             targetPose.Position = (applySmoothing && !UseForces) ? smoothingLogic.SmoothPosition(HostTransform.position, targetPose.Position, moveLerpTime, Time.deltaTime) : targetPose.Position;
             targetPose.Rotation = (applySmoothing && !UseForces) ? smoothingLogic.SmoothRotation(HostTransform.rotation, targetPose.Rotation, rotateLerpTime, Time.deltaTime) : targetPose.Rotation;
