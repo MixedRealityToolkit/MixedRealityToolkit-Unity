@@ -941,6 +941,23 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             yield return null;
         }
+
+        /// <summary>
+        /// Test the PressableButton script has the canvasElementRoundedRect field.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonHasCanvasElementRoundedRectField()
+        {
+            FieldInfo[] fieldInfos;
+            System.Type pressableButtonType = typeof(PressableButton);
+
+            fieldInfos = pressableButtonType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("canvasElementRoundedRect")).ToArray();
+
+            Assert.IsTrue(result.Length == 1);
+
+            yield return null;
+        }
         #endregion Tests
 
         #region Private methods
