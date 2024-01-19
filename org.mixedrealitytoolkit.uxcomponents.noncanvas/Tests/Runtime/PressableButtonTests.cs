@@ -9,6 +9,8 @@ using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -884,6 +886,23 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             Object.Destroy(testButton);
             // Wait for a frame to give Unity a change to actually destroy the object
+            yield return null;
+        }
+
+        /// <summary>
+        /// Test the script has the frontPlate field.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonHasFrontPlateField()
+        {
+            FieldInfo[] fieldInfos;
+            System.Type pressableButtonType = typeof(PressableButton);
+
+            fieldInfos = pressableButtonType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("frontPlate")).ToArray();
+
+            Assert.IsTrue(result.Length == 1);
+
             yield return null;
         }
         #endregion Tests
