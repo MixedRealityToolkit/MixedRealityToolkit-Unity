@@ -41,11 +41,11 @@
       "hash": "22d727d4d1641c27fa85a7519cf76b81890c8f3d"
     },
     "com.microsoft.mrtk.graphicstools.unity": {
-      "version": "https://github.com/microsoft/MixedReality-GraphicsTools-Unity.git?path=/com.microsoft.mrtk.graphicstools.unity#v0.5.14",
+      "version": "https://github.com/microsoft/MixedReality-GraphicsTools-Unity.git?path=/com.microsoft.mrtk.graphicstools.unity#v0.6.6",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "96743038a313c93322c935d99d2deb18e831aa2d"
+      "hash": "4497602bcf9d4e7a175cf9d2a2bee9f086a3129c"
     },
     "com.microsoft.mrtk.tts.windows": {
       "version": "file:../../../ExternalDependencies/com.microsoft.mrtk.tts.windows-1.0.1.tgz",
@@ -58,6 +58,15 @@
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
+    },
+    "com.unity.asset-store-validation": {
+      "version": "0.2.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "2.0.2"
+      },
+      "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
       "version": "1.6.6",
