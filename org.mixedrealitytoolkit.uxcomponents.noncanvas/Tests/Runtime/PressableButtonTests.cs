@@ -924,6 +924,23 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             yield return null;
         }
+
+        /// <summary>
+        /// Test the PressableButton script has the frontPlateRawImage field.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonHasFrontPlateRawImageField()
+        {
+            FieldInfo[] fieldInfos;
+            System.Type pressableButtonType = typeof(PressableButton);
+
+            fieldInfos = pressableButtonType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("frontPlateRawImage")).ToArray();
+
+            Assert.IsTrue(result.Length == 1);
+
+            yield return null;
+        }
         #endregion Tests
 
         #region Private methods
