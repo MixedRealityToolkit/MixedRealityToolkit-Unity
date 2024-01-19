@@ -960,10 +960,10 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// Test the PressableButton script has get and set EnableOnHoverOnlyCanvasRoundedRect accessors.
+        /// Test the PressableButton script has get and set EnableOnProximityOnlyCanvasRoundedRect accessors.
         /// </summary>
         [UnityTest]
-        public IEnumerator TestPressableButtonHasEnableOnHoverOnlyCanvasRoundedRectAccessors()
+        public IEnumerator TestPressableButtonHasEnableOnProximityOnlyCanvasRoundedRectAccessors()
         {
             MethodInfo[] methodInfos;
             System.Type pressableButtonType = typeof(PressableButton);
@@ -979,10 +979,10 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// Test the PressableButton script has get and set EnableOnHoverOnlyFrontPlate accessors.
+        /// Test the PressableButton script has get and set EnableOnProximityOnlyFrontPlate accessors.
         /// </summary>
         [UnityTest]
-        public IEnumerator TestPressableButtonHasEnableOnHoverOnlyFrontPlateRawImageAccessors()
+        public IEnumerator TestPressableButtonHasEnableOnProximityOnlyFrontPlateRawImageAccessors()
         {
             MethodInfo[] methodInfos;
             System.Type pressableButtonType = typeof(PressableButton);
