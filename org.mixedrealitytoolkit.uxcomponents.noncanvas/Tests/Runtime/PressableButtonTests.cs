@@ -890,7 +890,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// Test the script has the frontPlate field.
+        /// Test the PressableButton script has the frontPlate field.
         /// </summary>
         [UnityTest]
         public IEnumerator TestPressableButtonHasFrontPlateField()
@@ -902,6 +902,25 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("frontPlate")).ToArray();
 
             Assert.IsTrue(result.Length == 1);
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Test the PressableButton script has get and set accessor to the frontPlate field.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonHasFrontPlateAccessors()
+        {
+            MethodInfo[] methodInfos;
+            System.Type pressableButtonType = typeof(PressableButton);
+
+            methodInfos = pressableButtonType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            var getAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("get_FrontPlate")).ToArray();
+            var setAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("set_FrontPlate")).ToArray();
+
+            Assert.IsTrue(getAccessors.Length == 1);
+            Assert.IsTrue(setAccessors.Length == 1);
 
             yield return null;
         }
