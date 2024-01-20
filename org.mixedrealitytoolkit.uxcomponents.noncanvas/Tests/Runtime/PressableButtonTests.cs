@@ -14,7 +14,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-
+using UnityEngine.UI;
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 using SpaceMode = MixedReality.Toolkit.UX.PressableButton.SpaceMode;
 
@@ -993,6 +993,36 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             Assert.IsTrue(getAccessors.Length == 1);
             Assert.IsTrue(setAccessors.Length == 1);
+
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator TestActionButtonGameObjectInitializesCorrectlyForDynamicComponents([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            GameObject canvasGameObject = new GameObject();
+            canvasGameObject.AddComponent<Canvas>();
+            canvasGameObject.AddComponent<CanvasScaler>();
+            canvasGameObject.AddComponent<HorizontalLayoutGroup>();
+
+            string prefabPath = "Packages/org.mixedrealitytoolkit.uxcomponents/Button/Prefabs/Action Button.prefab";
+            Object actionButtonPrefab = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(Object));
+            GameObject testButton1 = Object.Instantiate(actionButtonPrefab) as GameObject;
+
+            testButton1.transform.SetParent(canvasGameObject.transform);
+
+            canvasGameObject.transform.position = new Vector3(0, 0, 10);
+            canvasGameObject.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+
+            InputTestUtilities.InitializeCameraToOriginAndForward();
+
+            PressableButton pressableButton = testButton1.GetComponent<PressableButton>();
+            Assert.IsNotNull(pressableButton);
+            Assert.IsFalse(pressableButton.EnableOnProximityOnlyCanvasRoundedRect);
+            Assert.IsFalse(pressableButton.EnableOnProximityOnlyFrontPlateRawImage);
+            Assert.IsNotNull(pressableButton.FrontPlate);
+
+            Object.Destroy(testButton1);
 
             yield return null;
         }
