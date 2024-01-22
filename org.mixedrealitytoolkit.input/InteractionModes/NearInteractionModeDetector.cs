@@ -8,16 +8,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// This interface is used to update the front plate and rounded rect of a pressable
-    /// button if they are flagged as dynamic (based on proximity), it is needed to prevent
-    /// a circular reference between MRTK Input and MRTK UX Core Scripts packages.
-    /// </summary>
-    public interface IPressableButtonForNearInteractionModeDetector
-    {
-        public void UpdateFrontPlateAndRoundedRectIfDynamic(bool enable);
-    }
-
-    /// <summary>
     /// A <see cref="ProximityDetector"/> that will check if any near interactor is 
     /// selecting an interactable. If a near interactor is selecting an interactable,
     /// the specified <see cref="ProximityDetector.ModeOnDetection"/> will be marked
@@ -48,7 +38,7 @@ namespace MixedReality.Toolkit.Input
                     Collider previouslyDetectedCollider = previouslyDetectedColliders[i];
                     if (!DetectedColliders.Contains(previouslyDetectedCollider) && previouslyDetectedCollider != null)
                     {
-                        previouslyDetectedCollider.GetComponent<IPressableButtonForNearInteractionModeDetector>()?.UpdateFrontPlateAndRoundedRectIfDynamic(false);
+                        previouslyDetectedCollider.GetComponent<INearInteractionModeTarget>()?.UpdateFrontPlateAndRoundedRectIfDynamic(false);
                         previouslyDetectedColliders.Remove(previouslyDetectedCollider);
                     }
                 }
@@ -56,7 +46,7 @@ namespace MixedReality.Toolkit.Input
                 {
                     if (!previouslyDetectedColliders.Contains(collider))
                     {
-                        collider.GetComponent<IPressableButtonForNearInteractionModeDetector>()?.UpdateFrontPlateAndRoundedRectIfDynamic(true);
+                        collider.GetComponent<INearInteractionModeTarget>()?.UpdateFrontPlateAndRoundedRectIfDynamic(true);
                         previouslyDetectedColliders.Add(collider);
                     }
                 }
