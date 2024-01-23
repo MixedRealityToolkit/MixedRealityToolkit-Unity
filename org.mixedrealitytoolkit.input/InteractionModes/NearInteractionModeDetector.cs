@@ -38,7 +38,11 @@ namespace MixedReality.Toolkit.Input
                     Collider previouslyDetectedCollider = previouslyDetectedColliders[i];
                     if (!DetectedColliders.Contains(previouslyDetectedCollider) && previouslyDetectedCollider != null)
                     {
-                        previouslyDetectedCollider.GetComponent<INearInteractionModeTarget>()?.UpdateFrontPlateAndRoundedRectIfDynamic(false);
+                        INearInteractionModeTarget nearInteractionMode = previouslyDetectedCollider.GetComponent<INearInteractionModeTarget>();
+                        if (nearInteractionMode != null)
+                        {
+                            previouslyDetectedCollider.GetComponent<INearInteractionModeTarget>().UpdateFrontPlateAndRoundedRectIfDynamic(false);
+                        }
                         previouslyDetectedColliders.Remove(previouslyDetectedCollider);
                     }
                 }
@@ -46,7 +50,11 @@ namespace MixedReality.Toolkit.Input
                 {
                     if (!previouslyDetectedColliders.Contains(collider))
                     {
-                        collider.GetComponent<INearInteractionModeTarget>()?.UpdateFrontPlateAndRoundedRectIfDynamic(true);
+                        INearInteractionModeTarget nearInteractionMode = collider.GetComponent<INearInteractionModeTarget>();
+                        if (nearInteractionMode != null)
+                        {
+                            collider.GetComponent<INearInteractionModeTarget>().UpdateFrontPlateAndRoundedRectIfDynamic(true);
+                        }
                         previouslyDetectedColliders.Add(collider);
                     }
                 }
