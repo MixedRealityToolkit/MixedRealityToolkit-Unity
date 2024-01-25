@@ -997,6 +997,9 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return null;
         }
 
+        /// <summary>
+        /// Tests an Action Button GameObject initializes correctly for dynamic components.
+        /// </summary>
         [UnityTest]
         public IEnumerator TestActionButtonGameObjectInitializesCorrectlyForDynamicComponents([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
         {
@@ -1027,6 +1030,9 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return null;
         }
 
+        /// <summary>
+        /// Tests with two hands that the button component marked as dynamic-on-proximity is enabled and disabled correctly when the hands are in proximity to the button.
+        /// </summary>
         [UnityTest]
         public IEnumerator TestTwoHandsEnableAndDisableDynamicComponentsCorrectly([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
         {
