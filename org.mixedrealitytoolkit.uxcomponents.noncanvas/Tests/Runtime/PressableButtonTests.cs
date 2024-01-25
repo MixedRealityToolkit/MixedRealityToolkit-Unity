@@ -1034,7 +1034,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         /// Tests with two hands that the button component marked as dynamic-on-proximity is enabled and disabled correctly when the hands are in proximity to the button.
         /// </summary>
         [UnityTest]
-        public IEnumerator TestTwoHandsEnableAndDisableDynamicComponentsCorrectly([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        public IEnumerator TestTwoHandsEnableAndDisableDynamicComponentsCorrectly()
         {
             string CanvasDialogPrefabGUID = "cca6164bb2744884a92a100266f5f3aa";
             string CanvasDialogPrefabAssetPath = AssetDatabase.GUIDToAssetPath(CanvasDialogPrefabGUID);
@@ -1073,8 +1073,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
 
             TestHand handRight = new TestHand(Handedness.Right);
-            TestHand handLeft = new TestHand(Handedness.Left);
+            yield return RuntimeTestUtilities.WaitForUpdates();
             yield return handRight.Show(Vector3.zero);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            TestHand handLeft = new TestHand(Handedness.Left);
+            yield return RuntimeTestUtilities.WaitForUpdates();
             yield return handLeft.Show(Vector3.zero);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
@@ -1109,8 +1113,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.IsFalse(frontPlateRawImage.enabled);
 
             yield return new WaitForSeconds(stepDelay);
+
+            yield return null;
         }
-#endregion Tests
+
+        #endregion Tests
 
         #region Private methods
 
