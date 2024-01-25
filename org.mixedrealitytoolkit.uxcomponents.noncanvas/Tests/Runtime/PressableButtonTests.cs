@@ -1026,7 +1026,85 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             yield return null;
         }
-        #endregion Tests
+
+        [UnityTest]
+        public IEnumerator TestTwoHandsEnableAndDisableDynamicComponentsCorrectly([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            string CanvasDialogPrefabGUID = "cca6164bb2744884a92a100266f5f3aa";
+            string CanvasDialogPrefabAssetPath = AssetDatabase.GUIDToAssetPath(CanvasDialogPrefabGUID);
+            DialogPool spawner;
+
+            var spawnerObj = new GameObject("DialogPool");
+            spawner = spawnerObj.AddComponent<DialogPool>();
+            spawner.DialogPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(CanvasDialogPrefabAssetPath);
+
+            IDialog dialog = spawner.Get()
+                .SetHeader("This is a test header.")
+                .SetBody("This is a test body.")
+                .SetNeutral("OK", (args) => { })
+                .Show();
+
+#if DEBUG
+            int stepDelay = 2; //For debugging purposes, just a delay so that we can see what is happening when debugging this test
+#else
+            int stepDelay = 0;
+#endif
+
+            yield return new WaitForSeconds(stepDelay);
+
+            PressableButton[] buttons = dialog.VisibleRoot.GetComponentsInChildren<PressableButton>(false);
+            GameObject testButton1 = buttons[0].gameObject;
+            PressableButton pressableButton = buttons[0];
+
+            InputTestUtilities.InitializeCameraToOriginAndForward();
+
+            pressableButton.EnableOnProximityOnlyCanvasRoundedRect = true;
+            pressableButton.EnableOnProximityOnlyFrontPlateRawImage = true;
+
+            var frontPlateRawImage = pressableButton.FrontPlate.GetComponent<RawImage>();
+            frontPlateRawImage.enabled = false;
+
+            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
+
+            TestHand handRight = new TestHand(Handedness.Right);
+            TestHand handLeft = new TestHand(Handedness.Left);
+            yield return handRight.Show(Vector3.zero);
+            yield return handLeft.Show(Vector3.zero);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.IsFalse(frontPlateRawImage.enabled);
+
+            yield return new WaitForSeconds(stepDelay);
+            yield return handRight.MoveTo(testButton1.transform.position + new Vector3(0.03f, 0, 0.0f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 2);
+            Assert.IsTrue(frontPlateRawImage.enabled);
+
+            yield return new WaitForSeconds(stepDelay);
+            yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.03f, 0, 0.0f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 4);
+            Assert.IsTrue(frontPlateRawImage.enabled);
+
+            yield return new WaitForSeconds(stepDelay);
+            yield return handRight.MoveTo(testButton1.transform.position + new Vector3(0.03f, -0.1f, -0.25f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 2);
+            Assert.IsTrue(frontPlateRawImage.enabled);
+
+            yield return new WaitForSeconds(stepDelay);
+            yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.03f, -0.1f, -0.25f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
+            Assert.IsFalse(frontPlateRawImage.enabled);
+
+            yield return new WaitForSeconds(stepDelay);
+        }
+#endregion Tests
 
         #region Private methods
 

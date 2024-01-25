@@ -3,7 +3,6 @@
 
 using Microsoft.MixedReality.GraphicsTools;
 using MixedReality.Toolkit.Input;
-using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
@@ -201,6 +200,16 @@ namespace MixedReality.Toolkit.UX
         private float WorldToLocalScale => transform.InverseTransformVector(transform.forward).magnitude;
 
         /// <summary>
+        /// Holds the duples Collider + Interactor that have triggered proximity.
+        /// </summary>
+        private HashSet<(Collider, XRBaseInteractor)> activeCollidersWithInteractor = new HashSet<(Collider, XRBaseInteractor)>();
+
+        /// <summary>
+        /// Indicates the number of duples Collider + Interactor that have been registered as triggering proximity.
+        /// </summary>
+        public int ActiveColliderWithInteractorCount => activeCollidersWithInteractor.Count;
+
+        /// <summary>
         /// If the <see cref="GetSelectionProgress"/> value is smoothed to within this threshold of 0 or 1, the <see cref="GetSelectionProgress"/> will snap to 0 or 1.
         /// </summary>
         private const float selectionProgressEpsilon = 0.00001f;
@@ -214,8 +223,6 @@ namespace MixedReality.Toolkit.UX
         /// Reference to the CanvasElementRoundedRectMonoBehaviour MonoBehaviour.
         /// </summary>
         private CanvasElementRoundedRect canvasElementRoundedRect;
-
-        private bool delayedFrontPlateAndRoundedRectDisableRoutineAlreadyStarted = false;
 
         #endregion Private Members
 
@@ -721,6 +728,32 @@ namespace MixedReality.Toolkit.UX
             if (EnableOnProximityOnlyFrontPlateRawImage)
             {
                 SetEnabledFrontPlateRawImage(enable);
+            }
+        }
+
+        /// <summary>
+        /// Registers the duple Collider + XRBaseInteractor as triggering proximity.
+        /// </summary>
+        /// <param name="collider">Collider triggering proximity.</param>
+        /// <param name="xrBaseInteractor">Interactor triggering proximity.</param>
+        public void RegisterActiveColliderWithInteractor(Collider collider, XRBaseInteractor xrBaseInteractor)
+        {
+            if (collider != null && !activeCollidersWithInteractor.Contains((collider, xrBaseInteractor)))
+            {
+                activeCollidersWithInteractor.Add((collider, xrBaseInteractor));
+            }
+        }
+
+        /// <summary>
+        /// Unregisters the duple Collider + XRBaseInteractor as triggering proximity.
+        /// </summary>
+        /// <param name="collider">Collider that in combination with the interactor was triggering proximity.</param>
+        /// <param name="xrBaseInteractor">Interactor that in combination with the collider was triggering proximity.</param>
+        public void UnregisterActiveColliderWithInteractor(Collider collider, XRBaseInteractor xrBaseInteractor)
+        {
+            if (collider != null && activeCollidersWithInteractor.Contains((collider, xrBaseInteractor)))
+            {
+                activeCollidersWithInteractor.Remove((collider, xrBaseInteractor));
             }
         }
 
