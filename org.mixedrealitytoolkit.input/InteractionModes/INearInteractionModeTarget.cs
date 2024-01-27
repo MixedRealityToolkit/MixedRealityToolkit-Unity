@@ -7,17 +7,17 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// This interface is used to update the front plate and rounded rect of a pressable
-    /// button if they are flagged as dynamic (based on proximity), it is needed to prevent
-    /// a circular reference between MRTK Input and MRTK UX Core Scripts packages.
+    /// This interface is used to update the enable state of the Components that are in the ProximityEnabledComponents
+    /// array (set in Editor) and to keep track of which Collider + XRBaseInteractor duples are triggering proximity.
+    /// The interface is needed to prevent a circular reference between MRTK Input and MRTK UX Core Scripts packages.
     /// </summary>
     public interface INearInteractionModeTarget
     {
         /// <summary>
-        /// Sets the enable state of the Front Plate and Rounded Rect if they were tagged as dynamic based on proximity.
+        /// Sets the enable state of the Components that are in the ProximityEnabledComponents array (set in Editor).
         /// </summary>
         /// <param name="enable">True to enable the components and False otherwise.</param>
-        public void UpdateFrontPlateAndRoundedRectIfDynamic(bool enable);
+        public void SetEnabledDynamicComponents(bool enable);
 
         /// <summary>
         /// Registers the duple Collider + XRBaseInteractor as triggering proximity.

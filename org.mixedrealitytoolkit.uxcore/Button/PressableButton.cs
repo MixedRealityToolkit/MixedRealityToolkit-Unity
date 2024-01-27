@@ -145,33 +145,17 @@ namespace MixedReality.Toolkit.UX
         public bool RejectZRollOff { get => rejectZRollOff; set => rejectZRollOff = value; }
 
         /// <summary>
-        ///  Speed for extending the moving button visuals when selected by a non-touch source.
+        /// Speed for extending the moving button visuals when selected by a non-touch source.
         /// </summary>
         [SerializeField]
         [Tooltip("Speed for extending the moving button visuals when selected by a non-touch source.")]
         private float extendSpeed = 0.5f;
 
-        [field: SerializeField, Tooltip("Enables (true) or disables (false) the Canvas Rounded Rect on proximity only.")]
-        public bool EnableOnProximityOnlyCanvasRoundedRect { get; set; } = false;
-
-        [field: SerializeField, Tooltip("Enables (true) or disables (false) the Front plate Raw Image on proximity only.")]
-        public bool EnableOnProximityOnlyFrontPlateRawImage { get; set; } = false;
-
         /// <summary>
-        /// ActionButton's Front plate.
+        /// Array with Components (set in Editor) that will be enabled/disabled based on proximity.
         /// </summary>
-        [SerializeField]
-        [Tooltip("ActionButton's Front plate.")]
-        private GameObject frontPlate;
-
-        /// <summary>
-        /// ActionButton's Front plate.
-        /// </summary>
-        public GameObject FrontPlate
-        {
-            get => frontPlate;
-            set => frontPlate = value;
-        }
+        [field: SerializeField, Tooltip("Array with Components (set in Editor) that will be enabled/disabled based on proximity.")]
+        public Component[] ProximityEnabledComponents { get; set; } = null;
 
         #region Private Members
 
@@ -213,16 +197,6 @@ namespace MixedReality.Toolkit.UX
         /// If the <see cref="GetSelectionProgress"/> value is smoothed to within this threshold of 0 or 1, the <see cref="GetSelectionProgress"/> will snap to 0 or 1.
         /// </summary>
         private const float selectionProgressEpsilon = 0.00001f;
-
-        /// <summary>
-        /// Reference to the Front plate's Raw Image.
-        /// </summary>
-        private RawImage frontPlateRawImage;
-
-        /// <summary>
-        /// Reference to the CanvasElementRoundedRectMonoBehaviour MonoBehaviour.
-        /// </summary>
-        private CanvasElementRoundedRect canvasElementRoundedRect;
 
         #endregion Private Members
 
@@ -329,21 +303,7 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         protected virtual void Start()
         {
-            canvasElementRoundedRect = gameObject.FindAncestorComponent<CanvasElementRoundedRect>();
-
-            if (FrontPlate != null)
-            {
-                frontPlateRawImage = FrontPlate.GetComponent<RawImage>();
-            }
-
-            if (EnableOnProximityOnlyCanvasRoundedRect)
-            {
-                SetEnabledCanvasElementRoundedRectIfAny(false);
-            }
-            if (EnableOnProximityOnlyFrontPlateRawImage)
-            {
-                SetEnabledFrontPlateRawImage(false);
-            }
+            SetEnabledDynamicComponents(false);
         }
 
         #region XRI methods
@@ -691,47 +651,6 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <summary>
-        /// Set the enabled state of the Front plate Raw Image if any.
-        /// </summary>
-        /// <param name="enable">True to enable, false to disable</param>
-        protected void SetEnabledFrontPlateRawImage(bool enable)
-        {
-            if (frontPlateRawImage != null && frontPlateRawImage.enabled != enable)
-            {
-                frontPlateRawImage.enabled = enable;
-            }
-        }
-
-        /// <summary>
-        /// Set the enabled state of the CanvasElementRoundedRectMonoBehaviour MonoBehaviour if any.
-        /// </summary>
-        /// <param name="enable">True to enable, false to disable</param>
-        protected void SetEnabledCanvasElementRoundedRectIfAny(bool enable)
-        {
-            if (canvasElementRoundedRect != null && canvasElementRoundedRect.enabled != enable)
-            {
-                canvasElementRoundedRect.enabled = enable;
-            }
-        }
-
-        /// <summary>
-        /// Set the enabled state of the Front plate Raw Image and Canvas Element Rounded Rect if they
-        /// are flagged for dynamic enabling/disabling based on proximity.
-        /// </summary>
-        /// <param name="enable"></param>
-        public void UpdateFrontPlateAndRoundedRectIfDynamic(bool enable)
-        {
-            if (EnableOnProximityOnlyCanvasRoundedRect)
-            {
-                SetEnabledCanvasElementRoundedRectIfAny(enable);
-            }
-            if (EnableOnProximityOnlyFrontPlateRawImage)
-            {
-                SetEnabledFrontPlateRawImage(enable);
-            }
-        }
-
-        /// <summary>
         /// Registers the duple Collider + XRBaseInteractor as triggering proximity.
         /// </summary>
         /// <param name="collider">Collider triggering proximity.</param>
@@ -754,6 +673,25 @@ namespace MixedReality.Toolkit.UX
             if (collider != null && activeCollidersWithInteractor.Contains((collider, xrBaseInteractor)))
             {
                 activeCollidersWithInteractor.Remove((collider, xrBaseInteractor));
+            }
+        }
+
+        /// <summary>
+        /// Sets enable (true) or disable (false) the components that are in the ProximityEnabledComponents array.
+        /// </summary>
+        /// <param name="enable">True to enable the components and false otherwise.</param>
+        public void SetEnabledDynamicComponents(bool enable)
+        {
+            for (int i = 0; i < ProximityEnabledComponents.Length; i++)
+            {
+                if (ProximityEnabledComponents[i] != null)
+                {
+                    Behaviour component = ProximityEnabledComponents[i] as Behaviour;
+                    if (component != null)
+                    {
+                        component.enabled = enable;
+                    }
+                }
             }
         }
 

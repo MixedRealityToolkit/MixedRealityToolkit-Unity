@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -854,17 +855,36 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// This tests verifies the that EnableOnProximityOnlyCanvasRoundedRectDisabled is false by default
+        /// This tests verifies the that the ProximityEnabledComponents array is empty by default.
         /// </summary>
         [UnityTest]
-        public IEnumerator TestPressableButtonEnableOnProximityOnlyCanvasRoundedRectDisabledByDefault([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        public IEnumerator TestPressableButtonProximityEnabledComponentsArrayIsEmptyByDefault([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
         {
             // instantiate scene and button
             GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
             yield return null;
 
             PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
-            Assert.IsFalse(buttonComponent.EnableOnProximityOnlyCanvasRoundedRect);
+            Assert.AreEqual(0, buttonComponent.ProximityEnabledComponents.Length);
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// This tests verifies the that the number of ColliderWithInteractor duples triggering proximity is cero by default.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonNumberOfColliderWithInteractorDuplesTriggeringProximityIsCeroByDefault([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+            yield return null;
+
+            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
+            Assert.AreEqual(0, buttonComponent.ActiveColliderWithInteractorCount);
 
             Object.Destroy(testButton);
             // Wait for a frame to give Unity a change to actually destroy the object
@@ -872,127 +892,37 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// This tests verifies the that EnableOnProximityOnlyFrontPlateRawImage is false by default
+        /// Test the PressableButton script has the activeCollidersWithInteractor hashset.
         /// </summary>
         [UnityTest]
-        public IEnumerator TestPressableButtonEnableOnProximityOnlyFrontPlateRawImageDisabledByDefault([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
-        {
-            // instantiate scene and button
-            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
-            yield return null;
-
-            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
-            Assert.IsFalse(buttonComponent.EnableOnProximityOnlyFrontPlateRawImage);
-
-            Object.Destroy(testButton);
-            // Wait for a frame to give Unity a change to actually destroy the object
-            yield return null;
-        }
-
-        /// <summary>
-        /// Test the PressableButton script has the frontPlate field.
-        /// </summary>
-        [UnityTest]
-        public IEnumerator TestPressableButtonHasFrontPlateField()
+        public IEnumerator TestPressableButtonHasActiveCollidersWithInteractorHashset()
         {
             FieldInfo[] fieldInfos;
             System.Type pressableButtonType = typeof(PressableButton);
 
             fieldInfos = pressableButtonType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("frontPlate")).ToArray();
+            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("activeCollidersWithInteractor")).ToArray();
 
-            Assert.IsTrue(result.Length == 1);
+            Assert.AreEqual(1, result.Length);
 
             yield return null;
         }
 
         /// <summary>
-        /// Test the PressableButton script has get and set accessor to the frontPlate field.
+        /// Test the PressableButton script has ActiveColliderWithInteractorCount get accessor and no set accesor.
         /// </summary>
         [UnityTest]
-        public IEnumerator TestPressableButtonHasFrontPlateAccessors()
+        public IEnumerator TestPressableButtonHasActiveColliderWithInteractorCountGetAccessorAndNoSetAccessor()
         {
             MethodInfo[] methodInfos;
             System.Type pressableButtonType = typeof(PressableButton);
 
             methodInfos = pressableButtonType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            var getAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("get_FrontPlate")).ToArray();
-            var setAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("set_FrontPlate")).ToArray();
+            var getAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("get_ActiveColliderWithInteractorCount")).ToArray();
+            var setAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("set_ActiveColliderWithInteractorCount")).ToArray();
 
-            Assert.IsTrue(getAccessors.Length == 1);
-            Assert.IsTrue(setAccessors.Length == 1);
-
-            yield return null;
-        }
-
-        /// <summary>
-        /// Test the PressableButton script has the frontPlateRawImage field.
-        /// </summary>
-        [UnityTest]
-        public IEnumerator TestPressableButtonHasFrontPlateRawImageField()
-        {
-            FieldInfo[] fieldInfos;
-            System.Type pressableButtonType = typeof(PressableButton);
-
-            fieldInfos = pressableButtonType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("frontPlateRawImage")).ToArray();
-
-            Assert.IsTrue(result.Length == 1);
-
-            yield return null;
-        }
-
-        /// <summary>
-        /// Test the PressableButton script has the canvasElementRoundedRect field.
-        /// </summary>
-        [UnityTest]
-        public IEnumerator TestPressableButtonHasCanvasElementRoundedRectField()
-        {
-            FieldInfo[] fieldInfos;
-            System.Type pressableButtonType = typeof(PressableButton);
-
-            fieldInfos = pressableButtonType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("canvasElementRoundedRect")).ToArray();
-
-            Assert.IsTrue(result.Length == 1);
-
-            yield return null;
-        }
-
-        /// <summary>
-        /// Test the PressableButton script has get and set EnableOnProximityOnlyCanvasRoundedRect accessors.
-        /// </summary>
-        [UnityTest]
-        public IEnumerator TestPressableButtonHasEnableOnProximityOnlyCanvasRoundedRectAccessors()
-        {
-            MethodInfo[] methodInfos;
-            System.Type pressableButtonType = typeof(PressableButton);
-
-            methodInfos = pressableButtonType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            var getAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("get_EnableOnProximityOnlyCanvasRoundedRect")).ToArray();
-            var setAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("set_EnableOnProximityOnlyCanvasRoundedRect")).ToArray();
-
-            Assert.IsTrue(getAccessors.Length == 1);
-            Assert.IsTrue(setAccessors.Length == 1);
-
-            yield return null;
-        }
-
-        /// <summary>
-        /// Test the PressableButton script has get and set EnableOnProximityOnlyFrontPlate accessors.
-        /// </summary>
-        [UnityTest]
-        public IEnumerator TestPressableButtonHasEnableOnProximityOnlyFrontPlateRawImageAccessors()
-        {
-            MethodInfo[] methodInfos;
-            System.Type pressableButtonType = typeof(PressableButton);
-
-            methodInfos = pressableButtonType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            var getAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("get_EnableOnProximityOnlyFrontPlateRawImage")).ToArray();
-            var setAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("set_EnableOnProximityOnlyFrontPlateRawImage")).ToArray();
-
-            Assert.IsTrue(getAccessors.Length == 1);
-            Assert.IsTrue(setAccessors.Length == 1);
+            Assert.AreEqual(1, getAccessors.Length);
+            Assert.AreEqual(0, setAccessors.Length);
 
             yield return null;
         }
@@ -1020,10 +950,9 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             InputTestUtilities.InitializeCameraToOriginAndForward();
 
             PressableButton pressableButton = testButton1.GetComponent<PressableButton>();
-            Assert.IsNotNull(pressableButton);
-            Assert.IsFalse(pressableButton.EnableOnProximityOnlyCanvasRoundedRect);
-            Assert.IsFalse(pressableButton.EnableOnProximityOnlyFrontPlateRawImage);
-            Assert.IsNotNull(pressableButton.FrontPlate);
+            Assert.IsNotNull(pressableButton.ProximityEnabledComponents);
+            Assert.AreEqual(0, pressableButton.ProximityEnabledComponents.Length);
+            Assert.AreEqual(0, pressableButton.ActiveColliderWithInteractorCount);
 
             Object.Destroy(testButton1);
 
@@ -1031,7 +960,8 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// Tests with two hands that the button component marked as dynamic-on-proximity is enabled and disabled correctly when the hands are in proximity to the button.
+        /// Tests with two hands that the button components ProximityEnabledComponents are enabled and disabled correctly
+        /// when one or more interactors (hands) are in proximity to the button.
         /// </summary>
         [UnityTest]
         public IEnumerator TestTwoHandsEnableAndDisableDynamicComponentsCorrectly()
@@ -1062,13 +992,17 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             GameObject testButton1 = buttons[0].gameObject;
             PressableButton pressableButton = buttons[0];
 
+            VerticalLayoutGroup dummyVerticalLayoutGroup = pressableButton.gameObject.AddComponent<VerticalLayoutGroup>();
+            RawImage dummyRawImage = pressableButton.gameObject.AddComponent<RawImage>();
+            Canvas dummyCanvas = pressableButton.gameObject.AddComponent<Canvas>();
+
+            dummyVerticalLayoutGroup.enabled = dummyRawImage.enabled = dummyCanvas.enabled = false;
+
+            Component[] dummyComponents = new Component[] { dummyVerticalLayoutGroup, dummyRawImage, dummyCanvas };
+
+            pressableButton.ProximityEnabledComponents = dummyComponents;
+
             InputTestUtilities.InitializeCameraToOriginAndForward();
-
-            pressableButton.EnableOnProximityOnlyCanvasRoundedRect = true;
-            pressableButton.EnableOnProximityOnlyFrontPlateRawImage = true;
-
-            var frontPlateRawImage = pressableButton.FrontPlate.GetComponent<RawImage>();
-            frontPlateRawImage.enabled = false;
 
             Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
 
@@ -1082,35 +1016,46 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return handLeft.Show(Vector3.zero);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            Assert.IsFalse(frontPlateRawImage.enabled);
+            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
+            Assert.IsFalse(dummyVerticalLayoutGroup.enabled);
+            Assert.IsFalse(dummyRawImage.enabled);
+            Assert.IsFalse(dummyCanvas.enabled);
 
             yield return new WaitForSeconds(stepDelay);
             yield return handRight.MoveTo(testButton1.transform.position + new Vector3(0.03f, 0, 0.0f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 2);
-            Assert.IsTrue(frontPlateRawImage.enabled);
+            Assert.IsTrue(dummyVerticalLayoutGroup.enabled);
+            Assert.IsTrue(dummyRawImage.enabled);
+            Assert.IsTrue(dummyCanvas.enabled);
 
             yield return new WaitForSeconds(stepDelay);
             yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.03f, 0, 0.0f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 4);
-            Assert.IsTrue(frontPlateRawImage.enabled);
+            Assert.IsTrue(dummyVerticalLayoutGroup.enabled);
+            Assert.IsTrue(dummyRawImage.enabled);
+            Assert.IsTrue(dummyCanvas.enabled);
 
             yield return new WaitForSeconds(stepDelay);
             yield return handRight.MoveTo(testButton1.transform.position + new Vector3(0.03f, -0.1f, -0.25f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 2);
-            Assert.IsTrue(frontPlateRawImage.enabled);
+            Assert.IsTrue(dummyVerticalLayoutGroup.enabled);
+            Assert.IsTrue(dummyRawImage.enabled);
+            Assert.IsTrue(dummyCanvas.enabled);
 
             yield return new WaitForSeconds(stepDelay);
             yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.03f, -0.1f, -0.25f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
-            Assert.IsFalse(frontPlateRawImage.enabled);
+            Assert.IsFalse(dummyVerticalLayoutGroup.enabled);
+            Assert.IsFalse(dummyRawImage.enabled);
+            Assert.IsFalse(dummyCanvas.enabled);
 
             yield return new WaitForSeconds(stepDelay);
 
