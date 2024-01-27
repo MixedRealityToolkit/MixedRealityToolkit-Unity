@@ -682,14 +682,17 @@ namespace MixedReality.Toolkit.UX
         /// <param name="enable">True to enable the components and false otherwise.</param>
         public void SetEnabledDynamicComponents(bool enable)
         {
-            for (int i = 0; i < ProximityEnabledComponents.Length; i++)
+            if (ProximityEnabledComponents != null)
             {
-                if (ProximityEnabledComponents[i] != null)
+                for (int i = 0; i < ProximityEnabledComponents.Length; i++)
                 {
-                    Behaviour component = ProximityEnabledComponents[i] as Behaviour;
-                    if (component != null)
+                    if (ProximityEnabledComponents[i] != null)
                     {
-                        component.enabled = enable;
+                        Behaviour component = ProximityEnabledComponents[i] as Behaviour;
+                        if (component != null)
+                        {
+                            component.enabled = enable;
+                        }
                     }
                 }
             }
