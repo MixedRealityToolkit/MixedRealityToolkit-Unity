@@ -1,58 +1,45 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using Unity.Profiling;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 namespace MixedReality.Toolkit.UX
 {
     /// <summary>
-    /// The 'InteractableColliderToggle' class is responsible for managing the state of the collider 
-    /// associated with a StatefulInteractable in the Unity UI. It enables or disables the collider based on 
-    /// the state of the associated 'StatefulInteractable' object.
+    /// The <see cref="StatefulInteractableColliderToggle"/> class is responsible for managing the state of the collider 
+    /// associated with a <see cref="StatefulInteractable"/>.
+    /// </summary>
+    /// <remarks>
+    /// This class will enables or disables the colliders associated with <see cref="StatefulInteractable"/> based on
+    /// the enabled state of <see cref="StatefulInteractable"/>.
     /// </summary>
     [AddComponentMenu("MRTK/UX/Stateful Interactable Collider Toggle")]
-    public class StatefulInteractableColliderToggle : UIBehaviour
+    public class StatefulInteractableColliderToggle : MonoBehaviour
     {       
         [SerializeField]
-        [Tooltip("The StatefulInteractable to enable or disable the collider based on the Interactable's state.")]
+        [Tooltip("The StatefulInteractable to enable or disable the collider based on the interactable's enabled state.")]
         private StatefulInteractable statefulInteractable;
 
         /// <summary>
-        /// The StatefulInteractable to enable or disable the collider based on the Interactable's state.
+        /// The <see cref="StatefulInteractable"/> to enable or disable the collider based on the interactable's enabled state.
         /// </summary>
         public StatefulInteractable StatefulInteractable
         {
             get => statefulInteractable;
             set => statefulInteractable = value;
         }
-        
-        [SerializeField]
-        [Tooltip("The collider to enable or disable based on the Interactable's state.")]
-        private BoxCollider thisCollider;
-
-        /// <summary>
-        /// The collider to enable or disable based on the Interactable's state.
-        /// </summary>
-        public BoxCollider ThisCollider
-        {
-            get => thisCollider;
-            set
-            {
-                if (thisCollider != value)
-                {
-                    thisCollider = value;
-                    UpdateCollider();
-                }
-            }
-        }
 
         [SerializeField]
+        [Tooltip("The RectTransformColliderFitter that automatically disables the interactable's colliders based visibility.")]
         private RectTransformColliderFitter colliderFitter;
 
+        /// <summary>
+        /// The <see cref="RectTransformColliderFitter"/> that automatically disables the interactable's colliders based visibility.
+        /// </summary>
+        /// <remarks>
+        /// The <see cref="StatefulInteractableColliderToggle"/> class will change <see cref="RectTransformColliderFitter.CanToggleCollider"/>
+        /// based on the enabled state of <see cref="StatefulInteractable"/>.
+        /// </remarks>
         public RectTransformColliderFitter ColliderFitter
         {
             get => colliderFitter;
@@ -66,6 +53,9 @@ namespace MixedReality.Toolkit.UX
             }
         }
 
+        /// <summary>
+        /// A Unity event function that is called when the script component has been enabled.
+        /// </summary> 
         protected virtual void OnEnable()
         {
             if (statefulInteractable != null)
@@ -77,6 +67,9 @@ namespace MixedReality.Toolkit.UX
             UpdateCollider();
         }
 
+        /// <summary>
+        /// A Unity event function that is called when the script component has been disabled.
+        /// </summary> 
         protected virtual void OnDisable()
         {
             if (statefulInteractable != null)
@@ -86,15 +79,29 @@ namespace MixedReality.Toolkit.UX
             }
         }
 
-        protected virtual void OnInteractableDisabled() => UpdateCollider();
+        /// <summary>
+        /// Function called when the interactable has been disabled.
+        /// </summary>
+        private void OnInteractableDisabled() => UpdateCollider();
 
-        protected virtual void OnInteractableEnabled() => UpdateCollider();
+        /// <summary>
+        /// Function called when the interactable has been enabled.
+        /// </summary>
+        private void OnInteractableEnabled() => UpdateCollider();
 
+        /// <summary>
+        /// Update the interactable's collider's and the filler's enablement based on the interactable's enabled state.
+        /// </summary>
         private void UpdateCollider()
         {
-            if (thisCollider != null)
+            if (statefulInteractable != null && statefulInteractable.colliders != null)
             {
-                thisCollider.enabled = statefulInteractable.enabled;
+                int colliderCount = statefulInteractable.colliders.Count;
+                for (int i = 0; i < colliderCount; i++)
+                {
+                    var collider = statefulInteractable.colliders[i];
+                    collider.enabled = statefulInteractable.enabled;
+                }
 
                 if (colliderFitter != null)
                 {
