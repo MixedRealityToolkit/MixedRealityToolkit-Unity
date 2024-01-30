@@ -7,10 +7,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// This interface is used to update the enable state of the Components that are in the ProximityEnabledComponents
-    /// array (set in Editor) and to keep track of which Collider + XRBaseInteractor duples are triggering proximity.
-    /// The interface is needed to prevent a circular reference between MRTK Input and MRTK UX Core Scripts packages.
+    /// This interface is used to update the enable state of the Components that are in the <see cref="ProximityEnabledComponents"/>
+    /// array (set in Editor) and to keep track of which <see cref="Collider"/> and <see cref="XRBaseInteractor"/> duples are triggering proximity.
     /// </summary>
+    /// <remarks>
+    /// The interface is needed to prevent a circular reference between MRTK Input and MRTK UX Core Scripts packages.
+    /// </remarks>
     public interface INearInteractionModeTarget
     {
         /// <summary>
