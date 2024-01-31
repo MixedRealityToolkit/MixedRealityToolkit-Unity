@@ -39,10 +39,10 @@ namespace MixedReality.Toolkit.Input
 
         public LOSAngularOffsetHandRayPoseSource()
         {
-             StabilizedHandRay = new Lazy<StabilizedRay>(() =>
-             {
-                 return new StabilizedRay(stabilizedPositionHalfLife, stabilizedDirectionHalfLife);
-             });
+            StabilizedHandRay = new Lazy<StabilizedRay>(() =>
+            {
+                return new StabilizedRay(stabilizedPositionHalfLife, stabilizedDirectionHalfLife);
+            });
         }
 
         /// <summary>
@@ -51,7 +51,15 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         public override bool TryGetPose(out Pose pose)
         {
+            Debug.Assert(Hand == Handedness.Left || Hand == Handedness.Right, $"The {GetType().Name} does not have a valid hand assigned.");
+
             XRNode? handNode = Hand.ToXRNode();
+
+            if (!handNode.HasValue)
+            {
+                pose = Pose.identity;
+                return false;
+            }
 
             bool poseRetrieved = handNode.HasValue;
             poseRetrieved &= XRSubsystemHelpers.HandsAggregator?.TryGetJoint(TrackedHandJoint.IndexProximal, handNode.Value, out knuckle) ?? false;
