@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ma_CanvasGlow
+  m_Name: SimplifiedButtonCanvasGlow
   m_Shader: {fileID: 4800000, guid: 5b0fc3431208c9e48b6e5efc383317ed, type: 3}
   m_ValidKeywords:
   - _UI_CLIP_RECT_ROUNDED
