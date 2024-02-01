@@ -660,6 +660,7 @@ namespace MixedReality.Toolkit.UX
             if (collider != null && !activeCollidersWithInteractor.Contains((collider, xrBaseInteractor)))
             {
                 activeCollidersWithInteractor.Add((collider, xrBaseInteractor));
+                SetEnabledDynamicComponents(true);
             }
         }
 
@@ -673,6 +674,10 @@ namespace MixedReality.Toolkit.UX
             if (collider != null && activeCollidersWithInteractor.Contains((collider, xrBaseInteractor)))
             {
                 activeCollidersWithInteractor.Remove((collider, xrBaseInteractor));
+                if (ActiveColliderWithInteractorCount == 0)
+                {
+                    SetEnabledDynamicComponents(false);
+                }
             }
         }
 

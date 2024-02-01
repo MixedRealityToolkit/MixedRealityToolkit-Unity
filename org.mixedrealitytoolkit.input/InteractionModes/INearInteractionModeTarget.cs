@@ -16,12 +16,6 @@ namespace MixedReality.Toolkit.Input
     public interface INearInteractionModeTarget
     {
         /// <summary>
-        /// Sets the enable state of the Components that are in the ProximityEnabledComponents array (set in Editor).
-        /// </summary>
-        /// <param name="enable">True to enable the components and False otherwise.</param>
-        public void SetEnabledDynamicComponents(bool enable);
-
-        /// <summary>
         /// Registers the duple Collider + XRBaseInteractor as triggering proximity.
         /// </summary>
         /// <param name="collider">Collider triggering proximity.</param>
@@ -34,10 +28,5 @@ namespace MixedReality.Toolkit.Input
         /// <param name="collider">Collider that in combination with the interactor was triggering proximity.</param>
         /// <param name="xrBaseInteractor">Interactor that in combination with the collider was triggering proximity.</param>
         public void UnregisterActiveColliderWithInteractor(Collider collider, XRBaseInteractor xrBaseInteractor);
-
-        /// <summary>
-        /// The number of Collider + XRBaseInteractor duples that have been registered as triggering proximity.
-        /// </summary>
-        public int ActiveColliderWithInteractorCount { get; }
     }
 }
