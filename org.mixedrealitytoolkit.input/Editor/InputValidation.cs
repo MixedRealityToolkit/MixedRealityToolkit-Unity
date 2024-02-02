@@ -74,7 +74,7 @@ namespace MixedReality.Toolkit.Input.Editor
                     return false;
 #endif
                 },
-                FixIt = () => Application.OpenURL("https://github.com/atteneder/glTFast"),
+                FixIt = () => Application.OpenURL("https://github.com/Unity-Technologies/com.unity.cloud.gltfast.git"),
                 FixItMessage = "Open the GitHub repo for glTFast. Please refer to the installing section for instructions.",
                 FixItAutomatic = false,
                 Error = false
