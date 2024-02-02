@@ -26,7 +26,16 @@ namespace MixedReality.Toolkit.UX
         public StatefulInteractable StatefulInteractable
         {
             get => statefulInteractable;
-            set => statefulInteractable = value;
+            set
+            {
+                if (statefulInteractable != value)
+                {
+                    RemoveStatefulInteractableEventHandlers();
+                    statefulInteractable = value;
+                    AddStatefulInteractableEventHandlers();
+                    UpdateCollider();
+                }
+            }
         }
 
         [SerializeField]
@@ -58,12 +67,7 @@ namespace MixedReality.Toolkit.UX
         /// </summary> 
         protected virtual void OnEnable()
         {
-            if (statefulInteractable != null)
-            {
-                statefulInteractable.OnDisabled.AddListener(OnInteractableDisabled);
-                statefulInteractable.OnEnabled.AddListener(OnInteractableEnabled);
-            }
-
+            AddStatefulInteractableEventHandlers();
             UpdateCollider();
         }
 
@@ -71,6 +75,26 @@ namespace MixedReality.Toolkit.UX
         /// A Unity event function that is called when the script component has been disabled.
         /// </summary> 
         protected virtual void OnDisable()
+        {
+            RemoveStatefulInteractableEventHandlers();
+        }
+
+        /// <summary>
+        /// Add event handlers to the <see cref="StatefulInteractable"/> to enable or disable the collider based on the interactable's enabled state.
+        /// </summary>
+        private void AddStatefulInteractableEventHandlers()
+        {
+            if (statefulInteractable != null)
+            {
+                statefulInteractable.OnDisabled.AddListener(OnInteractableDisabled);
+                statefulInteractable.OnEnabled.AddListener(OnInteractableEnabled);
+            }
+        }
+
+        /// <summary>
+        /// Remove event handlers from the <see cref="StatefulInteractable"/> that enable or disable the collider based on the interactable's enabled state.
+        /// </summary>
+        private void RemoveStatefulInteractableEventHandlers()
         {
             if (statefulInteractable != null)
             {
