@@ -53,6 +53,18 @@ namespace MixedReality.Toolkit
         }
 
         /// <summary>
+        /// StabilizedRay with distinct position and direction half life values.
+        /// HalfLife closer to zero means lerp closer to one.
+        /// </summary>
+        /// <param name="positionHalfLife">The half life used for position decay calculations.</param>
+        /// <param name="directionHalfLife">The half life used for direction decay calculations.</param>
+        public StabilizedRay(float positionHalfLife, float directionHalfLife)
+        {
+            HalfLifePosition = positionHalfLife;
+            HalfLifeDirection = directionHalfLife;
+        }
+
+        /// <summary>
         /// Add sample to ray stabilizer.
         /// </summary>
         /// <param name="ray">New Sample used to update stabilized ray.</param>
