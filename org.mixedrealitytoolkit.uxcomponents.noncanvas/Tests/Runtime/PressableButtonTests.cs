@@ -16,6 +16,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 using SpaceMode = MixedReality.Toolkit.UX.PressableButton.SpaceMode;
 
@@ -1050,6 +1051,15 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             yield return new WaitForSeconds(stepDelay);
             yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.03f, -0.1f, -0.25f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
+            Assert.IsTrue(dummyVerticalLayoutGroup.enabled); //These three should be true because of OnHover* also enables/disables dynamic components
+            Assert.IsTrue(dummyRawImage.enabled);
+            Assert.IsTrue(dummyCanvas.enabled);
+
+            yield return new WaitForSeconds(stepDelay);
+            yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.03f, -1.0f, -0.25f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);

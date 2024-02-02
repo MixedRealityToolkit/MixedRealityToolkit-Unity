@@ -490,6 +490,8 @@ namespace MixedReality.Toolkit.UX
 
                 validPokeInteractors.Add(pokeInteractor);
             }
+
+            SetEnabledDynamicComponents(true);
         }
 
         /// <inheritdoc />
@@ -502,6 +504,8 @@ namespace MixedReality.Toolkit.UX
                 // Remove from our valid poke hash set if it was registered there.
                 validPokeInteractors.Remove(pokeInteractor);
             }
+
+            SetEnabledDynamicComponents(false);
         }
 
         #endregion XRI events
