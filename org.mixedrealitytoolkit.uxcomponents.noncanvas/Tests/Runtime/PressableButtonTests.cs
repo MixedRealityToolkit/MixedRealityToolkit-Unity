@@ -875,24 +875,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// This tests verifies the that the number of ColliderWithInteractor duples triggering proximity is cero by default.
-        /// </summary>
-        [UnityTest]
-        public IEnumerator TestPressableButtonNumberOfColliderWithInteractorDuplesTriggeringProximityIsCeroByDefault([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
-        {
-            // instantiate scene and button
-            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
-            yield return null;
-
-            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
-            Assert.AreEqual(0, buttonComponent.ActiveColliderWithInteractorCount);
-
-            Object.Destroy(testButton);
-            // Wait for a frame to give Unity a change to actually destroy the object
-            yield return null;
-        }
-
-        /// <summary>
         /// Test the PressableButton script has the activeCollidersWithInteractor hashset.
         /// </summary>
         [UnityTest]
@@ -953,7 +935,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             PressableButton pressableButton = testButton1.GetComponent<PressableButton>();
             Assert.IsNotNull(pressableButton.ProximityEnabledComponents);
             Assert.AreEqual(0, pressableButton.ProximityEnabledComponents.Length);
-            Assert.AreEqual(0, pressableButton.ActiveColliderWithInteractorCount);
 
             Object.Destroy(testButton1);
 
@@ -1005,8 +986,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             InputTestUtilities.InitializeCameraToOriginAndForward();
 
-            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
-
             TestHand handRight = new TestHand(Handedness.Right);
             yield return RuntimeTestUtilities.WaitForUpdates();
             yield return handRight.Show(Vector3.zero);
@@ -1017,7 +996,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return handLeft.Show(Vector3.zero);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
             Assert.IsFalse(dummyVerticalLayoutGroup.enabled);
             Assert.IsFalse(dummyRawImage.enabled);
             Assert.IsFalse(dummyCanvas.enabled);
@@ -1026,7 +1004,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return handRight.MoveTo(testButton1.transform.position + new Vector3(0.03f, 0, 0.0f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 2);
             Assert.IsTrue(dummyVerticalLayoutGroup.enabled);
             Assert.IsTrue(dummyRawImage.enabled);
             Assert.IsTrue(dummyCanvas.enabled);
@@ -1035,7 +1012,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.03f, 0, 0.0f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 4);
             Assert.IsTrue(dummyVerticalLayoutGroup.enabled);
             Assert.IsTrue(dummyRawImage.enabled);
             Assert.IsTrue(dummyCanvas.enabled);
@@ -1044,7 +1020,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return handRight.MoveTo(testButton1.transform.position + new Vector3(0.03f, -0.1f, -0.25f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 2);
             Assert.IsTrue(dummyVerticalLayoutGroup.enabled);
             Assert.IsTrue(dummyRawImage.enabled);
             Assert.IsTrue(dummyCanvas.enabled);
@@ -1053,7 +1028,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.03f, -0.1f, -0.25f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
             Assert.IsTrue(dummyVerticalLayoutGroup.enabled); //These three should be true because of OnHover* also enables/disables dynamic components
             Assert.IsTrue(dummyRawImage.enabled);
             Assert.IsTrue(dummyCanvas.enabled);
@@ -1062,7 +1036,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.03f, -1.0f, -0.25f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            Assert.AreEqual(pressableButton.ActiveColliderWithInteractorCount, 0);
             Assert.IsFalse(dummyVerticalLayoutGroup.enabled);
             Assert.IsFalse(dummyRawImage.enabled);
             Assert.IsFalse(dummyCanvas.enabled);

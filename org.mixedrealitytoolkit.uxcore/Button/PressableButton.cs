@@ -189,11 +189,6 @@ namespace MixedReality.Toolkit.UX
         private HashSet<(Collider, XRBaseInteractor)> activeCollidersWithInteractor = new HashSet<(Collider, XRBaseInteractor)>();
 
         /// <summary>
-        /// Indicates the number of duples Collider + Interactor that have been registered as triggering proximity.
-        /// </summary>
-        public int ActiveColliderWithInteractorCount => activeCollidersWithInteractor.Count;
-
-        /// <summary>
         /// If the <see cref="GetSelectionProgress"/> value is smoothed to within this threshold of 0 or 1, the <see cref="GetSelectionProgress"/> will snap to 0 or 1.
         /// </summary>
         private const float selectionProgressEpsilon = 0.00001f;
@@ -678,7 +673,7 @@ namespace MixedReality.Toolkit.UX
             if (collider != null && activeCollidersWithInteractor.Contains((collider, xrBaseInteractor)))
             {
                 activeCollidersWithInteractor.Remove((collider, xrBaseInteractor));
-                if (ActiveColliderWithInteractorCount == 0)
+                if (activeCollidersWithInteractor.Count == 0)
                 {
                     SetEnabledDynamicComponents(false);
                 }
