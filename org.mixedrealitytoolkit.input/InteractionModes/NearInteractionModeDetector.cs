@@ -43,7 +43,7 @@ namespace MixedReality.Toolkit.Input
                         {
                             foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
                             {
-                                previouslyDetectedCollider.GetComponent<INearInteractionModeTarget>().UnregisterActiveColliderWithInteractor(previouslyDetectedCollider, xrBaseInteractor);
+                                previouslyDetectedCollider.GetComponent<INearInteractionModeTarget>().OnProximityExited(new ProximityExitedEventArgs(this, previouslyDetectedCollider, xrBaseInteractor));
                             }
                         }
                         previouslyDetectedColliders.Remove(previouslyDetectedCollider);
@@ -58,7 +58,7 @@ namespace MixedReality.Toolkit.Input
                         {
                             foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
                             {
-                                collider.GetComponent<INearInteractionModeTarget>().RegisterActiveColliderWithInteractor(collider, xrBaseInteractor);
+                                collider.GetComponent<INearInteractionModeTarget>().OnProximityEntered(new ProximityEnteredEventArgs(this, collider, xrBaseInteractor));
                             }
                         }
                         previouslyDetectedColliders.Add(collider);

@@ -11,7 +11,7 @@ namespace MixedReality.Toolkit.Input
     /// array (set in Editor) and to keep track of which <see cref="Collider"/> and <see cref="XRBaseInteractor"/> duples are triggering proximity.
     /// </summary>
     /// <remarks>
-    /// The interface is needed to prevent a circular reference between MRTK Input and MRTK UX Core Scripts packages.
+    /// This interface is needed to prevent a circular reference between MRTK Input and MRTK UX Core Scripts packages.
     /// </remarks>
     public interface INearInteractionModeTarget
     {
@@ -20,13 +20,13 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         /// <param name="collider">Collider triggering proximity.</param>
         /// <param name="xrBaseInteractor">Interactor triggering proximity.</param>
-        public void RegisterActiveColliderWithInteractor(Collider collider, XRBaseInteractor xrBaseInteractor);
+        public void OnProximityEntered(ProximityEnteredEventArgs args);
 
         /// <summary>
         /// Unregisters the duple Collider + XRBaseInteractor as triggering proximity.
         /// </summary>
         /// <param name="collider">Collider that in combination with the interactor was triggering proximity.</param>
         /// <param name="xrBaseInteractor">Interactor that in combination with the collider was triggering proximity.</param>
-        public void UnregisterActiveColliderWithInteractor(Collider collider, XRBaseInteractor xrBaseInteractor);
+        public void OnProximityExited(ProximityExitedEventArgs args);
     }
 }

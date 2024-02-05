@@ -654,10 +654,10 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         /// <param name="collider">Collider triggering proximity.</param>
         /// <param name="xrBaseInteractor">Interactor triggering proximity.</param>
-        public void RegisterActiveColliderWithInteractor(Collider collider, XRBaseInteractor xrBaseInteractor)
+        public void OnProximityEntered(ProximityEnteredEventArgs proximityEnteredEventArgs)
         {
-            if (collider != null &&
-                activeCollidersWithInteractor.Add((collider, xrBaseInteractor)) &&
+            if (proximityEnteredEventArgs.collider != null &&
+                activeCollidersWithInteractor.Add((proximityEnteredEventArgs.collider, proximityEnteredEventArgs.interactor)) &&
                 activeCollidersWithInteractor.Count >= 1)
             {
                 SetEnabledDynamicComponents(true);
@@ -669,10 +669,10 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         /// <param name="collider">Collider that in combination with the interactor was triggering proximity.</param>
         /// <param name="xrBaseInteractor">Interactor that in combination with the collider was triggering proximity.</param>
-        public void UnregisterActiveColliderWithInteractor(Collider collider, XRBaseInteractor xrBaseInteractor)
+        public void OnProximityExited(ProximityExitedEventArgs proximityExitedEventArgs)
         {
-            if (collider != null &&
-                activeCollidersWithInteractor.Remove((collider, xrBaseInteractor)) &&
+            if (proximityExitedEventArgs.collider != null &&
+                activeCollidersWithInteractor.Remove((proximityExitedEventArgs.collider, proximityExitedEventArgs.interactor)) &&
                 activeCollidersWithInteractor.Count == 0)
             {
                 SetEnabledDynamicComponents(false);
