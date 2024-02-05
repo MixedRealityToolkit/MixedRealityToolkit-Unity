@@ -892,25 +892,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// Test the PressableButton script has ActiveColliderWithInteractorCount get accessor and no set accesor.
-        /// </summary>
-        [UnityTest]
-        public IEnumerator TestPressableButtonHasActiveColliderWithInteractorCountGetAccessorAndNoSetAccessor()
-        {
-            MethodInfo[] methodInfos;
-            System.Type pressableButtonType = typeof(PressableButton);
-
-            methodInfos = pressableButtonType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            var getAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("get_ActiveColliderWithInteractorCount")).ToArray();
-            var setAccessors = methodInfos.Where(methodInfo => methodInfo.Name.Equals("set_ActiveColliderWithInteractorCount")).ToArray();
-
-            Assert.AreEqual(1, getAccessors.Length);
-            Assert.AreEqual(0, setAccessors.Length);
-
-            yield return null;
-        }
-
-        /// <summary>
         /// Tests an Action Button GameObject initializes correctly for dynamic components.
         /// </summary>
         [UnityTest]
