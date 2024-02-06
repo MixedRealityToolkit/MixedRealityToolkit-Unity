@@ -207,6 +207,16 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         private const float selectionProgressEpsilon = 0.00001f;
 
+        /// <summary>
+        /// Indicates whether anything is hovering on the button (true) or not (false).
+        /// </summary>
+        private bool isHovered = false;
+
+        /// <summary>
+        /// Indicates whether anything is triggering proximity on the button (true) or not (false).
+        /// </summary>
+        private bool isInProximity = false;
+
         #endregion Private Members
 
         /// <inheritdoc />
@@ -500,6 +510,7 @@ namespace MixedReality.Toolkit.UX
                 }
 
                 validPokeInteractors.Add(pokeInteractor);
+                isHovered = true;
             }
 
             ProximityHoverEntered?.Invoke(this, null, args);
@@ -514,6 +525,11 @@ namespace MixedReality.Toolkit.UX
             {
                 // Remove from our valid poke hash set if it was registered there.
                 validPokeInteractors.Remove(pokeInteractor);
+
+                if (validPokeInteractors.Count == 0)
+                {
+                    isHovered = false;
+                }
             }
 
             ProximityHoverExited?.Invoke(this, null, args);
@@ -676,6 +692,7 @@ namespace MixedReality.Toolkit.UX
                 activeCollidersWithInteractor.Add((proximityEnteredEventArgs.collider, proximityEnteredEventArgs.interactor)) &&
                 activeCollidersWithInteractor.Count >= 1)
             {
+                isInProximity = true;
                 ProximityHoverEntered?.Invoke(this, proximityEnteredEventArgs, null);
             }
         }
@@ -691,7 +708,33 @@ namespace MixedReality.Toolkit.UX
                 activeCollidersWithInteractor.Remove((proximityExitedEventArgs.collider, proximityExitedEventArgs.interactor)) &&
                 activeCollidersWithInteractor.Count == 0)
             {
+                isInProximity = false;
                 ProximityHoverExited?.Invoke(this, proximityExitedEventArgs, null);
+            }
+        }
+
+        /// <summary>
+        /// Method invoked when a Proximity or a Hovered entered events are triggered.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="proximityEnteredEventArgs">ProximityEnteredEventArgs if the event was triggered by proximity, null otherwise.</param>
+        /// <param name="hoverEnterEventArgs">HoverEnterEventArgs if the event was triggered by hovering, null otherwise.</param>
+        private void OnProximityHoverEntered(object sender, ProximityEnteredEventArgs proximityEnteredEventArgs, HoverEnterEventArgs hoverEnterEventArgs)
+        {
+            SetEnabledDynamicComponents(true);
+        }
+
+        /// <summary>
+        /// Method invoked when a Proximity or a Hovered exited events are triggered.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="proximityExitedEventArgs">ProximityExitedEventArgs if the event was triggered by proximity, null otherwise.</param>
+        /// <param name="hoverExitEventArgs">HoverExitEventArgs if the events was triggered by hovering, null otherwise.</param>
+        private void OnProximityHoverExited(object sender, ProximityExitedEventArgs proximityExitedEventArgs, HoverExitEventArgs hoverExitEventArgs)
+        {
+            if (!isInProximity && !isHovered)
+            {
+                SetEnabledDynamicComponents(false);
             }
         }
 
@@ -715,16 +758,6 @@ namespace MixedReality.Toolkit.UX
                     }
                 }
             }
-        }
-
-        private void OnProximityHoverEntered(object sender, ProximityEnteredEventArgs args, HoverEnterEventArgs hoverEnterEventArgs)
-        {
-            SetEnabledDynamicComponents(true);
-        }
-
-        private void OnProximityHoverExited(object sender, ProximityExitedEventArgs args, HoverExitEventArgs hoverExitEventArgs)
-        {
-            SetEnabledDynamicComponents(false);
         }
 
         #endregion Private Methods
