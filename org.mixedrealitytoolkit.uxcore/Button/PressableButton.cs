@@ -3,9 +3,11 @@
 
 using Microsoft.MixedReality.GraphicsTools;
 using MixedReality.Toolkit.Input;
+using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -42,7 +44,7 @@ namespace MixedReality.Toolkit.UX
             /// The world coordinate space system should be used.
             /// </summary>
             World,
-            
+
             /// <summary>
             /// The button's local coordinate space system should be used.
             /// </summary>
@@ -152,10 +154,22 @@ namespace MixedReality.Toolkit.UX
         private float extendSpeed = 0.5f;
 
         /// <summary>
-        /// Array with Components (set in Editor) that will be enabled/disabled based on proximity.
+        /// Array with Components (set in Editor) that will be enabled/disabled based on proximity and hovering.
         /// </summary>
-        [field: SerializeField, Tooltip("Array with Components (set in Editor) that will be enabled/disabled based on proximity.")]
-        public Component[] ProximityEnabledComponents { get; set; } = null;
+        [field: SerializeField, Tooltip("Array with Components (set in Editor) that will be enabled/disabled based on proximity and hovering.")]
+        public Component[] ProximityHoveringDynamicComponents { get; set; } = null;
+
+        /// <summary>
+        /// Fired when an interactable starts hovering or becomes in proximity of the button.
+        /// </summary>
+        [field: SerializeField, Tooltip("Fired when an interactable starts hovering or becomes in proximity of the button.")]
+        public UnityEvent<object, ProximityEnteredEventArgs, HoverEnterEventArgs> ProximityHoverEntered { get; private set; } = new UnityEvent<object, ProximityEnteredEventArgs, HoverEnterEventArgs>();
+
+        /// <summary>
+        /// Fired when there is no longer an interactable hovering or in proximity of the button.
+        /// </summary>
+        [field: SerializeField, Tooltip("Fired when there is no longer an interactable hovering or in proximity of the button.")]
+        public UnityEvent<object, ProximityExitedEventArgs, HoverExitEventArgs> ProximityHoverExited { get; private set; } = new UnityEvent<object, ProximityExitedEventArgs, HoverExitEventArgs>();
 
         #region Private Members
 
@@ -298,6 +312,8 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         protected virtual void Start()
         {
+            ProximityHoverEntered.AddListener(OnProximityHoverEntered);
+            ProximityHoverExited.AddListener(OnProximityHoverExited);
             SetEnabledDynamicComponents(false);
         }
 
@@ -486,7 +502,7 @@ namespace MixedReality.Toolkit.UX
                 validPokeInteractors.Add(pokeInteractor);
             }
 
-            SetEnabledDynamicComponents(true);
+            ProximityHoverEntered?.Invoke(this, null, args);
         }
 
         /// <inheritdoc />
@@ -500,7 +516,7 @@ namespace MixedReality.Toolkit.UX
                 validPokeInteractors.Remove(pokeInteractor);
             }
 
-            SetEnabledDynamicComponents(false);
+            ProximityHoverExited?.Invoke(this, null, args);
         }
 
         #endregion XRI events
@@ -660,7 +676,7 @@ namespace MixedReality.Toolkit.UX
                 activeCollidersWithInteractor.Add((proximityEnteredEventArgs.collider, proximityEnteredEventArgs.interactor)) &&
                 activeCollidersWithInteractor.Count >= 1)
             {
-                SetEnabledDynamicComponents(true);
+                ProximityHoverEntered?.Invoke(this, proximityEnteredEventArgs, null);
             }
         }
 
@@ -675,7 +691,7 @@ namespace MixedReality.Toolkit.UX
                 activeCollidersWithInteractor.Remove((proximityExitedEventArgs.collider, proximityExitedEventArgs.interactor)) &&
                 activeCollidersWithInteractor.Count == 0)
             {
-                SetEnabledDynamicComponents(false);
+                ProximityHoverExited?.Invoke(this, proximityExitedEventArgs, null);
             }
         }
 
@@ -685,13 +701,13 @@ namespace MixedReality.Toolkit.UX
         /// <param name="enable">True to enable the components and false otherwise.</param>
         public void SetEnabledDynamicComponents(bool enable)
         {
-            if (ProximityEnabledComponents != null)
+            if (ProximityHoveringDynamicComponents != null)
             {
-                for (int i = 0; i < ProximityEnabledComponents.Length; i++)
+                for (int i = 0; i < ProximityHoveringDynamicComponents.Length; i++)
                 {
-                    if (ProximityEnabledComponents[i] != null)
+                    if (ProximityHoveringDynamicComponents[i] != null)
                     {
-                        Behaviour component = ProximityEnabledComponents[i] as Behaviour;
+                        Behaviour component = ProximityHoveringDynamicComponents[i] as Behaviour;
                         if (component != null)
                         {
                             component.enabled = enable;
@@ -699,6 +715,16 @@ namespace MixedReality.Toolkit.UX
                     }
                 }
             }
+        }
+
+        private void OnProximityHoverEntered(object sender, ProximityEnteredEventArgs args, HoverEnterEventArgs hoverEnterEventArgs)
+        {
+            SetEnabledDynamicComponents(true);
+        }
+
+        private void OnProximityHoverExited(object sender, ProximityExitedEventArgs args, HoverExitEventArgs hoverExitEventArgs)
+        {
+            SetEnabledDynamicComponents(false);
         }
 
         #endregion Private Methods

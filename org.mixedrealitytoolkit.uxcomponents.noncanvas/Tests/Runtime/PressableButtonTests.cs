@@ -866,7 +866,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return null;
 
             PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
-            Assert.AreEqual(0, buttonComponent.ProximityEnabledComponents.Length);
+            Assert.AreEqual(0, buttonComponent.ProximityHoveringDynamicComponents.Length);
 
             Object.Destroy(testButton);
             // Wait for a frame to give Unity a change to actually destroy the object
@@ -914,8 +914,8 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             InputTestUtilities.InitializeCameraToOriginAndForward();
 
             PressableButton pressableButton = testButton1.GetComponent<PressableButton>();
-            Assert.IsNotNull(pressableButton.ProximityEnabledComponents);
-            Assert.AreEqual(0, pressableButton.ProximityEnabledComponents.Length);
+            Assert.IsNotNull(pressableButton.ProximityHoveringDynamicComponents);
+            Assert.AreEqual(0, pressableButton.ProximityHoveringDynamicComponents.Length);
 
             Object.Destroy(testButton1);
 
@@ -963,7 +963,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             Component[] dummyComponents = new Component[] { dummyVerticalLayoutGroup, dummyRawImage, dummyCanvas };
 
-            pressableButton.ProximityEnabledComponents = dummyComponents;
+            pressableButton.ProximityHoveringDynamicComponents = dummyComponents;
 
             InputTestUtilities.InitializeCameraToOriginAndForward();
 
