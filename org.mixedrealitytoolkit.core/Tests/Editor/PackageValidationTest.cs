@@ -1,8 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-// Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
-#pragma warning disable CS1591
 #if HAS_ASSET_STORE_VALIDATION
 
 using NUnit.Framework;
@@ -29,4 +27,3 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
     }
 }
 #endif // HAS_ASSET_STORE_VALIDATION
-#pragma warning restore CS1591
