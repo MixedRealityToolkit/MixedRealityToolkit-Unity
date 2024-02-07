@@ -113,7 +113,7 @@ try {
         $versionHash[$packageName]="$Version-$buildTag"
 
         Write-Output " Version: $Version"
-        Write-Output " suffix:  $suffix"
+        Write-Output " Suffix:  $suffix"
 
         Write-Output "Patching package version to $Version-$buildTag"
         ((Get-Content -Path $_ -Raw) -Replace '("version": )"(?:[0-9.]+|%version%)-?[a-zA-Z0-9.]*', "`$1`"$Version-$buildTag") | Set-Content -Path $_ -NoNewline
@@ -125,7 +125,14 @@ try {
             Add-Content -Path $_ -Value "[assembly: AssemblyInformationalVersion(`"$Version-$buildTag`")]"
         }
 
+        $year = "{0:D4}" -f (Get-Date).Year
+        $month = "{0:D2}" -f (Get-Date).Month
+        $day = "{0:D2}" -f (Get-Date).Day
 
+        Write-Output "Patching CHANGELOG.md version to [$Version-$buildTag] - $year-$month-$day"
+        Get-ChildItem -Path $packagePath/CHANGELOG.md -Recurse | ForEach-Object {            
+            (Get-Content -Path $_ -Raw) -Replace "## \[$Version(-[a-zA-Z0-9.]+)?\] - \b\d{4}\b-\b(0[1-9]|1[0-2])\b-\b(0[1-9]|[12][0-9]|3[01])\b", "## [$Version-$buildTag] - $year-$month-$day" | Set-Content -Path $_ -NoNewline
+        }
     }
 
     # package

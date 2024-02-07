@@ -87,8 +87,17 @@ try {
             ((Get-Content -Path $_ -Raw) -Replace "assembly: AssemblyFileVersion\`(\`".*\`"", "assembly: AssemblyFileVersion(`"$newVersion`"") | Set-Content -Path $_ -NoNewline
             ((Get-Content -Path $_ -Raw) -Replace "assembly: AssemblyInformationalVersion\`(\`".*\`"", "assembly: AssemblyInformationalVersion(`"$newVersion`"") | Set-Content -Path $_ -NoNewline
         }
+        
+        $year = "{0:D4}" -f (Get-Date).Year
+        $month = "{0:D2}" -f (Get-Date).Month
+        $day = "{0:D2}" -f (Get-Date).Day
 
+        Write-Output "Patching CHANGELOG.md version to [$Version] - $year-$month-$day"
+        Get-ChildItem -Path $packagePath/CHANGELOG.md -Recurse | ForEach-Object {            
+            (Get-Content -Path $_ -Raw) -Replace "## \[$Version(-[a-zA-Z0-9.]+)?\] - \b\d{4}\b-\b(0[1-9]|1[0-2])\b-\b(0[1-9]|[12][0-9]|3[01])\b", "## [$Version] - $year-$month-$day" | Set-Content -Path $_ -NoNewline
+        }
     }
+
     # repackage
     Get-ChildItem -Path $packageSearchPath | ForEach-Object {
         $currentPackageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*|com\.microsoft\.mrtk\.\w+(\.\w+)*" -Path $_.FullName | Select-Object -First 1

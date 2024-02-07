@@ -1,0 +1,35 @@
+{
+    "name": "MixedReality.Toolkit.UXComponents.NonCanvas.Editor.Tests",
+    "rootNamespace": "",
+    "references": [
+        "MixedReality.Toolkit.Core.TestUtilities",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.asset-store-validation",
+            "expression": "",
+            "define": "HAS_ASSET_STORE_VALIDATION"
+        },
+        {
+            "name": "org.mixedrealitytoolkit.core",
+            "expression": "",
+            "define": "HAS_MRTK_CORE"
+        }
+    ],
+    "noEngineReferences": false
+}
