@@ -47,9 +47,29 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         private const string directoryLevelUp = "..";
         private const string validationResults = "VALIDATION RESULTS:";
 
-        private static readonly string failedPrefix = Environment.NewLine + "Failed - ";
-        private static readonly string succeededPrefix = Environment.NewLine + "Succeeded - ";
-        private static readonly string notRunPrefix = Environment.NewLine + "NotRun - ";
+        /// <summary>
+        /// The "failed" prefix in the Asset Store Validation log.
+        /// </summary>
+        /// <remarks>
+        /// The log uses Unix newlines, `\n`, so we can't use `Environment.NewLine` here.
+        /// </remarks>
+        private static readonly string failedPrefix = "\nFailed - ";
+
+        /// <summary>
+        /// The "succeeded" prefix in the Asset Store Validation log.
+        /// </summary>
+        /// <remarks>
+        /// The log uses Unix newlines, `\n`, so we can't use `Environment.NewLine` here.
+        /// </remarks>
+        private static readonly string succeededPrefix = "\nSucceeded - ";
+
+        /// <summary>
+        /// The "not run" prefix in the Asset Store Validation log.
+        /// </summary>
+        /// <remarks>
+        /// The log uses Unix newlines, `\n`, so we can't use `Environment.NewLine` here.
+        /// </remarks>
+        private static readonly string notRunPrefix = "\nNotRun - ";
 
         /// <summary>
         /// The number of failed tests.
