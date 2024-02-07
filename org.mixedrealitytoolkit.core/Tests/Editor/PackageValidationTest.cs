@@ -4,6 +4,7 @@
 #if HAS_ASSET_STORE_VALIDATION
 
 using NUnit.Framework;
+using System;
 
 namespace MixedReality.Toolkit.Core.Tests.EditMode
 {
@@ -21,7 +22,7 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         public void PackageTest()
         {
             PackageValidatorResults results = PackageValidator.Validate("org.mixedrealitytoolkit.core");
-            Assert.AreEqual(0, results.FailedCount, $"Failed tests found.\n{results.ToString(PackageValidatorResults.MessageType.Failed)}");
+            Assert.AreEqual(0, results.FailedCount, $"Failed tests found.{Environment.NewLine}{results.ToString(PackageValidatorResults.MessageType.Failed)}");
             Assert.IsTrue(0 < results.SucceededCount, "No tests succeeded");
         }
     }

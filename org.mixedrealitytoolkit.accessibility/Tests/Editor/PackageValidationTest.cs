@@ -5,6 +5,7 @@
 
 using MixedReality.Toolkit.Core.Tests.EditMode;
 using NUnit.Framework;
+using System;
 
 namespace MixedReality.Toolkit.Accessibility.Tests.EditMode
 {
@@ -22,7 +23,7 @@ namespace MixedReality.Toolkit.Accessibility.Tests.EditMode
         public void PackageTest()
         {
             PackageValidatorResults results = PackageValidator.Validate("org.mixedrealitytoolkit.accessibility");
-            Assert.AreEqual(0, results.FailedCount, $"Failed tests found.\n{results.ToString(PackageValidatorResults.MessageType.Failed)}");
+            Assert.AreEqual(0, results.FailedCount, $"Failed tests found.{Environment.NewLine}{results.ToString(PackageValidatorResults.MessageType.Failed)}");
             Assert.IsTrue(0 < results.SucceededCount, "No tests succeeded");
         }
     }
