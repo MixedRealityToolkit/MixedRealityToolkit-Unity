@@ -53,7 +53,7 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         /// <remarks>
         /// The log uses Unix newlines, `\n`, so we can't use `Environment.NewLine` here.
         /// </remarks>
-        private static readonly string failedPrefix = "\nFailed - ";
+        private const string failedPrefix = "\nFailed - ";
 
         /// <summary>
         /// The "succeeded" prefix in the Asset Store Validation log.
@@ -61,7 +61,7 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         /// <remarks>
         /// The log uses Unix newlines, `\n`, so we can't use `Environment.NewLine` here.
         /// </remarks>
-        private static readonly string succeededPrefix = "\nSucceeded - ";
+        private const string succeededPrefix = "\nSucceeded - ";
 
         /// <summary>
         /// The "not run" prefix in the Asset Store Validation log.
@@ -69,7 +69,7 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         /// <remarks>
         /// The log uses Unix newlines, `\n`, so we can't use `Environment.NewLine` here.
         /// </remarks>
-        private static readonly string notRunPrefix = "\nNotRun - ";
+        private const string notRunPrefix = "\nNotRun - ";
 
         /// <summary>
         /// The number of failed tests.
