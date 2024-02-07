@@ -41,7 +41,15 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         }
 
         private string fileName;
-        private string directoryPath = "Library\\ASValidationSuiteResults";
+
+        private const string directoryPath = "Library\\ASValidationSuiteResults";
+        private const string txtExtension = ".txt";
+        private const string directoryLevelUp = "..";
+        private const string validationResults = "VALIDATION RESULTS:";
+
+        private static readonly string failedPrefix = Environment.NewLine + "Failed - ";
+        private static readonly string succeededPrefix = Environment.NewLine + "Succeeded - ";
+        private static readonly string notRunPrefix = Environment.NewLine + "NotRun - ";
 
         /// <summary>
         /// The number of failed tests.
@@ -56,7 +64,6 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         /// <summary>
         /// The number of tests that were not run.
         /// </summary>
-        /// <value></value>
         public int NotRunCount { get; private set; }
 
         /// <summary>
@@ -88,7 +95,7 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         /// </param>
         public PackageValidatorResults(string packageId)
         {
-            fileName = packageId + ".txt";
+            fileName = packageId + txtExtension;
         }
 
         /// <summary>
@@ -99,68 +106,62 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         /// </exception>
         public void LoadResults()
         {
-            string filePath = Path.Combine(Application.dataPath, "..", directoryPath, fileName);
+            string filePath = Path.Combine(Application.dataPath, directoryLevelUp, directoryPath, fileName);
             if (!File.Exists(filePath))
             {
                 throw new FileNotFoundException($"File not found: {filePath}");
             }
 
-            string fileContent = File.ReadAllText(filePath);
-            var startIndex = fileContent.IndexOf("VALIDATION RESULTS:");
-            if (startIndex == -1) throw new Exception("File does not contain 'VALIDATION RESULTS:'");
+            string resultsContent = File.ReadAllText(filePath);
+            var startIndex = resultsContent.IndexOf(validationResults);
+            if (startIndex == -1)
+            {
+                throw new Exception($"File does not contain '{validationResults}'");
+            }
 
-            var resultsContent = fileContent.Substring(startIndex + "VALIDATION RESULTS:".Length);
+            // Skip the validation results line
+            startIndex += validationResults.Length;
 
-            var failedPrefix = "\nFailed - ";
-            var succeededPrefix = "\nSucceeded - ";
-            var notRunPrefix = "\nNotRun - ";
+            // Find the first status message.
+            int failedIndex = resultsContent.IndexOf(failedPrefix, startIndex);
+            int succeededIndex = resultsContent.IndexOf(succeededPrefix, startIndex);
+            int notRunIndex = resultsContent.IndexOf(notRunPrefix, startIndex);
+            int currentIndex = MinIndex(failedIndex, succeededIndex, notRunIndex);
 
-            int currentIndex = 0;
-            int failedIndex = resultsContent.IndexOf(failedPrefix);
-            int succeededIndex = resultsContent.IndexOf(succeededPrefix);
-            int notRunIndex = resultsContent.IndexOf(notRunPrefix);
-
-            int nextIndex = Math.Min(failedIndex != -1 ? failedIndex : int.MaxValue,
-                Math.Min(succeededIndex != -1 ? succeededIndex : int.MaxValue,
-                    notRunIndex != -1 ? notRunIndex : int.MaxValue));
-
-            while (currentIndex < resultsContent.Length && nextIndex != int.MaxValue)
+            while (currentIndex < resultsContent.Length)
             {
                 // Find the next prefix to get the end of the current message
                 int nextFailedIndex = resultsContent.IndexOf(failedPrefix, currentIndex + 1);
                 int nextSucceededIndex = resultsContent.IndexOf(succeededPrefix, currentIndex + 1);
                 int nextNotRunIndex = resultsContent.IndexOf(notRunPrefix, currentIndex + 1);
+                int nextIndex = MinIndex(nextFailedIndex, nextSucceededIndex, nextNotRunIndex);
 
-                nextIndex = Math.Min(nextFailedIndex != -1 ? nextFailedIndex : int.MaxValue,
-                    Math.Min(nextSucceededIndex != -1 ? nextSucceededIndex : int.MaxValue,
-                        nextNotRunIndex != -1 ? nextNotRunIndex : int.MaxValue));
-
-                // If no more prefixes are found, set nextIndex to the end of the string
+                // If no more prefixes are found, set nextIndex to the end of the string.
                 if (nextIndex == int.MaxValue)
                 {
                     nextIndex = resultsContent.Length;
                 }
 
-                string result = resultsContent.Substring(currentIndex, nextIndex - currentIndex).Trim();
+                string currentMessage = resultsContent.Substring(currentIndex, nextIndex - currentIndex).Trim();
 
                 if (currentIndex == failedIndex)
                 {
-                    if (!IgnoreError(result))
+                    if (!IgnoreError(currentMessage))
                     {
-                        FailedMessages.Add(result);
+                        FailedMessages.Add(currentMessage);
                     }
                     else
                     {
-                        NotRunMessages.Add(result);
+                        NotRunMessages.Add(currentMessage);
                     }
                 }
                 else if (currentIndex == succeededIndex)
                 {
-                    SucceededMessages.Add(result);
+                    SucceededMessages.Add(currentMessage);
                 }
                 else if (currentIndex == notRunIndex)
                 {
-                    NotRunMessages.Add(result);
+                    NotRunMessages.Add(currentMessage);
                 }
 
                 // Update indices for the next iteration
@@ -198,6 +199,19 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
             }
 
             return string.Join(Environment.NewLine, messages);
+        }
+
+        /// <summary>
+        /// Return the minimum index of the specified indices from a validation log.
+        /// </summary>
+        /// <returns>
+        /// Returns the minimum index in a validation log, or int.MaxValue if there was no validate indice.
+        /// </returns>
+        private static int MinIndex(int failedIndex, int succeededIndex, int notRunIndex)
+        {
+            return Math.Min(failedIndex != -1 ? failedIndex : int.MaxValue,
+                Math.Min(succeededIndex != -1 ? succeededIndex : int.MaxValue,
+                    notRunIndex != -1 ? notRunIndex : int.MaxValue));
         }
 
         /// <summary>
