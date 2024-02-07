@@ -24,11 +24,6 @@
             "name": "com.unity.asset-store-validation",
             "expression": "",
             "define": "HAS_ASSET_STORE_VALIDATION"
-        },
-        {
-            "name": "org.mixedrealitytoolkit.core",
-            "expression": "",
-            "define": "HAS_MRTK_CORE"
         }
     ],
     "noEngineReferences": false

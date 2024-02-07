@@ -10,8 +10,16 @@ using NUnit.Framework;
 
 namespace MixedReality.Toolkit.UX.Tests.EditMode
 {
+    /// <summary>
+    /// This class is used to validate the package for the Mixed Reality Toolkit UX Components (Non Canvas) package, 
+    /// verifying that all requirements are met for publishing the package to the Unity Asset Store. 
+    /// </summary>
     internal class PackageValidationTest
     {
+        /// <summary>
+        /// Test to validate the package for the Mixed Reality Toolkit UX Components (Non Canvas) package, verifying that all
+        /// requirements are met for publishing the package to the Unity Asset Store.
+        /// </summary>
         [Test]
         public void PackageTest()
         {
