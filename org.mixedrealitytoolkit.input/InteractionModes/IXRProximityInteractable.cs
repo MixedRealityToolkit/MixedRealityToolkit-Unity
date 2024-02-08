@@ -13,7 +13,7 @@ namespace MixedReality.Toolkit.Input
     /// <remarks>
     /// This interface is needed to prevent a circular reference between MRTK Input and MRTK UX Core Scripts packages.
     /// </remarks>
-    public interface INearInteractionModeTarget
+    public interface IXRProximityInteractable
     {
         /// <summary>
         /// Registers the duple Collider + XRBaseInteractor as triggering proximity.

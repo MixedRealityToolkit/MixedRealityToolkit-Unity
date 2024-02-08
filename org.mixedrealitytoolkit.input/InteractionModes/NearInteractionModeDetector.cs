@@ -38,12 +38,12 @@ namespace MixedReality.Toolkit.Input
                     Collider previouslyDetectedCollider = previouslyDetectedColliders[i];
                     if (!DetectedColliders.Contains(previouslyDetectedCollider) && previouslyDetectedCollider != null)
                     {
-                        INearInteractionModeTarget nearInteractionMode = previouslyDetectedCollider.GetComponent<INearInteractionModeTarget>();
+                        IXRProximityInteractable nearInteractionMode = previouslyDetectedCollider.GetComponent<IXRProximityInteractable>();
                         if (nearInteractionMode != null)
                         {
                             foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
                             {
-                                previouslyDetectedCollider.GetComponent<INearInteractionModeTarget>().OnProximityExited(new ProximityExitedEventArgs(this, previouslyDetectedCollider, xrBaseInteractor));
+                                previouslyDetectedCollider.GetComponent<IXRProximityInteractable>().OnProximityExited(new ProximityExitedEventArgs(this, previouslyDetectedCollider, xrBaseInteractor));
                             }
                         }
                         previouslyDetectedColliders.Remove(previouslyDetectedCollider);
@@ -53,12 +53,12 @@ namespace MixedReality.Toolkit.Input
                 {
                     if (!previouslyDetectedColliders.Contains(collider))
                     {
-                        INearInteractionModeTarget nearInteractionMode = collider.GetComponent<INearInteractionModeTarget>();
+                        IXRProximityInteractable nearInteractionMode = collider.GetComponent<IXRProximityInteractable>();
                         if (nearInteractionMode != null)
                         {
                             foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
                             {
-                                collider.GetComponent<INearInteractionModeTarget>().OnProximityEntered(new ProximityEnteredEventArgs(this, collider, xrBaseInteractor));
+                                collider.GetComponent<IXRProximityInteractable>().OnProximityEntered(new ProximityEnteredEventArgs(this, collider, xrBaseInteractor));
                             }
                         }
                         previouslyDetectedColliders.Add(collider);

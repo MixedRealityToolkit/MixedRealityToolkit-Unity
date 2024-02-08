@@ -23,7 +23,7 @@ namespace MixedReality.Toolkit.UX
     /// to obtain a selection progress value or a local displacement, respectively, to implement a visual layer.
     /// </remarks>
     [AddComponentMenu("MRTK/UX/Pressable Button")]
-    public class PressableButton : StatefulInteractable, INearInteractionModeTarget
+    public class PressableButton : StatefulInteractable, IXRProximityInteractable
     {
         [SerializeField]
         [FormerlySerializedAs("smoothSelectedness")]
