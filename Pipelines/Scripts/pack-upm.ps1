@@ -59,7 +59,7 @@ try {
     Push-Location $OutputDirectory
 
     # Update package versions
-    .\update-versions.ps1 -PackagesRoot $ProjectRoot -BuildNumber $BuildNumber -ReleaseLabel $ReleaseLabel -ExperimentLabel $ExperimentLabel -Revision $Revision -ReleasePackages $ReleasePackages
+    . $PSScriptRoot\update-versions.ps1 -PackagesRoot $ProjectRoot -BuildNumber $BuildNumber -ReleaseLabel $ReleaseLabel -ExperimentLabel $ExperimentLabel -Revision $Revision -ReleasePackages $ReleasePackages
 
     # Loop through package directories and copy documentation
     Get-ChildItem -Path $ProjectRoot/*/package.json | ForEach-Object {

@@ -77,8 +77,9 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
         $labelParts += $ReleaseLabel
     }
 
-    if (-not [string]::IsNullOrEmpty($ExperimentLabel) -and -not $releasePkgs.Contains($packageName)) {
-        $labelParts += $ExperimentRevision
+    if ((-not [string]::IsNullOrEmpty($ExperimentLabel)) -and 
+        (-not $releasePkgs.Contains($packageName))) {
+        $labelParts += $ExperimentLabel
     }
 
     if (-not [string]::IsNullOrEmpty($Revision)) {
