@@ -8,7 +8,7 @@ parameters:
   docToolProjectRoot: $(Build.SourcesDirectory)/lib.doctools
   mrtkProjectRoot: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
   outputDirectory: $(Build.ArtifactStagingDirectory)/docs
-  buildNumber: $(Build.BuildNumber)
+  buildNumber: $(Version.Revision)
   releaseLabel: $(ReleaseTagPrefix)
   experimentLabel: $(MRTKReleaseTag)
 

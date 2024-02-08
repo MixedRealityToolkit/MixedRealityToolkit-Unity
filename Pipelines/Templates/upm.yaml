@@ -6,7 +6,7 @@
 parameters:
   projectRoot: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
   outputDirectory: $(Build.ArtifactStagingDirectory)/build/upm/output
-  buildNumber: $(Build.BuildNumber)
+  buildNumber: $(Version.Revision)
   releaseLabel: $(ReleaseTagPrefix)
   experimentLabel: $(MRTKReleaseTag)
   publishToArtifacts: true
