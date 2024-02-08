@@ -856,7 +856,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// This tests verifies the that the ProximityEnabledComponents array is empty by default.
+        /// This tests verifies that the ProximityEnabledComponents array is empty by default.
         /// </summary>
         [UnityTest]
         public IEnumerator TestPressableButtonProximityEnabledComponentsArrayIsEmptyByDefault([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)

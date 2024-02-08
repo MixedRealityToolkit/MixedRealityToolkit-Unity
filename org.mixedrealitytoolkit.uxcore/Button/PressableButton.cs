@@ -208,11 +208,6 @@ namespace MixedReality.Toolkit.UX
         private const float selectionProgressEpsilon = 0.00001f;
 
         /// <summary>
-        /// Indicates whether anything is hovering on the button (true) or not (false).
-        /// </summary>
-        private bool isHovered = false;
-
-        /// <summary>
         /// Indicates whether anything is triggering proximity on the button (true) or not (false).
         /// </summary>
         private bool isInProximity = false;
@@ -510,7 +505,6 @@ namespace MixedReality.Toolkit.UX
                 }
 
                 validPokeInteractors.Add(pokeInteractor);
-                isHovered = true;
             }
 
             ProximityHoverEntered?.Invoke(this, null, args);
@@ -525,11 +519,6 @@ namespace MixedReality.Toolkit.UX
             {
                 // Remove from our valid poke hash set if it was registered there.
                 validPokeInteractors.Remove(pokeInteractor);
-
-                if (validPokeInteractors.Count == 0)
-                {
-                    isHovered = false;
-                }
             }
 
             ProximityHoverExited?.Invoke(this, null, args);
