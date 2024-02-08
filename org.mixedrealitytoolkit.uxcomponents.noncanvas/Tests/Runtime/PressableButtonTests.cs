@@ -1014,12 +1014,20 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.IsTrue(dummyCanvas.enabled);
 
             yield return new WaitForSeconds(stepDelay);
-            yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.03f, -1.0f, -0.25f));
+            yield return handLeft.MoveTo(testButton1.transform.position + new Vector3(-0.1f, -2.0f, -0.25f));
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            Assert.IsFalse(dummyVerticalLayoutGroup.enabled);
-            Assert.IsFalse(dummyRawImage.enabled);
-            Assert.IsFalse(dummyCanvas.enabled);
+            Assert.IsTrue(dummyVerticalLayoutGroup.enabled);
+            Assert.IsTrue(dummyRawImage.enabled);
+            Assert.IsTrue(dummyCanvas.enabled);
+
+            yield return new WaitForSeconds(stepDelay);
+            yield return handRight.MoveTo(testButton1.transform.position + new Vector3(0.1f, -2.0f, -0.25f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.IsTrue(dummyVerticalLayoutGroup.enabled);
+            Assert.IsTrue(dummyRawImage.enabled);
+            Assert.IsTrue(dummyCanvas.enabled);
 
             yield return new WaitForSeconds(stepDelay);
 
