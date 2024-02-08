@@ -77,7 +77,7 @@ try {
         Write-Host "Old revision: $revision" 
         
         # Update package versions
-        . $PSScriptRoot\update-versions.ps1 -PackagesRoot $packagePath -BuildNumber $BuildNumber -ExperimentLabel $experimentLabel -ReleasePackages $ReleasePackages
+        . $PSScriptRoot\update-versions.ps1 -PackagesRoot $packagePath -ExperimentLabel $experimentLabel -ReleasePackages $ReleasePackages
     }
 
     # Repackage the package directories

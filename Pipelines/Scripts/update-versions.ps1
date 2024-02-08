@@ -36,7 +36,8 @@ param(
 $releasePkgs = $ReleasePackages.Split(",")
 $PackagesRoot = Resolve-Path -Path $PackagesRoot
 
-if ($BuildNumber) {
+if ((-not [string]::IsNullOrEmpty($BuildNumber)) -and
+    ($BuildNumber[0] -ne ".")) {
     $BuildNumber = ".$BuildNumber"
 }
 
@@ -87,18 +88,34 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
     }
 
     $label = $labelParts -join "."
-    if (-not [string]::IsNullOrEmpty($Revision)) {
+    if (-not [string]::IsNullOrEmpty($label)) {
         $label = "-" + $label
     }
 
     Write-Output "Patching package version to $version$label"
     ((Get-Content -Path $_ -Raw) -Replace '("version": )"(?:[0-9.]+|%version%)-?[a-zA-Z0-9.]*', "`$1`"$version$label") | Set-Content -Path $_ -NoNewline
 
-    Write-Output "Patching assembly version to $version$BuildNumber"
     Get-ChildItem -Path $packagePath/AssemblyInfo.cs -Recurse | ForEach-Object {
-        (Get-Content -Path $_ -Raw) -Replace '\[assembly:.AssemblyVersion\(.*', "[assembly: AssemblyVersion(`"$version.0`")]`r" | Set-Content -Path $_ -NoNewline
-        Add-Content -Path $_ -Value "[assembly: AssemblyFileVersion(`"$version$BuildNumber`")]"
-        Add-Content -Path $_ -Value "[assembly: AssemblyInformationalVersion(`"$version$label`")]"
+        $assemblyInfo = Get-Content -Path $_ -Raw
+
+        Write-Output "Patching assembly version to $version.0"
+        $assemblyInfo = $assemblyInfo -Replace "\[assembly:.AssemblyVersion\(\`".*\`"\)\]", "[assembly: AssemblyVersion(`"$version.0`")]"
+
+        Write-Output "Patching assembly file version to $version$BuildNumber"
+        if ($assemblyInfo -Match "\[assembly: AssemblyFileVersion\`(\`".*\`"\)\]") {
+            $assemblyInfo = $assemblyInfo -Replace "\[assembly: AssemblyFileVersion\`(\`".*\`"\)\]", "[assembly: AssemblyFileVersion(`"$version$BuildNumber`")]"
+        } else {
+            $assemblyInfo += "[assembly: AssemblyFileVersion(`"$version$BuildNumber`")]`r`n"
+        }
+
+        Write-Output "Patching assembly information version to $version$label"
+        if ($assemblyInfo -Match "\[assembly: AssemblyInformationalVersion\`(\`".*\`"\)\]") {
+            $assemblyInfo = $assemblyInfo -Replace "\[assembly: AssemblyInformationalVersion\`(\`".*\`"\)\]", "[assembly: AssemblyInformationalVersion(`"$version$label`")]"
+        } else {
+            $assemblyInfo += "[assembly: AssemblyInformationalVersion(`"$version$label`")]`r`n"
+        }
+
+        Set-Content -Path $_ -Value $assemblyInfo -NoNewline 
     }
 
     Write-Output "Patching CHANGELOG.md version to [$version$label] - $year-$month-$day"

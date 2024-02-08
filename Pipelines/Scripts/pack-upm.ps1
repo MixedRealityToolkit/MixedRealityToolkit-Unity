@@ -39,10 +39,6 @@ param(
 
 $ProjectRoot = Resolve-Path -Path $ProjectRoot
 
-if ($BuildNumber) {
-    $BuildNumber = ".$BuildNumber"
-}
-
 if (-not (Test-Path $OutputDirectory -PathType Container)) {
     New-Item $OutputDirectory -ItemType Directory | Out-Null
 }
@@ -117,7 +113,7 @@ try {
             Remove-Item -Path $docFolder -Recurse -Force
 
             # But restore anything that's checked-in.
-            if (git ls-files $docFolder) {
+            if (git -C $packagePath ls-files $docFolder) {
                 git -C $packagePath checkout $docFolder
             }
         }
