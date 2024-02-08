@@ -8,9 +8,6 @@ parameters:
   docToolProjectRoot: $(Build.SourcesDirectory)/lib.doctools
   mrtkProjectRoot: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
   outputDirectory: $(Build.ArtifactStagingDirectory)/docs
-  buildNumber: $(Version.Revision)
-  releaseLabel: $(ReleaseTagPrefix)
-  experimentLabel: $(MRTKReleaseTag)
 
 steps:
 - task: PowerShell@2
@@ -21,10 +18,6 @@ steps:
     filePath: ${{ parameters.mrtkProjectRoot }}/Pipelines/Scripts/update-versions.ps1
     arguments: >
       -PackagesRoot: ${{ parameters.mrtkProjectRoot }}
-      -BuildNumber: ${{ parameters.buildNumber }}
-      -ReleaseLabel: ${{ parameters.releaseLabel }}
-      -ExperimentLabel: ${{ parameters.experimentLabel }}
-      -Revision: $(Version.DateCode).$(Version.DateCodeRevision)
       -ReleasePackages: $(ReleasePackages)
 
 - task: PowerShell@2
