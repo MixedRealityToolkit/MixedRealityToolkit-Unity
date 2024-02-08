@@ -154,12 +154,6 @@ namespace MixedReality.Toolkit.UX
         private float extendSpeed = 0.5f;
 
         /// <summary>
-        /// Array with Components (set in Editor) that will be enabled/disabled based on proximity and hovering.
-        /// </summary>
-        [field: SerializeField, Tooltip("Array with Components (set in Editor) that will be enabled/disabled based on proximity and hovering.")]
-        public Component[] ProximityHoveringDynamicComponents { get; set; } = null;
-
-        /// <summary>
         /// Fired when an interactable starts hovering or becomes in proximity of the button.
         /// </summary>
         [field: SerializeField, Tooltip("Fired when an interactable starts hovering or becomes in proximity of the button.")]
@@ -310,16 +304,6 @@ namespace MixedReality.Toolkit.UX
         {
             base.Reset();
             ApplyRequiredSettings();
-        }
-
-        /// <summary>
-        /// A Unity event function that is called when the script is loaded.
-        /// </summary>
-        protected virtual void Start()
-        {
-            ProximityHoverEntered.AddListener(OnProximityHoverEntered);
-            ProximityHoverExited.AddListener(OnProximityHoverExited);
-            SetEnabledDynamicComponents(false);
         }
 
         #region XRI methods
@@ -699,53 +683,6 @@ namespace MixedReality.Toolkit.UX
             {
                 isInProximity = false;
                 ProximityHoverExited?.Invoke(this, proximityExitedEventArgs, null);
-            }
-        }
-
-        /// <summary>
-        /// Method invoked when a Proximity or a Hovered entered events are triggered.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="proximityEnteredEventArgs">ProximityEnteredEventArgs if the event was triggered by proximity, null otherwise.</param>
-        /// <param name="hoverEnterEventArgs">HoverEnterEventArgs if the event was triggered by hovering, null otherwise.</param>
-        private void OnProximityHoverEntered(object sender, ProximityEnteredEventArgs proximityEnteredEventArgs, HoverEnterEventArgs hoverEnterEventArgs)
-        {
-            SetEnabledDynamicComponents(true);
-        }
-
-        /// <summary>
-        /// Method invoked when a Proximity or a Hovered exited events are triggered.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="proximityExitedEventArgs">ProximityExitedEventArgs if the event was triggered by proximity, null otherwise.</param>
-        /// <param name="hoverExitEventArgs">HoverExitEventArgs if the events was triggered by hovering, null otherwise.</param>
-        private void OnProximityHoverExited(object sender, ProximityExitedEventArgs proximityExitedEventArgs, HoverExitEventArgs hoverExitEventArgs)
-        {
-            if (!isInProximity && !isHovered)
-            {
-                SetEnabledDynamicComponents(false);
-            }
-        }
-
-        /// <summary>
-        /// Sets enable (true) or disable (false) the components that are in the ProximityEnabledComponents array.
-        /// </summary>
-        /// <param name="enable">True to enable the components and false otherwise.</param>
-        public void SetEnabledDynamicComponents(bool enable)
-        {
-            if (ProximityHoveringDynamicComponents != null)
-            {
-                for (int i = 0; i < ProximityHoveringDynamicComponents.Length; i++)
-                {
-                    if (ProximityHoveringDynamicComponents[i] != null)
-                    {
-                        Behaviour component = ProximityHoveringDynamicComponents[i] as Behaviour;
-                        if (component != null)
-                        {
-                            component.enabled = enable;
-                        }
-                    }
-                }
             }
         }
 
