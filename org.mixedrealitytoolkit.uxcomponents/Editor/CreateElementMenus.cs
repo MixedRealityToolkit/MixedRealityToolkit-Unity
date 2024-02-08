@@ -34,6 +34,10 @@ namespace MixedReality.Toolkit.Editor
         // Backplate material for menu plates.
         private static readonly string PlateMaterialPath = AssetDatabase.GUIDToAssetPath("65972ebbfd5c529479f9c30fd3ec3f6a");
 
+        // SimpleButton.prefab
+        // A simple button with empty content.  A lighter version of ActionButton for improved rendering performance.
+        private static readonly string SimpleButtonPath = AssetDatabase.GUIDToAssetPath("7ed78718e86d3cc469e6abbecb4a8508");
+
         // Reflection into internal UGUI editor utilities.
         private static System.Reflection.MethodInfo PlaceUIElementRoot = null;
 
@@ -208,6 +212,19 @@ namespace MixedReality.Toolkit.Editor
         private static void CreateActionButton(MenuCommand menuCommand)
         {
             CreateElementFromPath(ActionButtonPath, menuCommand);
+        }
+
+        [MenuItem("GameObject/UI/MRTK/Simple Button")]
+        private static void CreateSimpleButton(MenuCommand menuCommand)
+        {
+            GameObject simpleButton = CreateElementFromPath(SimpleButtonPath, menuCommand);
+            GameObject simpleButtonContentGameObject = simpleButton.transform.GetChild(3).gameObject;
+
+            TextMeshProUGUI textMeshProUGUI = simpleButtonContentGameObject.AddComponent<TextMeshProUGUI>();
+            textMeshProUGUI.text = "Simple\nButton";
+            textMeshProUGUI.fontSize = simpleButtonContentGameObject.GetComponent<RectTransform>().rect.height / 4;
+            textMeshProUGUI.horizontalAlignment = HorizontalAlignmentOptions.Center;
+            textMeshProUGUI.verticalAlignment = VerticalAlignmentOptions.Middle;
         }
 
         [MenuItem("GameObject/UI/MRTK/Action Button (Wide)", false, 1)]
