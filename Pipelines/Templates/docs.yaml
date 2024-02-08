@@ -18,9 +18,9 @@ steps:
   inputs:
     pwsh: true
     targetType: filePath
-    filePath: ${{ parameters.projectRoot }}/Pipelines/Scripts/update-versions.ps1
+    filePath: ${{ parameters.mrtkProjectRoot }}/Pipelines/Scripts/update-versions.ps1
     arguments: >
-      -PackagesRoot: ${{ parameters.projectRoot }}
+      -PackagesRoot: ${{ parameters.mrtkProjectRoot }}
       -BuildNumber: ${{ parameters.buildNumber }}
       -ReleaseLabel: ${{ parameters.releaseLabel }}
       -ExperimentLabel: ${{ parameters.experimentLabel }}
