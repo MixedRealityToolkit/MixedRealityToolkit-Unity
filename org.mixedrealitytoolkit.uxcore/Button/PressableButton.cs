@@ -154,17 +154,19 @@ namespace MixedReality.Toolkit.UX
         private float extendSpeed = 0.5f;
 
         /// <summary>
-        /// Fired when an interactable starts hovering or becomes in proximity of the button.
+        /// The event that is called only when the first Interactor begins a proximity-hover
+        /// over this Interactable. Subsequent Interactors that begin a proximity over this Interactable
+        /// will not cause this event to be invoked as long as any others are still proximity-hovering.
         /// </summary>
-        [field: SerializeField, Tooltip("Fired when an interactable starts hovering or becomes in proximity of the button.")]
-        public UnityEvent<object, ProximityEnteredEventArgs, HoverEnterEventArgs> ProximityHoverEntered { get; private set; } = new UnityEvent<object, ProximityEnteredEventArgs, HoverEnterEventArgs>();
+        [field: SerializeField, Tooltip("The event that is called only when the first Interactor begins a proximity-hover over this Interactable. Subsequent Interactors that begin a proximity over this Interactable will not cause this event to be invoked as long as any others are still proximity-hovering.")]
+        public ProximityHoverEnterEvent FirstProximityHoverEntered { get; set; } = new ProximityHoverEnterEvent();
 
         /// <summary>
-        /// Fired when there is no longer an interactable hovering or in proximity of the button.
+        /// The event that is called only when the last remaining proximity-hovering Interactor
+        /// ends proximity-hovering over this Interactable.
         /// </summary>
-        [field: SerializeField, Tooltip("Fired when there is no longer an interactable hovering or in proximity of the button.")]
-        public UnityEvent<object, ProximityExitedEventArgs, HoverExitEventArgs> ProximityHoverExited { get; private set; } = new UnityEvent<object, ProximityExitedEventArgs, HoverExitEventArgs>();
-
+        [field: SerializeField, Tooltip("The event that is called only when the last remaining proximity-hovering Interactor ends proximity-hovering over this Interactable.")]
+        public ProximityHoverExitEvent LastProximityHoverEntered { get; set; } = new ProximityHoverExitEvent();
         #region Private Members
 
         /// <summary>
@@ -201,10 +203,7 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         private const float selectionProgressEpsilon = 0.00001f;
 
-        /// <summary>
-        /// Indicates whether anything is triggering proximity on the button (true) or not (false).
-        /// </summary>
-        private bool isInProximity = false;
+        public bool IsProximityHovered { get; private set; } = false;
 
         #endregion Private Members
 
@@ -491,7 +490,7 @@ namespace MixedReality.Toolkit.UX
                 validPokeInteractors.Add(pokeInteractor);
             }
 
-            ProximityHoverEntered?.Invoke(this, null, args);
+            UpdateProximityHovered();
         }
 
         /// <inheritdoc />
@@ -505,7 +504,7 @@ namespace MixedReality.Toolkit.UX
                 validPokeInteractors.Remove(pokeInteractor);
             }
 
-            ProximityHoverExited?.Invoke(this, null, args);
+            UpdateProximityHovered();
         }
 
         #endregion XRI events
@@ -665,8 +664,7 @@ namespace MixedReality.Toolkit.UX
                 activeCollidersWithInteractor.Add((proximityEnteredEventArgs.collider, proximityEnteredEventArgs.interactor)) &&
                 activeCollidersWithInteractor.Count >= 1)
             {
-                isInProximity = true;
-                ProximityHoverEntered?.Invoke(this, proximityEnteredEventArgs, null);
+                UpdateProximityHovered();
             }
         }
 
@@ -681,8 +679,30 @@ namespace MixedReality.Toolkit.UX
                 activeCollidersWithInteractor.Remove((proximityExitedEventArgs.collider, proximityExitedEventArgs.interactor)) &&
                 activeCollidersWithInteractor.Count == 0)
             {
-                isInProximity = false;
-                ProximityHoverExited?.Invoke(this, proximityExitedEventArgs, null);
+                UpdateProximityHovered();
+            }
+        }
+
+        /// <summary>
+        /// Updates the IsProximityHovered state and invokes the FirstProximityHoverEntered and LastProximityHoverExited events.
+        /// FirstProximityHoverEntered is fired when the first Interactor begins a proximity-hover over this Interactable.
+        /// LastProximityHoverExited is fired when the last remaining proximity-hovering Interactor ends proximity-hovering over this Interactable.
+        /// </summary>
+        private void UpdateProximityHovered()
+        {
+            bool oldValue = IsProximityHovered;
+            IsProximityHovered = isHovered || (activeCollidersWithInteractor.Count > 0);
+
+            if (oldValue != IsProximityHovered)
+            {
+                if (IsProximityHovered)
+                {
+                    FirstProximityHoverEntered.Invoke(new ProximityHoverEnterEventArgs());
+                }
+                else
+                {
+                    LastProximityHoverEntered.Invoke(new ProximityHoverExitEventArgs());
+                }
             }
         }
 
