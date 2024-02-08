@@ -36,9 +36,21 @@ param(
 $releasePkgs = $ReleasePackages.Split(",")
 $PackagesRoot = Resolve-Path -Path $PackagesRoot
 
-if ((-not [string]::IsNullOrEmpty($BuildNumber)) -and
-    ($BuildNumber[0] -ne ".")) {
+if (-not [string]::IsNullOrEmpty($BuildNumber)) {
+    $BuildNumber = $BuildNumber.Trim('.')
     $BuildNumber = ".$BuildNumber"
+}
+
+if (-not [string]::IsNullOrEmpty($ReleaseLabel)) {
+    $ReleaseLabel = $ReleaseLabel.Trim('.')
+}
+
+if (-not [string]::IsNullOrEmpty($ExperimentLabel)) {
+    $ExperimentLabel = $ExperimentLabel.Trim('.')
+}
+
+if (-not [string]::IsNullOrEmpty($Revision)) {
+    $Revision = $Revision.Trim('.')
 }
 
 Write-Host ""
