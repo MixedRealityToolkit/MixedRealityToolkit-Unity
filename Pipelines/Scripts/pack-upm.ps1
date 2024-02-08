@@ -19,7 +19,7 @@
 .PARAMETER Revision
     The revision number for the build, to append after the release labal and suffix.
 .PARAMETER ReleasePackages
-    An array of the package names that are no longer  If the package isn't in this array, it will get labeled with the ExperimentLabel.
+    An array of the package names that have been released, and no longer in experimentation. If the package isn't in this array, it will get labeled with the ExperimentLabel.
 
 #>
 param(
@@ -47,7 +47,7 @@ $OutputDirectory = Resolve-Path -Path $OutputDirectory
 
 Write-Host ""
 Write-Host -ForegroundColor Blue "======================================="  
-Write-Host -ForegroundColor Blue "Packing All Pacakges"
+Write-Host -ForegroundColor Blue "Packing All Packages"
 Write-Host -ForegroundColor Blue "=======================================" 
 Write-Host "OutputDirectory: $OutputDirectory"
 

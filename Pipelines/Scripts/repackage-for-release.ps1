@@ -27,7 +27,7 @@ $OutputDirectory = Resolve-Path -Path $OutputDirectory
 
 Write-Host ""
 Write-Host -ForegroundColor Blue "======================================="  
-Write-Host -ForegroundColor Blue "Repackaging All Pacakges For Release"
+Write-Host -ForegroundColor Blue "Repackaging All Packages For Release"
 Write-Host -ForegroundColor Blue "======================================="
 Write-Host "OutputDirectory: $OutputDirectory"
 Write-Host "Release packages: $releasePkgs"
@@ -105,7 +105,7 @@ try {
 
     Write-Host ""
     Write-Host -ForegroundColor Blue "======================================="  
-    Write-Host -ForegroundColor Blue "Successfully Packed Release Pacakges"
+    Write-Host -ForegroundColor Blue "Successfully Packed Release Packages"
     Write-Host -ForegroundColor Blue "=======================================" 
     Write-Host ""
 }

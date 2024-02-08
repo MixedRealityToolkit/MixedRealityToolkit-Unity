@@ -55,7 +55,7 @@ if (-not [string]::IsNullOrEmpty($Revision)) {
 
 Write-Host ""
 Write-Host -ForegroundColor Green "=======================================" 
-Write-Host -ForegroundColor Green "Updating All Packages Versions"
+Write-Host -ForegroundColor Green "Updating All Package Versions"
 Write-Host -ForegroundColor Green "======================================="
 Write-Output "Project root: $PackagesRoot"
 Write-Output "Release packages: $releasePkgs"
@@ -77,7 +77,7 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
 
     Write-Host ""
     Write-Host -ForegroundColor Green "======================================="  
-    Write-Host -ForegroundColor Green "Updating Pacakge Version"
+    Write-Host -ForegroundColor Green "Updating Package Version"
     Write-Host -ForegroundColor Green "=======================================" 
     Write-Output "Package name: $packageName"
 
@@ -138,6 +138,6 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
 
 Write-Host ""
 Write-Host -ForegroundColor Green "=======================================" 
-Write-Host -ForegroundColor Green "Successfully Updated Packages Versions"
+Write-Host -ForegroundColor Green "Successfully Updated Package Versions"
 Write-Host -ForegroundColor Green "======================================="
 Write-Host ""
