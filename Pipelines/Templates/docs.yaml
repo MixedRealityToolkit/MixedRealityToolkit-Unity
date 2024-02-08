@@ -8,8 +8,25 @@ parameters:
   docToolProjectRoot: $(Build.SourcesDirectory)/lib.doctools
   mrtkProjectRoot: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
   outputDirectory: $(Build.ArtifactStagingDirectory)/docs
+  buildNumber: $(Build.BuildNumber)
+  releaseLabel: $(ReleaseTagPrefix)
+  experimentLabel: $(MRTKReleaseTag)
 
 steps:
+- task: PowerShell@2
+  displayName: 'Update package versions'
+  inputs:
+    pwsh: true
+    targetType: filePath
+    filePath: ${{ parameters.projectRoot }}/Pipelines/Scripts/update-versions.ps1
+    arguments: >
+      -PackagesRoot: ${{ parameters.projectRoot }}
+      -BuildNumber: ${{ parameters.buildNumber }}
+      -ReleaseLabel: ${{ parameters.releaseLabel }}
+      -ExperimentLabel: ${{ parameters.experimentLabel }}
+      -Revision: $(Version.DateCode).$(Version.DateCodeRevision)
+      -ReleasePackages: $(ReleasePackages)
+
 - task: PowerShell@2
   displayName: "Generate DocTool Unity asset package"
   inputs:
