@@ -14,11 +14,9 @@
 param(
     [Parameter(Mandatory = $true)]
     [string]$PackageRoot,
-
     [string]$OutputDirectory = "./artifacts/upm/release" 
 )
 
-$versionHash = @{}
 $PackageRoot = Resolve-Path -Path $PackageRoot
 
 if (-not (Test-Path $OutputDirectory -PathType Container)) {
@@ -26,14 +24,18 @@ if (-not (Test-Path $OutputDirectory -PathType Container)) {
 }
 
 $OutputDirectory = Resolve-Path -Path $OutputDirectory
-Write-Output "OutputDirectory: $OutputDirectory"
 
-Write-Output "Release packages: $releasePkgs"
+Write-Host ""
+Write-Host -ForegroundColor Blue "======================================="  
+Write-Host -ForegroundColor Blue "Repackaging All Packages For Release"
+Write-Host -ForegroundColor Blue "======================================="
+Write-Host "OutputDirectory: $OutputDirectory"
+Write-Host "Release packages: $releasePkgs"
 
-try {
-           
+try {           
     $repackTempDirectory = Join-Path $OutputDirectory "tmp"
-    Write-Output "Temp Directory: $repackTempDirectory"
+    Write-Host "Temp Directory: $repackTempDirectory"
+
     if (-not (Test-Path $repackTempDirectory -PathType Container)) {
         New-Item $repackTempDirectory -ItemType Directory | Out-Null
     }
@@ -42,9 +44,11 @@ try {
         New-Item -ItemType Directory -Force (Join-Path $repackTempDirectory $_.BaseName)
         tar -xzf $_ -C (Join-Path $repackTempDirectory $_.BaseName)
     }
-    $packageSearchPath = "$repackTempDirectory\*\package\package.json"
-    Write-Output "PackageSearchPath: $packageSearchPath"
 
+    $packageSearchPath = "$repackTempDirectory\*\package\package.json"
+    Write-Host "PackageSearchPath: $packageSearchPath"
+
+    # Update package versions to their release versions
     Get-ChildItem -Path $packageSearchPath | ForEach-Object {
         $packageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*|com\.microsoft\.mrtk\.\w+(\.\w+)*" -Path $_.FullName | Select-Object -First 1
 
@@ -55,56 +59,40 @@ try {
         $packageName = $packageName.Matches[0].Value
         $packagePath = $_.Directory
 
-        Write-Output ""
-        Write-Output "====================="
-        Write-Output "Creating $packageName"
-        Write-Output "====================="
+        Write-Host ""
+        Write-Host -ForegroundColor Green "======================================="  
+        Write-Host -ForegroundColor Green "Updating package to release package"
+        Write-Host -ForegroundColor Green "======================================="
 
-        $inlineVersion = Select-String '^.*"version":\s*"(?<sem>[0-9]\.[0-9]\.[0-9])-(?<prerelease>prerelease\.)*(?<tag>pre\.\d*)*\.*(?<build>\d{6}\.\d*)' -InputObject (Get-Content -Path $_)
+        $inlineVersion = Select-String '^.*"version":\s*"(?<sem>[0-9]\.[0-9]\.[0-9])(-(?<label>[a-zA-Z]+)(\.(?<experiment>[a-zA-Z]+\.\d+))?(\.(?<revision>\d(\.\d+)*))?)?' -InputObject (Get-Content -Path $_)
         $version = $inlineVersion.Matches[0].Groups['sem'].Value
-        $prerelease = $inlineVersion.Matches[0].Groups['prerelease'].Value
-        $tag = $inlineVersion.Matches[0].Groups['tag'].Value
-        $build = $inlineVersion.Matches[0].Groups['build'].Value
+        $releaseLabel = $inlineVersion.Matches[0].Groups['label'].Value
+        $experimentLabel = $inlineVersion.Matches[0].Groups['experiment'].Value
+        $revision = $inlineVersion.Matches[0].Groups['revision'].Value
 
-        if ($tag) {
-            $tag = "-$tag"
-        }
-
-        Write-Output "Version: $version   prerelease: $prerelease   tag: $tag   build: $build"
+        Write-Host "Package name: $packageName" 
+        Write-Host "Old version: $version" 
+        Write-Host "Old release label: $releaseLabel" 
+        Write-Host "Old experiment label: $experimentLabel" 
+        Write-Host "Old revision: $revision" 
         
-        $newVersion = "$($version)$($tag)"
-
-        $versionHash[$packageName]=$newVersion
-
-        Write-Output " Version: $version"
-        
-        Write-Output "Patching package version to $newVersion"
-        ((Get-Content -Path $_ -Raw) -Replace '("version": )"(?:[0-9.]+|%version%)-?[a-zA-Z0-9.]*', "`$1`"$newVersion") | Set-Content -Path $_ -NoNewline
-
-        Write-Output "Patching assembly version to $newVersion"
-        Get-ChildItem -Path $packagePath/AssemblyInfo.cs -Recurse | ForEach-Object {
-            (Get-Content -Path $_ -Raw) -Replace '\[assembly:.AssemblyVersion\(.*', "[assembly: AssemblyVersion(`"$version.0`")]`r" | Set-Content -Path $_ -NoNewline
-            ((Get-Content -Path $_ -Raw) -Replace "assembly: AssemblyFileVersion\`(\`".*\`"", "assembly: AssemblyFileVersion(`"$newVersion`"") | Set-Content -Path $_ -NoNewline
-            ((Get-Content -Path $_ -Raw) -Replace "assembly: AssemblyInformationalVersion\`(\`".*\`"", "assembly: AssemblyInformationalVersion(`"$newVersion`"") | Set-Content -Path $_ -NoNewline
-        }
-        
-        $year = "{0:D4}" -f (Get-Date).Year
-        $month = "{0:D2}" -f (Get-Date).Month
-        $day = "{0:D2}" -f (Get-Date).Day
-
-        Write-Output "Patching CHANGELOG.md version to [$Version] - $year-$month-$day"
-        Get-ChildItem -Path $packagePath/CHANGELOG.md -Recurse | ForEach-Object {            
-            (Get-Content -Path $_ -Raw) -Replace "## \[$Version(-[a-zA-Z0-9.]+)?\] - \b\d{4}\b-\b(0[1-9]|1[0-2])\b-\b(0[1-9]|[12][0-9]|3[01])\b", "## [$Version] - $year-$month-$day" | Set-Content -Path $_ -NoNewline
-        }
+        # Update package versions
+        . $PSScriptRoot\update-versions.ps1 -PackagesRoot $packagePath -ExperimentLabel $experimentLabel -ReleasePackages $ReleasePackages
     }
 
-    # repackage
+    # Repackage the package directories
     Get-ChildItem -Path $packageSearchPath | ForEach-Object {
         $currentPackageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*|com\.microsoft\.mrtk\.\w+(\.\w+)*" -Path $_.FullName | Select-Object -First 1
 
         if (-not $currentPackageName) {
             return # this is not an MRTK package, so skip
         }
+
+        Write-Host ""
+        Write-Host -ForegroundColor Green "======================================="  
+        Write-Host -ForegroundColor Green "Packing Release Package"
+        Write-Host -ForegroundColor Green "======================================="
+        Write-Host "Package name: $currentPackageName" 
 
         $currentPackageName = $currentPackageName.Matches[0].Value
         $packageFriendlyName = (Select-String -Pattern "`"displayName`": `"(.+)`"" -Path $_ | Select-Object -First 1).Matches.Groups[1].Value
@@ -114,8 +102,13 @@ try {
         Write-Output "Packing $packageFriendlyName to $OutputDirectory"
         npm pack $packagePath -pack-destination $OutputDirectory
     }
+
+    Write-Host ""
+    Write-Host -ForegroundColor Blue "======================================="  
+    Write-Host -ForegroundColor Blue "Successfully Packed Release Packages"
+    Write-Host -ForegroundColor Blue "=======================================" 
+    Write-Host ""
 }
 finally {
-    Write-Output "Removing temp directory $repackTempDirectory"
     Remove-Item -Force -Recurse $repackTempDirectory
 }
