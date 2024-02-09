@@ -59,7 +59,8 @@ jobs:
       - template: Templates/upm.yaml
         parameters:
           buildNumber: $(Version.Revision)
-          previewTag: $(MRTKReleaseTag)
+          releaseLabel: $(ReleaseTagPrefix)
+          experimentLabel: $(MRTKReleaseTag)
           publishToFeed: true
 
   - job: DocsBinariesGeneration
