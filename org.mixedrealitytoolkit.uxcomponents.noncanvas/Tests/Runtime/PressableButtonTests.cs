@@ -872,6 +872,36 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return null;
         }
 
+        /// <summary>
+        /// Tests button GameObject has FirstProximityHoverEntered event.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestButtonGameObjectHasFirstProximityHoverEntered()
+        {
+            GameObject canvasGameObject = new GameObject();
+            canvasGameObject.AddComponent<Canvas>();
+            canvasGameObject.AddComponent<CanvasScaler>();
+            canvasGameObject.AddComponent<HorizontalLayoutGroup>();
+
+            string prefabPath = "Packages/org.mixedrealitytoolkit.uxcomponents/Button/Prefabs/Action Button.prefab";
+            Object actionButtonPrefab = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(Object));
+            GameObject testButton1 = Object.Instantiate(actionButtonPrefab) as GameObject;
+
+            testButton1.transform.SetParent(canvasGameObject.transform);
+
+            canvasGameObject.transform.position = new Vector3(0, 0, 10);
+            canvasGameObject.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+
+            InputTestUtilities.InitializeCameraToOriginAndForward();
+
+            PressableButton pressableButton = testButton1.GetComponent<PressableButton>();
+            Assert.IsNotNull(pressableButton.FirstProximityHoverEntered);
+
+            Object.Destroy(testButton1);
+
+            yield return null;
+        }
+
         #endregion Tests
 
         #region Private methods
