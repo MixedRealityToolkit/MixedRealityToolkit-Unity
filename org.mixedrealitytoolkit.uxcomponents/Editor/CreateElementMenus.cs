@@ -214,7 +214,7 @@ namespace MixedReality.Toolkit.Editor
             CreateElementFromPath(ActionButtonPath, menuCommand);
         }
 
-        [MenuItem("GameObject/UI/MRTK/Simple Button")]
+        [MenuItem("GameObject/UI/MRTK/Simple Button (Experimental)")]
         private static void CreateSimpleButton(MenuCommand menuCommand)
         {
             Undo.SetCurrentGroupName("Create SimpleButton");
