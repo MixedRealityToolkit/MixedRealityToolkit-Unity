@@ -220,7 +220,20 @@ namespace MixedReality.Toolkit.Editor
             Undo.SetCurrentGroupName("Create SimpleButton");
 
             GameObject simpleButton = CreateElementFromPath(SimpleButtonPath, menuCommand);
-            GameObject simpleButtonContentGameObject = simpleButton.transform.GetChild(3).gameObject;
+            GameObject simpleButtonContentGameObject = null;
+            foreach (Transform child in simpleButton.transform)
+            {
+                if (child.name.Equals("Content"))
+                {
+                    simpleButtonContentGameObject = child.gameObject;
+                }
+            }
+
+            if (simpleButtonContentGameObject == null)
+            {
+                Debug.LogWarning("SimpleButton prefab does not contain a child named 'Content'.");
+                return;
+            }
 
             TextMeshProUGUI textMeshProUGUI = simpleButtonContentGameObject.AddComponent<TextMeshProUGUI>();
             Undo.RecordObject(textMeshProUGUI, "Added TextMeshProUGUI as SimpleButton content");
