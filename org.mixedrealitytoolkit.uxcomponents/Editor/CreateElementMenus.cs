@@ -217,14 +217,21 @@ namespace MixedReality.Toolkit.Editor
         [MenuItem("GameObject/UI/MRTK/Simple Button")]
         private static void CreateSimpleButton(MenuCommand menuCommand)
         {
+            Undo.SetCurrentGroupName("Create SimpleButton");
+
             GameObject simpleButton = CreateElementFromPath(SimpleButtonPath, menuCommand);
             GameObject simpleButtonContentGameObject = simpleButton.transform.GetChild(3).gameObject;
 
             TextMeshProUGUI textMeshProUGUI = simpleButtonContentGameObject.AddComponent<TextMeshProUGUI>();
-            textMeshProUGUI.text = "Simple\nButton";
+            Undo.RecordObject(textMeshProUGUI, "Added TextMeshProUGUI as SimpleButton content");
+
             textMeshProUGUI.fontSize = simpleButtonContentGameObject.GetComponent<RectTransform>().rect.height / 4;
             textMeshProUGUI.horizontalAlignment = HorizontalAlignmentOptions.Center;
             textMeshProUGUI.verticalAlignment = VerticalAlignmentOptions.Middle;
+            Undo.RecordObject(textMeshProUGUI, "Set SimpleButton's TextMeshProUGUI font, horizontal, and vertical alignment");
+
+            textMeshProUGUI.text = "Simple\nButton";
+            Undo.RecordObject(textMeshProUGUI, "Set SimpleButton's TextMeshProUGUI text");
         }
 
         [MenuItem("GameObject/UI/MRTK/Action Button (Wide)", false, 1)]
