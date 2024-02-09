@@ -6,8 +6,9 @@
 parameters:
   projectRoot: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
   outputDirectory: $(Build.ArtifactStagingDirectory)/build/upm/output
-  buildNumber: $(Build.BuildNumber)
-  previewTag: $(ReleaseTagPrefix)$(MRTKReleaseTag)
+  buildNumber: $(Version.Revision)
+  releaseLabel: $(ReleaseTagPrefix)
+  experimentLabel: $(MRTKReleaseTag)
   publishToArtifacts: true
   publishToFeed: true
 
@@ -22,7 +23,8 @@ steps:
       -ProjectRoot: ${{ parameters.projectRoot }}
       -OutputDirectory: ${{ parameters.outputDirectory }}
       -BuildNumber: ${{ parameters.buildNumber }}
-      -PreviewTag: $(ReleaseTagPrefix)$(MRTKReleaseTag)
+      -ReleaseLabel: ${{ parameters.releaseLabel }}
+      -ExperimentLabel: ${{ parameters.experimentLabel }}
       -Revision: $(Version.DateCode).$(Version.DateCodeRevision)
       -ReleasePackages: $(ReleasePackages)
 
