@@ -165,6 +165,90 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         [UnityTest]
+        public IEnumerator TestHandRayMovementsScrollsWithDisabledButtons()
+        {
+            yield return InitializeScrollObject(VerticalAndHorizontalScrollTestPrefab);
+
+            // Disable the buttons, so we can test that the scroll still works.
+            SetEnableOnPressableButtons(scrollObject, false);
+
+            // Disabbling buttons should disable their colliders.
+            VerifyButtonCollidersAreDisabled(scrollObject);
+
+            SetEnableOnPressableButtons(scrollObject, false);
+            Vector3 smallMovement = scrollable.ScrollRect.transform.TransformDirection(new Vector3(1.0f, 0.0f, 0.0f)).normalized * -(scrollable.DeadZone + 0.02f);
+
+            yield return ShowHand();
+            yield return hand.AimAt(firstPressableButton.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            yield return hand.SetHandshape(Input.HandshapeTypes.HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.AreEqual(0.0f, GetScrollDistance(), "The scroller shouldn't have moved yet.");
+
+            yield return hand.AimAt(firstPressableButton.transform.position + smallMovement);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            yield return hand.SetHandshape(Input.HandshapeTypes.HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.Less(0.0f, GetScrollDistance(), "The scroller should have moved.");
+
+            // Verify that the buttons are still disabled.
+            VerifyButtonCollidersAreDisabled(scrollObject);
+        }
+
+        [UnityTest]
+        public IEnumerator TestHandRayMovementsScrollsWithDisabledButtonsLargeMovement()
+        {
+            yield return InitializeScrollObject(VerticalAndHorizontalScrollTestPrefab);
+
+            // Disable the buttons, so we can test that the scroll still works.
+            SetEnableOnPressableButtons(scrollObject, false);
+
+            // Disabbling buttons should disable their colliders.
+            VerifyButtonCollidersAreDisabled(scrollObject);
+
+            Vector3 largeMovement = scrollable.ScrollRect.transform.TransformDirection(new Vector3(1.0f, 0.0f, 0.0f)).normalized * -20f;
+
+            var startAimAt = firstPressableButton.transform.position;
+
+            yield return ShowHand();
+            yield return hand.AimAt(startAimAt);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            yield return hand.SetHandshape(Input.HandshapeTypes.HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.AreEqual(0.0f, GetScrollDistance(), "The scroller shouldn't have moved yet.");
+
+            yield return hand.AimAt(startAimAt + largeMovement);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            yield return hand.SetHandshape(Input.HandshapeTypes.HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.Less(0.0f, GetScrollDistance(), "The scroller should have moved.");
+
+            // Move scroll view the other way
+            yield return hand.AimAt(startAimAt);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            yield return hand.SetHandshape(Input.HandshapeTypes.HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            yield return hand.AimAt(startAimAt - largeMovement);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            yield return hand.SetHandshape(Input.HandshapeTypes.HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Verify that the buttons are still disabled.
+            VerifyButtonCollidersAreDisabled(scrollObject);
+        }
+
+        [UnityTest]
         public IEnumerator TestVerticalScrolling()
         {
             yield return InitializeScrollObject(VerticalScrollTestPrefab);
@@ -238,6 +322,30 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.IsNotNull(scrollable, "Scrollable was not found.");
             Assert.IsNotNull(scrollable.ScrollRect, "Scrollable scroll rect was not specified.");
             Assert.IsNotNull(firstPressableButton, "Pressable button was not found.");
+        }
+
+        private void SetEnableOnPressableButtons(GameObject container, bool enable)
+        {
+           if (container != null)
+            {
+                PressableButton[] pressableButtons = container.GetComponentsInChildren<PressableButton>();
+                foreach (PressableButton pressableButton in pressableButtons)
+                {
+                    pressableButton.enabled = enable;
+                }
+            }
+        }
+
+        private void VerifyButtonCollidersAreDisabled(GameObject container)
+        {
+            if (container != null)
+            {
+                PressableButton[] pressableButtons = container.GetComponentsInChildren<PressableButton>();
+                foreach (PressableButton pressableButton in pressableButtons)
+                {
+                    Assert.IsFalse(pressableButton.enabled, "Pressable button should be disabled.");
+                }
+            }
         }
 
         private IEnumerator InitializeScrollObject(string prefabGuid)
