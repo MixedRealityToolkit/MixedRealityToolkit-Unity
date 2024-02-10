@@ -238,7 +238,6 @@ namespace MixedReality.Toolkit.Editor
             TextMeshProUGUI textMeshProUGUI = simpleButtonContentGameObject.AddComponent<TextMeshProUGUI>();
             Undo.RecordObject(textMeshProUGUI, "Added TextMeshProUGUI as SimpleButton content");
 
-            textMeshProUGUI.fontSize = simpleButtonContentGameObject.GetComponent<RectTransform>().rect.height / 4;
             textMeshProUGUI.horizontalAlignment = HorizontalAlignmentOptions.Center;
             textMeshProUGUI.verticalAlignment = VerticalAlignmentOptions.Middle;
             Undo.RecordObject(textMeshProUGUI, "Set SimpleButton's TextMeshProUGUI font, horizontal, and vertical alignment");
