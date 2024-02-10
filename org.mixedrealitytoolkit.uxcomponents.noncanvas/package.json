@@ -19,7 +19,7 @@
   "dependencies": {
     "org.mixedrealitytoolkit.uxcore": "3.1.0",
     "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0",
-    "org.mixedrealitytoolkit.standardassets": "3.0.2"
+    "org.mixedrealitytoolkit.standardassets": "3.1.0"
   },
   "msftOptionalPackages": {
     "org.mixedrealitytoolkit.data": "1.0.0-development"
