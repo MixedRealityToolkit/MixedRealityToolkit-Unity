@@ -5,7 +5,8 @@
         "MixedReality.Toolkit.Core",
         "Unity.InputSystem",
         "UnityEditor.TestRunner",
-        "UnityEngine.TestRunner"
+        "UnityEngine.TestRunner",
+        "Unity.asset-store-validation.Editor"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -18,6 +19,12 @@
     "defineConstraints": [
         "UNITY_INCLUDE_TESTS"
     ],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.asset-store-validation",
+            "expression": "",
+            "define": "HAS_ASSET_STORE_VALIDATION"
+        }
+    ],
     "noEngineReferences": false
 }

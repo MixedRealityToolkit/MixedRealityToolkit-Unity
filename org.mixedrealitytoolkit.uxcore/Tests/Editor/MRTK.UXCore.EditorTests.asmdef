@@ -2,9 +2,10 @@
     "name": "MixedReality.Toolkit.UXCore.Editor.Tests",
     "rootNamespace": "",
     "references": [
+        "MixedReality.Toolkit.Core.TestUtilities",
         "MixedReality.Toolkit.UXCore",
-        "UnityEditor.TestRunner",
-        "UnityEngine.TestRunner"
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
     ],
     "includePlatforms": [
         "Editor"
@@ -19,6 +20,12 @@
     "defineConstraints": [
         "UNITY_INCLUDE_TESTS"
     ],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.asset-store-validation",
+            "expression": "",
+            "define": "HAS_ASSET_STORE_VALIDATION"
+        }
+    ],
     "noEngineReferences": false
 }
