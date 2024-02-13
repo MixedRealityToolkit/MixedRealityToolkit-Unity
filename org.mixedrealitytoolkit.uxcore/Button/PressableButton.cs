@@ -149,6 +149,12 @@ namespace MixedReality.Toolkit.UX
         [Tooltip("Speed for extending the moving button visuals when selected by a non-touch source.")]
         private float extendSpeed = 0.5f;
 
+        /// <summary>
+        /// Is this object proximity-hovered by an active Collider + Interactor combination?
+        /// </summary>
+        [field: SerializeField, EditableTimedFlag, Tooltip("Is this object proximity-hovered by an active Collider + Interactor combination?")]
+        public TimedFlag IsProximityHovered { get; private set; } = new TimedFlag();
+
         #region Private Members
 
         /// <summary>
@@ -191,13 +197,13 @@ namespace MixedReality.Toolkit.UX
         public override float GetSelectionProgress() => selectionProgress;
 
         /// <inheritdoc />
-        protected override bool CanClickOnFirstSelectEntered(SelectEnterEventArgs args)
+        internal protected override bool CanClickOnFirstSelectEntered(SelectEnterEventArgs args)
         {
             return base.CanClickOnFirstSelectEntered(args) && !IsRolledOff();
         }
 
         /// <inheritdoc />
-        protected override bool CanClickOnLastSelectExited(SelectExitEventArgs args)
+        internal protected override bool CanClickOnLastSelectExited(SelectExitEventArgs args)
         {
             return base.CanClickOnLastSelectExited(args) && !IsRolledOff();
         }
@@ -665,15 +671,7 @@ namespace MixedReality.Toolkit.UX
 
         private void UpdateProximityHovered()
         {
-            UpdateProximityHovered(IsProximityHovered);
-        }
-
-        /// <summary>
-        /// Updates IsProximityHovered property.
-        /// </summary>
-        private void UpdateProximityHovered(TimedFlag isProximityHovered)
-        {
-            ForceSetProximityHovered(isHovered || (activeCollidersWithInteractor.Count > 0));
+            IsProximityHovered.Active = isHovered || (activeCollidersWithInteractor.Count > 0);
         }
 
         #endregion Private Methods
