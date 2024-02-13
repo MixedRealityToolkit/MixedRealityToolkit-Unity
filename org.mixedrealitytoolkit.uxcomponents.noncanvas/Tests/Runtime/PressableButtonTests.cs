@@ -7,17 +7,16 @@
 using MixedReality.Toolkit.Core.Tests;
 using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.UI;
-using UnityEngine.XR.Interaction.Toolkit;
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using Object = UnityEngine.Object;
 using SpaceMode = MixedReality.Toolkit.UX.PressableButton.SpaceMode;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
@@ -873,61 +872,39 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// Tests button GameObject has FirstProximityHoverEntered event.
+        /// Tests PressableButton has IsProximityHovered property
         /// </summary>
         [UnityTest]
-        public IEnumerator TestButtonGameObjectHasFirstProximityHoverEntered()
+        public IEnumerator TestPressableButtonHasIsProximityHoveredProperty([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
         {
-            GameObject canvasGameObject = new GameObject();
-            canvasGameObject.AddComponent<Canvas>();
-            canvasGameObject.AddComponent<CanvasScaler>();
-            canvasGameObject.AddComponent<HorizontalLayoutGroup>();
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+            yield return null;
 
-            string prefabPath = "Packages/org.mixedrealitytoolkit.uxcomponents/Button/Prefabs/Action Button.prefab";
-            Object actionButtonPrefab = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(Object));
-            GameObject testButton1 = Object.Instantiate(actionButtonPrefab) as GameObject;
+            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
+            Assert.IsNotNull(buttonComponent.IsProximityHovered);
 
-            testButton1.transform.SetParent(canvasGameObject.transform);
-
-            canvasGameObject.transform.position = new Vector3(0, 0, 10);
-            canvasGameObject.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-
-            InputTestUtilities.InitializeCameraToOriginAndForward();
-
-            PressableButton pressableButton = testButton1.GetComponent<PressableButton>();
-            Assert.IsNotNull(pressableButton.FirstProximityHoverEntered);
-
-            Object.Destroy(testButton1);
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
 
             yield return null;
         }
 
         /// <summary>
-        /// Tests button GameObject has LastProximityHoverEntered event.
+        /// Tests PressableButton IsProximityHovered property is of type TimedFlag
         /// </summary>
         [UnityTest]
-        public IEnumerator TestButtonGameObjectHasLastProximityHoverEnteredEvent()
+        public IEnumerator TestPressableButtonIsProximityHoveredPropertyIsOfTypeTimedFlag([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
         {
-            GameObject canvasGameObject = new GameObject();
-            canvasGameObject.AddComponent<Canvas>();
-            canvasGameObject.AddComponent<CanvasScaler>();
-            canvasGameObject.AddComponent<HorizontalLayoutGroup>();
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+            yield return null;
 
-            string prefabPath = "Packages/org.mixedrealitytoolkit.uxcomponents/Button/Prefabs/Action Button.prefab";
-            Object actionButtonPrefab = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(Object));
-            GameObject testButton1 = Object.Instantiate(actionButtonPrefab) as GameObject;
+            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
+            Assert.AreEqual(typeof(TimedFlag), buttonComponent.IsProximityHovered.GetType());
 
-            testButton1.transform.SetParent(canvasGameObject.transform);
-
-            canvasGameObject.transform.position = new Vector3(0, 0, 10);
-            canvasGameObject.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-
-            InputTestUtilities.InitializeCameraToOriginAndForward();
-
-            PressableButton pressableButton = testButton1.GetComponent<PressableButton>();
-            Assert.IsNotNull(pressableButton.LastProximityHoverEntered);
-
-            Object.Destroy(testButton1);
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
 
             yield return null;
         }

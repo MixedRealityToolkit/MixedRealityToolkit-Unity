@@ -32,6 +32,7 @@ namespace MixedReality.Toolkit.Editor
         private SerializedProperty OnUntoggled;
         private SerializedProperty OnEnabled;
         private SerializedProperty OnDisabled;
+        private SerializedProperty IsProximityHovered;
         private static bool advancedFoldout = false;
         private static bool enabledEventsFoldout = false;
 
@@ -70,6 +71,8 @@ namespace MixedReality.Toolkit.Editor
             // OnToggled and OnUntoggled aliases to IsToggled.OnEntered and IsToggled.OnExited
             OnToggled = IsToggled.FindPropertyRelative("onEntered");
             OnUntoggled = IsToggled.FindPropertyRelative("onExited");
+
+            IsProximityHovered = SetUpAutoProperty(nameof(IsProximityHovered));
         }
 
         /// <inheritdoc/>
@@ -193,6 +196,7 @@ namespace MixedReality.Toolkit.Editor
                 EditorGUILayout.Space();
 
                 DrawTimedFlag(IsToggled, interactable.IsToggled, previousGUIColor, Color.cyan);
+                DrawTimedFlag(IsProximityHovered, interactable.IsProximityHovered, previousGUIColor, Color.cyan);
                 
                 enabledEventsFoldout = EditorGUILayout.Foldout(enabledEventsFoldout, "OnEnable/Disable", true);
                 

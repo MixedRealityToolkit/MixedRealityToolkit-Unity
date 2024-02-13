@@ -177,6 +177,12 @@ namespace MixedReality.Toolkit
         [field: SerializeField, EditableTimedFlag, FormerlySerializedAs("isToggled"), Tooltip("Is the interactable toggled?")]
         public TimedFlag IsToggled { get; private set; } = new TimedFlag();
 
+        /// <summary>
+        /// Is this object proximity-hovered by an active Collider + Interactor combination?
+        /// </summary>
+        [field: SerializeField, EditableTimedFlag, Tooltip("Is this object proximity-hovered by an active Collider + Interactor combination?")]
+        public TimedFlag IsProximityHovered { get; private set; } = new TimedFlag();
+
         #endregion Public state
 
         #region Events
@@ -320,7 +326,6 @@ namespace MixedReality.Toolkit
             IsToggled.Active = active;
         }
 
-
         private static readonly ProfilerMarker OnFirstSelectEnteredPerfMarker =
             new ProfilerMarker("[MRTK] StatefulInteractable.OnFirstSelectEntered");
 
@@ -407,6 +412,15 @@ namespace MixedReality.Toolkit
             }
 
             IsToggled.Active = !IsToggled;
+        }
+
+        /// <summary>
+        /// Forcibly set the proximity-hovered state.
+        /// </summary>
+        /// <param name="active">Bool value to set as the proximity-hovered state.</param>
+        public void ForceSetProximityHovered(bool active)
+        {
+            IsProximityHovered.Active = active;
         }
     }
 }

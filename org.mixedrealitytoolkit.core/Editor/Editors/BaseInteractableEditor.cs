@@ -27,9 +27,6 @@ namespace MixedReality.Toolkit.Editor
         private SerializedProperty isActiveHovered;
         private SerializedProperty disabledInteractorTypes;
 
-        private SerializedProperty FirstProximityHoverEntered;
-        private SerializedProperty LastProximityHoverEntered;
-
         private bool xriExpanded = false;
         private bool mrtkExpanded = false;
 
@@ -55,9 +52,6 @@ namespace MixedReality.Toolkit.Editor
             isPokeSelected = SetUpProperty(nameof(isPokeSelected));
 
             disabledInteractorTypes = SetUpProperty(nameof(disabledInteractorTypes));
-
-            FirstProximityHoverEntered = SetUpAutoProperty(nameof(FirstProximityHoverEntered));
-            LastProximityHoverEntered = SetUpAutoProperty(nameof(LastProximityHoverEntered));
         }
 
         /// <summary>
@@ -156,17 +150,6 @@ namespace MixedReality.Toolkit.Editor
                 DrawTimedFlag(isRaySelected, interactable.IsRaySelected, previousGUIColor, Color.cyan);
                 DrawTimedFlag(isGazePinchSelected, interactable.IsGazePinchSelected, previousGUIColor, Color.cyan);
                 DrawTimedFlag(isPokeSelected, interactable.IsPokeSelected, previousGUIColor, Color.cyan);
-            }
-
-            EditorGUILayout.Space();
-
-            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
-            {
-                EditorGUILayout.LabelField("Proximity-Hover Events", EditorStyles.boldLabel);
-                EditorGUILayout.Space();
-
-                EditorGUILayout.PropertyField(FirstProximityHoverEntered);
-                EditorGUILayout.PropertyField(LastProximityHoverEntered);
             }
         }
 

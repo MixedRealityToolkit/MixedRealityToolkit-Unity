@@ -1,15 +1,11 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using Microsoft.MixedReality.GraphicsTools;
 using MixedReality.Toolkit.Input;
-using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace MixedReality.Toolkit.UX
@@ -153,20 +149,6 @@ namespace MixedReality.Toolkit.UX
         [Tooltip("Speed for extending the moving button visuals when selected by a non-touch source.")]
         private float extendSpeed = 0.5f;
 
-        /// <summary>
-        /// The event that is called only when the first Interactor begins a proximity-hover
-        /// over this Interactable. Subsequent Interactors that begin a proximity over this Interactable
-        /// will not cause this event to be invoked as long as any others are still proximity-hovering.
-        /// </summary>
-        [field: SerializeField, Tooltip("The event that is called only when the first Interactor begins a proximity-hover over this Interactable. Subsequent Interactors that begin a proximity over this Interactable will not cause this event to be invoked as long as any others are still proximity-hovering.")]
-        public ProximityHoverEnterEvent FirstProximityHoverEntered { get; set; } = new ProximityHoverEnterEvent();
-
-        /// <summary>
-        /// The event that is called only when the last remaining proximity-hovering Interactor
-        /// ends proximity-hovering over this Interactable.
-        /// </summary>
-        [field: SerializeField, Tooltip("The event that is called only when the last remaining proximity-hovering Interactor ends proximity-hovering over this Interactable.")]
-        public ProximityHoverExitEvent LastProximityHoverEntered { get; set; } = new ProximityHoverExitEvent();
         #region Private Members
 
         /// <summary>
@@ -202,8 +184,6 @@ namespace MixedReality.Toolkit.UX
         /// If the <see cref="GetSelectionProgress"/> value is smoothed to within this threshold of 0 or 1, the <see cref="GetSelectionProgress"/> will snap to 0 or 1.
         /// </summary>
         private const float selectionProgressEpsilon = 0.00001f;
-
-        public bool IsProximityHovered { get; private set; } = false;
 
         #endregion Private Members
 
@@ -683,27 +663,17 @@ namespace MixedReality.Toolkit.UX
             }
         }
 
-        /// <summary>
-        /// Updates the IsProximityHovered state and invokes the FirstProximityHoverEntered and LastProximityHoverExited events.
-        /// FirstProximityHoverEntered is fired when the first Interactor begins a proximity-hover over this Interactable.
-        /// LastProximityHoverExited is fired when the last remaining proximity-hovering Interactor ends proximity-hovering over this Interactable.
-        /// </summary>
         private void UpdateProximityHovered()
         {
-            bool oldValue = IsProximityHovered;
-            IsProximityHovered = isHovered || (activeCollidersWithInteractor.Count > 0);
+            UpdateProximityHovered(IsProximityHovered);
+        }
 
-            if (oldValue != IsProximityHovered)
-            {
-                if (IsProximityHovered)
-                {
-                    FirstProximityHoverEntered.Invoke(new ProximityHoverEnterEventArgs());
-                }
-                else
-                {
-                    LastProximityHoverEntered.Invoke(new ProximityHoverExitEventArgs());
-                }
-            }
+        /// <summary>
+        /// Updates IsProximityHovered property.
+        /// </summary>
+        private void UpdateProximityHovered(TimedFlag isProximityHovered)
+        {
+            ForceSetProximityHovered(isHovered || (activeCollidersWithInteractor.Count > 0));
         }
 
         #endregion Private Methods
