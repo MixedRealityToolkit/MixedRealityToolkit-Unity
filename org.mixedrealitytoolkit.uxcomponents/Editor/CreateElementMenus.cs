@@ -35,8 +35,14 @@ namespace MixedReality.Toolkit.Editor
         private static readonly string PlateMaterialPath = AssetDatabase.GUIDToAssetPath("65972ebbfd5c529479f9c30fd3ec3f6a");
 
         // SimpleEmptyButton.prefab
-        // A simple button with empty content.  A lighter version of ActionButton for improved rendering performance.
+        // A simple button with empty content.  A lighter version of EmptyButton for improved rendering performance.
         private static readonly string SimpleEmptyButtonPath = AssetDatabase.GUIDToAssetPath("7ed78718e86d3cc469e6abbecb4a8508");
+
+        // SimpleActionButton.prefab
+        // A simple action button, this is a prefab variant of SimpleEmptyButton prefab.  SimpleActionButton has a TextMeshPro-Text(UI)
+        // component under Content child, in addition to SimpleEmptyButton components.  A lighter version of ActionButton for
+        // improved rendering performance.
+        private static readonly string SimpleActionButtonPath = AssetDatabase.GUIDToAssetPath("a2b07dcaa4b2f8e4fa68b319f1477f4c");
 
         // Reflection into internal UGUI editor utilities.
         private static System.Reflection.MethodInfo PlaceUIElementRoot = null;
@@ -215,12 +221,22 @@ namespace MixedReality.Toolkit.Editor
         }
 
         [MenuItem("GameObject/UI/MRTK/Simple Empty Button (Experimental)")]
-        private static void CreateSimpleButton(MenuCommand menuCommand)
+        private static void CreateSimpleEmptyButton(MenuCommand menuCommand)
         {
             Undo.SetCurrentGroupName("Create SimpleEmptyButton");
 
             GameObject simpleEmptyButton = CreateElementFromPath(SimpleEmptyButtonPath, menuCommand);
             Undo.RecordObject(simpleEmptyButton, "Added SimpleEmptyButton instance.");
+        }
+
+        [MenuItem("GameObject/UI/MRTK/Simple Action Button (Experimental)")]
+        private static void CreateSimpleActionButton(MenuCommand menuCommand)
+        {
+            Undo.SetCurrentGroupName("Create SimpleActionButton");
+
+            GameObject simpleActionButton = CreateElementFromPath(SimpleActionButtonPath, menuCommand);
+
+            Undo.RecordObject(simpleActionButton, "Added SimpleActionButton instance.");
         }
 
         [MenuItem("GameObject/UI/MRTK/Action Button (Wide)", false, 1)]

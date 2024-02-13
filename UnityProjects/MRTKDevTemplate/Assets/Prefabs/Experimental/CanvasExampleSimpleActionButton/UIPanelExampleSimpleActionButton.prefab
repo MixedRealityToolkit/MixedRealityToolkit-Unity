@@ -1003,7 +1003,7 @@ GameObject:
   - component: {fileID: 2578649064399513029}
   - component: {fileID: 2578649064399513030}
   m_Layer: 5
-  m_Name: UIPanelExampleSimpleButton
+  m_Name: UIPanelExampleSimpleActionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

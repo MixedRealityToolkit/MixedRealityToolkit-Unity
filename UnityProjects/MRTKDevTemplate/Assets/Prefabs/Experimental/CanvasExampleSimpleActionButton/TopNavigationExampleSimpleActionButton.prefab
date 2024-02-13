@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 4095427112833100000}
   - component: {fileID: 4095427112833100001}
   m_Layer: 5
-  m_Name: TopNavigationExampleSimpleButton
+  m_Name: TopNavigationExampleSimpleActionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
