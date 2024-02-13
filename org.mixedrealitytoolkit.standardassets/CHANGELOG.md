@@ -6,4 +6,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
-* Added SimpleButton (Experimental) prefab plus corresponding (Experimental) assets and demoscene.
+* Fixed support for UPM package publishing in the Unity Asset Store.
+* Added SimpleEmptyButton (Experimental) and SimpleActionButton (Experimental) prefabs plus corresponding (Experimental) assets and demoscene.
