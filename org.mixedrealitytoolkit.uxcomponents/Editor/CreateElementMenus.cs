@@ -34,9 +34,9 @@ namespace MixedReality.Toolkit.Editor
         // Backplate material for menu plates.
         private static readonly string PlateMaterialPath = AssetDatabase.GUIDToAssetPath("65972ebbfd5c529479f9c30fd3ec3f6a");
 
-        // SimpleButton.prefab
+        // SimpleEmptyButton.prefab
         // A simple button with empty content.  A lighter version of ActionButton for improved rendering performance.
-        private static readonly string SimpleButtonPath = AssetDatabase.GUIDToAssetPath("7ed78718e86d3cc469e6abbecb4a8508");
+        private static readonly string SimpleEmptyButtonPath = AssetDatabase.GUIDToAssetPath("7ed78718e86d3cc469e6abbecb4a8508");
 
         // Reflection into internal UGUI editor utilities.
         private static System.Reflection.MethodInfo PlaceUIElementRoot = null;
@@ -214,36 +214,13 @@ namespace MixedReality.Toolkit.Editor
             CreateElementFromPath(ActionButtonPath, menuCommand);
         }
 
-        [MenuItem("GameObject/UI/MRTK/Simple Button (Experimental)")]
+        [MenuItem("GameObject/UI/MRTK/Simple Empty Button (Experimental)")]
         private static void CreateSimpleButton(MenuCommand menuCommand)
         {
-            Undo.SetCurrentGroupName("Create SimpleButton");
+            Undo.SetCurrentGroupName("Create SimpleEmptyButton");
 
-            GameObject simpleButton = CreateElementFromPath(SimpleButtonPath, menuCommand);
-            GameObject simpleButtonContentGameObject = null;
-            foreach (Transform child in simpleButton.transform)
-            {
-                if (child.name.Equals("Content"))
-                {
-                    simpleButtonContentGameObject = child.gameObject;
-                }
-            }
-
-            if (simpleButtonContentGameObject == null)
-            {
-                Debug.LogWarning("SimpleButton prefab does not contain a child named 'Content'.");
-                return;
-            }
-
-            TextMeshProUGUI textMeshProUGUI = simpleButtonContentGameObject.AddComponent<TextMeshProUGUI>();
-            Undo.RecordObject(textMeshProUGUI, "Added TextMeshProUGUI as SimpleButton content");
-
-            textMeshProUGUI.horizontalAlignment = HorizontalAlignmentOptions.Center;
-            textMeshProUGUI.verticalAlignment = VerticalAlignmentOptions.Middle;
-            Undo.RecordObject(textMeshProUGUI, "Set SimpleButton's TextMeshProUGUI font, horizontal, and vertical alignment");
-
-            textMeshProUGUI.text = "Simple\nButton";
-            Undo.RecordObject(textMeshProUGUI, "Set SimpleButton's TextMeshProUGUI text");
+            GameObject simpleEmptyButton = CreateElementFromPath(SimpleEmptyButtonPath, menuCommand);
+            Undo.RecordObject(simpleEmptyButton, "Added SimpleEmptyButton instance.");
         }
 
         [MenuItem("GameObject/UI/MRTK/Action Button (Wide)", false, 1)]
