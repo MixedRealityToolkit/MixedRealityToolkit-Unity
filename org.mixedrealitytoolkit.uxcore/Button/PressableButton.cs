@@ -152,7 +152,7 @@ namespace MixedReality.Toolkit.UX
         /// <summary>
         /// Is this object proximity-hovered by an active Collider + Interactor combination?
         /// </summary>
-        [field: SerializeField, EditableTimedFlag, Tooltip("Is this object proximity-hovered by an active Collider + Interactor combination?")]
+        [field: SerializeField, Tooltip("Is this object proximity-hovered by an active Collider + Interactor combination?")]
         public TimedFlag IsProximityHovered { get; private set; } = new TimedFlag();
 
         #region Private Members
