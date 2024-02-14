@@ -320,6 +320,7 @@ namespace MixedReality.Toolkit
             IsToggled.Active = active;
         }
 
+
         private static readonly ProfilerMarker OnFirstSelectEnteredPerfMarker =
             new ProfilerMarker("[MRTK] StatefulInteractable.OnFirstSelectEntered");
 

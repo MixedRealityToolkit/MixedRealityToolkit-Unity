@@ -213,6 +213,7 @@ namespace MixedReality.Toolkit.Editor
         static bool advancedButtonFoldout = false;
         static bool editorFoldout = false;
 
+        /// <inheritdoc />
         protected override void DrawMRTKInteractableFlags()
         {
             Color previousGUIColor = GUI.color;
