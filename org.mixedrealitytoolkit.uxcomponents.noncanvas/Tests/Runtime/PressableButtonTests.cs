@@ -7,13 +7,16 @@
 using MixedReality.Toolkit.Core.Tests;
 using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using Object = UnityEngine.Object;
 using SpaceMode = MixedReality.Toolkit.UX.PressableButton.SpaceMode;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
@@ -848,6 +851,61 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             Object.Destroy(testButton);
             // Wait for a frame to give Unity a chance to actually destroy the object
+            yield return null;
+        }
+
+        /// <summary>
+        /// Test the PressableButton script has the activeCollidersWithInteractor hashset.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonHasActiveCollidersWithInteractorHashset()
+        {
+            FieldInfo[] fieldInfos;
+            System.Type pressableButtonType = typeof(PressableButton);
+
+            fieldInfos = pressableButtonType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("activeCollidersWithInteractor")).ToArray();
+
+            Assert.AreEqual(1, result.Length);
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Tests PressableButton has IsProximityHovered property
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonHasIsProximityHoveredProperty([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+            yield return null;
+
+            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
+            Assert.IsNotNull(buttonComponent.IsProximityHovered);
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Tests PressableButton IsProximityHovered property is of type TimedFlag
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonIsProximityHoveredPropertyIsOfTypeTimedFlag([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+            yield return null;
+
+            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
+            Assert.AreEqual(typeof(TimedFlag), buttonComponent.IsProximityHovered.GetType());
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+
             yield return null;
         }
         #endregion Tests

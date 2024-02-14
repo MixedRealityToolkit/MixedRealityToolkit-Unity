@@ -20,10 +20,52 @@ namespace MixedReality.Toolkit.Input
         [Tooltip("The set of near interactors that belongs to near interaction")]
         private List<XRBaseInteractor> nearInteractors;
 
+        /// <summary>
+        /// Used to keep track of the previously detected colliders so that we can know which
+        /// colliders stopped being detected and update their buttons front plate and rounded
+        /// rect if they are labeled as dynamic (based on proximity).
+        /// </summary>
+        List<Collider> previouslyDetectedColliders = new List<Collider>();
+
         /// <inheritdoc />
         public override bool IsModeDetected()
         {
-            return base.IsModeDetected() || IsNearInteractorSelecting();
+            bool result = base.IsModeDetected() || IsNearInteractorSelecting();
+            if (result)
+            {
+                for (int i = 0; i < previouslyDetectedColliders.Count; i++)
+                {
+                    Collider previouslyDetectedCollider = previouslyDetectedColliders[i];
+                    if (!DetectedColliders.Contains(previouslyDetectedCollider) && previouslyDetectedCollider != null)
+                    {
+                        IXRProximityInteractable nearInteractionMode = previouslyDetectedCollider.GetComponent<IXRProximityInteractable>();
+                        if (nearInteractionMode != null)
+                        {
+                            foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
+                            {
+                                previouslyDetectedCollider.GetComponent<IXRProximityInteractable>().OnProximityExited(new ProximityExitedEventArgs(this, previouslyDetectedCollider, xrBaseInteractor));
+                            }
+                        }
+                        previouslyDetectedColliders.Remove(previouslyDetectedCollider);
+                    }
+                }
+                foreach (Collider collider in DetectedColliders)
+                {
+                    if (!previouslyDetectedColliders.Contains(collider))
+                    {
+                        IXRProximityInteractable nearInteractionMode = collider.GetComponent<IXRProximityInteractable>();
+                        if (nearInteractionMode != null)
+                        {
+                            foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
+                            {
+                                collider.GetComponent<IXRProximityInteractable>().OnProximityEntered(new ProximityEnteredEventArgs(this, collider, xrBaseInteractor));
+                            }
+                        }
+                        previouslyDetectedColliders.Add(collider);
+                    }
+                }
+            }
+            return result;
         }
 
         private bool IsNearInteractorSelecting()
