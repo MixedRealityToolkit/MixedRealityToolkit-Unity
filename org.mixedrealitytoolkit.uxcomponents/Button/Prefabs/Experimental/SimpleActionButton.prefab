@@ -7,9 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 566563330114838537, guid: 7ed78718e86d3cc469e6abbecb4a8508, type: 3}
+      propertyPath: m_Size.x
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 566563330114838537, guid: 7ed78718e86d3cc469e6abbecb4a8508, type: 3}
+      propertyPath: m_Size.y
+      value: 32
+      objectReference: {fileID: 0}
     - target: {fileID: 3281884835854150738, guid: 7ed78718e86d3cc469e6abbecb4a8508, type: 3}
       propertyPath: m_Name
       value: SimpleActionButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3740913922251384226, guid: 7ed78718e86d3cc469e6abbecb4a8508, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4636237264255655829, guid: 7ed78718e86d3cc469e6abbecb4a8508, type: 3}
       propertyPath: m_Pivot.x
@@ -130,11 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Simple
-
-    Action
-
-    Button'
+  m_text: Label
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -161,8 +169,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4.66
-  m_fontSizeBase: 4.66
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
