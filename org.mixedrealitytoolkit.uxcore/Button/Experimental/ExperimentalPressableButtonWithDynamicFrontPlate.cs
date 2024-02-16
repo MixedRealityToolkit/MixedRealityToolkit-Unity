@@ -7,16 +7,13 @@ using UnityEngine.UI;
 namespace MixedReality.Toolkit.UX
 {
     /// <summary>
-    /// ToDo : Complete this summary
+    /// This mono behaviour is used to enable or disable the front plate of a button when the button enters or exists proximity-hovering.
     /// </summary>
-    /// <remarks>
-    /// ToDo : Complete this remarks
-    /// </remarks>
     [RequireComponent(typeof(PressableButton))]
     public class ExperimentalPressableButtonWithDynamicFrontPlate : MonoBehaviour
     {
         /// <summary>
-        /// ToDo : Complete this summary
+        /// Name of the Frontplate GameObject in the prefab.
         /// </summary>
         private const string FrontPlateName = "Frontplate";
 
@@ -34,7 +31,7 @@ namespace MixedReality.Toolkit.UX
         /// <returns>Reference to this button FrontPlate's RawImage Component.  Null if it doesn't exist or if this is not an EmptyButton (Experimental), ActionButton (Experimental), or CanvasButtonToggleSwitch (Experimental)</returns>
         internal RawImage GetFrontPlateRawImage()
         {
-            if (gameObject.tag.Equals("ExperimentalDynamicFrontplate")) //This is a temporary conditional for the experimental dynamic frontplate feature, it will be removed if and only if the community accepts the experimental feature to be included in official release and be integrated as part of PressableButton script
+            if (gameObject.tag.Equals("ExperimentalDynamicFrontplate")) //This is a temporary conditional for the experimental dynamic frontplate feature, it will be removed if the community accepts the experimental feature to be included in official release and be integrated as part of PressableButton script
             {
                 foreach (Transform child in transform)
                 {
@@ -58,28 +55,24 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <summary>
-        /// ToDo: Complete this summary
+        /// Method invoked when the button enters proximity-hovering, set in Editor.
         /// </summary>
         public void OnProximityHoverEntered()
         {
-            //Debug.Log(name + " >> OnProximityHoverENTERED"); //ToDo : Remove this for final PR, it is currently used for debugging during development
             if (frontPlateRawImage != null)
             {
                 frontPlateRawImage.enabled = true;
-                //Debug.Log(name + " Frontplate RawImage ENABLED"); //ToDo : Remove this for final PR, it is currently used for debugging during development
             }
         }
 
         /// <summary>
-        /// ToDo: Complete this summary
+        /// Method invoked when the button exits proximity-hovering, set in Editor.
         /// </summary>
         public void OnProximityHoverExited()
         {
-            //Debug.Log(name + " >> OnProximityHoverEXITED"); //ToDo : Remove this for final PR, it is currently used for debugging during development
             if (frontPlateRawImage != null)
             {
                 frontPlateRawImage.enabled = false;
-                //Debug.Log(name + " Frontplate RawImage DISABLED"); //ToDo : Remove this for final PR, it is currently used for debugging during development
             }
         }
     }
