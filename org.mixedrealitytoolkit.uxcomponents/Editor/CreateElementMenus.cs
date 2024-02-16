@@ -56,6 +56,10 @@ namespace MixedReality.Toolkit.Editor
         // An empty button with a dynamic frontplate that is enabled|disabled on ProximityHover{Entered|Exited} events.
         private static readonly string CanvasButtonToggleSwitchButtonExperimentalDynamicFrontplatePath = AssetDatabase.GUIDToAssetPath("297dfdae60dad834d9d7272fd2608b8d");
 
+        // Action Button Checkbox (Experimental).prefab
+        // And Action Button with a dynamic frontplate and a checkbox.
+        private static readonly string ActionButtonExperimentalDynamicFrontplateCheckboxPath = AssetDatabase.GUIDToAssetPath("4749acd55be303d4fa93a3594166ff8f");
+
         // Reflection into internal UGUI editor utilities.
         private static System.Reflection.MethodInfo PlaceUIElementRoot = null;
 
@@ -247,7 +251,6 @@ namespace MixedReality.Toolkit.Editor
             Undo.SetCurrentGroupName("Create SimpleActionButton");
 
             GameObject simpleActionButton = CreateElementFromPath(SimpleActionButtonPath, menuCommand);
-
             Undo.RecordObject(simpleActionButton, "Added SimpleActionButton instance.");
         }
 
@@ -293,6 +296,15 @@ namespace MixedReality.Toolkit.Editor
             PrefabUtility.RecordPrefabInstancePropertyModifications(actionButtonDynamicFrontplate);
 
             return actionButtonDynamicFrontplate;
+        }
+
+        [MenuItem("GameObject/UI/MRTK/Action Button w dynamic Frontplate (Experimental) and Checkbox")]
+        private static void CreateActionButtonDynamicFrontplateCheckbox(MenuCommand menuCommand)
+        {
+            Undo.SetCurrentGroupName("Create ActionButton w dynamic Frontplate (Experimental) with Checkbox");
+
+            GameObject canvasButtonToggleSwitchDynamicFrontplate = CreateElementFromPath(ActionButtonExperimentalDynamicFrontplateCheckboxPath, menuCommand);
+            Undo.RecordObject(canvasButtonToggleSwitchDynamicFrontplate, "Added ActionButtonDynamicFrontplateCheckbox instance.");
         }
 
         [MenuItem("GameObject/UI/MRTK/CanvasButtonToggleSwitch w dynamic Frontplate (Experimental)")]
