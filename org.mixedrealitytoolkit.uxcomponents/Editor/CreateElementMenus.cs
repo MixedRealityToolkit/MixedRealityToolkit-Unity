@@ -44,6 +44,18 @@ namespace MixedReality.Toolkit.Editor
         // improved rendering performance.
         private static readonly string SimpleActionButtonPath = AssetDatabase.GUIDToAssetPath("a2b07dcaa4b2f8e4fa68b319f1477f4c");
 
+        // Empty Button (Experimental).prefab
+        // An empty button with a dynamic frontplate that is enabled|disabled on ProximityHover{Entered|Exited} events.
+        private static readonly string EmptyButtonExperimentalDynamicFrontplatePath = AssetDatabase.GUIDToAssetPath("5fedba636eb34154db39a7449ae26f3d");
+
+        // Action Button (Experimental).prefab
+        // An empty button with a dynamic frontplate that is enabled|disabled on ProximityHover{Entered|Exited} events.
+        private static readonly string ActionButtonExperimentalDynamicFrontplatePath = AssetDatabase.GUIDToAssetPath("8b47a046b439dd34c91fad985b921dd1");
+
+        // CanvasButtonToggleSwitch (Experimental).prefab
+        // An empty button with a dynamic frontplate that is enabled|disabled on ProximityHover{Entered|Exited} events.
+        private static readonly string CanvasButtonToggleSwitchButtonExperimentalDynamicFrontplatePath = AssetDatabase.GUIDToAssetPath("297dfdae60dad834d9d7272fd2608b8d");
+
         // Reflection into internal UGUI editor utilities.
         private static System.Reflection.MethodInfo PlaceUIElementRoot = null;
 
@@ -237,6 +249,33 @@ namespace MixedReality.Toolkit.Editor
             GameObject simpleActionButton = CreateElementFromPath(SimpleActionButtonPath, menuCommand);
 
             Undo.RecordObject(simpleActionButton, "Added SimpleActionButton instance.");
+        }
+
+        [MenuItem("GameObject/UI/MRTK/Empty Button w dynamic Frontplate (Experimental)")]
+        private static void CreateEmptyButtonDynamicFrontplate(MenuCommand menuCommand)
+        {
+            Undo.SetCurrentGroupName("Create EmptyButton w dynamic Frontplate (Experimental)");
+
+            GameObject emptyButtonDynamicFrontplate = CreateElementFromPath(EmptyButtonExperimentalDynamicFrontplatePath, menuCommand);
+            Undo.RecordObject(emptyButtonDynamicFrontplate, "Added EmptyButtonDynamicFrontplate instance.");
+        }
+
+        [MenuItem("GameObject/UI/MRTK/Action Button w dynamic Frontplate (Experimental)")]
+        private static void CreateActionButtonDynamicFrontplate(MenuCommand menuCommand)
+        {
+            Undo.SetCurrentGroupName("Create ActionButton w dynamic Frontplate (Experimental)");
+
+            GameObject actionButtonDynamicFrontplate = CreateElementFromPath(ActionButtonExperimentalDynamicFrontplatePath, menuCommand);
+            Undo.RecordObject(actionButtonDynamicFrontplate, "Added ActionButtonDynamicFrontplate instance.");
+        }
+
+        [MenuItem("GameObject/UI/MRTK/CanvasButtonToggleSwitch w dynamic Frontplate (Experimental)")]
+        private static void CreateCanvasButtonToggleSwitchDynamicFrontplate(MenuCommand menuCommand)
+        {
+            Undo.SetCurrentGroupName("Create CanvasButtonToggleSwitch w dynamic Frontplate (Experimental)");
+
+            GameObject canvasButtonToggleSwitchDynamicFrontplate = CreateElementFromPath(CanvasButtonToggleSwitchButtonExperimentalDynamicFrontplatePath, menuCommand);
+            Undo.RecordObject(canvasButtonToggleSwitchDynamicFrontplate, "Added CanvasButtonToggleSwitchDynamicFrontplate instance.");
         }
 
         [MenuItem("GameObject/UI/MRTK/Action Button (Wide)", false, 1)]
