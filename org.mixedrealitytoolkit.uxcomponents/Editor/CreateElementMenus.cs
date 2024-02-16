@@ -269,6 +269,32 @@ namespace MixedReality.Toolkit.Editor
             Undo.RecordObject(actionButtonDynamicFrontplate, "Added ActionButtonDynamicFrontplate instance.");
         }
 
+        [MenuItem("GameObject/UI/MRTK/Action Button (Wide) w dynamic Frontplate (Experimental)")]
+        private static GameObject CreateActionButtonWideDynamicFrontplate(MenuCommand menuCommand)
+        {
+            Undo.SetCurrentGroupName("Create ActionButton (Wide) w dynamic Frontplate (Experimental)");
+
+            GameObject actionButtonDynamicFrontplate = CreateElementFromPath(ActionButtonExperimentalDynamicFrontplatePath, menuCommand);
+            Undo.RecordObject(actionButtonDynamicFrontplate, "Added ActionButtonDynamicFrontplate instance.");
+
+            RectTransform rt = actionButtonDynamicFrontplate.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(128.0f, 32.0f);
+            Undo.RecordObject(rt, "Set Action Button (Wide) w dynamic Frontplate (Experimental) size");
+            LayoutElement le = actionButtonDynamicFrontplate.GetComponent<LayoutElement>();
+            le.minWidth = 128.0f;
+            Undo.RecordObject(le, "Set Action Button (Wide) w dynamic Frontplate (Experimental) min width");
+
+            var text = actionButtonDynamicFrontplate.GetComponentsInChildren<TMP_Text>(true).Where(t => t.name == "Text").First();
+            text.gameObject.SetActive(true);
+            text.alignment = TextAlignmentOptions.Left;
+            text.text = "<size=8>Header</size><size=6>\n<alpha=#88>Meta text goes here</size>";
+            Undo.RecordObject(text, "Set Action Button (Wide) w dynamic Frontplate (Experimental) text");
+
+            PrefabUtility.RecordPrefabInstancePropertyModifications(actionButtonDynamicFrontplate);
+
+            return actionButtonDynamicFrontplate;
+        }
+
         [MenuItem("GameObject/UI/MRTK/CanvasButtonToggleSwitch w dynamic Frontplate (Experimental)")]
         private static void CreateCanvasButtonToggleSwitchDynamicFrontplate(MenuCommand menuCommand)
         {
