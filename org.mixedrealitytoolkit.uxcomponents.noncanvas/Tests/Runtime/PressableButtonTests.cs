@@ -908,6 +908,73 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             yield return null;
         }
+
+        /// <summary>
+        /// In MRTK3 Issue 643 Experimental SimpleEmptyButton didn't have a SeeItSayItLabel component and it should have one
+        /// and the associated GameObject shouldn't be null.
+        /// This test is to confirm that this has not regressed.
+        /// https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/643
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestSimpleEmptyButtonHasSeeItSayItLabelComponentAndReferencedGameObjectIsNotNull()
+        {
+            // instantiate scene and button
+            string SimpleEmptyButtonPath = AssetDatabase.GUIDToAssetPath("7ed78718e86d3cc469e6abbecb4a8508");
+            GameObject testSimpleEmptyButton = InstantiateDefaultPressableButton(SimpleEmptyButtonPath);
+            yield return null;
+
+            SeeItSayItLabelEnabler[] seeItSayitLabelEnablerComponents = testSimpleEmptyButton.GetComponents<SeeItSayItLabelEnabler>();
+            Assert.AreEqual(1, seeItSayitLabelEnablerComponents.Length); //Check it has the component
+
+            GameObject seeItSayItLabelGameObject = null;
+            foreach (Transform child in testSimpleEmptyButton.transform)
+            {
+                if (child.name.Equals("SeeItSayItLabel-Canvas"))
+                {
+                    seeItSayItLabelGameObject = child.gameObject;
+                }
+            }
+            Assert.IsNotNull(seeItSayItLabelGameObject); //Check the referenced GameObject is not null
+
+            Object.Destroy(testSimpleEmptyButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// In MRTK3 Issue 643 Experimental SimpleActionButton didn't have a SeeItSayItLabel component and it should have one
+        /// and the associated GameObject shouldn't be null.
+        /// This test is to confirm that this has not regressed.
+        /// https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/643
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestSimpleActionButtonHasSeeItSayItLabelComponentAndReferencedGameObjectIsNotNull()
+        {
+            // instantiate scene and button
+            string SimpleActionButtonPath = AssetDatabase.GUIDToAssetPath("a2b07dcaa4b2f8e4fa68b319f1477f4c");
+            GameObject testSimpleActionButton = InstantiateDefaultPressableButton(SimpleActionButtonPath);
+            yield return null;
+
+            SeeItSayItLabelEnabler[] seeItSayitLabelEnablerComponents = testSimpleActionButton.GetComponents<SeeItSayItLabelEnabler>();
+            Assert.AreEqual(1, seeItSayitLabelEnablerComponents.Length); //Check it has the component
+
+            GameObject seeItSayItLabelGameObject = null;
+            foreach (Transform child in testSimpleActionButton.transform)
+            {
+                if (child.name.Equals("SeeItSayItLabel-Canvas"))
+                {
+                    seeItSayItLabelGameObject = child.gameObject;
+                }
+            }
+            Assert.IsNotNull(seeItSayItLabelGameObject); //Check the referenced GameObject is not null
+
+            Object.Destroy(testSimpleActionButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+
+            yield return null;
+        }
+
         #endregion Tests
 
         #region Private methods
