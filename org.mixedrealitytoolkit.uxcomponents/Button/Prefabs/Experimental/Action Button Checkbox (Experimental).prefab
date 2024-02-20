@@ -112,6 +112,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Action Button Checkbox (Experimental)
       objectReference: {fileID: 0}
+    - target: {fileID: 3094130583679974618, guid: 8b47a046b439dd34c91fad985b921dd1, type: 3}
+      propertyPath: <IsProximityHovered>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094130583679974618, guid: 8b47a046b439dd34c91fad985b921dd1, type: 3}
+      propertyPath: <IsProximityHovered>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094130583679974618, guid: 8b47a046b439dd34c91fad985b921dd1, type: 3}
+      propertyPath: <IsProximityHovered>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094130583679974618, guid: 8b47a046b439dd34c91fad985b921dd1, type: 3}
+      propertyPath: <IsProximityHovered>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.Behaviour, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094130583679974618, guid: 8b47a046b439dd34c91fad985b921dd1, type: 3}
+      propertyPath: <IsProximityHovered>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3094130583679974621, guid: 8b47a046b439dd34c91fad985b921dd1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

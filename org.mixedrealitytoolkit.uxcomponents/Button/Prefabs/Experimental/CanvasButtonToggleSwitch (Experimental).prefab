@@ -100,6 +100,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
+      propertyPath: <FrontplateRawImage>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -109,20 +113,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5618803279819081472}
+      objectReference: {fileID: 5756215702344622918}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5618803279819081472}
+      objectReference: {fileID: 5756215702344622918}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -133,21 +137,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnProximityHoverExited
+      value: set_enabled
       objectReference: {fileID: 0}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnProximityHoverEntered
+      value: set_enabled
       objectReference: {fileID: 0}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MixedReality.Toolkit.UX.ExperimentalPressableButtonWithDynamicFrontPlate,
-        MixedReality.Toolkit.UXCore
+      value: UnityEngine.Behaviour, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MixedReality.Toolkit.UX.ExperimentalPressableButtonWithDynamicFrontPlate,
-        MixedReality.Toolkit.UXCore
+      value: UnityEngine.Behaviour, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
+      propertyPath: <IsProximityHovered>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 381969322861459380, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
       propertyPath: <IsProximityHovered>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -193,5 +199,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae0fa29d12e183a43a680538a9abb966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5756215702344622918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6746637090200487892, guid: 6d114d8c9f4193b45b685f408022743e, type: 3}
+  m_PrefabInstance: {fileID: 1315879155671688338}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
