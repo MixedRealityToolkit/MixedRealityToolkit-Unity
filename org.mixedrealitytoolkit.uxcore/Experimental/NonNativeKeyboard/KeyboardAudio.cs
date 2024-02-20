@@ -25,7 +25,7 @@ namespace MixedReality.Toolkit.UX
         private void EnableTouch()
         {
             clickSoundPlayer = gameObject.GetComponent<AudioSource>();
-            var buttons = GetComponentsInChildren<Button>();
+            var buttons = GetComponentsInChildren<Button>(true);
             foreach (var button in buttons)
             {
                 button.onClick.AddListener(PlayClick);
