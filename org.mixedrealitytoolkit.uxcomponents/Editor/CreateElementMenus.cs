@@ -44,10 +44,6 @@ namespace MixedReality.Toolkit.Editor
         // improved rendering performance.
         private static readonly string SimpleActionButtonPath = AssetDatabase.GUIDToAssetPath("a2b07dcaa4b2f8e4fa68b319f1477f4c");
 
-        // Empty Button (Experimental).prefab
-        // An empty button with a dynamic frontplate that is enabled|disabled on ProximityHover{Entered|Exited} events.
-        private static readonly string EmptyButtonExperimentalDynamicFrontplatePath = AssetDatabase.GUIDToAssetPath("5fedba636eb34154db39a7449ae26f3d");
-
         // Action Button (Experimental).prefab
         // An empty button with a dynamic frontplate that is enabled|disabled on ProximityHover{Entered|Exited} events.
         private static readonly string ActionButtonExperimentalDynamicFrontplatePath = AssetDatabase.GUIDToAssetPath("8b47a046b439dd34c91fad985b921dd1");
@@ -255,15 +251,6 @@ namespace MixedReality.Toolkit.Editor
         }
 
         #region Experimental Buttons with dynamic Frontplate
-        [MenuItem("GameObject/UI/MRTK/Dynamic Frontplate (Experimental)/Empty Button w dynamic Frontplate (Experimental)")]
-        private static void CreateEmptyButtonDynamicFrontplate(MenuCommand menuCommand)
-        {
-            Undo.SetCurrentGroupName("Create EmptyButton w dynamic Frontplate (Experimental)");
-
-            GameObject emptyButtonDynamicFrontplate = CreateElementFromPath(EmptyButtonExperimentalDynamicFrontplatePath, menuCommand);
-            Undo.RecordObject(emptyButtonDynamicFrontplate, "Added EmptyButtonDynamicFrontplate instance.");
-        }
-
         [MenuItem("GameObject/UI/MRTK/Dynamic Frontplate (Experimental)/Action Button w dynamic Frontplate (Experimental)")]
         private static void CreateActionButtonDynamicFrontplate(MenuCommand menuCommand)
         {
@@ -316,7 +303,6 @@ namespace MixedReality.Toolkit.Editor
             GameObject canvasButtonToggleSwitchDynamicFrontplate = CreateElementFromPath(CanvasButtonToggleSwitchButtonExperimentalDynamicFrontplatePath, menuCommand);
             Undo.RecordObject(canvasButtonToggleSwitchDynamicFrontplate, "Added CanvasButtonToggleSwitchDynamicFrontplate instance.");
         }
-
         #endregion Experimental Buttons with dynamic Frontplate
 
         [MenuItem("GameObject/UI/MRTK/Action Button (Wide)", false, 1)]
