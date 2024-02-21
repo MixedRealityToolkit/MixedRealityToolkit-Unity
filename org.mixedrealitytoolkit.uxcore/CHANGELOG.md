@@ -8,4 +8,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Fixed support for UPM package publishing in the Unity Asset Store.
 * Added Experimental Buttons with dynamic Frontplate and demo CanvasUITearsheetDynamicFrontplate scene.
-* Fixed some buttons in nonnative keyboard not having sound
+* Fixed some buttons in nonnative keyboard not having sound.
