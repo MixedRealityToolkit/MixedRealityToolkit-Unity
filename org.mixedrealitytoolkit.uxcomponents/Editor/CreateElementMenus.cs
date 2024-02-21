@@ -252,7 +252,7 @@ namespace MixedReality.Toolkit.Editor
             Undo.RecordObject(simpleActionButton, "Added SimpleActionButton instance.");
         }
 
-        [MenuItem("GameObject/UI/MRTK/Experimental/Dynamic Frontplate/Action Button")]
+        [MenuItem("GameObject/UI/MRTK/Experimental/Action Button - Dynamic Frontplate")]
         private static void CreateActionButtonDynamicFrontplate(MenuCommand menuCommand)
         {
             Undo.SetCurrentGroupName("Create ActionButton w dynamic Frontplate");
@@ -261,7 +261,7 @@ namespace MixedReality.Toolkit.Editor
             Undo.RecordObject(actionButtonDynamicFrontplate, "Added ActionButtonDynamicFrontplate instance.");
         }
 
-        [MenuItem("GameObject/UI/MRTK/Experimental/Dynamic Frontplate/Action Button (Wide)")]
+        [MenuItem("GameObject/UI/MRTK/Experimental/Action Button (Wide) - Dynamic Frontplate")]
         private static GameObject CreateActionButtonWideDynamicFrontplate(MenuCommand menuCommand)
         {
             Undo.SetCurrentGroupName("Create ActionButton (Wide) w dynamic Frontplate");
@@ -287,16 +287,16 @@ namespace MixedReality.Toolkit.Editor
             return actionButtonDynamicFrontplate;
         }
 
-        [MenuItem("GameObject/UI/MRTK/Experimental/Dynamic Frontplate/Action Button w Checkbox")]
+        [MenuItem("GameObject/UI/MRTK/Experimental/Action Button w Checkbox - Dynamic Frontplate")]
         private static void CreateActionButtonDynamicFrontplateCheckbox(MenuCommand menuCommand)
         {
-            Undo.SetCurrentGroupName("Create ActionButton w dynamic Frontplatewith Checkbox");
+            Undo.SetCurrentGroupName("Create ActionButton w dynamic Frontplate with Checkbox");
 
             GameObject canvasButtonToggleSwitchDynamicFrontplate = CreateElementFromPath(ActionButtonExperimentalDynamicFrontplateCheckboxPath, menuCommand);
             Undo.RecordObject(canvasButtonToggleSwitchDynamicFrontplate, "Added ActionButtonDynamicFrontplateCheckbox instance.");
         }
 
-        [MenuItem("GameObject/UI/MRTK/Experimental/Dynamic Frontplate/CanvasButtonToggleSwitch")]
+        [MenuItem("GameObject/UI/MRTK/Experimental/CanvasButtonToggleSwitch - Dynamic Frontplate")]
         private static void CreateCanvasButtonToggleSwitchDynamicFrontplate(MenuCommand menuCommand)
         {
             Undo.SetCurrentGroupName("Create CanvasButtonToggleSwitch w dynamic Frontplate");
