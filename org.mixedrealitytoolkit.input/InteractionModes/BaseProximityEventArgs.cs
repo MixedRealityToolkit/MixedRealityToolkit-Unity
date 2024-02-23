@@ -18,17 +18,11 @@ namespace MixedReality.Toolkit.Input
         /// <param name="sender">Source of event.</param>
         /// <param name="collider">Collider that triggers proximity event.</param>
         /// <param name="interactor">XRBaseInteractor that triggers proximity event.</param>
-        public BaseProximityEventArgs(object sender, Collider collider, XRBaseInteractor interactor)
+        public BaseProximityEventArgs(Collider collider, XRBaseInteractor interactor)
         {
-            Sender = sender;
             Collider = collider;
             Interactor = interactor;
         }
-
-        /// <summary>
-        /// The object that triggered the proximity event.
-        /// </summary>
-        public object Sender { get; private set; }
 
         /// <summary>
         /// The collider associated with the interaction event.

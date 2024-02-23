@@ -43,7 +43,7 @@ namespace MixedReality.Toolkit.Input
                         {
                             foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
                             {
-                                previouslyDetectedCollider.GetComponent<IXRProximityInteractable>().OnProximityExited(new ProximityExitedEventArgs(this, previouslyDetectedCollider, xrBaseInteractor));
+                                previouslyDetectedCollider.GetComponent<IXRProximityInteractable>().OnProximityExited(new ProximityExitedEventArgs(previouslyDetectedCollider, xrBaseInteractor));
                             }
                         }
                         previouslyDetectedColliders.Remove(previouslyDetectedCollider);
@@ -58,7 +58,7 @@ namespace MixedReality.Toolkit.Input
                         {
                             foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
                             {
-                                collider.GetComponent<IXRProximityInteractable>().OnProximityEntered(new ProximityEnteredEventArgs(this, collider, xrBaseInteractor));
+                                collider.GetComponent<IXRProximityInteractable>().OnProximityEntered(new ProximityEnteredEventArgs(collider, xrBaseInteractor));
                             }
                         }
                         previouslyDetectedColliders.Add(collider);
