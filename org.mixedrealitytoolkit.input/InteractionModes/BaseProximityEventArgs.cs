@@ -10,7 +10,7 @@ namespace MixedReality.Toolkit.Input
     /// <summary>
     /// Event data associated with proximity events triggered by a Collider and an Interactor combo.
     /// </summary>
-    public abstract partial class BaseProximityEventArgs : EventArgs
+    public abstract class BaseProximityEventArgs : EventArgs
     {
         /// <summary>
         /// Constructor for BaseProximityEventArgs.
