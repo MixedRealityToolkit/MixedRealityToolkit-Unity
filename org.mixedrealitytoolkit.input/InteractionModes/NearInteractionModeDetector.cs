@@ -53,11 +53,11 @@ namespace MixedReality.Toolkit.Input
                 {
                     if (!previouslyDetectedColliders.Contains(collider))
                     {
-                        if (collider.TryGetComponent(out IXRProximityInteractable nearInteractionMode))
+                        foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
                         {
-                            foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
+                            if (collider.TryGetComponent(out IXRProximityInteractable nearInteractionMode))
                             {
-                                collider.GetComponent<IXRProximityInteractable>().OnProximityEntered(new ProximityEnteredEventArgs(collider, xrBaseInteractor));
+                                nearInteractionMode.OnProximityEntered(new ProximityEnteredEventArgs(collider, xrBaseInteractor));
                             }
                         }
                         previouslyDetectedColliders.Add(collider);
