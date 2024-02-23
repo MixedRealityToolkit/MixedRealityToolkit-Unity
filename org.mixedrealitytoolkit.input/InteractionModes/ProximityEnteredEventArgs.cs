@@ -18,15 +18,5 @@ namespace MixedReality.Toolkit.Input
         {
             //Empty on purpose
         }
-
-        /// <summary>
-        /// The collider associated with the proximity entered event.
-        /// </summary>
-        public new Collider collider => base.Collider;
-
-        /// <summary>
-        /// The Interactor associated with the proximity entered event.
-        /// </summary>
-        public new XRBaseInteractor interactor => base.Interactor;
     }
 }
