@@ -22,11 +22,11 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// The Collider associated with the proximity exited event.
         /// </summary>
-        public new Collider collider => base.collider;
+        public new Collider collider => base.Collider;
 
         /// <summary>
         /// The Interactor associated with the proximity exited event.
         /// </summary>
-        public new XRBaseInteractor interactor => base.interactor;
+        public new XRBaseInteractor interactor => base.Interactor;
     }
 }
