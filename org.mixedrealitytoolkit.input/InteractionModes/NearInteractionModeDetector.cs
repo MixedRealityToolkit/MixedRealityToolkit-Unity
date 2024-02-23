@@ -25,7 +25,7 @@ namespace MixedReality.Toolkit.Input
         /// colliders stopped being detected and update their buttons front plate and rounded
         /// rect if they are labeled as dynamic (based on proximity).
         /// </summary>
-        List<Collider> previouslyDetectedColliders = new List<Collider>();
+        private List<Collider> previouslyDetectedColliders = new List<Collider>();
 
         /// <inheritdoc />
         public override bool IsModeDetected()
