@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
+
 using System.Collections;
-using MixedReality.Toolkit;
 using MixedReality.Toolkit.Input;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +9,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace MixedReality.Toolkit.UX.Experimental
 {
+    /// <summary>
+    /// Adds touch interaction to a button on the non-native keyboard
+    /// </summary>
+    [RequireComponent(typeof(RectTransform))]
+    [RequireComponent(typeof(Button))]
+    [RequireComponent(typeof(Graphic))]
     public class NonNativeKeyTouchAdapter : MonoBehaviour
     {
         private const float ColliderMargin = 30.0f;
@@ -28,13 +34,19 @@ namespace MixedReality.Toolkit.UX.Experimental
         private Vector3 buttonColliderDefaultCenter;
         private Color defaultImageColor;
 
-        private void Awake()
+        /// <summary>
+        /// See <see cref="MonoBehaviour"/>.
+        /// </summary>
+        protected void Awake()
         {
             defaultPosition = transform.localPosition;
             animatedPosition = defaultPosition + new Vector3(0, 0, AnimationMovementDelta);
         }
 
-        private void OnEnable()
+        /// <summary>
+        /// See <see cref="MonoBehaviour"/>.
+        /// </summary>
+        protected void OnEnable()
         {
             transform.localPosition = defaultPosition;
             lastClickTime = Time.time;
@@ -58,17 +70,17 @@ namespace MixedReality.Toolkit.UX.Experimental
             buttonCollider = gameObject.EnsureComponent<BoxCollider>();
             var size = new Vector3(
                 rectTransform.rect.size.x - ColliderMargin,
-                rectTransform.rect.size.y - ColliderMargin, 
+                rectTransform.rect.size.y - ColliderMargin,
                 ColliderThickness);
             buttonCollider.size = size;
             buttonColliderDefaultCenter = new Vector3((size.x + ColliderMargin) / 2.0f,
                 (-size.y - ColliderMargin) / 2.0f, ColliderZDelta);
             buttonCollider.center = buttonColliderDefaultCenter;
-            
+
             image = GetComponent<Graphic>();
             defaultImageColor = image.color;
             var button = GetComponent<Button>();
-            
+
             interactable = gameObject.EnsureComponent<StatefulInteractable>();
             interactable.firstSelectEntered.AddListener(selectArgs =>
             {
@@ -92,7 +104,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             {
                 SetColorOnHoverPoke(hoverArgs.interactorObject, button.colors.highlightedColor);
             });
-            
+
             interactable.lastHoverExited.AddListener(hoverArgs =>
             {
                 SetColorOnHoverPoke(hoverArgs.interactorObject, defaultImageColor);
@@ -106,8 +118,11 @@ namespace MixedReality.Toolkit.UX.Experimental
                 image.color = color;
             }
         }
-        
-        private void Update()
+
+        /// <summary>
+        /// See <see cref="MonoBehaviour"/>.
+        /// </summary>
+        protected void Update()
         {
             // fallback for if the user very rapidly moves their finger over the keyboard and
             // interactable.lastHoverExited does not get fired (or too early)

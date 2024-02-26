@@ -1,11 +1,15 @@
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
+
 using UnityEngine;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
-    /// Makes a game object appear having a RadialView component in the center of the view,
-    /// at a distance equal to the average of the MinDistance and MaxDistance of the RadialView.
-    /// This prevents the object from 'racing into your view' and/or appear slanted
+    /// Positions a game object with a RadialView component at the center of the view,
+    /// maintaining a distance equal to the average of the MinDistance and MaxDistance
+    /// properties of the RadialView. This prevents the object from rapidly approaching the
+    /// viewer and ensures it appears upright.
     /// </summary>
     [RequireComponent(typeof(RadialView))]
     public class RadialViewDisplayInitializeHelper : MonoBehaviour

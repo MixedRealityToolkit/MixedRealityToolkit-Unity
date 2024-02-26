@@ -1,22 +1,30 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clauseusing System;
 
-using Microsoft.MixedReality.GraphicsTools;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MixedReality.Toolkit.UX.Experimental
 {
+    /// <summary>
+    /// Adds touch interaction to every button on the non-native keyboard
+    /// </summary>
+    [RequireComponent(typeof(AudioSource))]
     public class NonNativeKeyboardTouchAdapter : MonoBehaviour
     {
-        private void Awake()
+        /// <summary>
+        /// See <see cref="MonoBehaviour"/>.
+        /// </summary>
+        protected void Awake()
         {
             var defaultAudioComponent = GetComponent<AudioSource>();
             defaultAudioComponent.playOnAwake = false;
-            defaultAudioComponent.spatialize = false;
         }
 
-        private void Start()
+        /// <summary>
+        /// See <see cref="MonoBehaviour"/>.
+        /// </summary>
+        protected void Start()
         {
             var buttons = GetComponentsInChildren<Button>(true);
             foreach (var button in buttons)
