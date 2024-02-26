@@ -87,7 +87,6 @@ namespace MixedReality.Toolkit.UX.Experimental
             interactable.firstSelectEntered.AddListener(OnSelectStart);
             interactable.lastSelectExited.AddListener(OnSelectEnd);
             interactable.firstHoverEntered.AddListener(OnHoverStart);
-            interactable.lastHoverExited.AddListener(OnHoverEnd);
         }
 
         private void OnSelectStart(SelectEnterEventArgs selectArgs)
@@ -112,29 +111,11 @@ namespace MixedReality.Toolkit.UX.Experimental
             SetColorOnHoverPoke(hoverArgs.interactorObject, button.colors.highlightedColor);
         }
 
-        private void OnHoverEnd(HoverExitEventArgs hoverArgs)
-        {
-            SetColorOnHoverPoke(hoverArgs.interactorObject, defaultImageColor);
-        }
-
         private void SetColorOnHoverPoke(IXRHoverInteractor interaction, Color color)
         {
             if (interaction is PokeInteractor)
             {
                 image.color = color;
-            }
-        }
-
-        /// <summary>
-        /// See <see cref="MonoBehaviour"/>.
-        /// </summary>
-        protected void Update()
-        {
-            // fallback for if the user very rapidly moves their finger over the keyboard and
-            // interactable.lastHoverExited does not get fired (or too early)
-            if (interactable.HoveringPokeInteractors.Count == 0 && image.color != defaultImageColor)
-            {
-                image.color = defaultImageColor;
             }
         }
 
@@ -150,15 +131,19 @@ namespace MixedReality.Toolkit.UX.Experimental
             {
                 i += Time.deltaTime * rate;
                 var newPos = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, i));
-                transform.localPosition = newPos; buttonCollider.center = buttonColliderDefaultCenter - (newPos - defaultPosition);
+                transform.localPosition = newPos;
+                buttonCollider.center = buttonColliderDefaultCenter - (newPos - defaultPosition);
                 yield return null;
+            }
+            if (interactable.HoveringPokeInteractors.Count == 0 && image.color != defaultImageColor)
+            {
+                image.color = defaultImageColor;
             }
         }
 
         private void OnDestroy()
         {
             interactable.hoverEntered.RemoveListener(OnHoverStart);
-            interactable.hoverExited.RemoveListener(OnHoverEnd);
             interactable.firstSelectEntered.RemoveListener(OnSelectStart);
             interactable.lastSelectExited.RemoveListener(OnSelectEnd);
         }
