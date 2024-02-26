@@ -33,6 +33,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         private BoxCollider buttonCollider;
         private Vector3 buttonColliderDefaultCenter;
         private Color defaultImageColor;
+        private Button button;
 
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
@@ -79,36 +80,41 @@ namespace MixedReality.Toolkit.UX.Experimental
 
             image = GetComponent<Graphic>();
             defaultImageColor = image.color;
-            var button = GetComponent<Button>();
-
-            interactable = gameObject.EnsureComponent<StatefulInteractable>();
-            interactable.firstSelectEntered.AddListener(selectArgs =>
-            {
-                if (selectArgs.interactorObject is not PokeInteractor ||
-                    Time.time - lastClickTime < ReClickDelayTime)
-                {
-                    return;
-                }
-
-                button.onClick.Invoke();
-                StartCoroutine(MoveButton(defaultPosition, animatedPosition));
-            });
+            button = GetComponent<Button>();
             button.interactable = false;
 
-            interactable.lastSelectExited.AddListener(_ =>
-            {
-                StartCoroutine(MoveButton(animatedPosition, defaultPosition));
-            });
+            interactable = gameObject.EnsureComponent<StatefulInteractable>();
+            interactable.firstSelectEntered.AddListener(OnSelectStart);
+            interactable.lastSelectExited.AddListener(OnSelectEnd);
+            interactable.firstHoverEntered.AddListener(OnHoverStart);
+            interactable.lastHoverExited.AddListener(OnHoverEnd);
+        }
 
-            interactable.firstHoverEntered.AddListener(hoverArgs =>
+        private void OnSelectStart(SelectEnterEventArgs selectArgs)
+        {
+            if (selectArgs.interactorObject is not PokeInteractor ||
+                Time.time - lastClickTime < ReClickDelayTime)
             {
-                SetColorOnHoverPoke(hoverArgs.interactorObject, button.colors.highlightedColor);
-            });
+                return;
+            }
 
-            interactable.lastHoverExited.AddListener(hoverArgs =>
-            {
-                SetColorOnHoverPoke(hoverArgs.interactorObject, defaultImageColor);
-            });
+            button.onClick.Invoke();
+            StartCoroutine(MoveButton(defaultPosition, animatedPosition));
+        }
+
+        private void OnSelectEnd(SelectExitEventArgs _)
+        {
+            StartCoroutine(MoveButton(animatedPosition, defaultPosition));
+        }
+
+        private void OnHoverStart(HoverEnterEventArgs hoverArgs)
+        {
+            SetColorOnHoverPoke(hoverArgs.interactorObject, button.colors.highlightedColor);
+        }
+
+        private void OnHoverEnd(HoverExitEventArgs hoverArgs)
+        {
+            SetColorOnHoverPoke(hoverArgs.interactorObject, defaultImageColor);
         }
 
         private void SetColorOnHoverPoke(IXRHoverInteractor interaction, Color color)
@@ -151,10 +157,10 @@ namespace MixedReality.Toolkit.UX.Experimental
 
         private void OnDestroy()
         {
-            interactable.hoverExited.RemoveAllListeners();
-            interactable.hoverEntered.RemoveAllListeners();
-            interactable.firstSelectEntered.RemoveAllListeners();
-            interactable.lastSelectExited.RemoveAllListeners();
+            interactable.hoverEntered.RemoveListener(OnHoverStart);
+            interactable.hoverExited.RemoveListener(OnHoverEnd);
+            interactable.firstSelectEntered.RemoveListener(OnSelectStart);
+            interactable.lastSelectExited.RemoveListener(OnSelectEnd);
         }
     }
 }
