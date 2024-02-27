@@ -70,7 +70,6 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void UpdateProximityEntered()
         {
-
             foreach (Collider collider in DetectedColliders)
             {
                 if (!previouslyDetectedColliders.Contains(collider) &&
