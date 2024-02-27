@@ -18,7 +18,7 @@
   "documentationUrl": "https://www.mixedrealitytoolkit.org",
   "dependencies": {
     "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-    "org.mixedrealitytoolkit.uxcore": "3.2.0",
+    "org.mixedrealitytoolkit.uxcore": "3.2.0-development",
     "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0",
     "org.mixedrealitytoolkit.standardassets": "3.1.0",
     "com.unity.xr.interaction.toolkit": "2.3.0"
