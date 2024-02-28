@@ -2,7 +2,11 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.1.1-development] - 2024-02-04
+## [3.2.0-development] - 2024-02-04
+
+### Added
+
+* ObjectManipulator's ManipulationLogic observes XRSocketInteractor, XRI v2.3.0.
 
 ### Fixed
 
