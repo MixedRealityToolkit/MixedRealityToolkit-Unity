@@ -65,7 +65,7 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Calll OnProximityEntered for all colliders that are currently detected but were not detected previously.  This
+        /// Call OnProximityEntered for all colliders that are currently detected but were not detected previously.  This
         /// effectively triggers OnProximityEntered for all colliders that are newly detected.
         /// </summary>
         private void UpdateProximityEntered()
