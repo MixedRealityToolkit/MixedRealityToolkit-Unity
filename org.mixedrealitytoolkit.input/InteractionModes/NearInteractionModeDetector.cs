@@ -17,11 +17,11 @@ namespace MixedReality.Toolkit.Input
     public class NearInteractionModeDetector : ProximityDetector
     {
         /// <summary>
-        /// The set of near interactors that belongs to near interaction
+        /// The set of near interactables that belongs to near interaction
         /// </summary>
         [SerializeField]
-        [Tooltip("The set of near interactors that belongs to near interaction")]
-        private List<XRBaseInteractor> nearInteractors;
+        [Tooltip("The set of near interactables that belongs to near interaction")]
+        private List<XRBaseInteractable> nearInteractables;
 
         /// <summary>
         /// Used to keep track of the previously detected colliders so that we can know which
@@ -55,9 +55,9 @@ namespace MixedReality.Toolkit.Input
                     InteractionManager.TryGetInteractableForCollider(previouslyDetectedCollider, out IXRInteractable xrInteractable) &&
                     xrInteractable is IXRProximityInteractable xrProximityInteractable)
                 {
-                    foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
+                    foreach (XRBaseInteractable xrBaseInteractable in nearInteractables)
                     {
-                        xrProximityInteractable.OnProximityExited(new ProximityExitedEventArgs(previouslyDetectedCollider, xrBaseInteractor));
+                        xrProximityInteractable.OnProximityExited(new ProximityExitedEventArgs(previouslyDetectedCollider, xrBaseInteractable));
                     }
                     previouslyDetectedColliders.Remove(previouslyDetectedCollider);
                 }
@@ -76,9 +76,9 @@ namespace MixedReality.Toolkit.Input
                     InteractionManager.TryGetInteractableForCollider(collider, out IXRInteractable xrInteractable) &&
                     xrInteractable is IXRProximityInteractable xrProximityInteractable)
                 {
-                    foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
+                    foreach (XRBaseInteractable xrBaseInteractable in nearInteractables)
                     {
-                        xrProximityInteractable.OnProximityEntered(new ProximityEnteredEventArgs(collider, xrBaseInteractor));
+                        xrProximityInteractable.OnProximityEntered(new ProximityEnteredEventArgs(collider, xrBaseInteractable));
                     }
                     previouslyDetectedColliders.Add(collider);
                 }
@@ -86,14 +86,14 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Indicates whether any near interactor is selecting an interactable.
+        /// Indicates whether any near interactable has interactors selecting.
         /// </summary>
-        /// <returns>True if an interactor is selecting, false otherwise.</returns>
+        /// <returns>True if an interactable has interactors selecting, false otherwise.</returns>
         private bool IsNearInteractorSelecting()
         {
-            foreach (XRBaseInteractor nearInteractor in nearInteractors)
+            foreach (XRBaseInteractable nearInteractable in nearInteractables)
             {
-                if (nearInteractor.hasSelection)
+                if (nearInteractable.interactorsSelecting.Count > 0)
                 {
                     return true;
                 }

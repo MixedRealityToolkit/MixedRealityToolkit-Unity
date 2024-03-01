@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// Event data associated with proximity events triggered by a Collider and an Interactor combo.
+    /// Event data associated with proximity events triggered by a Collider and an Interactable combo.
     /// </summary>
     public abstract class BaseProximityEventArgs : EventArgs
     {
@@ -17,11 +17,11 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         /// <param name="sender">Source of event.</param>
         /// <param name="collider">Collider that triggers proximity event.</param>
-        /// <param name="interactor">XRBaseInteractor that triggers proximity event.</param>
-        public BaseProximityEventArgs(Collider collider, XRBaseInteractor interactor)
+        /// <param name="interactor">XRBaseInteractable that triggers proximity event.</param>
+        public BaseProximityEventArgs(Collider collider, XRBaseInteractable interactable)
         {
             Collider = collider;
-            Interactor = interactor;
+            Interactable = interactable;
         }
 
         /// <summary>
@@ -30,8 +30,8 @@ namespace MixedReality.Toolkit.Input
         public Collider Collider { get; private set; }
 
         /// <summary>
-        /// The interactor associated with the interaction event.
+        /// The interactable associated with the interaction event.
         /// </summary>
-        public XRBaseInteractor Interactor { get; private set; }
+        public XRBaseInteractable Interactable { get; private set; }
     }
 }

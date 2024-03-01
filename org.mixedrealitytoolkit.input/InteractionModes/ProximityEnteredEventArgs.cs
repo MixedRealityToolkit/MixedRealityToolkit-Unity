@@ -13,8 +13,8 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         /// <param name="sender">Source of event.</param>
         /// <param name="collider">Collider associated with the Proximity Entered event.</param>
-        /// <param name="interactor">Interactor associated with the Proximity Entered event.</param>
-        public ProximityEnteredEventArgs(Collider collider, XRBaseInteractor interactor) : base(collider, interactor)
+        /// <param name="interactable">Interactable associated with the Proximity Entered event.</param>
+        public ProximityEnteredEventArgs(Collider collider, XRBaseInteractable interactable) : base(collider, interactable)
         {
             //Empty on purpose
         }
