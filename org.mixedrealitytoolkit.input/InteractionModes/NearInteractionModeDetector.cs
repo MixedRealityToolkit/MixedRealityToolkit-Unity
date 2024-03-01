@@ -55,9 +55,9 @@ namespace MixedReality.Toolkit.Input
                     InteractionManager.TryGetInteractableForCollider(previouslyDetectedCollider, out IXRInteractable xrInteractable) &&
                     xrInteractable is IXRProximityInteractable xrProximityInteractable)
                 {
-                    foreach (XRBaseInteractable xrBaseInteractable in nearInteractables)
+                    for (int j = nearInteractables.Count - 1; j >= 0; j--)
                     {
-                        xrProximityInteractable.OnProximityExited(new ProximityExitedEventArgs(previouslyDetectedCollider, xrBaseInteractable));
+                        xrProximityInteractable.OnProximityExited(new ProximityExitedEventArgs(previouslyDetectedCollider, nearInteractables[j]));
                     }
                     previouslyDetectedColliders.Remove(previouslyDetectedCollider);
                 }
