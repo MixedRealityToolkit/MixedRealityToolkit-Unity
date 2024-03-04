@@ -48,7 +48,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void UpdateProximityExited()
         {
-            for (int i = 0; i < previouslyDetectedColliders.Count; i++)
+            for (int i = previouslyDetectedColliders.Count - 1; i >= 0; i--)
             {
                 Collider previouslyDetectedCollider = previouslyDetectedColliders[i];
                 if (!DetectedColliders.Contains(previouslyDetectedCollider) &&
