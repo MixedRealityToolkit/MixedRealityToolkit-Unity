@@ -645,8 +645,7 @@ namespace MixedReality.Toolkit.UX
         /// <param name="xrBaseInteractable">Interactable triggering proximity.</param>
         public void OnProximityEntered(ProximityHoverEnteredEventArgs proximityEnteredEventArgs)
         {
-            if (activeInteractables.Add(proximityEnteredEventArgs.Interactable as XRBaseInteractable) &&
-                activeInteractables.Count >= 1)
+            if (activeInteractables.Add(proximityEnteredEventArgs.Interactable as XRBaseInteractable))
             {
                 UpdateProximityHovered();
             }
