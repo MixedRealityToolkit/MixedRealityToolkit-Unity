@@ -855,7 +855,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         /// <summary>
-        /// Test the PressableButton script has the activeCollidersWithInteractor hashset.
+        /// Test the PressableButton script has the activeInteractables hashset.
         /// </summary>
         [UnityTest]
         public IEnumerator TestPressableButtonHasActiveCollidersWithInteractorHashset()
@@ -864,7 +864,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             System.Type pressableButtonType = typeof(PressableButton);
 
             fieldInfos = pressableButtonType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("activeCollidersWithInteractor")).ToArray();
+            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("activeInteractables")).ToArray();
 
             Assert.AreEqual(1, result.Length);
 

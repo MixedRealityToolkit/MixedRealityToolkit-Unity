@@ -182,9 +182,9 @@ namespace MixedReality.Toolkit.UX
         private float WorldToLocalScale => transform.InverseTransformVector(transform.forward).magnitude;
 
         /// <summary>
-        /// Holds the duples Collider + Interactable that trigger proximity.
+        /// Holds the Interactables that trigger proximity.
         /// </summary>
-        private HashSet<(Collider, XRBaseInteractable)> activeCollidersWithInteractor = new HashSet<(Collider, XRBaseInteractable)>();
+        private HashSet<XRBaseInteractable> activeInteractables = new HashSet<XRBaseInteractable>();
 
         /// <summary>
         /// If the <see cref="GetSelectionProgress"/> value is smoothed to within this threshold of 0 or 1, the <see cref="GetSelectionProgress"/> will snap to 0 or 1.
@@ -640,38 +640,37 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <summary>
-        /// Registers the duple Collider + XRBaseInteractor as triggering proximity.
+        /// Registers the interactable triggering proximity.
         /// </summary>
-        /// <param name="collider">Collider triggering proximity.</param>
         /// <param name="xrBaseInteractable">Interactable triggering proximity.</param>
         public void OnProximityEntered(ProximityHoverEnteredEventArgs proximityEnteredEventArgs)
         {
-            if (proximityEnteredEventArgs.Collider != null &&
-                activeCollidersWithInteractor.Add((proximityEnteredEventArgs.Collider, proximityEnteredEventArgs.Interactable as XRBaseInteractable)) &&
-                activeCollidersWithInteractor.Count >= 1)
+            if (activeInteractables.Add(proximityEnteredEventArgs.Interactable as XRBaseInteractable) &&
+                activeInteractables.Count >= 1)
             {
                 UpdateProximityHovered();
             }
         }
 
         /// <summary>
-        /// Unregisters the duple Collider + XRBaseInteractor as triggering proximity.
+        /// Unregisters the interactable triggering proximity.
         /// </summary>
-        /// <param name="collider">Collider that in combination with the interactor was triggering proximity.</param>
-        /// <param name="xrBaseInteractable">Interactable that in combination with the collider was triggering proximity.</param>
+        /// <param name="xrBaseInteractable">Interactable no longer triggering proximity.</param>
         public void OnProximityExited(ProximityHoverExitedEventArgs proximityExitedEventArgs)
         {
-            if (proximityExitedEventArgs.Collider != null &&
-                activeCollidersWithInteractor.Remove((proximityExitedEventArgs.Collider, proximityExitedEventArgs.Interactable as XRBaseInteractable)) &&
-                activeCollidersWithInteractor.Count == 0)
+            if (activeInteractables.Remove(proximityExitedEventArgs.Interactable as XRBaseInteractable) &&
+                activeInteractables.Count == 0)
             {
                 UpdateProximityHovered();
             }
         }
 
+        /// <summary>
+        /// Updates the IsProximityHovered flag based on the whether it is hovered or has active interaction.
+        /// </summary>
         private void UpdateProximityHovered()
         {
-            IsProximityHovered.Active = isHovered || (activeCollidersWithInteractor.Count > 0);
+            IsProximityHovered.Active = isHovered || (activeInteractables.Count > 0);
         }
 
         #endregion Private Methods

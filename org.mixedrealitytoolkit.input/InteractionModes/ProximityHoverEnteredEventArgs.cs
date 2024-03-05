@@ -8,11 +8,10 @@ namespace MixedReality.Toolkit.Input
     public class ProximityHoverEnteredEventArgs : BaseProximityHoverEventArgs
     {
         /// <summary>
-        /// Constructor for ProximityEnteredArgs.
+        /// Constructor for ProximityHoverEnteredEventArgs.
         /// </summary>
-        /// <param name="collider">Collider associated with the Proximity-Hover Entered event.</param>
         /// <param name="interactable">Interactable associated with the Proximity-Hover Entered event.</param>
-        public ProximityHoverEnteredEventArgs(Collider collider, IXRProximityInteractable interactable) : base(collider, interactable)
+        public ProximityHoverEnteredEventArgs(IXRProximityInteractable interactable) : base(interactable)
         {
             //Empty on purpose
         }

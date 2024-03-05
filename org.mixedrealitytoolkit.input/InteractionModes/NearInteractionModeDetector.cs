@@ -24,10 +24,10 @@ namespace MixedReality.Toolkit.Input
         private List<XRBaseInteractable> nearInteractables;
 
         /// <summary>
-        /// Used to keep track of the previously detected colliders+interactrables duples (CID) so that we can know which
-        /// CID stopped being detected and update their buttons front plate RawImage.
+        /// Used to keep track of the previously detected interactrables so that we can know which
+        /// interactable stopped being detected and update their buttons front plate RawImage.
         /// </summary>
-        private HashSet<(Collider, IXRProximityInteractable)> previouslyDetectedColliderInteractableDuples = new HashSet<(Collider, IXRProximityInteractable)>();
+        private HashSet<IXRProximityInteractable> previouslyDetectedColliderInteractableDuples = new();
 
         /// <inheritdoc />
         public override bool IsModeDetected()
@@ -46,21 +46,21 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void UpdateProximityExited()
         {
-            List<(Collider, IXRProximityInteractable)> currentlyDetectedCID = GetCurrentlyDetectedColliderInteractablesDuples();
-            List<(Collider, IXRProximityInteractable)> noLongerDetectedCIDs = new List<(Collider, IXRProximityInteractable)>();
+            List<IXRProximityInteractable> currentlyDetectedInteractable = GetCurrentlyDetectedColliderInteractablesDuples();
+            List<IXRProximityInteractable> noLongerDetectedInteractables = new();
 
-            foreach ((Collider collider, IXRProximityInteractable interactable) previouslyDetectedCID in previouslyDetectedColliderInteractableDuples)
+            foreach (IXRProximityInteractable previouslyDetectedInteractable in previouslyDetectedColliderInteractableDuples)
             {
-                if (currentlyDetectedCID.Contains(previouslyDetectedCID))
+                if (!currentlyDetectedInteractable.Contains(previouslyDetectedInteractable))
                 {
-                    noLongerDetectedCIDs.Add(previouslyDetectedCID);
+                    noLongerDetectedInteractables.Add(previouslyDetectedInteractable);
                 }
             }
 
-            foreach ((Collider collider, IXRProximityInteractable interactable) noLongerDetectedCID in noLongerDetectedCIDs)
+            foreach (IXRProximityInteractable noLongerDetectedInteractable in noLongerDetectedInteractables)
             {
-                noLongerDetectedCID.interactable.OnProximityExited(new ProximityHoverExitedEventArgs(noLongerDetectedCID.collider, noLongerDetectedCID.interactable));
-                currentlyDetectedCID.Remove(noLongerDetectedCID);
+                noLongerDetectedInteractable.OnProximityExited(new ProximityHoverExitedEventArgs(noLongerDetectedInteractable));
+                currentlyDetectedInteractable.Remove(noLongerDetectedInteractable);
             }
         }
 
@@ -69,33 +69,31 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void UpdateProximityEntered()
         {
-            List<(Collider, IXRProximityInteractable)> currentlyDetectedCIDs = GetCurrentlyDetectedColliderInteractablesDuples();
-            foreach ((Collider collider, IXRProximityInteractable interactable) colliderInteractableDuple in currentlyDetectedCIDs)
+            List<IXRProximityInteractable> currentlyDetectedInteractables = GetCurrentlyDetectedColliderInteractablesDuples();
+            foreach (IXRProximityInteractable colliderInteractableDuple in currentlyDetectedInteractables)
             {
                 if (previouslyDetectedColliderInteractableDuples.Add(colliderInteractableDuple))
                 {
-                    colliderInteractableDuple.interactable.OnProximityEntered(new ProximityHoverEnteredEventArgs(colliderInteractableDuple.collider, colliderInteractableDuple.interactable));
+                    colliderInteractableDuple.OnProximityEntered(new ProximityHoverEnteredEventArgs(colliderInteractableDuple));
                 }
             }
         }
 
         /// <summary>
-        /// Returns a hashset of all unique collider-interactable duples that are currently detected.
+        /// Returns a hashset of all unique interactables that are currently detected.
         /// </summary>
-        /// <returns>Hashset with unique collider-interactable duples currently detected</returns>
-        private List<(Collider, IXRProximityInteractable)> GetCurrentlyDetectedColliderInteractablesDuples()
+        /// <returns>Hashset with unique interactables currently detected</returns>
+        private List<IXRProximityInteractable> GetCurrentlyDetectedColliderInteractablesDuples()
         {
-            List<(Collider, IXRProximityInteractable)> result = new List<(Collider, IXRProximityInteractable)>();
+            List<IXRProximityInteractable> result = new();
 
             foreach (Collider collider in DetectedColliders)
             {
                 if (InteractionManager.TryGetInteractableForCollider(collider, out IXRInteractable xrInteractable) &&
                     xrInteractable is IXRProximityInteractable xrProximityInteractable &&
-                    !result.Contains((collider, xrProximityInteractable)))
+                    !result.Contains(xrProximityInteractable))
                 {
-                    {
-                        result.Add((collider, xrProximityInteractable));
-                    }
+                    result.Add(xrProximityInteractable);
                 }
             }
 
