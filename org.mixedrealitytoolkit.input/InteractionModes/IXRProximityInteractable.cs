@@ -18,15 +18,13 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Registers the duple Collider + XRBaseInteractor as triggering proximity.
         /// </summary>
-        /// <param name="collider">Collider triggering proximity.</param>
-        /// <param name="xrBaseInteractor">Interactor triggering proximity.</param>
-        void OnProximityEntered(ProximityEnteredEventArgs args);
+        /// <param name="args">ProximityHoverEnteredEventArgs that has the Collider + Interactable duple triggering the proximity-hover event.</param>
+        void OnProximityEntered(ProximityHoverEnteredEventArgs args);
 
         /// <summary>
         /// Unregisters the duple Collider + XRBaseInteractor as triggering proximity.
         /// </summary>
-        /// <param name="collider">Collider that in combination with the interactor was triggering proximity.</param>
-        /// <param name="xrBaseInteractor">Interactor that in combination with the collider was triggering proximity.</param>
-        void OnProximityExited(ProximityExitedEventArgs args);
+        /// <param name="args">ProximityHoverExitedEventArgs that has the Collider + Interactable duple triggering the proximity-hover event.</param>
+        void OnProximityExited(ProximityHoverExitedEventArgs args);
     }
 }

@@ -24,11 +24,10 @@ namespace MixedReality.Toolkit.Input
         private List<XRBaseInteractable> nearInteractables;
 
         /// <summary>
-        /// Used to keep track of the previously detected colliders so that we can know which
-        /// colliders stopped being detected and update their buttons front plate and rounded
-        /// rect if they are labeled as dynamic (based on proximity).
+        /// Used to keep track of the previously detected colliders+interactrables duples (CID) so that we can know which
+        /// CID stopped being detected and update their buttons front plate RawImage.
         /// </summary>
-        private List<Collider> previouslyDetectedColliders = new List<Collider>();
+        private HashSet<(Collider, IXRProximityInteractable)> previouslyDetectedColliderInteractableDuples = new HashSet<(Collider, IXRProximityInteractable)>();
 
         /// <inheritdoc />
         public override bool IsModeDetected()
@@ -43,46 +42,64 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Call OnProximityExited for all colliders that were previously detected but are no longer detected.  This
-        /// effectively triggers OnProximityExited for all colliders that are no longer detected.
+        /// Calls OnProximityExited for all interactables that were previously ProximityHover detected but are no longer detected.
         /// </summary>
         private void UpdateProximityExited()
         {
-            for (int i = previouslyDetectedColliders.Count - 1; i >= 0; i--)
+            List<(Collider, IXRProximityInteractable)> currentlyDetectedCID = GetCurrentlyDetectedColliderInteractablesDuples();
+            List<(Collider, IXRProximityInteractable)> noLongerDetectedCIDs = new List<(Collider, IXRProximityInteractable)>();
+
+            foreach ((Collider collider, IXRProximityInteractable interactable) previouslyDetectedCID in previouslyDetectedColliderInteractableDuples)
             {
-                Collider previouslyDetectedCollider = previouslyDetectedColliders[i];
-                if (!DetectedColliders.Contains(previouslyDetectedCollider) &&
-                    InteractionManager.TryGetInteractableForCollider(previouslyDetectedCollider, out IXRInteractable xrInteractable) &&
-                    xrInteractable is IXRProximityInteractable xrProximityInteractable)
+                if (currentlyDetectedCID.Contains(previouslyDetectedCID))
                 {
-                    for (int j = nearInteractables.Count - 1; j >= 0; j--)
-                    {
-                        xrProximityInteractable.OnProximityExited(new ProximityExitedEventArgs(previouslyDetectedCollider, nearInteractables[j]));
-                    }
-                    previouslyDetectedColliders.Remove(previouslyDetectedCollider);
+                    noLongerDetectedCIDs.Add(previouslyDetectedCID);
+                }
+            }
+
+            foreach ((Collider collider, IXRProximityInteractable interactable) noLongerDetectedCID in noLongerDetectedCIDs)
+            {
+                noLongerDetectedCID.interactable.OnProximityExited(new ProximityHoverExitedEventArgs(noLongerDetectedCID.collider, noLongerDetectedCID.interactable));
+                currentlyDetectedCID.Remove(noLongerDetectedCID);
+            }
+        }
+
+        /// <summary>
+        /// Call OnProximityEntered for all colliders that are currently detected but were not detected previously.
+        /// </summary>
+        private void UpdateProximityEntered()
+        {
+            List<(Collider, IXRProximityInteractable)> currentlyDetectedCIDs = GetCurrentlyDetectedColliderInteractablesDuples();
+            foreach ((Collider collider, IXRProximityInteractable interactable) colliderInteractableDuple in currentlyDetectedCIDs)
+            {
+                if (previouslyDetectedColliderInteractableDuples.Add(colliderInteractableDuple))
+                {
+                    colliderInteractableDuple.interactable.OnProximityEntered(new ProximityHoverEnteredEventArgs(colliderInteractableDuple.collider, colliderInteractableDuple.interactable));
                 }
             }
         }
 
         /// <summary>
-        /// Call OnProximityEntered for all colliders that are currently detected but were not detected previously.  This
-        /// effectively triggers OnProximityEntered for all colliders that are newly detected.
+        /// Returns a hashset of all unique collider-interactable duples that are currently detected.
         /// </summary>
-        private void UpdateProximityEntered()
+        /// <returns>Hashset with unique collider-interactable duples currently detected</returns>
+        private List<(Collider, IXRProximityInteractable)> GetCurrentlyDetectedColliderInteractablesDuples()
         {
+            List<(Collider, IXRProximityInteractable)> result = new List<(Collider, IXRProximityInteractable)>();
+
             foreach (Collider collider in DetectedColliders)
             {
-                if (!previouslyDetectedColliders.Contains(collider) &&
-                    InteractionManager.TryGetInteractableForCollider(collider, out IXRInteractable xrInteractable) &&
-                    xrInteractable is IXRProximityInteractable xrProximityInteractable)
+                if (InteractionManager.TryGetInteractableForCollider(collider, out IXRInteractable xrInteractable) &&
+                    xrInteractable is IXRProximityInteractable xrProximityInteractable &&
+                    !result.Contains((collider, xrProximityInteractable)))
                 {
-                    foreach (XRBaseInteractable xrBaseInteractable in nearInteractables)
                     {
-                        xrProximityInteractable.OnProximityEntered(new ProximityEnteredEventArgs(collider, xrBaseInteractable));
+                        result.Add((collider, xrProximityInteractable));
                     }
-                    previouslyDetectedColliders.Add(collider);
                 }
             }
+
+            return result;
         }
 
         /// <summary>

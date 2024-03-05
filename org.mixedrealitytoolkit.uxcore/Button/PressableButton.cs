@@ -644,10 +644,10 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         /// <param name="collider">Collider triggering proximity.</param>
         /// <param name="xrBaseInteractable">Interactable triggering proximity.</param>
-        public void OnProximityEntered(ProximityEnteredEventArgs proximityEnteredEventArgs)
+        public void OnProximityEntered(ProximityHoverEnteredEventArgs proximityEnteredEventArgs)
         {
             if (proximityEnteredEventArgs.Collider != null &&
-                activeCollidersWithInteractor.Add((proximityEnteredEventArgs.Collider, proximityEnteredEventArgs.Interactable)) &&
+                activeCollidersWithInteractor.Add((proximityEnteredEventArgs.Collider, proximityEnteredEventArgs.Interactable as XRBaseInteractable)) &&
                 activeCollidersWithInteractor.Count >= 1)
             {
                 UpdateProximityHovered();
@@ -659,10 +659,10 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         /// <param name="collider">Collider that in combination with the interactor was triggering proximity.</param>
         /// <param name="xrBaseInteractable">Interactable that in combination with the collider was triggering proximity.</param>
-        public void OnProximityExited(ProximityExitedEventArgs proximityExitedEventArgs)
+        public void OnProximityExited(ProximityHoverExitedEventArgs proximityExitedEventArgs)
         {
             if (proximityExitedEventArgs.Collider != null &&
-                activeCollidersWithInteractor.Remove((proximityExitedEventArgs.Collider, proximityExitedEventArgs.Interactable)) &&
+                activeCollidersWithInteractor.Remove((proximityExitedEventArgs.Collider, proximityExitedEventArgs.Interactable as XRBaseInteractable)) &&
                 activeCollidersWithInteractor.Count == 0)
             {
                 UpdateProximityHovered();
