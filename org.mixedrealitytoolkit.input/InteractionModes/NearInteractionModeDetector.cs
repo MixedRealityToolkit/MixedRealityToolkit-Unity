@@ -27,7 +27,17 @@ namespace MixedReality.Toolkit.Input
         /// Used to keep track of the previously detected interactrables so that we can know which
         /// interactable stopped being detected and update their buttons front plate RawImage.
         /// </summary>
-        private HashSet<IXRProximityInteractable> previouslyDetectedColliderInteractableDuples = new();
+        private readonly HashSet<IXRProximityInteractable> previouslyDetectedInteractables = new();
+
+        /// <summary>
+        /// Stores the currently detected interactables (updated every frame).
+        /// </summary>
+        private readonly List<IXRProximityInteractable> currentlyDetectedInteractables = new();
+
+        /// <summary>
+        /// Stores the interactables that are no longer detected (updated every frame).
+        /// </summary>
+        private readonly List<IXRProximityInteractable> noLongerDetectedInteractables = new();
 
         /// <inheritdoc />
         public override bool IsModeDetected()
@@ -35,6 +45,7 @@ namespace MixedReality.Toolkit.Input
             bool result = base.IsModeDetected() || IsNearInteractorSelecting();
             if (result)
             {
+                UpdateCurrentlyDetectedInteractables();
                 UpdateProximityExited();
                 UpdateProximityEntered();
             }
@@ -46,12 +57,11 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void UpdateProximityExited()
         {
-            List<IXRProximityInteractable> currentlyDetectedInteractable = GetCurrentlyDetectedColliderInteractablesDuples();
-            List<IXRProximityInteractable> noLongerDetectedInteractables = new();
+            noLongerDetectedInteractables.Clear();
 
-            foreach (IXRProximityInteractable previouslyDetectedInteractable in previouslyDetectedColliderInteractableDuples)
+            foreach (IXRProximityInteractable previouslyDetectedInteractable in previouslyDetectedInteractables)
             {
-                if (!currentlyDetectedInteractable.Contains(previouslyDetectedInteractable))
+                if (!currentlyDetectedInteractables.Contains(previouslyDetectedInteractable))
                 {
                     noLongerDetectedInteractables.Add(previouslyDetectedInteractable);
                 }
@@ -60,21 +70,20 @@ namespace MixedReality.Toolkit.Input
             foreach (IXRProximityInteractable noLongerDetectedInteractable in noLongerDetectedInteractables)
             {
                 noLongerDetectedInteractable.OnProximityExited(new ProximityHoverExitedEventArgs(noLongerDetectedInteractable));
-                currentlyDetectedInteractable.Remove(noLongerDetectedInteractable);
+                currentlyDetectedInteractables.Remove(noLongerDetectedInteractable);
             }
         }
 
         /// <summary>
-        /// Call OnProximityEntered for all colliders that are currently detected but were not detected previously.
+        /// Call OnProximityEntered for all interactables that are currently detected but were not detected previously.
         /// </summary>
         private void UpdateProximityEntered()
         {
-            List<IXRProximityInteractable> currentlyDetectedInteractables = GetCurrentlyDetectedColliderInteractablesDuples();
-            foreach (IXRProximityInteractable colliderInteractableDuple in currentlyDetectedInteractables)
+            foreach (IXRProximityInteractable currentlyDetectedInteracable in currentlyDetectedInteractables)
             {
-                if (previouslyDetectedColliderInteractableDuples.Add(colliderInteractableDuple))
+                if (previouslyDetectedInteractables.Add(currentlyDetectedInteracable))
                 {
-                    colliderInteractableDuple.OnProximityEntered(new ProximityHoverEnteredEventArgs(colliderInteractableDuple));
+                    currentlyDetectedInteracable.OnProximityEntered(new ProximityHoverEnteredEventArgs(currentlyDetectedInteracable));
                 }
             }
         }
@@ -83,21 +92,19 @@ namespace MixedReality.Toolkit.Input
         /// Returns a hashset of all unique interactables that are currently detected.
         /// </summary>
         /// <returns>Hashset with unique interactables currently detected</returns>
-        private List<IXRProximityInteractable> GetCurrentlyDetectedColliderInteractablesDuples()
+        private void UpdateCurrentlyDetectedInteractables()
         {
-            List<IXRProximityInteractable> result = new();
+            currentlyDetectedInteractables.Clear();
 
             foreach (Collider collider in DetectedColliders)
             {
                 if (InteractionManager.TryGetInteractableForCollider(collider, out IXRInteractable xrInteractable) &&
                     xrInteractable is IXRProximityInteractable xrProximityInteractable &&
-                    !result.Contains(xrProximityInteractable))
+                    !currentlyDetectedInteractables.Contains(xrProximityInteractable))
                 {
-                    result.Add(xrProximityInteractable);
+                    currentlyDetectedInteractables.Add(xrProximityInteractable);
                 }
             }
-
-            return result;
         }
 
         /// <summary>
