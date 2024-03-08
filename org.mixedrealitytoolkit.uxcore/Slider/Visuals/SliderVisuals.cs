@@ -86,7 +86,11 @@ namespace MixedReality.Toolkit.UX
             trackArea.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, angle));
             handle.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-            Vector3 localSliderTrackVector = trackArea.parent.InverseTransformVector(SliderState.SliderTrackDirection); //does trackArea always have a parent?
+            Vector3 localSliderTrackVector;
+            if (trackArea.parent == null)
+                localSliderTrackVector = SliderState.SliderTrackDirection;
+            else
+                localSliderTrackVector = trackArea.parent.InverseTransformVector(SliderState.SliderTrackDirection);
             trackArea.localScale = new Vector3(localSliderTrackVector.magnitude, trackArea.localScale.y, trackArea.localScale.z);
 
             if (fillVisual != null)
