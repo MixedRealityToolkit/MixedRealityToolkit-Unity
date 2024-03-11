@@ -70,7 +70,7 @@ namespace MixedReality.Toolkit.Input
             foreach (IXRProximityInteractable noLongerDetectedInteractable in noLongerDetectedInteractables)
             {
                 noLongerDetectedInteractable.OnProximityExited(new ProximityHoverExitedEventArgs(noLongerDetectedInteractable));
-                currentlyDetectedInteractables.Remove(noLongerDetectedInteractable);
+                previouslyDetectedInteractables.Remove(noLongerDetectedInteractable);
             }
         }
 
