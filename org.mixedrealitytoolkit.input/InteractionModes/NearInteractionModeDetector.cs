@@ -17,11 +17,11 @@ namespace MixedReality.Toolkit.Input
     public class NearInteractionModeDetector : ProximityDetector
     {
         /// <summary>
-        /// The set of near interactables that belongs to near interaction
+        /// The set of near interactors that belongs to near interaction
         /// </summary>
         [SerializeField]
-        [Tooltip("The set of near interactables that belongs to near interaction")]
-        private List<XRBaseInteractable> nearInteractables;
+        [Tooltip("The set of near interactors that belongs to near interaction")]
+        private List<XRBaseInteractor> nearInteractors;
 
         /// <summary>
         /// Used to keep track of the previously detected interactrables so that we can know which
@@ -113,9 +113,9 @@ namespace MixedReality.Toolkit.Input
         /// <returns>True if an interactable has interactors selecting, false otherwise.</returns>
         private bool IsNearInteractorSelecting()
         {
-            foreach (XRBaseInteractable nearInteractable in nearInteractables)
+            foreach (XRBaseInteractor nearInteractor in nearInteractors)
             {
-                if (nearInteractable.interactorsSelecting.Count > 0)
+                if (nearInteractor.hasSelection)
                 {
                     return true;
                 }
