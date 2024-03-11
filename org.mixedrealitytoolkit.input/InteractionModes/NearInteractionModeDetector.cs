@@ -79,11 +79,11 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void UpdateProximityEntered()
         {
-            foreach (IXRProximityInteractable currentlyDetectedInteracable in currentlyDetectedInteractables)
+            foreach (IXRProximityInteractable currentlyDetectedInteractable in currentlyDetectedInteractables)
             {
-                if (previouslyDetectedInteractables.Add(currentlyDetectedInteracable))
+                if (previouslyDetectedInteractables.Add(currentlyDetectedInteractable))
                 {
-                    currentlyDetectedInteracable.OnProximityEntered(new ProximityHoverEnteredEventArgs(currentlyDetectedInteracable));
+                    currentlyDetectedInteractable.OnProximityEntered(new ProximityHoverEnteredEventArgs(currentlyDetectedInteractable));
                 }
             }
         }
