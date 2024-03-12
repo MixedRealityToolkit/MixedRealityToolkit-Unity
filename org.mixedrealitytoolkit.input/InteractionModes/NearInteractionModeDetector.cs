@@ -24,8 +24,8 @@ namespace MixedReality.Toolkit.Input
         private List<XRBaseInteractor> nearInteractors;
 
         /// <summary>
-        /// Used to keep track of the previously detected interactrables so that we can know which
-        /// interactable stopped being detected and update their buttons front plate RawImage.
+        /// Keeps track of the previously detected interactables so that we can know which
+        /// interactable stopped being detected and trigger corresponding event.
         /// </summary>
         private readonly HashSet<IXRProximityInteractable> previouslyDetectedInteractables = new();
 
@@ -69,7 +69,7 @@ namespace MixedReality.Toolkit.Input
 
             foreach (IXRProximityInteractable noLongerDetectedInteractable in noLongerDetectedInteractables)
             {
-                noLongerDetectedInteractable.OnProximityExited(new ProximityHoverExitedEventArgs(noLongerDetectedInteractable));
+                noLongerDetectedInteractable.OnProximityExited(new ProximityHoverExitedEventArgs(this));
                 previouslyDetectedInteractables.Remove(noLongerDetectedInteractable);
             }
         }
@@ -83,7 +83,7 @@ namespace MixedReality.Toolkit.Input
             {
                 if (previouslyDetectedInteractables.Add(currentlyDetectedInteractable))
                 {
-                    currentlyDetectedInteractable.OnProximityEntered(new ProximityHoverEnteredEventArgs(currentlyDetectedInteractable));
+                    currentlyDetectedInteractable.OnProximityEntered(new ProximityHoverEnteredEventArgs(this));
                 }
             }
         }
@@ -108,9 +108,9 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Indicates whether any near interactable has interactors selecting.
+        /// Indicates if there is an interactor with selection.
         /// </summary>
-        /// <returns>True if an interactable has interactors selecting, false otherwise.</returns>
+        /// <returns>True if an interactor has selection, false otherwise.</returns>
         private bool IsNearInteractorSelecting()
         {
             foreach (XRBaseInteractor nearInteractor in nearInteractors)

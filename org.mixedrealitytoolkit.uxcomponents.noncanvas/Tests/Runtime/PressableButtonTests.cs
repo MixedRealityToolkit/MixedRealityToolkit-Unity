@@ -861,10 +861,10 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         public IEnumerator TestPressableButtonHasActiveCollidersWithInteractorHashset()
         {
             FieldInfo[] fieldInfos;
-            System.Type pressableButtonType = typeof(PressableButton);
+            Type pressableButtonType = typeof(PressableButton);
 
             fieldInfos = pressableButtonType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("activeInteractables")).ToArray();
+            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("activeInteractors")).ToArray();
 
             Assert.AreEqual(1, result.Length);
 

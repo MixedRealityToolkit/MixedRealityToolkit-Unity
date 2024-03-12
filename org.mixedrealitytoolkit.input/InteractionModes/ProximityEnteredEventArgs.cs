@@ -10,8 +10,8 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Constructor for ProximityHoverEnteredEventArgs.
         /// </summary>
-        /// <param name="interactable">Interactable associated with the Proximity-Hover Entered event.</param>
-        public ProximityHoverEnteredEventArgs(IXRProximityInteractable interactable) : base(interactable)
+        /// <param name="nearInteractionModeDetector">NearInteractionModeDetector that triggers proximity entered event.</param>
+        public ProximityHoverEnteredEventArgs(NearInteractionModeDetector nearInteractionModeDetector) : base(nearInteractionModeDetector)
         {
             //Empty on purpose
         }

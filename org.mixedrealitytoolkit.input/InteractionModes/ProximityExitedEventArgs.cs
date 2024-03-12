@@ -10,8 +10,8 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Constructor for ProximityHoverExitedEventArgs.
         /// </summary>
-        /// <param name="interactable">Interactable associated with the Proximity-Hover Exited event.</param>
-        public ProximityHoverExitedEventArgs(IXRProximityInteractable interactable) : base(interactable)
+        /// <param name="nearInteractionModeDetector">NearInteractionModeDetector that triggers proximity exited event.</param>
+        public ProximityHoverExitedEventArgs(NearInteractionModeDetector nearInteractionModeDetector) : base(nearInteractionModeDetector)
         {
             //Empty on purpose
         }
