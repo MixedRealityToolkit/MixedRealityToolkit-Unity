@@ -182,9 +182,9 @@ namespace MixedReality.Toolkit.UX
         private float WorldToLocalScale => transform.InverseTransformVector(transform.forward).magnitude;
 
         /// <summary>
-        /// Holds the interactors that trigger proximity.
+        /// Holds the detectors that trigger proximity.
         /// </summary>
-        private HashSet<NearInteractionModeDetector> activeInteractors = new HashSet<NearInteractionModeDetector>();
+        private HashSet<NearInteractionModeDetector> activeDetectors = new HashSet<NearInteractionModeDetector>();
 
         /// <summary>
         /// If the <see cref="GetSelectionProgress"/> value is smoothed to within this threshold of 0 or 1, the <see cref="GetSelectionProgress"/> will snap to 0 or 1.
@@ -645,7 +645,7 @@ namespace MixedReality.Toolkit.UX
         /// <param name="xrBaseInteractable">Interactable triggering proximity.</param>
         public void OnProximityEntered(ProximityHoverEnteredEventArgs proximityEnteredEventArgs)
         {
-            if (activeInteractors.Add(proximityEnteredEventArgs.NearInteractionModeDetector))
+            if (activeDetectors.Add(proximityEnteredEventArgs.NearInteractionModeDetector))
             {
                 UpdateProximityHovered();
             }
@@ -657,8 +657,8 @@ namespace MixedReality.Toolkit.UX
         /// <param name="xrBaseInteractable">Interactable no longer triggering proximity.</param>
         public void OnProximityExited(ProximityHoverExitedEventArgs proximityExitedEventArgs)
         {
-            if (activeInteractors.Remove(proximityExitedEventArgs.NearInteractionModeDetector) &&
-                activeInteractors.Count == 0)
+            if (activeDetectors.Remove(proximityExitedEventArgs.NearInteractionModeDetector) &&
+                activeDetectors.Count == 0)
             {
                 UpdateProximityHovered();
             }
@@ -669,7 +669,7 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         private void UpdateProximityHovered()
         {
-            IsProximityHovered.Active = isHovered || (activeInteractors.Count > 0);
+            IsProximityHovered.Active = isHovered || (activeDetectors.Count > 0);
         }
 
         #endregion Private Methods
