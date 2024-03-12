@@ -69,7 +69,7 @@ namespace MixedReality.Toolkit.Input
 
             foreach (IXRProximityInteractable noLongerDetectedInteractable in noLongerDetectedInteractables)
             {
-                noLongerDetectedInteractable.OnProximityExited(new ProximityHoverExitedEventArgs(this));
+                noLongerDetectedInteractable.OnProximityExited(new ProximityExitedEventArgs(this));
                 previouslyDetectedInteractables.Remove(noLongerDetectedInteractable);
             }
         }
@@ -83,7 +83,7 @@ namespace MixedReality.Toolkit.Input
             {
                 if (previouslyDetectedInteractables.Add(currentlyDetectedInteractable))
                 {
-                    currentlyDetectedInteractable.OnProximityEntered(new ProximityHoverEnteredEventArgs(this));
+                    currentlyDetectedInteractable.OnProximityEntered(new ProximityEnteredEventArgs(this));
                 }
             }
         }

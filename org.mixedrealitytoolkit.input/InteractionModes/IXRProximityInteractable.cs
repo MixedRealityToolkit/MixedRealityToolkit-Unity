@@ -16,15 +16,15 @@ namespace MixedReality.Toolkit.Input
     public interface IXRProximityInteractable
     {
         /// <summary>
-        /// Registers the interactable as triggering hover-proximity.
+        /// Registers the interactable as triggering proximity.
         /// </summary>
-        /// <param name="args">ProximityHoverEnteredEventArgs that has the Interactable triggering the proximity-hover event.</param>
-        void OnProximityEntered(ProximityHoverEnteredEventArgs args);
+        /// <param name="args">ProximityEnteredEventArgs that has the Interactable triggering the proximity event.</param>
+        void OnProximityEntered(ProximityEnteredEventArgs args);
 
         /// <summary>
-        /// Unregisters the interactable as triggering hover-proximity.
+        /// Unregisters the interactable as triggering proximity.
         /// </summary>
-        /// <param name="args">ProximityHoverExitedEventArgs that has the Interactable triggering the proximity-hover event.</param>
-        void OnProximityExited(ProximityHoverExitedEventArgs args);
+        /// <param name="args">ProximityExitedEventArgs that has the Interactable triggering the proximity event.</param>
+        void OnProximityExited(ProximityExitedEventArgs args);
     }
 }

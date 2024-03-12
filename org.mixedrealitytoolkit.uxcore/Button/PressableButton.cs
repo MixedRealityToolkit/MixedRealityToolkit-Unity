@@ -150,9 +150,9 @@ namespace MixedReality.Toolkit.UX
         private float extendSpeed = 0.5f;
 
         /// <summary>
-        /// Is this object proximity-hovered by an active Collider + Interactor combination?
+        /// Is this object in proximity of an active Interactor?
         /// </summary>
-        [field: SerializeField, Tooltip("Is this object proximity-hovered by an active Collider + Interactor combination?")]
+        [field: SerializeField, Tooltip("Is this object in proximity of an active Interactor?")]
         public TimedFlag IsProximityHovered { get; private set; } = new TimedFlag();
 
         #region Private Members
@@ -643,7 +643,7 @@ namespace MixedReality.Toolkit.UX
         /// Registers the interactable triggering proximity.
         /// </summary>
         /// <param name="xrBaseInteractable">Interactable triggering proximity.</param>
-        public void OnProximityEntered(ProximityHoverEnteredEventArgs proximityEnteredEventArgs)
+        public void OnProximityEntered(ProximityEnteredEventArgs proximityEnteredEventArgs)
         {
             if (activeDetectors.Add(proximityEnteredEventArgs.NearInteractionModeDetector))
             {
@@ -655,7 +655,7 @@ namespace MixedReality.Toolkit.UX
         /// Unregisters the interactable triggering proximity.
         /// </summary>
         /// <param name="xrBaseInteractable">Interactable no longer triggering proximity.</param>
-        public void OnProximityExited(ProximityHoverExitedEventArgs proximityExitedEventArgs)
+        public void OnProximityExited(ProximityExitedEventArgs proximityExitedEventArgs)
         {
             if (activeDetectors.Remove(proximityExitedEventArgs.NearInteractionModeDetector) &&
                 activeDetectors.Count == 0)

@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Input
 {
-    public class ProximityHoverEnteredEventArgs : BaseProximityHoverEventArgs
+    public class ProximityEnteredEventArgs : BaseProximityEventArgs
     {
         /// <summary>
-        /// Constructor for ProximityHoverEnteredEventArgs.
+        /// Constructor for ProximityEnteredEventArgs.
         /// </summary>
         /// <param name="nearInteractionModeDetector">NearInteractionModeDetector that triggers proximity entered event.</param>
-        public ProximityHoverEnteredEventArgs(NearInteractionModeDetector nearInteractionModeDetector) : base(nearInteractionModeDetector)
+        public ProximityEnteredEventArgs(NearInteractionModeDetector nearInteractionModeDetector) : base(nearInteractionModeDetector)
         {
             //Empty on purpose
         }

@@ -8,13 +8,13 @@ namespace MixedReality.Toolkit.Input
     /// <summary>
     /// Event data associated with proximity events triggered by a NearInteractionModeDetector.
     /// </summary>
-    public abstract class BaseProximityHoverEventArgs : EventArgs
+    public abstract class BaseProximityEventArgs : EventArgs
     {
         /// <summary>
-        /// Constructor for BaseProximityHoverEventArgs.
+        /// Constructor for BaseProximityEventArgs.
         /// </summary>
         /// <param name="nearInteractionModeDetector">NearInteractionModeDetector that triggers proximity event.</param>
-        public BaseProximityHoverEventArgs(NearInteractionModeDetector nearInteractionModeDetector)
+        public BaseProximityEventArgs(NearInteractionModeDetector nearInteractionModeDetector)
         {
             NearInteractionModeDetector = nearInteractionModeDetector;
         }
