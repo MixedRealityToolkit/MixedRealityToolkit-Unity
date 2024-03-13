@@ -37,7 +37,7 @@ namespace MixedReality.Toolkit.UX
         /// <inheritdoc />
         public void StartHover(IXRHoverInteractable target, Vector3 worldPosition)
         {
-            if (target != null)
+            if (target != null && target.IsHoverableBy(this))
             {
                 transform.position = worldPosition;
                 validTargets.Add(target);
@@ -62,7 +62,7 @@ namespace MixedReality.Toolkit.UX
         /// <inheritdoc />
         public void StartSelect(IXRSelectInteractable target, Vector3 worldPosition)
         {
-            if (interactionManager.IsRegistered(target))
+            if (interactionManager.IsRegistered(target) && target.IsSelectableBy(this))
             {
                 // If we're already selecting something, end selection but suppress events.
                 if (manualSelectTarget != null)
