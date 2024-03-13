@@ -639,10 +639,7 @@ namespace MixedReality.Toolkit.UX
             }
         }
 
-        /// <summary>
-        /// Registers the interactable triggering proximity.
-        /// </summary>
-        /// <param name="xrBaseInteractable">Interactable triggering proximity.</param>
+        /// <inheritdoc />
         public void OnProximityEntered(ProximityEnteredEventArgs proximityEnteredEventArgs)
         {
             if (activeDetectors.Add(proximityEnteredEventArgs.NearInteractionModeDetector))
@@ -651,10 +648,7 @@ namespace MixedReality.Toolkit.UX
             }
         }
 
-        /// <summary>
-        /// Unregisters the interactable triggering proximity.
-        /// </summary>
-        /// <param name="xrBaseInteractable">Interactable no longer triggering proximity.</param>
+        /// <inheritdoc />
         public void OnProximityExited(ProximityExitedEventArgs proximityExitedEventArgs)
         {
             if (activeDetectors.Remove(proximityExitedEventArgs.NearInteractionModeDetector) &&
