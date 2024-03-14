@@ -10,6 +10,8 @@ This document lists the Maintainers of the Mixed Reality Toolkit for Unity Proje
 | Wyck Hebert       | whebertML     | Magic Leap                      |
 | Dave Kline        | david-c-kline | Qualcomm                        |
 | Kurtis Eveleigh   | keveleigh     | Qualcomm                        |
+| Max Palmer        | MaxPalmer-UH  | Ultraleap                       |
+| Rob Blenkinsopp   | rblenkinsopp  | Ultraleap                       |
 
 ---
 Part of MVG-0.1-beta.
