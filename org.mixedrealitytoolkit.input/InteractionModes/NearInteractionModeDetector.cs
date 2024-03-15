@@ -16,16 +16,28 @@ namespace MixedReality.Toolkit.Input
     [AddComponentMenu("MRTK/Input/Near Interaction Mode Detector")]
     public class NearInteractionModeDetector : ProximityDetector
     {
+        /// <summary>
+        /// The set of near interactors that belongs to near interaction
+        /// </summary>
         [SerializeField]
         [Tooltip("The set of near interactors that belongs to near interaction")]
         private List<XRBaseInteractor> nearInteractors;
 
         /// <summary>
-        /// Used to keep track of the previously detected colliders so that we can know which
-        /// colliders stopped being detected and update their buttons front plate and rounded
-        /// rect if they are labeled as dynamic (based on proximity).
+        /// Keeps track of the previously detected interactables so that we can know which
+        /// interactable stopped being detected and trigger corresponding event.
         /// </summary>
-        List<Collider> previouslyDetectedColliders = new List<Collider>();
+        private readonly HashSet<IXRProximityInteractable> previouslyDetectedInteractables = new();
+
+        /// <summary>
+        /// Stores the currently detected interactables (updated every frame).
+        /// </summary>
+        private readonly List<IXRProximityInteractable> currentlyDetectedInteractables = new();
+
+        /// <summary>
+        /// Stores the interactables that are no longer detected (updated every frame).
+        /// </summary>
+        private readonly List<IXRProximityInteractable> noLongerDetectedInteractables = new();
 
         /// <inheritdoc />
         public override bool IsModeDetected()
@@ -33,41 +45,75 @@ namespace MixedReality.Toolkit.Input
             bool result = base.IsModeDetected() || IsNearInteractorSelecting();
             if (result)
             {
-                for (int i = 0; i < previouslyDetectedColliders.Count; i++)
-                {
-                    Collider previouslyDetectedCollider = previouslyDetectedColliders[i];
-                    if (!DetectedColliders.Contains(previouslyDetectedCollider) && previouslyDetectedCollider != null)
-                    {
-                        IXRProximityInteractable nearInteractionMode = previouslyDetectedCollider.GetComponent<IXRProximityInteractable>();
-                        if (nearInteractionMode != null)
-                        {
-                            foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
-                            {
-                                previouslyDetectedCollider.GetComponent<IXRProximityInteractable>().OnProximityExited(new ProximityExitedEventArgs(this, previouslyDetectedCollider, xrBaseInteractor));
-                            }
-                        }
-                        previouslyDetectedColliders.Remove(previouslyDetectedCollider);
-                    }
-                }
-                foreach (Collider collider in DetectedColliders)
-                {
-                    if (!previouslyDetectedColliders.Contains(collider))
-                    {
-                        IXRProximityInteractable nearInteractionMode = collider.GetComponent<IXRProximityInteractable>();
-                        if (nearInteractionMode != null)
-                        {
-                            foreach (XRBaseInteractor xrBaseInteractor in nearInteractors)
-                            {
-                                collider.GetComponent<IXRProximityInteractable>().OnProximityEntered(new ProximityEnteredEventArgs(this, collider, xrBaseInteractor));
-                            }
-                        }
-                        previouslyDetectedColliders.Add(collider);
-                    }
-                }
+                UpdateCurrentlyDetectedInteractables();
+                UpdateProximityExited();
+                UpdateProximityEntered();
             }
             return result;
         }
 
+        /// <summary>
+        /// Calls OnProximityExited for all interactables that were previously ProximityHover detected but are no longer detected.
+        /// </summary>
+        private void UpdateProximityExited()
+        {
+            noLongerDetectedInteractables.Clear();
+
+            foreach (IXRProximityInteractable previouslyDetectedInteractable in previouslyDetectedInteractables)
+            {
+                if (!currentlyDetectedInteractables.Contains(previouslyDetectedInteractable))
+                {
+                    noLongerDetectedInteractables.Add(previouslyDetectedInteractable);
+                }
+            }
+
+            foreach (IXRProximityInteractable noLongerDetectedInteractable in noLongerDetectedInteractables)
+            {
+                if (noLongerDetectedInteractable != null)
+                {
+                    noLongerDetectedInteractable.OnProximityExited(new ProximityExitedEventArgs(this));
+                }
+                previouslyDetectedInteractables.Remove(noLongerDetectedInteractable);
+            }
+        }
+
+        /// <summary>
+        /// Call OnProximityEntered for all interactables that are currently detected but were not detected previously.
+        /// </summary>
+        private void UpdateProximityEntered()
+        {
+            foreach (IXRProximityInteractable currentlyDetectedInteractable in currentlyDetectedInteractables)
+            {
+                if (previouslyDetectedInteractables.Add(currentlyDetectedInteractable))
+                {
+                    currentlyDetectedInteractable.OnProximityEntered(new ProximityEnteredEventArgs(this));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns a hashset of all unique interactables that are currently detected.
+        /// </summary>
+        /// <returns>Hashset with unique interactables currently detected</returns>
+        private void UpdateCurrentlyDetectedInteractables()
+        {
+            currentlyDetectedInteractables.Clear();
+
+            foreach (Collider collider in DetectedColliders)
+            {
+                if (InteractionManager.TryGetInteractableForCollider(collider, out IXRInteractable xrInteractable) &&
+                    xrInteractable is IXRProximityInteractable xrProximityInteractable &&
+                    !currentlyDetectedInteractables.Contains(xrProximityInteractable))
+                {
+                    currentlyDetectedInteractables.Add(xrProximityInteractable);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Indicates if there is an interactor with selection.
+        /// </summary>
+        /// <returns>True if an interactor has selection, false otherwise.</returns>
         private bool IsNearInteractorSelecting()
         {
             foreach (XRBaseInteractor nearInteractor in nearInteractors)
