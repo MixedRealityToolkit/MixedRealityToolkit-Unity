@@ -298,5 +298,5 @@ MonoBehaviour:
       value: 63703
     - key: Icon 142
       value: 63742
-  iconFontAsset: {fileID: 11400000, guid: 9b0d0ee11ff70b04d901a29b519cbaa0, type: 2}
+  iconFontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   optionalEditorMaterial: {fileID: 0}
