@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.Tools")]
 
-[assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit Core Definitions - Editor")]
+[assembly: AssemblyProduct("Mixed Reality Toolkit Core Definitions - Editor")]
 [assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.

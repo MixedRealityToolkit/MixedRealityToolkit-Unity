@@ -7,8 +7,7 @@
         "MixedReality.Toolkit.Core.TestUtilities",
         "UnityEditor.TestRunner",
         "UnityEngine.TestRunner",
-        "MixedReality.Toolkit.Input.Runtime.Tests",
-        ""
+        "MixedReality.Toolkit.Input.Runtime.Tests"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

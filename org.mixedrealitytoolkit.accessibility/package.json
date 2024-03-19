@@ -1,10 +1,10 @@
 {
   "name": "org.mixedrealitytoolkit.accessibility",
-  "version": "1.0.0-development",
+  "version": "1.0.1-development",
   "description": "*** Please note ***\nThe MRTK3 accessibility features are in early preview and may not contain all planned features. Early preview releases also may undergo significant, breaking architectural changes before release.\n\nFeatures and subsystem to enable accessibility in mixed reality experiences.",
   "displayName": "MRTK Accessibility Early Preview",
   "msftFeatureCategory": "MRTK3",
-  "author": "Microsoft",
+  "author": "Mixed Reality Toolkit Contributors",
   "license": "BSD 3-Clause",
   "repository": {
     "type": "git",
@@ -14,6 +14,8 @@
     "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
   },
   "unity": "2021.3",
+  "unityRelease": "26f1",
+  "documentationUrl": "https://www.mixedrealitytoolkit.org",
   "dependencies": {
     "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
     "org.mixedrealitytoolkit.core": "3.0.0",

@@ -111,9 +111,15 @@ namespace MixedReality.Toolkit
                 if (value != allowSelectByVoice)
                 {
                     // Unregister and re-register the interactable to update the speech interactor with latest info
-                    interactionManager.UnregisterInteractable(this as IXRInteractable);
+                    if (Application.isPlaying && isActiveAndEnabled)
+                    {
+                        interactionManager.UnregisterInteractable(this as IXRInteractable);
+                    }
                     allowSelectByVoice = value;
-                    interactionManager.RegisterInteractable(this as IXRInteractable);
+                    if (Application.isPlaying && isActiveAndEnabled)
+                    {
+                        interactionManager.RegisterInteractable(this as IXRInteractable);
+                    }
                 }
             }
         }
@@ -133,9 +139,15 @@ namespace MixedReality.Toolkit
                 if (value != speechRecognitionKeyword)
                 {
                     // Unregister and re-register the interactable to update the speech interactor with latest info
-                    interactionManager.UnregisterInteractable(this as IXRInteractable);
+                    if (Application.isPlaying && isActiveAndEnabled)
+                    {
+                        interactionManager.UnregisterInteractable(this as IXRInteractable);
+                    }
                     speechRecognitionKeyword = value;
-                    interactionManager.RegisterInteractable(this as IXRInteractable);
+                    if (Application.isPlaying && isActiveAndEnabled)
+                    {
+                        interactionManager.RegisterInteractable(this as IXRInteractable);
+                    }
                 }
             }
         }
@@ -146,7 +158,7 @@ namespace MixedReality.Toolkit
         /// </summary>
         [field: SerializeField, FormerlySerializedAs("voiceRequiresFocus"),
             Tooltip("If true, then the voice command will only respond to voice commands while this Interactable has focus.")]
-        public bool VoiceRequiresFocus { get; private set; } = true;
+        public bool VoiceRequiresFocus { get; set; } = true;
 
         /// <summary>
 		/// Does the interactable require the interactor to hover over it?

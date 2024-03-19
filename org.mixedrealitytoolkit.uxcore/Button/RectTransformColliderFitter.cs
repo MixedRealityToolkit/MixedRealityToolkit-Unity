@@ -44,7 +44,17 @@ namespace MixedReality.Toolkit.UX
                 }
                 return thisCollider;
             }
-            set => thisCollider = value;
+            set
+            {
+                if (thisCollider != value)
+                {
+                    thisCollider = value;
+                    if (thisCollider != null)
+                    {
+                        Fit();
+                    }
+                }
+            }
         }
 
         [SerializeField]
@@ -81,6 +91,29 @@ namespace MixedReality.Toolkit.UX
                  "When false, this script will disable itself on startup." +
                  "To control this from code, simply use .enabled on the component.")]
         private bool forceUpdateEveryFrame;
+
+        [SerializeField]
+        [Tooltip("When true, the collider will be enabled/disabled based on whether or not the collider is visible.")]
+        private bool canToggleCollider = true;
+
+        /// <summary>
+        /// When true, <paramref name="thisCollider"/> will be enabled/disabled based on whether or not the collider is visible.
+        /// </summary>
+        public bool CanToggleCollider
+        {
+            get => canToggleCollider;
+            set
+            {
+                if (canToggleCollider != value)
+                {
+                    canToggleCollider = value;
+                    if (canToggleCollider)
+                    {
+                        Fit();
+                    }
+                }
+            }
+        }
 
         private Canvas canvas;
 
@@ -212,7 +245,7 @@ namespace MixedReality.Toolkit.UX
                     // Compute the intersection.
                     bool intersects = AttachedRectTransform.rect.Intersects(localClipRect, out computedRect);
 
-                    if (thisCollider != null)
+                    if (thisCollider != null && canToggleCollider)
                     {
                         // If no intersection at all, kill the collider.
                         if (!intersects)

@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.Input.Runtime.Tests")]
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.Input.Editor")]
 
-[assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit Input")]
+[assembly: AssemblyProduct("Mixed Reality Toolkit Input")]
 [assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.
