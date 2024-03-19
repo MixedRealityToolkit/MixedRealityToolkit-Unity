@@ -16,6 +16,7 @@ namespace MixedReality.Toolkit.Editor
     /// as the configurations assigned to each subsystem.
     /// </summary>
     [CustomEditor(typeof(MRTKProfile))]
+    [CanEditMultipleObjects]
     public class MRTKProfileEditor : UnityEditor.Editor
     {
         /// <summary>

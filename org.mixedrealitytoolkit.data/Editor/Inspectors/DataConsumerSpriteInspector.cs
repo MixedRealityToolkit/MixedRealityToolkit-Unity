@@ -10,6 +10,7 @@ using UnityEditor;
 namespace MixedReality.Toolkit.Data.Editor
 {
     [CustomEditor(typeof(DataConsumerSpriteLookup.ValueToSpriteInfo))]
+    [CanEditMultipleObjects]
     public class DataConsumerSpriteInspector : UnityEditor.Editor
     {
         private SerializedProperty valueToSpriteLookup;

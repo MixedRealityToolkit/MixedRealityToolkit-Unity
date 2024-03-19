@@ -12,6 +12,7 @@ namespace MixedReality.Toolkit.Editor
     /// A base class for custom <see cref="MRTKBaseInteractable"/> editors.
     /// </summary>
     [CustomEditor(typeof(MRTKBaseInteractable), true)]
+    [CanEditMultipleObjects]
     public class BaseInteractableEditor : XRBaseInteractableEditor
     {
         private SerializedProperty isGazeHovered;

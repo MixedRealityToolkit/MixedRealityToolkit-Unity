@@ -12,6 +12,7 @@ namespace MixedReality.Toolkit.Input.Editor
     /// A custom inspector for the <see cref="UnboundedTrackingMode"/> component.
     /// </summary>
     [CustomEditor(typeof(UnboundedTrackingMode))]
+    [CanEditMultipleObjects]
     internal class UnboundedTrackingModeInspector : UnityEditor.Editor
     {
         /// <inheritdoc/>
