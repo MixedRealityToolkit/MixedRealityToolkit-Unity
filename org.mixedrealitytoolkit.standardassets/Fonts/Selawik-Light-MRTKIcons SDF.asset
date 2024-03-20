@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: selawkl SDF
+  m_Name: Selawik-Light-MRTKIcons SDF
   m_EditorClassIdentifier: 
   hashCode: 1673834234
   material: {fileID: 5931662821090898422}
