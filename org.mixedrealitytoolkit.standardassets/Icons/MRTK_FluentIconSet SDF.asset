@@ -69,7 +69,7 @@ MonoBehaviour:
   m_AtlasPopulationMode: 0
   m_FaceInfo:
     m_FaceIndex: 0
-    m_FamilyName: fontello
+    m_FamilyName: FluentSystemIcons
     m_StyleName: Regular
     m_PointSize: 39
     m_Scale: 1
