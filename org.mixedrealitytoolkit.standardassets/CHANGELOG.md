@@ -3,10 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [3.1.0-development] - 2024-02-09
+## [3.2.0-development] - 2024-03-22
 
 ### Added
 
 * Added SimpleEmptyButton (Experimental) and SimpleActionButton (Experimental) prefabs plus corresponding (Experimental) assets and demoscene. [PR #635](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/635)
+* Added unified font atlas and updated corresponding fonts and their materials. [PR #700](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/700)
 
 ### Fixed
 

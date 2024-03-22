@@ -3,6 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [3.2.0-development] - 2024-03-20
+## [3.3.0-development] - 2024-03-22
 
 ### Added
 
@@ -10,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Added corresponding MenuItems for use in Editor Tools [PR #649](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/649)
 * Added CanvasUITearsheetDynamicFrontplate scene [PR #649](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/649)
 * Added SimpleButton + demo scene [PR #635](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/635)
+* Added unified font atlas and updated corresponding fonts and their materials. [PR #700](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/700)
 
 ### Fixed
 
