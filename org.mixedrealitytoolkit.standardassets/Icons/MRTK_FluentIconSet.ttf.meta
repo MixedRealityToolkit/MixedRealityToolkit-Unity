@@ -9,8 +9,9 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - MRTK_FluentIconSet
-  fallbackFontReferences: []
+  - fontello
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: bcdde8c77ec943244b222023bb71f769, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
