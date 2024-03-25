@@ -29,7 +29,7 @@ namespace MixedReality.Toolkit.Input.Simulation.Editor
             SerializedProperty property,
             GUIContent label)
         {
-            return PropertyDrawerUtilities.CalculatePropertyHeight(6);
+            return PropertyDrawerUtilities.CalculatePropertyHeight(7);
         }
 
         /// <inheritdoc />
@@ -76,7 +76,7 @@ namespace MixedReality.Toolkit.Input.Simulation.Editor
                     PropertyDrawerUtilities.VerticalSpacing,
                     ++rowMultiplier,
                     PropertyDrawerUtilities.Height),
-                isTracked, isTrackedContent);            
+                isTracked, isTrackedContent);
 
             EditorGUI.PropertyField(
                 PropertyDrawerUtilities.GetPosition(
