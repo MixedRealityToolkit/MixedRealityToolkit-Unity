@@ -419,17 +419,17 @@ namespace MixedReality.Toolkit.Input.Simulation
                 }
 
                 // Is momentary tracking enabled?
-                bool isTracked = ctrlSettings.Track.action.IsPressed();
+                bool isMomentarilyTracked = ctrlSettings.Track.action.IsPressed();
 
                 ref SimulatedController simCtrl = ref GetControllerReference(handedness);
 
-                if (ctrlSettings.ToggleState || isTracked)
+                if (ctrlSettings.ToggleState || isMomentarilyTracked)
                 {
                     if (simCtrl == null)
                     {
                         // Get the start position for the controller.
                         Vector3 startPosition = ctrlSettings.DefaultPosition;
-                        if (isTracked)
+                        if (isMomentarilyTracked)
                         {
                             Vector3 screenPos = new Vector3(
                                 Mouse.current.position.ReadValue().x,
@@ -457,7 +457,7 @@ namespace MixedReality.Toolkit.Input.Simulation
                 Vector3 positionDelta = Vector3.zero;
                 Quaternion rotationDelta = NoRotation;
 
-                if (isTracked)
+                if (isMomentarilyTracked)
                 {
                     // Has the user asked to change the neutral pose?
                     if (ctrlSettings.ToggleSecondaryHandshapes.action.WasPerformedThisFrame())
@@ -584,7 +584,7 @@ namespace MixedReality.Toolkit.Input.Simulation
                     }
                 }
 
-                controls.IsTracked = ctrlSettings.ToggleState || isTracked;
+                controls.IsTracked = ctrlSettings.ToggleState || isMomentarilyTracked;
                 controls.TrackingState = controls.IsTracked ?
                     (InputTrackingState.Position | InputTrackingState.Rotation) : InputTrackingState.None;
 
