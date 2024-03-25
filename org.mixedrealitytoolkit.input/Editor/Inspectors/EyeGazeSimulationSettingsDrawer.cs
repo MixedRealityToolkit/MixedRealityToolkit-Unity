@@ -13,6 +13,12 @@ namespace MixedReality.Toolkit.Input.Simulation.Editor
     [CustomPropertyDrawer(typeof(EyeGazeSimulationSettings))]
     public class EyeGazeSimulationSettingsDrawer : PropertyDrawer
     {
+        /// <summary>
+        /// Represents the number of lines taken up by the fields in this property.
+        /// </summary>
+        /// <remarks>Includes the property header, each SerializedProperty, and any custom LabelFields.</remarks>
+        private const int UILineCount = 7;
+
         private readonly GUIContent simEnabledContent = new GUIContent("Simulation enabled");
         private readonly GUIContent isTrackedContent = new GUIContent("Eyes tracked");
 
@@ -29,7 +35,7 @@ namespace MixedReality.Toolkit.Input.Simulation.Editor
             SerializedProperty property,
             GUIContent label)
         {
-            return PropertyDrawerUtilities.CalculatePropertyHeight(7);
+            return PropertyDrawerUtilities.CalculatePropertyHeight(UILineCount);
         }
 
         /// <inheritdoc />
