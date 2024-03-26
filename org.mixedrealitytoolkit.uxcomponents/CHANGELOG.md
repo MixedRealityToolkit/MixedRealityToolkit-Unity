@@ -1,8 +1,8 @@
-# Changelog
+## [3.3.0-development] - 2024-03-22
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+* Added unified font atlas and updated corresponding fonts and their materials. [PR #700](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/700)
 
-## [3.2.0-development] - 2024-03-20
+## [3.2.0] - 2024-03-20
 
 ### Added
 
