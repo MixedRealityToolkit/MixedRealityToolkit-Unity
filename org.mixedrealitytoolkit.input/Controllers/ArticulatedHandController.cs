@@ -53,6 +53,7 @@ namespace MixedReality.Toolkit.Input
         #endregion Properties
 
         private bool pinchedLastFrame = false;
+        private bool isTrackingStatePolyfilled = false;
 
         /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
@@ -82,9 +83,6 @@ namespace MixedReality.Toolkit.Input
                 if (controllerState == null)
                     return;
 
-                // Cast to expose hand state.
-                ArticulatedHandControllerState handControllerState = controllerState as ArticulatedHandControllerState;
-
                 // If we still don't have an aggregator, then don't update selects.
                 if (XRSubsystemHelpers.HandsAggregator == null) { return; }
 
@@ -101,40 +99,44 @@ namespace MixedReality.Toolkit.Input
                     // Workaround for missing select actions on devices without interaction profiles
                     // for hands, such as Varjo and Quest. Should be removed once we have universal
                     // hand interaction profile(s) across vendors.
-                    
+
                     // Debounce the polyfill pinch action value.
                     bool isPinched = pinchAmount >= (pinchedLastFrame ? 0.9f : 1.0f);
 
                     // Inject our own polyfilled state into the Select state if no other control is bound.
-                    if (!selectAction.action.HasAnyControls())
+                    if (!selectAction.action.HasAnyControls() || isTrackingStatePolyfilled)
                     {
                         controllerState.selectInteractionState.active = isPinched;
                         controllerState.selectInteractionState.activatedThisFrame = isPinched && !pinchedLastFrame;
                         controllerState.selectInteractionState.deactivatedThisFrame = !isPinched && pinchedLastFrame;
                     }
 
-                    if (!selectActionValue.action.HasAnyControls())
+                    if (!selectActionValue.action.HasAnyControls() || isTrackingStatePolyfilled)
                     {
                         controllerState.selectInteractionState.value = pinchAmount;
                     }
 
                     // Also make sure we update the UI press state.
-                    if (!uiPressAction.action.HasAnyControls())
+                    if (!uiPressAction.action.HasAnyControls() || isTrackingStatePolyfilled)
                     {
                         controllerState.uiPressInteractionState.active = isPinched;
                         controllerState.uiPressInteractionState.activatedThisFrame = isPinched && !pinchedLastFrame;
                         controllerState.uiPressInteractionState.deactivatedThisFrame = !isPinched && pinchedLastFrame;
                     }
 
-                    if (!uiPressActionValue.action.HasAnyControls())
+                    if (!uiPressActionValue.action.HasAnyControls() || isTrackingStatePolyfilled)
                     {
                         controllerState.uiPressInteractionState.value = pinchAmount;
                     }
-                    
+
                     pinchedLastFrame = isPinched;
                 }
 
-                handControllerState.PinchSelectReady = isPinchReady;
+                // Cast to expose hand state.
+                if (controllerState is ArticulatedHandControllerState handControllerState)
+                {
+                    handControllerState.PinchSelectReady = isPinchReady;
+                }
             }
         }
 
@@ -146,13 +148,23 @@ namespace MixedReality.Toolkit.Input
             // In case the position input action is not provided, we will try to polyfill it with the device position.
             // Should be removed once we have universal hand interaction profile(s) across vendors.
 
-            if (!positionAction.action.HasAnyControls() && TryGetPolyfillDevicePose(out Pose devicePose))
+            // Check the tracking state here to account for a bound but untracked interaction profile.
+            // This could show up on runtimes where a controller is disconnected, hand tracking spins up,
+            // but the interaction profile is not cleared. This is allowed, per-spec: "The runtime may
+            // return the last-known interaction profile in the event that no controllers are active."
+            if ((!positionAction.action.HasAnyControls() || controllerState.inputTrackingState == InputTrackingState.None)
+                && TryGetPolyfillDevicePose(out Pose devicePose))
             {
                 controllerState.position = devicePose.position;
                 controllerState.rotation = devicePose.rotation;
                 
                 // Polyfill the tracking state, too.
                 controllerState.inputTrackingState = InputTrackingState.Position | InputTrackingState.Rotation;
+                isTrackingStatePolyfilled = true;
+            }
+            else
+            {
+                isTrackingStatePolyfilled = false;
             }
         }
 
