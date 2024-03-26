@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [3.2.1-development] - 2024-03-20
+
+### Fixed
+
+* Add logic to account for a bound but untracked interaction profile. [PR #704](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/704)
+
 ## [3.2.0-development] - 2024-03-20
 
 ### Added
