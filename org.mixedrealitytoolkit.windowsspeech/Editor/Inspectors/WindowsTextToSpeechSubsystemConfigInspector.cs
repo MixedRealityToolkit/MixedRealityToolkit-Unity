@@ -10,6 +10,7 @@ namespace MixedReality.Toolkit.Speech.Windows
     /// A custom editor for the <see cref="WindowsTextToSpeechSubsystemConfig"/> class.
     /// </summary>
     [CustomEditor(typeof(WindowsTextToSpeechSubsystemConfig))]
+    [CanEditMultipleObjects]
     public class WindowsTextToSpeechSubsystemConfigInspector : UnityEditor.Editor
     {
         private SerializedProperty voiceProperty;

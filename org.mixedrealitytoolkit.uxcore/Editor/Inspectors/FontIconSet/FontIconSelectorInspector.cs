@@ -10,6 +10,7 @@ using UnityEngine;
 namespace MixedReality.Toolkit.Editor
 {
     [CustomEditor(typeof(FontIconSelector))]
+    [CanEditMultipleObjects]
     class FontIconSelectorInspector : UnityEditor.Editor
     {
 

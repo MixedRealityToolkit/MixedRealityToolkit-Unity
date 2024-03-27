@@ -12,6 +12,7 @@ namespace MixedReality.Toolkit.Input.Editor
     /// class.
     /// </summary>
     [CustomEditor(typeof(InteractionModeManager))]
+    [CanEditMultipleObjects]
     public class InteractionModeManagerEditor : UnityEditor.Editor
     {
         private const string InitControllers = "Init Controllers";
