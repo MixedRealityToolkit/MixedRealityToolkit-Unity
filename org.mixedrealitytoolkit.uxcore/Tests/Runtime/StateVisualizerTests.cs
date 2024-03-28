@@ -204,6 +204,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return new WaitForSeconds(0.11f);
 
             Assert.IsFalse(sv.Animator.enabled, "The animator should be disabled after the keepAliveTime has elapsed.");
+            Assert.IsFalse(sv.enabled, "The StateVisualizer should be disabled after the keepAliveTime has elapsed.");
 
             var rightHand = new TestHand(Handedness.Right);
             yield return rightHand.Show(InputTestUtilities.InFrontOfUser(0.5f));

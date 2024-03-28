@@ -301,7 +301,11 @@ namespace MixedReality.Toolkit.UX
             }
 
             // If we're asleep, quit early.
-            if (!animator.enabled) { return; }
+            if (!animator.enabled) 
+            {
+                enabled = false;
+                return; 
+            }
 
             // Returns true if all effects are done playing.
             if (EvaluateEffects())
