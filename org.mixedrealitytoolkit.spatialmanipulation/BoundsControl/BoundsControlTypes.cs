@@ -64,12 +64,22 @@ namespace MixedReality.Toolkit.SpatialManipulation
         Scale = 1 << 1,
 
         /// <summary>
-        /// A handle that is mounted to the face of a <see cref="BoundsControl"/>, and can move the object.
+        /// A handle that is mounted to the face of a <see cref="BoundsControl"/>, and can move the object along the forward axis.
         /// </summary>
         /// <remarks>
         /// Handles of this type are currently not supported.
         /// </remarks>
         Translation = 1 << 2,
+
+        /// <summary>
+        /// A handle that is mounted to the face of a <see cref="BoundsControl"/>, and can move the object normal to the forward axis.
+        /// </summary>
+        Translation2D = 1 << 2,
+
+        /// <summary>
+        /// A handle that is mounted to the face of a <see cref="BoundsControl"/>, and can move the object in all three dimensions.
+        /// </summary>
+        Translation3D = 1 << 2,
     }
 
     /// <summary>
