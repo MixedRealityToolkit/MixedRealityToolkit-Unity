@@ -232,8 +232,6 @@ namespace MixedReality.Toolkit.Editor
             CreateElementFromPath(ActionButtonPath, menuCommand);
         }
 
-        #region Experimental Simple Buttons and with dynamic Frontplate
-
         [MenuItem("GameObject/UI/MRTK/Experimental/Simple Empty Button")]
         private static void CreateSimpleEmptyButton(MenuCommand menuCommand)
         {
@@ -251,61 +249,6 @@ namespace MixedReality.Toolkit.Editor
             GameObject simpleActionButton = CreateElementFromPath(SimpleActionButtonPath, menuCommand);
             Undo.RecordObject(simpleActionButton, "Added SimpleActionButton instance.");
         }
-
-        [MenuItem("GameObject/UI/MRTK/Experimental/Action Button - Dynamic Frontplate")]
-        private static void CreateActionButtonDynamicFrontplate(MenuCommand menuCommand)
-        {
-            Undo.SetCurrentGroupName("Create ActionButton w dynamic Frontplate");
-
-            GameObject actionButtonDynamicFrontplate = CreateElementFromPath(ActionButtonExperimentalDynamicFrontplatePath, menuCommand);
-            Undo.RecordObject(actionButtonDynamicFrontplate, "Added ActionButtonDynamicFrontplate instance.");
-        }
-
-        [MenuItem("GameObject/UI/MRTK/Experimental/Action Button (Wide) - Dynamic Frontplate")]
-        private static GameObject CreateActionButtonWideDynamicFrontplate(MenuCommand menuCommand)
-        {
-            Undo.SetCurrentGroupName("Create ActionButton (Wide) w dynamic Frontplate");
-
-            GameObject actionButtonDynamicFrontplate = CreateElementFromPath(ActionButtonExperimentalDynamicFrontplatePath, menuCommand);
-            Undo.RecordObject(actionButtonDynamicFrontplate, "Added ActionButtonDynamicFrontplate instance.");
-
-            RectTransform rt = actionButtonDynamicFrontplate.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(128.0f, 32.0f);
-            Undo.RecordObject(rt, "Set Action Button (Wide) w dynamic Frontplate size");
-            LayoutElement le = actionButtonDynamicFrontplate.GetComponent<LayoutElement>();
-            le.minWidth = 128.0f;
-            Undo.RecordObject(le, "Set Action Button (Wide) w dynamic Frontplate min width");
-
-            var text = actionButtonDynamicFrontplate.GetComponentsInChildren<TMP_Text>(true).Where(t => t.name == "Text").First();
-            text.gameObject.SetActive(true);
-            text.alignment = TextAlignmentOptions.Left;
-            text.text = "<size=8>Header</size><size=6>\n<alpha=#88>Meta text goes here</size>";
-            Undo.RecordObject(text, "Set Action Button (Wide) w dynamic Frontplate text");
-
-            PrefabUtility.RecordPrefabInstancePropertyModifications(actionButtonDynamicFrontplate);
-
-            return actionButtonDynamicFrontplate;
-        }
-
-        [MenuItem("GameObject/UI/MRTK/Experimental/Action Button w Checkbox - Dynamic Frontplate")]
-        private static void CreateActionButtonDynamicFrontplateCheckbox(MenuCommand menuCommand)
-        {
-            Undo.SetCurrentGroupName("Create ActionButton w dynamic Frontplate with Checkbox");
-
-            GameObject canvasButtonToggleSwitchDynamicFrontplate = CreateElementFromPath(ActionButtonExperimentalDynamicFrontplateCheckboxPath, menuCommand);
-            Undo.RecordObject(canvasButtonToggleSwitchDynamicFrontplate, "Added ActionButtonDynamicFrontplateCheckbox instance.");
-        }
-
-        [MenuItem("GameObject/UI/MRTK/Experimental/CanvasButtonToggleSwitch - Dynamic Frontplate")]
-        private static void CreateCanvasButtonToggleSwitchDynamicFrontplate(MenuCommand menuCommand)
-        {
-            Undo.SetCurrentGroupName("Create CanvasButtonToggleSwitch w dynamic Frontplate");
-
-            GameObject canvasButtonToggleSwitchDynamicFrontplate = CreateElementFromPath(CanvasButtonToggleSwitchButtonExperimentalDynamicFrontplatePath, menuCommand);
-            Undo.RecordObject(canvasButtonToggleSwitchDynamicFrontplate, "Added CanvasButtonToggleSwitchDynamicFrontplate instance.");
-        }
-
-        #endregion Experimental Simple Buttons and with dynamic Frontplate
 
         [MenuItem("GameObject/UI/MRTK/Action Button (Wide)", false, 1)]
         private static GameObject CreateActionButtonWide(MenuCommand menuCommand)
