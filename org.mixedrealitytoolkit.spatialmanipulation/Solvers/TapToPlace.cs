@@ -554,7 +554,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             interactionManager.GetRegisteredInteractors(interactorsCache);
             foreach (IXRInteractor interactor in interactorsCache)
             {
-                if (interactor is XRBaseControllerInteractor controllerInteractor &&
+                if (interactor is XRBaseInputInteractor controllerInteractor &&
                     controllerInteractor.xrController is ActionBasedController actionController)
                 {
                     actionController.selectAction.action.performed += StopPlacementViaPerformedAction;
@@ -575,7 +575,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 foreach (IXRInteractor interactor in interactorsCache)
                 {
-                    if (interactor is XRBaseControllerInteractor controllerInteractor &&
+                    if (interactor is XRBaseInputInteractor controllerInteractor &&
                         controllerInteractor.xrController is ActionBasedController actionController)
                     {
                         actionController.selectAction.action.performed -= StopPlacementViaPerformedAction;

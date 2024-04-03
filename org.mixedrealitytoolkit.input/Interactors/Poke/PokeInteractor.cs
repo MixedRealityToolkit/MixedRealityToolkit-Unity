@@ -14,7 +14,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [AddComponentMenu("MRTK/Input/Poke Interactor")]
     public class PokeInteractor :
-        XRBaseControllerInteractor,
+        XRBaseInputInteractor,
         IPokeInteractor,
         IHandedInteractor
     {

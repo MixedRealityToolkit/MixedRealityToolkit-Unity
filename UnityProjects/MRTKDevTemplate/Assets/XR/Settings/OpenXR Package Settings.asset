@@ -241,6 +241,59 @@ MonoBehaviour:
   company: Unity
   priority: 0
   required: 0
+--- !u!114 &-6022371770688452825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5b5af5107e35a43818d5411328bfc3, type: 3}
+  m_Name: DPadInteraction Metro
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: 
+  version: 
+  featureIdInternal: 
+  openxrExtensionStrings: 
+  company: 
+  priority: 0
+  required: 0
+  forceThresholdLeft: 0.5
+  forceThresholdReleaseLeft: 0.4
+  centerRegionLeft: 0.5
+  wedgeAngleLeft: 1.5707964
+  isStickyLeft: 0
+  forceThresholdRight: 0.5
+  forceThresholdReleaseRight: 0.4
+  centerRegionRight: 0.5
+  wedgeAngleRight: 1.5707964
+  isStickyRight: 0
+  extensionStrings:
+  - XR_KHR_binding_modification
+  - XR_EXT_dpad_binding
+--- !u!114 &-5584671083805546733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a24be4b5ebfe5f4d8ed1de9b25cb7aa, type: 3}
+  m_Name: HandCommonPosesInteraction Metro
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: 
+  version: 
+  featureIdInternal: 
+  openxrExtensionStrings: 
+  company: 
+  priority: 0
+  required: 0
 --- !u!114 &-5515180106887597363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,6 +478,39 @@ MonoBehaviour:
   required: 0
   cacheSize: 1048576
   perThreadCacheSize: 51200
+--- !u!114 &-3767578871199893485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5b5af5107e35a43818d5411328bfc3, type: 3}
+  m_Name: DPadInteraction Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: D-Pad Binding
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.dpadinteraction
+  openxrExtensionStrings: XR_KHR_binding_modification XR_EXT_dpad_binding
+  company: Unity
+  priority: 0
+  required: 0
+  forceThresholdLeft: 0.5
+  forceThresholdReleaseLeft: 0.4
+  centerRegionLeft: 0.5
+  wedgeAngleLeft: 1.5707964
+  isStickyLeft: 0
+  forceThresholdRight: 0.5
+  forceThresholdReleaseRight: 0.4
+  centerRegionRight: 0.5
+  wedgeAngleRight: 1.5707964
+  isStickyRight: 0
+  extensionStrings:
+  - XR_KHR_binding_modification
+  - XR_EXT_dpad_binding
 --- !u!114 &-3540660573686832417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +530,26 @@ MonoBehaviour:
   openxrExtensionStrings: XR_EXT_hand_tracking
   company: Unity
   priority: -100
+  required: 0
+--- !u!114 &-3490518390079531754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f028123e2efe1d443875bc7609b4a98b, type: 3}
+  m_Name: PalmPoseInteraction Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Palm Pose
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.palmpose
+  openxrExtensionStrings: XR_EXT_palm_pose
+  company: Unity
+  priority: 0
   required: 0
 --- !u!114 &-3267254719211769934
 MonoBehaviour:
@@ -512,6 +618,39 @@ MonoBehaviour:
   disableFirstPersonObserver: 0
   enablePoseUpdateOnBeforeRender: 0
   validationRuleTarget: 0
+--- !u!114 &-1149719774506122528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5b5af5107e35a43818d5411328bfc3, type: 3}
+  m_Name: DPadInteraction Android
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: D-Pad Binding
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.dpadinteraction
+  openxrExtensionStrings: XR_KHR_binding_modification XR_EXT_dpad_binding
+  company: Unity
+  priority: 0
+  required: 0
+  forceThresholdLeft: 0.5
+  forceThresholdReleaseLeft: 0.4
+  centerRegionLeft: 0.5
+  wedgeAngleLeft: 1.5707964
+  isStickyLeft: 0
+  forceThresholdRight: 0.5
+  forceThresholdReleaseRight: 0.4
+  centerRegionRight: 0.5
+  wedgeAngleRight: 1.5707964
+  isStickyRight: 0
+  extensionStrings:
+  - XR_KHR_binding_modification
+  - XR_EXT_dpad_binding
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,12 +663,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0ebc320a151d3408ea1e9fce54d40e, type: 3}
   m_Name: OpenXR Package Settings
   m_EditorClassIdentifier: 
-  Keys: 0100000004000000070000000e000000
+  Keys: 0100000004000000070000000e0000000d000000
   Values:
   - {fileID: 2159669632228745121}
   - {fileID: 1097380483697894343}
   - {fileID: 1479897323088787677}
   - {fileID: -4619825313993190921}
+  - {fileID: 6245813649747902667}
 --- !u!114 &474827142986614695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,6 +720,7 @@ MonoBehaviour:
   - visibleName: Quest Pro
     manifestName: cambria
     enabled: 1
+  forceRemoveInternetPermission: 1
 --- !u!114 &1097380483697894343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,7 +750,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   features:
   - {fileID: 5800620048986908060}
+  - {fileID: -1149719774506122528}
   - {fileID: 474827142986614695}
+  - {fileID: 1990149352662130833}
+  - {fileID: 6456199124798891399}
   - {fileID: -3540660573686832417}
   - {fileID: 5420324578598372024}
   - {fileID: -4630134788987129440}
@@ -621,9 +765,30 @@ MonoBehaviour:
   - {fileID: -6326232607128738207}
   - {fileID: 2396077685154012182}
   - {fileID: 7949034004747903996}
+  - {fileID: 2373187099150057909}
   - {fileID: -4085893827450681117}
   m_renderMode: 1
   m_depthSubmissionMode: 1
+--- !u!114 &1990149352662130833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a24be4b5ebfe5f4d8ed1de9b25cb7aa, type: 3}
+  m_Name: HandCommonPosesInteraction Android
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Hand Interaction Poses
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.handinteractionposes
+  openxrExtensionStrings: XR_EXT_hand_interaction
+  company: Unity
+  priority: 0
+  required: 0
 --- !u!114 &2140832713855989735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,10 +831,14 @@ MonoBehaviour:
   features:
   - {fileID: -8136130855646488046}
   - {fileID: -6240091031804019219}
+  - {fileID: -3767578871199893485}
   - {fileID: 7857441528894569134}
+  - {fileID: 7400582926847819268}
+  - {fileID: 3279681403115671190}
   - {fileID: -3267254719211769934}
   - {fileID: 4294374462335302092}
   - {fileID: -7104108163923222141}
+  - {fileID: 5609845417471085036}
   - {fileID: -2659505044388052374}
   - {fileID: 4938325070181230207}
   - {fileID: -5297537421338403838}
@@ -680,6 +849,7 @@ MonoBehaviour:
   - {fileID: -6291567202788476059}
   - {fileID: 8498496275651976835}
   - {fileID: 7978838414364747000}
+  - {fileID: -3490518390079531754}
   - {fileID: -5212996281295595556}
   - {fileID: 7239629573045135897}
   - {fileID: -8594885159124533570}
@@ -727,6 +897,26 @@ MonoBehaviour:
   company: Unity
   priority: 0
   required: 0
+--- !u!114 &2373187099150057909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f028123e2efe1d443875bc7609b4a98b, type: 3}
+  m_Name: PalmPoseInteraction Android
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Palm Pose
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.palmpose
+  openxrExtensionStrings: XR_EXT_palm_pose
+  company: Unity
+  priority: 0
+  required: 0
 --- !u!114 &2396077685154012182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -767,6 +957,26 @@ MonoBehaviour:
   featureIdInternal: com.unity.openxr.feature.input.metaquestpro
   openxrExtensionStrings: XR_FB_touch_controller_pro
   company: Unity
+  priority: 0
+  required: 0
+--- !u!114 &2991247457161679994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5019471fb2174e5c852ecd4047163007, type: 3}
+  m_Name: HandInteractionProfile Metro
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: 
+  version: 
+  featureIdInternal: 
+  openxrExtensionStrings: 
+  company: 
   priority: 0
   required: 0
 --- !u!114 &3134151582273165400
@@ -810,6 +1020,26 @@ MonoBehaviour:
   priority: 0
   required: 0
   ignoreValidationErrors: 0
+--- !u!114 &3279681403115671190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5019471fb2174e5c852ecd4047163007, type: 3}
+  m_Name: HandInteractionProfile Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Hand Interaction Profile
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.handinteraction
+  openxrExtensionStrings: XR_EXT_hand_interaction
+  company: Unity
+  priority: 0
+  required: 0
 --- !u!114 &4227640669958400424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,6 +1152,26 @@ MonoBehaviour:
   rightHandTrackingOptions:
     motionRange: 0
   questHandTrackingMode: 1
+--- !u!114 &5609845417471085036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5315f812f023cf4ebf26f7e5d2d70f2, type: 3}
+  m_Name: HPReverbG2ControllerProfile Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: HP Reverb G2 Controller Profile
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.hpreverb
+  openxrExtensionStrings: XR_EXT_hp_mixed_reality_controller
+  company: Unity
+  priority: 0
+  required: 0
 --- !u!114 &5800620048986908060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,6 +1212,61 @@ MonoBehaviour:
   company: Unity
   priority: 0
   required: 0
+--- !u!114 &6245813649747902667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a1f07dc5afe854f9f12a4194aca3fb, type: 3}
+  m_Name: WebGL
+  m_EditorClassIdentifier: 
+  features: []
+  m_renderMode: 1
+  m_depthSubmissionMode: 0
+--- !u!114 &6249857368442376183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5315f812f023cf4ebf26f7e5d2d70f2, type: 3}
+  m_Name: HPReverbG2ControllerProfile Metro
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: 
+  version: 
+  featureIdInternal: 
+  openxrExtensionStrings: 
+  company: 
+  priority: 0
+  required: 0
+--- !u!114 &6436361776961925767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f028123e2efe1d443875bc7609b4a98b, type: 3}
+  m_Name: PalmPoseInteraction Metro
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: 
+  version: 
+  featureIdInternal: 
+  openxrExtensionStrings: 
+  company: 
+  priority: 0
+  required: 0
 --- !u!114 &6454520947755431774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,6 +1284,26 @@ MonoBehaviour:
   version: 0.0.1
   featureIdInternal: com.unity.openxr.feature.input.oculustouch
   openxrExtensionStrings: 
+  company: Unity
+  priority: 0
+  required: 0
+--- !u!114 &6456199124798891399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5019471fb2174e5c852ecd4047163007, type: 3}
+  m_Name: HandInteractionProfile Android
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Hand Interaction Profile
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.handinteraction
+  openxrExtensionStrings: XR_EXT_hand_interaction
   company: Unity
   priority: 0
   required: 0
@@ -1004,6 +1329,26 @@ MonoBehaviour:
   required: 0
   cacheSize: 1048576
   perThreadCacheSize: 51200
+--- !u!114 &7400582926847819268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a24be4b5ebfe5f4d8ed1de9b25cb7aa, type: 3}
+  m_Name: HandCommonPosesInteraction Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Hand Interaction Poses
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.handinteractionposes
+  openxrExtensionStrings: XR_EXT_hand_interaction
+  company: Unity
+  priority: 0
+  required: 0
 --- !u!114 &7857441528894569134
 MonoBehaviour:
   m_ObjectHideFlags: 0

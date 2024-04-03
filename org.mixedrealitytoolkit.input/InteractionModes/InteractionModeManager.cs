@@ -210,7 +210,7 @@ namespace MixedReality.Toolkit.Input
             }
 
             GameObject controllerObject = null;
-            if (interactor is XRBaseControllerInteractor controllerInteractor)
+            if (interactor is XRBaseInputInteractor controllerInteractor)
             {
                 controllerObject = controllerInteractor.xrController.gameObject;
             }
@@ -247,7 +247,7 @@ namespace MixedReality.Toolkit.Input
         public void UnregisterInteractor(XRBaseInteractor interactor)
         {
             GameObject controllerObject = null;
-            if (interactor is XRBaseControllerInteractor controllerInteractor)
+            if (interactor is XRBaseInputInteractor controllerInteractor)
             {
                 controllerObject = controllerInteractor.xrController.gameObject;
             }
