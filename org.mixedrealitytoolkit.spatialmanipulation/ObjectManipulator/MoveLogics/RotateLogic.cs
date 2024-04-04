@@ -3,7 +3,8 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -25,7 +26,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private bool ShouldMatchAttachRotation => SelectedBySocket;
 
         /// <inheritdoc />
-        public override void Setup(List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor> interactors, UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
+        public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
         {
             base.Setup(interactors, interactable, currentTarget);
 
@@ -39,7 +40,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         /// <inheritdoc />
-        public override Quaternion Update(List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor> interactors, UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
+        public override Quaternion Update(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
         {
             base.Update(interactors, interactable, currentTarget, centeredAnchor);
 
@@ -58,7 +59,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
-        private static Vector3 GetHandlebarDirection(List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor> interactors, UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable)
+        private static Vector3 GetHandlebarDirection(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable)
         {
             Debug.Assert(interactors.Count >= 2, $"GetHandlebarDirection called with less than 2 interactors ({interactors.Count}).");
             return interactors[1].GetAttachTransform(interactable).position - interactors[0].GetAttachTransform(interactable).position;

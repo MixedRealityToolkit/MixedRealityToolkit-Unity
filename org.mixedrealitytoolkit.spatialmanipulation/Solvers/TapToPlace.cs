@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityPhysics = UnityEngine.Physics;
 
 namespace MixedReality.Toolkit.SpatialManipulation
@@ -269,7 +270,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private XRInteractionManager interactionManager;
 
         // Used to cache a known set of interactor
-        private List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor> interactorsCache;
+        private List<IXRInteractor> interactorsCache;
 
         #region MonoBehaviour Implementation
 
@@ -546,20 +547,20 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
             if (interactorsCache == null)
             {
-                interactorsCache = new List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor>();
+                interactorsCache = new List<IXRInteractor>();
             }
 
             // Try registering for the controller's "action" so object selection isn't required for placement.
             // If no controller, then fallback to using object selections for placement.
             interactionManager.GetRegisteredInteractors(interactorsCache);
-            foreach (UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor in interactorsCache)
+            foreach (IXRInteractor interactor in interactorsCache)
             {
-                if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controllerInteractor &&
+                if (interactor is XRBaseInputInteractor controllerInteractor &&
                     controllerInteractor.xrController is ActionBasedController actionController)
                 {
                     actionController.selectAction.action.performed += StopPlacementViaPerformedAction;
                 }
-                else if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor selectInteractor)
+                else if (interactor is IXRSelectInteractor selectInteractor)
                 {
                     selectInteractor.selectEntered.AddListener(StopPlacementViaSelect);
                 }
@@ -573,14 +574,14 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             if (interactorsCache != null)
             {
-                foreach (UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor in interactorsCache)
+                foreach (IXRInteractor interactor in interactorsCache)
                 {
-                    if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controllerInteractor &&
+                    if (interactor is XRBaseInputInteractor controllerInteractor &&
                         controllerInteractor.xrController is ActionBasedController actionController)
                     {
                         actionController.selectAction.action.performed -= StopPlacementViaPerformedAction;
                     }
-                    else if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor selectInteractor)
+                    else if (interactor is IXRSelectInteractor selectInteractor)
                     {
                         selectInteractor.selectEntered.RemoveListener(StopPlacementViaSelect);
                     }

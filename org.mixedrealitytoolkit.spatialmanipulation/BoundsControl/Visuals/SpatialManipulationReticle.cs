@@ -3,7 +3,7 @@
 
 using System;
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -19,7 +19,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [field: SerializeField, Tooltip("The type of the reticle visuals. Scale or Rotate.")]
         public SpatialManipulationReticleType ReticleType { get; set; }
 
-        private Transform contextTransform;
         private Quaternion worldRotationCache;
 
         /// <summary>
@@ -30,7 +29,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </remarks>
         public void UpdateVisual(ReticleVisualUpdateArgs args)
         {
-            if (args.Interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor)
+            if (args.Interactor is XRRayInteractor rayInteractor)
             {
                 if (args.ReticleNormal != Vector3.zero)
                 {

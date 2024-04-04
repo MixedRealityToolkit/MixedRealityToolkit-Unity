@@ -2,11 +2,11 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Examples
 {
     using SpatialManipulation;
-    
 
     /// <summary>
     /// Manager class for the solver examples scene.
@@ -19,12 +19,12 @@ namespace MixedReality.Toolkit.Examples
 
         [SerializeField]
         [Tooltip("The interactor used when solving for the left hand / controller.")]
-        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor LeftInteractor = null;
+        private XRBaseInteractor LeftInteractor = null;
 
 
         [SerializeField]
         [Tooltip("The interactor used when solving for the right hand / controller.")]
-        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor RightInteractor = null;
+        private XRBaseInteractor RightInteractor = null;
 
         private SolverHandler handler;
         private Solver currentSolver;

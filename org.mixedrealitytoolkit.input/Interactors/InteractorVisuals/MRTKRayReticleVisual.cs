@@ -4,6 +4,7 @@
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using static MixedReality.Toolkit.Input.XRRayInteractorExtensions;
 
 namespace MixedReality.Toolkit.Input
@@ -18,7 +19,7 @@ namespace MixedReality.Toolkit.Input
     {
         [SerializeField]
         [Tooltip("The interactor which this visual represents.")]
-        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor;
+        private XRRayInteractor rayInteractor;
 
         [SerializeField]
         [Tooltip("The GameObject which holds the proximity light for the reticle")]

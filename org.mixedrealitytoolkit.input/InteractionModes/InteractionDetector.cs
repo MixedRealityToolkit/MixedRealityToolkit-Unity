@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -18,12 +18,12 @@ namespace MixedReality.Toolkit.Input
     {
         [SerializeField]
         [Tooltip("The interactor to listen to.")]
-        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor;
+        private XRBaseInteractor interactor;
 
         /// <summary>
         /// The interactor to listen to.
         /// </summary>
-        public UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor Interactor
+        public XRBaseInteractor Interactor
         {
             get => interactor;
             set => interactor = value;

@@ -4,12 +4,11 @@
 // Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
 #pragma warning disable CS1591
 
-using System;
 using System.Collections.Generic;
-using Unity.Profiling;
 using UnityEngine;
-using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 using PokePath = MixedReality.Toolkit.IPokeInteractor.PokePath;
 
@@ -34,7 +33,7 @@ namespace MixedReality.Toolkit.Examples.Demos
     /// </para>
     /// </remarks>
     [AddComponentMenu("MRTK/Examples/Pen Interactor")]
-    internal class PenInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor, IPokeInteractor
+    internal class PenInteractor : XRBaseInteractor, IPokeInteractor
     {
         #region IPokeInteractor Implementation
 
@@ -55,17 +54,17 @@ namespace MixedReality.Toolkit.Examples.Demos
         public override bool isSelectActive => true;
 
         // Collection of hover targets.
-        private HashSet<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> hoveredTargets = new HashSet<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable>();
+        private HashSet<IXRInteractable> hoveredTargets = new HashSet<IXRInteractable>();
 
         /// <inheritdoc />
-        public override void GetValidTargets(List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> targets)
+        public override void GetValidTargets(List<IXRInteractable> targets)
         {
             targets.Clear();
             targets.AddRange(hoveredTargets);
         }
 
         /// <inheritdoc />
-        public override bool CanSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable)
+        public override bool CanSelect(IXRSelectInteractable interactable)
         {
             // Can only select if we've hovered.
             return hoveredTargets.Contains(interactable);

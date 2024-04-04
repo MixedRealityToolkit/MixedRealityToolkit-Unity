@@ -7,6 +7,7 @@ using System.Linq;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -38,12 +39,12 @@ namespace MixedReality.Toolkit.Input
 
             [SerializeField]
             [Tooltip("The interactor mode or state that is being targeted by this Managed Interactor Status.")]
-            private List<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor> interactors = new List<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor>();
+            private List<XRBaseInteractor> interactors = new List<XRBaseInteractor>();
 
             /// <summary>
             /// The interactor mode or state that is being targeted by the <see cref="ManagedInteractorStatus"/> instance.
             /// </summary>
-            public List<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor> Interactors => interactors;
+            public List<XRBaseInteractor> Interactors => interactors;
         }
 
 #if UNITY_EDITOR
@@ -149,7 +150,7 @@ namespace MixedReality.Toolkit.Input
         /// Private collection kept in lock-step with interactorMapping. Used to keep track of all registered interactors.
         /// Interactors are only registered once, when they are created. They are also unregistered once, when their reference becomes null.
         /// </summary>
-        private HashSet<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor> registeredControllerInteractors = new HashSet<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor>();
+        private HashSet<XRBaseInteractor> registeredControllerInteractors = new HashSet<XRBaseInteractor>();
 
         [SerializeField]
         [Tooltip("Describes the order of priority that interactor types have over each other.")]
@@ -201,7 +202,7 @@ namespace MixedReality.Toolkit.Input
         /// Registers an interactor to be managed by the interaction mode manager
         /// </summary>
         /// <param name="interactor">An XRBaseInteractor which needs to be managed based on interaction modes</param>
-        public void RegisterInteractor(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
+        public void RegisterInteractor(XRBaseInteractor interactor)
         {
             // Only register controllers which are governed by some kind of interaction mode
             if (!IsInteractorValid(interactor))
@@ -210,7 +211,7 @@ namespace MixedReality.Toolkit.Input
             }
 
             GameObject controllerObject = null;
-            if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controllerInteractor)
+            if (interactor is XRBaseInputInteractor controllerInteractor)
             {
                 controllerObject = controllerInteractor.xrController.gameObject;
             }
@@ -244,10 +245,10 @@ namespace MixedReality.Toolkit.Input
         /// when a controller is destroyed.
         /// </remarks>
         /// <param name="interactor">The <see cref="XRBaseInteractor"/> to be unregistered.</param>
-        public void UnregisterInteractor(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
+        public void UnregisterInteractor(XRBaseInteractor interactor)
         {
             GameObject controllerObject = null;
-            if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controllerInteractor)
+            if (interactor is XRBaseInputInteractor controllerInteractor)
             {
                 controllerObject = controllerInteractor.xrController.gameObject;
             }
@@ -278,13 +279,13 @@ namespace MixedReality.Toolkit.Input
                 // the controller is destroyed.
                 InteractionManager.interactorRegistered += OnInteractorRegistered;
 
-                List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor> interactors = new List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor>();
+                List<IXRInteractor> interactors = new List<IXRInteractor>();
                 InteractionManager.GetRegisteredInteractors(interactors);
 
                 // Fire a registration event for all pre-existing interactors.
-                foreach (UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor in interactors)
+                foreach (IXRInteractor interactor in interactors)
                 {
-                    if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor controllerInteractor)
+                    if (interactor is XRBaseInteractor controllerInteractor)
                     {
                         RegisterInteractor(controllerInteractor);
                     }
@@ -374,7 +375,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void OnInteractorRegistered(InteractorRegisteredEventArgs args)
         {
-            if (args.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor controllerInteractor)
+            if (args.interactorObject is XRBaseInteractor controllerInteractor)
             {
                 RegisterInteractor(controllerInteractor);
             }
@@ -383,7 +384,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Caches interactors which have been destroyed but not yet unregistered from the interactor mediator
         /// </summary>
-        private List<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor> destroyedInteractors = new List<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor>();
+        private List<XRBaseInteractor> destroyedInteractors = new List<XRBaseInteractor>();
 
         /// <summary>
         /// Caches controllers which have been destroyed but not yet unregistered from the interactor mediator
@@ -440,7 +441,7 @@ namespace MixedReality.Toolkit.Input
                     if (controller == null)
                     {
                         destroyedControllers.Add(controller);
-                        foreach (UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor in controllerMapping[controller].Interactors)
+                        foreach (XRBaseInteractor interactor in controllerMapping[controller].Interactors)
                         {
                             destroyedInteractors.Add(interactor);
                         }
@@ -450,7 +451,7 @@ namespace MixedReality.Toolkit.Input
                     // mediating all of the interactors to ensure the correct ones are active for their controller's given interaction mode
                     InteractionModeDefinition controllerCurrentMode = prioritizedInteractionModes[controllerMapping[controller].CurrentMode.Priority];
 
-                    foreach (UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor in controllerMapping[controller].Interactors)
+                    foreach (XRBaseInteractor interactor in controllerMapping[controller].Interactors)
                     {
                         // If the interactor has be destroyed, be sure to mark it for unregistration
                         if (interactor == null)
@@ -468,7 +469,7 @@ namespace MixedReality.Toolkit.Input
                     controllerMapping.Remove(controller);
                 }
 
-                foreach (UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor in destroyedInteractors)
+                foreach (XRBaseInteractor interactor in destroyedInteractors)
                 {
                     UnregisterInteractor(interactor);
                 }
@@ -500,7 +501,7 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
-        private bool IsInteractorValidForMode(InteractionModeDefinition mode, UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
+        private bool IsInteractorValidForMode(InteractionModeDefinition mode, XRBaseInteractor interactor)
         {
             return mode.AssociatedTypes.Contains(interactor.GetType());
         }
@@ -510,7 +511,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         /// <param name="interactor">The interactor we wish to check</param>
         /// <returns>Returns whether or not the interactor is governed by any of the defined interaction modes</returns>
-        private bool IsInteractorValid(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
+        private bool IsInteractorValid(XRBaseInteractor interactor)
         {
             for (int i = 0; i < prioritizedInteractionModes.Count; i++)
             {

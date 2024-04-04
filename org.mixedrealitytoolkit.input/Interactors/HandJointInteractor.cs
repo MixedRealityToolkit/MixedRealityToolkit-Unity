@@ -4,6 +4,7 @@
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -14,7 +15,7 @@ namespace MixedReality.Toolkit.Input
     /// the hands aggregator subsystem.
     /// </summary>
     public abstract class HandJointInteractor :
-        UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor,
+        XRDirectInteractor,
         IHandedInteractor
     {
         #region HandJointInteractor

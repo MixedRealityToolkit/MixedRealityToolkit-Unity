@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit
 {    
@@ -113,12 +115,12 @@ namespace MixedReality.Toolkit
                     // Unregister and re-register the interactable to update the speech interactor with latest info
                     if (Application.isPlaying && isActiveAndEnabled)
                     {
-                        interactionManager.UnregisterInteractable(this as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable);
+                        interactionManager.UnregisterInteractable(this as IXRInteractable);
                     }
                     allowSelectByVoice = value;
                     if (Application.isPlaying && isActiveAndEnabled)
                     {
-                        interactionManager.RegisterInteractable(this as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable);
+                        interactionManager.RegisterInteractable(this as IXRInteractable);
                     }
                 }
             }
@@ -141,12 +143,12 @@ namespace MixedReality.Toolkit
                     // Unregister and re-register the interactable to update the speech interactor with latest info
                     if (Application.isPlaying && isActiveAndEnabled)
                     {
-                        interactionManager.UnregisterInteractable(this as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable);
+                        interactionManager.UnregisterInteractable(this as IXRInteractable);
                     }
                     speechRecognitionKeyword = value;
                     if (Application.isPlaying && isActiveAndEnabled)
                     {
-                        interactionManager.RegisterInteractable(this as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable);
+                        interactionManager.RegisterInteractable(this as IXRInteractable);
                     }
                 }
             }
@@ -383,7 +385,7 @@ namespace MixedReality.Toolkit
             // when their controller loses tracking.
             bool IsInteractorTracked()
             {
-                return !(args.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor hoverInteractor) ||
+                return !(args.interactorObject is IXRHoverInteractor hoverInteractor) ||
                        hoverInteractor.isHoverActive;
             }
 
@@ -391,7 +393,7 @@ namespace MixedReality.Toolkit
             bool IsTargetValid()
             {
                 return !SelectRequiresHover ||
-                       !(args.interactableObject is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable hoverInteractable) ||
+                       !(args.interactableObject is IXRHoverInteractable hoverInteractable) ||
                        hoverInteractable.isHovered;
             }
         }

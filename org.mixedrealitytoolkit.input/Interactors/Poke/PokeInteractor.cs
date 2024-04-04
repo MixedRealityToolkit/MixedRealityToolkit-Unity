@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using PokePath = MixedReality.Toolkit.IPokeInteractor.PokePath;
 
 namespace MixedReality.Toolkit.Input
@@ -14,7 +16,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [AddComponentMenu("MRTK/Input/Poke Interactor")]
     public class PokeInteractor :
-        UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor,
+        XRBaseInputInteractor,
         IPokeInteractor,
         IHandedInteractor
     {
@@ -112,7 +114,7 @@ namespace MixedReality.Toolkit.Input
         #region XRBaseInteractor
 
         /// <inheritdoc />
-        public override void GetValidTargets(List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> targets)
+        public override void GetValidTargets(List<IXRInteractable> targets)
         {
             targets.Clear();
             targets.AddRange(this.targets);
@@ -133,7 +135,7 @@ namespace MixedReality.Toolkit.Input
         public override bool isSelectActive => true;
 
         // Scratchpad for GetValidTargets. Spherecast hits and overlaps are recorded here.
-        private HashSet<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> targets = new HashSet<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable>();
+        private HashSet<IXRInteractable> targets = new HashSet<IXRInteractable>();
 
         // Scratchpad for spherecast intersections.
         private RaycastHit[] results = new RaycastHit[8];
@@ -188,7 +190,7 @@ namespace MixedReality.Toolkit.Input
                         for (int i = 0; i < numOverlaps; i++)
                         {
                             // Add intersections to target list.
-                            if (interactionManager.TryGetInteractableForCollider(overlaps[i], out UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable interactable))
+                            if (interactionManager.TryGetInteractableForCollider(overlaps[i], out IXRInteractable interactable))
                             {
                                 targets.Add(interactable);
                             }
@@ -211,7 +213,7 @@ namespace MixedReality.Toolkit.Input
                         for (int i = 0; i < numHits; i++)
                         {
                             // Add intersections to target list.
-                            if (interactionManager.TryGetInteractableForCollider(results[i].collider, out UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable interactable))
+                            if (interactionManager.TryGetInteractableForCollider(results[i].collider, out IXRInteractable interactable))
                             {
                                 targets.Add(interactable);
                             }

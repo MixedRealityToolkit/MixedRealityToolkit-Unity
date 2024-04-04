@@ -2,7 +2,8 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit
 {
@@ -10,7 +11,7 @@ namespace MixedReality.Toolkit
     /// A Unity <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.3/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractable.html">IXRInteractable</see>
     /// that is capable of being scrolled by a Unity <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.3/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractor.html">IXRInteractor</see>.
     /// </summary>
-    public interface IScrollable : UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable
+    public interface IScrollable : IXRInteractable
     {
         /// <summary>
         /// Get the transform that is backing this scrollable region.
@@ -26,7 +27,7 @@ namespace MixedReality.Toolkit
         /// Get the Unity <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.0/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractor.html">IXRInteractor</see>
         /// that is scrolling or will scroll the specified <see cref="ScrollableTransform"/>.
         /// </summary>
-        UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor ScrollingInteractor { get; }
+        IXRInteractor ScrollingInteractor { get; }
 
         /// <summary>
         /// Get the local position of <see cref="ScrollingInteractor"/> at the start of the scroll operation.

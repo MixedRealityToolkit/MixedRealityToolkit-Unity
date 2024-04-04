@@ -3,7 +3,8 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -21,7 +22,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         [SerializeField]
         [Tooltip("The set of near interactors that belongs to near interaction")]
-        private List<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor> nearInteractors;
+        private List<XRBaseInteractor> nearInteractors;
 
         /// <summary>
         /// Keeps track of the previously detected interactables so that we can know which
@@ -101,7 +102,7 @@ namespace MixedReality.Toolkit.Input
 
             foreach (Collider collider in DetectedColliders)
             {
-                if (InteractionManager.TryGetInteractableForCollider(collider, out UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable xrInteractable) &&
+                if (InteractionManager.TryGetInteractableForCollider(collider, out IXRInteractable xrInteractable) &&
                     xrInteractable is IXRProximityInteractable xrProximityInteractable &&
                     !currentlyDetectedInteractables.Contains(xrProximityInteractable))
                 {
@@ -116,7 +117,7 @@ namespace MixedReality.Toolkit.Input
         /// <returns>True if an interactor has selection, false otherwise.</returns>
         private bool IsNearInteractorSelecting()
         {
-            foreach (UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor nearInteractor in nearInteractors)
+            foreach (XRBaseInteractor nearInteractor in nearInteractors)
             {
                 if (nearInteractor.hasSelection)
                 {

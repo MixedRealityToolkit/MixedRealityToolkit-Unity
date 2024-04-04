@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -65,13 +66,13 @@ namespace MixedReality.Toolkit.Input
         private static readonly ProfilerMarker IsHitValidPerfMarker =
             new ProfilerMarker("[MRTK] FuzzyGazeInteractor.IsHitValid");
 
-        private bool IsHitValid(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable target, RaycastHit hit)
+        private bool IsHitValid(IXRInteractable target, RaycastHit hit)
         {
             using (IsHitValidPerfMarker.Auto())
             {
                 // Immediately reject our hit if we can't hover it.
                 // This lets the ray "pass through" any objects that reject gaze hovers.
-                if (target is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable hoverInteractable && !hoverInteractable.IsHoverableBy(this))
+                if (target is IXRHoverInteractable hoverInteractable && !hoverInteractable.IsHoverableBy(this))
                 {
                     return false;
                 }
@@ -149,8 +150,8 @@ namespace MixedReality.Toolkit.Input
         {
             using (ConeCastScoreComparePerfMarker.Auto())
             {
-                UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable interactableA = a.targetInteractable;
-                UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable interactableB = b.targetInteractable;
+                IXRInteractable interactableA = a.targetInteractable;
+                IXRInteractable interactableB = b.targetInteractable;
 
                 float aScore = InteractableScoreMap[interactableA];
                 float bScore = InteractableScoreMap[interactableB];
@@ -188,7 +189,7 @@ namespace MixedReality.Toolkit.Input
             /// <summary>
             /// The interactable object that was hit by the gaze's raycast.
             /// </summary>
-            public UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable targetInteractable;
+            public IXRInteractable targetInteractable;
 
             /// <summary>
             /// The precision level of the fuzzy gaze's raycast.
@@ -248,12 +249,12 @@ namespace MixedReality.Toolkit.Input
 
             if (castRadius > 0.0f)
             {
-                raycastHitCounts[targetPrecision] = UnityEngine.Physics.SphereCastNonAlloc(effectiveRayOrigin.position, castRadius, effectiveRayOrigin.forward,
+                raycastHitCounts[targetPrecision] = Physics.SphereCastNonAlloc(effectiveRayOrigin.position, castRadius, effectiveRayOrigin.forward,
                            AllRaycastHits[targetPrecision], maxRaycastDistance, raycastMask, raycastTriggerInteraction);
             }
             else
             {
-                raycastHitCounts[targetPrecision] = UnityEngine.Physics.RaycastNonAlloc(effectiveRayOrigin.position, effectiveRayOrigin.forward,
+                raycastHitCounts[targetPrecision] = Physics.RaycastNonAlloc(effectiveRayOrigin.position, effectiveRayOrigin.forward,
                            AllRaycastHits[targetPrecision], maxRaycastDistance, raycastMask, raycastTriggerInteraction);
             }
         }
@@ -290,12 +291,12 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Reusable mapping of Interactables to their score from <see cref="ScoreHit"/> (used for sort).
         /// </summary>
-        private static readonly Dictionary<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable, float> InteractableScoreMap = new Dictionary<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable, float>();
+        private static readonly Dictionary<IXRInteractable, float> InteractableScoreMap = new Dictionary<IXRInteractable, float>();
 
         /// <summary>
         /// Reusable mapping of Interactables to their "best" raycast hit. The best hit is the hit from the highest precision level.
         /// </summary>
-        private static readonly Dictionary<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable, GazeRaycastHitResult> InteractableRaycastHitMap = new Dictionary<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable, GazeRaycastHitResult>();
+        private static readonly Dictionary<IXRInteractable, GazeRaycastHitResult> InteractableRaycastHitMap = new Dictionary<IXRInteractable, GazeRaycastHitResult>();
 
         /// <summary>
         /// Used to avoid GC alloc that would happen if passing <see cref="ConeCastScoreCompare"/> directly
@@ -318,7 +319,7 @@ namespace MixedReality.Toolkit.Input
                 InteractableRaycastHitMap.Clear();
                 foreach (GazeRaycastHitResult result in hitResults)
                 {
-                    UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable interactable = result.targetInteractable;
+                    IXRInteractable interactable = result.targetInteractable;
                     RaycastHit raycastHit = result.raycastHit;
 
                     float score = fuzzyGazeInteractor.ScoreHit(raycastHit);
@@ -362,7 +363,7 @@ namespace MixedReality.Toolkit.Input
         /// partially covered by a wall or UI element) not applicable for this scenario. Thus this implementation
         /// doesn't call base.GetValidTargets at any point.
         /// </remarks>
-        public override void GetValidTargets(List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> targets)
+        public override void GetValidTargets(List<IXRInteractable> targets)
         {
             using (GetValidTargetsPerfMarker.Auto())
             {
@@ -370,7 +371,7 @@ namespace MixedReality.Toolkit.Input
                 targets.Clear();
                 foreach (GazeRaycastHitResult gazeRaycastHitResult in BaseTargetsRaycastHitResults)
                 {
-                    UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable target = gazeRaycastHitResult.targetInteractable;
+                    IXRInteractable target = gazeRaycastHitResult.targetInteractable;
                     RaycastHit raycastHit = gazeRaycastHitResult.raycastHit;
                     if (IsHitValid(target, raycastHit))
                     {

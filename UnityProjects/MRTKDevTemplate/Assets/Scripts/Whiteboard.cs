@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Collections;
 using UnityEngine.XR.Interaction.Toolkit;
-using MixedReality.Toolkit.Input;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Examples.Demos
 {
@@ -30,7 +30,7 @@ namespace MixedReality.Toolkit.Examples.Demos
         private Texture2D texture;
 
         // Used draw a full line between current frame + last frame's "paintbrush" position.
-        private Dictionary<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor, Vector2> lastPositions = new Dictionary<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor, Vector2>();
+        private Dictionary<IXRInteractor, Vector2> lastPositions = new Dictionary<IXRInteractor, Vector2>();
 
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.

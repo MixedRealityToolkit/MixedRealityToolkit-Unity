@@ -3,7 +3,8 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX
 {
@@ -11,31 +12,31 @@ namespace MixedReality.Toolkit.UX
     /// A simple proxy interactor which will select and hover things on MRTK's behalf, for canvas input.
     /// </summary>
     [AddComponentMenu("MRTK/UX/Canvas Proxy Interactor")]
-    public class CanvasProxyInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor, IProxyInteractor, IModeManagedInteractor
+    public class CanvasProxyInteractor : XRBaseInteractor, IProxyInteractor, IModeManagedInteractor
     {
         /// <summary>
         /// The hash set containing a collection of valid interactable targets for this this interactor.
         /// </summary>
-        protected HashSet<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> validTargets = new HashSet<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable>();
+        protected HashSet<IXRInteractable> validTargets = new HashSet<IXRInteractable>();
 
         /// <summary>
         /// The last target selected using the <see cref="StartSelect(IXRSelectInteractable)"/> method. This value will
         /// be cleared when <see cref="EndSelect"/> is called.
         /// </summary>
-        protected UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable manualSelectTarget;
+        protected IXRSelectInteractable manualSelectTarget;
 
         // We set this flag whenever we're cancelling an interaction. This will suppress
         // events (like OnClicked) on any StatefulInteractable.
         private bool isCancellingInteraction = false;
 
         /// <inheritdoc />
-        public void StartHover(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable target)
+        public void StartHover(IXRHoverInteractable target)
         {
             StartHover(target, target.colliders[0].transform.position);
         }
 
         /// <inheritdoc />
-        public void StartHover(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable target, Vector3 worldPosition)
+        public void StartHover(IXRHoverInteractable target, Vector3 worldPosition)
         {
             if (target != null && target.IsHoverableBy(this))
             {
@@ -45,7 +46,7 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <inheritdoc />
-        public void EndHover(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable target)
+        public void EndHover(IXRHoverInteractable target)
         {
             if (target != null)
             {
@@ -54,13 +55,13 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <inheritdoc />
-        public void StartSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable target)
+        public void StartSelect(IXRSelectInteractable target)
         {
             StartSelect(target, target.colliders[0].transform.position);
         }
 
         /// <inheritdoc />
-        public void StartSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable target, Vector3 worldPosition)
+        public void StartSelect(IXRSelectInteractable target, Vector3 worldPosition)
         {
             if (interactionManager.IsRegistered(target) && target.IsSelectableBy(this))
             {
@@ -79,13 +80,13 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <inheritdoc />
-        public void UpdateSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable, Vector3 worldPosition)
+        public void UpdateSelect(IXRSelectInteractable interactable, Vector3 worldPosition)
         {
             transform.position = worldPosition;
         }
 
         /// <inheritdoc />
-        public void EndSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable target, bool suppressEvents = false)
+        public void EndSelect(IXRSelectInteractable target, bool suppressEvents = false)
         {
             if (manualSelectTarget == target)
             {
@@ -106,14 +107,14 @@ namespace MixedReality.Toolkit.UX
         }
         
         /// <inheritdoc />
-        public override void GetValidTargets(List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> targets)
+        public override void GetValidTargets(List<IXRInteractable> targets)
         {
             targets.Clear();
             targets.AddRange(validTargets);
         }
 
         /// <inheritdoc />
-        public override bool CanSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable)
+        public override bool CanSelect(IXRSelectInteractable interactable)
         {
             return base.CanSelect(interactable) && interactable == manualSelectTarget;
         }

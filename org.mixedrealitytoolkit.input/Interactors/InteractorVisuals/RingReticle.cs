@@ -2,7 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -104,7 +104,7 @@ namespace MixedReality.Toolkit.Input
                 {
                     UpdateReticleProgressVisual(variableSelectInteractor.SelectProgress);
                 }
-                else if (args.Interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor selectInteractor)
+                else if (args.Interactor is IXRSelectInteractor selectInteractor)
                 {
                     UpdateReticleProgressVisual(selectInteractor.isSelectActive ? 1 : 0);
                 }

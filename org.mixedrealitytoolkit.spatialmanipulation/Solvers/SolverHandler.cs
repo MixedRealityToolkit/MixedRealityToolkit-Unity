@@ -8,7 +8,7 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -22,12 +22,12 @@ namespace MixedReality.Toolkit.SpatialManipulation
     {
         [SerializeField]
         [Tooltip("The interactor used when solving for the left hand / controller.")]
-        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor leftInteractor = null;
+        private XRBaseInteractor leftInteractor = null;
 
         /// <summary>
         /// The interactor used when solving for the left hand / controller.
         /// </summary>
-        public UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor LeftInteractor
+        public XRBaseInteractor LeftInteractor
         {
             get => leftInteractor;
             set => leftInteractor = value;
@@ -35,12 +35,12 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         [SerializeField]
         [Tooltip("The interactor used when solving for the right hand / controller.")]
-        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor rightInteractor = null;
+        private XRBaseInteractor rightInteractor = null;
 
         /// <summary>
         /// The interactor used when solving for the left hand / controller.
         /// </summary>
-        public UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor RightInteractor
+        public XRBaseInteractor RightInteractor
         {
             get => rightInteractor;
             set => rightInteractor = value;
@@ -288,7 +288,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         // Hidden GameObject managed by this component and attached as a child to the tracked target type (i.e head, hand etc)
         private GameObject trackingTarget;
 
-        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor controllerInteractor;
+        private XRBaseInteractor controllerInteractor;
 
         private float lastUpdateTime;
 
@@ -588,7 +588,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// The associated interactor, attached to the controller with the
         /// specified <see cref="Handedness"/>, or null.
         /// </returns>
-        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor GetControllerInteractor(Handedness handedness)
+        private XRBaseInteractor GetControllerInteractor(Handedness handedness)
         {
             if (handedness == Handedness.None || !IsValidHandedness(handedness)) { return null; }
 

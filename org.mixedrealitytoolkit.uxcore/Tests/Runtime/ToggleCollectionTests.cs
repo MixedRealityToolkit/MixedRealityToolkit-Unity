@@ -9,7 +9,8 @@ using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
@@ -21,7 +22,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         /// <summary>
         /// A dummy interactor used to test basic selection/toggle logic.
         /// </summary>
-        private class TestInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor { }
+        private class TestInteractor : XRBaseInteractor { }
 
         /// <summary>
         /// Makes sure toggles get added automatically at runtime.
@@ -68,7 +69,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             var testInteractor = parent.AddComponent<TestInteractor>();
 
-            testInteractor.StartManualInteraction(toggleCollection.Toggles[5] as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            testInteractor.StartManualInteraction(toggleCollection.Toggles[5] as IXRSelectInteractable);
             yield return null;
             yield return null;
             testInteractor.EndManualInteraction();
@@ -76,7 +77,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.IsTrue(toggleCollection.Toggles[5].IsToggled, "Interactable didn't get toggled");
             Assert.IsTrue(toggleCollection.CurrentIndex == 5, "ToggleCollection didn't update its CurrentIndex!");
 
-            testInteractor.StartManualInteraction(toggleCollection.Toggles[1] as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            testInteractor.StartManualInteraction(toggleCollection.Toggles[1] as IXRSelectInteractable);
             yield return null;
             yield return null;
             testInteractor.EndManualInteraction();
@@ -116,7 +117,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             var testInteractor = parent.AddComponent<TestInteractor>();
 
-            testInteractor.StartManualInteraction(toggleCollection.Toggles[5] as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            testInteractor.StartManualInteraction(toggleCollection.Toggles[5] as IXRSelectInteractable);
             yield return null;
             yield return null;
             testInteractor.EndManualInteraction();
@@ -125,7 +126,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.IsTrue(toggleCollection.CurrentIndex == 5, "ToggleCollection didn't update its CurrentIndex!");
 
             // Try to toggle the same one. See if it detoggles (it shouldn't!)
-            testInteractor.StartManualInteraction(toggleCollection.Toggles[5] as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            testInteractor.StartManualInteraction(toggleCollection.Toggles[5] as IXRSelectInteractable);
             yield return null;
             yield return null;
             testInteractor.EndManualInteraction();
@@ -142,7 +143,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
 
             // Try to toggle the same one. Now, it should detoggle!
-            testInteractor.StartManualInteraction(toggleCollection.Toggles[5] as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            testInteractor.StartManualInteraction(toggleCollection.Toggles[5] as IXRSelectInteractable);
             yield return null;
             yield return null;
             testInteractor.EndManualInteraction();

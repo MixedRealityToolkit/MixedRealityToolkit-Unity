@@ -6,6 +6,8 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 using SliderEvent = UnityEngine.Events.UnityEvent<MixedReality.Toolkit.UX.SliderEventData>;
 
@@ -342,7 +344,7 @@ namespace MixedReality.Toolkit.UX
             // Sliders use InteractableSelectMode.Single to ignore
             // incoming interactors after a first/valid interactor has
             // been acquired.
-            selectMode = UnityEngine.XR.Interaction.Toolkit.Interactables.InteractableSelectMode.Single;
+            selectMode = InteractableSelectMode.Single;
         }
         #endregion Protected Methods
 
@@ -401,7 +403,7 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <inheritdoc />
-        public override bool IsSelectableBy(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor)
+        public override bool IsSelectableBy(IXRSelectInteractor interactor)
         {
             // Only allow the first interactor selecting the slider to be able to control it.
             if (isSelected)

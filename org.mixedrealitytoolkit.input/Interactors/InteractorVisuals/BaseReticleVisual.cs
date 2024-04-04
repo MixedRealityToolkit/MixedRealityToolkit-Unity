@@ -1,9 +1,8 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactors.Visuals;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -15,7 +14,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [AddComponentMenu("MRTK/Input/Base Reticle Visual")]
     [DisallowMultipleComponent]
-    public class BaseReticleVisual : MonoBehaviour, UnityEngine.XR.Interaction.Toolkit.Interactors.Visuals.IXRCustomReticleProvider
+    public class BaseReticleVisual : MonoBehaviour, IXRCustomReticleProvider
     {
         [SerializeField]
         [Tooltip("The root of the reticle visuals")]

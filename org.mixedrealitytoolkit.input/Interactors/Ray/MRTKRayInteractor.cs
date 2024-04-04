@@ -7,6 +7,8 @@ using MixedReality.Toolkit.Subsystems;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace MixedReality.Toolkit.Input
@@ -23,7 +25,7 @@ namespace MixedReality.Toolkit.Input
     // or create a system to keep ensure interactor poses aren't ever implicitly set via parenting.
     [DefaultExecutionOrder(XRInteractionUpdateOrder.k_Controllers + 1)]
     public class MRTKRayInteractor :
-        UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor,
+        XRRayInteractor,
         IRayInteractor,
         IHandedInteractor,
         IVariableSelectInteractor
@@ -91,7 +93,7 @@ namespace MixedReality.Toolkit.Input
         #region XRBaseInteractor
 
         /// <inheritdoc />
-        public override bool CanHover(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable interactable)
+        public override bool CanHover(IXRHoverInteractable interactable)
         {
             // We stay hovering if we have selected anything.
             bool stickyHover = hasSelection && IsSelecting(interactable);
@@ -116,13 +118,13 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <inheritdoc />
-        public override bool CanSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable)
+        public override bool CanSelect(IXRSelectInteractable interactable)
         {
             return base.CanSelect(interactable) && (!hasSelection || IsSelecting(interactable)) && isRelaxedBeforeSelect;
         }
 
         /// <inheritdoc />
-        public override void GetValidTargets(List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> targets)
+        public override void GetValidTargets(List<IXRInteractable> targets)
         {
             // When selection is active, force valid targets to be the current selection. This is done to ensure that selected objects remained hovered.
             if (hasSelection && isActiveAndEnabled)

@@ -13,6 +13,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -187,7 +188,7 @@ namespace MixedReality.Toolkit.Input.Tests
             // Ensure the prox detector has actually had the desired effect of enabling/disabling interactors.
             foreach (System.Type interactorType in managedInteractorTypes)
             {
-                UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor = controller.GetComponentInChildren(interactorType) as UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor;
+                XRBaseInteractor interactor = controller.GetComponentInChildren(interactorType) as XRBaseInputInteractor;
                 if (interactor != null)
                 {
                     Assert.AreEqual(activeInteractorTypes.Contains(interactorType), interactor.enabled);

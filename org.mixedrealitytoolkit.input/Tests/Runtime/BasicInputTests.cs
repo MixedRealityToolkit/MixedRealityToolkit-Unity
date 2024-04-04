@@ -7,15 +7,14 @@
 using MixedReality.Toolkit.Core.Tests;
 using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
-using MixedReality.Toolkit.Input;
 using MixedReality.Toolkit.Input.Simulation;
-using MixedReality.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using MixedReality.Toolkit.Subsystems;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
@@ -313,7 +312,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// A dummy interactor used to test basic selection/toggle logic.
         /// </summary>
-        private class TestInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor { }
+        private class TestInteractor : XRBaseInteractor { }
 
         /// <summary>
         /// Test that the correct toggle state should be readable after receiving an OnClicked event.
@@ -334,7 +333,7 @@ namespace MixedReality.Toolkit.Input.Tests
                 Assert.IsTrue(interactable.IsToggled == expectedToggleState, "Toggle state had an unexpected value");
             });
 
-            interactor.StartManualInteraction(interactable as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            interactor.StartManualInteraction(interactable as IXRSelectInteractable);
             yield return null;
             interactor.EndManualInteraction();
             yield return null;
@@ -345,7 +344,7 @@ namespace MixedReality.Toolkit.Input.Tests
             interactable.ToggleMode = StatefulInteractable.ToggleType.Toggle;
             expectedToggleState = true;
 
-            interactor.StartManualInteraction(interactable as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            interactor.StartManualInteraction(interactable as IXRSelectInteractable);
             yield return null;
             interactor.EndManualInteraction();
             yield return null;
@@ -354,7 +353,7 @@ namespace MixedReality.Toolkit.Input.Tests
             receivedOnClicked = false;
             expectedToggleState = false;
 
-            interactor.StartManualInteraction(interactable as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            interactor.StartManualInteraction(interactable as IXRSelectInteractable);
             yield return null;
             interactor.EndManualInteraction();
             yield return null;
@@ -413,7 +412,7 @@ namespace MixedReality.Toolkit.Input.Tests
             cube.AddComponent<StatefulInteractable>();
 
             // Otherwise, poke will conflict with grab.
-            cube.GetComponent<StatefulInteractable>().selectMode = UnityEngine.XR.Interaction.Toolkit.Interactables.InteractableSelectMode.Multiple;
+            cube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
 
             var rightHand = new TestHand(Handedness.Right);
             yield return rightHand.Show(InputTestUtilities.InFrontOfUser());
@@ -519,7 +518,7 @@ namespace MixedReality.Toolkit.Input.Tests
             cube.AddComponent<StatefulInteractable>();
 
             // Otherwise, poke will conflict with grab.
-            cube.GetComponent<StatefulInteractable>().selectMode = UnityEngine.XR.Interaction.Toolkit.Interactables.InteractableSelectMode.Multiple;
+            cube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
 
             var rightHand = new TestHand(Handedness.Right);
             yield return RuntimeTestUtilities.WaitForUpdates();

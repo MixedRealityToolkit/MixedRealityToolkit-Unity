@@ -7,6 +7,8 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX
 {
@@ -253,7 +255,7 @@ namespace MixedReality.Toolkit.UX
         protected virtual void ApplyRequiredSettings()
         {
             // All buttons are multi-selectable.
-            selectMode = UnityEngine.XR.Interaction.Toolkit.Interactables.InteractableSelectMode.Multiple;
+            selectMode = InteractableSelectMode.Multiple;
 
             // You can't grab buttons.
             DisableInteractorType(typeof(IGrabInteractor));
@@ -294,7 +296,7 @@ namespace MixedReality.Toolkit.UX
         #region XRI methods
 
         /// <inheritdoc />
-        public override bool IsSelectableBy(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor)
+        public override bool IsSelectableBy(IXRSelectInteractor interactor)
         {
             bool baseIsSelectable = base.IsSelectableBy(interactor);
 

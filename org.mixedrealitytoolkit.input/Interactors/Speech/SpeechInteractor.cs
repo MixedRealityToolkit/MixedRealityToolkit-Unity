@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -23,7 +25,7 @@ namespace MixedReality.Toolkit.Input
     /// </para>
     /// </remarks>
     [AddComponentMenu("MRTK/Input/Speech Interactor")]
-    public class SpeechInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor, ISpeechInteractor
+    public class SpeechInteractor : XRBaseInteractor, ISpeechInteractor
     {
         [SerializeField]
         [Tooltip("How long does the interactor remain selecting the interactable after recognizing a voice command?")]
@@ -123,7 +125,7 @@ namespace MixedReality.Toolkit.Input
                         if (!interactable.VoiceRequiresFocus || interactable.isHovered)
                         {
                             selectedInteractables.Insert(0, (interactable, VoiceCommandTriggerTime));
-                            interactionManager.SelectEnter(this, interactable as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+                            interactionManager.SelectEnter(this, interactable as IXRSelectInteractable);
                         }
                     }
                 }
@@ -148,7 +150,7 @@ namespace MixedReality.Toolkit.Input
                         if (selectionTimeRemaining < 0)
                         {
                             exitingSelect = true;
-                            interactionManager.SelectExit(this, selectedInteractables[i].Item1 as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+                            interactionManager.SelectExit(this, selectedInteractables[i].Item1 as IXRSelectInteractable);
                             selectedInteractables.RemoveAt(i);
                         }
                         else
@@ -168,7 +170,7 @@ namespace MixedReality.Toolkit.Input
             args.manager.interactableUnregistered += OnInteractableUnregistered;
 
             // Try register all interactables that are registered with the interaction manager
-            List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> interactables = new List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable>();
+            List<IXRInteractable> interactables = new List<IXRInteractable>();
             interactionManager.GetRegisteredInteractables(interactables);
             foreach (var interactable in interactables)
             {
@@ -217,7 +219,7 @@ namespace MixedReality.Toolkit.Input
         /// <para>Special workaround: as XRI does not support selecting more than one interactable at a time,
         /// drop part of the selection lifecycle management provided by XRI and manually tell the interaction manager to enter/exit selection</para>
         /// </remarks>
-        public override void GetValidTargets(List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> targets)
+        public override void GetValidTargets(List<IXRInteractable> targets)
         {
             targets.Clear();
         }

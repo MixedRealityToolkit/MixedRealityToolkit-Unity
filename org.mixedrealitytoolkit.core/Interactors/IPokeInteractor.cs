@@ -2,7 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit
 {
@@ -16,7 +16,7 @@ namespace MixedReality.Toolkit
     /// the tip of the index finger for an articulated hand, or a
     /// predetermined poking point on a motion controller rig.
     /// </remarks>
-    public interface IPokeInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor, UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor
+    public interface IPokeInteractor : IXRHoverInteractor, IXRSelectInteractor
     {
         /// <summary>
         /// The path of a poking type movement.

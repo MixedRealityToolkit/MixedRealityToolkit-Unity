@@ -5,6 +5,7 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using static MixedReality.Toolkit.Input.XRRayInteractorExtensions;
 
 namespace MixedReality.Toolkit.Input
@@ -124,7 +125,7 @@ namespace MixedReality.Toolkit.Input
         [Header("Mixed Reality Line Renderer Settings")]
         [SerializeField]
         [Tooltip("The ray interactor which this visual represents.")]
-        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor;
+        private XRRayInteractor rayInteractor;
 
         [SerializeField]
         [Tooltip("The line renderer this visual has control over.")]

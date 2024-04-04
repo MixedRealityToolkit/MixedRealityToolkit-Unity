@@ -10,6 +10,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
@@ -23,7 +24,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         private GameObject level1 = null;
         private GameObject level2 = null;
 
-        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor interactor = null;
+        private XRRayInteractor interactor = null;
 
         private InteractableEventRouter level0_router = null;
         private InteractableEventRouterChildSource level1_routerChildSource = null;
@@ -106,12 +107,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectEnteredCount, "No child select entered events should have occurred yet.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectEnter((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, level2_statefulInteractableChild);
+            CachedInteractionManager.SelectEnter((IXRSelectInteractor)interactor, level2_statefulInteractableChild);
 
             Assert.AreEqual(1, level1_testInteractableParent.ChildSelectEnteredCount, "The child select entered event should have occurred once.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectExit((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, level2_statefulInteractableChild);
+            CachedInteractionManager.SelectExit((IXRSelectInteractor)interactor, level2_statefulInteractableChild);
 
             Assert.AreEqual(1, level1_testInteractableParent.ChildSelectEnteredCount, "The child select entered event should have occurred once.");
             Assert.AreEqual(1, level1_testInteractableParent.ChildSelectExitedCount, "The child select exited event should have occurred once.");
@@ -125,12 +126,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(0, level1_testInteractableParent.ChildHoverEnteredCount, "No child hover entered events should have occurred yet.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildHoverExitedCount, "No child hover exited events should have occurred yet.");
 
-            CachedInteractionManager.HoverEnter((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor)interactor, level2_statefulInteractableChild);
+            CachedInteractionManager.HoverEnter((IXRHoverInteractor)interactor, level2_statefulInteractableChild);
 
             Assert.AreEqual(1, level1_testInteractableParent.ChildHoverEnteredCount, "The child hover entered event should have occurred once.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildHoverExitedCount, "No child hover exited events should have occurred yet.");
 
-            CachedInteractionManager.HoverExit((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor)interactor, level2_statefulInteractableChild);
+            CachedInteractionManager.HoverExit((IXRHoverInteractor)interactor, level2_statefulInteractableChild);
 
             Assert.AreEqual(1, level1_testInteractableParent.ChildHoverEnteredCount, "The child hover entered event should have occurred once.");
             Assert.AreEqual(1, level1_testInteractableParent.ChildHoverExitedCount, "The child hover exited event should have occurred once.");
@@ -144,12 +145,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(0, level2_testInteractableChild.ParentSelectEnteredCount, "No parent select entered events should have occurred yet.");
             Assert.AreEqual(0, level2_testInteractableChild.ParentSelectExitedCount, "No parent select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectEnter((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, level1_statefulInteractableParent);
+            CachedInteractionManager.SelectEnter((IXRSelectInteractor)interactor, level1_statefulInteractableParent);
 
             Assert.AreEqual(1, level2_testInteractableChild.ParentSelectEnteredCount, "The parent select entered event should have occurred once.");
             Assert.AreEqual(0, level2_testInteractableChild.ParentSelectExitedCount, "No parent select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectExit((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, level1_statefulInteractableParent);
+            CachedInteractionManager.SelectExit((IXRSelectInteractor)interactor, level1_statefulInteractableParent);
 
             Assert.AreEqual(1, level2_testInteractableChild.ParentSelectEnteredCount, "The parent select entered event should have occurred once.");
             Assert.AreEqual(1, level2_testInteractableChild.ParentSelectExitedCount, "The parent select exited event should have occurred once.");
@@ -163,12 +164,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(0, level2_testInteractableChild.ParentHoverEnteredCount, "No parent hover entered events should have occurred yet.");
             Assert.AreEqual(0, level2_testInteractableChild.ParentHoverExitedCount, "No parent hover exited events should have occurred yet.");
 
-            CachedInteractionManager.HoverEnter((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor)interactor, level1_statefulInteractableParent);
+            CachedInteractionManager.HoverEnter((IXRHoverInteractor)interactor, level1_statefulInteractableParent);
 
             Assert.AreEqual(1, level2_testInteractableChild.ParentHoverEnteredCount, "The parent hover entered event should have occurred once.");
             Assert.AreEqual(0, level2_testInteractableChild.ParentHoverExitedCount, "No parent hover exited events should have occurred yet.");
 
-            CachedInteractionManager.HoverExit((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor)interactor, level1_statefulInteractableParent);
+            CachedInteractionManager.HoverExit((IXRHoverInteractor)interactor, level1_statefulInteractableParent);
 
             Assert.AreEqual(1, level2_testInteractableChild.ParentHoverEnteredCount, "The parent hover entered event should have occurred once.");
             Assert.AreEqual(1, level2_testInteractableChild.ParentHoverExitedCount, "The parent hover exited event should have occurred once.");
@@ -186,12 +187,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectEnteredCount, "No child select entered events should have occurred yet.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectEnter((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, newStatefulInteractableChild);
+            CachedInteractionManager.SelectEnter((IXRSelectInteractor)interactor, newStatefulInteractableChild);
 
             Assert.AreEqual(1, level1_testInteractableParent.ChildSelectEnteredCount, "The child select entered event should have occurred once.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectExit((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, newStatefulInteractableChild);
+            CachedInteractionManager.SelectExit((IXRSelectInteractor)interactor, newStatefulInteractableChild);
 
             Assert.AreEqual(1, level1_testInteractableParent.ChildSelectEnteredCount, "The child select entered event should have occurred once.");
             Assert.AreEqual(1, level1_testInteractableParent.ChildSelectExitedCount, "The child select exited event should have occurred once.");
@@ -209,12 +210,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(0, level1_testInteractableParent.ChildHoverEnteredCount, "No child hover entered events should have occurred yet.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildHoverExitedCount, "No child hover exited events should have occurred yet.");
 
-            CachedInteractionManager.HoverEnter((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor)interactor, newStatefulInteractableChild);
+            CachedInteractionManager.HoverEnter((IXRHoverInteractor)interactor, newStatefulInteractableChild);
 
             Assert.AreEqual(1, level1_testInteractableParent.ChildHoverEnteredCount, "The child hover entered event should have occurred once.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildHoverExitedCount, "No child hover exited events should have occurred yet.");
 
-            CachedInteractionManager.HoverExit((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor)interactor, newStatefulInteractableChild);
+            CachedInteractionManager.HoverExit((IXRHoverInteractor)interactor, newStatefulInteractableChild);
 
             Assert.AreEqual(1, level1_testInteractableParent.ChildHoverEnteredCount, "The child hover entered event should have occurred once.");
             Assert.AreEqual(1, level1_testInteractableParent.ChildHoverExitedCount, "The child hover exited event should have occurred once.");
@@ -230,12 +231,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectEnteredCount, "No child select entered events should have occurred.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred.");
 
-            CachedInteractionManager.SelectEnter((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, level2_statefulInteractableChild);
+            CachedInteractionManager.SelectEnter((IXRSelectInteractor)interactor, level2_statefulInteractableChild);
 
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectEnteredCount, "No child select entered events should have occurred, since `BubbleChildSelectEvents` was removed.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred.");
 
-            CachedInteractionManager.SelectExit((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, level2_statefulInteractableChild);
+            CachedInteractionManager.SelectExit((IXRSelectInteractor)interactor, level2_statefulInteractableChild);
 
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectEnteredCount, "No child select entered events should have occurred, since `BubbleChildSelectEvents` was removed.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred, since `BubbleChildSelectEvents` was removed.");
@@ -251,12 +252,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectEnteredCount, "No child select entered events should have occurred yet.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectEnter((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, level2_statefulInteractableChild);
+            CachedInteractionManager.SelectEnter((IXRSelectInteractor)interactor, level2_statefulInteractableChild);
 
             Assert.AreEqual(1, level1_testInteractableParent.ChildSelectEnteredCount, "The child select entered event should have occurred once.");
             Assert.AreEqual(0, level1_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectExit((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, level2_statefulInteractableChild);
+            CachedInteractionManager.SelectExit((IXRSelectInteractor)interactor, level2_statefulInteractableChild);
 
             Assert.AreEqual(1, level1_testInteractableParent.ChildSelectEnteredCount, "The child select entered event should have occurred once.");
             Assert.AreEqual(1, level1_testInteractableParent.ChildSelectExitedCount, "The child select exited event should have occurred once.");
@@ -291,12 +292,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(0, levelB_testInteractableParent.ChildSelectEnteredCount, "No child select entered events should have occurred yet.");
             Assert.AreEqual(0, levelB_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectEnter((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, level2_statefulInteractableChild);
+            CachedInteractionManager.SelectEnter((IXRSelectInteractor)interactor, level2_statefulInteractableChild);
 
             Assert.AreEqual(1, levelB_testInteractableParent.ChildSelectEnteredCount, "The child select entered event should have occurred once.");
             Assert.AreEqual(0, levelB_testInteractableParent.ChildSelectExitedCount, "No child select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectExit((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, level2_statefulInteractableChild);
+            CachedInteractionManager.SelectExit((IXRSelectInteractor)interactor, level2_statefulInteractableChild);
 
             Assert.AreEqual(1, levelB_testInteractableParent.ChildSelectEnteredCount, "The child select entered event should have occurred once.");
             Assert.AreEqual(1, levelB_testInteractableParent.ChildSelectExitedCount, "The child select exited event should have occurred once.");
@@ -335,12 +336,12 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(0, level2_testInteractableChild.ParentSelectEnteredCount, "No parent select entered events should have occurred yet.");
             Assert.AreEqual(0, level2_testInteractableChild.ParentSelectExitedCount, "No parent select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectEnter((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, levelB_statefulInteractableParent);
+            CachedInteractionManager.SelectEnter((IXRSelectInteractor)interactor, levelB_statefulInteractableParent);
 
             Assert.AreEqual(1, level2_testInteractableChild.ParentSelectEnteredCount, "The parent select entered event should have occurred once.");
             Assert.AreEqual(0, level2_testInteractableChild.ParentSelectExitedCount, "No parent select exited events should have occurred yet.");
 
-            CachedInteractionManager.SelectExit((UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)interactor, levelB_statefulInteractableParent);
+            CachedInteractionManager.SelectExit((IXRSelectInteractor)interactor, levelB_statefulInteractableParent);
 
             Assert.AreEqual(1, level2_testInteractableChild.ParentSelectEnteredCount, "The parent select entered event should have occurred once.");
             Assert.AreEqual(1, level2_testInteractableChild.ParentSelectExitedCount, "The parent select exited event should have occurred once.");
@@ -363,7 +364,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             // Setup interactor
             interactorObject.AddComponent<XRController>();
-            interactor = interactorObject.AddComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor>();
+            interactor = interactorObject.AddComponent<XRRayInteractor>();
             interactorObject.transform.SetParent(level0.transform, worldPositionStays: true);
 
             // Setup level 1

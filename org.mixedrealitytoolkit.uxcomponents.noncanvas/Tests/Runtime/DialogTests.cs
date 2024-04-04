@@ -13,7 +13,8 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
@@ -23,7 +24,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
     public class NonCanvasDialogTests : BaseRuntimeInputTests
     {
         // A dummy interactor used to test basic selection logic.
-        private class TestInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor { }
+        private class TestInteractor : XRBaseInteractor { }
 
         // UXComponents.NonCanvas/Dialog/Dialog_168x88mm.prefab
         private const string NonCanvasDialogPrefabGUID = "175cf7e8b8559f342806a0f7d7f3082a";
@@ -117,7 +118,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(1, buttons.Length, "One and only one button should be present in the layout.");
 
             // Select the option, test the result.
-            testInteractor.StartManualInteraction(buttons[0] as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            testInteractor.StartManualInteraction(buttons[0] as IXRSelectInteractable);
             yield return null;
             testInteractor.EndManualInteraction();
 
@@ -166,7 +167,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             buttonIdx = pickWrong ? (buttonIdx + 1) % buttons.Length : buttonIdx;
 
             // Select the option, test the result.
-            testInteractor.StartManualInteraction(buttons[buttonIdx] as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            testInteractor.StartManualInteraction(buttons[buttonIdx] as IXRSelectInteractable);
             yield return null;
             testInteractor.EndManualInteraction();
 
@@ -345,7 +346,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             PressableButton[] buttons = dialog.VisibleRoot.GetComponentsInChildren<PressableButton>(false);
 
             // Select the option, test the result.
-            testInteractor.StartManualInteraction(buttons[0] as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
+            testInteractor.StartManualInteraction(buttons[0] as IXRSelectInteractable);
             await WaitAsyncFrames(1);
             testInteractor.EndManualInteraction();
             await WaitAsyncFrames(1);
