@@ -6,7 +6,7 @@ using UnityEngine;
 namespace MixedReality.Toolkit.Examples
 {
     using SpatialManipulation;
-    using UnityEngine.XR.Interaction.Toolkit;
+    
 
     /// <summary>
     /// Manager class for the solver examples scene.
@@ -19,12 +19,12 @@ namespace MixedReality.Toolkit.Examples
 
         [SerializeField]
         [Tooltip("The interactor used when solving for the left hand / controller.")]
-        private XRBaseInteractor LeftInteractor = null;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor LeftInteractor = null;
 
 
         [SerializeField]
         [Tooltip("The interactor used when solving for the right hand / controller.")]
-        private XRBaseInteractor RightInteractor = null;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor RightInteractor = null;
 
         private SolverHandler handler;
         private Solver currentSolver;

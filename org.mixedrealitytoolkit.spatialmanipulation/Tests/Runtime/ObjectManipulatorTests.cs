@@ -13,9 +13,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.XR.Interaction.Toolkit;
+
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
-using MovementType = UnityEngine.XR.Interaction.Toolkit.XRBaseInteractable.MovementType;
+using MovementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType;
 using MixedReality.Toolkit.Input;
 
 namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
@@ -1075,7 +1075,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             var socketTriggerCollider = socketObject.AddComponent<BoxCollider>();
             socketTriggerCollider.isTrigger = true;
             socketTriggerCollider.size = Vector3.one * 2f;
-            var socketInteractor = socketObject.AddComponent<XRSocketInteractor>();
+            var socketInteractor = socketObject.AddComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor>();
 
             TestHand hand = new TestHand(Handedness.Right);
             yield return hand.Show(testObject.transform.position);

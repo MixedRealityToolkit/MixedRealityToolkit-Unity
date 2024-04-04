@@ -14,7 +14,7 @@ namespace MixedReality.Toolkit.Input
     /// <remarks>
     /// After entering the trigger selection state the interactor will keep selecting before <see cref="dwellTriggerTime"/> passes, after which the selection ends.
     /// </remarks>
-    [RequireComponent(typeof(XRBaseInteractor))]
+    [RequireComponent(typeof(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor))]
     [AddComponentMenu("MRTK/Input/Interactor Dwell Manager")]
     public class InteractorDwellManager : MonoBehaviour
     {
@@ -32,7 +32,7 @@ namespace MixedReality.Toolkit.Input
             get => dwellTriggerTime;
         }
 
-        private XRBaseInteractor interactor;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor;
 
         /// <summary>
         /// A dictionary that keeps track of dwell-enabled StatefulInteractables the interactor is interacting with.
@@ -75,7 +75,7 @@ namespace MixedReality.Toolkit.Input
                     // The time reaches zero, so trigger select on the interactable.
                     else if (pair.Value == 0)
                     {
-                        interactor.StartManualInteraction(pair.Key as IXRSelectInteractable);
+                        interactor.StartManualInteraction(pair.Key as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
                         interactableDict[pair.Key] = -Time.deltaTime;
                     }
                     // Triggering select and waiting till DwellTriggerTime passes (manual interaction started but has yet finished).

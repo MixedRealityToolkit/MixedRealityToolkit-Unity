@@ -2,7 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace MixedReality.Toolkit
 {
@@ -15,52 +15,52 @@ namespace MixedReality.Toolkit
     /// Generally, input shims will call these functions to request the proxy to
     /// hover/select/etc the object on which the shim is placed.
     /// </remarks>
-    public interface IProxyInteractor : IXRSelectInteractor, IXRHoverInteractor
+    public interface IProxyInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor, UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor
     {
         /// <summary>
         /// Begin hovering the interactable. The interactable will receive
         /// <c>OnHoverEntering</c> and <c>OnHoverEntered</c> events, and the proxy interactor will include it in
         /// its list of valid targets.
         /// </summary>
-        void StartHover(IXRHoverInteractable interactable);
+        void StartHover(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable interactable);
 
         /// <summary>
         /// Begin hovering the interactable. The interactable will receive
         /// <c>OnHoverEntering</c> and <c>OnHoverEntered</c> events, and the proxy interactor will include it in
         /// its list of valid targets. Also includes the worldPosition of the pointer.
         /// </summary>
-        void StartHover(IXRHoverInteractable interactable, Vector3 worldPosition);
+        void StartHover(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable interactable, Vector3 worldPosition);
 
         /// <summary>
         /// End hovering the interactable. The interactable will receive
         /// <c>OnHoverExiting</c> and <c>OnHoverExited</c> events, and the proxy interactor will remove it from
         /// its list of valid targets.
         /// </summary>
-        void EndHover(IXRHoverInteractable interactable);
+        void EndHover(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable interactable);
 
         /// <summary>
         /// Begin selecting the interactable. The interactable will receive
         /// <c>OnSelectEntering</c> and <c>OnSelectEntered</c> events.
         /// </summary>
-        void StartSelect(IXRSelectInteractable interactable);
+        void StartSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable);
 
         /// <summary>
         /// Begin selecting the interactable. The interactable will receive
         /// <c>OnSelectEntering</c> and <c>OnSelectEntered</c> events. Also includes the worldPosition of the pointer.
         /// </summary>
-        void StartSelect(IXRSelectInteractable interactable, Vector3 worldPosition);
+        void StartSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable, Vector3 worldPosition);
 
         /// <summary>
         /// Call to periodically update an in-progress selection. Typically
         /// used for drags; worldPosition specifies the world position of the pointer's drag.
         /// </summary>
-        void UpdateSelect(IXRSelectInteractable interactable, Vector3 worldPosition);
+        void UpdateSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable, Vector3 worldPosition);
 
         /// <summary>
         /// End selecting the interactable. The interactable will receive
         /// <c>OnSelectExiting</c> and <c>OnSelectExited</c> events. SuppressEvents will prevent StatefulInteractables
         /// from receiving click or toggle events.
         /// </summary>
-        void EndSelect(IXRSelectInteractable interactable, bool suppressEvents = false);
+        void EndSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable, bool suppressEvents = false);
     }
 }

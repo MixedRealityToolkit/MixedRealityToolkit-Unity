@@ -313,7 +313,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// A dummy interactor used to test basic selection/toggle logic.
         /// </summary>
-        private class TestInteractor : XRBaseInteractor { }
+        private class TestInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor { }
 
         /// <summary>
         /// Test that the correct toggle state should be readable after receiving an OnClicked event.
@@ -334,7 +334,7 @@ namespace MixedReality.Toolkit.Input.Tests
                 Assert.IsTrue(interactable.IsToggled == expectedToggleState, "Toggle state had an unexpected value");
             });
 
-            interactor.StartManualInteraction(interactable as IXRSelectInteractable);
+            interactor.StartManualInteraction(interactable as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
             yield return null;
             interactor.EndManualInteraction();
             yield return null;
@@ -345,7 +345,7 @@ namespace MixedReality.Toolkit.Input.Tests
             interactable.ToggleMode = StatefulInteractable.ToggleType.Toggle;
             expectedToggleState = true;
 
-            interactor.StartManualInteraction(interactable as IXRSelectInteractable);
+            interactor.StartManualInteraction(interactable as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
             yield return null;
             interactor.EndManualInteraction();
             yield return null;
@@ -354,7 +354,7 @@ namespace MixedReality.Toolkit.Input.Tests
             receivedOnClicked = false;
             expectedToggleState = false;
 
-            interactor.StartManualInteraction(interactable as IXRSelectInteractable);
+            interactor.StartManualInteraction(interactable as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable);
             yield return null;
             interactor.EndManualInteraction();
             yield return null;
@@ -413,7 +413,7 @@ namespace MixedReality.Toolkit.Input.Tests
             cube.AddComponent<StatefulInteractable>();
 
             // Otherwise, poke will conflict with grab.
-            cube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
+            cube.GetComponent<StatefulInteractable>().selectMode = UnityEngine.XR.Interaction.Toolkit.Interactables.InteractableSelectMode.Multiple;
 
             var rightHand = new TestHand(Handedness.Right);
             yield return rightHand.Show(InputTestUtilities.InFrontOfUser());
@@ -519,7 +519,7 @@ namespace MixedReality.Toolkit.Input.Tests
             cube.AddComponent<StatefulInteractable>();
 
             // Otherwise, poke will conflict with grab.
-            cube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
+            cube.GetComponent<StatefulInteractable>().selectMode = UnityEngine.XR.Interaction.Toolkit.Interactables.InteractableSelectMode.Multiple;
 
             var rightHand = new TestHand(Handedness.Right);
             yield return RuntimeTestUtilities.WaitForUpdates();

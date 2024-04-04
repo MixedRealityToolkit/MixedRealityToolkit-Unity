@@ -2,7 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace MixedReality.Toolkit.Input
 {
@@ -18,7 +18,7 @@ namespace MixedReality.Toolkit.Input
         /// <param name="interactableObject"> The IXRSelectInteractable which has been selected. </param>
         /// <param name="hitDetails"> The local position and normal of the hit target, the hit target transform, and a reference point to calculate hit distance, contained in a TargetHitDetails struct. </param>
         /// <returns> Returns true if there was a raycast hit and false otherwise. </returns>
-        public static bool TryLocateTargetHitPoint(this XRRayInteractor rayInteractor, IXRSelectInteractable interactableObject, out TargetHitDetails hitDetails)
+        public static bool TryLocateTargetHitPoint(this UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor, UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactableObject, out TargetHitDetails hitDetails)
 		{
 			hitDetails = new TargetHitDetails();
 			bool hitPointAndTransformUpdated = false;
@@ -38,7 +38,7 @@ namespace MixedReality.Toolkit.Input
 			// scroller and not to the a list item within the scroller, such as a button.
 			if (interactableObject is IScrollable scrollable &&
 				scrollable.IsScrolling &&
-				scrollable.ScrollingInteractor == (IXRInteractor)rayInteractor)
+				scrollable.ScrollingInteractor == (UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor)rayInteractor)
 			{
 				hitDetails.HitTargetTransform = scrollable.ScrollableTransform;
 				hitDetails.TargetLocalHitPoint = scrollable.ScrollingLocalAnchorPosition;

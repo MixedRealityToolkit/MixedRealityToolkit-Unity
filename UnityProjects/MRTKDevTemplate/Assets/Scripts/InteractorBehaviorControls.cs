@@ -24,22 +24,22 @@ namespace MixedReality.Toolkit.Examples
         private XRInteractionManager interactionManager;
 
         [SerializeField]
-        private XRBaseInteractor[] handRaysInteractors;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor[] handRaysInteractors;
 
         [SerializeField]
-        private XRBaseInteractor[] controllerRayInteractors;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor[] controllerRayInteractors;
 
         [SerializeField]
-        private XRBaseInteractor[] grabInteractors;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor[] grabInteractors;
 
         [SerializeField]
-        private XRBaseInteractor[] pokeInteractors;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor[] pokeInteractors;
 
         [SerializeField]
-        private XRBaseInteractor[] gazePinchInteractors;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor[] gazePinchInteractors;
 
         [SerializeField]
-        private XRBaseInteractor gazeInteractor;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor gazeInteractor;
 
         /// <summary>
         /// event triggered when hand rays are toggled on or off
@@ -224,7 +224,7 @@ namespace MixedReality.Toolkit.Examples
         /// <summary>
         /// Toggle interactors, and return true if something changed.
         /// </summary>
-        private bool ToggleInteractors(XRBaseInteractor[] interactors, bool isActive)
+        private bool ToggleInteractors(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor[] interactors, bool isActive)
         {
             if (isActive)
             {
@@ -239,7 +239,7 @@ namespace MixedReality.Toolkit.Examples
         /// <summary>
         /// Toggle interactor, and return true if something changed.
         /// </summary>
-        private bool ToggleInteractor(XRBaseInteractor interactor, bool isActive)
+        private bool ToggleInteractor(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor, bool isActive)
         {
             if (isActive)
             {
@@ -254,7 +254,7 @@ namespace MixedReality.Toolkit.Examples
         /// <summary>
         /// Activate interactors, and return true if something changed.
         /// </summary>
-        private bool ActivateInteractors(XRBaseInteractor[] interactors)
+        private bool ActivateInteractors(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor[] interactors)
         {
             bool change = false;
             for (int i = 0; i < interactors.Length; i++)
@@ -267,7 +267,7 @@ namespace MixedReality.Toolkit.Examples
         /// <summary>
         /// Activate interactor, and return true if something changed.
         /// </summary>
-        private bool ActivateInteractor(XRBaseInteractor interactor)
+        private bool ActivateInteractor(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
         {
             if (interactor.gameObject.activeSelf)
             {
@@ -282,7 +282,7 @@ namespace MixedReality.Toolkit.Examples
         /// <summary>
         /// Deactivate interactors, and return true if something changed.
         /// </summary>
-        private bool DeactivateInteractors(XRBaseInteractor[] interactors)
+        private bool DeactivateInteractors(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor[] interactors)
         {
             bool change = false;
             for (int i = 0; i < interactors.Length; i++)
@@ -295,7 +295,7 @@ namespace MixedReality.Toolkit.Examples
         /// <summary>
         /// Deactivate interactor, and return true if something changed.
         /// </summary>
-        private bool DeactivateInteractor(XRBaseInteractor interactor)
+        private bool DeactivateInteractor(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
         {
             if (!interactor.gameObject.activeSelf)
             {

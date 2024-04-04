@@ -18,19 +18,19 @@ namespace MixedReality.Toolkit.UX
     [AddComponentMenu("MRTK/UX/UGUI Input Adapter")]
     public class UGUIInputAdapter : Selectable, ISubmitHandler
     {
-        private IXRInteractable thisInteractable;
+        private UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable thisInteractable;
 
         /// <summary>
         /// The associated <see cref="XRBaseInteractable"/> on behalf of which
         /// this adapter will translate input events.
         /// </summary>
-        protected IXRInteractable ThisInteractable
+        protected UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable ThisInteractable
         {
             get
             {
                 if (thisInteractable == null)
                 {
-                    thisInteractable = GetComponentInParent<IXRInteractable>();
+                    thisInteractable = GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable>();
                 }
                 return thisInteractable;
             }
@@ -65,7 +65,7 @@ namespace MixedReality.Toolkit.UX
 
         private IProxyInteractor proxyInteractor;
 
-        private List<IXRInteractor> interactorQueryList = new List<IXRInteractor>();
+        private List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor> interactorQueryList = new List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor>();
 
         /// <summary>
         /// The associated <see cref="XRBaseInteractable"/> on behalf of which
@@ -86,7 +86,7 @@ namespace MixedReality.Toolkit.UX
                 if (interactionManager == null)
                 {
                     // First, check if we can get the reference from our interactable.
-                    if (ThisInteractable is XRBaseInteractable baseInteractable)
+                    if (ThisInteractable is UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable baseInteractable)
                     {
                         interactionManager = baseInteractable.interactionManager;
                     }
@@ -158,7 +158,7 @@ namespace MixedReality.Toolkit.UX
             // We won't get pointerExit calls when the object is disabled.
             if (ProxyInteractor != null)
             {
-                ProxyInteractor.EndHover(ThisInteractable as IXRHoverInteractable);
+                ProxyInteractor.EndHover(ThisInteractable as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable);
             }
         }
 
@@ -227,7 +227,7 @@ namespace MixedReality.Toolkit.UX
             // and we don't want to duplicate them.
             if (IsXRUIEvent(pointerEventData)) { return; }
 
-            if (ThisInteractable is IXRHoverInteractable hoverInteractable &&
+            if (ThisInteractable is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable hoverInteractable &&
                 ProxyInteractor != null)
             {
                 ProxyInteractor.StartHover(hoverInteractable, pointerEventData.pointerCurrentRaycast.worldPosition);
@@ -269,7 +269,7 @@ namespace MixedReality.Toolkit.UX
             // and we don't want to duplicate them.
             if (IsXRUIEvent(pointerEventData)) { return; }
 
-            if (ThisInteractable is IXRSelectInteractable selectInteractable &&
+            if (ThisInteractable is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable selectInteractable &&
                 ProxyInteractor != null)
             {
                 ProxyInteractor.StartSelect(selectInteractable, pointerEventData.pointerCurrentRaycast.worldPosition);
@@ -292,12 +292,12 @@ namespace MixedReality.Toolkit.UX
             // and we don't want to duplicate them.
             if (IsXRUIEvent(pointerEventData)) { return; }
 
-            if (ThisInteractable is IXRSelectInteractable selectInteractable &&
+            if (ThisInteractable is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable selectInteractable &&
                 ProxyInteractor != null)
             {
                 // Cancel the click if the event is a drag event, or if we've stopped hovering the interactable
                 // (i.e., we've rolled off)
-                bool shouldCancel = pointerEventData.dragging || !ProxyInteractor.IsHovering(ThisInteractable as IXRHoverInteractable);
+                bool shouldCancel = pointerEventData.dragging || !ProxyInteractor.IsHovering(ThisInteractable as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable);
 
                 ProxyInteractor.EndSelect(selectInteractable, shouldCancel);
             }
@@ -311,7 +311,7 @@ namespace MixedReality.Toolkit.UX
         {
             base.OnSelect(eventData);
 
-            if (ThisInteractable is IXRHoverInteractable hoverInteractable &&
+            if (ThisInteractable is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable hoverInteractable &&
                 ProxyInteractor != null)
             {
                 ProxyInteractor.StartHover(hoverInteractable);
@@ -326,7 +326,7 @@ namespace MixedReality.Toolkit.UX
         {
             base.OnDeselect(eventData);
 
-            if (ThisInteractable is IXRHoverInteractable hoverInteractable &&
+            if (ThisInteractable is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable hoverInteractable &&
                 ProxyInteractor != null)
             {
                 ProxyInteractor.EndHover(hoverInteractable);
@@ -391,7 +391,7 @@ namespace MixedReality.Toolkit.UX
         /// </remarks>
         protected IEnumerator Move(Vector3 objectLocalDelta)
         {
-            if (ThisInteractable is IXRSelectInteractable selectInteractable &&
+            if (ThisInteractable is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable selectInteractable &&
                 ProxyInteractor != null)
             {
                 bool interactorWasSelecting = ProxyInteractor.IsSelecting(selectInteractable);
@@ -450,7 +450,7 @@ namespace MixedReality.Toolkit.UX
             // off chance anyone is listening to canvas states.
             DoStateTransition(SelectionState.Pressed, false);
 
-            if (ThisInteractable is IXRSelectInteractable selectInteractable &&
+            if (ThisInteractable is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable selectInteractable &&
                 ProxyInteractor != null)
             {
                 ProxyInteractor.StartSelect(selectInteractable);
@@ -471,7 +471,7 @@ namespace MixedReality.Toolkit.UX
             // Again, making the Canvas state machine happy.
             DoStateTransition(currentSelectionState, false);
 
-            if (ThisInteractable is IXRSelectInteractable selectInteractable &&
+            if (ThisInteractable is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable selectInteractable &&
                 ProxyInteractor != null)
             {
                 ProxyInteractor.EndSelect(selectInteractable);

@@ -567,7 +567,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private bool UseForces => rigidBody != null && !rigidBody.isKinematic;
 
-        private bool SelectedBySocket => interactorsSelecting.Count == 1 && interactorsSelecting[0] is XRSocketInteractor;
+        private bool SelectedBySocket => interactorsSelecting.Count == 1 && interactorsSelecting[0] is UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor;
 
         private Rigidbody rigidBody;
 
@@ -595,7 +595,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             base.Reset();
             ApplyRequiredSettings();
-            selectMode = InteractableSelectMode.Multiple;
+            selectMode = UnityEngine.XR.Interaction.Toolkit.Interactables.InteractableSelectMode.Multiple;
         }
 
         /// <summary>
@@ -653,7 +653,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             };
         }
 
-        private InteractionFlags GetInteractionFlagsFromInteractor(IXRInteractor interactor)
+        private InteractionFlags GetInteractionFlagsFromInteractor(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor)
         {
             InteractionFlags flags = InteractionFlags.None;
             if (interactor is IGrabInteractor)
@@ -679,7 +679,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         /// <inheritdoc />
-        public override bool IsSelectableBy(IXRSelectInteractor interactor)
+        public override bool IsSelectableBy(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor)
         {
             return base.IsSelectableBy(interactor) && AllowedInteractionTypes.IsMaskSet(GetInteractionFlagsFromInteractor(interactor));
         }
@@ -1004,7 +1004,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             // This matches XRI's treatment of overrides as the default behavior.
             for (var index = interactorsSelecting.Count - 1; index >= 0; --index)
             {
-                var xrBaseInteractor = interactorsSelecting[index] as XRBaseInteractor;
+                var xrBaseInteractor = interactorsSelecting[index] as UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor;
                 if (xrBaseInteractor != null && xrBaseInteractor.selectedInteractableMovementTypeOverride.HasValue)
                 {
                     CurrentRigidbodyMovementType = xrBaseInteractor.selectedInteractableMovementTypeOverride.Value;
@@ -1052,14 +1052,14 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// Gets the absolute device (grip) rotation associated with the specified interactor.
         /// Used to query actual grabbing rotation, vs a ray rotation.
         /// </summary>
-        private bool TryGetGripRotation(IXRSelectInteractor interactor, out Quaternion rotation)
+        private bool TryGetGripRotation(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor, out Quaternion rotation)
         {
             // We need to query the raw device rotation from the interactor; however,
             // the controller may have its rotation bound to the pointerRotation, which is unsuitable
             // for modeling rotations with far rays. Therefore, we cast down to the base TrackedDevice,
             // and query the device rotation directly. If any of this can't be casted, we return the
             // interactor's attachTransform's rotation.
-            if (interactor is XRBaseInputInteractor controllerInteractor &&
+            if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controllerInteractor &&
                 controllerInteractor.xrController is ActionBasedController abController &&
                 abController.rotationAction.action?.activeControl?.device is TrackedDevice device)
             {

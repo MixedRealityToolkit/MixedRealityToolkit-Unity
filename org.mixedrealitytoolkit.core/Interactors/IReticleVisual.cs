@@ -2,7 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace MixedReality.Toolkit
 {
@@ -31,7 +31,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// XRRayInteractor that the reticle serves as a visual for.
         /// </summary>
-        public IXRInteractor Interactor;
+        public UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor Interactor;
 
         /// <summary>
         /// The desired reticle position from the raycast hit.
@@ -46,7 +46,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Initializes a <see cref="ReticleVisualUpdateArgs"/> struct.
         /// </summary>
-        public ReticleVisualUpdateArgs(IXRInteractor interactor, Vector3 reticlePosition, Vector3 reticleNormal)
+        public ReticleVisualUpdateArgs(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor, Vector3 reticlePosition, Vector3 reticleNormal)
         {
             Interactor = interactor;
             ReticlePosition = reticlePosition;

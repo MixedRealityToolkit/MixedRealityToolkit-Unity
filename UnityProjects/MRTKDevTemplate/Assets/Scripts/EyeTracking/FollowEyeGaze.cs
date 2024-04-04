@@ -38,7 +38,7 @@ namespace MixedReality.Toolkit.Examples
         private InputActionProperty _gazeTranslationAction;
 
         private IGazeInteractor gazeInteractor;
-        private List<IXRInteractable> targets;
+        private List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> targets;
 
         private void Awake()
         {
@@ -46,7 +46,7 @@ namespace MixedReality.Toolkit.Examples
 
             gazeInteractor = gazeController.GetComponentInChildren<IGazeInteractor>();
 
-            targets = new List<IXRInteractable>();
+            targets = new List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable>();
         }
 
         private void OnEnable()

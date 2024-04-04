@@ -3,7 +3,7 @@
 
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace MixedReality.Toolkit.UX
 {
@@ -40,7 +40,7 @@ namespace MixedReality.Toolkit.UX
 
             // We only adapt drags for selectable interactables,
             // and if we have a valid proxy interactor.
-            if (!(ThisInteractable is IXRSelectInteractable selectInteractable) ||
+            if (!(ThisInteractable is UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable selectInteractable) ||
                 ProxyInteractor == null)
             { return; }
 

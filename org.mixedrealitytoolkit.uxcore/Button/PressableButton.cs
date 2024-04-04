@@ -253,7 +253,7 @@ namespace MixedReality.Toolkit.UX
         protected virtual void ApplyRequiredSettings()
         {
             // All buttons are multi-selectable.
-            selectMode = InteractableSelectMode.Multiple;
+            selectMode = UnityEngine.XR.Interaction.Toolkit.Interactables.InteractableSelectMode.Multiple;
 
             // You can't grab buttons.
             DisableInteractorType(typeof(IGrabInteractor));
@@ -294,7 +294,7 @@ namespace MixedReality.Toolkit.UX
         #region XRI methods
 
         /// <inheritdoc />
-        public override bool IsSelectableBy(IXRSelectInteractor interactor)
+        public override bool IsSelectableBy(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor)
         {
             bool baseIsSelectable = base.IsSelectableBy(interactor);
 

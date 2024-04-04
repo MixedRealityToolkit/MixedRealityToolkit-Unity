@@ -34,7 +34,7 @@ namespace MixedReality.Toolkit.Examples.Demos
     /// </para>
     /// </remarks>
     [AddComponentMenu("MRTK/Examples/Pen Interactor")]
-    internal class PenInteractor : XRBaseInteractor, IPokeInteractor
+    internal class PenInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor, IPokeInteractor
     {
         #region IPokeInteractor Implementation
 
@@ -55,17 +55,17 @@ namespace MixedReality.Toolkit.Examples.Demos
         public override bool isSelectActive => true;
 
         // Collection of hover targets.
-        private HashSet<IXRInteractable> hoveredTargets = new HashSet<IXRInteractable>();
+        private HashSet<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> hoveredTargets = new HashSet<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable>();
 
         /// <inheritdoc />
-        public override void GetValidTargets(List<IXRInteractable> targets)
+        public override void GetValidTargets(List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> targets)
         {
             targets.Clear();
             targets.AddRange(hoveredTargets);
         }
 
         /// <inheritdoc />
-        public override bool CanSelect(IXRSelectInteractable interactable)
+        public override bool CanSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable)
         {
             // Can only select if we've hovered.
             return hoveredTargets.Contains(interactable);

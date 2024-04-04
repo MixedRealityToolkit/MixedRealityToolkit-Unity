@@ -13,7 +13,7 @@ namespace MixedReality.Toolkit
     /// Extended version of XRBaseInteractable to enable multi-hand interactions.
     /// </summary>
     [AddComponentMenu("MRTK/Core/MRTK Base Interactable")]
-    public class MRTKBaseInteractable : XRBaseInteractable
+    public class MRTKBaseInteractable : UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable
     {
         #region Gaze
 
@@ -185,7 +185,7 @@ namespace MixedReality.Toolkit
         // todo: can we rework/get rid of this? in the NEAR FUTURE??
         [SerializeField]
         [Tooltip("Subtractively specifies the set of interactors allowed to select this interactable")]
-        [Implements(typeof(IXRInteractor), TypeGrouping.ByNamespaceFlat, AllowAbstract = true)]
+        [Implements(typeof(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor), TypeGrouping.ByNamespaceFlat, AllowAbstract = true)]
         private List<SystemInterfaceType> disabledInteractorTypes = new List<SystemInterfaceType>();
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is the given type of interactor permitted to interact with this interactable?
         /// </summary>
-        public bool IsInteractorTypeValid(IXRInteractor interactor)
+        public bool IsInteractorTypeValid(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor)
         {
             // Cache queried interactor type to extract from hot loop.
             Type interactorType = interactor.GetType();
@@ -245,7 +245,7 @@ namespace MixedReality.Toolkit
             IsActiveHovered.Active = activeHoverCount > 0;
         }
 
-        private void UpdateSelectFlags(bool increment, IXRInteractor interactor)
+        private void UpdateSelectFlags(bool increment, UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor)
         {
             if (interactor is IRayInteractor) { raySelectCount += increment ? 1 : -1; }
             if (interactor is IGazePinchInteractor) { gazePinchSelectCount += increment ? 1 : -1; }
@@ -261,13 +261,13 @@ namespace MixedReality.Toolkit
         #region XRI methods
 
         /// <inheritdoc />
-        public override bool IsSelectableBy(IXRSelectInteractor interactor)
+        public override bool IsSelectableBy(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor)
         {
             return base.IsSelectableBy(interactor) && IsInteractorTypeValid(interactor);
         }
 
         /// <inheritdoc />
-        public override bool IsHoverableBy(IXRHoverInteractor interactor)
+        public override bool IsHoverableBy(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor interactor)
         {
             return base.IsHoverableBy(interactor) && IsInteractorTypeValid(interactor);
         }

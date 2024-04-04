@@ -4,7 +4,7 @@
 using MixedReality.Toolkit.Editor;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace MixedReality.Toolkit.SpatialManipulation.Editor
 {
@@ -122,7 +122,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
             ObjectManipulator objectManipulator = (ObjectManipulator)target;
             Rigidbody rb = objectManipulator.HostTransform.GetComponent<Rigidbody>();
-            XRBaseInteractable.MovementType rbMovementType = objectManipulator.RigidbodyMovementType;
+            UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType rbMovementType = objectManipulator.RigidbodyMovementType;
 
             constraintsFoldout = ConstraintManagerEditor.DrawConstraintManagerFoldout(objectManipulator.gameObject,
                                                                                         enableConstraints,
@@ -140,7 +140,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                         EditorGUILayout.PropertyField(releaseBehavior);
                     }
                     EditorGUILayout.PropertyField(rigidbodyMovementType);
-                    if (rbMovementType == XRBaseInteractable.MovementType.VelocityTracking)
+                    if (rbMovementType == UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.VelocityTracking)
                     {
                         EditorGUILayout.PropertyField(applyTorque);
                         EditorGUILayout.PropertyField(springForceSoftness);
@@ -159,7 +159,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
             if (smoothingFoldout)
             {
-                if (rb == null || rbMovementType != XRBaseInteractable.MovementType.VelocityTracking)
+                if (rb == null || rbMovementType != UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.VelocityTracking)
                 {
                     EditorGUILayout.PropertyField(moveLerpTime);
                     EditorGUILayout.PropertyField(rotateLerpTime);

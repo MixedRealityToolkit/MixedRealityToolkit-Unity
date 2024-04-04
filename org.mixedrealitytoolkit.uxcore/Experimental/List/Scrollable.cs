@@ -49,7 +49,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// <summary>
         /// A cache of interactables whose selection should be canceled.
         /// </summary>
-        private List<IXRSelectInteractable> cancelableSelections;
+        private List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable> cancelableSelections;
 
         [Tooltip("The scroll rect to scroll.")]
         [SerializeField]
@@ -182,7 +182,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         }
 
         /// <inheritdoc />
-        public IXRInteractor ScrollingInteractor
+        public UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor ScrollingInteractor
         {
             get
             {
@@ -352,7 +352,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             }
         }
 
-        private void StartScrollingWithInteractor(XRInteractionManager manager, IXRInteractor interactor)
+        private void StartScrollingWithInteractor(XRInteractionManager manager, UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor)
         {
             bool isPokeInteractor = interactor is IPokeInteractor;
             bool wasEmpty = states.Count == 0;
@@ -370,7 +370,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             }
         }
 
-        private void StopScrollingWithInteractor(IXRInteractor interactor)
+        private void StopScrollingWithInteractor(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor)
         {
             if (!HasSelection(interactor) &&
                 !HasPokeHover(interactor) &&
@@ -441,12 +441,12 @@ namespace MixedReality.Toolkit.UX.Experimental
         {
             var scrollerMovementSquared = data.ScrollMovementSquareMagnitude;
             if (scrollerMovementSquared > data.CancelSelectionDistanceSquared &&
-                data.Interactor is IXRSelectInteractor selector &&
+                data.Interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor selector &&
                 IsSelectingChild(selector))
             {
                 if (cancelableSelections == null)
                 {
-                    cancelableSelections = new List<IXRSelectInteractable>(selector.interactablesSelected.Count);
+                    cancelableSelections = new List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable>(selector.interactablesSelected.Count);
                 }
                 else
                 {
@@ -455,7 +455,7 @@ namespace MixedReality.Toolkit.UX.Experimental
 
                 foreach (var interactable in selector.interactablesSelected)
                 {
-                    if (interactable != (IXRSelectInteractable)this)
+                    if (interactable != (UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable)this)
                     {
                         cancelableSelections.Add(interactable);
                     }
@@ -495,15 +495,15 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// <summary>
         /// Get if the given interactor has a selection.
         /// </summary>
-        private bool HasSelection(IXRInteractor interactor)
+        private bool HasSelection(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor)
         {
-            return (interactor is IXRSelectInteractor selector) && selector.hasSelection;
+            return (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor selector) && selector.hasSelection;
         }
 
         /// <summary>
         /// Get if the given interactor is a poke interactor and is hovering an interactable.
         /// </summary>
-        private bool HasPokeHover(IXRInteractor interactor)
+        private bool HasPokeHover(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor)
         {
             return (interactor is IPokeInteractor poker) && poker.hasHover;
         }
@@ -511,7 +511,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// <summary>
         /// Get if the interactor is selecting a child interactor.
         /// </summary>
-        private bool IsSelectingChild(IXRSelectInteractor interactor)
+        private bool IsSelectingChild(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor)
         {
             return interactor.hasSelection &&
                 (interactor.interactablesSelected.Count > 1 || !interactor.interactablesSelected.Contains(this));
@@ -530,7 +530,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             /// <summary>
             /// The interactor wanting to scroll
             /// </summary>
-            public IXRInteractor Interactor { get; private set; }
+            public UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor Interactor { get; private set; }
 
             /// <summary>
             /// The scroll region the interactor is acting upon
@@ -596,7 +596,7 @@ namespace MixedReality.Toolkit.UX.Experimental
 
             public ScrollingInteractorData(
                 XRInteractionManager manager,
-                IXRInteractor interactor,
+                UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor,
                 Transform scrollRegion,
                 float deadZone,
                 float cancelSelectionDistance)

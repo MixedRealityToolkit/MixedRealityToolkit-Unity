@@ -342,7 +342,7 @@ namespace MixedReality.Toolkit.UX
             // Sliders use InteractableSelectMode.Single to ignore
             // incoming interactors after a first/valid interactor has
             // been acquired.
-            selectMode = InteractableSelectMode.Single;
+            selectMode = UnityEngine.XR.Interaction.Toolkit.Interactables.InteractableSelectMode.Single;
         }
         #endregion Protected Methods
 
@@ -401,7 +401,7 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <inheritdoc />
-        public override bool IsSelectableBy(IXRSelectInteractor interactor)
+        public override bool IsSelectableBy(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor)
         {
             // Only allow the first interactor selecting the slider to be able to control it.
             if (isSelected)

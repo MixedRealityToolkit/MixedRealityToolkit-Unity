@@ -14,7 +14,7 @@ namespace MixedReality.Toolkit.Input
     /// the hands aggregator subsystem.
     /// </summary>
     public abstract class HandJointInteractor :
-        XRDirectInteractor,
+        UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor,
         IHandedInteractor
     {
         #region HandJointInteractor

@@ -1,7 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace MixedReality.Toolkit
 {
@@ -9,7 +9,7 @@ namespace MixedReality.Toolkit
     /// An interface that all interactors which offer
     /// variable selection must implement.
     /// </summary>
-    public interface IVariableSelectInteractor : IXRSelectInteractor, IXRHoverInteractor
+    public interface IVariableSelectInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor, UnityEngine.XR.Interaction.Toolkit.Interactors.IXRHoverInteractor
     {
         /// <summary>
         /// Returns a value [0,1] representing the variable

@@ -3,7 +3,7 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace MixedReality.Toolkit.Input
 {
@@ -15,7 +15,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [AddComponentMenu("MRTK/Input/Base Reticle Visual")]
     [DisallowMultipleComponent]
-    public class BaseReticleVisual : MonoBehaviour, IXRCustomReticleProvider
+    public class BaseReticleVisual : MonoBehaviour, UnityEngine.XR.Interaction.Toolkit.Interactors.Visuals.IXRCustomReticleProvider
     {
         [SerializeField]
         [Tooltip("The root of the reticle visuals")]

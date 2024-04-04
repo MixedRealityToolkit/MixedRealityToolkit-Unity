@@ -14,7 +14,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [AddComponentMenu("MRTK/Input/Gaze Pinch Interactor")]
     public class GazePinchInteractor :
-        XRBaseInputInteractor,
+        UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor,
         IGazePinchInteractor,
         IHandedInteractor
     {
@@ -70,12 +70,12 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeField]
         [Tooltip("The interactor we're using to query potential gaze pinch targets")]
-        private XRBaseInputInteractor dependentInteractor;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor dependentInteractor;
 
         /// <summary>
         /// The pose source representing the ray this interactor uses for aiming and positioning.
         /// </summary>
-        protected XRBaseInputInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
+        protected UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
 
         [SerializeField]
         [Range(0, 1)]
@@ -170,7 +170,7 @@ namespace MixedReality.Toolkit.Input
         /// indirect targeting mechanisms. As a result, the targeting/hovering rules
         /// are inherited from the <see cref="dependentInteractor"/>.
         /// </remarks>
-        public override void GetValidTargets(List<IXRInteractable> targets)
+        public override void GetValidTargets(List<UnityEngine.XR.Interaction.Toolkit.Interactables.IXRInteractable> targets)
         {
             // If we are hovering something and also have gone past the sticky hover threshold,
             // we should *only* consider the current hover target, regardless of what the
@@ -221,7 +221,7 @@ namespace MixedReality.Toolkit.Input
         /// set to the controller's grip pose.
         /// </remarks>
         /// <param name="interactable">The interactable to compute the attach transform for.</param>
-        private void ComputeAttachTransform(IXRSelectInteractable interactable)
+        private void ComputeAttachTransform(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable)
         {
             if (!AimPoseSource.TryGetPose(out Pose aimPose)) { return; }
 
@@ -269,15 +269,15 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <inheritdoc />
-        public override bool CanSelect(IXRSelectInteractable interactable)
+        public override bool CanSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable)
         {
             // To select, we must either be already selecting the object, or have no other current selection.
             // In addition, we must be able to hover the object in order to select.
-            return base.CanSelect(interactable) && (!hasSelection || IsSelecting(interactable)) && CanHover(interactable as IXRHoverInteractable);
+            return base.CanSelect(interactable) && (!hasSelection || IsSelecting(interactable)) && CanHover(interactable as UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable);
         }
 
         /// <inheritdoc />
-        public override bool CanHover(IXRHoverInteractable interactable)
+        public override bool CanHover(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable interactable)
         {
             // We stay hovering on things we've selected.
             bool stickySelect = (!hasSelection) || IsSelecting(interactable);
@@ -326,7 +326,7 @@ namespace MixedReality.Toolkit.Input
         /// When other interactors select/deselect the object that we are currently selecting,
         /// we must reset the recorded interactor-local attach point and the bodyDistanceOnSelect.
         /// </summary>
-        private void ResetManipulationLogic(IXRSelectInteractable interactable)
+        private void ResetManipulationLogic(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable)
         {
             var pinchCentroid = GetPinchCentroid(interactable);
 
@@ -373,13 +373,13 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Computes the geometric centroid between all PinchPoses of participating GazePinchInteractors.
         /// </summary>
-        private Pose GetPinchCentroid(IXRSelectInteractable interactable)
+        private Pose GetPinchCentroid(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable)
         {
             Vector3 sumPos = Vector3.zero;
             Vector3 sumDir = Vector3.zero;
             int count = 0;
 
-            foreach (IXRSelectInteractor interactor in interactable.interactorsSelecting)
+            foreach (UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor in interactable.interactorsSelecting)
             {
                 if (interactor is GazePinchInteractor gazePinchInteractor)
                 {

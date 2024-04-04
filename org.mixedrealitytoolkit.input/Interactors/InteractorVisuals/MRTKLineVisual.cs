@@ -124,7 +124,7 @@ namespace MixedReality.Toolkit.Input
         [Header("Mixed Reality Line Renderer Settings")]
         [SerializeField]
         [Tooltip("The ray interactor which this visual represents.")]
-        private XRRayInteractor rayInteractor;
+        private UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor;
 
         [SerializeField]
         [Tooltip("The line renderer this visual has control over.")]

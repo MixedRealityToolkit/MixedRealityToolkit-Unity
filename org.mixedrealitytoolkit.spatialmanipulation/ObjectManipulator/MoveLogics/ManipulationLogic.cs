@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -45,11 +45,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// The current manipulation target position/rotation/scale. This is the shared target that each ManipulationLogic modifies.
         /// The result from Update will be applied to this transform by the ObjectManipulator, in the order of Scale, Rotate, Move.
         /// </param>
-        public virtual void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
+        public virtual void Setup(List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor> interactors, UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
         {
             NumInteractors = interactors.Count;
-            SelectedBySocket = NumInteractors == 1 && interactors[0] is XRSocketInteractor;
-            ForceGrabbed = NumInteractors == 1 && interactors[0] is XRRayInteractor rayInteractor && rayInteractor.useForceGrab;
+            SelectedBySocket = NumInteractors == 1 && interactors[0] is UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor;
+            ForceGrabbed = NumInteractors == 1 && interactors[0] is UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor && rayInteractor.useForceGrab;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <param name= "centeredAnchor">
         /// Should the manipulationLogic anchor the object around its center, or around the manipulation?
         /// </param>
-        public virtual T Update(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
+        public virtual T Update(List<UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor> interactors, UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
         {
             Debug.Assert(interactors.Count != 0, "ManipulationLogic.Update called with zero interactors.");
 
