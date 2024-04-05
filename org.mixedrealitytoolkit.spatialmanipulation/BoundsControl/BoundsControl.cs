@@ -683,7 +683,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// Called by <see cref="BoundsHandleInteractable"/> from its OnSelectExited.
         /// Routes the XRI event data through, as well as a reference to itself, the selected handle.
         /// </summary>
-        protected virtual void OnHandleSelectExited(BoundsHandleInteractable handle, SelectExitEventArgs args)
+        protected virtual internal void OnHandleSelectExited(BoundsHandleInteractable handle, SelectExitEventArgs args)
         {
             if (currentHandle == handle)
             {
@@ -698,7 +698,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// Called by <see cref="BoundsHandleInteractable"/> from its OnSelectEntered.
         /// Routes the XRI event data through, as well as a reference to itself, the selected handle.
         /// </summary>
-        protected virtual void OnHandleSelectEntered(BoundsHandleInteractable handle, SelectEnterEventArgs args)
+        protected virtual internal void OnHandleSelectEntered(BoundsHandleInteractable handle, SelectEnterEventArgs args)
         {
             if (currentHandle != null)
             {
