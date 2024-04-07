@@ -153,8 +153,16 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         #endregion
 
+        private Vector3 originalScale;
         private float fovScalar = 1f;
         private float objectSize = 1f;
+
+        /// <inheritdoc/>
+        protected override void Awake()
+        {
+            base.Awake();
+            originalScale = GoalScale;
+        }
 
         /// <inheritdoc/>
         protected override void Start()
@@ -185,7 +193,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     Vector3 targetPosition = SolverHandler.TransformTarget.position;
                     float distance = Mathf.Clamp(Vector3.Distance(transform.position, targetPosition), minDistance, maxDistance);
                     float scale = Mathf.Clamp(fovScalar * distance, minScale, maxScale);
-                    GoalScale = Vector3.one * scale;
+                    GoalScale = originalScale * scale;
 
                     // Save some state information for external use
                     CurrentDistancePercent = Mathf.InverseLerp(minDistance, maxDistance, distance);
