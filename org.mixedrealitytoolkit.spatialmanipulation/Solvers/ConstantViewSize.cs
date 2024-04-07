@@ -119,9 +119,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// Get the current scale progress on this <see cref="ConstantViewSize"/> object.
         /// </summary>
         /// <remarks>
-        /// This is a value between zero and one, representing progress between 
+        /// This is a value between zero and one, representing progress between
         /// <see cref="MinScale"/> and <see cref="MaxScale"/>. If current scale is less
-        /// than max,  then scaling is being applied. This value is subject to inaccuracies
+        /// than max, then scaling is being applied. This value is subject to inaccuracies
         /// due to smoothing, interpolation, and momentum.
         /// </remarks>
         public float CurrentScalePercent { get; private set; } = 1f;
@@ -130,9 +130,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// Get the current distance progress on this <see cref="ConstantViewSize"/> object.
         /// </summary>
         /// <remarks>
-        /// This is a value between zero and one, representing progress between  
+        /// This is a value between zero and one, representing progress between
         /// <see cref="MinDistance"/> and <see cref="MaxDistance"/>. If current is less than
-        /// max, object is potentially on a surface. This value is subject to inaccuracies due 
+        /// max, object is potentially on a surface. This value is subject to inaccuracies due
         /// to smoothing, interpolation, and momentum.
         /// </remarks>
         public float CurrentDistancePercent { get; private set; } = 1f;
@@ -183,13 +183,13 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
                 if (SolverHandler.TransformTarget != null)
                 {
-                    // Get current fov each time instead of trying to cache it.  Can never count on init order these days
+                    // Get current fov each time instead of trying to cache it. Can never count on init order these days
                     fovScalar = FovScale;
 
                     // Set the linked alt scale ahead of our work. This is an attempt to minimize jittering by having solvers work with an interpolated scale.
                     SolverHandler.AltScale.SetGoal(transform.localScale);
 
-                    // Calculate scale based on distance from view.  Do not interpolate so we can appear at a constant size if possible.  Borrowed from greybox.
+                    // Calculate scale based on distance from view. Do not interpolate so we can appear at a constant size if possible. Borrowed from greybox.
                     Vector3 targetPosition = SolverHandler.TransformTarget.position;
                     float distance = Mathf.Clamp(Vector3.Distance(transform.position, targetPosition), minDistance, maxDistance);
                     float scale = Mathf.Clamp(fovScalar * distance, minScale, maxScale);
