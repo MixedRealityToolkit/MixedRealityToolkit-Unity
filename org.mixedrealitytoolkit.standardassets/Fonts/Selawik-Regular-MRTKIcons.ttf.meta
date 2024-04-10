@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 52767c1f1dd45304da1f49570e5e91ea
+guid: c090e1a3263a6914693f828f80a9f953
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,9 +9,8 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Selawik
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: c090e1a3263a6914693f828f80a9f953, type: 3}
+  - Selawik-Regular-MRTKIcons
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

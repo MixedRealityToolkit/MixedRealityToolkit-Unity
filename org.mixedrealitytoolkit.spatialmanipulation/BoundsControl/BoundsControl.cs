@@ -538,7 +538,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
         /// </summary>
-        private void Update()
+        protected virtual void Update()
         {
             // If we need to recompute bounds (usually because we found a
             // UGUI element), make sure we've waited enough frames since
@@ -683,7 +683,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// Called by <see cref="BoundsHandleInteractable"/> from its OnSelectExited.
         /// Routes the XRI event data through, as well as a reference to itself, the selected handle.
         /// </summary>
-        internal void OnHandleSelectExited(BoundsHandleInteractable handle, SelectExitEventArgs args)
+        protected virtual internal void OnHandleSelectExited(BoundsHandleInteractable handle, SelectExitEventArgs args)
         {
             if (currentHandle == handle)
             {
@@ -698,7 +698,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// Called by <see cref="BoundsHandleInteractable"/> from its OnSelectEntered.
         /// Routes the XRI event data through, as well as a reference to itself, the selected handle.
         /// </summary>
-        internal void OnHandleSelectEntered(BoundsHandleInteractable handle, SelectEnterEventArgs args)
+        protected virtual internal void OnHandleSelectEntered(BoundsHandleInteractable handle, SelectEnterEventArgs args)
         {
             if (currentHandle != null)
             {
@@ -745,7 +745,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private static readonly ProfilerMarker TransformTargetPerfMarker =
             new ProfilerMarker("[MRTK] BoundsControl.TransformTarget");
 
-        private void TransformTarget()
+        protected virtual void TransformTarget()
         {
             using (TransformTargetPerfMarker.Auto())
             {
