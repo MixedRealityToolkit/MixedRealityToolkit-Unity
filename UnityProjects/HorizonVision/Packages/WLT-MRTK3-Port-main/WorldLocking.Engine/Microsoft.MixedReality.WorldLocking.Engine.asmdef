@@ -1,0 +1,14 @@
+{
+    "name": "Microsoft.MixedReality.WorldLocking.Engine",
+    "references": [
+        "Microsoft.MixedReality.Unity.FrozenWorld.Engine"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

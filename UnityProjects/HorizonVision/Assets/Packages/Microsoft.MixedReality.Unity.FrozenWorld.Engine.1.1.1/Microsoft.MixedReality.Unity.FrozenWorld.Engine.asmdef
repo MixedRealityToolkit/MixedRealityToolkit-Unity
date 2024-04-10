@@ -1,0 +1,8 @@
+{
+    "name": "Microsoft.MixedReality.Unity.FrozenWorld.Engine",
+    "references": [],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true
+}

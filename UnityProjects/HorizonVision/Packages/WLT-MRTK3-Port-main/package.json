@@ -1,0 +1,26 @@
+{
+    "name": "com.fuzzydoortech.worldlockingtools",
+    "version": "1.0.0",
+    "displayName": "World Locking Tools",
+    "description": "Shared code across various projects",
+    "unity": "2022.3",
+    "unityRelease": "0f1",
+    "documentationUrl": "",
+    "changelogUrl": "",
+    "licensesUrl": "",
+    "dependencies": {
+     
+   },
+   "keywords": [
+     
+    ],
+    "author": {
+      "name": "Microsoft",
+      "email": "info@fuzzydoortech.com",
+      "url": "https://viewscreen.com"
+    },
+    "files": [
+      "Scripts*",
+      "package.json.meta"
+    ]
+  }

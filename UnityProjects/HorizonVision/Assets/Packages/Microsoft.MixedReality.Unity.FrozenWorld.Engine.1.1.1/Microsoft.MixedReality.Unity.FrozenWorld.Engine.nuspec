@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.MixedReality.Unity.FrozenWorld.Engine</id>
+    <version>1.1.1</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <projectUrl>https://aka.ms/frozenworld</projectUrl>
+    <description>FrozenWorldPlugin.dll encapsulates the heavy-lifting algorithms of the Frozen World solution for offering a stable long-range coordinate system for mixed-reality applications.</description>
+    <releaseNotes>1.1.1
+- Fix Mathf.Approximately() misbehavior caused by enabling "flush denormals to zero"
+
+1.1.0
+- Add support for iOS ARM 64-bit targets (bitcode-enabled)
+- Improve quality of fragment merge when merging not yet connected fragments
+- Fix degraded performance of fragment merge in some situations
+- Fix spurious tracking loss in some merge-pending situations
+- Fix degraded alignment quality in rare refreeze-pending situations
+
+1.0.0
+- Add support for Android ARM 32-bit and 64-bit targets
+- Add support for custom graph-only snapshots
+- Improve performance of GuessMissingEdges utility function
+- Fix internal error on loop closure across new anchor near unhandled refreeze
+- Remove vestigial preset feature</releaseNotes>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+  </metadata>
+</package>

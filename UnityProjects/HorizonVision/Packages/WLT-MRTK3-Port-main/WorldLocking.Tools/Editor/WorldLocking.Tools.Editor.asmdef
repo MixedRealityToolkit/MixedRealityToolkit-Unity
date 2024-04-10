@@ -1,0 +1,32 @@
+{
+    "name": "WorldLocking.Tools.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Microsoft.MixedReality.WorldLocking.Core",
+        "Microsoft.MixedReality.WorldLocking.Tools",
+        "Unity.XR.ARFoundation",
+        "Unity.XR.CoreUtils"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.xr.arfoundation",
+            "expression": "",
+            "define": "WLT_ARSUBSYSTEMS_PRESENT"
+        },
+        {
+            "name": "com.unity.xr.arfoundation",
+            "expression": "",
+            "define": "WLT_ARFOUNDATION_PRESENT"
+        }
+    ],
+    "noEngineReferences": false
+}
