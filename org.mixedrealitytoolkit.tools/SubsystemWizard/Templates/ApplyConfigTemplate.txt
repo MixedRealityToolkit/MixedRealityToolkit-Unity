@@ -1,8 +1,0 @@
-            protected %CONFIGNAME% Config { get; }
-
-            public %SUBSYSTEMNAME%Provider() : base()
-            {
-                Config = XRSubsystemHelpers.GetConfiguration<%CONFIGNAME%, %SUBSYSTEMNAME%>();
-                
-                // TODO: Apply the configuration to the provider.
-            }

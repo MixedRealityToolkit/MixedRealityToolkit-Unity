@@ -1,0 +1,23 @@
+{
+    "name": "Microsoft.MixedReality.SampleQRCodes",
+    "rootNamespace": "",
+    "references": [
+        "Microsoft.MixedReality.Toolkit",
+        "Unity.XR.WindowsMixedReality"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.xr.windowsmr",
+            "expression": "1.0.0",
+            "define": "UNITY_XR_WINDOWSMR"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,1 +1,0 @@
-mklink /D .\HorizonVision .\UnityProjects\MRTKDevTemplate
