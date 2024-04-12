@@ -4,7 +4,11 @@
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit.Utilities;
 
+#if MIXED_REALITY_OPENXR
+using Microsoft.MixedReality.OpenXR;
+#else
 using SpatialGraphNode = Microsoft.MixedReality.SampleQRCodes.WindowsXR.SpatialGraphNode;
+#endif
 
 namespace Microsoft.MixedReality.SampleQRCodes
 {
@@ -24,7 +28,11 @@ namespace Microsoft.MixedReality.SampleQRCodes
 
             if (node != null)
             {
+#if MIXED_REALITY_OPENXR
+                if (node.TryLocate(FrameTime.OnUpdate, out Pose pose))
+#else
                 if (node.TryLocate(out Pose pose))
+#endif
                 {
                     // If there is a parent to the camera that means we are using teleport and we should not apply the teleport
                     // to these objects so apply the inverse
