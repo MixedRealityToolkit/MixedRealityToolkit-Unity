@@ -51,6 +51,12 @@
         "com.microsoft.mixedreality.toolkit.foundation": "2.8.2"
       }
     },
+    "com.microsoft.mixedreality.worldlockingtools": {
+      "version": "file:MixedReality/com.microsoft.mixedreality.worldlockingtools-1.5.9.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.unity.ai.navigation": {
       "version": "1.1.5",
       "depth": 0,
