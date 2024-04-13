@@ -1,0 +1,29 @@
+{
+    "name": "Microsoft.MixedReality.SampleQRCodes",
+    "rootNamespace": "",
+    "references": [
+        "Microsoft.MixedReality.Toolkit",
+        "Unity.XR.WindowsMixedReality",
+        "Microsoft.MixedReality.OpenXR"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.xr.windowsmr",
+            "expression": "1.0.0",
+            "define": "UNITY_XR_WINDOWSMR"
+        },
+        {
+            "name": "com.microsoft.mixedreality.openxr",
+            "expression": "1.4.0",
+            "define": "MIXED_REALITY_OPENXR"
+        }
+    ],
+    "noEngineReferences": false
+}
