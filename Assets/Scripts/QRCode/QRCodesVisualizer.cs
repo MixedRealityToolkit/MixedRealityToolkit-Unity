@@ -118,7 +118,10 @@ namespace Microsoft.MixedReality.SampleQRCodes
                         case ActionData.Type.Updated:
                             if (currentQRCodeObject != null && currentQRCodeObject.GetComponent<QRCode>().qrCode.Id == action.qrCode.Id)
                             {
-                                // Update the existing QR Code object if needed
+                                // GameObject qrCodeObject = Instantiate(qrCodePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                                // qrCodeObject.GetComponent<SpatialGraphNodeTracker>().Id = action.qrCode.SpatialGraphNodeId;
+                                // qrCodeObject.GetComponent<QRCode>().qrCode = action.qrCode;
+                                // // qrCodesObjectsList.Add(action.qrCode.Id, qrCodeObject);
                             }
                             break;
                         case ActionData.Type.Removed:
@@ -131,6 +134,14 @@ namespace Microsoft.MixedReality.SampleQRCodes
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Update is called every frame, if the MonoBehaviour is enabled.
+        /// </summary>
+        void Update()
+        {
+            HandleEvents();
         }
 
         public class Qrstate
