@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [4.0.0-development] - 2024-04-18
+
+### Changed
+
+* Updated package com.unity.xr.interaction.toolkit to 3.0.1
+
 ## [3.1.3-development] - 2024-04-17
 
 ### Fixed
