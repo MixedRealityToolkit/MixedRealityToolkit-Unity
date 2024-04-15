@@ -48,18 +48,6 @@ namespace MixedReality.Toolkit.Editor
         // improved rendering performance.
         private static readonly string SimpleActionButtonPath = AssetDatabase.GUIDToAssetPath("a2b07dcaa4b2f8e4fa68b319f1477f4c");
 
-        // Action Button (Experimental).prefab
-        // An empty button with a dynamic frontplate that is enabled|disabled on ProximityHover{Entered|Exited} events.
-        private static readonly string ActionButtonExperimentalDynamicFrontplatePath = AssetDatabase.GUIDToAssetPath("8b47a046b439dd34c91fad985b921dd1");
-
-        // CanvasButtonToggleSwitch (Experimental).prefab
-        // An empty button with a dynamic frontplate that is enabled|disabled on ProximityHover{Entered|Exited} events.
-        private static readonly string CanvasButtonToggleSwitchButtonExperimentalDynamicFrontplatePath = AssetDatabase.GUIDToAssetPath("297dfdae60dad834d9d7272fd2608b8d");
-
-        // Action Button Checkbox (Experimental).prefab
-        // And Action Button with a dynamic frontplate and a checkbox.
-        private static readonly string ActionButtonExperimentalDynamicFrontplateCheckboxPath = AssetDatabase.GUIDToAssetPath("4749acd55be303d4fa93a3594166ff8f");
-
         // Reflection into internal UGUI editor utilities.
         private static System.Reflection.MethodInfo PlaceUIElementRoot = null;
 
