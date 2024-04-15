@@ -30,6 +30,10 @@ namespace MixedReality.Toolkit.Editor
         // The basic building block button; contains an icon, text, and label.
         private static readonly string ActionButtonPath = AssetDatabase.GUIDToAssetPath("c6b351a67ceb69140b199996bbbea156");
 
+        // ActionButtonCheckbox.prefab
+        // Derived ActionButton with a checkbox; contains an icon, text, and label.
+        private static readonly string ActionButtonCheckboxPath = AssetDatabase.GUIDToAssetPath("102308bb87362e54ab2cb5f9b455aeb4");
+
         // CanvasBackplate.mat
         // Backplate material for menu plates.
         private static readonly string PlateMaterialPath = AssetDatabase.GUIDToAssetPath("65972ebbfd5c529479f9c30fd3ec3f6a");
@@ -274,6 +278,17 @@ namespace MixedReality.Toolkit.Editor
             PrefabUtility.RecordPrefabInstancePropertyModifications(gameObject);
 
             return gameObject;
+        }
+
+        [MenuItem("GameObject/UI/MRTK/Action Button Checkbox", false, 1)]
+        private static GameObject CreateActionButtonCheckbox(MenuCommand menuCommand)
+        {
+            Undo.SetCurrentGroupName("Create Action Button Checkbox");
+
+            GameObject actionButtonCheckbox = CreateElementFromPath(ActionButtonCheckboxPath, menuCommand);
+            Undo.RecordObject(actionButtonCheckbox, "Added Action Button Checkbox instance.");
+
+            return actionButtonCheckbox;
         }
 
         [MenuItem("GameObject/UI/MRTK/Empty Button", false, 2)]
