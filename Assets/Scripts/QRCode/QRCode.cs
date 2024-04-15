@@ -3,6 +3,12 @@
 
 using Microsoft.MixedReality.Toolkit.Input;
 using UnityEngine;
+using UnityEngine.Events;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+
 
 namespace Microsoft.MixedReality.SampleQRCodes
 {
@@ -26,6 +32,18 @@ namespace Microsoft.MixedReality.SampleQRCodes
         private bool launch = false;
         private System.Uri uriResult;
         private long lastTimeStamp = 0;
+        
+
+        public UnityEvent<string> onURLFound = new UnityEvent<string>();
+
+        private bool IsUrl(string data)
+        {
+            Debug.Log("[IsUrl] data: " + data);
+            data = data.ToLower();
+            return data.Contains("http://") || data.Contains("https://");
+            // return Uri.TryCreate(data, UriKind.Absolute, out Uri uriResult)
+            //        && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+        }
 
         // Use this for initialization
         void Start()
@@ -64,6 +82,11 @@ namespace Microsoft.MixedReality.SampleQRCodes
             QRTimeStamp.text = "Time:" + qrCode.LastDetectedTime.ToString("MM/dd/yyyy HH:mm:ss.fff");
             QRTimeStamp.color = Color.yellow;
             Debug.Log("Id= " + qrCode.Id + "NodeId= " + qrCode.SpatialGraphNodeId + " PhysicalSize = " + PhysicalSize + " TimeStamp = " + qrCode.SystemRelativeLastDetectedTime.Ticks + " QRVersion = " + qrCode.Version + " QRData = " + CodeText);
+            
+            if(IsUrl(CodeText)){
+                onURLFound.Invoke(CodeText);
+            }
+
         }
 
         void UpdatePropertiesDisplay()
@@ -100,7 +123,7 @@ namespace Microsoft.MixedReality.SampleQRCodes
         {
 #if WINDOWS_UWP
             // Launch the URI
-            UnityEngine.WSA.Launcher.LaunchUri(uriResult.ToString(), true);
+            //UnityEngine.WSA.Launcher.LaunchUri(uriResult.ToString(), true);
 #endif
         }
 

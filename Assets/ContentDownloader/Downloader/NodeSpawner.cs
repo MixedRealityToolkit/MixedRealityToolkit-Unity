@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
+using Microsoft.MixedReality.Toolkit.UI;
+using ljt;
 
 
 public class NodeSpawner : MonoBehaviour
 {
+
     public Node node;
     public Node.NodeConfig config => node.config;
     public GameObject textPrefab,imagePrefab,videoPrefab;
@@ -18,6 +21,7 @@ public class NodeSpawner : MonoBehaviour
     public Camera cam;
     public float spawnOffset = 0.5f;
     public List<GameObject> textSpaces = new List<GameObject>();
+    public ObjectManipulator manipulator;
     
 
     [SerializeField][TextArea(3, 10)]
@@ -26,7 +30,9 @@ public class NodeSpawner : MonoBehaviour
     public void Ending(){
         Canvas.gameObject.SetActive(false);
     }
-    public void Spawn(){
+    public void Spawn(GameObject group){
+        if(manipulator != null)
+            manipulator.HostTransform = group.transform;
         rect = config.rect;
         Debug.Log(config.transform);
         if(config.transform == null || config.transform == ""){
@@ -35,6 +41,7 @@ public class NodeSpawner : MonoBehaviour
             CanvasParent.localScale = new Vector3(1, 1, 1);
             Debug.Log(CanvasParent.name);
         }else{
+            
             Config.TransformFromJson(CanvasParent, config.transform);
         }
         background.color = config.backgroundColor;
@@ -50,6 +57,7 @@ public class NodeSpawner : MonoBehaviour
                     text1.fontSize = space.fontSize;
                     text1.font = space.font;
                     text1.alignment = space.align;
+                    text1.color = space.color;
                     text.GetComponent<RectTransform>().sizeDelta = space.rect;
                     text.GetComponent<RectTransform>().anchoredPosition = new Vector2(space.posision.x+space.rect.x/2,-space.posision.y-space.rect.y/2);
                     break;
@@ -102,4 +110,7 @@ public class NodeSpawner : MonoBehaviour
             return CanvasRect.sizeDelta;
         }
     }
+
+
+    
 }

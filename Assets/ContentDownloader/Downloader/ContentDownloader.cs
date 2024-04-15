@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Events;
+using ljt;
 
 public class ContentDownloader : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ContentDownloader : MonoBehaviour
 
     public RawScene result;
     public UnityEvent<RawScene> onDownloaded;
+    public UnityEvent onCreate;
 
     public void DownloadSceneInfo()
     {

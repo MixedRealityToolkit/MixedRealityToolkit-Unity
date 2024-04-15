@@ -37,8 +37,9 @@ public class NodeCreator : MonoBehaviour
 
             foreach(RawNode node in scene.heads){
                 if(node.groupid == group){
-                    var nodeObj = CreateNode(node);
+                    var nodeObj = CreateNode(node,true);
                     nodeObj.transform.parent = groupObj.transform;
+                    
                 }
             }
 
@@ -49,10 +50,19 @@ public class NodeCreator : MonoBehaviour
                     // nodeObj.SetActive(false);
                 }
             }
+
+            // startInit();
+        }
+    }
+    
+    private Queue<Node> initQueue = new Queue<Node>();
+    public void startInit(){
+        while(initQueue.Count > 0){
+            initQueue.Dequeue().Init();
         }
     }
 
-    public GameObject CreateNode(RawNode node)
+    public GameObject CreateNode(RawNode node,bool init = false)
     {
         var nodeObj = Instantiate(prefab);
         var Node = nodeObj.GetComponent<Node>();
@@ -62,6 +72,9 @@ public class NodeCreator : MonoBehaviour
         Debug.Log(nodeObj.transform.localScale);
         // Debug.Log(nodeObj.transform.lossyScale);
 
+        if(init)
+            lock(initQueue)
+                initQueue.Enqueue(Node);
         Node.Build(node);
 
         nodes.Add(node.id,node.web_id, Node);

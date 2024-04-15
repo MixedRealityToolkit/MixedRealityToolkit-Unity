@@ -6,7 +6,9 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine.Events;
+using Microsoft.MixedReality.SampleQRCodes;
 
+namespace ljt{
 public class Config : MonoBehaviour
 {
     private static Config _instance;
@@ -27,7 +29,7 @@ public class Config : MonoBehaviour
     }
     
     public enum Mode{
-        edit,preview
+        edit,preview,none
     }
 
     public string token;
@@ -62,6 +64,10 @@ public class Config : MonoBehaviour
     }
     public UnityEvent<float> onDownloadProgress = new UnityEvent<float>();
     public UnityEvent<string> onDownloadProgressText = new UnityEvent<string>();
+    public UnityEvent OnNone = new UnityEvent();
+
+    public UnityEvent onAllDownloaded = new UnityEvent();
+    public UnityEvent onTokenSet = new UnityEvent();
 
 
     public bool GetFont(string fontName,out Font font){
@@ -82,12 +88,19 @@ public class Config : MonoBehaviour
     
     private void Start() {
         onDownloadProgress.Invoke(downloadProgress);
-        onDownloadProgressText.Invoke(string.Format("{0}/{1}",currentDownloadedCount,totleDownloadCount));
+        onDownloadProgressText.Invoke(string.Format("下載中:{0}/{1}",currentDownloadedCount,totleDownloadCount));
     }
 
+    bool allDownloaded = false;
+
     private void Update() {
+        if(mode == Mode.none){
+            Debug.Log("Mode none");
+            OnNone.Invoke();
+        }
         downloadCount = downloadQueue.Count;
         if(downloadCount > 0 && !isDownloading){
+            allDownloaded = false;
             isDownloading = true;
             ResourceQueue rq = downloadQueue.Dequeue();
             StartCoroutine(DownloadResource(rq.url,rq.fileName,(string result) => {
@@ -97,7 +110,10 @@ public class Config : MonoBehaviour
                 onDownloadProgress.Invoke(downloadProgress);
                 onDownloadProgressText.Invoke(string.Format("{0}/{1}",currentDownloadedCount,totleDownloadCount));
             }));
-
+        }
+        if(downloadCount == 0 && !allDownloaded){
+            allDownloaded = true;
+            onAllDownloaded.Invoke();
         }
     }
 
@@ -146,6 +162,9 @@ public class Config : MonoBehaviour
             File.WriteAllBytes(filePath, www.downloadHandler.data);
             callback(filePath);
         }
+
+        //reloase memory
+        www.Dispose();
     }
 
     private string ComputeHash(byte[] data)
@@ -210,4 +229,30 @@ public class Config : MonoBehaviour
         return tex;
     }
 
+    public void TrySetToken(string token){
+        Debug.Log($"[TrySetToken] {token}");
+        if(token.StartsWith("http") || token.ToLower().Contains("horizonvision")){
+            var spilt = token.Split('/');
+            this.token = spilt[spilt.Length - 2];
+            switch(spilt[spilt.Length - 1].ToLower()){
+                case "edit":
+                    mode = Mode.edit;
+                    foreach(GameObject i in GameObject.FindGameObjectsWithTag("Edit")){
+                        i.SetActive(true);
+                    }
+                    break;
+                case "preview":
+                    mode = Mode.preview;
+                    foreach(GameObject i in GameObject.FindGameObjectsWithTag("Edit")){
+                        i.SetActive(false);
+                    }
+                    break;
+            }
+            onTokenSet.Invoke();
+        }
+    }
+
+
+
+}
 }

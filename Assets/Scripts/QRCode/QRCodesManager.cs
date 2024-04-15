@@ -31,6 +31,7 @@ namespace Microsoft.MixedReality.SampleQRCodes
     {
         [Tooltip("Determines if the QR codes scanner should be automatically started.")]
         public bool AutoStartQRTracking = true;
+        public bool isTracking;
 
         public bool IsTrackerRunning { get; private set; }
 
@@ -43,9 +44,11 @@ namespace Microsoft.MixedReality.SampleQRCodes
 
         private System.Collections.Generic.SortedDictionary<System.Guid, Microsoft.MixedReality.QR.QRCode> qrCodesList = new SortedDictionary<System.Guid, Microsoft.MixedReality.QR.QRCode>();
 
+
         private QRCodeWatcher qrTracker;
+
         private bool capabilityInitialized = false;
-        private QRCodeWatcherAccessStatus accessStatus;
+        public QRCodeWatcherAccessStatus accessStatus;
         private System.Threading.Tasks.Task<QRCodeWatcherAccessStatus> capabilityTask;
 
         public System.Guid GetIdForQRCode(string qrCodeData)
@@ -82,12 +85,15 @@ namespace Microsoft.MixedReality.SampleQRCodes
             capabilityTask = QRCodeWatcher.RequestAccessAsync();
             accessStatus = await capabilityTask;
             capabilityInitialized = true;
+            
         }
 
+        public DateTimeOffset watcherStart;
         private void SetupQRTracking()
         {
             try
             {
+                watcherStart = DateTimeOffset.Now;
                 qrTracker = new QRCodeWatcher();
                 IsTrackerRunning = false;
                 qrTracker.Added += QRCodeWatcher_Added;
@@ -108,20 +114,28 @@ namespace Microsoft.MixedReality.SampleQRCodes
 
         public void StartQRTracking()
         {
+            Debug.Log("start 0");
+            Debug.Log(qrTracker);
+            Debug.Log(IsTrackerRunning);
             if (qrTracker != null && !IsTrackerRunning)
             {
+                Debug.Log("start 1");
                 Debug.Log("QRCodesManager starting QRCodeWatcher");
                 try
                 {
                     qrTracker.Start();
                     IsTrackerRunning = true;
                     QRCodesTrackingStateChanged?.Invoke(this, true);
+                    Debug.Log("QRCodesManager started QRCodeWatcher");
+
                 }
                 catch (Exception ex)
                 {
                     Debug.Log("QRCodesManager starting QRCodeWatcher Exception:" + ex.ToString());
                 }
             }
+
+            Debug.Log("start 2");
         }
 
         public void StopQRTracking()
@@ -140,6 +154,9 @@ namespace Microsoft.MixedReality.SampleQRCodes
                 {
                     handlers(this, false);
                 }
+
+                Debug.Log("QRCodesManager stopped QRCodeWatcher");
+
             }
         }
 
@@ -211,6 +228,10 @@ namespace Microsoft.MixedReality.SampleQRCodes
 
         private void Update()
         {
+            isTracking = IsTrackerRunning;
+
+            // Debug.Log($"capabilityInitialized: {capabilityInitialized}");
+            // Debug.Log($"IsSupported: {IsSupported}");
             if (qrTracker == null && capabilityInitialized && IsSupported)
             {
                 if (accessStatus == QRCodeWatcherAccessStatus.Allowed)

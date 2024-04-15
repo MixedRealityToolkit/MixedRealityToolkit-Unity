@@ -4,9 +4,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Video;
+using ljt;
 
 public class Node : MonoBehaviour
 {
+    public string jsonOverwrite;
     [SerializeField]
     private RawNode node;
     [SerializeField]
@@ -25,10 +27,6 @@ public class Node : MonoBehaviour
 
     public void Build(RawNode node){
         this.node = node;
-
-
- 
-
         rawNodeJson = JsonUtility.FromJson<RawNodeJson>(node.json);
         
         
@@ -40,8 +38,13 @@ public class Node : MonoBehaviour
 
     }
 
+    private bool spawned = false;
     public void Init(){
-        spawner.Spawn();
+        if(!spawned){
+            spawner.Spawn(transform.parent.gameObject);
+            spawned = true;
+        }
+            
         spawner.Canvas.gameObject.SetActive(true);
         gameObject.SetActive(true);
         Debug.Log("Init Node "+id);
@@ -83,6 +86,17 @@ public class Node : MonoBehaviour
 
     }
 
+    private void Start() {
+        if(jsonOverwrite.Length > 0){
+            node = new RawNode();
+            node.json = jsonOverwrite;
+            node.web_id = 99;
+            rawNodeJson = JsonUtility.FromJson<RawNodeJson>(node.json);
+            config.Format(rawNodeJson);
+            Init();
+        }
+    }
+
     public void End(){
         spawner.Ending();
         gameObject.SetActive(false);
@@ -116,6 +130,7 @@ public class Node : MonoBehaviour
         public string textAlign;
         public string type;
         public string url;
+        public string color;
     }
 
     [System.Serializable]
@@ -156,7 +171,11 @@ public class Node : MonoBehaviour
                         align = TextAnchor.MiddleCenter;
                         break;
                 }
+                
+                Color color1;
+                ColorUtility.TryParseHtmlString(space.color,out color1);
                 spaces.Add(new Space(){
+                    color = color1,
                     type = NodeType.Text,
                     rect = new Vector2(space.width, space.height),
                     content = space.content,
@@ -217,6 +236,7 @@ public class Node : MonoBehaviour
         public string format;
         public Texture2D texture;
         public VideoClip video;
+        public Color color;
 
         
 
