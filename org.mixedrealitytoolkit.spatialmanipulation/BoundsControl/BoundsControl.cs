@@ -4,6 +4,15 @@
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using MixedReality.Toolkit.SpatialManipulation;
+using MixedReality.Toolkit;
+
+using System.Collections.Generic;
+using static MixedReality.Toolkit.SpatialManipulation.ObjectManipulator;
+using System;
+
+
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -432,6 +441,34 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => manipulationEnded = value;
         }
 
+        [SerializeField]
+        [Tooltip("The concrete types of ManipulationLogic<T> to use for manipulations.")]
+        private LogicType manipulationLogicTypes = new LogicType
+        {
+            moveLogicType = typeof(BoundsControlMoveLogic),
+            rotateLogicType = typeof(BoundsControlRotateLogic),
+            scaleLogicType = typeof(BoundsControlScaleLogic)
+        };
+
+        /// <summary>
+        /// The concrete types of <see cref="ManipulationLogicImplementations<T>"/> to use for manipulations.
+        /// </summary>
+        /// <remarks>
+        /// Setting this field at runtime can be expensive (reflection) and interrupt/break
+        /// currently occurring manipulations. Use with caution. Best used at startup or when
+        /// instantiating ObjectManipulators from code.
+        /// </remarks>
+        public LogicType ManipulationLogicTypes
+        {
+            get => manipulationLogicTypes;
+            set
+            {
+                // Re-instantiating manip logics is expensive and can interrupt ongoing interactions.
+                manipulationLogicTypes = value;
+                InstantiateManipulationLogic();
+            }
+        }
+
         #endregion Serialized Fields/Properties
 
         /// <summary>
@@ -502,6 +539,30 @@ namespace MixedReality.Toolkit.SpatialManipulation
         // Has the bounds control moved past the toggle threshold throughout the time it was selected?
         private bool hasPassedToggleThreshold = false;
 
+        protected struct LogicImplementation
+        {
+            public ManipulationLogic<Vector3> moveLogic;
+            public ManipulationLogic<Quaternion> rotateLogic;
+            public ManipulationLogic<Vector3> scaleLogic;
+        }
+
+        /// <summary>
+        /// The instantiated manipulation logic objects, as specified by the types in <see cref="ManipulationLogicTypes"/>.
+        /// </summary>
+        protected LogicImplementation ManipulationLogicImplementations { get; private set; }
+
+        private void InstantiateManipulationLogic()
+        {
+            Debug.LogWarning("In here");
+            // Re-instantiate the manipulation logic objects.
+            ManipulationLogicImplementations = new LogicImplementation()
+            {
+                moveLogic = Activator.CreateInstance(ManipulationLogicTypes.moveLogicType) as ManipulationLogic<Vector3>,
+                rotateLogic = Activator.CreateInstance(ManipulationLogicTypes.rotateLogicType) as ManipulationLogic<Quaternion>,
+                scaleLogic = Activator.CreateInstance(ManipulationLogicTypes.scaleLogicType) as ManipulationLogic<Vector3>,
+            };
+        }
+
         /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
         /// </summary>
@@ -533,6 +594,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 constraintsManager.Setup(new MixedRealityTransform(Target.transform));
             }
+
+            ManipulationLogicTypes = manipulationLogicTypes;
         }
 
         /// <summary>
@@ -886,5 +949,113 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 hasPassedToggleThreshold = true;
             }
         }
+    }
+}
+
+public class BoundsControlMoveLogic : ManipulationLogic<Vector3>
+{
+    private BoundsControl boundsCont;
+    public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
+    {
+        base.Setup(interactors, interactable, currentTarget);
+        boundsCont = interactable.transform.GetComponent<BoundsHandleInteractable>().BoundsControlRoot;
+    }
+
+    /// <inheritdoc />
+    public override Vector3 Update(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
+    {
+        return base.Update(interactors, interactable, currentTarget, centeredAnchor);
+    }
+}
+
+public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
+{
+    private BoundsControl boundsCont;
+    /*
+    private Vector3 initialGrabPoint;
+    private BoundsHandleInteractable currentHandle;
+    private MixedRealityTransform initialTransformOnGrabStart;
+    private Vector3 diagonalDir;
+    */
+    /// <inheritdoc />
+    public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
+    {
+        base.Setup(interactors, interactable, currentTarget);
+        boundsCont = interactable.transform.GetComponent<BoundsHandleInteractable>().BoundsControlRoot;
+        //  currentHandle = interactable.transform.GetComponent<BoundsHandleInteractable>();
+        //  initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
+        //  initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
+        //  diagonalDir = (currentHandle.transform.position - boundsCont.OppositeCorner).normalized;
+    }
+
+    /// <inheritdoc />
+    public override Vector3 Update(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
+    {
+        return base.Update(interactors, interactable, currentTarget, centeredAnchor);
+        /*
+        Vector3 anchorPoint = centeredAnchor ? boundsCont.Target.transform.TransformPoint(boundsCont.CurrentBounds.center) : boundsCont.OppositeCorner;
+        Vector3 scaleFactor = boundsCont.Target.transform.localScale;
+        Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
+
+        if (boundsCont.ScaleBehavior == HandleScaleMode.Uniform)
+        {
+            float initialDist = Vector3.Dot(initialGrabPoint - anchorPoint, diagonalDir);
+            float currentDist = Vector3.Dot(currentGrabPoint - anchorPoint, diagonalDir);
+            float scaleFactorUniform = 1 + (currentDist - initialDist) / initialDist;
+            scaleFactor = new Vector3(scaleFactorUniform, scaleFactorUniform, scaleFactorUniform);
+        }
+        else // non-uniform scaling
+        {
+            // get diff from center point of box
+            Vector3 initialDist = boundsCont.Target.transform.InverseTransformVector(initialGrabPoint - anchorPoint);
+            Vector3 currentDist = boundsCont.Target.transform.InverseTransformVector(currentGrabPoint - anchorPoint);
+            Vector3 grabDiff = (currentDist - initialDist);
+
+            scaleFactor = Vector3.one + grabDiff.Div(initialDist);
+        }
+
+        Vector3 newScale = initialTransformOnGrabStart.Scale.Mul(scaleFactor);
+        return newScale;
+        */
+    }
+}
+public class BoundsControlRotateLogic : ManipulationLogic<Quaternion>
+{
+    private BoundsControl boundsCont;
+    /*
+    private BoundsHandleInteractable currentHandle;
+    private Vector3 initialGrabPoint;
+    private Vector3 currentManipulationAxis;
+    private MixedRealityTransform initialTransformOnGrabStart;
+    */
+    /// <inheritdoc />
+    public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
+    {
+        base.Setup(interactors, interactable, currentTarget);
+
+        //currentHandle = interactable.transform.GetComponent<BoundsHandleInteractable>();
+        boundsCont = interactable.transform.GetComponent<BoundsHandleInteractable>().BoundsControlRoot;
+        //initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
+        //currentManipulationAxis = currentHandle.transform.forward;
+        //initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
+    }
+
+    /// <inheritdoc />
+    public override Quaternion Update(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
+    {
+        return base.Update(interactors, interactable, currentTarget, centeredAnchor);
+        /*
+        // Compute the anchor around which we will be rotating the object, based
+        // on the desired RotateAnchorType.
+        Vector3 anchorPoint = centeredAnchor ? boundsCont.Target.transform.TransformPoint(boundsCont.CurrentBounds.center) : boundsCont.Target.transform.position;
+        Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
+
+        Vector3 initDir = Vector3.ProjectOnPlane(initialGrabPoint - anchorPoint, currentManipulationAxis).normalized;
+        Vector3 currentDir = Vector3.ProjectOnPlane(currentGrabPoint - anchorPoint, currentManipulationAxis).normalized;
+        Quaternion initQuat = Quaternion.LookRotation(initDir, currentManipulationAxis);
+        Quaternion currentQuat = Quaternion.LookRotation(currentDir, currentManipulationAxis);
+        Quaternion goalRotation = (currentQuat * Quaternion.Inverse(initQuat)) * initialTransformOnGrabStart.Rotation;
+        return goalRotation;
+        */
     }
 }
