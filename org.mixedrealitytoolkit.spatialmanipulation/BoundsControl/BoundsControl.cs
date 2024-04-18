@@ -895,10 +895,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     }
                     else if (currentHandle.HandleType == HandleType.Translation)
                     {
-                        //Vector3 translateVectorAlongAxis = Vector3.Project(currentGrabPoint - initialGrabPoint, currentHandle.transform.forward);
-
-                        //var goal = initialTransformOnGrabStart.Position + translateVectorAlongAxis;
-                        var goal = ManipulationLogicImplementations.moveLogic.Update(currentHandle.interactorsSelecting, interactable, targetTransform, ScaleAnchor == ScaleAnchorType.BoundsCenter);
+                        var goal = ManipulationLogicImplementations.moveLogic.Update(currentHandle.interactorsSelecting, interactable, targetTransform, true);
 
                         MixedRealityTransform constraintTranslate = MixedRealityTransform.NewTranslate(goal);
                         if (EnableConstraints && constraintsManager != null)
@@ -937,16 +934,28 @@ namespace MixedReality.Toolkit.SpatialManipulation
 public class BoundsControlMoveLogic : ManipulationLogic<Vector3>
 {
     private BoundsControl boundsCont;
+    private BoundsHandleInteractable currentHandle;
+    private Vector3 initialGrabPoint;
+    private MixedRealityTransform initialTransformOnGrabStart;
+
     public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
     {
         base.Setup(interactors, interactable, currentTarget);
-        boundsCont = interactable.transform.GetComponent<BoundsHandleInteractable>().BoundsControlRoot;
+        currentHandle = interactable.transform.GetComponent<BoundsHandleInteractable>();
+        boundsCont = currentHandle.BoundsControlRoot;
+        initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
+        initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
     }
 
     /// <inheritdoc />
     public override Vector3 Update(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
     {
-        return base.Update(interactors, interactable, currentTarget, centeredAnchor);
+        base.Update(interactors, interactable, currentTarget, centeredAnchor);
+
+        Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
+        Vector3 translateVectorAlongAxis = Vector3.Project(currentGrabPoint - initialGrabPoint, currentHandle.transform.forward);
+
+        return initialTransformOnGrabStart.Position + translateVectorAlongAxis;
     }
 }
 
