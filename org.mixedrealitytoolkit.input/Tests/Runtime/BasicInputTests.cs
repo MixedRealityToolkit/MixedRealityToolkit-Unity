@@ -407,6 +407,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// break XRDirectInteractor. Repro test for ADO#1582/1581.
         /// </summary>
         [UnityTest]
+        [Obsolete]
         public IEnumerator InteractableDisabledDuringInteraction()
         {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -461,6 +462,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Tests whether spawning an interactable on top of a hand will cause problems with the proximity detector.
         /// </summary>
         [UnityTest]
+        [Obsolete]
         public IEnumerator SpawnInteractableOnHand()
         {
             // Spawn our hand.
@@ -513,6 +515,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// i.e. we don't want to immediately let go of a gripped object due to a momentary loss in tracking
         /// </summary>
         [UnityTest]
+        [Obsolete]
         public IEnumerator UntrackedControllerNearInteractions()
         {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);

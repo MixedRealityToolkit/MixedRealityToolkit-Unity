@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -17,11 +18,13 @@ namespace MixedReality.Toolkit
         // Gaze
         [SerializeField]
         [Tooltip("The camera rig's gaze controller.")]
+        [Obsolete]
         private XRBaseController gazeController = null;
 
         /// <summary>
         /// The camera rig's gaze controller.
         /// </summary>
+        [Obsolete]
         public XRBaseController GazeController
         {
             get => gazeController;
@@ -31,11 +34,13 @@ namespace MixedReality.Toolkit
         // Left Hand
         [SerializeField]
         [Tooltip("The camera rig's left hand controller.")]
+        [Obsolete]
         private XRBaseController leftHandController = null;
 
         /// <summary>
         /// The camera rig's left hand controller.
         /// </summary>
+        [Obsolete]
         public XRBaseController LeftHandController
         {
             get => leftHandController;
@@ -45,11 +50,13 @@ namespace MixedReality.Toolkit
         // Right Hand
         [SerializeField]
         [Tooltip("The camera rig's right hand controller.")]
+        [Obsolete]
         private XRBaseController rightHandController = null;
 
         /// <summary>
         /// The camera rig's right hand controller.
         /// </summary>
+        [Obsolete]
         public XRBaseController RightHandController
         {
             get => rightHandController;
