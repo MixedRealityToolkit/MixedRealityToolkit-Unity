@@ -4,10 +4,6 @@
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using MixedReality.Toolkit.SpatialManipulation;
-using MixedReality.Toolkit;
-
-using System.Collections.Generic;
 using static MixedReality.Toolkit.SpatialManipulation.ObjectManipulator;
 using System;
 
