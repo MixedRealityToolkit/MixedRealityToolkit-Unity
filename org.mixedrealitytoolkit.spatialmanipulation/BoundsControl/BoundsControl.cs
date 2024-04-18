@@ -483,8 +483,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         // The box visuals GameObject instantiated at Awake.
         private GameObject boxInstance;
-        public GameObject BoxInstance => boxInstance;
-
+       
         // Used to determine whether the associated interactable was moved between select/deselect,
         // which drives whether the handles get toggled on/off. If the interactable was moved less than a
         // certain threshold, we toggle the handles on/off. If the interactable was moved further than the
@@ -956,7 +955,6 @@ public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
     private Vector3 initialGrabPoint;
     private MixedRealityTransform initialTransformOnGrabStart;
     private Vector3 diagonalDir;
-    //private Vector3 oppositeCorner;
 
     /// <inheritdoc />
     public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
@@ -966,7 +964,6 @@ public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
         boundsCont = currentHandle.BoundsControlRoot;
         initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
         initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
-        //oppositeCorner = boundsCont.BoxInstance.transform.TransformPoint(-currentHandle.transform.localPosition);
         diagonalDir = (currentHandle.transform.position - boundsCont.OppositeCorner).normalized;
     }
 
