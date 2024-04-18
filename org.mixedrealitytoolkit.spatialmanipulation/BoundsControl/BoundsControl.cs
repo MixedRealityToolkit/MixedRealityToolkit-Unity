@@ -502,6 +502,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         // The corner opposite from the current scale handle (if a scale handle is being selected)
         private Vector3 oppositeCorner;
+        public Vector3 OppositeCorner => oppositeCorner;
 
         // Position of the anchor when manipulation started.
         private Vector3 initialAnchorOnGrabStart;
@@ -772,6 +773,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 if (currentHandle.HandleType == HandleType.Scale)
                 {
                     // Will use this to scale the target relative to the opposite corner
+                    oppositeCorner = boxInstance.transform.TransformPoint(-currentHandle.transform.localPosition);
                     // ScaleStarted?.Invoke();
 
                     ManipulationLogicImplementations.scaleLogic.Setup(currentHandle.interactorsSelecting, args.interactableObject, initialTransformOnGrabStart);
@@ -954,7 +956,7 @@ public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
     private Vector3 initialGrabPoint;
     private MixedRealityTransform initialTransformOnGrabStart;
     private Vector3 diagonalDir;
-    private Vector3 oppositeCorner;
+    //private Vector3 oppositeCorner;
 
     /// <inheritdoc />
     public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
@@ -964,8 +966,8 @@ public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
         boundsCont = currentHandle.BoundsControlRoot;
         initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
         initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
-        oppositeCorner = boundsCont.BoxInstance.transform.TransformPoint(-currentHandle.transform.localPosition);
-        diagonalDir = (currentHandle.transform.position - oppositeCorner).normalized;
+        //oppositeCorner = boundsCont.BoxInstance.transform.TransformPoint(-currentHandle.transform.localPosition);
+        diagonalDir = (currentHandle.transform.position - boundsCont.OppositeCorner).normalized;
     }
 
     /// <inheritdoc />
@@ -973,7 +975,7 @@ public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
     {
         base.Update(interactors, interactable, currentTarget, centeredAnchor);
 
-        Vector3 anchorPoint = centeredAnchor ? boundsCont.Target.transform.TransformPoint(boundsCont.CurrentBounds.center) : oppositeCorner;
+        Vector3 anchorPoint = centeredAnchor ? boundsCont.Target.transform.TransformPoint(boundsCont.CurrentBounds.center) : boundsCont.OppositeCorner;
         Vector3 scaleFactor = boundsCont.Target.transform.localScale;
         Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
 
