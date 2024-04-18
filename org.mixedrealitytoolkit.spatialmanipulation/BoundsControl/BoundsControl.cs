@@ -479,6 +479,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
         public bool IsFlat { get; protected set; }
 
         private Bounds currentBounds = new Bounds();
+        /// <summary>
+        /// Accessor that can be used to retrieve most recently calculated bounds for the bounds control cube
+        /// </summary>
         public Bounds CurrentBounds => currentBounds;
 
         // The box visuals GameObject instantiated at Awake.
@@ -501,6 +504,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         // The corner opposite from the current scale handle (if a scale handle is being selected)
         private Vector3 oppositeCorner;
+
+        /// <summary>
+        /// Accessor for the corner opposite from the current scale handle (if a scale handle is being selected)
+        /// </summary>
         public Vector3 OppositeCorner => oppositeCorner;
 
         // Position of the anchor when manipulation started.
@@ -529,10 +536,24 @@ namespace MixedReality.Toolkit.SpatialManipulation
         // Has the bounds control moved past the toggle threshold throughout the time it was selected?
         private bool hasPassedToggleThreshold = false;
 
+        /// <summary>
+        /// Struct that defines all the manipulation logic required types for translation, rotation and scaling respectively
+        /// </summary>
         protected struct LogicImplementation
         {
+            /// <summary>
+            /// Manipulation logic type for translation (returns a vector3)
+            /// </summary>
             public ManipulationLogic<Vector3> moveLogic;
+
+            /// <summary>
+            /// Manipulation logic type for rotation (returns a quaternion)
+            /// </summary>
             public ManipulationLogic<Quaternion> rotateLogic;
+
+            /// <summary>
+            /// Manipulation logic type for scaling (returns a vector3)
+            /// </summary>
             public ManipulationLogic<Vector3> scaleLogic;
         }
 
@@ -916,125 +937,5 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 hasPassedToggleThreshold = true;
             }
         }
-    }
-}
-/*
- * These are the three classes that define the default manipulation behavior for Moving, Scaling and Rotation respectively
- */
-public class BoundsControlMoveLogic : ManipulationLogic<Vector3>
-{
-    private BoundsControl boundsCont;
-    private BoundsHandleInteractable currentHandle;
-    private Vector3 initialGrabPoint;
-    private MixedRealityTransform initialTransformOnGrabStart;
-
-    public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
-    {
-        base.Setup(interactors, interactable, currentTarget);
-        currentHandle = interactable.transform.GetComponent<BoundsHandleInteractable>();
-        boundsCont = currentHandle.BoundsControlRoot;
-        initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
-        initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
-    }
-
-    /// <inheritdoc />
-    public override Vector3 Update(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
-    {
-        base.Update(interactors, interactable, currentTarget, centeredAnchor);
-
-        Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
-        Vector3 translateVectorAlongAxis = Vector3.Project(currentGrabPoint - initialGrabPoint, currentHandle.transform.forward);
-
-        return initialTransformOnGrabStart.Position + translateVectorAlongAxis;
-    }
-}
-
-public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
-{
-    private BoundsControl boundsCont;
-    private BoundsHandleInteractable currentHandle;
-    private Vector3 initialGrabPoint;
-    private MixedRealityTransform initialTransformOnGrabStart;
-    private Vector3 diagonalDir;
-
-    /// <inheritdoc />
-    public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
-    {
-        base.Setup(interactors, interactable, currentTarget);
-        currentHandle = interactable.transform.GetComponent<BoundsHandleInteractable>();
-        boundsCont = currentHandle.BoundsControlRoot;
-        initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
-        initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
-        diagonalDir = (currentHandle.transform.position - boundsCont.OppositeCorner).normalized;
-    }
-
-    /// <inheritdoc />
-    public override Vector3 Update(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
-    {
-        base.Update(interactors, interactable, currentTarget, centeredAnchor);
-
-        Vector3 anchorPoint = centeredAnchor ? boundsCont.Target.transform.TransformPoint(boundsCont.CurrentBounds.center) : boundsCont.OppositeCorner;
-        Vector3 scaleFactor = boundsCont.Target.transform.localScale;
-        Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
-
-        if (boundsCont.ScaleBehavior == HandleScaleMode.Uniform)
-        {
-            float initialDist = Vector3.Dot(initialGrabPoint - anchorPoint, diagonalDir);
-            float currentDist = Vector3.Dot(currentGrabPoint - anchorPoint, diagonalDir);
-            float scaleFactorUniform = 1 + (currentDist - initialDist) / initialDist;
-            scaleFactor = new Vector3(scaleFactorUniform, scaleFactorUniform, scaleFactorUniform);
-        }
-        else // non-uniform scaling
-        {
-            // get diff from center point of box
-            Vector3 initialDist = boundsCont.Target.transform.InverseTransformVector(initialGrabPoint - anchorPoint);
-            Vector3 currentDist = boundsCont.Target.transform.InverseTransformVector(currentGrabPoint - anchorPoint);
-            Vector3 grabDiff = (currentDist - initialDist);
-
-            scaleFactor = Vector3.one + grabDiff.Div(initialDist);
-        }
-
-        Vector3 newScale = initialTransformOnGrabStart.Scale.Mul(scaleFactor);
-        return newScale;
-    }
-}
-
-public class BoundsControlRotateLogic : ManipulationLogic<Quaternion>
-{
-    private BoundsControl boundsCont;
-    private BoundsHandleInteractable currentHandle;
-    private Vector3 initialGrabPoint;
-    private Vector3 currentManipulationAxis;
-    private MixedRealityTransform initialTransformOnGrabStart;
-
-    /// <inheritdoc />
-    public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
-    {
-        base.Setup(interactors, interactable, currentTarget);
-
-        currentHandle = interactable.transform.GetComponent<BoundsHandleInteractable>();
-        boundsCont = currentHandle.BoundsControlRoot;
-        initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
-        currentManipulationAxis = currentHandle.transform.forward;
-        initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
-    }
-
-    /// <inheritdoc />
-    public override Quaternion Update(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
-    {
-        base.Update(interactors, interactable, currentTarget, centeredAnchor);
-
-        // Compute the anchor around which we will be rotating the object, based
-        // on the desired RotateAnchorType.
-        Vector3 anchorPoint = centeredAnchor ? boundsCont.Target.transform.TransformPoint(boundsCont.CurrentBounds.center) : boundsCont.Target.transform.position;
-        Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
-        Vector3 initDir = Vector3.ProjectOnPlane(initialGrabPoint - anchorPoint, currentManipulationAxis).normalized;
-        Vector3 currentDir = Vector3.ProjectOnPlane(currentGrabPoint - anchorPoint, currentManipulationAxis).normalized;
-
-        Quaternion initQuat = Quaternion.LookRotation(initDir, currentManipulationAxis);
-        Quaternion currentQuat = Quaternion.LookRotation(currentDir, currentManipulationAxis);
-        Quaternion goalRotation = (currentQuat * Quaternion.Inverse(initQuat)) * initialTransformOnGrabStart.Rotation;
-
-        return goalRotation;
     }
 }
