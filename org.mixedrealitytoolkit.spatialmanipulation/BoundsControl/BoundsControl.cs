@@ -483,15 +483,13 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         // The box visuals GameObject instantiated at Awake.
         private GameObject boxInstance;
+        public GameObject BoxInstance => boxInstance;
 
         // Used to determine whether the associated interactable was moved between select/deselect,
         // which drives whether the handles get toggled on/off. If the interactable was moved less than a
         // certain threshold, we toggle the handles on/off. If the interactable was moved further than the
         // threshold, we don't toggle the handles (as it was probably an intentional ObjectManipulation!)
         private Vector3 startMovePosition;
-
-        // The interactor selecting the currentHandle's attachTransform position at time of selection.
-        private Vector3 initialGrabPoint;
 
         // The handle that is currently being manipulated.
         private BoundsHandleInteractable currentHandle;
@@ -504,19 +502,12 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         // The corner opposite from the current scale handle (if a scale handle is being selected)
         private Vector3 oppositeCorner;
-        public Vector3 OppositeCorner => oppositeCorner;
-
-        // The vector representing the diagonal (from the current scale handle to the opposite corner)
-        private Vector3 diagonalDir;
 
         // Position of the anchor when manipulation started.
         private Vector3 initialAnchorOnGrabStart;
 
         // Delta from the anchor to the object's center when manipulation started.
         private Vector3 initialAnchorDeltaOnGrabStart;
-
-        // Rotate axis during a rotation, translation axis during a translation, etc
-        private Vector3 currentManipulationAxis;
 
         // If we calculate the bounds at Awake and discover a UGUI autolayout group,
         // we need to queue up a second bounds computation pass to take the newly computed
@@ -772,24 +763,21 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 manipulationStarted?.Invoke(args);
 
                 currentHandle = handle;
-                initialGrabPoint = args.interactorObject.GetAttachTransform(handle).position;
                 initialTransformOnGrabStart = new MixedRealityTransform(Target.transform);
                 Vector3 anchorPoint = RotateAnchor == RotateAnchorType.BoundsCenter ? Target.transform.TransformPoint(currentBounds.center) : Target.transform.position;
                 initialAnchorOnGrabStart = anchorPoint;
                 initialAnchorDeltaOnGrabStart = Target.transform.position - anchorPoint;
+
                 // todo: move this out?
                 if (currentHandle.HandleType == HandleType.Scale)
                 {
                     // Will use this to scale the target relative to the opposite corner
-                    oppositeCorner = boxInstance.transform.TransformPoint(-currentHandle.transform.localPosition);
-                    diagonalDir = (currentHandle.transform.position - oppositeCorner).normalized;
                     // ScaleStarted?.Invoke();
 
                     ManipulationLogicImplementations.scaleLogic.Setup(currentHandle.interactorsSelecting, args.interactableObject, initialTransformOnGrabStart);
                 }
                 else if (currentHandle.HandleType == HandleType.Rotation)
                 {
-                    currentManipulationAxis = handle.transform.forward;
                     // RotateStarted?.Invoke();
 
                     ManipulationLogicImplementations.rotateLogic.Setup(currentHandle.interactorsSelecting, args.interactableObject, initialTransformOnGrabStart);
@@ -966,6 +954,7 @@ public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
     private Vector3 initialGrabPoint;
     private MixedRealityTransform initialTransformOnGrabStart;
     private Vector3 diagonalDir;
+    private Vector3 oppositeCorner;
 
     /// <inheritdoc />
     public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
@@ -975,7 +964,8 @@ public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
         boundsCont = currentHandle.BoundsControlRoot;
         initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
         initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
-        diagonalDir = (currentHandle.transform.position - boundsCont.OppositeCorner).normalized;
+        oppositeCorner = boundsCont.BoxInstance.transform.TransformPoint(-currentHandle.transform.localPosition);
+        diagonalDir = (currentHandle.transform.position - oppositeCorner).normalized;
     }
 
     /// <inheritdoc />
@@ -983,7 +973,7 @@ public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
     {
         base.Update(interactors, interactable, currentTarget, centeredAnchor);
 
-        Vector3 anchorPoint = centeredAnchor ? boundsCont.Target.transform.TransformPoint(boundsCont.CurrentBounds.center) : boundsCont.OppositeCorner;
+        Vector3 anchorPoint = centeredAnchor ? boundsCont.Target.transform.TransformPoint(boundsCont.CurrentBounds.center) : oppositeCorner;
         Vector3 scaleFactor = boundsCont.Target.transform.localScale;
         Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
 
