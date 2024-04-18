@@ -483,7 +483,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         // The box visuals GameObject instantiated at Awake.
         private GameObject boxInstance;
-       
+
         // Used to determine whether the associated interactable was moved between select/deselect,
         // which drives whether the handles get toggled on/off. If the interactable was moved less than a
         // certain threshold, we toggle the handles on/off. If the interactable was moved further than the
