@@ -919,7 +919,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
     }
 }
-
+/*
+ * These are the three classes that define the default manipulation behavior for Moving, Scaling and Rotation respectively
+ */
 public class BoundsControlMoveLogic : ManipulationLogic<Vector3>
 {
     private BoundsControl boundsCont;
