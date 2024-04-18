@@ -816,6 +816,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
                         Quaternion rotationDelta = goalRotation * Quaternion.Inverse(initialTransformOnGrabStart.Rotation);
                         Vector3 goalPosition = initialAnchorOnGrabStart + (rotationDelta * initialAnchorDeltaOnGrabStart);
+
                         MixedRealityTransform constraintRotation = MixedRealityTransform.NewRotate(goalRotation);
 
                         if (EnableConstraints && constraintsManager != null)
@@ -845,12 +846,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
                                     constraintRotation.Rotation
                                 );
                         }
-                    
                     }
                     else if (currentHandle.HandleType == HandleType.Scale)
-                    { 
+                    {
                         Vector3 anchorPoint = ScaleAnchor == ScaleAnchorType.BoundsCenter ? Target.transform.TransformPoint(currentBounds.center) : oppositeCorner;
-
                         var newScale = ManipulationLogicImplementations.scaleLogic.Update(currentHandle.interactorsSelecting, interactable, targetTransform, ScaleAnchor == ScaleAnchorType.BoundsCenter);
 
                         MixedRealityTransform clampedTransform = MixedRealityTransform.NewScale(newScale);
