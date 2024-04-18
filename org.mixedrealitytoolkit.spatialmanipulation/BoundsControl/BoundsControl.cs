@@ -735,7 +735,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// Called by <see cref="BoundsHandleInteractable"/> from its OnSelectExited.
         /// Routes the XRI event data through, as well as a reference to itself, the selected handle.
         /// </summary>
-        protected virtual internal void OnHandleSelectExited(BoundsHandleInteractable handle, SelectExitEventArgs args)
+        internal void OnHandleSelectExited(BoundsHandleInteractable handle, SelectExitEventArgs args)
         {
             if (currentHandle == handle)
             {
@@ -750,7 +750,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// Called by <see cref="BoundsHandleInteractable"/> from its OnSelectEntered.
         /// Routes the XRI event data through, as well as a reference to itself, the selected handle.
         /// </summary>
-        protected virtual internal void OnHandleSelectEntered(BoundsHandleInteractable handle, SelectEnterEventArgs args)
+        internal void OnHandleSelectEntered(BoundsHandleInteractable handle, SelectEnterEventArgs args)
         {
             if (currentHandle != null)
             {
@@ -801,7 +801,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private static readonly ProfilerMarker TransformTargetPerfMarker =
             new ProfilerMarker("[MRTK] BoundsControl.TransformTarget");
 
-        protected virtual void TransformTarget()
+        private void TransformTarget()
         {
             using (TransformTargetPerfMarker.Auto())
             {
