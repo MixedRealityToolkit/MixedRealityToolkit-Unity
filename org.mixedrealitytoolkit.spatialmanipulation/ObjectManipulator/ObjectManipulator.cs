@@ -1054,6 +1054,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// Gets the absolute device (grip) rotation associated with the specified interactor.
         /// Used to query actual grabbing rotation, vs a ray rotation.
         /// </summary>
+        [Obsolete]
         private bool TryGetGripRotation(IXRSelectInteractor interactor, out Quaternion rotation)
         {
             // We need to query the raw device rotation from the interactor; however,

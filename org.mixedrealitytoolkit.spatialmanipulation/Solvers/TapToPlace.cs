@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
@@ -531,6 +532,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Registers the input action which performs placement.
         /// </summary>
+        [Obsolete]
         private void RegisterPlacementAction()
         {
             // Refresh the registeration if they already exist
@@ -570,6 +572,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Unregisters the input action which performs placement.
         /// </summary>
+        [Obsolete]
         private void UnregisterPlacementAction()
         {
             if (interactorsCache != null)

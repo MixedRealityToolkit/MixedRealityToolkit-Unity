@@ -6,6 +6,7 @@
 
 using MixedReality.Toolkit.Core.Tests;
 using NUnit.Framework;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -44,6 +45,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Ensure the simulated input devices bind to the controllers on the rig.
         /// </summary>
         [UnityTest]
+        [Obsolete]
         public IEnumerator InputBindingSmoketest()
         {
             var controllers = new[] {
@@ -68,6 +70,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Ensure the simulated input device actually makes the rig's controllers move/actuate.
         /// </summary>
         [UnityTest]
+        [Obsolete]
         public IEnumerator HandMovingSmoketest()
         {
             var controller = CachedLookup.RightHandController as ActionBasedController;
