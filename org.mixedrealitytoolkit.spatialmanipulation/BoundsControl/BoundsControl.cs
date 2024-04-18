@@ -819,24 +819,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 if (currentHandle != null)
                 {
                     TransformFlags transformUpdated = 0;
-                    Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
                     MixedRealityTransform targetTransform = new MixedRealityTransform(target.transform);
 
                     if (currentHandle.HandleType == HandleType.Rotation)
                     {
-                        /*
-                        // Compute the anchor around which we will be rotating the object, based
-                        // on the desired RotateAnchorType.
-                        Vector3 anchorPoint = RotateAnchor == RotateAnchorType.BoundsCenter ? Target.transform.TransformPoint(currentBounds.center) : Target.transform.position;
-
-                        Vector3 initDir = Vector3.ProjectOnPlane(initialGrabPoint - anchorPoint, currentManipulationAxis).normalized;
-                        Vector3 currentDir = Vector3.ProjectOnPlane(currentGrabPoint - anchorPoint, currentManipulationAxis).normalized;
-                        Quaternion initQuat = Quaternion.LookRotation(initDir, currentManipulationAxis);
-                        Quaternion currentQuat = Quaternion.LookRotation(currentDir, currentManipulationAxis);
-                        Quaternion goalRotation = (currentQuat * Quaternion.Inverse(initQuat)) * initialTransformOnGrabStart.Rotation;
-
-                        */
-
                         var goalRotation = ManipulationLogicImplementations.rotateLogic.Update(currentHandle.interactorsSelecting, interactable, targetTransform, RotateAnchor == RotateAnchorType.BoundsCenter);
 
                         Quaternion rotationDelta = goalRotation * Quaternion.Inverse(initialTransformOnGrabStart.Rotation);
@@ -1017,40 +1003,39 @@ public class BoundsControlScaleLogic : ManipulationLogic<Vector3>
 public class BoundsControlRotateLogic : ManipulationLogic<Quaternion>
 {
     private BoundsControl boundsCont;
-    /*
     private BoundsHandleInteractable currentHandle;
     private Vector3 initialGrabPoint;
     private Vector3 currentManipulationAxis;
     private MixedRealityTransform initialTransformOnGrabStart;
-    */
+
     /// <inheritdoc />
     public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
     {
         base.Setup(interactors, interactable, currentTarget);
 
-        //currentHandle = interactable.transform.GetComponent<BoundsHandleInteractable>();
-        boundsCont = interactable.transform.GetComponent<BoundsHandleInteractable>().BoundsControlRoot;
-        //initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
-        //currentManipulationAxis = currentHandle.transform.forward;
-        //initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
+        currentHandle = interactable.transform.GetComponent<BoundsHandleInteractable>();
+        boundsCont = currentHandle.BoundsControlRoot;
+        initialGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
+        currentManipulationAxis = currentHandle.transform.forward;
+        initialTransformOnGrabStart = new MixedRealityTransform(boundsCont.Target.transform);
     }
 
     /// <inheritdoc />
     public override Quaternion Update(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget, bool centeredAnchor)
     {
-        return base.Update(interactors, interactable, currentTarget, centeredAnchor);
-        /*
+        base.Update(interactors, interactable, currentTarget, centeredAnchor);
+
         // Compute the anchor around which we will be rotating the object, based
         // on the desired RotateAnchorType.
         Vector3 anchorPoint = centeredAnchor ? boundsCont.Target.transform.TransformPoint(boundsCont.CurrentBounds.center) : boundsCont.Target.transform.position;
         Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
-
         Vector3 initDir = Vector3.ProjectOnPlane(initialGrabPoint - anchorPoint, currentManipulationAxis).normalized;
         Vector3 currentDir = Vector3.ProjectOnPlane(currentGrabPoint - anchorPoint, currentManipulationAxis).normalized;
+
         Quaternion initQuat = Quaternion.LookRotation(initDir, currentManipulationAxis);
         Quaternion currentQuat = Quaternion.LookRotation(currentDir, currentManipulationAxis);
         Quaternion goalRotation = (currentQuat * Quaternion.Inverse(initQuat)) * initialTransformOnGrabStart.Rotation;
+
         return goalRotation;
-        */
     }
 }
