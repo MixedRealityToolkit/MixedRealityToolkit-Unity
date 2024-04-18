@@ -657,6 +657,16 @@ MonoBehaviour:
   translateLerpTime: 0.00001
   enableConstraints: 1
   constraintsManager: {fileID: 206300805}
+  manipulationLogicTypes:
+    moveLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlMoveLogic,
+        MixedReality.Toolkit.SpatialManipulation
+    rotateLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlRotateLogic,
+        MixedReality.Toolkit.SpatialManipulation
+    scaleLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlScaleLogic,
+        MixedReality.Toolkit.SpatialManipulation
   manipulationStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -880,6 +890,7 @@ MonoBehaviour:
   hostTransform: {fileID: 206300803}
   allowedManipulations: 7
   allowedInteractionTypes: -2147483641
+  rigidbodyMovementType: 0
   applyTorque: 1
   springForceSoftness: 0.1
   springTorqueSoftness: 0.1
@@ -902,8 +913,7 @@ MonoBehaviour:
     moveLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.MoveLogic, MixedReality.Toolkit.SpatialManipulation
     rotateLogicType:
-      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic,
-        MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic, MixedReality.Toolkit.SpatialManipulation
     scaleLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.ScaleLogic, MixedReality.Toolkit.SpatialManipulation
 --- !u!1001 &246643815
@@ -2167,6 +2177,16 @@ MonoBehaviour:
   translateLerpTime: 0.00001
   enableConstraints: 1
   constraintsManager: {fileID: 1058535793}
+  manipulationLogicTypes:
+    moveLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlMoveLogic,
+        MixedReality.Toolkit.SpatialManipulation
+    rotateLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlRotateLogic,
+        MixedReality.Toolkit.SpatialManipulation
+    scaleLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlScaleLogic,
+        MixedReality.Toolkit.SpatialManipulation
   manipulationStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -2540,6 +2560,7 @@ MonoBehaviour:
   hostTransform: {fileID: 1058535790}
   allowedManipulations: 7
   allowedInteractionTypes: -2147483641
+  rigidbodyMovementType: 0
   applyTorque: 1
   springForceSoftness: 0.1
   springTorqueSoftness: 0.1
@@ -2562,8 +2583,7 @@ MonoBehaviour:
     moveLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.MoveLogic, MixedReality.Toolkit.SpatialManipulation
     rotateLogicType:
-      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic,
-        MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic, MixedReality.Toolkit.SpatialManipulation
     scaleLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.ScaleLogic, MixedReality.Toolkit.SpatialManipulation
 --- !u!82 &1058535795
@@ -3265,6 +3285,18 @@ PrefabInstance:
       propertyPath: boundsVisualsPrefab
       value: 
       objectReference: {fileID: 5671351296789090341, guid: ecbf05ce2121a744cb893e82377ba3cd, type: 3}
+    - target: {fileID: 251265376, guid: 0d3b2fd2079cd514d8dbce654f929320, type: 3}
+      propertyPath: manipulationLogicTypes.moveLogicType.reference
+      value: MixedReality.Toolkit.SpatialManipulation.BoundsControlMoveLogic, MixedReality.Toolkit.SpatialManipulation
+      objectReference: {fileID: 0}
+    - target: {fileID: 251265376, guid: 0d3b2fd2079cd514d8dbce654f929320, type: 3}
+      propertyPath: manipulationLogicTypes.scaleLogicType.reference
+      value: MixedReality.Toolkit.SpatialManipulation.BoundsControlScaleLogic, MixedReality.Toolkit.SpatialManipulation
+      objectReference: {fileID: 0}
+    - target: {fileID: 251265376, guid: 0d3b2fd2079cd514d8dbce654f929320, type: 3}
+      propertyPath: manipulationLogicTypes.rotateLogicType.reference
+      value: MixedReality.Toolkit.SpatialManipulation.BoundsControlRotateLogic, MixedReality.Toolkit.SpatialManipulation
+      objectReference: {fileID: 0}
     - target: {fileID: 251265377, guid: 0d3b2fd2079cd514d8dbce654f929320, type: 3}
       propertyPath: Spatialize
       value: 1
@@ -3441,6 +3473,16 @@ MonoBehaviour:
   translateLerpTime: 0.001
   enableConstraints: 1
   constraintsManager: {fileID: 0}
+  manipulationLogicTypes:
+    moveLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlMoveLogic,
+        MixedReality.Toolkit.SpatialManipulation
+    rotateLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlRotateLogic,
+        MixedReality.Toolkit.SpatialManipulation
+    scaleLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlScaleLogic,
+        MixedReality.Toolkit.SpatialManipulation
   manipulationStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -3651,6 +3693,7 @@ MonoBehaviour:
   hostTransform: {fileID: 1513987307}
   allowedManipulations: 7
   allowedInteractionTypes: -2147483641
+  rigidbodyMovementType: 0
   applyTorque: 1
   springForceSoftness: 0.1
   springTorqueSoftness: 0.1
@@ -3673,8 +3716,7 @@ MonoBehaviour:
     moveLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.MoveLogic, MixedReality.Toolkit.SpatialManipulation
     rotateLogicType:
-      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic,
-        MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic, MixedReality.Toolkit.SpatialManipulation
     scaleLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.ScaleLogic, MixedReality.Toolkit.SpatialManipulation
 --- !u!114 &1513987306
@@ -3864,6 +3906,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2044717239}
     m_Modifications:
+    - target: {fileID: 251265376, guid: 0d3b2fd2079cd514d8dbce654f929320, type: 3}
+      propertyPath: manipulationLogicTypes.moveLogicType.reference
+      value: MixedReality.Toolkit.SpatialManipulation.BoundsControlMoveLogic, MixedReality.Toolkit.SpatialManipulation
+      objectReference: {fileID: 0}
+    - target: {fileID: 251265376, guid: 0d3b2fd2079cd514d8dbce654f929320, type: 3}
+      propertyPath: manipulationLogicTypes.scaleLogicType.reference
+      value: MixedReality.Toolkit.SpatialManipulation.BoundsControlScaleLogic, MixedReality.Toolkit.SpatialManipulation
+      objectReference: {fileID: 0}
+    - target: {fileID: 251265376, guid: 0d3b2fd2079cd514d8dbce654f929320, type: 3}
+      propertyPath: manipulationLogicTypes.rotateLogicType.reference
+      value: MixedReality.Toolkit.SpatialManipulation.BoundsControlRotateLogic, MixedReality.Toolkit.SpatialManipulation
+      objectReference: {fileID: 0}
     - target: {fileID: 251265377, guid: 0d3b2fd2079cd514d8dbce654f929320, type: 3}
       propertyPath: Spatialize
       value: 1
@@ -4845,6 +4899,7 @@ MonoBehaviour:
   hostTransform: {fileID: 2085586761}
   allowedManipulations: 7
   allowedInteractionTypes: -2147483641
+  rigidbodyMovementType: 0
   applyTorque: 1
   springForceSoftness: 0.1
   springTorqueSoftness: 0.1
@@ -4867,8 +4922,7 @@ MonoBehaviour:
     moveLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.MoveLogic, MixedReality.Toolkit.SpatialManipulation
     rotateLogicType:
-      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic,
-        MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic, MixedReality.Toolkit.SpatialManipulation
     scaleLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.ScaleLogic, MixedReality.Toolkit.SpatialManipulation
 --- !u!114 &2085586763
@@ -4919,6 +4973,16 @@ MonoBehaviour:
   translateLerpTime: 0.00001
   enableConstraints: 1
   constraintsManager: {fileID: 2085586763}
+  manipulationLogicTypes:
+    moveLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlMoveLogic,
+        MixedReality.Toolkit.SpatialManipulation
+    rotateLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlRotateLogic,
+        MixedReality.Toolkit.SpatialManipulation
+    scaleLogicType:
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlScaleLogic,
+        MixedReality.Toolkit.SpatialManipulation
   manipulationStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -5096,6 +5160,18 @@ PrefabInstance:
     - target: {fileID: 628273543, guid: 818e133c8f245de438f3edbd7d8d65bb, type: 3}
       propertyPath: toggleHandlesOnClick
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 628273543, guid: 818e133c8f245de438f3edbd7d8d65bb, type: 3}
+      propertyPath: manipulationLogicTypes.moveLogicType.reference
+      value: MixedReality.Toolkit.SpatialManipulation.BoundsControlMoveLogic, MixedReality.Toolkit.SpatialManipulation
+      objectReference: {fileID: 0}
+    - target: {fileID: 628273543, guid: 818e133c8f245de438f3edbd7d8d65bb, type: 3}
+      propertyPath: manipulationLogicTypes.scaleLogicType.reference
+      value: MixedReality.Toolkit.SpatialManipulation.BoundsControlScaleLogic, MixedReality.Toolkit.SpatialManipulation
+      objectReference: {fileID: 0}
+    - target: {fileID: 628273543, guid: 818e133c8f245de438f3edbd7d8d65bb, type: 3}
+      propertyPath: manipulationLogicTypes.rotateLogicType.reference
+      value: MixedReality.Toolkit.SpatialManipulation.BoundsControlRotateLogic, MixedReality.Toolkit.SpatialManipulation
       objectReference: {fileID: 0}
     - target: {fileID: 4986292954374696882, guid: 818e133c8f245de438f3edbd7d8d65bb, type: 3}
       propertyPath: m_RootOrder
