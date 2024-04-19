@@ -46,6 +46,7 @@ namespace MixedReality.Toolkit.Input
         /// Used to check if the parent controller is tracked or not
         /// Hopefully this becomes part of the base Unity XRI API.
         /// </summary>
+        [Obsolete]
         private bool IsTracked => xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
 
         /// <summary>
@@ -79,6 +80,7 @@ namespace MixedReality.Toolkit.Input
 
         #region IHandedInteractor
 
+        [Obsolete]
         Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
 
         #endregion IHandedInteractor
@@ -86,6 +88,7 @@ namespace MixedReality.Toolkit.Input
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
+        [Obsolete]
         public float SelectProgress => xrController.selectInteractionState.value;
 
         #endregion IVariableSelectInteractor
@@ -142,6 +145,7 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <inheritdoc />
+        [Obsolete]
         public override bool isHoverActive
         {
             get

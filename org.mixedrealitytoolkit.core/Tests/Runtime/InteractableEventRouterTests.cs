@@ -6,6 +6,7 @@
 
 using MixedReality.Toolkit.Experimental;
 using NUnit.Framework;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -355,6 +356,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return null;
         }
 
+        [Obsolete]
         private void CreateTestObjectsWithEventRouter()
         {
             interactorObject = new GameObject("Interactor");

@@ -69,6 +69,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Editor only function for initializing the Interaction Mode Manager with the existing XR controllers in the scene
         /// </summary>
+        [Obsolete]
         public void InitializeControllers()
         {
             controllerMapping.Clear();
@@ -202,6 +203,7 @@ namespace MixedReality.Toolkit.Input
         /// Registers an interactor to be managed by the interaction mode manager
         /// </summary>
         /// <param name="interactor">An XRBaseInteractor which needs to be managed based on interaction modes</param>
+        [Obsolete]
         public void RegisterInteractor(XRBaseInteractor interactor)
         {
             // Only register controllers which are governed by some kind of interaction mode
@@ -245,6 +247,7 @@ namespace MixedReality.Toolkit.Input
         /// when a controller is destroyed.
         /// </remarks>
         /// <param name="interactor">The <see cref="XRBaseInteractor"/> to be unregistered.</param>
+        [Obsolete]
         public void UnregisterInteractor(XRBaseInteractor interactor)
         {
             GameObject controllerObject = null;
