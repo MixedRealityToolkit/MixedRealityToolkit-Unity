@@ -4,6 +4,7 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
+using System;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -23,6 +24,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// Verify TapToPlace can move an object to the end of the right hand ray.
         /// </summary>
         [UnityTest]
+        [Obsolete]
         public IEnumerator TapToPlaceFollowsRightHandRay()
         {
             // Disable gaze interactions for this unit test;
@@ -106,6 +108,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// Verify TapToPlace can move an object to the end of the left hand ray.
         /// </summary>
         [UnityTest]
+        [Obsolete]
         public IEnumerator TapToPlaceFollowsLeftHandRay()
         {
             // Disable gaze interactions for this unit test;

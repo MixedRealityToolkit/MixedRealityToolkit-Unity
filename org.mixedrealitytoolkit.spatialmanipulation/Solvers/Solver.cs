@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -245,6 +246,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// A Unity event function that is called when the script component has been disabled.
         /// </summary>
+        [Obsolete]
         protected virtual void OnDisable()
         {
             // Unregister the solver with its solver hander
@@ -257,6 +259,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
         /// </summary>
+        [Obsolete]
         protected virtual void Start()
         {
             // Find the controller lookup class in the hierarchy. Solvers that require access to the
@@ -272,11 +275,13 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Should be implemented in derived classes, but Solver can be used to flush shared transform to real transform
         /// </summary>
+        [Obsolete]
         public abstract void SolverUpdate();
 
         /// <summary>
         /// Tracks lifetime of the solver, disabling it when expired, and finally runs the orientation update logic
         /// </summary>
+        [Obsolete]
         public void SolverUpdateEntry()
         {
             currentLifetime += SolverHandler.DeltaTime;

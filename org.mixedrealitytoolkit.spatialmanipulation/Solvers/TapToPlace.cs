@@ -276,6 +276,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         #region MonoBehaviour Implementation
 
         /// <inheritdoc/>
+        [Obsolete]
         protected override void Start()
         {
             base.Start();
@@ -304,6 +305,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// A Unity event function that is called when the script component has been disabled.
         /// </summary>
+        [Obsolete]
         protected override void OnDisable()
         {
             StopPlacement();
@@ -321,6 +323,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// game object from following the TrackedTargetType.  The game object layer is changed to IgnoreRaycast temporarily and then
         /// restored to its original layer in StopPlacementViaPerformedAction().
         /// </summary>
+        [Obsolete]
         public void StartPlacement()
         {
             // Checking the amount of time passed between when StartPlacement or StopPlacementViaPerformedAction is called twice in
@@ -372,6 +375,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Stop the placement of a game object via an action's performance.
         /// </summary>
+        [Obsolete]
         private void StopPlacementViaPerformedAction(InputAction.CallbackContext context)
         {
             StopPlacement();
@@ -380,6 +384,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Stop the placement of a game object via an interactor's select event.
         /// </summary>
+        [Obsolete]
         private void StopPlacementViaSelect(SelectEnterEventArgs args)
         {
             StopPlacement();
@@ -388,6 +393,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Stop the placement of a game object. 
         /// </summary>
+        [Obsolete]
         public void StopPlacement()
         {
             // Checking the amount of time passed between when StartPlacement or StopPlacementViaPerformedAction is called twice in
@@ -424,6 +430,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             new ProfilerMarker("[MRTK] TapToPlace.SolverUpdate");
 
         /// <inheritdoc/>
+        [Obsolete]
         public override void SolverUpdate()
         {
             using (SolverUpdatePerfMarker.Auto())

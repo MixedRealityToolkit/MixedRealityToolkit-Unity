@@ -55,6 +55,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         [SetUp]
+        [Obsolete]
         public void Init()
         {
             CreateTestObjectsWithEventRouter();
