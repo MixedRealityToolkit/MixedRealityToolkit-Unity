@@ -1,3 +1,6 @@
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
