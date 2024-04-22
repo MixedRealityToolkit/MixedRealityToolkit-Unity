@@ -2,7 +2,13 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.3.0-development] - 2024-03-22
+## [3.4.0-development] - 2024-04-22
+
+### Added
+
+* Added proximity-hover dynamic Frontplates functionality (Moved from Experimental to Release). [PR #712](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/712)
+
+## [3.3.0] - 2024-03-22
 
 ### Added
 
