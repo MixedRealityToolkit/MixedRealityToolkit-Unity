@@ -11,6 +11,7 @@ namespace MixedReality.Toolkit.Editor
     /// A custom Unity editor for the <see cref="PressableButton"/> class.
     /// </summary>
     [CustomEditor(typeof(PressableButton), true)]
+    [CanEditMultipleObjects]
     public class PressableButtonEditor : StatefulInteractableEditor
     {
         // Struct used to store state of preview.
