@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1948193615953854874, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
@@ -31,6 +32,18 @@ PrefabInstance:
       propertyPath: managedReferences[1].hand
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1948193616346090107, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferenceValue
+      value: 
+      objectReference: {fileID: 2995356199736570127, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 1948193616346090107, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 187161793506945269, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 1948193616346090107, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_ActivateInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 83097790271614945, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 1948193616346090107, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: pokePoseSource.poseSourceList.Array.data[0].hand
       value: 2
@@ -63,6 +76,18 @@ PrefabInstance:
       propertyPath: managedReferences[1].hand
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2572330550550829917, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferenceValue
+      value: 
+      objectReference: {fileID: 2995356199736570127, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 2572330550550829917, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 187161793506945269, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 2572330550550829917, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_ActivateInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 83097790271614945, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 2572330550550829917, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: pinchPoseSource.poseSourceList.Array.data[0].hand
       value: 2
@@ -100,9 +125,25 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2940030942784507886, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferenceValue
+      value: 
+      objectReference: {fileID: 2995356199736570127, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 2940030942784507886, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 187161793506945269, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 2940030942784507886, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_UIPressInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 3279264004350380116, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 2940030942784507886, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: aimPoseSource.poseSourceList.Array.data[1].hand
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2940030942784507886, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_ActivateInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 83097790271614945, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 2940030942784507886, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: devicePoseSource.poseSourceList.Array.data[1].hand
       value: 2
@@ -172,9 +213,21 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3419360757097544916, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferenceValue
+      value: 
+      objectReference: {fileID: 2995356199736570127, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 3419360757097544916, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 187161793506945269, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 3419360757097544916, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: aimPoseSource.poseSourceList.Array.data[1].hand
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3419360757097544916, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
+      propertyPath: m_ActivateInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 83097790271614945, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 3419360757097544916, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: devicePoseSource.poseSourceList.Array.data[1].hand
       value: 2
@@ -284,4 +337,7 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
