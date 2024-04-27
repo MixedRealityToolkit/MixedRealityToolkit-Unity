@@ -311,15 +311,15 @@ PrefabInstance:
     - target: {fileID: 6164080946324827545, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: m_SelectAction.m_Reference
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 187161793506945269, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 6164080946324827545, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: m_UIPressAction.m_Reference
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3279264004350380116, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 6164080946324827545, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: m_ActivateAction.m_Reference
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 83097790271614945, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 6164080946324827545, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: m_PositionAction.m_Reference
       value: 
@@ -331,7 +331,7 @@ PrefabInstance:
     - target: {fileID: 6164080946324827545, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: m_SelectActionValue.m_Reference
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2995356199736570127, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 6164080946324827545, guid: c89f12cb641c27e47b7b71af1d6518a5, type: 3}
       propertyPath: m_RotateAnchorAction.m_Reference
       value: 
