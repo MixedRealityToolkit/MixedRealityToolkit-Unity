@@ -19,6 +19,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using MixedReality.Toolkit.Subsystems;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using UnityEngine.InputSystem.XR;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -45,8 +46,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Ensure the simulated input devices bind to the controllers on the rig.
         /// </summary>
         [UnityTest]
-        [Obsolete]
-        [Ignore("Temporary ignoring while completing XRI 3 migration.  TODO: Re-implement this test once XRI 3 migration is completed.")]
+        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController, and GazeController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
         public IEnumerator InputBindingSmoketest()
         {
             var controllers = new[] {
@@ -60,8 +60,9 @@ namespace MixedReality.Toolkit.Input.Tests
                 Assert.That(controller, Is.Not.Null);
                 Assert.That(controller, Is.AssignableTo(typeof(ActionBasedController)));
 
-                ActionBasedController actionBasedController = controller as ActionBasedController;
-                Assert.That(actionBasedController.positionAction.action.controls, Has.Count.GreaterThanOrEqualTo(1));
+                TrackedPoseDriver controllerTrackedPoseDriver = controller.GetComponent<TrackedPoseDriver>();
+                int controlsCount = controllerTrackedPoseDriver.positionAction.controls.Count; //Note: need to extract controls count here because it fails to be retrieved when inside the assertion.
+                Assert.GreaterOrEqual(controlsCount, 1);
             }
 
             yield return null;
