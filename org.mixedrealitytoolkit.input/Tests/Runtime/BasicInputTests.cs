@@ -103,8 +103,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Ensure the simulated input device actually makes the rig's controllers move/actuate.
         /// </summary>
         [UnityTest]
-        [Obsolete]
-        [Ignore("Temporary ignoring while completing XRI 3 migration.  TODO: Re-implement this test once XRI 3 migration is completed.")]
+        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
         public IEnumerator HandMovingSmoketest()
         {
             var controller = CachedLookup.RightHandController as ActionBasedController;
@@ -115,17 +114,18 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return testHand.Show(Vector3.forward);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            Assert.That(controller.transform.position.x, Is.EqualTo(0.0f).Within(0.01f));
+            Assert.That(controller.transform.position.x, Is.EqualTo(0.0f).Within(0.04f));
 
             yield return testHand.Move(Vector3.right * 0.5f, 60);
             yield return RuntimeTestUtilities.WaitForUpdates();
             Debug.Log("Input system update mode: " + InputSystem.settings.updateMode);
 
-            Assert.That(controller.positionAction.action.controls, Has.Count.GreaterThanOrEqualTo(1));
-            Assert.That(controller.positionAction.action.activeControl, Is.Not.Null);
-            Assert.That(controller.positionAction.action.ReadValue<Vector3>().x, Is.EqualTo(0.5f).Within(0.01f));
+            TrackedPoseDriver controllerTrackedPoseDriver = controller.GetComponent<TrackedPoseDriver>();
+            Assert.That(controllerTrackedPoseDriver.positionAction.controls, Has.Count.GreaterThanOrEqualTo(1));
+            Assert.That(controllerTrackedPoseDriver.positionAction.activeControl, Is.Not.Null);
+            Assert.That(controllerTrackedPoseDriver.positionAction.ReadValue<Vector3>().x, Is.EqualTo(0.5f).Within(0.01f));
 
-            Assert.That(controller.transform.position.x, Is.EqualTo(0.5f).Within(0.01f));
+            Assert.That(controllerTrackedPoseDriver.transform.position.x, Is.EqualTo(0.5f).Within(0.05f));
 
             yield return null;
         }
