@@ -163,7 +163,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 handleRenderer.enabled = false;
             }
-            colliders[0].enabled = false;
+            if (colliders.Count > 0 && colliders[0] != null) 
+            {
+                colliders[0].enabled = false;
+            }
             wasOccludedLastFrame = true;
         }
 
@@ -180,7 +183,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 {
                     handleRenderer.enabled = false;
                 }
-                colliders[0].enabled = false;
+                if (colliders.Count > 0 && colliders[0] != null) 
+                {
+                    colliders[0].enabled = false;
+                }
             }
         }
 
