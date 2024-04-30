@@ -43,6 +43,38 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
+        /// Ensures that the LeftHandController, RightHandController, and GazeController controllers have one and only one of the required components to work with com.unity.xr.interaction.toolkit 3.0.1 package
+        /// </summary>
+        [UnityTest]
+        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController, and GazeController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
+        public IEnumerator XRI3ControllerHaveOneAndOnlyOneOfTheNeededXRI3ComponentsTest()
+        {
+            var controllers = new[] {
+                CachedLookup.LeftHandController,
+                CachedLookup.RightHandController,
+                CachedLookup.GazeController
+            };
+
+            foreach (var controller in controllers)
+            {
+                Assert.That(controller, Is.Not.Null);
+
+                // Check all controllers have one and only one TrackedPoseDriver component
+                TrackedPoseDriver[] controllerTrackedPoseDrivers = controller.GetComponents<TrackedPoseDriver>();
+                Assert.AreEqual(controllerTrackedPoseDrivers.Length, 1);
+
+                // Check that LeftHandController and RightHandController also have one and only one XRRayInteractor component
+                if (controller.Equals(CachedLookup.LeftHandController) || controller.Equals(CachedLookup.RightHandController))
+                {
+                    XRRayInteractor[] controllerXRRayInteractors = controller.GetComponents<XRRayInteractor>();
+                    Assert.AreEqual(controllerXRRayInteractors.Length, 1);
+                }
+            }
+
+            yield return null;
+        }
+
+        /// <summary>
         /// Ensure the simulated input devices bind to the controllers on the rig.
         /// </summary>
         [UnityTest]
