@@ -679,7 +679,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 6617357981711541546, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    m_Reference: {fileID: 0}
   fallbackRotationAction:
     m_UseReference: 1
     m_Action:
@@ -691,7 +691,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 1272146141651074281, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    m_Reference: {fileID: 0}
   fallbackTrackingStateAction:
     m_UseReference: 1
     m_Action:
@@ -703,7 +703,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 5232793463981167437, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    m_Reference: {fileID: 0}
 --- !u!114 &6495048573674465811
 MonoBehaviour:
   m_ObjectHideFlags: 0
