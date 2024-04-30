@@ -7,6 +7,7 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityPhysics = UnityEngine.Physics;
@@ -539,7 +540,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Registers the input action which performs placement.
         /// </summary>
-        [Obsolete]
+        [Obsolete] //TODO: The [Obsolete] attribute can be removed once all the deprecated components have been removed as part of the XRI 3 migration
         private void RegisterPlacementAction()
         {
             // Refresh the registeration if they already exist
@@ -567,7 +568,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 if (interactor is XRBaseInputInteractor controllerInteractor &&
                     controllerInteractor.xrController is ActionBasedController actionController)
                 {
-                    actionController.selectAction.action.performed += StopPlacementViaPerformedAction;
+                    TrackedPoseDriver controllerTrackedPoseDriver = controllerInteractor.xrController.GetComponent<TrackedPoseDriver>();
+                    controllerTrackedPoseDriver.positionAction.performed += StopPlacementViaPerformedAction;
                 }
                 else if (interactor is IXRSelectInteractor selectInteractor)
                 {
