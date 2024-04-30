@@ -61,8 +61,7 @@ namespace MixedReality.Toolkit.Input.Tests
                 Assert.That(controller, Is.AssignableTo(typeof(ActionBasedController)));
 
                 TrackedPoseDriver controllerTrackedPoseDriver = controller.GetComponent<TrackedPoseDriver>();
-                int controlsCount = controllerTrackedPoseDriver.positionAction.controls.Count; //Note: need to extract controls count here because it fails to be retrieved when inside the assertion.
-                Assert.GreaterOrEqual(controlsCount, 1);
+                Assert.GreaterOrEqual(controllerTrackedPoseDriver.positionAction.controls.Count, 1);
             }
 
             yield return null;
