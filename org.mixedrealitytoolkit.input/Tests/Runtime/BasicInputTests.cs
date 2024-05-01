@@ -33,6 +33,7 @@ namespace MixedReality.Toolkit.Input.Tests
     public class BasicInputTests : BaseRuntimeInputTests
     {
         private const string OPENXR_RIGHT_HAND_PREFAB_GUID = "da93d751ddc0f64468dfc02f18d02d00";
+        private const string OPENXR_LEFT_HAND_PREFAB_GUID = "2b468cc4fe6d2b44ebc53b958b38b91a";
 
         /// <summary>
         /// Ensure the simulated input devices are registered and present.
@@ -652,6 +653,24 @@ namespace MixedReality.Toolkit.Input.Tests
             AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3Component.ModelPrefab, out string guid, out long localId);
 
             Assert.AreEqual(guid, OPENXR_RIGHT_HAND_PREFAB_GUID);
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Test the MRTKLeftHandController has the correct ModelPrefab
+        /// </summary>
+        [UnityTest]
+        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
+        public IEnumerator MRTKLeftHandControllerHasCorrectModelPrefab()
+        {
+            Assert.That(CachedLookup.LeftHandController, Is.Not.Null);
+
+            // Check MRTKRightHandController has the correct ModelPrefab
+            MRTK3ModelXRI3 MRTK3ModelXRI3Component = CachedLookup.LeftHandController.GetComponent<MRTK3ModelXRI3>();
+            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3Component.ModelPrefab, out string guid, out long localId);
+
+            Assert.AreEqual(guid, OPENXR_LEFT_HAND_PREFAB_GUID);
 
             yield return null;
         }
