@@ -20,6 +20,8 @@ using MixedReality.Toolkit.Subsystems;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 using UnityEngine.InputSystem.XR;
+using System.Linq;
+using System.Reflection;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -628,6 +630,46 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't reactivate");
             Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't deactivate");
             Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't deactivate");
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Test the MRTK3ModelXRI3 script has the required fields for XRI 3.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator MRTK3ModelXRI3HasXRI3RequiredFieldsAndAccessors()
+        {
+            FieldInfo[] fieldInfos;
+            PropertyInfo[] accessorsInfos;
+            Type MRTK3ModelXRI3Type = typeof(MRTK3ModelXRI3);
+
+            fieldInfos = MRTK3ModelXRI3Type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            accessorsInfos = MRTK3ModelXRI3Type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+            var modelPrefabFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("modelPrefab")).ToArray();
+            Assert.AreEqual(1, modelPrefabFieldInfo.Length, "MRTK3ModelXRI3 is missing the 'modelPrefab' field");
+
+            var modelParentFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("modelParent")).ToArray();
+            Assert.AreEqual(1, modelParentFieldInfo.Length, "MRTK3ModelXRI3 is missing the 'modelParent' field");
+
+            var modelFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("model")).ToArray();
+            Assert.AreEqual(1, modelFieldInfo.Length, "MRTK3ModelXRI3 is missing the 'model' field");
+
+            var handNodeFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("handNode")).ToArray();
+            Assert.AreEqual(1, modelFieldInfo.Length, "MRTK3ModelXRI3 is missing the 'handNode' field");
+
+            var modelPrefabAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("ModelPrefab")).ToArray();
+            Assert.AreEqual(1, modelPrefabAccessorInfo.Length, "MRTK3ModelXRI3 is missing the 'ModelPrefab' accessor");
+
+            var modelParentAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("ModelParent")).ToArray();
+            Assert.AreEqual(1, modelParentAccessorInfo.Length, "MRTK3ModelXRI3 is missing the 'ModelParent' accessor");
+
+            var modelAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("Model")).ToArray();
+            Assert.AreEqual(1, modelAccessorInfo.Length, "MRTK3ModelXRI3 is missing the 'Model' accessor");
+
+            var handNodeAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("HandNode")).ToArray();
+            Assert.AreEqual(1, handNodeAccessorInfo.Length, "MRTK3ModelXRI3 is missing the 'HandNode' accessor");
 
             yield return null;
         }
