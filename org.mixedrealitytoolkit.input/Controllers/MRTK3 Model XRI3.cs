@@ -45,15 +45,6 @@ namespace MixedReality.Toolkit.Input
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public Transform Model => model;
 
-        [SerializeField, Tooltip("Whether to animate the model in response to interaction events.  When enabled, activates a named animation trigger upon selecting or deselecting.")]
-        private bool animateModel;
-
-        /// <summary>
-        /// Whether to animate the model in response to interaction events.  When enabled, activates a named animation trigger upon selecting or deselecting.
-        /// </summary>
-        /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
-        public bool AnimateModel => animateModel;
-
         #endregion MRTK3 XRI 3 Model Properties
 
         #region Associated hand select values
