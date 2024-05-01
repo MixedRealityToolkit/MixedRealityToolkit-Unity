@@ -977,6 +977,7 @@ GameObject:
   - component: {fileID: 6164080946324827545}
   - component: {fileID: 9028998875765828509}
   - component: {fileID: 2493754451733599906}
+  - component: {fileID: 3853158803892222464}
   m_Layer: 0
   m_Name: MRTK LeftHand Controller
   m_TagString: Untagged
@@ -1019,7 +1020,7 @@ MonoBehaviour:
   m_UpdateTrackingType: 0
   m_EnableInputTracking: 1
   m_EnableInputActions: 1
-  m_ModelPrefab: {fileID: 1768293572455847265, guid: 2b468cc4fe6d2b44ebc53b958b38b91a, type: 3}
+  m_ModelPrefab: {fileID: 0}
   m_ModelParent: {fileID: 0}
   m_Model: {fileID: 0}
   m_AnimateModel: 0
@@ -1620,6 +1621,23 @@ MonoBehaviour:
     m_InputActionReference: {fileID: 0}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: 0
+--- !u!114 &3853158803892222464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948193615953854874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d08c61b7f6e43048af4ba00eb622cb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelPrefab: {fileID: 1768293572455847265, guid: 2b468cc4fe6d2b44ebc53b958b38b91a, type: 3}
+  modelParent: {fileID: 0}
+  model: {fileID: 0}
+  animateModel: 0
+  handNode: 4
 --- !u!1 &1948193616346090105
 GameObject:
   m_ObjectHideFlags: 0
