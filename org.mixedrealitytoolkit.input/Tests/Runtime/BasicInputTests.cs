@@ -22,6 +22,8 @@ using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 using UnityEngine.InputSystem.XR;
 using System.Linq;
 using System.Reflection;
+using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
+using UnityEditor;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -30,6 +32,8 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </summary>
     public class BasicInputTests : BaseRuntimeInputTests
     {
+        private const string OPENXR_RIGHT_HAND_PREFAB_GUID = "da93d751ddc0f64468dfc02f18d02d00";
+
         /// <summary>
         /// Ensure the simulated input devices are registered and present.
         /// </summary>
@@ -630,6 +634,24 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't reactivate");
             Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't deactivate");
             Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't deactivate");
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Test the MRTKRightHandController has the correct ModelPrefab
+        /// </summary>
+        [UnityTest]
+        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
+        public IEnumerator MRTKRightHandControllerHasCorrectModelPrefab()
+        {
+            Assert.That(CachedLookup.RightHandController, Is.Not.Null);
+
+            // Check MRTKRightHandController has the correct ModelPrefab
+            MRTK3ModelXRI3 MRTK3ModelXRI3Component = CachedLookup.RightHandController.GetComponent<MRTK3ModelXRI3>();
+            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3Component.ModelPrefab, out string guid, out long localId);
+
+            Assert.AreEqual(guid, OPENXR_RIGHT_HAND_PREFAB_GUID);
 
             yield return null;
         }
