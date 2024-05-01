@@ -660,6 +660,8 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Test the MRTKHand*Controllers have one and only MRTK3ModelXRI3 component
         /// </summary>
         [UnityTest]
+        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
+
         public IEnumerator MRTKHandControllersHaveOneAndOnlyOneMRTK3ModelXRI3Component()
         {
             var controllers = new[] {
