@@ -635,6 +635,28 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
+        /// Test the MRTKHand*Controllers have one and only MRTK3ModelXRI3 component
+        /// </summary>
+        [UnityTest]
+        public IEnumerator MRTKHandControllersHaveOneAndOnlyOneMRTK3ModelXRI3Component()
+        {
+            var controllers = new[] {
+                CachedLookup.LeftHandController,
+                CachedLookup.RightHandController
+            };
+
+            foreach (var controller in controllers)
+            {
+                Assert.That(controller, Is.Not.Null);
+
+                // Check MRTKHand*Controllers have one and only one MRTK3ModelXRI3 component
+                MRTK3ModelXRI3[] MRTK3ModelXRI3Components = controller.GetComponents<MRTK3ModelXRI3>();
+                Assert.AreEqual(MRTK3ModelXRI3Components.Length, 1);
+            }
+            yield return null;
+        }
+
+        /// <summary>
         /// Test the MRTK3ModelXRI3 script has the required fields for XRI 3.
         /// </summary>
         [UnityTest]
