@@ -640,39 +640,34 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
-        /// Test the MRTKRightHandController has the correct ModelPrefab
+        /// Test the MRTK*HandControllers have the correct ModelPrefab
         /// </summary>
         [UnityTest]
         [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
-        public IEnumerator MRTKRightHandControllerHasCorrectModelPrefab()
+        public IEnumerator MRTKHandControllersHaveCorrectModelPrefab()
         {
-            var rightHandController = CachedLookup.RightHandController;
-            Assert.That(rightHandController, Is.Not.Null);
+            var controllers = new[] {
+                CachedLookup.LeftHandController,
+                CachedLookup.RightHandController
+            };
 
-            // Check MRTKRightHandController has the correct ModelPrefab
-            MRTK3ModelXRI3 MRTK3ModelXRI3Component = rightHandController.GetComponent<MRTK3ModelXRI3>();
-            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3Component.ModelPrefab, out string guid, out long localId);
-
-            Assert.AreEqual(guid, OPENXR_RIGHT_HAND_PREFAB_GUID);
-
-            yield return null;
-        }
-
-        /// <summary>
-        /// Test the MRTKLeftHandController has the correct ModelPrefab
-        /// </summary>
-        [UnityTest]
-        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
-        public IEnumerator MRTKLeftHandControllerHasCorrectModelPrefab()
-        {
-            var leftHandController = CachedLookup.LeftHandController;
+            var leftHandController = controllers[0];
             Assert.That(leftHandController, Is.Not.Null);
 
-            // Check MRTKRightHandController has the correct ModelPrefab
-            MRTK3ModelXRI3 MRTK3ModelXRI3Component = leftHandController.GetComponent<MRTK3ModelXRI3>();
-            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3Component.ModelPrefab, out string guid, out long localId);
+            var rightHandController = controllers[1];
+            Assert.That(rightHandController, Is.Not.Null);
 
-            Assert.AreEqual(guid, OPENXR_LEFT_HAND_PREFAB_GUID);
+            // Check MRTKKeftHandController has the correct ModelPrefab
+            MRTK3ModelXRI3 MRTK3ModelXRI3LeftHandComponent = leftHandController.GetComponent<MRTK3ModelXRI3>();
+            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3LeftHandComponent.ModelPrefab, out string guidLeftHand, out long localIdLeftHand);
+
+            Assert.AreEqual(guidLeftHand, OPENXR_LEFT_HAND_PREFAB_GUID);
+
+            // Check MRTKRightHandController has the correct ModelPrefab
+            MRTK3ModelXRI3 MRTK3ModelXRI3RightHandComponent = rightHandController.GetComponent<MRTK3ModelXRI3>();
+            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3RightHandComponent.ModelPrefab, out string guidRightHand, out long localIdRightHand);
+
+            Assert.AreEqual(guidRightHand, OPENXR_RIGHT_HAND_PREFAB_GUID);
 
             yield return null;
         }
