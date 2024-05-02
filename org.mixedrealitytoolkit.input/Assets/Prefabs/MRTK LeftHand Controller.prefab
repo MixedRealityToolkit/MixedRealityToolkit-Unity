@@ -1355,8 +1355,8 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_InputActionReferencePerformed: {fileID: 0}
-    m_InputActionReferenceValue: {fileID: 0}
+    m_InputActionReferencePerformed: {fileID: -6395602842196007441, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    m_InputActionReferenceValue: {fileID: -6395602842196007441, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualPerformed: 0
     m_ManualValue: 0
@@ -1385,8 +1385,8 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_InputActionReferencePerformed: {fileID: 0}
-    m_InputActionReferenceValue: {fileID: 0}
+    m_InputActionReferencePerformed: {fileID: -5982496924579745919, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    m_InputActionReferenceValue: {fileID: -5982496924579745919, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualPerformed: 0
     m_ManualValue: 0
@@ -1497,8 +1497,8 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_InputActionReferencePerformed: {fileID: 0}
-    m_InputActionReferenceValue: {fileID: 0}
+    m_InputActionReferencePerformed: {fileID: -6395602842196007441, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    m_InputActionReferenceValue: {fileID: -6395602842196007441, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualPerformed: 0
     m_ManualValue: 0
@@ -1636,7 +1636,6 @@ MonoBehaviour:
   modelPrefab: {fileID: 1768293572455847265, guid: 2b468cc4fe6d2b44ebc53b958b38b91a, type: 3}
   modelParent: {fileID: 0}
   model: {fileID: 0}
-  animateModel: 0
   handNode: 4
 --- !u!1 &1948193616346090105
 GameObject:
