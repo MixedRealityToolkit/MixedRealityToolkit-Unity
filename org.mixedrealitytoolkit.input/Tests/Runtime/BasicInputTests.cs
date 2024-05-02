@@ -646,10 +646,11 @@ namespace MixedReality.Toolkit.Input.Tests
         [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
         public IEnumerator MRTKRightHandControllerHasCorrectModelPrefab()
         {
-            Assert.That(CachedLookup.RightHandController, Is.Not.Null);
+            var rightHandController = CachedLookup.RightHandController;
+            Assert.That(rightHandController, Is.Not.Null);
 
             // Check MRTKRightHandController has the correct ModelPrefab
-            MRTK3ModelXRI3 MRTK3ModelXRI3Component = CachedLookup.RightHandController.GetComponent<MRTK3ModelXRI3>();
+            MRTK3ModelXRI3 MRTK3ModelXRI3Component = rightHandController.GetComponent<MRTK3ModelXRI3>();
             AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3Component.ModelPrefab, out string guid, out long localId);
 
             Assert.AreEqual(guid, OPENXR_RIGHT_HAND_PREFAB_GUID);
@@ -664,10 +665,11 @@ namespace MixedReality.Toolkit.Input.Tests
         [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
         public IEnumerator MRTKLeftHandControllerHasCorrectModelPrefab()
         {
-            Assert.That(CachedLookup.LeftHandController, Is.Not.Null);
+            var leftHandController = CachedLookup.LeftHandController;
+            Assert.That(leftHandController, Is.Not.Null);
 
             // Check MRTKRightHandController has the correct ModelPrefab
-            MRTK3ModelXRI3 MRTK3ModelXRI3Component = CachedLookup.LeftHandController.GetComponent<MRTK3ModelXRI3>();
+            MRTK3ModelXRI3 MRTK3ModelXRI3Component = leftHandController.GetComponent<MRTK3ModelXRI3>();
             AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3Component.ModelPrefab, out string guid, out long localId);
 
             Assert.AreEqual(guid, OPENXR_LEFT_HAND_PREFAB_GUID);
