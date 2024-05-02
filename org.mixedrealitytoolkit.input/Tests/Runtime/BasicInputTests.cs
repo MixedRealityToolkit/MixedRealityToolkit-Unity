@@ -640,63 +640,6 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
-        /// Test the MRTK*HandControllers have the correct ModelPrefab
-        /// </summary>
-        [UnityTest]
-        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
-        public IEnumerator MRTKHandControllersHaveCorrectModelPrefab()
-        {
-            var controllers = new[] {
-                CachedLookup.LeftHandController,
-                CachedLookup.RightHandController
-            };
-
-            var leftHandController = controllers[0];
-            Assert.That(leftHandController, Is.Not.Null);
-
-            var rightHandController = controllers[1];
-            Assert.That(rightHandController, Is.Not.Null);
-
-            // Check MRTKKeftHandController has the correct ModelPrefab
-            MRTK3ModelXRI3 MRTK3ModelXRI3LeftHandComponent = leftHandController.GetComponent<MRTK3ModelXRI3>();
-            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3LeftHandComponent.ModelPrefab, out string guidLeftHand, out long localIdLeftHand);
-
-            Assert.AreEqual(guidLeftHand, OPENXR_LEFT_HAND_PREFAB_GUID);
-
-            // Check MRTKRightHandController has the correct ModelPrefab
-            MRTK3ModelXRI3 MRTK3ModelXRI3RightHandComponent = rightHandController.GetComponent<MRTK3ModelXRI3>();
-            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(MRTK3ModelXRI3RightHandComponent.ModelPrefab, out string guidRightHand, out long localIdRightHand);
-
-            Assert.AreEqual(guidRightHand, OPENXR_RIGHT_HAND_PREFAB_GUID);
-
-            yield return null;
-        }
-
-        /// <summary>
-        /// Test the MRTKHand*Controllers have one and only MRTK3ModelXRI3 component
-        /// </summary>
-        [UnityTest]
-        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
-
-        public IEnumerator MRTKHandControllersHaveOneAndOnlyOneMRTK3ModelXRI3Component()
-        {
-            var controllers = new[] {
-                CachedLookup.LeftHandController,
-                CachedLookup.RightHandController
-            };
-
-            foreach (var controller in controllers)
-            {
-                Assert.That(controller, Is.Not.Null);
-
-                // Check MRTKHand*Controllers have one and only one MRTK3ModelXRI3 component
-                MRTK3ModelXRI3[] MRTK3ModelXRI3Components = controller.GetComponents<MRTK3ModelXRI3>();
-                Assert.AreEqual(MRTK3ModelXRI3Components.Length, 1);
-            }
-            yield return null;
-        }
-
-        /// <summary>
         /// Test the MRTK3ModelXRI3 script has the required fields for XRI 3.
         /// </summary>
         [UnityTest]
