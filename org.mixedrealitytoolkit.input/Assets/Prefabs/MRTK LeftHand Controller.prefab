@@ -137,7 +137,7 @@ MonoBehaviour:
   m_AllowHoveredActivate: 0
   m_TargetPriorityMode: 0
   m_HideControllerOnSelect: 0
-  m_InputCompatibilityMode: 0
+  m_InputCompatibilityMode: 2
   m_PlayAudioClipOnSelectEntered: 0
   m_AudioClipForOnSelectEntered: {fileID: 0}
   m_PlayAudioClipOnSelectExited: 0
@@ -822,7 +822,7 @@ MonoBehaviour:
   m_AllowHoveredActivate: 0
   m_TargetPriorityMode: 0
   m_HideControllerOnSelect: 0
-  m_InputCompatibilityMode: 0
+  m_InputCompatibilityMode: 2
   m_PlayAudioClipOnSelectEntered: 0
   m_AudioClipForOnSelectEntered: {fileID: 0}
   m_PlayAudioClipOnSelectExited: 0
@@ -1636,7 +1636,6 @@ MonoBehaviour:
   modelPrefab: {fileID: 1768293572455847265, guid: 2b468cc4fe6d2b44ebc53b958b38b91a, type: 3}
   modelParent: {fileID: 0}
   model: {fileID: 0}
-  animateModel: 0
   handNode: 4
 --- !u!1 &1948193616346090105
 GameObject:
@@ -1772,7 +1771,7 @@ MonoBehaviour:
   m_AllowHoveredActivate: 0
   m_TargetPriorityMode: 0
   m_HideControllerOnSelect: 0
-  m_InputCompatibilityMode: 0
+  m_InputCompatibilityMode: 2
   m_PlayAudioClipOnSelectEntered: 0
   m_AudioClipForOnSelectEntered: {fileID: 0}
   m_PlayAudioClipOnSelectExited: 0
@@ -2131,7 +2130,7 @@ MonoBehaviour:
   m_AllowHoveredActivate: 0
   m_TargetPriorityMode: 0
   m_HideControllerOnSelect: 0
-  m_InputCompatibilityMode: 0
+  m_InputCompatibilityMode: 2
   m_PlayAudioClipOnSelectEntered: 0
   m_AudioClipForOnSelectEntered: {fileID: 0}
   m_PlayAudioClipOnSelectExited: 0
