@@ -1,8 +1,11 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using MixedReality.Toolkit;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace MixedReality.Toolkit
@@ -18,14 +21,12 @@ namespace MixedReality.Toolkit
         // Gaze
         [SerializeField]
         [Tooltip("The camera rig's gaze controller.")]
-        [Obsolete]
-        private XRBaseController gazeController = null;
+        private ActionBasedXRI3Controller gazeController = null;
 
         /// <summary>
         /// The camera rig's gaze controller.
         /// </summary>
-        [Obsolete]
-        public XRBaseController GazeController
+        public ActionBasedXRI3Controller GazeController
         {
             get => gazeController;
             set => gazeController = value;
@@ -34,14 +35,12 @@ namespace MixedReality.Toolkit
         // Left Hand
         [SerializeField]
         [Tooltip("The camera rig's left hand controller.")]
-        [Obsolete]
-        private XRBaseController leftHandController = null;
+        private ActionBasedXRI3Controller leftHandController = null;
 
         /// <summary>
         /// The camera rig's left hand controller.
         /// </summary>
-        [Obsolete]
-        public XRBaseController LeftHandController
+        public ActionBasedXRI3Controller LeftHandController
         {
             get => leftHandController;
             set => leftHandController = value;
@@ -50,14 +49,12 @@ namespace MixedReality.Toolkit
         // Right Hand
         [SerializeField]
         [Tooltip("The camera rig's right hand controller.")]
-        [Obsolete]
-        private XRBaseController rightHandController = null;
+        private ActionBasedXRI3Controller rightHandController = null;
 
         /// <summary>
         /// The camera rig's right hand controller.
         /// </summary>
-        [Obsolete]
-        public XRBaseController RightHandController
+        public ActionBasedXRI3Controller RightHandController
         {
             get => rightHandController;
             set => rightHandController = value;

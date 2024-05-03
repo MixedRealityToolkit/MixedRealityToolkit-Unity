@@ -19,6 +19,7 @@
   "dependencies": {
     "com.unity.xr.interaction.toolkit": "3.0.1",
     "com.unity.xr.management": "4.2.1",
-    "com.unity.xr.core-utils": "2.1.0"
+    "com.unity.xr.core-utils": "2.1.0",
+    "com.unity.inputsystem": "1.6.1"
   }
 }
