@@ -279,10 +279,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
                 if (ControllerLookup != null &&
                     ControllerLookup.GazeController != null &&
-                    //TODO: Re-implement this for XRController deprecation
-                    //(ControllerLookup.GazeController.currentControllerState.inputTrackingState &
-                    //(InputTrackingState.Position | InputTrackingState.Rotation)) > 0) //original
-                    ((InputTrackingState.Position | InputTrackingState.Rotation)) > 0)
+                    (ControllerLookup.GazeController.currentControllerState.inputTrackingState &
+                    (InputTrackingState.Position | InputTrackingState.Rotation)) > 0)
                 {
                     gazeRay = new Ray(
                             ControllerLookup.GazeController.transform.position,

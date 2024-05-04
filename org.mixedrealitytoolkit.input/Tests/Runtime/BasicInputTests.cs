@@ -106,38 +106,36 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return null;
         }
 
-        //TODO: Re-implement this for XRController deprecation
-        ///// <summary>
-        ///// Ensure the simulated input device actually makes the rig's controllers move/actuate.
-        ///// </summary>
-        //[UnityTest]
-        //[Obsolete] //TODO: The [Obsolete] attribute can be removed once the RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
-        //public IEnumerator HandMovingSmoketest()
-        //{
-        //    //var controller = CachedLookup.RightHandController as ActionBasedController;
-        //    //TODO: Re-implement this for XRController deprecation
+        /// <summary>
+        /// Ensure the simulated input device actually makes the rig's controllers move/actuate.
+        /// </summary>
+        [UnityTest]
+        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
+        public IEnumerator HandMovingSmoketest()
+        {
+            var controller = CachedLookup.RightHandController as ActionBasedController;
 
-        //    var testHand = new TestHand(Handedness.Right);
-        //    InputTestUtilities.SetHandAnchorPoint(Handedness.Right, ControllerAnchorPoint.Device);
+            var testHand = new TestHand(Handedness.Right);
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Right, ControllerAnchorPoint.Device);
 
-        //    yield return testHand.Show(Vector3.forward);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return testHand.Show(Vector3.forward);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    Assert.That(controller.transform.position.x, Is.EqualTo(0.0f).Within(0.04f));
+            Assert.That(controller.transform.position.x, Is.EqualTo(0.0f).Within(0.04f));
 
-        //    yield return testHand.Move(Vector3.right * 0.5f, 60);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-        //    Debug.Log("Input system update mode: " + InputSystem.settings.updateMode);
+            yield return testHand.Move(Vector3.right * 0.5f, 60);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Debug.Log("Input system update mode: " + InputSystem.settings.updateMode);
 
-        //    TrackedPoseDriver controllerTrackedPoseDriver = controller.GetComponent<TrackedPoseDriver>();
-        //    Assert.That(controllerTrackedPoseDriver.positionAction.controls, Has.Count.GreaterThanOrEqualTo(1));
-        //    Assert.That(controllerTrackedPoseDriver.positionAction.activeControl, Is.Not.Null);
-        //    Assert.That(controllerTrackedPoseDriver.positionAction.ReadValue<Vector3>().x, Is.EqualTo(0.5f).Within(0.01f));
+            TrackedPoseDriver controllerTrackedPoseDriver = controller.GetComponent<TrackedPoseDriver>();
+            Assert.That(controllerTrackedPoseDriver.positionAction.controls, Has.Count.GreaterThanOrEqualTo(1));
+            Assert.That(controllerTrackedPoseDriver.positionAction.activeControl, Is.Not.Null);
+            Assert.That(controllerTrackedPoseDriver.positionAction.ReadValue<Vector3>().x, Is.EqualTo(0.5f).Within(0.01f));
 
-        //    Assert.That(controllerTrackedPoseDriver.transform.position.x, Is.EqualTo(0.5f).Within(0.05f));
+            Assert.That(controllerTrackedPoseDriver.transform.position.x, Is.EqualTo(0.5f).Within(0.05f));
 
-        //    yield return null;
-        //}
+            yield return null;
+        }
 
         /// <summary>
         /// Test that anchoring the test hands on the grab point actually results in the grab interactor
@@ -445,204 +443,201 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return null;
         }
 
-        //TODO: Re-implement this for XRController deprecation
-        ///// <summary>
-        ///// Tests whether disabling an interactable mid-interaction will
-        ///// break XRDirectInteractor. Repro test for ADO#1582/1581.
-        ///// </summary>
-        //[UnityTest]
-        //[Obsolete]
-        //public IEnumerator InteractableDisabledDuringInteraction()
-        //{
-        //    var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //    cube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(1.0f, 0.1f, 1.0f));
-        //    cube.transform.localScale = Vector3.one * 0.1f;
-        //    cube.AddComponent<StatefulInteractable>();
+        /// <summary>
+        /// Tests whether disabling an interactable mid-interaction will
+        /// break XRDirectInteractor. Repro test for ADO#1582/1581.
+        /// </summary>
+        [UnityTest]
+        [Obsolete]
+        public IEnumerator InteractableDisabledDuringInteraction()
+        {
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(1.0f, 0.1f, 1.0f));
+            cube.transform.localScale = Vector3.one * 0.1f;
+            cube.AddComponent<StatefulInteractable>();
 
-        //    // Otherwise, poke will conflict with grab.
-        //    cube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
+            // Otherwise, poke will conflict with grab.
+            cube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
 
-        //    var rightHand = new TestHand(Handedness.Right);
-        //    yield return rightHand.Show(InputTestUtilities.InFrontOfUser());
+            var rightHand = new TestHand(Handedness.Right);
+            yield return rightHand.Show(InputTestUtilities.InFrontOfUser());
 
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-        //    yield return rightHand.MoveTo(cube.transform.position);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-        //    yield return rightHand.SetHandshape(HandshapeId.Pinch);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.MoveTo(cube.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    Assert.IsTrue(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
-        //                  "StatefulInteractable did not get GrabSelected.");
+            Assert.IsTrue(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
+                          "StatefulInteractable did not get GrabSelected.");
 
-        //    cube.SetActive(false);
+            cube.SetActive(false);
 
-        //    yield return rightHand.SetHandshape(HandshapeId.Open);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    Assert.IsFalse(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
-        //                   "StatefulInteractable did not get un-GrabSelected.");
+            Assert.IsFalse(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
+                           "StatefulInteractable did not get un-GrabSelected.");
 
-        //    yield return rightHand.MoveTo(Vector3.zero);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.MoveTo(Vector3.zero);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    cube.SetActive(true);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            cube.SetActive(true);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    Assert.IsFalse(AnyProximityDetectorsTriggered(),
-        //                   "ProximityInteractor was still hovering after re-enabling faraway object.");
+            Assert.IsFalse(AnyProximityDetectorsTriggered(),
+                           "ProximityInteractor was still hovering after re-enabling faraway object.");
 
-        //    XRBaseController rightHandController = CachedLookup.RightHandController;
-        //    Assert.IsTrue(rightHandController != null, "No controllers found for right hand.");
+            XRBaseController rightHandController = CachedLookup.RightHandController;
+            Assert.IsTrue(rightHandController != null, "No controllers found for right hand.");
 
-        //    Assert.IsTrue(rightHandController.GetComponentInChildren<MRTKRayInteractor>().enabled, "Ray didn't reactivate");
-        //    Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't reactivate");
-        //    Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't deactivate");
-        //    Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't deactivate");
+            Assert.IsTrue(rightHandController.GetComponentInChildren<MRTKRayInteractor>().enabled, "Ray didn't reactivate");
+            Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't reactivate");
+            Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't deactivate");
+            Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't deactivate");
 
-        //    yield return null;
-        //}
+            yield return null;
+        }
 
-        //TODO: Re-implement this for XRController deprecation
-        ///// <summary>
-        ///// Tests whether spawning an interactable on top of a hand will cause problems with the proximity detector.
-        ///// </summary>
-        //[UnityTest]
-        //[Obsolete]
-        //public IEnumerator SpawnInteractableOnHand()
-        //{
-        //    // Spawn our hand.
-        //    var rightHand = new TestHand(Handedness.Right);
-        //    yield return rightHand.Show(InputTestUtilities.InFrontOfUser());
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+        /// <summary>
+        /// Tests whether spawning an interactable on top of a hand will cause problems with the proximity detector.
+        /// </summary>
+        [UnityTest]
+        [Obsolete]
+        public IEnumerator SpawnInteractableOnHand()
+        {
+            // Spawn our hand.
+            var rightHand = new TestHand(Handedness.Right);
+            yield return rightHand.Show(InputTestUtilities.InFrontOfUser());
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    // Prox detector should start out un-triggered.
-        //    Assert.IsFalse(AnyProximityDetectorsTriggered(), "Prox detector started out triggered, when it shouldn't be (no cube yet!)");
+            // Prox detector should start out un-triggered.
+            Assert.IsFalse(AnyProximityDetectorsTriggered(), "Prox detector started out triggered, when it shouldn't be (no cube yet!)");
 
-        //    // Rays should start enabled
-        //    XRBaseController rightHandController = CachedLookup.RightHandController;
-        //    Assert.IsTrue(rightHandController != null, "No controllers found for right hand.");
+            // Rays should start enabled
+            XRBaseController rightHandController = CachedLookup.RightHandController;
+            Assert.IsTrue(rightHandController != null, "No controllers found for right hand.");
 
-        //    Assert.IsTrue(rightHandController.GetComponentInChildren<MRTKRayInteractor>().enabled, "Ray didn't start active");
-        //    Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't start active");
-        //    Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke started active, when it shouldn't");
-        //    Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab started active, when it shouldn't");
+            Assert.IsTrue(rightHandController.GetComponentInChildren<MRTKRayInteractor>().enabled, "Ray didn't start active");
+            Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't start active");
+            Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke started active, when it shouldn't");
+            Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab started active, when it shouldn't");
 
-        //    var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //    cube.transform.position = InputTestUtilities.InFrontOfUser();
-        //    cube.transform.localScale = Vector3.one * 0.1f;
-        //    cube.AddComponent<StatefulInteractable>();
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.position = InputTestUtilities.InFrontOfUser();
+            cube.transform.localScale = Vector3.one * 0.1f;
+            cube.AddComponent<StatefulInteractable>();
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    Assert.IsTrue(AnyProximityDetectorsTriggered(), "Prox detector should see it!");
+            Assert.IsTrue(AnyProximityDetectorsTriggered(), "Prox detector should see it!");
 
-        //    Assert.IsFalse(rightHandController.GetComponentInChildren<MRTKRayInteractor>().enabled, "Ray didn't disable on proximity");
-        //    Assert.IsFalse(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch disable on proximity");
-        //    Assert.IsTrue(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't activate on proximity");
-        //    Assert.IsTrue(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't activate on proximity");
+            Assert.IsFalse(rightHandController.GetComponentInChildren<MRTKRayInteractor>().enabled, "Ray didn't disable on proximity");
+            Assert.IsFalse(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch disable on proximity");
+            Assert.IsTrue(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't activate on proximity");
+            Assert.IsTrue(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't activate on proximity");
 
-        //    // Move hand far away.
-        //    yield return rightHand.MoveTo(new Vector3(2, 2, 2));
-        //    yield return RuntimeTestUtilities.WaitForUpdates(frameCount:240);
+            // Move hand far away.
+            yield return rightHand.MoveTo(new Vector3(2, 2, 2));
+            yield return RuntimeTestUtilities.WaitForUpdates(frameCount:240);
 
-        //    Assert.IsFalse(AnyProximityDetectorsTriggered(), "Prox detectors should no longer be triggered.");
+            Assert.IsFalse(AnyProximityDetectorsTriggered(), "Prox detectors should no longer be triggered.");
 
-        //    Assert.IsTrue(rightHandController.GetComponentInChildren<MRTKRayInteractor>().enabled, "Ray didn't reactivate");
-        //    Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't reactivate");
-        //    Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't deactivate");
-        //    Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't deactivate");
+            Assert.IsTrue(rightHandController.GetComponentInChildren<MRTKRayInteractor>().enabled, "Ray didn't reactivate");
+            Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't reactivate");
+            Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't deactivate");
+            Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't deactivate");
 
-        //    yield return null;
-        //}
+            yield return null;
+        }
 
-        //TODO: Re-implement this for XRController deprecation
-        ///// <summary>
-        ///// Tests to make sure that untracked controllers can't initiate any new interactions and that their interactors can no longer hover.
-        ///// However, the interactions should still maintaining any original selected states, as the loss of tracking is usually just temporary
-        ///// i.e. we don't want to immediately let go of a gripped object due to a momentary loss in tracking
-        ///// </summary>
-        //[UnityTest]
-        //[Obsolete]
-        //[Ignore("Temporary ignoring while completing XRI 3 migration.  TODO: Re-implement this test once XRI 3 migration is completed.")]
-        //public IEnumerator UntrackedControllerNearInteractions()
-        //{
-        //    var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //    cube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(1.0f, 0.1f, 1.0f));
-        //    cube.transform.localScale = Vector3.one * 0.1f;
-        //    cube.AddComponent<StatefulInteractable>();
+        /// <summary>
+        /// Tests to make sure that untracked controllers can't initiate any new interactions and that their interactors can no longer hover.
+        /// However, the interactions should still maintaining any original selected states, as the loss of tracking is usually just temporary
+        /// i.e. we don't want to immediately let go of a gripped object due to a momentary loss in tracking
+        /// </summary>
+        [UnityTest]
+        [Obsolete]
+        [Ignore("Temporary ignoring while completing XRI 3 migration.  TODO: Re-implement this test once XRI 3 migration is completed.")]
+        public IEnumerator UntrackedControllerNearInteractions()
+        {
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(1.0f, 0.1f, 1.0f));
+            cube.transform.localScale = Vector3.one * 0.1f;
+            cube.AddComponent<StatefulInteractable>();
 
-        //    // Otherwise, poke will conflict with grab.
-        //    cube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
+            // Otherwise, poke will conflict with grab.
+            cube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
 
-        //    var rightHand = new TestHand(Handedness.Right);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-        //    yield return rightHand.Show(InputTestUtilities.InFrontOfUser(0.5f));
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-        //    // First ensure that the interactor can interact with a cube normally
-        //    yield return rightHand.MoveTo(cube.transform.position);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-        //    yield return rightHand.SetHandshape(HandshapeId.Pinch);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            var rightHand = new TestHand(Handedness.Right);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.Show(InputTestUtilities.InFrontOfUser(0.5f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            // First ensure that the interactor can interact with a cube normally
+            yield return rightHand.MoveTo(cube.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    Assert.IsTrue(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
-        //                  "StatefulInteractable did not get GrabSelected.");
+            Assert.IsTrue(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
+                          "StatefulInteractable did not get GrabSelected.");
 
-        //    // Now check that all hovers are disabled while selection is maintained after we "lose tracking", which is done by hiding the hand
-        //    yield return rightHand.Hide();
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            // Now check that all hovers are disabled while selection is maintained after we "lose tracking", which is done by hiding the hand
+            yield return rightHand.Hide();
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    Assert.IsTrue(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
-        //                   "StatefulInteractable is no longer GrabSelected.");
+            Assert.IsTrue(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
+                           "StatefulInteractable is no longer GrabSelected.");
 
-        //    // Make sure state is maintained even if the hand gameobject moves
-        //    yield return rightHand.Move(Vector3.left);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-        //    Assert.IsTrue(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
-        //                   "StatefulInteractable is no longer GrabSelected.");
+            // Make sure state is maintained even if the hand gameobject moves
+            yield return rightHand.Move(Vector3.left);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.IsTrue(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
+                           "StatefulInteractable is no longer GrabSelected.");
 
-        //    yield return rightHand.SetHandshape(HandshapeId.Open);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    Assert.IsFalse(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
-        //                   "StatefulInteractable did not get un-GrabSelected.");
+            Assert.IsFalse(cube.GetComponent<StatefulInteractable>().IsGrabSelected,
+                           "StatefulInteractable did not get un-GrabSelected.");
 
-        //    // Check that the hand cannot interact with any new interactables
-        //    var newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //    newCube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(-3.0f, 0.1f, 1.0f));
-        //    newCube.transform.localScale = Vector3.one * 0.1f;
-        //    newCube.AddComponent<StatefulInteractable>();
+            // Check that the hand cannot interact with any new interactables
+            var newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            newCube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(-3.0f, 0.1f, 1.0f));
+            newCube.transform.localScale = Vector3.one * 0.1f;
+            newCube.AddComponent<StatefulInteractable>();
 
-        //    yield return rightHand.MoveTo(newCube.transform.position);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-        //    yield return rightHand.SetHandshape(HandshapeId.Pinch);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.MoveTo(newCube.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    Assert.IsFalse(newCube.GetComponent<StatefulInteractable>().IsGrabSelected,
-        //                    "The interactor somehow grabbed the new cube");
+            Assert.IsFalse(newCube.GetComponent<StatefulInteractable>().IsGrabSelected,
+                            "The interactor somehow grabbed the new cube");
 
-        //    yield return rightHand.SetHandshape(HandshapeId.Open);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    // Finish
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-        //    yield return rightHand.MoveTo(Vector3.zero);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            // Finish
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.MoveTo(Vector3.zero);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    yield return rightHand.Show();
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.Show();
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
-        //    Assert.IsFalse(AnyProximityDetectorsTriggered(),
-        //                   "ProximityInteractor was still hovering after re-enabling faraway object.");
+            Assert.IsFalse(AnyProximityDetectorsTriggered(),
+                           "ProximityInteractor was still hovering after re-enabling faraway object.");
 
-        //    XRBaseController rightHandController = CachedLookup.RightHandController;
-        //    Assert.IsTrue(rightHandController != null, "No controllers found for right hand.");
+            XRBaseController rightHandController = CachedLookup.RightHandController;
+            Assert.IsTrue(rightHandController != null, "No controllers found for right hand.");
 
-        //    Assert.IsTrue(rightHandController.GetComponentInChildren<MRTKRayInteractor>().enabled, "Ray didn't reactivate");
-        //    Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't reactivate");
-        //    Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't deactivate");
-        //    Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't deactivate");
+            Assert.IsTrue(rightHandController.GetComponentInChildren<MRTKRayInteractor>().enabled, "Ray didn't reactivate");
+            Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't reactivate");
+            Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't deactivate");
+            Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't deactivate");
 
-        //    yield return null;
-        //}
+            yield return null;
+        }
 
         /// <summary>
         /// Test the MRTK3ModelXRI3 script has the required fields for XRI 3.
