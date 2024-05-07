@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.Subsystems;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Profiling;
@@ -351,7 +352,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// A Unity event function that is called every frame after normal update functions, if this object is enabled.
         /// </summary>
-        [System.Obsolete]
+        [Obsolete]
         private void LateUpdate()
         {
             if (UpdateSolvers)
