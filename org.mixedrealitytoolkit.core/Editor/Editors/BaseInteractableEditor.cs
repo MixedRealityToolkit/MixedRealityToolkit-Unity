@@ -13,7 +13,7 @@ namespace MixedReality.Toolkit.Editor
     /// </summary>
     [CustomEditor(typeof(MRTKBaseInteractable), true)]
     [CanEditMultipleObjects]
-    public class BaseInteractableEditor : UnityEditor.XR.Interaction.Toolkit.Interactables.XRBaseInteractableEditor
+    public class BaseInteractableEditor : XRBaseInteractableEditor
     {
         private SerializedProperty isGazeHovered;
         private SerializedProperty isGazePinchHovered;
