@@ -57,7 +57,7 @@ namespace MixedReality.Toolkit.Input
 
         #endregion XRBaseInteractor
 
-        #region XRBaseControllerInteractor
+        #region XRBaseInputInteractor
 
         private static readonly ProfilerMarker ProcessInteractorPerfMarker =
             new ProfilerMarker("[MRTK] HandJointInteractor.ProcessInteractor");
@@ -100,6 +100,6 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
-        #endregion XRBaseControllerInteractor
+        #endregion XRBaseInputInteractor
     }
 }
