@@ -173,7 +173,7 @@ namespace MixedReality.Toolkit.Input.Experimental
             timeSinceLastMouseEvent = 0;
         }
 
-        #region XRBaseControllerInteractor
+        #region XRBaseInputInteractor
 
         /// <inheritdoc />
         public override bool CanHover(IXRHoverInteractable interactable)
