@@ -59,7 +59,7 @@ namespace MixedReality.Toolkit.Input
         #endregion Associated hand select values
 
         // Start is called before the first frame update
-        void Start()
+        protected virtual void Start()
         {
             if (!HandNode.Equals(XRNode.LeftHand) && !HandNode.Equals(XRNode.RightHand))
             {
