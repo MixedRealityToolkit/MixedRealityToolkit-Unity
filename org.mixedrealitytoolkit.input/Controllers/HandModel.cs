@@ -20,7 +20,7 @@ namespace MixedReality.Toolkit.Input
         private Transform modelPrefab;
 
         /// <summary>
-        /// The prefab of the MRTK Controller to show that will be automatically instantitated by this behaviour.
+        /// The prefab of the model to show that will be automatically instantitated by this behaviour.
         /// </summary>
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public Transform ModelPrefab => modelPrefab;
