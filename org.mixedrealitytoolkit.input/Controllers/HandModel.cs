@@ -20,7 +20,7 @@ namespace MixedReality.Toolkit.Input
         private Transform modelPrefab;
 
         /// <summary>
-        /// The prefab of the model to show that will be automatically instantitated by this behaviour.
+        /// The prefab of the model to show that will be automatically instantitated by this <see cref="MonoBehaviour"/>.
         /// </summary>
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public Transform ModelPrefab => modelPrefab;
@@ -29,7 +29,7 @@ namespace MixedReality.Toolkit.Input
         private Transform modelParent;
 
         /// <summary>
-        /// The transform that is used as the parent for the model prefab when it is instantiated.  Will be set to a new child GameObject if None.
+        /// The <see cref="Transform"/> that is used as the parent for the model prefab when it is instantiated.  Will be set to a new child <see cref="GameObject"/> if None.
         /// </summary>
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public Transform ModelParent => modelParent;
@@ -38,7 +38,7 @@ namespace MixedReality.Toolkit.Input
         private Transform model;
 
         /// <summary>
-        /// The instance of the controller model in the scene.  This can be set to an existing object instead of using Model Prefab.
+        /// The instance of the model in the scene.  This can be set to an existing object instead of using Model Prefab.
         /// </summary>
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public Transform Model => model;
@@ -51,7 +51,7 @@ namespace MixedReality.Toolkit.Input
         private XRNode handNode;
 
         /// <summary>
-        /// The XRNode associated with this Hand Controller.
+        /// The <see cref="XRNode"/> associated with this Hand Model.
         /// </summary>
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public XRNode HandNode => handNode;
