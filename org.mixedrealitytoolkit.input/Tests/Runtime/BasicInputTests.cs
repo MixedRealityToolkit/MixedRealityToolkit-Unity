@@ -647,7 +647,7 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             FieldInfo[] fieldInfos;
             PropertyInfo[] accessorsInfos;
-            Type MRTK3ModelXRI3Type = typeof(MRTK3ModelXRI3);
+            Type MRTK3ModelXRI3Type = typeof(HandModel);
 
             fieldInfos = MRTK3ModelXRI3Type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             accessorsInfos = MRTK3ModelXRI3Type.GetProperties(BindingFlags.Instance | BindingFlags.Public);

@@ -12,10 +12,8 @@ namespace MixedReality.Toolkit.Input
     /// <remarks>
     /// TBD
     /// </remarks>
-    public class MRTK3ModelXRI3 : MonoBehaviour
+    public class HandModel : MonoBehaviour
     {
-        //TODO: Add Unity-test that check the MRTK3XRI3Model has the correct fields.
-
         #region MRTK3 XRI 3 Model Properties
 
         [SerializeField, Tooltip("The prefab of the MRTK Controller to show that will be automatically instantitated by this behaviour.")]
@@ -73,12 +71,6 @@ namespace MixedReality.Toolkit.Input
             {
                 model = Instantiate(ModelPrefab, ModelParent);
             }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            //TODO: Remove if unused
         }
     }
 }
