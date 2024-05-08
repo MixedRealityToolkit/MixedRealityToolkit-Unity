@@ -2,7 +2,7 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [4.0.0-development] - <TBD>
+## [4.0.0-development] - 2024-05-08
 
 ### Changed
 
