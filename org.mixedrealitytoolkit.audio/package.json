@@ -1,7 +1,7 @@
 {
   "name": "org.mixedrealitytoolkit.audio",
-  "version": "3.0.2-development",
-  "description": "Effects and features that enhance the audio in mixed reality experiences.\n\nIn order for the audio effects to be spatialized, an audio spatializer, such as the Microsoft Spatializer, plugin must be imported into the project.\n\nPlease note that audio spatializer plugins may be platform specific.",
+  "version": "3.0.3-development",
+  "description": "Features to enhance audio in xr experiences.\n\nFor the audio effects to be spatialized, a spatializer plugin must be imported into the project. Spatializer plugins may be platform specific.",
   "displayName": "MRTK Audio Effects",
   "msftFeatureCategory": "MRTK3",
   "author": "Mixed Reality Toolkit Contributors",

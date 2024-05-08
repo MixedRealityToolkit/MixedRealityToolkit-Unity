@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using MixedReality.Toolkit.Subsystems;
 using System;
 using Unity.Profiling;
 using UnityEngine;
@@ -308,7 +307,7 @@ namespace MixedReality.Toolkit.Input.Simulation
                         CameraRelativePose.position + smoothedMoveDelta + jitter,
 
                         // If we not have been told to face the camera, apply the rotation delta.
-                        rotationMode == ControllerRotationMode.UserControl ? 
+                        rotationMode == ControllerRotationMode.UserControl ?
                             CameraRelativePose.rotation * rotationDelta :
                             CameraRelativePose.rotation
                     );
@@ -563,7 +562,7 @@ namespace MixedReality.Toolkit.Input.Simulation
                         -palmPose.Up,
                         Camera.main.transform,
                         Handedness);
-                    
+
                     // Transform world ray back into local pose.
                     Pose localRayPose = PlayspaceUtilities.InverseTransformPose(
                         new Pose(

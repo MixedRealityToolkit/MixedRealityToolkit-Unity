@@ -1,7 +1,7 @@
 {
   "name": "org.mixedrealitytoolkit.input",
   "version": "3.2.1-development",
-  "description": "This package contains custom interactors and controllers that build on the foundation established by Unity's XR Interaction Toolkit. In addition, it contains hand joint aggregation and simulation subsystems, which allows for a single API for both real, device-driven hands and simulated hands. \n\nThe vast majority of actual input processing is not done by this package; instead, MRTK builds on the input data and interaction fundamentals already provided by the Unity Input System and XR Interaction Toolkit. \n\nWhen using MRTK Input in a project, it is not strictly necessary to have your package take a dependency on MRTK Input; the custom interactors in this package are fully compatible with the vanilla XRI APIs, and will both parse and generate all the same events and interactions that other XRI interactors will.",
+  "description": "This package extends the XR Interaction Toolkit with custom interactors and controllers, hand-joint aggregation, and simulation subsystems. It seamlessly integrates with the Unity Input System.",
   "displayName": "MRTK Input",
   "msftFeatureCategory": "MRTK3",
   "author": "Mixed Reality Toolkit Contributors",
