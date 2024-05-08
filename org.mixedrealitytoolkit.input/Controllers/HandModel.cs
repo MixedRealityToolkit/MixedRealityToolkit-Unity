@@ -7,10 +7,10 @@ using UnityEngine.XR;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// This component replaces the functionality of the deprecated XRController Model functionality to .
+    /// This component stores a reference to the hand model to be used in Editor mode.
     /// </summary>
     /// <remarks>
-    /// TBD
+    /// The HandNode property is expected to be XRNode.LeftHand or XRNode.RightHand.
     /// </remarks>
     public class HandModel : MonoBehaviour
     {
