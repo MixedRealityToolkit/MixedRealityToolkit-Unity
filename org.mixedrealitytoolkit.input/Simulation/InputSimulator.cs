@@ -566,12 +566,12 @@ namespace MixedReality.Toolkit.Input.Simulation
                     if (ctrlSettings.SimulationMode == ControllerSimulationMode.MotionController)
                     {
                         // Axes available to controllers
-                        // TODO: "soon"
+                        // TODO: https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/734
                         // controls.Primary2DAxis = ctrlSettings.Primary2DAxis.action.ReadValue(float)();
                         // controls.Secondary2DAxis = ctrlSettings.Secondary2DAxis.action.ReadValue(float)();
 
                         // Buttons available to controllers
-                        // TODO: "soon"
+                        // TODO: https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/734
                         // controls.MenuButton = ctrlSettings.MenuButton.action.ReadValue(float)() > 0f;
                         // controls.PrimaryButton = ctrlSettings.PrimaryButton.action.ReadValue(float)() > 0f;
                         // controls.SecondaryButton = ctrlSettings.SecondaryButton.action.ReadValue(float)() > 0f;
