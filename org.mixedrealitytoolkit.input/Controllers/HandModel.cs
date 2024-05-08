@@ -14,7 +14,7 @@ namespace MixedReality.Toolkit.Input
     /// </remarks>
     public class HandModel : MonoBehaviour
     {
-        #region MRTK3 XRI 3 Model Properties
+        #region Properties
 
         [SerializeField, Tooltip("The prefab of the MRTK Controller to show that will be automatically instantitated by this behaviour.")]
         private Transform modelPrefab;
@@ -43,7 +43,7 @@ namespace MixedReality.Toolkit.Input
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public Transform Model => model;
 
-        #endregion MRTK3 XRI 3 Model Properties
+        #endregion Properties
 
         #region Associated hand select values
 
