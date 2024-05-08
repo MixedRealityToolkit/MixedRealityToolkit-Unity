@@ -58,7 +58,9 @@ namespace MixedReality.Toolkit.Input
 
         #endregion Associated hand select values
 
-        // Start is called before the first frame update
+        /// <summary>
+        /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
+        /// </summary>
         protected virtual void Start()
         {
             if (!HandNode.Equals(XRNode.LeftHand) && !HandNode.Equals(XRNode.RightHand))
