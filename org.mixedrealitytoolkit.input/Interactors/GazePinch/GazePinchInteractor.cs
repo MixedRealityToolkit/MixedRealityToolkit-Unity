@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -132,7 +131,6 @@ namespace MixedReality.Toolkit.Input
         /// Used to check if the parent controller is tracked or not
         /// Hopefully this becomes part of the base Unity XRI API.
         /// </summary>
-        [Obsolete]
         private bool IsTracked => xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
 
         #endregion GazePinchInteractor

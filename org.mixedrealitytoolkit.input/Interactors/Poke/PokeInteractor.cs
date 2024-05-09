@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
@@ -47,7 +46,6 @@ namespace MixedReality.Toolkit.Input
         /// Called during ProcessInteractor to obtain the poking radius. All raycasts and other physics detections
         /// are done according to this radius. Override to customize how the radius is calculated.
         /// </summary>
-        [Obsolete]
         protected virtual bool TryGetPokeRadius(out float radius)
         {
             HandJointPose jointPose = default;
@@ -67,7 +65,6 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
-        [Obsolete]
         Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
 
         #endregion IHandedInteractor
@@ -128,7 +125,6 @@ namespace MixedReality.Toolkit.Input
         private bool pokePointTracked;
 
         /// <inheritdoc/>
-        [Obsolete]
         public override bool isHoverActive
         {
             // Only be available for hovering if the joint or controller is tracked.

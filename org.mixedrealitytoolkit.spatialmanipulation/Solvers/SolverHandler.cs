@@ -352,7 +352,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// A Unity event function that is called every frame after normal update functions, if this object is enabled.
         /// </summary>
-        [Obsolete]
         private void LateUpdate()
         {
             if (UpdateSolvers)

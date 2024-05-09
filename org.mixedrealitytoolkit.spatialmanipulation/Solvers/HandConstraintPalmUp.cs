@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
 using System.Collections;
 using Unity.Profiling;
 using UnityEngine;
@@ -145,7 +144,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// This method will modify the position and rotation behavior of the hand
         /// constraint if the followHandUntilFacingCamera variable is enabled.
         /// </remarks>
-        [Obsolete]
         protected override bool IsValidController(XRNode? hand)
         {
             using (IsValidControllerPerfMarker.Auto())
@@ -269,7 +267,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <see langword="true"/> if the user's gaze is within the proximity threshold of the activation point (both relative to the
         /// hand plane), or <see langword="fapse"/>.
         /// </returns>
-        [Obsolete]
         private bool IsUserGazeMeetingThresholdRequirements(XRNode hand)
         {
             using (IsUserGazeMeetingThresholdRequirementsPerfMarker.Auto())
@@ -321,7 +318,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// being manipulated by the user. This triggers a coroutine that checks to see whether the object should 
         /// reattach to the hand.
         /// </summary>
-        [Obsolete]
         public void StartWorldLockReattachCheckCoroutine()
         {
             StartCoroutine(WorldLockedReattachCheck());
@@ -460,7 +456,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// logical checks invoked during IsValidController to determine whether the menu should reattach
         /// to the hand or not.
         /// </summary>
-        [Obsolete]
         private IEnumerator WorldLockedReattachCheck()
         {
             while (!SolverHandler.UpdateSolvers && useGazeActivation)

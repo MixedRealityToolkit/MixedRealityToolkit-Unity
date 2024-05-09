@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -33,7 +32,6 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc/>
-        [Obsolete]
         Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
 
         #endregion IHandedInteractor
@@ -48,7 +46,6 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Indicates whether this Interactor is in a state where it could hover.
         /// </summary>
-        [Obsolete]
         public override bool isHoverActive
         {
             // Only be available for hovering if the controller is tracked or we have joint data.

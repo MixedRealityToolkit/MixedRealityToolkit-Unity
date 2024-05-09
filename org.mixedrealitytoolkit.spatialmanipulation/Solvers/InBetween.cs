@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
 using Unity.Profiling;
 using UnityEngine;
 
@@ -114,7 +113,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private SolverHandler secondSolverHandler;
 
         /// <inheritdoc/>
-        [Obsolete]
         protected override void Start()
         {
             base.Start();
@@ -132,7 +130,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
             new ProfilerMarker("[MRTK] InBetween.SolverUpdate");
 
         /// <inheritdoc />
-        [Obsolete]
         public override void SolverUpdate()
         {
             using (SolverUpdatePerfMarker.Auto())

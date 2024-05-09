@@ -29,7 +29,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// two interactors
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator SolverHandlerInteractorSwitchesToActiveHand()
         {
             // Disable gaze interactions for this unit test;
@@ -88,7 +87,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// inspector window.
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator SolverHandlerInteractorSwitchesToActiveHandWithEverythingValue()
         {
             // Disable gaze interactions for this unit test;
@@ -144,7 +142,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// This checks if the SolverHandler can be configured to only track left hand only
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator SolverHandlerInteractorLeftHandOnly()
         {
             // Disable gaze interactions for this unit test;
@@ -200,7 +197,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// This checks if the SolverHandler can be configured to only track right hand only
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator SolverHandlerInteractorRightHandOnly()
         {
             // Disable gaze interactions for this unit test;
@@ -257,7 +253,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// two interactors
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator SolverHandlerInteractorPreferredHandedness()
         {
             // Disable gaze interactions for this unit test;
@@ -300,7 +295,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// in view when tracking two interactors
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator SolverHandlerInteractorTracksInitialActiveHand()
         {
             // Disable gaze interactions for this unit test;
@@ -343,7 +337,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// This checks if the SolverHandler moves with the active hand when tracking two interactors
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator SolverHandlerInteractorMovesWithHand()
         {
             // Disable gaze interactions for this unit test;

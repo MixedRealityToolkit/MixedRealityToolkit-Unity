@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.Subsystems;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -75,7 +74,6 @@ namespace MixedReality.Toolkit.Input
         private List<XRDisplaySubsystem> displaySubsystems = new List<XRDisplaySubsystem>();
 
         // The XRController that is used to determine the pinch strength (i.e., select value!)
-        [Obsolete]
         private XRBaseController controller;
 
         // The actual, physical, rigged joints that drive the skinned mesh.
@@ -306,7 +304,6 @@ namespace MixedReality.Toolkit.Input
             return true;
         }
 
-        [Obsolete]
         private void UpdateHandMaterial()
         {
             if (controller == null)

@@ -6,7 +6,6 @@
 
 using MixedReality.Toolkit.Core.Tests;
 using NUnit.Framework;
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +19,7 @@ using MixedReality.Toolkit.Subsystems;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 using UnityEngine.InputSystem.XR;
+using System;
 using System.Linq;
 using System.Reflection;
 using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
@@ -53,7 +53,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Ensures that the LeftHandController, RightHandController, and GazeController controllers have one and only one of the required components to work with com.unity.xr.interaction.toolkit 3.0.1 package
         /// </summary>
         [UnityTest]
-        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController, and GazeController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
         public IEnumerator XRI3ControllerHaveOneAndOnlyOneOfTheNeededXRI3ComponentsTest()
         {
             var controllers = new[] {
@@ -85,7 +84,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Ensure the simulated input devices bind to the controllers on the rig.
         /// </summary>
         [UnityTest]
-        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the LeftHandController, RightHandController, and GazeController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
         public IEnumerator InputBindingSmoketest()
         {
             var controllers = new[] {
@@ -110,7 +108,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Ensure the simulated input device actually makes the rig's controllers move/actuate.
         /// </summary>
         [UnityTest]
-        [Obsolete] //TODO: The [Obsolete] attribute can be removed once the RightHandController have stopped being obsolete by removing all the XRController as part of the XRI 3 migration
         public IEnumerator HandMovingSmoketest()
         {
             var controller = CachedLookup.RightHandController as ActionBasedController;
@@ -448,7 +445,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// break XRDirectInteractor. Repro test for ADO#1582/1581.
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator InteractableDisabledDuringInteraction()
         {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -503,7 +499,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Tests whether spawning an interactable on top of a hand will cause problems with the proximity detector.
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator SpawnInteractableOnHand()
         {
             // Spawn our hand.
@@ -556,7 +551,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// i.e. we don't want to immediately let go of a gripped object due to a momentary loss in tracking
         /// </summary>
         [UnityTest]
-        [Obsolete]
         [Ignore("Temporary ignoring while completing XRI 3 migration.  TODO: Re-implement this test once XRI 3 migration is completed.")]
         public IEnumerator UntrackedControllerNearInteractions()
         {

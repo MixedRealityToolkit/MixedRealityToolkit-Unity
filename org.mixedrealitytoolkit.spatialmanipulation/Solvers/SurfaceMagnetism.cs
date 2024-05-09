@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -451,7 +450,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
             new ProfilerMarker("[MRTK] SurfaceMagnetism.SolverUpdate");
 
         /// <inheritdoc />
-        [Obsolete]
         public override void SolverUpdate()
         {
             using (SolverUpdatePerfMarker.Auto())

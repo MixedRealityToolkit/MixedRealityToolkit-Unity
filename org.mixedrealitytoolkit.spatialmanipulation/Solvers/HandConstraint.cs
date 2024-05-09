@@ -211,7 +211,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
             new ProfilerMarker("[MRTK] HandConstraint.SolverUpdate");
 
         /// <inheritdoc />
-        [Obsolete]
         public override void SolverUpdate()
         {
             using (SolverUpdatePerfMarker.Auto())
@@ -288,7 +287,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         /// <param name="hand">The XRNode representing the hand to check against.</param>
         /// <returns><see langword="true"/> if this hand should be used from tracking.</returns>
-        [Obsolete]
         protected virtual bool IsValidController(XRNode? hand)
         {
             return (hand.HasValue &&
@@ -410,7 +408,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         /// <param name="hand">The hand to check against.</param>
         /// <returns><see langword="true"/> when hands are near each other.</returns>
-        [Obsolete]
         protected virtual bool IsOppositeHandNear(XRNode? hand)
         {
             using (IsOppositeHandNearPerfMarker.Auto())

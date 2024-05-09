@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using global::Unity.XR.CoreUtils;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -34,7 +33,6 @@ namespace MixedReality.Toolkit.Examples
         private Material material;
 
         [SerializeField]
-        [Obsolete]
         private ActionBasedController gazeController;
 
         [SerializeField]

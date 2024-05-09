@@ -4,7 +4,6 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +27,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Also checks that the proximity detector doesn't trigger hovers on other objects
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator ProximityDetectorTest()
         {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -65,7 +63,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Tests the basic Interaction detector. The controller should enter one mode during hover, another during select, and fall back to the default mode during neither
         /// </summary>
         [UnityTest]
-        [Obsolete]
         public IEnumerator InteractionDetectorTest()
         {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -112,7 +109,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// This test operates on the basic assumption that the priority order is <c>FarRayHover</c> &lt; <c>Near</c> &lt; <c>GrabSelect</c>.
         /// </remarks>
         [UnityTest]
-        [Obsolete]
         public IEnumerator ModeMediationTest()
         {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -182,7 +178,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         /// <param name="controller">The controller we are checking</param>
         /// <param name="currentMode">The interaction mode we expect to be active for the controller</param>
-        [Obsolete]
         private void ValidateInteractionModeActive(XRBaseController controller, InteractionMode currentMode)
         {
             // We construct the list of managed interactor types manually because we don't want to expose the internal controller mapping implementation to even internal use, since
