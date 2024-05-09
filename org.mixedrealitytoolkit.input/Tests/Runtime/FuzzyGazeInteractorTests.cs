@@ -156,7 +156,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Test that gaze fallbacks to HMD pose, if eye gaze loses tracking.
         /// </summary>
         [UnityTest]
-        [Ignore("Temporary ignoring while completing XRI 3 migration.  TODO: Re-implement this test once XRI 3 migration is completed.")]
         public IEnumerator GazeFallbackWhenEyeGazeLosesTrackingTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene

@@ -26,7 +26,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// applied to target object should be respected.
         /// </summary>
         [UnityTest]
-        [Ignore("Temporary ignoring while completing XRI 3 migration.  TODO: Re-implement this test once XRI 3 migration is completed.")]
         public IEnumerator ScaleObjectTest()
         {
             const float DELTA = 0.01f;

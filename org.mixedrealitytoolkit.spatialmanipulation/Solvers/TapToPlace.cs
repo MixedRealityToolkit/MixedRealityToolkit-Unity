@@ -559,8 +559,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 if (interactor is XRBaseInputInteractor controllerInteractor &&
                     controllerInteractor.xrController is ActionBasedController actionController)
                 {
-                    TrackedPoseDriver controllerTrackedPoseDriver = controllerInteractor.xrController.GetComponent<TrackedPoseDriver>();
-                    controllerTrackedPoseDriver.positionAction.performed += StopPlacementViaPerformedAction;
+                    actionController.selectAction.action.performed += StopPlacementViaPerformedAction;
                 }
                 else if (interactor is IXRSelectInteractor selectInteractor)
                 {
