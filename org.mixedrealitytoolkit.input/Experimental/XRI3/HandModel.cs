@@ -7,10 +7,10 @@ using UnityEngine.XR;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// This component stores a reference to the hand model to be used in Editor mode.
+    /// This component instantiates a model prefab for hand interactors.
     /// </summary>
     /// <remarks>
-    /// The HandNode property is expected to be XRNode.LeftHand or XRNode.RightHand.
+    /// This does not control the visibility of the instantiated models, the prefab is always created.
     /// </remarks>
     public class HandModel : MonoBehaviour
     {
