@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 
 * Reduced package description to support for UPM package publishing in the Unity Asset Store.
+* Changed PressableButton_Custom_Cylinder using Default-Material to MRTK_Standard_White instead. [PR #740](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/740)
 
 ## [3.2.0] - 2024-03-20
 
