@@ -32,9 +32,6 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </summary>
     public class BasicInputTests : BaseRuntimeInputTests
     {
-        private const string OPENXR_RIGHT_HAND_PREFAB_GUID = "da93d751ddc0f64468dfc02f18d02d00";
-        private const string OPENXR_LEFT_HAND_PREFAB_GUID = "2b468cc4fe6d2b44ebc53b958b38b91a";
-
         /// <summary>
         /// Ensure the simulated input devices are registered and present.
         /// </summary>
