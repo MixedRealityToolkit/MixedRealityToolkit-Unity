@@ -46,44 +46,9 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return null;
         }
 
-        // NOTE: Why is this test commented out? This test is for prefabs that have been migrated to use XRI 3 and since those were move to an Experimental folder then this test fails.
-        //       This test can be uncommented (probably update too) once the migrated XRI3 prefabs are used as the main prefabs.
-        ///// <summary>
-        ///// Ensures that the LeftHandController, RightHandController, and GazeController controllers have one and only one of the required components to work with com.unity.xr.interaction.toolkit 3.0.1 package
-        ///// </summary>
-        //[UnityTest]
-        //public IEnumerator XRI3ControllerHaveOneAndOnlyOneOfTheNeededXRI3ComponentsTest()
-        //{
-        //    var controllers = new[] {
-        //        CachedLookup.LeftHandController,
-        //        CachedLookup.RightHandController,
-        //        CachedLookup.GazeController
-        //    };
-
-        //    foreach (var controller in controllers)
-        //    {
-        //        Assert.That(controller, Is.Not.Null);
-
-        //        // Check all controllers have one and only one TrackedPoseDriver component
-        //        TrackedPoseDriver[] controllerTrackedPoseDrivers = controller.GetComponents<TrackedPoseDriver>();
-        //        Assert.AreEqual(controllerTrackedPoseDrivers.Length, 1);
-
-        //        // Check that LeftHandController and RightHandController also have one and only one XRRayInteractor component
-        //        if (controller.Equals(CachedLookup.LeftHandController) || controller.Equals(CachedLookup.RightHandController))
-        //        {
-        //            XRRayInteractor[] controllerXRRayInteractors = controller.GetComponents<XRRayInteractor>();
-        //            Assert.AreEqual(controllerXRRayInteractors.Length, 1);
-        //        }
-        //    }
-
-        //    yield return null;
-        //}
-
         /// <summary>
         /// Ensure the simulated input devices bind to the controllers on the rig.
         /// </summary>
-        /// NOTE: This test WILL fail when the existing pre-XRI3 hand controllers are fully migrated to the new XRI3 controllers (by removing XRController component),
-        ///       when that happens you can remove this test AND replace it with the one commented immediately after this test.
         [UnityTest]
         public IEnumerator InputBindingSmoketest()
         {
@@ -105,36 +70,9 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return null;
         }
 
-        // NOTE: Why is this test commented out? see note comment above in the InputBindingSmoketest that is not commented out.
-        ///// <summary>
-        ///// Ensure the simulated input devices bind to the controllers on the rig.
-        ///// </summary>
-        //[UnityTest]
-        //public IEnumerator InputBindingSmoketest()
-        //{
-        //    var controllers = new[] {
-        //        CachedLookup.LeftHandController,
-        //        CachedLookup.RightHandController,
-        //        CachedLookup.GazeController
-        //    };
-
-        //    foreach (var controller in controllers)
-        //    {
-        //        Assert.That(controller, Is.Not.Null);
-        //        Assert.That(controller, Is.AssignableTo(typeof(ActionBasedController)));
-
-        //        TrackedPoseDriver controllerTrackedPoseDriver = controller.GetComponent<TrackedPoseDriver>();
-        //        Assert.GreaterOrEqual(controllerTrackedPoseDriver.positionAction.controls.Count, 1);
-        //    }
-
-        //    yield return null;
-        //}
-
         /// <summary>
         /// Ensure the simulated input device actually makes the rig's controllers move/actuate.
         /// </summary>
-        /// NOTE: This test WILL fail when the existing pre-XRI3 hand controllers are fully migrated to the new XRI3 controllers (by removing XRController component),
-        ///       when that happens you can remove this test AND replace it with the one commented immediately after this test.
         [UnityTest]
         public IEnumerator HandMovingSmoketest()
         {
@@ -160,37 +98,6 @@ namespace MixedReality.Toolkit.Input.Tests
 
             yield return null;
         }
-
-        // NOTE: Why is this test commented out? see note comment above in the HandMovingSmoketest that is not commented out.
-        ///// <summary>
-        ///// Ensure the simulated input device actually makes the rig's controllers move/actuate.
-        ///// </summary>
-        //[UnityTest]
-        //public IEnumerator HandMovingSmoketest()
-        //{
-        //    var controller = CachedLookup.RightHandController as ActionBasedController;
-
-        //    var testHand = new TestHand(Handedness.Right);
-        //    InputTestUtilities.SetHandAnchorPoint(Handedness.Right, ControllerAnchorPoint.Device);
-
-        //    yield return testHand.Show(Vector3.forward);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-
-        //    Assert.That(controller.transform.position.x, Is.EqualTo(0.0f).Within(0.04f));
-
-        //    yield return testHand.Move(Vector3.right * 0.5f, 60);
-        //    yield return RuntimeTestUtilities.WaitForUpdates();
-        //    Debug.Log("Input system update mode: " + InputSystem.settings.updateMode);
-
-        //    TrackedPoseDriver controllerTrackedPoseDriver = controller.GetComponent<TrackedPoseDriver>();
-        //    Assert.That(controllerTrackedPoseDriver.positionAction.controls, Has.Count.GreaterThanOrEqualTo(1));
-        //    Assert.That(controllerTrackedPoseDriver.positionAction.activeControl, Is.Not.Null);
-        //    Assert.That(controllerTrackedPoseDriver.positionAction.ReadValue<Vector3>().x, Is.EqualTo(0.5f).Within(0.01f));
-
-        //    Assert.That(controllerTrackedPoseDriver.transform.position.x, Is.EqualTo(0.5f).Within(0.05f));
-
-        //    yield return null;
-        //}
 
         /// <summary>
         /// Test that anchoring the test hands on the grab point actually results in the grab interactor
