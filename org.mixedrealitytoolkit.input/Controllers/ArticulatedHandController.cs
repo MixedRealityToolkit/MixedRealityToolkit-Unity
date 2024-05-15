@@ -17,6 +17,7 @@ namespace MixedReality.Toolkit.Input
     /// This is able to support variable pinch select through the use of <see cref="HandsAggregatorSubsystem"/>.
     /// </remarks>
     [AddComponentMenu("MRTK/Input/XR Controller (Articulated Hand)")]
+    [Obsolete]
     public class ArticulatedHandController : ActionBasedController
     {
         #region Associated hand select values
@@ -30,10 +31,17 @@ namespace MixedReality.Toolkit.Input
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public XRNode HandNode => handNode;
 
+        /// <summary>
+        /// Is the hand ready to select? Typically, this
+        /// represents whether the hand is in a pinching pose,
+        /// within the FOV set by the aggregator config.
+        /// </summary>
+        public bool PinchSelectReady => (currentControllerState is ArticulatedHandControllerState handControllerState) && handControllerState.PinchSelectReady;
+
         #endregion Associated hand select values
 
         #region Properties
-        
+
         /// <summary>
         /// The currently loaded and running hands aggregator, if any.
         /// </summary>
