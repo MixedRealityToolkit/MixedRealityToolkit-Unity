@@ -28,12 +28,43 @@ namespace MixedReality.Toolkit.Input
         [Tooltip("The hand controller used to get the selection progress values")]
         private ArticulatedHandController handController;
 
+        #region Properties and methods from deprecated XRBaseController
+
+        XRControllerState m_ControllerState;
+        /// <summary>
+        /// The current state of the controller.
+        /// </summary>
+        public XRControllerState currentControllerState
+        {
+            get
+            {
+                SetupControllerState();
+                return m_ControllerState;
+            }
+
+            set
+            {
+                m_ControllerState = value;
+                m_CreateControllerState = false;
+            }
+        }
+
+        bool m_CreateControllerState = true;
+
+        void SetupControllerState()
+        {
+            if (m_ControllerState == null && m_CreateControllerState)
+                m_ControllerState = new XRControllerState();
+        }
+
+        #endregion
+
         /// <summary>
         /// Is the hand ready to select? Typically, this
         /// represents whether the hand is in a pinching pose,
         /// within the FOV set by the aggregator config.
         /// </summary>
-        protected bool PinchReady => handController.PinchSelectReady;
+        protected bool PinchReady => (currentControllerState is ArticulatedHandControllerState handControllerState) && handControllerState.PinchSelectReady;
 
         /// <summary>
         /// The world-space pose of the hand pinching point.

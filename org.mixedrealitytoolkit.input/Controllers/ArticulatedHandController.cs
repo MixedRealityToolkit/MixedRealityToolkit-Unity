@@ -30,13 +30,6 @@ namespace MixedReality.Toolkit.Input
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public XRNode HandNode => handNode;
 
-        /// <summary>
-        /// Is the hand ready to select? Typically, this
-        /// represents whether the hand is in a pinching pose,
-        /// within the FOV set by the aggregator config.
-        /// </summary>
-        public bool PinchSelectReady => (currentControllerState is ArticulatedHandControllerState handControllerState) && handControllerState.PinchSelectReady;
-
         #endregion Associated hand select values
 
         #region Properties
