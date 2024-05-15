@@ -28,7 +28,7 @@ namespace MixedReality.Toolkit.Input
         [Tooltip("The hand controller used to get the selection progress values")]
         private ArticulatedHandController handController;
 
-        #region Properties and methods from deprecated XRBaseController
+        #region Properties from deprecated XRBaseController
 
         XRControllerState m_ControllerState;
         /// <summary>
@@ -50,12 +50,6 @@ namespace MixedReality.Toolkit.Input
         }
 
         bool m_CreateControllerState = true;
-
-        void SetupControllerState()
-        {
-            if (m_ControllerState == null && m_CreateControllerState)
-                m_ControllerState = new XRControllerState();
-        }
 
         #endregion
 
@@ -475,5 +469,15 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
+
+        #region Functions from deprecated XRBaseController
+
+        private void SetupControllerState()
+        {
+            if (m_ControllerState == null && m_CreateControllerState)
+                m_ControllerState = new XRControllerState();
+        }
+
+        #endregion
     }
 }
