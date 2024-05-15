@@ -1,5 +1,0 @@
-﻿Copy-Item '.\MRTK XRI Gaze.prefab' '..\MRTK Gaze Controller.prefab'
-Copy-Item '.\MRTK XRI Interaction Manager.prefab' '..\MRTK Interaction Manager.prefab'
-Copy-Item '.\MRTK XRI LeftHand.prefab' '..\MRTK LeftHand Controller.prefab'
-Copy-Item '.\MRTK XRI RightHand.prefab' '..\MRTK RightHand Controller.prefab'
-Copy-Item '.\MRTK XRI Rig.prefab' '..\MRTK XR Rig.prefab'
