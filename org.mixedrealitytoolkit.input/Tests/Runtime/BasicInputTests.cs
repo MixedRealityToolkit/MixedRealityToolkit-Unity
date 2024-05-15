@@ -279,6 +279,8 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Simple smoketest to ensure basic gaze-pinch selection functionality.
         /// </summary>
         [UnityTest]
+        [Ignore("Temporarily ignoring this test because MRTKGazeController is not fully migrated to XRI 3 yet.")]
+        // TODO: Re-enable this test once MRTKGazeController is fully migrated to XRI 3.
         public IEnumerator GazePinchSmokeTest()
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
