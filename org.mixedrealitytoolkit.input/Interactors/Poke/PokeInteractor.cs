@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using PokePath = MixedReality.Toolkit.IPokeInteractor.PokePath;
 
 namespace MixedReality.Toolkit.Input
@@ -14,7 +16,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [AddComponentMenu("MRTK/Input/Poke Interactor")]
     public class PokeInteractor :
-        XRBaseControllerInteractor,
+        XRBaseInputInteractor,
         IPokeInteractor,
         IHandedInteractor
     {

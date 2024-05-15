@@ -7,6 +7,7 @@ using System.Linq;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -210,7 +211,7 @@ namespace MixedReality.Toolkit.Input
             }
 
             GameObject controllerObject = null;
-            if (interactor is XRBaseControllerInteractor controllerInteractor)
+            if (interactor is XRBaseInputInteractor controllerInteractor)
             {
                 controllerObject = controllerInteractor.xrController.gameObject;
             }
@@ -247,7 +248,7 @@ namespace MixedReality.Toolkit.Input
         public void UnregisterInteractor(XRBaseInteractor interactor)
         {
             GameObject controllerObject = null;
-            if (interactor is XRBaseControllerInteractor controllerInteractor)
+            if (interactor is XRBaseInputInteractor controllerInteractor)
             {
                 controllerObject = controllerInteractor.xrController.gameObject;
             }

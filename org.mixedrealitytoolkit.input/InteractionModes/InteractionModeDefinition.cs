@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -26,7 +26,7 @@ namespace MixedReality.Toolkit.Input
 
         // private field to ensure serialization
         [SerializeField]
-        [Extends(typeof(XRBaseControllerInteractor), TypeGrouping.ByNamespaceFlat)]
+        [Extends(typeof(XRBaseInputInteractor), TypeGrouping.ByNamespaceFlat)]
         [Tooltip("The class types of the interactors that this Interaction Mode Definition instance is targeting.")]
         private List<SystemType> associatedTypes = new List<SystemType>();
 

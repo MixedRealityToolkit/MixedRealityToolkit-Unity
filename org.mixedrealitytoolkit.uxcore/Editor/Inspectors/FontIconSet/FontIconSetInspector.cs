@@ -16,6 +16,7 @@ namespace MixedReality.Toolkit.Editor
     /// A custom Unity editor for the <see cref="FontIconSet"/> class.
     /// </summary>
     [CustomEditor(typeof(FontIconSet))]
+    [CanEditMultipleObjects]
     public class FontIconSetInspector : UnityEditor.Editor
     {
         private const string ShowGlyphIconsFoldoutKey = "MixedRealityToolkit.FontIconSet.ShowIconFoldout";

@@ -9,6 +9,7 @@ namespace MixedReality.Toolkit.Input.Editor
     /// A custom editor for the <see cref="InteractionDetector"/> class.
     /// </summary>
     [CustomEditor(typeof(InteractionDetector))]
+    [CanEditMultipleObjects]
     public class InteractionDetectorEditor : UnityEditor.Editor
     {
         private SerializedProperty interactor;

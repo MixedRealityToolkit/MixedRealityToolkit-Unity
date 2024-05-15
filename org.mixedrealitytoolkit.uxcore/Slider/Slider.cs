@@ -6,6 +6,8 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 using SliderEvent = UnityEngine.Events.UnityEvent<MixedReality.Toolkit.UX.SliderEventData>;
 

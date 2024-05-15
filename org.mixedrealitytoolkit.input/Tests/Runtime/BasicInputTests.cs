@@ -7,18 +7,23 @@
 using MixedReality.Toolkit.Core.Tests;
 using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
-using MixedReality.Toolkit.Input;
 using MixedReality.Toolkit.Input.Simulation;
-using MixedReality.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using MixedReality.Toolkit.Subsystems;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using UnityEngine.InputSystem.XR;
+using System;
+using System.Linq;
+using System.Reflection;
+using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
+using UnityEditor;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -588,6 +593,46 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsTrue(rightHandController.GetComponentInChildren<GazePinchInteractor>().enabled, "GazePinch didn't reactivate");
             Assert.IsFalse(rightHandController.GetComponentInChildren<PokeInteractor>().enabled, "Poke didn't deactivate");
             Assert.IsFalse(rightHandController.GetComponentInChildren<GrabInteractor>().enabled, "Grab didn't deactivate");
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Test the HandModel script has the required fields.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator HandModelHasRequiredFieldsAndAccessors()
+        {
+            FieldInfo[] fieldInfos;
+            PropertyInfo[] accessorsInfos;
+            Type HandModel = typeof(HandModel);
+
+            fieldInfos = HandModel.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            accessorsInfos = HandModel.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+            var modelPrefabFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("modelPrefab")).ToArray();
+            Assert.AreEqual(1, modelPrefabFieldInfo.Length, "HandModel is missing the 'modelPrefab' field");
+
+            var modelParentFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("modelParent")).ToArray();
+            Assert.AreEqual(1, modelParentFieldInfo.Length, "HandModel is missing the 'modelParent' field");
+
+            var modelFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("model")).ToArray();
+            Assert.AreEqual(1, modelFieldInfo.Length, "HandModel is missing the 'model' field");
+
+            var handNodeFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("handNode")).ToArray();
+            Assert.AreEqual(1, modelFieldInfo.Length, "HandModel is missing the 'handNode' field");
+
+            var modelPrefabAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("ModelPrefab")).ToArray();
+            Assert.AreEqual(1, modelPrefabAccessorInfo.Length, "HandModel is missing the 'ModelPrefab' accessor");
+
+            var modelParentAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("ModelParent")).ToArray();
+            Assert.AreEqual(1, modelParentAccessorInfo.Length, "HandModel is missing the 'ModelParent' accessor");
+
+            var modelAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("Model")).ToArray();
+            Assert.AreEqual(1, modelAccessorInfo.Length, "HandModel is missing the 'Model' accessor");
+
+            var handNodeAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("HandNode")).ToArray();
+            Assert.AreEqual(1, handNodeAccessorInfo.Length, "HandModel is missing the 'HandNode' accessor");
 
             yield return null;
         }

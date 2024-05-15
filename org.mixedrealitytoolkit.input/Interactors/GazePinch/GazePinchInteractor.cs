@@ -4,6 +4,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -14,7 +16,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [AddComponentMenu("MRTK/Input/Gaze Pinch Interactor")]
     public class GazePinchInteractor :
-        XRBaseControllerInteractor,
+        XRBaseInputInteractor,
         IGazePinchInteractor,
         IHandedInteractor
     {
@@ -70,12 +72,12 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeField]
         [Tooltip("The interactor we're using to query potential gaze pinch targets")]
-        private XRBaseControllerInteractor dependentInteractor;
+        private XRBaseInputInteractor dependentInteractor;
 
         /// <summary>
         /// The pose source representing the ray this interactor uses for aiming and positioning.
         /// </summary>
-        protected XRBaseControllerInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
+        protected XRBaseInputInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
 
         [SerializeField]
         [Range(0, 1)]

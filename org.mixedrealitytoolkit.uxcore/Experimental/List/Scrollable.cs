@@ -8,6 +8,8 @@ using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX.Experimental
 {
