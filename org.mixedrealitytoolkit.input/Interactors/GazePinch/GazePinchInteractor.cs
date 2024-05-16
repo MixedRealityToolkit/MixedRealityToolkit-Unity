@@ -473,28 +473,11 @@ namespace MixedReality.Toolkit.Input
                 return;
             }
 
-            // Determine the XRNode to use for the pinch data
-            bool gotPinchData;
-            XRNode xRNode;
-            if (handController != null) //For pre-XRI3 code.  Note: This if can be removed (leave the code in the 'else' section) when
-                                        //Controllers are fully migrated to XRI 3 era in which all Controllers are removed.
-            {
-                xRNode = handController.HandNode;
-                if (xRNode != XRNode.LeftHand && xRNode != XRNode.RightHand)
-                {
-                    Debug.LogWarning($"HandController {handController.name} does not have HandNode set to neither XRNode.LeftHand nor XRNode.RightHand, defaulting to XRNode.RightHand.");
-                    xRNode = XRNode.RightHand;
-                }
-            }
-            else //For post-XRI3 code.  The XRNode is determined by the GazeInteractor Handedness if none is set then it defaults to XRNode.RightHand.
-            {
-                xRNode = handedness.ToXRNodeWithRightHandDefault();
-            }
-
-            gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xRNode, out bool isPinchReady, out bool isPinching, out float pinchAmount);
+            bool gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(handedness.ToXRNodeWithRightHandDefault(),
+                out bool isPinchReady, out bool isPinching, out float pinchAmount);
             if (!gotPinchData) //Try the other hand if the set hand does not have pinch data.
             {
-                gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xRNode == XRNode.LeftHand ? XRNode.RightHand : XRNode.LeftHand,
+                gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(handedness.ToXRNodeWithRightHandDefault() == XRNode.LeftHand ? XRNode.RightHand : XRNode.LeftHand,
                     out isPinchReady, out isPinching, out pinchAmount);
             }
 
