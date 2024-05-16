@@ -488,16 +488,7 @@ namespace MixedReality.Toolkit.Input
             }
             else //For post-XRI3 code.  The XRNode is determined by the GazeInteractor Handedness if none is set then it defaults to XRNode.RightHand.
             {
-                switch (handedness)
-                {
-                    case InteractorHandedness.Left:
-                        xRNode = XRNode.LeftHand;
-                        break;
-                    case InteractorHandedness.Right:
-                    default:
-                        xRNode = XRNode.RightHand;
-                        break;
-                }
+                xRNode = handedness.ToXRNodeWithRightHandDefault();
             }
 
             gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xRNode, out bool isPinchReady, out bool isPinching, out float pinchAmount);
