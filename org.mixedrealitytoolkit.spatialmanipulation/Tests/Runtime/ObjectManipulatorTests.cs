@@ -32,8 +32,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// respects the various interactor filtering/interaction type rules.
         /// </summary>
         [UnityTest]
-        [Ignore("Temporarily ignoring this test because MRTKGazeController is not fully migrated to XRI 3 yet.")]
-        // TODO: Re-enable this test once MRTKGazeController is fully migrated to XRI 3.
         public IEnumerator TestObjManipInteractorRules()
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -546,8 +544,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// for scenarios like voice-driven movement using the gaze pointer.
         /// </summary>
         [UnityTest]
-        [Ignore("Temporarily ignoring this test because MRTKGazeController is not fully migrated to XRI 3 yet.")]
-        // TODO: Re-enable this test once MRTKGazeController is fully migrated to XRI 3.
         public IEnumerator ObjectManipulatorOneHandMoveGaze()
         {
             // Enable gaze interactions for this unit test;

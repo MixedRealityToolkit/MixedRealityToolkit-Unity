@@ -89,8 +89,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         /// Tests that slider can be assembled from code and manipulated using Gaze
         /// </summary>
         [UnityTest]
-        [Ignore("Temporarily ignoring this test because MRTKGazeController is not fully migrated to XRI 3 yet.")]
-        // TODO: Re-enable this test once MRTKGazeController is fully migrated to XRI 3.
         public IEnumerator TestAssembleInteractableAndGazePinchManip()
         {
             // This should not throw exception
