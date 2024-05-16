@@ -455,8 +455,7 @@ namespace MixedReality.Toolkit.Input
 
         /// <summary>
         /// Updates the pinch state of the GazePinchInteractor.
-        /// If a HandController is present, the pinch state is updated using the HandController's HandNode defaulting to XRNode.RightHand if not set.
-        /// If no HandController is present, the pinch state is updated using the Handedness of the GazePinchInteractor defaulting to InteractorHandedness.Right if not set.
+        /// If handedness is not set then it defaults to right hand.
         /// If the pinch data is not available for the set hand then the other hand is tried.
         /// </summary>
         private void UpdatePinchState()
