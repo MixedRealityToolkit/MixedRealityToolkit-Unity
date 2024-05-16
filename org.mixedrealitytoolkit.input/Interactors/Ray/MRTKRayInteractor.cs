@@ -40,13 +40,49 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Is this ray currently selecting a UnityUI/Canvas element?
         /// </summary>
-        public bool HasUISelection => HasUIHover && isUISelectActive;
+        public bool HasUISelection
+        {
+            get
+            {
+                if (!HasUIHover)
+                {
+                    return false;
+                }
+                #pragma warning disable CS0618 // Type or member is obsolete
+                else if (forceDeprecatedInput)
+                {
+                    return isUISelectActive;
+                }
+                #pragma warning restore CS0618
+                else
+                {
+                    return TryGetUIModel(out TrackedDeviceModel model) && model.select;
+                }
+            }
+        }
+
+        private bool isTracked = false;
 
         /// <summary>
         /// Used to check if the parent controller is tracked or not
         /// Hopefully this becomes part of the base Unity XRI API.
         /// </summary>
-        private bool IsTracked => xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+        private bool IsTracked
+        {
+            get
+            {
+                #pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                { 
+                    return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+                }
+                #pragma warning restore CS0618
+                else
+                {
+                    return isTracked;
+                }
+            }
+        }
 
         /// <summary>
         /// Cached reference to hands aggregator for efficient per-frame use.
@@ -79,14 +115,44 @@ namespace MixedReality.Toolkit.Input
 
         #region IHandedInteractor
 
-        Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
-
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+                #pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                }
+                #pragma warning restore CS0618
+                else
+                {
+                    // TODO Make a helper extension for this before checking in code. See HandednessExtensions.cs for example.
+                    return base.handedness == InteractorHandedness.Left ? Handedness.Left : Handedness.Right;
+                }
+            }
+        }
         #endregion IHandedInteractor
 
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
-        public float SelectProgress => xrController.selectInteractionState.value;
+        public float SelectProgress
+        {
+            get
+            {
+                #pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+                    return xrController.selectInteractionState.value;
+                }
+                #pragma warning restore CS0618
+                else
+                {
+                    return selectInput.ReadValue();
+                }
+            }
+        }
 
         #endregion IVariableSelectInteractor
 
@@ -157,13 +223,20 @@ namespace MixedReality.Toolkit.Input
                     bool hoverActive = base.isHoverActive;
                     if (hoverActive)
                     {
-                        if (xrController is ArticulatedHandController handController)
+                        bool isPalmFacingAway;
+
+                        #pragma warning disable CS0618 // Type or member is obsolete
+                        if (forceDeprecatedInput &&
+                            xrController is ArticulatedHandController handController &&
+                            XRSubsystemHelpers.HandsAggregator != null &&
+                            XRSubsystemHelpers.HandsAggregator.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway))
                         {
-                            bool isPalmFacingAway = false;
-                            if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true)
-                            {
-                                hoverActive &= isPalmFacingAway;
-                            }
+                            hoverActive &= isPalmFacingAway;
+                        }
+                        #pragma warning restore CS0618
+                        else if (TryGetFacingAway(out isPalmFacingAway))
+                        {
+                            hoverActive &= isPalmFacingAway;
                         }
                     }
 
@@ -233,7 +306,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
         /// </summary>
-        private void Update()
+        protected virtual void Update()
         {
             // Use Pose Sources to calculate the interactor's pose and the attach transform's position
             // We have to make sure the ray interactor is oriented appropriately before calling
@@ -241,6 +314,7 @@ namespace MixedReality.Toolkit.Input
             if (AimPoseSource != null && AimPoseSource.TryGetPose(out Pose aimPose))
             {
                 transform.SetPositionAndRotation(aimPose.position, aimPose.rotation);
+                isTracked = true;
 
                 if (hasSelection)
                 {
@@ -248,12 +322,32 @@ namespace MixedReality.Toolkit.Input
                     attachTransform.localPosition = new Vector3(initialLocalAttach.position.x, initialLocalAttach.position.y, initialLocalAttach.position.z * distanceRatio);
                 }
             }
+            else
+            {
+                isTracked = false;
+            }
 
             // Use the Device Pose Sources to calculate the attach transform's pose
             if (DevicePoseSource != null && DevicePoseSource.TryGetPose(out Pose devicePose))
             {
                 attachTransform.rotation = devicePose.rotation;
             }
+        }
+
+        /// <summary>
+        /// Try to get in the interactor's ray is facing away from the user.
+        /// </summary>
+        /// <param name="isFacingAway">An out parameter indicating if the ray is pointing away from the user.</param>
+        /// <returns><see langword="true"/> if test succeeded, <see langword="false"/> otherwise.</returns>
+        private bool TryGetFacingAway(out bool isFacingAway)
+        {
+            isFacingAway = false;
+            if (AimPoseSource != null && AimPoseSource.TryGetPose(out Pose aimPose))
+            {
+                isFacingAway = PoseUtilities.IsFacingAway(aimPose);
+                return true;
+            }
+            return false;
         }
     }
 }

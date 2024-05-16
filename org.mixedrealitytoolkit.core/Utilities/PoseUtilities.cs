@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using UnityEngine;
 
 namespace MixedReality.Toolkit
@@ -34,6 +35,29 @@ namespace MixedReality.Toolkit
 
                 return Vector2.Distance(pointerPosXZ, headPosXZ);
             }
+        }
+
+        /// <summary>
+        /// Calculate if the given pose forward direction is facing away from the user.
+        /// </summary>
+        /// <param name="pose">The pose whoe forward direction will be tested</param>
+        /// <param name="tolerance">Degrees of rotation away from the user's head's forward vector for the hand to be considered raised/valid.</param>
+        /// <returns><see langword="true"/> if palm is facing away from the user, <see langword="false"/> otherwise.</returns>
+        internal static bool IsFacingAway(Pose pose, float tolerance = 75.0f)
+        {
+            if (Camera.main == null)
+            {
+                return false;
+            }
+
+            // The original palm orientation is based on a horizontal palm facing down.
+            // So, if you bring your hand up and face it away from you, the palm.up is the forward vector.
+            if (Mathf.Abs(Vector3.Angle(pose.forward, Camera.main.transform.forward)) > tolerance)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
