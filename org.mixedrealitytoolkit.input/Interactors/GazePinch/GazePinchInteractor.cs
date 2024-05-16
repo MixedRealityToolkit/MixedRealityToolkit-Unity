@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -28,37 +29,17 @@ namespace MixedReality.Toolkit.Input
         [Tooltip("The hand controller used to get the selection progress values")]
         private ArticulatedHandController handController;
 
-        #region Properties from deprecated XRBaseController
-
-        XRControllerState m_ControllerState;
         /// <summary>
-        /// The current state of the controller.
+        /// Indicates whether the pinch interactor has completed the pinch gesture.
         /// </summary>
-        public XRControllerState currentControllerState
-        {
-            get
-            {
-                SetupControllerState();
-                return m_ControllerState;
-            }
-
-            set
-            {
-                m_ControllerState = value;
-                m_CreateControllerState = false;
-            }
-        }
-
-        bool m_CreateControllerState = true;
-
-        #endregion
+        private bool pinchReady = false;
 
         /// <summary>
         /// Is the hand ready to select? Typically, this
         /// represents whether the hand is in a pinching pose,
         /// within the FOV set by the aggregator config.
         /// </summary>
-        protected bool PinchReady { get; set; }
+        protected bool PinchReady { get => pinchReady; }
 
         /// <summary>
         /// The world-space pose of the hand pinching point.
@@ -230,6 +211,8 @@ namespace MixedReality.Toolkit.Input
                     transform.SetPositionAndRotation(aimPose.position, aimPose.rotation);
                 }
                 ComputeAttachTransform(hasSelection ? interactablesSelected[0] : null);
+
+                UpdatePinchState();
             }
         }
 
@@ -470,14 +453,63 @@ namespace MixedReality.Toolkit.Input
 
         #endregion XRBaseInteractor
 
-        #region Functions from deprecated XRBaseController
-
-        private void SetupControllerState()
+        /// <summary>
+        /// Updates the pinch state of the GazePinchInteractor.
+        /// If a HandController is present, the pinch state is updated using the HandController's HandNode defaulting to XRNode.RightHand if not set.
+        /// If no HandController is present, the pinch state is updated using the Handedness of the GazePinchInteractor defaulting to InteractorHandedness.Right if not set.
+        /// If the pinch data is not available for the set hand then the other hand is tried.
+        /// </summary>
+        private void UpdatePinchState()
         {
-            if (m_ControllerState == null && m_CreateControllerState)
-                m_ControllerState = new XRControllerState();
-        }
+            if (logicalSelectState == null)
+            {
+                Debug.LogWarning("GazePinchInteractor is missing logicalSelectState, pinch state won't update.");
+                return;
+            }
 
-        #endregion
+            if (XRSubsystemHelpers.HandsAggregator == null)
+            {
+                return;
+            }
+
+            // Determine the XRNode to use for the pinch data
+            bool gotPinchData;
+            XRNode xRNode;
+            if (handController != null) //For pre-XRI3 code.  Note: This if can be removed (leave the code in the 'else' section) when
+                                        //Controllers are fully migrated to XRI 3 era in which all Controllers are removed.
+            {
+                xRNode = handController.HandNode;
+                if (xRNode != XRNode.LeftHand && xRNode != XRNode.RightHand)
+                {
+                    Debug.LogWarning($"HandController {handController.name} does not have HandNode set to neither XRNode.LeftHand nor XRNode.RightHand, defaulting to XRNode.RightHand.");
+                    xRNode = XRNode.RightHand;
+                }
+            }
+            else //For post-XRI3 code.  The XRNode is determined by the GazeInteractor Handedness if none is set then it defaults to XRNode.RightHand.
+            {
+                switch (handedness)
+                {
+                    case InteractorHandedness.Left:
+                        xRNode = XRNode.LeftHand;
+                        break;
+                    case InteractorHandedness.Right:
+                    default:
+                        xRNode = XRNode.RightHand;
+                        break;
+                }
+            }
+
+            gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xRNode, out bool isPinchReady, out bool isPinching, out float pinchAmount);
+            if (!gotPinchData) //Try the other hand if the set hand does not have pinch data.
+            {
+                gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xRNode == XRNode.LeftHand ? XRNode.RightHand : XRNode.LeftHand,
+                    out isPinchReady, out isPinching, out pinchAmount);
+            }
+
+            if (gotPinchData)
+            {
+                pinchReady = isPinchReady;
+            }
+        }
     }
 }
