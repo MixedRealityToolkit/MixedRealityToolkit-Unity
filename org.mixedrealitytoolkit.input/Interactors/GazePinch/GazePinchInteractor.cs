@@ -469,6 +469,7 @@ namespace MixedReality.Toolkit.Input
 
             if (XRSubsystemHelpers.HandsAggregator == null)
             {
+                Debug.LogWarning("XRSubsystemHelpers.HandsAggregator is null, pinch state won't update.");
                 return;
             }
 
