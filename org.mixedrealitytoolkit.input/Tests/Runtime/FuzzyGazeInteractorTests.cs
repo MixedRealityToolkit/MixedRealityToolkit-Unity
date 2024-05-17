@@ -160,6 +160,17 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
             FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindFirstObjectByType<FuzzyGazeInteractor>();
+
+            #region TrackedPoseDriverWithFallback disabling
+            // Disable the TrackedPoseDriverWithFallback component that was added for XRI3 migration.  Disable it to ensure that
+            // the pre-XRI3 ActionBasedControllerWithFallbacks functionality is properly tested.
+            TrackedPoseDriverWithFallback trackedPoseDriverWithFallback = fuzzyGazeInteractor.GetComponent<TrackedPoseDriverWithFallback>();
+            if (trackedPoseDriverWithFallback != null)
+            {
+                trackedPoseDriverWithFallback.enabled = false;
+            }
+            #endregion TrackedPoseDriverWithFallback disabling
+
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
             // Instantiate two foregound cubes and one background cube for testing
@@ -229,6 +240,17 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
             FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindFirstObjectByType<FuzzyGazeInteractor>();
+
+            #region TrackedPoseDriverWithFallback disabling
+            // Disable the TrackedPoseDriverWithFallback component that was added for XRI3 migration.  Disable it to ensure that
+            // the pre-XRI3 ActionBasedControllerWithFallbacks functionality is properly tested.
+            TrackedPoseDriverWithFallback trackedPoseDriverWithFallback = fuzzyGazeInteractor.GetComponent<TrackedPoseDriverWithFallback>();
+            if (trackedPoseDriverWithFallback != null)
+            {
+                trackedPoseDriverWithFallback.enabled = false;
+            }
+            #endregion TrackedPoseDriverWithFallback disabling
+
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
             // Instantiate two foregound cubes and one background cube for testing

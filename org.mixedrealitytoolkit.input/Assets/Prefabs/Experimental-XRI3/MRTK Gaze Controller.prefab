@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 599884710536146533}
   - component: {fileID: 3021976565802998075}
   - component: {fileID: 6715372278736142266}
-  - component: {fileID: 8986902125167499199}
+  - component: {fileID: 6058071957502615222}
   m_Layer: 0
   m_Name: GazeInteractor
   m_TagString: Untagged
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dwellTriggerTime: 0.3
---- !u!114 &8986902125167499199
+--- !u!114 &6058071957502615222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -419,11 +419,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1975450934932087381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2fadf230d1919748a9aa21d40f74619, type: 3}
+  m_Script: {fileID: 11500000, guid: a248d282774a21744b8cf69201ce8279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackingType: 0
-  m_UpdateType: 0
+  m_UpdateType: 1
   m_IgnoreTrackingState: 0
   m_PositionInput:
     m_UseReference: 1
@@ -431,41 +431,41 @@ MonoBehaviour:
       m_Name: Position
       m_Type: 0
       m_ExpectedControlType: Vector3
-      m_Id: 0b9d2342-7061-43e9-a18b-bd9fddb0eea6
+      m_Id: 018c5866-891a-4538-8088-d84ea8625ab5
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -3157177589875330595, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    m_Reference: {fileID: -3802471318395789522, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
   m_RotationInput:
     m_UseReference: 1
     m_Action:
       m_Name: Rotation
       m_Type: 0
       m_ExpectedControlType: Quaternion
-      m_Id: e8960431-04fe-4670-91d1-72ba7879f8f2
+      m_Id: 898f0be3-3319-4c01-b8f9-75c69367b9a5
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 4066420692501789841, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    m_Reference: {fileID: -7046323255087736399, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
   m_TrackingStateInput:
     m_UseReference: 1
     m_Action:
       m_Name: Tracking State
       m_Type: 0
       m_ExpectedControlType: Integer
-      m_Id: 3ecbcf65-6318-47ce-9473-5a0ac7dfd7ae
+      m_Id: aa0f99ed-df88-4a44-89d8-7b5998b17937
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 3058679088785976260, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    m_Reference: {fileID: -6560867463018052362, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
   m_PositionAction:
     m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 5420e404-4980-439e-bbf3-926d404e7b43
+    m_Id: 4a2a6865-a425-4d15-bd02-a01109eef4c3
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -474,11 +474,47 @@ MonoBehaviour:
     m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: e8b99be4-8868-4e4c-9c95-de031b256a33
+    m_Id: c0391b4c-94aa-46e5-a3f9-d582f9b301d0
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  fallbackPositionAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Fallback Position
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: f9cd3fc7-b0ca-46f9-b50d-ae278ebcd1e0
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 6617357981711541546, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  fallbackRotationAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Fallback Rotation
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 4ca1e267-7e43-4986-9358-a650789d6a61
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 1272146141651074281, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  fallbackTrackingStateAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Fallback Tracking State
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: fb72b7ad-a169-48ba-a1ca-785ccf7b9a75
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 5232793463981167437, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
 --- !u!1 &7470888221916766567
 GameObject:
   m_ObjectHideFlags: 0
