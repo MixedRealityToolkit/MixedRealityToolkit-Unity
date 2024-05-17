@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -29,11 +30,16 @@ namespace MixedReality.Toolkit.Input
         private ArticulatedHandController handController;
 
         /// <summary>
+        /// Indicates whether the pinch interactor has completed the pinch gesture.
+        /// </summary>
+        private bool pinchReady = false;
+
+        /// <summary>
         /// Is the hand ready to select? Typically, this
         /// represents whether the hand is in a pinching pose,
         /// within the FOV set by the aggregator config.
         /// </summary>
-        protected bool PinchReady => handController.PinchSelectReady;
+        protected bool PinchReady { get => pinchReady; }
 
         /// <summary>
         /// The world-space pose of the hand pinching point.
@@ -205,6 +211,8 @@ namespace MixedReality.Toolkit.Input
                     transform.SetPositionAndRotation(aimPose.position, aimPose.rotation);
                 }
                 ComputeAttachTransform(hasSelection ? interactablesSelected[0] : null);
+
+                UpdatePinchState();
             }
         }
 
@@ -444,5 +452,39 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
+
+        /// <summary>
+        /// Updates the pinch state of the GazePinchInteractor.
+        /// If handedness is not set then it defaults to right hand.
+        /// If the pinch data is not available for the set hand then the other hand is tried.
+        /// </summary>
+        private void UpdatePinchState()
+        {
+            if (logicalSelectState == null)
+            {
+                Debug.LogWarning("GazePinchInteractor is missing logicalSelectState, pinch state won't update.");
+                return;
+            }
+
+            if (XRSubsystemHelpers.HandsAggregator == null)
+            {
+                Debug.LogWarning("XRSubsystemHelpers.HandsAggregator is null, pinch state won't update.");
+                return;
+            }
+
+            var xrNode = handedness.ToXRNode();
+            bool gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xrNode,
+                out bool isPinchReady, out bool isPinching, out float pinchAmount);
+            if (!gotPinchData) //Try the other hand if the set hand does not have pinch data.
+            {
+                gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xrNode == XRNode.LeftHand ? XRNode.RightHand : XRNode.LeftHand,
+                    out isPinchReady, out isPinching, out pinchAmount);
+            }
+
+            if (gotPinchData)
+            {
+                pinchReady = isPinchReady;
+            }
+        }
     }
 }
