@@ -1103,6 +1103,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "PositionWithFallbacks",
+                    "type": "Value",
+                    "id": "00945d23-2f14-48ad-9d52-57a2042889eb",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "RotationWithFallbacks",
+                    "type": "Value",
+                    "id": "18205ad1-6495-47b1-8918-fac68bcf2811",
+                    "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "TrackingStateWithFallbacks",
+                    "type": "Value",
+                    "id": "8a27a505-b5b9-4c94-b19f-314094f8061f",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1235,6 +1262,138 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Vector 3 Fallback",
+                    "id": "679bc483-770d-4504-af70-029dc4b3cbc2",
+                    "path": "Vector3Fallback",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PositionWithFallbacks",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "first",
+                    "id": "a067642c-8efd-4256-85aa-d18cc2f2fab8",
+                    "path": "*/{gaze}/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "PositionWithFallbacks",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "second",
+                    "id": "73b1f935-c401-42cb-b1b6-457d19dce16d",
+                    "path": "<XRHMD>/centerEyePosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "PositionWithFallbacks",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "third",
+                    "id": "9dff4a1d-2e41-4f88-bf82-0b195834883c",
+                    "path": "<XRSimulatedHMD>/centerEyePosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "PositionWithFallbacks",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Quaternion Fallback",
+                    "id": "1dd43d73-9b86-4989-9472-89106e775dc7",
+                    "path": "QuaternionFallback",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotationWithFallbacks",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "first",
+                    "id": "59288bb8-d5e8-4f3b-8315-3d1187b1e931",
+                    "path": "*/{gaze}/rotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "RotationWithFallbacks",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "second",
+                    "id": "ff1f2550-0ab6-4669-b58d-5652c20d643b",
+                    "path": "<XRHMD>/centerEyeRotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "RotationWithFallbacks",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "third",
+                    "id": "7882737c-9d03-4bfa-a52c-09a943cebcb9",
+                    "path": "<XRSimulatedHMD>/centerEyeRotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "RotationWithFallbacks",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Integer Fallback",
+                    "id": "3b2f6ca8-7a27-414c-8b3f-4c35aa5f157b",
+                    "path": "IntegerFallback",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TrackingStateWithFallbacks",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "first",
+                    "id": "3c3e17eb-d34c-4a85-9b11-cac5a6777ee0",
+                    "path": "*/{gaze}/trackingState",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "TrackingStateWithFallbacks",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "second",
+                    "id": "3fefdb06-2957-4a54-8523-797e489562f0",
+                    "path": "<XRHMD>/trackingState",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "TrackingStateWithFallbacks",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "third",
+                    "id": "05627670-c204-4413-8993-12d9cf85fccb",
+                    "path": "<XRSimulatedHMD>/trackingState",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "TrackingStateWithFallbacks",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
