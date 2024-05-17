@@ -13,22 +13,29 @@ namespace MixedReality.Toolkit
     {
         /// <summary>
         /// Gets the <see cref="XRNode"/> representing the specified <see cref="InteractorHandedness"/>. If the <see cref="InteractorHandedness"/>
-        /// is other than InteractorHandedness.Left or InteractorHandedness.Right then it defaults to InteractorHandedness.Right.
+        /// is other than InteractorHandedness.Left or InteractorHandedness.Right then it defaults to XRNode defaultValue parameter.
         /// </summary>
         /// <param name="hand">The <see cref="InteractorHandedness"/> value for
         /// which the <see cref="XRNode"/> is requested.</param>
+        /// <param name="defaultValue">The default <see cref="XRNode"/> value to return if the <see cref="InteractorHandedness"/> is neither
+        /// InteractorHandedness.Left nor InteractorHandedness.Right.</param>
         /// <returns>
-        /// <see cref="XRNode"/> representing the specified <see cref="InteractorHandedness"/> with InteractorHandedness.Right as default.
+        /// <see cref="XRNode"/> representing the specified <see cref="InteractorHandedness"/>.
         /// </returns>
-        public static XRNode ToXRNodeWithRightHandDefault(this InteractorHandedness hand)
+
+        /// <summary>
+        /// Gets the <see cref="XRNode"/> representing the specified <see cref="InteractorHandedness"/>. If the <see cref="InteractorHandedness"/>
+        /// </summary>
+        public static XRNode ToXRNode(this InteractorHandedness hand, XRNode defaultValue = XRNode.RightHand)
         {
             switch (hand)
             {
                 case InteractorHandedness.Left:
                     return XRNode.LeftHand;
                 case InteractorHandedness.Right:
-                default:
                     return XRNode.RightHand;
+                default:
+                    return defaultValue;
             }
         }
     }

@@ -472,11 +472,11 @@ namespace MixedReality.Toolkit.Input
                 return;
             }
 
-            bool gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(handedness.ToXRNodeWithRightHandDefault(),
+            bool gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(handedness.ToXRNode(),
                 out bool isPinchReady, out bool isPinching, out float pinchAmount);
             if (!gotPinchData) //Try the other hand if the set hand does not have pinch data.
             {
-                gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(handedness.ToXRNodeWithRightHandDefault() == XRNode.LeftHand ? XRNode.RightHand : XRNode.LeftHand,
+                gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(handedness.ToXRNode() == XRNode.LeftHand ? XRNode.RightHand : XRNode.LeftHand,
                     out isPinchReady, out isPinching, out pinchAmount);
             }
 
