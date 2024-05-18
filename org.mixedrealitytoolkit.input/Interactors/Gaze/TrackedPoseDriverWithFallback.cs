@@ -66,31 +66,49 @@ namespace MixedReality.Toolkit.Input
                 return;
             }
 
-            var positionAction = fallbackPositionAction.action;
             var hasPositionAction = positionAction != null;
             var hasPositionFallbackAction = fallbackPositionAction != null;
 
-            var rotationAction = fallbackRotationAction.action;
             var hasRotationAction = rotationAction != null;
             var hasRotationFallbackAction = fallbackRotationAction != null;
 
             InputTrackingState inputTrackingState = (InputTrackingState)trackingStateInput.action.ReadValue<int>();
 
+            // If default InputTrackingState does not have position and rotation data, use fallback if it exists
             if (!inputTrackingState.HasFlag(InputTrackingState.Position) && !inputTrackingState.HasFlag(InputTrackingState.Rotation) && FallbackTrackingStateAction.action != null)
             {
                 inputTrackingState = (InputTrackingState)FallbackTrackingStateAction.action.ReadValue<int>();
             }
 
-            // If no position data then swap the position action with the fallback position action if it exists
-            if (!inputTrackingState.HasFlag(InputTrackingState.Position) && hasPositionAction && hasPositionFallbackAction)
+            bool neededToGetFallbackData = false;
+            Vector3 position = Vector3.zero;
+            Quaternion rotation = Quaternion.identity;
+
+            // If no position data then use the data from the fallback action if it exists
+            if (!inputTrackingState.HasFlag(InputTrackingState.Position) && hasPositionFallbackAction)
             {
-                (fallbackPositionAction, positionInput) = (positionInput, fallbackPositionAction);
+                neededToGetFallbackData = true;
+                position = fallbackPositionAction.action.ReadValue<Vector3>();
+            }
+            else if (hasPositionAction)
+            {
+                position = positionAction.ReadValue<Vector3>(); //get a hold on the position data in case orientation data is obtained from fallback action
             }
 
-            // If no rotation data then swap the rotation action with the fallback rotation action if it exists
-            if (!inputTrackingState.HasFlag(InputTrackingState.Rotation) && hasRotationAction && hasRotationFallbackAction)
+            // If no rotation data then use the data from the fallback action if it exists
+            if (!inputTrackingState.HasFlag(InputTrackingState.Rotation) && hasRotationFallbackAction)
             {
-                (fallbackRotationAction, rotationInput) = (rotationInput, fallbackRotationAction);
+                neededToGetFallbackData = true;
+                rotation = fallbackRotationAction.action.ReadValue<Quaternion>();
+            }
+            else if (hasRotationAction)
+            {
+                rotation = rotationAction.ReadValue<Quaternion>(); //get a hold on the rotation data in case position data was obtained from fallback action
+            }
+
+            if (neededToGetFallbackData) //because either position, rotation, or both data were obtained from fallback actions
+            {
+                SetLocalTransform(position, rotation);
             }
         }
         #endregion ActionBasedController Overrides 
