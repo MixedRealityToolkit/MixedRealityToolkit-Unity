@@ -10,8 +10,8 @@ namespace MixedReality.Toolkit
     /// A basic convenience registry allowing easy reference to Tracked Pose Driver components.
     /// </summary>
     [DisallowMultipleComponent]
-    [AddComponentMenu("MRTK/Core/XRI Interactor Set Lookup")]
-    public class XRIInteractorSetLookup : MonoBehaviour
+    [AddComponentMenu("MRTK/Core/Tracked Pose Driver Lookup")]
+    public class TrackedPoseDriverLookup : MonoBehaviour
     {
         // Gaze
         [SerializeField]
@@ -60,7 +60,7 @@ namespace MixedReality.Toolkit
         /// </summary>
         private void OnValidate()
         {
-            if (FindObjectUtility.FindObjectsByType<TrackedPoseDriver>(false, false).Length > 1)
+            if (FindObjectUtility.FindObjectsByType<TrackedPoseDriverLookup>(false, false).Length > 1)
             {
                 Debug.LogWarning("Found more than one instance of the ControllerLookup class in the hierarchy. There should only be one");
             }
