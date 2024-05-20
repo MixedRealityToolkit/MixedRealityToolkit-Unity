@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -12,6 +13,7 @@ namespace MixedReality.Toolkit
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("MRTK/Core/Controller Lookup")]
+    [Obsolete]
     public class ControllerLookup : MonoBehaviour
     {
         // Gaze
