@@ -1,10 +1,12 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -22,6 +24,31 @@ namespace MixedReality.Toolkit.Input
     [AddComponentMenu("MRTK/Input/Tracked Pose Driver (with Fallbacks)")]
     public class TrackedPoseDriverWithFallback : TrackedPoseDriver
     {
+        /// <summary>
+        /// These are the same flags as TrackingState in <seealso cref="TrackedPoseDriver"/> they are repeated here because enum
+        /// TrackingStates is not public in TrackedPoseDriver class (as of Unity.InputSystem 1.8.1.0).
+        /// </summary>
+        [Flags]
+        public enum TDPwithFallbackTrackingStates
+        {
+            /// <summary>
+            /// Position and rotation are not valid.
+            /// </summary>
+            None,
+
+            /// <summary>
+            /// Position is valid.
+            /// See <c>InputTrackingState.Position</c>.
+            /// </summary>
+            Position = 1 << 0,
+
+            /// <summary>
+            /// Rotation is valid.
+            /// See <c>InputTrackingState.Rotation</c>.
+            /// </summary>
+            Rotation = 1 << 1,
+        }
+
         #region Fallback actions values
 
         [SerializeField, Tooltip("The fallback Input System action to use for Position Tracking for this GameObject when the default position input action has no data. Must be a Vector3Control Control.")]
@@ -73,11 +100,17 @@ namespace MixedReality.Toolkit.Input
             var hasRotationFallbackAction = fallbackRotationAction != null;
 
             InputTrackingState inputTrackingState = (InputTrackingState)trackingStateInput.action.ReadValue<int>();
+            InputTrackingState fallbackInputTrackingState = InputTrackingState.None;
 
             // If default InputTrackingState does not have position and rotation data, use fallback if it exists
             if (!inputTrackingState.HasFlag(InputTrackingState.Position) && !inputTrackingState.HasFlag(InputTrackingState.Rotation) && FallbackTrackingStateAction.action != null)
             {
                 inputTrackingState = (InputTrackingState)FallbackTrackingStateAction.action.ReadValue<int>();
+            }
+
+            if (FallbackTrackingStateAction.action != null)
+            {
+                fallbackInputTrackingState = (InputTrackingState)FallbackTrackingStateAction.action.ReadValue<int>();
             }
 
             bool neededToGetFallbackData = false;
@@ -108,7 +141,34 @@ namespace MixedReality.Toolkit.Input
 
             if (neededToGetFallbackData) //because either position, rotation, or both data were obtained from fallback actions
             {
-                SetLocalTransform(position, rotation);
+                SetLocalTransformFromFallback(position, rotation, (TDPwithFallbackTrackingStates)fallbackInputTrackingState);
+            }
+        }
+
+        protected virtual void SetLocalTransformFromFallback(Vector3 newPosition, Quaternion newRotation, TDPwithFallbackTrackingStates currentFallbackTrackingState)
+        {
+            var positionValid = ignoreTrackingState || (currentFallbackTrackingState & TDPwithFallbackTrackingStates.Position) != 0;
+            var rotationValid = ignoreTrackingState || (currentFallbackTrackingState & TDPwithFallbackTrackingStates.Rotation) != 0;
+
+#if HAS_SET_LOCAL_POSITION_AND_ROTATION
+            if (this.TrackingType == TrackingType.RotationAndPosition && rotationValid && positionValid)
+            {
+                transform.SetLocalPositionAndRotation(newPosition, newRotation);
+                return;
+            }
+#endif
+            if (rotationValid &&
+                (trackingType == TrackingType.RotationAndPosition ||
+                 trackingType == TrackingType.RotationOnly))
+            {
+                transform.localRotation = newRotation;
+            }
+
+            if (positionValid &&
+                (trackingType == TrackingType.RotationAndPosition ||
+                 trackingType == TrackingType.PositionOnly))
+            {
+                transform.localPosition = newPosition;
             }
         }
         #endregion ActionBasedController Overrides 
