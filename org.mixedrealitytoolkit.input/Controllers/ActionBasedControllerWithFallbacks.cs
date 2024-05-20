@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
@@ -18,6 +19,7 @@ namespace MixedReality.Toolkit.Input
     /// state will have no position and no rotation data. In this case, the controller may want to fallback to head pose.
     /// </remarks>
     [AddComponentMenu("MRTK/Input/XR Controller (Action-based with Fallbacks)")]
+    [Obsolete]
     public class ActionBasedControllerWithFallbacks : ActionBasedController
     {
         #region Fallback actions values
