@@ -114,8 +114,8 @@ namespace MixedReality.Toolkit.Input
             }
 
             bool neededToGetFallbackData = false;
-            Vector3 position = Vector3.zero;
-            Quaternion rotation = Quaternion.identity;
+            Vector3 position = transform.localPosition;
+            Quaternion rotation = transform.localRotation;
 
             // If no position data then use the data from the fallback action if it exists
             if (!inputTrackingState.HasFlag(InputTrackingState.Position) && hasPositionFallbackAction)
@@ -123,20 +123,12 @@ namespace MixedReality.Toolkit.Input
                 neededToGetFallbackData = true;
                 position = fallbackPositionAction.action.ReadValue<Vector3>();
             }
-            else if (hasPositionAction)
-            {
-                position = positionAction.ReadValue<Vector3>(); //get a hold on the position data in case orientation data is obtained from fallback action
-            }
 
             // If no rotation data then use the data from the fallback action if it exists
             if (!inputTrackingState.HasFlag(InputTrackingState.Rotation) && hasRotationFallbackAction)
             {
                 neededToGetFallbackData = true;
                 rotation = fallbackRotationAction.action.ReadValue<Quaternion>();
-            }
-            else if (hasRotationAction)
-            {
-                rotation = rotationAction.ReadValue<Quaternion>(); //get a hold on the rotation data in case position data was obtained from fallback action
             }
 
             if (neededToGetFallbackData) //because either position, rotation, or both data were obtained from fallback actions
