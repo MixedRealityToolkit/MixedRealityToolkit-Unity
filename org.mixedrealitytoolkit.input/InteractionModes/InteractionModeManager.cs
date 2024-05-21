@@ -15,7 +15,6 @@ namespace MixedReality.Toolkit.Input
     /// Used to manage interactors and ensure that each several interactors for a 'controller' aren't clashing and firing at the same time
     /// </summary>
     [AddComponentMenu("MRTK/Input/Interaction Mode Manager")]
-    [RequireComponent(typeof(TrackedPoseDriverLookup))]
     public class InteractionModeManager : MonoBehaviour
     {
         /// <summary>
