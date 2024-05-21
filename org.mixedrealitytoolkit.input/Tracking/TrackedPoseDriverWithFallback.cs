@@ -137,7 +137,7 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
-        protected virtual void SetLocalTransformFromFallback(Vector3 newPosition, Quaternion newRotation, TDPwithFallbackTrackingStates currentFallbackTrackingState)
+        private void SetLocalTransformFromFallback(Vector3 newPosition, Quaternion newRotation, TDPwithFallbackTrackingStates currentFallbackTrackingState)
         {
             var positionValid = ignoreTrackingState || (currentFallbackTrackingState & TDPwithFallbackTrackingStates.Position) != 0;
             var rotationValid = ignoreTrackingState || (currentFallbackTrackingState & TDPwithFallbackTrackingStates.Rotation) != 0;
