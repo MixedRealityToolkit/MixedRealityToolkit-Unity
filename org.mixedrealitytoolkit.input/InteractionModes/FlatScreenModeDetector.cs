@@ -1,8 +1,11 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -18,7 +21,10 @@ namespace MixedReality.Toolkit.Input
 
         public InteractionMode ModeOnDetection => flatScreenInteractionMode;
 
-        protected ControllerLookup controllerLookup = null;
+        [Obsolete]
+        protected ControllerLookup controllerLookup = null; //Note: Will be removed for XRI3 migration completion
+
+        protected TrackedPoseDriverLookup trackedPoseDriverLookup = null;
 
         /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
@@ -26,6 +32,7 @@ namespace MixedReality.Toolkit.Input
         protected void Awake()
         {
             controllerLookup = ComponentCache<ControllerLookup>.FindFirstActiveInstance();
+            trackedPoseDriverLookup = ComponentCache<TrackedPoseDriverLookup>.FindFirstActiveInstance();
         }
 
         /// <inheritdoc />
@@ -34,7 +41,21 @@ namespace MixedReality.Toolkit.Input
         public bool IsModeDetected()
         {
             // Flat screen mode is only active if the Left and Right Hand Controllers aren't being tracked
-            return !controllerLookup.LeftHandController.currentControllerState.inputTrackingState.HasPositionAndRotation() && !controllerLookup.RightHandController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+            if (controllerLookup != null) //Note: Will be removed for XRI3 migration completion
+            {
+                return !controllerLookup.LeftHandController.currentControllerState.inputTrackingState.HasPositionAndRotation() && !controllerLookup.RightHandController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+            }
+            else if (trackedPoseDriverLookup != null)
+            {
+                InputTrackingState leftHandInputTrackingState = (InputTrackingState)trackedPoseDriverLookup.LeftHandTrackedPoseDriver.trackingStateInput.action.ReadValue<int>();
+                InputTrackingState rightHandInputTrackingState = (InputTrackingState)trackedPoseDriverLookup.RightHandTrackedPoseDriver.trackingStateInput.action.ReadValue<int>();
+                return !leftHandInputTrackingState.HasPositionAndRotation() && !rightHandInputTrackingState.HasPositionAndRotation();
+            }
+            else
+            {
+                Debug.LogWarning("Neither controllerLookup nor trackedPoseDriverLookup are set, unable to detect mode.");
+                return false;
+            }
         }
     }
 }
