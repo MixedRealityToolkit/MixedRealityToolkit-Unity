@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
-namespace MixedReality.Toolkit
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A basic convenience registry allowing easy reference to Tracked Pose Driver components.

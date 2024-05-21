@@ -1,6 +1,8 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using MixedReality.Toolkit.Input;
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,12 +17,21 @@ namespace MixedReality.Toolkit.SpatialManipulation
     [HelpURL("https://docs.microsoft.com/windows/mixed-reality/mrtk-unity/features/ux-building-blocks/solvers/solver")]
     public abstract class Solver : MonoBehaviour
     {
-        private static ControllerLookup controllerLookup;
+        [Obsolete]
+        private static ControllerLookup controllerLookup; //Note: Will be removed for XRI3 migration completion
 
         /// <summary>
         /// Get the <see cref="Toolkit.ControllerLookup">ControllerLookup</see> that will be used all application <see cref="Solver"/> objects.
         /// </summary>
-        protected static ControllerLookup ControllerLookup => controllerLookup;
+        [Obsolete]
+        protected static ControllerLookup ControllerLookup => controllerLookup; //Note: Will be removed for XRI3 migration completion
+
+        private static TrackedPoseDriverLookup trackedPoseDriverLookup;
+
+        /// <summary>
+        /// Get the <see cref="Toolkit.TrackedPoseDriverLookup">TrackedPoseDriverLookup</see> that will be used by all application <see cref="Solver"/> objects.
+        /// </summary>
+        protected static TrackedPoseDriverLookup TrackedPoseDriverLookup => trackedPoseDriverLookup;
 
         [SerializeField]
         [Tooltip("If true, the position and orientation will be calculated, but not applied, for other components to use")]
@@ -218,6 +229,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
 
             GoalScale = maintainScaleOnInitialization ? transform.localScale : Vector3.one;
+
+            if (trackedPoseDriverLookup == null)
+            {
+                trackedPoseDriverLookup = ComponentCache<TrackedPoseDriverLookup>.FindFirstActiveInstance();
+            }
         }
 
         /// <summary>
@@ -264,6 +280,13 @@ namespace MixedReality.Toolkit.SpatialManipulation
             if (controllerLookup == null)
             {
                 controllerLookup = ComponentCache<ControllerLookup>.FindFirstActiveInstance();
+            }
+
+            // Find the controller lookup class in the hierarchy. Solvers that require access to the
+            // left, right or gaze TrackedPoseDriver will use the references stored in this class.
+            if (trackedPoseDriverLookup == null)
+            {
+                trackedPoseDriverLookup = ComponentCache<TrackedPoseDriverLookup>.FindFirstActiveInstance();
             }
         }
 
