@@ -29,7 +29,7 @@ namespace MixedReality.Toolkit.Input
         /// TrackingStates is not public in TrackedPoseDriver class (as of Unity.InputSystem 1.8.1.0).
         /// </summary>
         [Flags]
-        public enum TDPwithFallbackTrackingStates
+        private enum TDPwithFallbackTrackingStates
         {
             /// <summary>
             /// Position and rotation are not valid.
