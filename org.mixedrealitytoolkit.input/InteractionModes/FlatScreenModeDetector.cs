@@ -45,7 +45,13 @@ namespace MixedReality.Toolkit.Input
             {
                 return !controllerLookup.LeftHandController.currentControllerState.inputTrackingState.HasPositionAndRotation() && !controllerLookup.RightHandController.currentControllerState.inputTrackingState.HasPositionAndRotation();
             }
-            else if (trackedPoseDriverLookup != null)
+            else if (trackedPoseDriverLookup != null &&
+                     trackedPoseDriverLookup.LeftHandTrackedPoseDriver != null &&
+                     trackedPoseDriverLookup.RightHandTrackedPoseDriver != null &&
+                     trackedPoseDriverLookup.LeftHandTrackedPoseDriver.trackingStateInput != null &&
+                     trackedPoseDriverLookup.RightHandTrackedPoseDriver.trackingStateInput != null &&
+                     trackedPoseDriverLookup.LeftHandTrackedPoseDriver.trackingStateInput.action != null &&
+                     trackedPoseDriverLookup.RightHandTrackedPoseDriver.trackingStateInput.action != null)
             {
                 InputTrackingState leftHandInputTrackingState = (InputTrackingState)trackedPoseDriverLookup.LeftHandTrackedPoseDriver.trackingStateInput.action.ReadValue<int>();
                 InputTrackingState rightHandInputTrackingState = (InputTrackingState)trackedPoseDriverLookup.RightHandTrackedPoseDriver.trackingStateInput.action.ReadValue<int>();
