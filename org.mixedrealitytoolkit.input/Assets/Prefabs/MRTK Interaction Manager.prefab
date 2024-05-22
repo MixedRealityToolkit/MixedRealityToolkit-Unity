@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7821592117992173402}
   - component: {fileID: 7821592117992173380}
-  - component: {fileID: 6474832524069219057}
   - component: {fileID: 7601486046380051481}
-  - component: {fileID: 7078589928288127794}
+  - component: {fileID: 919676360596656614}
   m_Layer: 0
   m_Name: MRTK Interaction Manager
   m_TagString: Untagged
@@ -82,21 +81,6 @@ MonoBehaviour:
   defaultMode:
     name: Far
     priority: 0
---- !u!114 &6474832524069219057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7821592117992173381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a7683d16dfabed47b17f1f2cbc4de1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gazeController: {fileID: 0}
-  leftHandController: {fileID: 0}
-  rightHandController: {fileID: 0}
 --- !u!114 &7601486046380051481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
---- !u!114 &7078589928288127794
+--- !u!114 &919676360596656614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
