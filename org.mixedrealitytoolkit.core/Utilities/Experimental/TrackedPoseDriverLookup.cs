@@ -7,7 +7,7 @@ using UnityEngine.InputSystem.XR;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// A basic convenience registry allowing easy reference to Tracked Pose Driver components.
+    /// A basic convenience registry allowing easy reference to <see cref="TrackedPoseDriver"/> components.
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("MRTK/Core/Tracked Pose Driver Lookup")]
