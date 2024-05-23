@@ -55,27 +55,6 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Holds a reference to the <see cref="HandModel"/> associated with this interactor's parent if it exists.
-        /// </summary>
-        private HandModel handModel = null;
-
-        /// <summary>
-        /// The <see cref="HandModel"/> associated with this interactor.  The <see cref="HandModel"/> is obtained from the parent if it hasn't been set yet.
-        /// </summary>
-        private HandModel HandModel
-        {
-            get
-            {
-                if (handModel == null) //Try to get the HandModel component from the parent if it hasn't been set yet
-                {
-                    handModel = GetComponentInParent<HandModel>();
-                }
-                return handModel;
-            }
-        }
-
-
-        /// <summary>
         /// Is this ray currently hovering a UnityUI/Canvas element?
         /// </summary>
         public bool HasUIHover => TryGetUIModel(out TrackedDeviceModel model) && model.currentRaycast.isValid;
@@ -154,15 +133,10 @@ namespace MixedReality.Toolkit.Input
                 }
 #pragma warning restore CS0612
 #pragma warning restore CS0618
-                else if (HandModel != null)
-                {
-                    return HandModel.HandNode.ToHandedness();
-                }
                 else
                 {
-                    Debug.LogWarning($"Cannot determine Handedness of {name} because there is no associated HandModel.");
+                    return handedness.ToMRTKHandedness();
                 }
-                return Handedness.None; //If neither an XRController nor a HandModel is associated with this interactor then return None as handedness.
             }
         }
 
@@ -278,16 +252,12 @@ namespace MixedReality.Toolkit.Input
                         }
 #pragma warning restore CS0612
 #pragma warning restore CS0618
-                        else if (HandModel != null)
+                        else
                         {
-                            if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(HandModel.HandNode, out isPalmFacingAway) ?? true)
+                            if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handedness.ToXRNode(), out isPalmFacingAway) ?? true)
                             {
                                 hoverActive &= isPalmFacingAway;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"Unable to determine if {name} is hovering because there is neither an XRBaseController nor a HandModel associated with the parent of this interactor.");
                         }
                     }
 
