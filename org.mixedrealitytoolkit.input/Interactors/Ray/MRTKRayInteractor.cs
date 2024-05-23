@@ -38,13 +38,13 @@ namespace MixedReality.Toolkit.Input
         /// Holds a reference to the deprecated <see cref="XRBaseController"/> associated to this interactor if it exists.  This
         /// will be removed when the XRI3 migration is completed and all *Controller* stuff is removed.
         /// </summary>
-        [Obsolete]
+        [Obsolete("Deprecated, please use trackedPoseDriver instead.")]
         private XRBaseController xrBaseController = null;
 
         /// <summary>
         /// Property for accessing xrBaseController, will be removed for XRI3 migration completion.
         /// </summary>
-        [Obsolete]
+        [Obsolete("Deprecated, please use TrackedPoseDriver instead.")]
         private XRBaseController XRBaseController
         {
             get
@@ -60,8 +60,8 @@ namespace MixedReality.Toolkit.Input
 
         /// <summary>
         /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.  This field
-        /// is popualted the first time IsTracked property is accessed AND there is no <see cref="XRBaseController"/> component
-        /// associated to to interactor.
+        /// is populated the first time IsTracked property is accessed AND there is no <see cref="XRBaseController"/> component
+        /// associated to the interactor.
         /// </summary>
         private TrackedPoseDriver trackedPoseDriver = null;
 
@@ -72,7 +72,7 @@ namespace MixedReality.Toolkit.Input
 
         /// <summary>
         /// Is this ray currently selecting a UnityUI/Canvas element?
-        /// </summary> 
+        /// </summary>
         public bool HasUISelection => HasUIHover && isUISelectActive;
 
         /// <summary>
@@ -83,6 +83,7 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
+                #pragma warning disable CS0618 // Type or member is obsolete
                 if (XRBaseController == null) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
                 {
                     trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
@@ -96,6 +97,7 @@ namespace MixedReality.Toolkit.Input
 
                 //If the XRController has already been set then use it to check if the controller is tracked
                 return XRBaseController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+                #pragma warning disable CS0618 // Type or member is obsolete
             }
         }
 
