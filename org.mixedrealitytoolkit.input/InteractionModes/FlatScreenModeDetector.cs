@@ -21,8 +21,8 @@ namespace MixedReality.Toolkit.Input
 
         public InteractionMode ModeOnDetection => flatScreenInteractionMode;
 
-        [Obsolete]
-        protected ControllerLookup controllerLookup = null; //Note: Will be removed for XRI3 migration completion
+        [Obsolete("Deprecated, please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
+        protected ControllerLookup controllerLookup = null;
 
         protected TrackedPoseDriverLookup trackedPoseDriverLookup = null;
 
