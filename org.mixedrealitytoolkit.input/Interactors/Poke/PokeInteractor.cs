@@ -4,6 +4,8 @@
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -20,6 +22,26 @@ namespace MixedReality.Toolkit.Input
         IPokeInteractor,
         IHandedInteractor
     {
+        /// <summary>
+        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// </summary>
+        private TrackedPoseDriver trackedPoseDriver = null;
+
+        /// <summary>
+        /// Property for accessing trackedPoseDriver which holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// </summary>
+        private TrackedPoseDriver TrackedPoseDriver
+        {
+            get
+            {
+                if (trackedPoseDriver == null) //Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+                {
+                    trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+                }
+                return trackedPoseDriver;
+            }
+        }
+
         /// <summary>
         /// Holds a reference to the <see cref="HandModel"/> associated with this interactor's parent if it exists.
         /// </summary>
@@ -123,7 +145,7 @@ namespace MixedReality.Toolkit.Input
                 {
                     Debug.LogWarning($"Cannot determine Handedness of {name} because there is no associated HandModel.");
                 }
-                return Handedness.None; //If neither an XRController nor a TrackedPoseDriver is associated with this interactor then return None as handedness.
+                return Handedness.None; //If neither an XRController nor a HandModel is associated with this interactor then return None as handedness.
                 #pragma warning restore CS0612
                 #pragma warning restore CS0618
             }
@@ -190,7 +212,24 @@ namespace MixedReality.Toolkit.Input
         public override bool isHoverActive
         {
             // Only be available for hovering if the joint or controller is tracked.
-            get => base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || pokePointTracked);
+            get
+            {
+                #pragma warning disable CS0618 // Type or member is obsolete
+                if (xrController != null)
+                {
+                    return base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || pokePointTracked);
+                }
+                else if (TrackedPoseDriver != null)
+                {
+                    return base.isHoverActive && (((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation() || pokePointTracked);
+                }
+                else
+                {
+                    Debug.LogWarning($"Unable to determine if {name} isHoverActive because there is neither an XRController nor a TrackedPoseDriver associated to it.");
+                }
+                return false;
+                #pragma warning restore CS0618
+            }
         }
 
         /// <inheritdoc/>
