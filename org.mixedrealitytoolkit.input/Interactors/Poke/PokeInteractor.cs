@@ -229,7 +229,7 @@ namespace MixedReality.Toolkit.Input
                     }
                     else
                     {
-                        // If we don't have a poke pose, reset to whatever our parent XRController's pose is.
+                        // If we don't have a poke pose, reset to whatever our parent's pose is.
                         transform.localPosition = Vector3.zero;
                         transform.localRotation = Quaternion.identity;
                     }
