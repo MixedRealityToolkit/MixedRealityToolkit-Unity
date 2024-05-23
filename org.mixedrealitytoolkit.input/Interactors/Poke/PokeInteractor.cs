@@ -105,7 +105,29 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
-        Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+                #pragma warning disable CS0618 // Type or member is obsolete
+                #pragma warning disable CS0612 // Type or member is obsolete
+                if (xrController != null)
+                {
+                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                }
+                else if (HandModel != null)
+                {
+                    return HandModel.HandNode.ToHandedness();
+                }
+                else
+                {
+                    Debug.LogWarning($"Cannot determine Handedness of {name} because there is no associated HandModel.");
+                }
+                return Handedness.None; //If neither an XRController nor a TrackedPoseDriver is associated with this interactor then return None as handedness.
+                #pragma warning restore CS0612
+                #pragma warning restore CS0618
+            }
+        }
 
         #endregion IHandedInteractor
 
