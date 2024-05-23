@@ -96,7 +96,7 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
-#pragma warning disable CS0618 // Type or member is obsolete
+                #pragma warning disable CS0618 // Type or member is obsolete
                 if (XRBaseController == null) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
                 {
                     if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver component then it is not tracked
@@ -110,7 +110,7 @@ namespace MixedReality.Toolkit.Input
 
                 //If the XRController has already been set then use it to check if the controller is tracked
                 return XRBaseController.currentControllerState.inputTrackingState.HasPositionAndRotation();
-#pragma warning disable CS0618 // Type or member is obsolete
+                #pragma warning restore CS0618
             }
         }
 
@@ -145,7 +145,33 @@ namespace MixedReality.Toolkit.Input
 
         #region IHandedInteractor
 
-        Handedness IHandedInteractor.Handedness => (XRBaseController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+                #pragma warning disable CS0618 // Type or member is obsolete
+                #pragma warning disable CS0612 // Type or member is obsolete
+                if (XRBaseController != null)
+                {
+                    return (XRBaseController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                }
+                else if (TrackedPoseDriver != null)
+                {
+                    HandModel handModel = GetComponentInParent<HandModel>();
+                    if (handModel != null)
+                    {
+                        return handModel.HandNode.ToHandedness();
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Cannot determin Handedness of {name} because there is no associated HandModel.");
+                    }
+                }
+                return Handedness.None; //If neither an XRController nor a TrackedPoseDriver is associated with this interactor then return None as handedness.
+                #pragma warning restore CS0612
+                #pragma warning restore CS0618
+            }
+        }
 
         #endregion IHandedInteractor
 
