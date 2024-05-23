@@ -176,16 +176,13 @@ namespace MixedReality.Toolkit.Input
                 {
                     return (XRBaseController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
                 }
-                else if (TrackedPoseDriver != null)
+                else if (HandModel != null)
                 {
-                    if (HandModel != null)
-                    {
-                        return HandModel.HandNode.ToHandedness();
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Cannot determine Handedness of {name} because there is no associated HandModel.");
-                    }
+                    return HandModel.HandNode.ToHandedness();
+                }
+                else
+                {
+                    Debug.LogWarning($"Cannot determine Handedness of {name} because there is no associated HandModel.");
                 }
                 return Handedness.None; //If neither an XRController nor a TrackedPoseDriver is associated with this interactor then return None as handedness.
                 #pragma warning restore CS0612
