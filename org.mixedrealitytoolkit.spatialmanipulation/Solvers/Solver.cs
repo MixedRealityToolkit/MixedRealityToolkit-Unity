@@ -229,11 +229,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
 
             GoalScale = maintainScaleOnInitialization ? transform.localScale : Vector3.one;
-
-            if (trackedPoseDriverLookup == null)
-            {
-                trackedPoseDriverLookup = ComponentCache<TrackedPoseDriverLookup>.FindFirstActiveInstance();
-            }
         }
 
         /// <summary>
