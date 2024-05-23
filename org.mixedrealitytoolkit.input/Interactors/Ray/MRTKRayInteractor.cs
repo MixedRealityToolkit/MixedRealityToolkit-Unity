@@ -164,7 +164,7 @@ namespace MixedReality.Toolkit.Input
                     }
                     else
                     {
-                        Debug.LogWarning($"Cannot determin Handedness of {name} because there is no associated HandModel.");
+                        Debug.LogWarning($"Cannot determine Handedness of {name} because there is no associated HandModel.");
                     }
                 }
                 return Handedness.None; //If neither an XRController nor a TrackedPoseDriver is associated with this interactor then return None as handedness.
@@ -178,7 +178,27 @@ namespace MixedReality.Toolkit.Input
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
-        public float SelectProgress => XRBaseController.selectInteractionState.value;
+        public float SelectProgress
+        {
+            get
+            {
+                #pragma warning disable CS0618 // Type or member is obsolete
+                if (XRBaseController != null)
+                {
+                    return XRBaseController.selectInteractionState.value;
+                }
+                else if (selectInput != null)
+                {
+                    return selectInput.ReadValue();
+                }
+                else
+                {
+                    Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is neither an XRBaseController nor the Input Configuration has Select Input Actions referenced to it.");
+                }
+                return 0;
+                #pragma warning restore CS0618
+            }
+        }
 
         #endregion IVariableSelectInteractor
 
