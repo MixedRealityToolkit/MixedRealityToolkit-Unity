@@ -20,6 +20,26 @@ namespace MixedReality.Toolkit.Input
         IPokeInteractor,
         IHandedInteractor
     {
+        /// <summary>
+        /// Holds a reference to the <see cref="HandModel"/> associated with this interactor's parent if it exists.
+        /// </summary>
+        private HandModel handModel = null;
+
+        /// <summary>
+        /// The <see cref="HandModel"/> associated with this interactor.  The <see cref="HandModel"/> is obtained from the parent if it hasn't been set yet.
+        /// </summary>
+        private HandModel HandModel
+        {
+            get
+            {
+                if (handModel == null) //Try to get the HandModel component from the parent if it hasn't been set yet
+                {
+                    handModel = GetComponentInParent<HandModel>();
+                }
+                return handModel;
+            }
+        }
+
         #region PokeInteractor
 
         [SerializeReference]
@@ -49,12 +69,32 @@ namespace MixedReality.Toolkit.Input
         protected virtual bool TryGetPokeRadius(out float radius)
         {
             HandJointPose jointPose = default;
-            if (xrController is ArticulatedHandController handController
-                && (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
+
+            #pragma warning disable CS0618 // Type or member is obsolete
+            #pragma warning disable CS0612 // Type or member is obsolete
+            if (xrController != null)
             {
-                radius = jointPose.Radius;
-                return true;
+                if (xrController is ArticulatedHandController handController
+                    && (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
+                {
+                    radius = jointPose.Radius;
+                    return true;
+                }
             }
+            else if (HandModel != null)
+            {
+                if (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(HandModel.HandNode, out jointPose) ?? false)
+                {
+                    radius = jointPose.Radius;
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"Unable to get poke radius in {name} because there is neither an XRController nor a HandModel (in the Interactor's parent) associated to it.");
+            }
+            #pragma warning restore CS0612
+            #pragma warning restore CS0618
 
             radius = default;
             return false;
