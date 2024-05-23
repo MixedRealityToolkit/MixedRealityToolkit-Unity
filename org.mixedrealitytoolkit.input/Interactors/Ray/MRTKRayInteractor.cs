@@ -102,7 +102,7 @@ namespace MixedReality.Toolkit.Input
                     }
 
                     //If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
-                    ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+                    return ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
                 }
 
                 //If the XRController has already been set then use it to check if the controller is tracked
