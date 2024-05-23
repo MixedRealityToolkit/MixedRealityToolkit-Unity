@@ -16,13 +16,13 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// A wrapper for the XRRayInteractor which stores extra information for MRTK management/services
+    /// A wrapper for the <see cref="XRRayInteractor"/> which stores extra information for MRTK management/services
     /// </summary>
     [AddComponentMenu("MRTK/Input/MRTK Ray Interactor")]
     // This execution order ensures that the MRTKRayInteractor runs its update function right after the
-    // XRController. We do this because the MRTKRayInteractor needs to set its own pose after the parent controller transform,
+    // <see cref="XRController"/>. We do this because the <see cref="MRTKRayInteractor"/> needs to set its own pose after the parent controller transform,
     // but before any physics raycast calls are made to determine selection. The earliest a physics call can be made is within
-    // the UIInputModule, which has an update order much higher than XRControllers.
+    // the UIInputModule, which has an update order much higher than <see cref="XRController"/>s.
     // TODO: Examine the update order of other interactors in the future with respect to when their physics calls happen,
     // or create a system to keep ensure interactor poses aren't ever implicitly set via parenting.
     [DefaultExecutionOrder(XRInteractionUpdateOrder.k_Controllers + 1)]
