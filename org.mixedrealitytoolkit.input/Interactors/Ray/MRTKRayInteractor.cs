@@ -59,11 +59,24 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.  This field
-        /// is populated the first time IsTracked property is accessed AND there is no <see cref="XRBaseController"/> component
-        /// associated to the interactor.
+        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
         /// </summary>
         private TrackedPoseDriver trackedPoseDriver = null;
+
+        /// <summary>
+        /// Property for accessing trackedPoseDriver which holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// </summary>
+        private TrackedPoseDriver TrackedPoseDriver
+        {
+            get
+            {
+                if (trackedPoseDriver == null) //Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+                {
+                    trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+                }
+                return trackedPoseDriver;
+            }
+        }
 
         /// <summary>
         /// Is this ray currently hovering a UnityUI/Canvas element?
@@ -83,21 +96,21 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
-                #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
                 if (XRBaseController == null) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
                 {
-                    trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
-                    if (trackedPoseDriver == null) //If TrackedPoseDriver was not found either then the controller is not tracked
+                    if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver component then it is not tracked
                     {
                         return false;
                     }
-                    //If a TrackedPoseDriver was found or was already set then use it to check if this interactor is tracked
-                    ((InputTrackingState)trackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+
+                    //If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
+                    ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
                 }
 
                 //If the XRController has already been set then use it to check if the controller is tracked
                 return XRBaseController.currentControllerState.inputTrackingState.HasPositionAndRotation();
-                #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
             }
         }
 
