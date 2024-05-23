@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using MixedReality.Toolkit.Subsystems;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -33,20 +35,69 @@ namespace MixedReality.Toolkit.Input
         #region MRTKRayInteractor
 
         /// <summary>
+        /// Holds a reference to the deprecated <see cref="XRBaseController"/> associated to this interactor if it exists.  This
+        /// will be removed when the XRI3 migration is completed and all *Controller* stuff is removed.
+        /// </summary>
+        [Obsolete]
+        private XRBaseController xrBaseController = null;
+
+        /// <summary>
+        /// Property for accessing xrBaseController, will be removed for XRI3 migration completion.
+        /// </summary>
+        [Obsolete]
+        private XRBaseController XRBaseController
+        {
+            get
+            {
+                //Note: This property will be removed when the XRI3 migration is completed and all *Controller* stuff is removed.
+                if (xrBaseController == null) //Try to get the XRController component from the parent if it hasn't been set yet
+                {
+                    xrBaseController = GetComponentInParent<XRBaseController>();
+                }
+                return xrBaseController;
+            }
+        }
+
+        /// <summary>
+        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.  This field
+        /// is popualted the first time IsTracked property is accessed AND there is no <see cref="XRBaseController"/> component
+        /// associated to to interactor.
+        /// </summary>
+        private TrackedPoseDriver trackedPoseDriver = null;
+
+        /// <summary>
         /// Is this ray currently hovering a UnityUI/Canvas element?
         /// </summary>
         public bool HasUIHover => TryGetUIModel(out TrackedDeviceModel model) && model.currentRaycast.isValid;
 
         /// <summary>
         /// Is this ray currently selecting a UnityUI/Canvas element?
-        /// </summary>
+        /// </summary> 
         public bool HasUISelection => HasUIHover && isUISelectActive;
 
         /// <summary>
         /// Used to check if the parent controller is tracked or not
         /// Hopefully this becomes part of the base Unity XRI API.
         /// </summary>
-        private bool IsTracked => xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+        private bool IsTracked
+        {
+            get
+            {
+                if (XRBaseController == null) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
+                {
+                    trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+                    if (trackedPoseDriver == null) //If TrackedPoseDriver was not found either then the controller is not tracked
+                    {
+                        return false;
+                    }
+                    //If a TrackedPoseDriver was found or was already set then use it to check if this interactor is tracked
+                    ((InputTrackingState)trackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+                }
+
+                //If the XRController has already been set then use it to check if the controller is tracked
+                return XRBaseController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+            }
+        }
 
         /// <summary>
         /// Cached reference to hands aggregator for efficient per-frame use.
@@ -79,14 +130,14 @@ namespace MixedReality.Toolkit.Input
 
         #region IHandedInteractor
 
-        Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+        Handedness IHandedInteractor.Handedness => (XRBaseController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
 
         #endregion IHandedInteractor
 
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
-        public float SelectProgress => xrController.selectInteractionState.value;
+        public float SelectProgress => XRBaseController.selectInteractionState.value;
 
         #endregion IVariableSelectInteractor
 
@@ -157,7 +208,7 @@ namespace MixedReality.Toolkit.Input
                     bool hoverActive = base.isHoverActive;
                     if (hoverActive)
                     {
-                        if (xrController is ArticulatedHandController handController)
+                        if (XRBaseController is ArticulatedHandController handController)
                         {
                             bool isPalmFacingAway = false;
                             if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true)
