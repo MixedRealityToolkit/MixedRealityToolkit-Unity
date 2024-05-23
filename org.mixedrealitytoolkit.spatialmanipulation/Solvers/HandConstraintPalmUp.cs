@@ -275,7 +275,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 bool usedEyeGaze = false;
 
                 #pragma warning disable CS0618 // Type or member is obsolete
-                if (ControllerLookup != null) //Note: Will be removed for XRI3 migration completion
+                if (ControllerLookup != null)
                 {
                     if (ControllerLookup.GazeController != null &&
                         (ControllerLookup.GazeController.currentControllerState.inputTrackingState &

@@ -18,13 +18,13 @@ namespace MixedReality.Toolkit.SpatialManipulation
     public abstract class Solver : MonoBehaviour
     {
         [Obsolete("Deprecated, please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
-        private static ControllerLookup controllerLookup; //Note: Will be removed for XRI3 migration completion
+        private static ControllerLookup controllerLookup;
 
         /// <summary>
         /// Get the <see cref="Toolkit.ControllerLookup">ControllerLookup</see> that will be used all application <see cref="Solver"/> objects.
         /// </summary>
         [Obsolete("Deprecated, please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
-        protected static ControllerLookup ControllerLookup => controllerLookup; //Note: Will be removed for XRI3 migration completion
+        protected static ControllerLookup ControllerLookup => controllerLookup;
 
         private static TrackedPoseDriverLookup trackedPoseDriverLookup;
 
