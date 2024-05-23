@@ -79,6 +79,27 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
+        /// Holds a reference to the <see cref="HandModel"/> associated with this interactor's parent if it exists.
+        /// </summary>
+        private HandModel handModel = null;
+
+        /// <summary>
+        /// The <see cref="HandModel"/> associated with this interactor.  The <see cref="HandModel"/> is obtained from the parent if it hasn't been set yet.
+        /// </summary>
+        private HandModel HandModel
+        {
+            get
+            {
+                if (handModel == null) //Try to get the HandModel component from the parent if it hasn't been set yet
+                {
+                    handModel = GetComponentInParent<HandModel>();
+                }
+                return handModel;
+            }
+        }
+
+
+        /// <summary>
         /// Is this ray currently hovering a UnityUI/Canvas element?
         /// </summary>
         public bool HasUIHover => TryGetUIModel(out TrackedDeviceModel model) && model.currentRaycast.isValid;
@@ -157,10 +178,9 @@ namespace MixedReality.Toolkit.Input
                 }
                 else if (TrackedPoseDriver != null)
                 {
-                    HandModel handModel = GetComponentInParent<HandModel>();
-                    if (handModel != null)
+                    if (HandModel != null)
                     {
-                        return handModel.HandNode.ToHandedness();
+                        return HandModel.HandNode.ToHandedness();
                     }
                     else
                     {
@@ -269,14 +289,33 @@ namespace MixedReality.Toolkit.Input
                     bool hoverActive = base.isHoverActive;
                     if (hoverActive)
                     {
-                        if (XRBaseController is ArticulatedHandController handController)
+                        bool isPalmFacingAway = false;
+
+                        #pragma warning disable CS0618 // Type or member is obsolete
+                        #pragma warning disable CS0612 // Type or member is obsolete
+                        if (XRBaseController != null)
                         {
-                            bool isPalmFacingAway = false;
-                            if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true)
+                            if (XRBaseController is ArticulatedHandController handController)
+                            {
+                                if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true)
+                                {
+                                    hoverActive &= isPalmFacingAway;
+                                }
+                            }
+                        }
+                        else if (HandModel != null)
+                        {
+                            if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(HandModel.HandNode, out isPalmFacingAway) ?? true)
                             {
                                 hoverActive &= isPalmFacingAway;
                             }
                         }
+                        else
+                        {
+                            Debug.LogWarning($"Unable to determine if {name} is hovering because there is neither an XRBaseController nor a HandModel associated with the parent of this interactor.");
+                        }
+                        #pragma warning restore CS0612
+                        #pragma warning restore CS0618
                     }
 
                     return hoverActive && IsTracked;
