@@ -93,7 +93,7 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
-                #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
                 if (xrController == null) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
                 {
                     if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver component then it is not tracked
@@ -107,7 +107,7 @@ namespace MixedReality.Toolkit.Input
 
                 //If the XRController has already been set then use it to check if the controller is tracked
                 return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
-                #pragma warning restore CS0618
+#pragma warning restore CS0618
             }
         }
 
@@ -146,12 +146,14 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
-                #pragma warning disable CS0618 // Type or member is obsolete
-                #pragma warning disable CS0612 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0612 // Type or member is obsolete
                 if (xrController != null)
                 {
                     return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
                 }
+#pragma warning restore CS0612
+#pragma warning restore CS0618
                 else if (HandModel != null)
                 {
                     return HandModel.HandNode.ToHandedness();
@@ -161,8 +163,6 @@ namespace MixedReality.Toolkit.Input
                     Debug.LogWarning($"Cannot determine Handedness of {name} because there is no associated HandModel.");
                 }
                 return Handedness.None; //If neither an XRController nor a HandModel is associated with this interactor then return None as handedness.
-                #pragma warning restore CS0612
-                #pragma warning restore CS0618
             }
         }
 
@@ -175,11 +175,12 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
-                #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
                 if (xrController != null)
                 {
                     return xrController.selectInteractionState.value;
                 }
+#pragma warning restore CS0618
                 else if (selectInput != null)
                 {
                     return selectInput.ReadValue();
@@ -189,7 +190,6 @@ namespace MixedReality.Toolkit.Input
                     Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is neither an XRBaseController nor the Input Configuration has Select Input Actions referenced to it.");
                 }
                 return 0;
-                #pragma warning restore CS0618
             }
         }
 
@@ -264,8 +264,8 @@ namespace MixedReality.Toolkit.Input
                     {
                         bool isPalmFacingAway = false;
 
-                        #pragma warning disable CS0618 // Type or member is obsolete
-                        #pragma warning disable CS0612 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0612 // Type or member is obsolete
                         if (xrController != null)
                         {
                             if (xrController is ArticulatedHandController handController)
@@ -276,6 +276,8 @@ namespace MixedReality.Toolkit.Input
                                 }
                             }
                         }
+#pragma warning restore CS0612
+#pragma warning restore CS0618
                         else if (HandModel != null)
                         {
                             if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(HandModel.HandNode, out isPalmFacingAway) ?? true)
@@ -287,8 +289,6 @@ namespace MixedReality.Toolkit.Input
                         {
                             Debug.LogWarning($"Unable to determine if {name} is hovering because there is neither an XRBaseController nor a HandModel associated with the parent of this interactor.");
                         }
-                        #pragma warning restore CS0612
-                        #pragma warning restore CS0618
                     }
 
                     return hoverActive && IsTracked;
