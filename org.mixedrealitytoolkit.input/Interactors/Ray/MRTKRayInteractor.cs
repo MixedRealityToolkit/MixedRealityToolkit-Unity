@@ -35,30 +35,6 @@ namespace MixedReality.Toolkit.Input
         #region MRTKRayInteractor
 
         /// <summary>
-        /// Holds a reference to the deprecated <see cref="XRBaseController"/> associated to this interactor if it exists.  This
-        /// will be removed when the XRI3 migration is completed and all *Controller* stuff is removed.
-        /// </summary>
-        [Obsolete("Deprecated, please use trackedPoseDriver instead.")]
-        private XRBaseController xrBaseController = null;
-
-        /// <summary>
-        /// Property for accessing xrBaseController, will be removed for XRI3 migration completion.
-        /// </summary>
-        [Obsolete("Deprecated, please use TrackedPoseDriver instead.")]
-        private XRBaseController XRBaseController
-        {
-            get
-            {
-                //Note: This property will be removed when the XRI3 migration is completed and all *Controller* stuff is removed.
-                if (xrBaseController == null) //Try to get the XRController component from the parent if it hasn't been set yet
-                {
-                    xrBaseController = GetComponentInParent<XRBaseController>();
-                }
-                return xrBaseController;
-            }
-        }
-
-        /// <summary>
         /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
         /// </summary>
         private TrackedPoseDriver trackedPoseDriver = null;
@@ -118,7 +94,7 @@ namespace MixedReality.Toolkit.Input
             get
             {
                 #pragma warning disable CS0618 // Type or member is obsolete
-                if (XRBaseController == null) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
+                if (xrController == null) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
                 {
                     if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver component then it is not tracked
                     {
@@ -130,7 +106,7 @@ namespace MixedReality.Toolkit.Input
                 }
 
                 //If the XRController has already been set then use it to check if the controller is tracked
-                return XRBaseController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+                return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
                 #pragma warning restore CS0618
             }
         }
@@ -172,9 +148,9 @@ namespace MixedReality.Toolkit.Input
             {
                 #pragma warning disable CS0618 // Type or member is obsolete
                 #pragma warning disable CS0612 // Type or member is obsolete
-                if (XRBaseController != null)
+                if (xrController != null)
                 {
-                    return (XRBaseController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
                 }
                 else if (HandModel != null)
                 {
@@ -200,9 +176,9 @@ namespace MixedReality.Toolkit.Input
             get
             {
                 #pragma warning disable CS0618 // Type or member is obsolete
-                if (XRBaseController != null)
+                if (xrController != null)
                 {
-                    return XRBaseController.selectInteractionState.value;
+                    return xrController.selectInteractionState.value;
                 }
                 else if (selectInput != null)
                 {
@@ -290,9 +266,9 @@ namespace MixedReality.Toolkit.Input
 
                         #pragma warning disable CS0618 // Type or member is obsolete
                         #pragma warning disable CS0612 // Type or member is obsolete
-                        if (XRBaseController != null)
+                        if (xrController != null)
                         {
-                            if (XRBaseController is ArticulatedHandController handController)
+                            if (xrController is ArticulatedHandController handController)
                             {
                                 if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true)
                                 {
