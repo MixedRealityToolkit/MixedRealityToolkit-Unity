@@ -277,10 +277,12 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             // Find the controller lookup class in the hierarchy. Solvers that require access to the
             // left, right or gaze controllers will use the references stored in this class.
+            #pragma warning disable CS0618 // Type or member is obsolete
             if (controllerLookup == null)
             {
                 controllerLookup = ComponentCache<ControllerLookup>.FindFirstActiveInstance();
             }
+            #pragma warning restore CS0618
 
             // Find the controller lookup class in the hierarchy. Solvers that require access to the
             // left, right or gaze TrackedPoseDriver will use the references stored in this class.

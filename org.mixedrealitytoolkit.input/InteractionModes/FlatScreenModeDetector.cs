@@ -41,10 +41,12 @@ namespace MixedReality.Toolkit.Input
         public bool IsModeDetected()
         {
             // Flat screen mode is only active if the Left and Right Hand Controllers aren't being tracked
+            #pragma warning disable CS0618 // Type or member is obsolete
             if (controllerLookup != null) //Note: Will be removed for XRI3 migration completion
             {
                 return !controllerLookup.LeftHandController.currentControllerState.inputTrackingState.HasPositionAndRotation() && !controllerLookup.RightHandController.currentControllerState.inputTrackingState.HasPositionAndRotation();
             }
+            #pragma warning restore CS0618
             else if (trackedPoseDriverLookup != null &&
                      trackedPoseDriverLookup.LeftHandTrackedPoseDriver != null &&
                      trackedPoseDriverLookup.RightHandTrackedPoseDriver != null &&

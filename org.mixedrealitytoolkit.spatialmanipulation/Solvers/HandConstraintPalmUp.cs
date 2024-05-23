@@ -274,6 +274,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 Ray? gazeRay = null;
                 bool usedEyeGaze = false;
 
+                #pragma warning disable CS0618 // Type or member is obsolete
                 if (ControllerLookup != null) //Note: Will be removed for XRI3 migration completion
                 {
                     if (ControllerLookup.GazeController != null &&
@@ -292,6 +293,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                             Camera.main.transform.forward);
                     }
                 }
+                #pragma warning restore CS0618
                 else if (TrackedPoseDriverLookup != null)
                 {
                     InputTrackingState gazeTrackingStateInput = (InputTrackingState)TrackedPoseDriverLookup.GazeTrackedPoseDriver.trackingStateInput.action.ReadValue<int>();
