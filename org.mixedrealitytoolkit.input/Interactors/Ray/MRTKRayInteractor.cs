@@ -138,7 +138,7 @@ namespace MixedReality.Toolkit.Input
             get
             {
 #pragma warning disable CS0618 // Type or member is obsolete
-                if (xrController != null)
+                if (forceDeprecatedInput)
                 {
                     return xrController.selectInteractionState.value;
                 }
@@ -149,7 +149,7 @@ namespace MixedReality.Toolkit.Input
                 }
                 else
                 {
-                    Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is neither an XRBaseController nor the Input Configuration has Select Input Actions referenced to it.");
+                    Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
                 }
                 return 0;
             }
