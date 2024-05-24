@@ -125,7 +125,7 @@ namespace MixedReality.Toolkit.Input
 #pragma warning restore CS0618
                 else
                 {
-                    return handedness.ToMRTKHandedness();
+                    return handedness.ToHandedness();
                 }
             }
         }

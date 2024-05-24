@@ -47,7 +47,7 @@ namespace MixedReality.Toolkit
         /// which the <see cref="Handedness"/> is requested.</param>
         /// <see cref="Handedness"/> representing the specified <see cref="InteractorHandedness"/>.
         /// <returns></returns>
-        public static Handedness ToMRTKHandedness(this InteractorHandedness hand)
+        public static Handedness ToHandedness(this InteractorHandedness hand)
         {
             switch (hand)
             {
