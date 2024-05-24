@@ -61,7 +61,13 @@ namespace MixedReality.Toolkit.Input
             get
             {
 #pragma warning disable CS0618 // Type or member is obsolete
-                if (xrController == null) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
+                if (forceDeprecatedInput) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
+                {
+                    //If the XRController has already been set then use it to check if the controller is tracked
+                    return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+                }
+#pragma warning restore CS0618
+                else
                 {
                     if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver component then it is not tracked
                     {
@@ -71,10 +77,6 @@ namespace MixedReality.Toolkit.Input
                     //If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
                     return ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
                 }
-
-                //If the XRController has already been set then use it to check if the controller is tracked
-                return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
-#pragma warning restore CS0618
             }
         }
 
@@ -115,7 +117,7 @@ namespace MixedReality.Toolkit.Input
             {
 #pragma warning disable CS0618 // Type or member is obsolete
 #pragma warning disable CS0612 // Type or member is obsolete
-                if (xrController != null)
+                if (forceDeprecatedInput)
                 {
                     return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
                 }
@@ -228,7 +230,7 @@ namespace MixedReality.Toolkit.Input
 
 #pragma warning disable CS0618 // Type or member is obsolete
 #pragma warning disable CS0612 // Type or member is obsolete
-                        if (xrController != null)
+                        if (forceDeprecatedInput)
                         {
                             if (xrController is ArticulatedHandController handController)
                             {
