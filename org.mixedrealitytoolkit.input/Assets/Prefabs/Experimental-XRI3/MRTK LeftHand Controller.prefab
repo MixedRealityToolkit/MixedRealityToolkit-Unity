@@ -359,6 +359,7 @@ MonoBehaviour:
     m_InputActionReference: {fileID: 0}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: 0
+  trackedPoseDriver: {fileID: 9028998875765828509}
   aimPoseSource:
     rid: 0
   devicePoseSource:

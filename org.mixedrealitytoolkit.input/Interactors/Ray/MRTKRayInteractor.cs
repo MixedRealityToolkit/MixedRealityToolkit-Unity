@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using MixedReality.Toolkit.Subsystems;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -14,13 +16,13 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// A wrapper for the XRRayInteractor which stores extra information for MRTK management/services
+    /// A wrapper for the <see cref="XRRayInteractor"/> which stores extra information for MRTK management/services
     /// </summary>
     [AddComponentMenu("MRTK/Input/MRTK Ray Interactor")]
     // This execution order ensures that the MRTKRayInteractor runs its update function right after the
-    // XRController. We do this because the MRTKRayInteractor needs to set its own pose after the parent controller transform,
+    // <see cref="XRController"/>. We do this because the <see cref="MRTKRayInteractor"/> needs to set its own pose after the parent controller transform,
     // but before any physics raycast calls are made to determine selection. The earliest a physics call can be made is within
-    // the UIInputModule, which has an update order much higher than XRControllers.
+    // the UIInputModule, which has an update order much higher than <see cref="XRController"/>s.
     // TODO: Examine the update order of other interactors in the future with respect to when their physics calls happen,
     // or create a system to keep ensure interactor poses aren't ever implicitly set via parenting.
     [DefaultExecutionOrder(XRInteractionUpdateOrder.k_Controllers + 1)]
@@ -31,6 +33,14 @@ namespace MixedReality.Toolkit.Input
         IVariableSelectInteractor
     {
         #region MRTKRayInteractor
+
+        [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
+        private TrackedPoseDriver trackedPoseDriver = null;
+
+        /// <summary>
+        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// </summary>
+        private TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         /// <summary>
         /// Is this ray currently hovering a UnityUI/Canvas element?
@@ -46,7 +56,29 @@ namespace MixedReality.Toolkit.Input
         /// Used to check if the parent controller is tracked or not
         /// Hopefully this becomes part of the base Unity XRI API.
         /// </summary>
-        private bool IsTracked => xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+        private bool IsTracked
+        {
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
+                {
+                    //If the XRController has already been set then use it to check if the controller is tracked
+                    return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+                }
+#pragma warning restore CS0618
+                else
+                {
+                    if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver component then it is not tracked
+                    {
+                        return false;
+                    }
+
+                    //If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
+                    return ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+                }
+            }
+        }
 
         /// <summary>
         /// Cached reference to hands aggregator for efficient per-frame use.
@@ -79,14 +111,51 @@ namespace MixedReality.Toolkit.Input
 
         #region IHandedInteractor
 
-        Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0612 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                }
+#pragma warning restore CS0612
+#pragma warning restore CS0618
+                else
+                {
+                    return handedness.ToHandedness();
+                }
+            }
+        }
 
         #endregion IHandedInteractor
 
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
-        public float SelectProgress => xrController.selectInteractionState.value;
+        public float SelectProgress
+        {
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+                    return xrController.selectInteractionState.value;
+                }
+#pragma warning restore CS0618
+                else if (selectInput != null)
+                {
+                    return selectInput.ReadValue();
+                }
+                else
+                {
+                    Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
+                }
+                return 0;
+            }
+        }
 
         #endregion IVariableSelectInteractor
 
@@ -157,10 +226,21 @@ namespace MixedReality.Toolkit.Input
                     bool hoverActive = base.isHoverActive;
                     if (hoverActive)
                     {
-                        if (xrController is ArticulatedHandController handController)
+                        bool isPalmFacingAway = false;
+
+#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0612 // Type or member is obsolete
+                        if (forceDeprecatedInput &&
+                            xrController is ArticulatedHandController handController &&
+                            (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true))
                         {
-                            bool isPalmFacingAway = false;
-                            if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true)
+                                hoverActive &= isPalmFacingAway;
+                        }
+#pragma warning restore CS0612
+#pragma warning restore CS0618
+                        else
+                        {
+                            if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handedness.ToXRNode(), out isPalmFacingAway) ?? true)
                             {
                                 hoverActive &= isPalmFacingAway;
                             }
@@ -229,6 +309,17 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
+
+        /// <inheritdoc/>
+        protected override void Start()
+        {
+            base.Start();
+
+            if (trackedPoseDriver == null) //Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            {
+                trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+        }
 
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.

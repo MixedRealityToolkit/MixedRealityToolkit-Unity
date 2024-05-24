@@ -38,5 +38,26 @@ namespace MixedReality.Toolkit
                     return defaultValue;
             }
         }
+
+        /// <summary>
+        /// Converts the <see cref="InteractorHandedness"/> to <see cref="Handedness"/>. If the <see cref="InteractorHandedness"/>
+        /// is other than InteractorHandedness.Left or InteractorHandedness.Right then it defaults to <see cref="Handedness"/>.None.
+        /// </summary>
+        /// <param name="hand">The <see cref="InteractorHandedness"/> value for
+        /// which the <see cref="Handedness"/> is requested.</param>
+        /// <see cref="Handedness"/> representing the specified <see cref="InteractorHandedness"/>.
+        /// <returns></returns>
+        public static Handedness ToHandedness(this InteractorHandedness hand)
+        {
+            switch (hand)
+            {
+                case InteractorHandedness.Left:
+                    return Handedness.Left;
+                case InteractorHandedness.Right:
+                    return Handedness.Right;
+                default:
+                    return Handedness.None;
+            }
+        }
     }
 }
