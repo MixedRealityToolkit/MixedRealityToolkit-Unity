@@ -230,15 +230,11 @@ namespace MixedReality.Toolkit.Input
 
 #pragma warning disable CS0618 // Type or member is obsolete
 #pragma warning disable CS0612 // Type or member is obsolete
-                        if (forceDeprecatedInput)
+                        if (forceDeprecatedInput &&
+                            xrController is ArticulatedHandController handController &&
+                            (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true))
                         {
-                            if (xrController is ArticulatedHandController handController)
-                            {
-                                if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true)
-                                {
-                                    hoverActive &= isPalmFacingAway;
-                                }
-                            }
+                                hoverActive &= isPalmFacingAway;
                         }
 #pragma warning restore CS0612
 #pragma warning restore CS0618
