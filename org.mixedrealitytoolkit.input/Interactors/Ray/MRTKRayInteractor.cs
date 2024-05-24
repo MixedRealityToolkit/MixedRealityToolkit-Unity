@@ -34,25 +34,13 @@ namespace MixedReality.Toolkit.Input
     {
         #region MRTKRayInteractor
 
-        /// <summary>
-        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
-        /// </summary>
+        [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
         private TrackedPoseDriver trackedPoseDriver = null;
 
         /// <summary>
-        /// Property for accessing trackedPoseDriver which holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
         /// </summary>
-        private TrackedPoseDriver TrackedPoseDriver
-        {
-            get
-            {
-                if (trackedPoseDriver == null) //Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
-                {
-                    trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
-                }
-                return trackedPoseDriver;
-            }
-        }
+        private TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         /// <summary>
         /// Is this ray currently hovering a UnityUI/Canvas element?
@@ -323,6 +311,17 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
+
+        /// <inheritdoc/>
+        protected override void Start()
+        {
+            base.Start();
+
+            if (trackedPoseDriver == null) //Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            {
+                trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+        }
 
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
