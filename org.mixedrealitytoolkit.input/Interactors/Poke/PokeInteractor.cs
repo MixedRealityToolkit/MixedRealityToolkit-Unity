@@ -135,7 +135,7 @@ namespace MixedReality.Toolkit.Input
         {
             base.Start();
 
-            if (trackedPoseDriver == null) //Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            if (trackedPoseDriver == null) //Try to get the <see cref="TrackedPoseDriver"> component from the parent if it hasn't been set yet
             {
                 trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
             }
@@ -190,12 +190,12 @@ namespace MixedReality.Toolkit.Input
 #pragma warning restore CS0618 // Type or member is obsolete
                 else
                 {
-                    if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver component then we cannot determine if it is hover active
+                    if (TrackedPoseDriver == null) //If the interactor does not have a <see cref="TrackedPoseDriver"> component then we cannot determine if it is hover active
                     {
                         return false;
                     }
 
-                    //If this intreactor has an associated TrackedPoseDriver component then use it to determine if the interactor is hover active
+                    //If this interactor has an associated <see cref="TrackedPoseDriver"> component then use it to determine if the interactor is hover active
                     return base.isHoverActive && ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
                 }
             }
