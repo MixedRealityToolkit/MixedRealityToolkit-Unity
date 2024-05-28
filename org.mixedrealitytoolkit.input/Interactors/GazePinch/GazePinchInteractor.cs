@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
@@ -27,6 +28,7 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeField]
         [Tooltip("The hand controller used to get the selection progress values")]
+        [Obsolete]
         private ArticulatedHandController handController;
 
         /// <summary>
