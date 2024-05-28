@@ -81,7 +81,22 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
-        Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                }
+#pragma warning restore CS0618 // Type or member is obsolete
+                else
+                {
+                    return handedness.ToHandedness();
+                }
+            }
+        }
 
         #endregion IHandedInteractor
 
