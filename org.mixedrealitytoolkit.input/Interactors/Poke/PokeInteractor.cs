@@ -49,11 +49,27 @@ namespace MixedReality.Toolkit.Input
         protected virtual bool TryGetPokeRadius(out float radius)
         {
             HandJointPose jointPose = default;
-            if (xrController is ArticulatedHandController handController
-                && (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
+
+#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0612 // Type or member is obsolete
+            if (forceDeprecatedInput)
             {
-                radius = jointPose.Radius;
-                return true;
+                if (xrController is ArticulatedHandController handController
+                    && (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
+                {
+                    radius = jointPose.Radius;
+                    return true;
+                }
+            }
+#pragma warning disable CS0612 // Type or member is obsolete
+#pragma warning restore CS0618 // Type or member is obsolete
+            else
+            {
+                if (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handedness.ToXRNode(), out jointPose) ?? false)
+                {
+                    radius = jointPose.Radius;
+                    return true;
+                }
             }
 
             radius = default;
