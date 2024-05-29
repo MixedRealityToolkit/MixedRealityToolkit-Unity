@@ -37,7 +37,7 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeField]
         [Tooltip("The hand controller used to get the selection progress values")]
-        [Obsolete]
+        [Obsolete("Deprecated, please use this.TrackedPoseDriver instead.")]
         private ArticulatedHandController handController;
 
         /// <summary>
@@ -79,20 +79,20 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeReference]
         [InterfaceSelector(true)]
-        [Tooltip("The pose source representing the pose this interactor uses for aiming and positioning. Follows the 'pointer pose'")]
+        [Tooltip("The pose source representing the pose this interactor uses for aiming and positioning. Follows the 'pointer pose'.")]
         private IPoseSource aimPoseSource;
 
         /// <summary>
-        /// The pose source representing the ray this interactor uses for aiming and positioning.
+        /// The pose source representing the pose this interactor uses for aiming and positioning. Follows the 'pointer pose'.
         /// </summary>
         protected IPoseSource AimPoseSource { get => aimPoseSource; set => aimPoseSource = value; }
 
         [SerializeField]
-        [Tooltip("The interactor we're using to query potential gaze pinch targets")]
+        [Tooltip("The interactor we're using to query potential gaze pinch targets.")]
         private XRBaseInputInteractor dependentInteractor;
 
         /// <summary>
-        /// The pose source representing the ray this interactor uses for aiming and positioning.
+        /// The interactor we're using to query potential gaze pinch targets.
         /// </summary>
         protected XRBaseInputInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
 
@@ -145,7 +145,7 @@ namespace MixedReality.Toolkit.Input
         private Vector3 interactorLocalAttachPoint;
 
         /// <summary>
-        /// Used to check if the parent controller is tracked or not
+        /// Used to check if the parent controller is tracked or not.
         /// Hopefully this becomes part of the base Unity XRI API.
         /// </summary>
         private bool IsTracked
@@ -181,12 +181,12 @@ namespace MixedReality.Toolkit.Input
             get
             {
 #pragma warning disable CS0618 // Type or member is obsolete
-#pragma warning disable CS0612 // Type or member is obsolete
                 if (forceDeprecatedInput)
                 {
+#pragma warning disable CS0612 // Type or member is obsolete
                     return handController.HandNode.ToHandedness();
-                }
 #pragma warning restore CS0612 // Type or member is obsolete
+                }
 #pragma warning restore CS0618 // Type or member is obsolete
                 else
                 {
@@ -239,6 +239,7 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
+        /// <inheritdoc/>
         private void OnDrawGizmosSelected()
         {
             if (Application.isPlaying)
@@ -253,7 +254,7 @@ namespace MixedReality.Toolkit.Input
 
         #region XRBaseInteractor
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         /// <remarks>
         /// This indirect interactor harvests the valid targets from the associated
         /// <see cref="dependentInteractor"/>, allowing for gaze-targeting or other
