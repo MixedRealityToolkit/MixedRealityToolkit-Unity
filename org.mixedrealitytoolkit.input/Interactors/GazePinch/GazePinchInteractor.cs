@@ -200,7 +200,29 @@ namespace MixedReality.Toolkit.Input
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
-        public float SelectProgress => handController.selectInteractionState.value;
+        public float SelectProgress
+        {
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+#pragma warning disable CS0612 // Type or member is obsolete
+                    return handController.selectInteractionState.value;
+#pragma warning restore CS0612 // Type or member is obsolete
+                }
+#pragma warning restore CS0618 // Type or member is obsolete
+                else if (selectInput != null)
+                {
+                    return selectInput.ReadValue();
+                }
+                else
+                {
+                    Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
+                }
+                return 0.0f;
+            }
+        }
 
         #endregion IVariableSelectInteractor
 
