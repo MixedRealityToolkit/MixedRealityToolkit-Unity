@@ -62,14 +62,12 @@ namespace MixedReality.Toolkit.Input
 
 #pragma warning disable CS0618 // Type or member is obsolete
 #pragma warning disable CS0612 // Type or member is obsolete
-            if (forceDeprecatedInput)
+            if (forceDeprecatedInput &&
+                xrController is ArticulatedHandController handController &&
+                (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
             {
-                if (xrController is ArticulatedHandController handController
-                    && (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
-                {
-                    radius = jointPose.Radius;
-                    return true;
-                }
+                radius = jointPose.Radius;
+                return true;
             }
 #pragma warning disable CS0612 // Type or member is obsolete
 #pragma warning restore CS0618 // Type or member is obsolete
