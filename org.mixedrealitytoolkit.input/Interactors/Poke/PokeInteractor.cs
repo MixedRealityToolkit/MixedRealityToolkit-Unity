@@ -4,6 +4,8 @@
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -21,6 +23,14 @@ namespace MixedReality.Toolkit.Input
         IHandedInteractor
     {
         #region PokeInteractor
+
+        [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
+        private TrackedPoseDriver trackedPoseDriver = null;
+
+        /// <summary>
+        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// </summary>
+        private TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         [SerializeReference]
         [InterfaceSelector(true)]
@@ -49,11 +59,25 @@ namespace MixedReality.Toolkit.Input
         protected virtual bool TryGetPokeRadius(out float radius)
         {
             HandJointPose jointPose = default;
-            if (xrController is ArticulatedHandController handController
-                && (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
+
+#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0612 // Type or member is obsolete
+            if (forceDeprecatedInput &&
+                xrController is ArticulatedHandController handController &&
+                (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
             {
                 radius = jointPose.Radius;
                 return true;
+            }
+#pragma warning disable CS0612 // Type or member is obsolete
+#pragma warning restore CS0618 // Type or member is obsolete
+            else
+            {
+                if (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handedness.ToXRNode(), out jointPose) ?? false)
+                {
+                    radius = jointPose.Radius;
+                    return true;
+                }
             }
 
             radius = default;
@@ -65,7 +89,22 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
-        Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                }
+#pragma warning restore CS0618 // Type or member is obsolete
+                else
+                {
+                    return handedness.ToHandedness();
+                }
+            }
+        }
 
         #endregion IHandedInteractor
 
@@ -88,6 +127,17 @@ namespace MixedReality.Toolkit.Input
         #endregion IPokeInteractor
 
         #region MonoBehaviour
+
+        /// <inheritdoc/>
+        protected override void Start()
+        {
+            base.Start();
+
+            if (trackedPoseDriver == null) //Try to get the <see cref="TrackedPoseDriver"> component from the parent if it hasn't been set yet
+            {
+                trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+        }
 
         /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
@@ -128,7 +178,25 @@ namespace MixedReality.Toolkit.Input
         public override bool isHoverActive
         {
             // Only be available for hovering if the joint or controller is tracked.
-            get => base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || pokePointTracked);
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+                    return base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || pokePointTracked);
+                }
+#pragma warning restore CS0618 // Type or member is obsolete
+                else
+                {
+                    if (TrackedPoseDriver == null) //If the interactor does not have a <see cref="TrackedPoseDriver"> component then we cannot determine if it is hover active
+                    {
+                        return false;
+                    }
+
+                    //If this interactor has an associated <see cref="TrackedPoseDriver"> component then use it to determine if the interactor is hover active
+                    return base.isHoverActive && ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+                }
+            }
         }
 
         /// <inheritdoc/>

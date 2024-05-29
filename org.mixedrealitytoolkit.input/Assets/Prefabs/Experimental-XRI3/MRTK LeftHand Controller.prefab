@@ -1483,6 +1483,7 @@ MonoBehaviour:
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
   m_AllowHoverHapticsWhileSelecting: 1
+  trackedPoseDriver: {fileID: 9028998875765828509}
   pokePoseSource:
     rid: 0
   references:
