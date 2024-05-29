@@ -1,8 +1,10 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -23,10 +25,19 @@ namespace MixedReality.Toolkit.Input
     {
         #region GazePinchInteractor
 
+        [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
+        private TrackedPoseDriver trackedPoseDriver = null;
+
+        /// <summary>
+        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// </summary>
+        private TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+
         [Header("Gaze Pinch interactor settings")]
 
         [SerializeField]
         [Tooltip("The hand controller used to get the selection progress values")]
+        [Obsolete("Deprecated, please use this.TrackedPoseDriver instead.")]
         private ArticulatedHandController handController;
 
         /// <summary>
@@ -68,20 +79,20 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeReference]
         [InterfaceSelector(true)]
-        [Tooltip("The pose source representing the pose this interactor uses for aiming and positioning. Follows the 'pointer pose'")]
+        [Tooltip("The pose source representing the pose this interactor uses for aiming and positioning. Follows the 'pointer pose'.")]
         private IPoseSource aimPoseSource;
 
         /// <summary>
-        /// The pose source representing the ray this interactor uses for aiming and positioning.
+        /// The pose source representing the pose this interactor uses for aiming and positioning. Follows the 'pointer pose'.
         /// </summary>
         protected IPoseSource AimPoseSource { get => aimPoseSource; set => aimPoseSource = value; }
 
         [SerializeField]
-        [Tooltip("The interactor we're using to query potential gaze pinch targets")]
+        [Tooltip("The interactor we're using to query potential gaze pinch targets.")]
         private XRBaseInputInteractor dependentInteractor;
 
         /// <summary>
-        /// The pose source representing the ray this interactor uses for aiming and positioning.
+        /// The interactor we're using to query potential gaze pinch targets.
         /// </summary>
         protected XRBaseInputInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
 
@@ -134,29 +145,101 @@ namespace MixedReality.Toolkit.Input
         private Vector3 interactorLocalAttachPoint;
 
         /// <summary>
-        /// Used to check if the parent controller is tracked or not
+        /// Used to check if the parent controller is tracked or not.
         /// Hopefully this becomes part of the base Unity XRI API.
         /// </summary>
-        private bool IsTracked => xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+        private bool IsTracked
+        {
+            get
+            {
+#pragma warning disable CS0618
+                if (forceDeprecatedInput)
+                {
+                    return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+                }
+#pragma warning restore CS0618
+                else
+                {
+                    if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver associated to it then it is not tracked
+                    {
+                        return false;
+                    }
+
+                    //If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
+                    return ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+                }
+            }
+        }
 
         #endregion GazePinchInteractor
 
         #region IHandedInteractor
 
         /// <inheritdoc />
-        Handedness IHandedInteractor.Handedness => handController.HandNode.ToHandedness();
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+#pragma warning disable CS0612 // Type or member is obsolete
+                    return handController.HandNode.ToHandedness();
+#pragma warning restore CS0612 // Type or member is obsolete
+                }
+#pragma warning restore CS0618 // Type or member is obsolete
+                else
+                {
+                    return handedness.ToHandedness();
+                }
+            }
+        }
 
         #endregion IHandedInteractor
 
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
-        public float SelectProgress => handController.selectInteractionState.value;
+        public float SelectProgress
+        {
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+#pragma warning disable CS0612 // Type or member is obsolete
+                    return handController.selectInteractionState.value;
+#pragma warning restore CS0612 // Type or member is obsolete
+                }
+#pragma warning restore CS0618 // Type or member is obsolete
+                else if (selectInput != null)
+                {
+                    return selectInput.ReadValue();
+                }
+                else
+                {
+                    Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
+                }
+                return 0.0f;
+            }
+        }
 
         #endregion IVariableSelectInteractor
 
         #region MonoBehaviour
 
+        /// <inheritdoc/>
+        protected override void Start()
+        {
+            base.Start();
+
+            if (trackedPoseDriver == null) //Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            {
+                trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+        }
+
+        /// <inheritdoc/>
         private void OnDrawGizmosSelected()
         {
             if (Application.isPlaying)
@@ -171,7 +254,7 @@ namespace MixedReality.Toolkit.Input
 
         #region XRBaseInteractor
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         /// <remarks>
         /// This indirect interactor harvests the valid targets from the associated
         /// <see cref="dependentInteractor"/>, allowing for gaze-targeting or other

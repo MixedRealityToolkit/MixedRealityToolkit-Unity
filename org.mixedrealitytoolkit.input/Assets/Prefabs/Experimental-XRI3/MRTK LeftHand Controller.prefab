@@ -1843,6 +1843,7 @@ MonoBehaviour:
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
   m_AllowHoverHapticsWhileSelecting: 1
+  trackedPoseDriver: {fileID: 9028998875765828509}
   handController: {fileID: 6164080946324827545}
   devicePoseSource:
     rid: 0
