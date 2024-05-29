@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -23,6 +24,14 @@ namespace MixedReality.Toolkit.Input
         IHandedInteractor
     {
         #region GazePinchInteractor
+
+        [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
+        private TrackedPoseDriver trackedPoseDriver = null;
+
+        /// <summary>
+        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// </summary>
+        private TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         [Header("Gaze Pinch interactor settings")]
 
@@ -139,7 +148,28 @@ namespace MixedReality.Toolkit.Input
         /// Used to check if the parent controller is tracked or not
         /// Hopefully this becomes part of the base Unity XRI API.
         /// </summary>
-        private bool IsTracked => xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+        private bool IsTracked
+        {
+            get
+            {
+#pragma warning disable CS0618
+                if (forceDeprecatedInput)
+                {
+                    return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+                }
+#pragma warning restore CS0618
+                else
+                {
+                    if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver associated to it then it is not tracked
+                    {
+                        return false;
+                    }
+
+                    //If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
+                    return ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+                }
+            }
+        }
 
         #endregion GazePinchInteractor
 
@@ -158,6 +188,17 @@ namespace MixedReality.Toolkit.Input
         #endregion IVariableSelectInteractor
 
         #region MonoBehaviour
+
+        /// <inheritdoc/>
+        protected override void Start()
+        {
+            base.Start();
+
+            if (trackedPoseDriver == null) //Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            {
+                trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+        }
 
         private void OnDrawGizmosSelected()
         {
