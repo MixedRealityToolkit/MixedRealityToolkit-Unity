@@ -22,6 +22,7 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </summary>
     public class InteractionModeManagerTests : BaseRuntimeInputTests
     {
+#pragma warning disable CS0618 // Type or member is obsolete
         /// <summary>
         /// Tests that the proximity detector detects when to change the controllers interaction mode and properly toggles the associated interactors.
         /// Also checks that the proximity detector doesn't trigger hovers on other objects
@@ -195,9 +196,10 @@ namespace MixedReality.Toolkit.Input.Tests
                 }
             }
         }
+#pragma warning restore CS0618 // Type or member is obsolete
 
         // Returns true iff any of the ProximityDetectors in the scene are currently triggered.
-        private bool AnyProximityDetectorsTriggered()
+        public static bool AnyProximityDetectorsTriggered()
         {
             ProximityDetector[] detectors = FindObjectUtility.FindObjectsByType<ProximityDetector>();
             foreach (var detector in detectors)
