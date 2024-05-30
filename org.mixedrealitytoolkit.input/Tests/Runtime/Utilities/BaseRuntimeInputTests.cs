@@ -43,6 +43,27 @@ namespace MixedReality.Toolkit.Input.Tests
             }
         }
 
+        private TrackedPoseDriverLookup cachedTrackedPoseDriverLookup;
+
+        /// <summary>
+        /// A cached reference to the <see cref="TrackedPoseDriverLookup"/> on the XRI3+ rig.
+        /// Cleared during <see cref="TearDown"/> at the end of each test.
+        /// </summary>
+        protected TrackedPoseDriverLookup CachedTrackedPoseDriverLookup
+        {
+            get
+            {
+                if (cachedTrackedPoseDriverLookup == null && CachedInteractionManager == null)
+                {
+                    Debug.LogError("Unable to get a reference to Rig's TrackedPoseDriverLookup because CachedInteractionManager is null.");
+                    return null;
+                }
+                cachedTrackedPoseDriverLookup = CachedInteractionManager.gameObject.GetComponent<TrackedPoseDriverLookup>();
+
+                return cachedTrackedPoseDriverLookup;
+            }
+        }
+
 #pragma warning disable CS0618 // Type or member is obsolete
         private ControllerLookup cachedLookup = null;
 
@@ -112,6 +133,7 @@ namespace MixedReality.Toolkit.Input.Tests
             InputTestUtilities.TeardownSimulation();
             cachedInteractionManager = null;
             cachedLookup = null;
+            cachedTrackedPoseDriverLookup = null;
 
             input.TearDown();
 
