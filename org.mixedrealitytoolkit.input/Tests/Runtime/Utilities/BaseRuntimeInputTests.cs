@@ -5,6 +5,7 @@
 #pragma warning disable CS1591
 
 using MixedReality.Toolkit.Core.Tests;
+using System;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -42,6 +43,7 @@ namespace MixedReality.Toolkit.Input.Tests
             }
         }
 
+#pragma warning disable CS0618 // Type or member is obsolete
         private ControllerLookup cachedLookup = null;
 
         /// <summary>
@@ -63,24 +65,44 @@ namespace MixedReality.Toolkit.Input.Tests
                 return cachedLookup;
             }
         }
+#pragma warning restore CS0618 // Type or member is obsolete
 
+        [Obsolete("Deprecated, please use SetupForXRI3Testing()")]
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
         public override IEnumerator Setup()
         {
             yield return base.Setup();
-
             input.Setup();
-
-            // XRI needs these... ugh
-            InputSystem.RegisterInteraction<SectorInteraction>();
-            InputSystem.RegisterBindingComposite<Vector3FallbackComposite>();
-            InputSystem.RegisterBindingComposite<QuaternionFallbackComposite>();
-            InputSystem.RegisterBindingComposite<IntegerFallbackComposite>();
+            XRISetup();
 
             InputTestUtilities.InstantiateRig();
             InputTestUtilities.SetupSimulation(0.0f);
 
             // Wait for simulation HMD to update camera poses
             yield return RuntimeTestUtilities.WaitForUpdates();
+        }
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
+
+        public IEnumerator SetupForXRI3Testing()
+        {
+            yield return base.Setup();
+            input.Setup();
+            XRISetup();
+
+            InputTestUtilities.InstantiateRigForXRI3();
+            InputTestUtilities.SetupSimulation(0.0f);
+
+            // Wait for simulation HMD to update camera poses
+            yield return RuntimeTestUtilities.WaitForUpdates();
+        }
+
+        public void XRISetup()
+        {
+            // XRI needs these
+            InputSystem.RegisterInteraction<SectorInteraction>();
+            InputSystem.RegisterBindingComposite<Vector3FallbackComposite>();
+            InputSystem.RegisterBindingComposite<QuaternionFallbackComposite>();
+            InputSystem.RegisterBindingComposite<IntegerFallbackComposite>();
         }
 
         public override IEnumerator TearDown()

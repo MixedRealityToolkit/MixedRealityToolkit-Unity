@@ -7,6 +7,8 @@
 using MixedReality.Toolkit.Input.Simulation;
 using System.Collections;
 using UnityEngine;
+using System;
+using Object = UnityEngine.Object;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -18,8 +20,13 @@ namespace MixedReality.Toolkit.Input.Tests
 {
     public class InputTestUtilities
     {
+        [Obsolete("Deprecated, please use MRTKRigPrefabGuidForXRI3")]
         private const string MRTKRigPrefabGuid = "4d7e2f87fefe0ba468719b15288b46e7";
+        [Obsolete("Deprecated, please use MRTKRigPrefabGuidForXRI3")]
         private static readonly string MRTKRigPrefabPath = AssetDatabase.GUIDToAssetPath(MRTKRigPrefabGuid);
+
+        private const string MRTKRigPrefabGuidForXRI3 = "acbf65a81ce2cf94f82a0809298acf70";
+        private static readonly string MRTKRigPrefabPathForXRI3 = AssetDatabase.GUIDToAssetPath(MRTKRigPrefabGuidForXRI3);
 
         private static GameObject rigReference;
         private static bool isEyeGazeTracking = true;
@@ -108,11 +115,22 @@ namespace MixedReality.Toolkit.Input.Tests
         #endregion Simulated Devices
 
         /// <summary>
-        /// Creates and returns the MRTK rig.
+        /// Creates and returns the deprecated pre-XRI3 MRTK rig.
         /// </summary>
+        [Obsolete("Deprecated, please use InstantiateRigForXRI3()")]
         public static GameObject InstantiateRig()
         {
             Object rigPrefab = AssetDatabase.LoadAssetAtPath(MRTKRigPrefabPath, typeof(Object));
+            rigReference = Object.Instantiate(rigPrefab) as GameObject;
+            return rigReference;
+        }
+
+        /// <summary>
+        /// Creates and returns the MRTK rig for XRI3+.
+        /// </summary>
+        public static GameObject InstantiateRigForXRI3()
+        {
+            Object rigPrefab = AssetDatabase.LoadAssetAtPath(MRTKRigPrefabPathForXRI3, typeof(Object));
             rigReference = Object.Instantiate(rigPrefab) as GameObject;
             return rigReference;
         }
