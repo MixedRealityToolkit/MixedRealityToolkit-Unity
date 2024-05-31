@@ -30,7 +30,7 @@ namespace MixedReality.Toolkit.Input.Tests
     ///        original <see cref="InteractionModeManagerTests"/>.  Once the XRI3 migration is completed by removing all the pre-XRI3
     ///        prefabs then those tests can be moved to this class.
     /// </remarks>
-    public class InteractionModeManagerTestsForXRI3Plus : BaseRuntimeInputTests
+    public class InteractionModeManagerTestsForControllerlessRig : BaseRuntimeInputTests
     {
         [UnitySetUp]
         public override IEnumerator Setup()
