@@ -22,7 +22,7 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </summary>
     public class InteractionModeManagerTests : BaseRuntimeInputTests
     {
-#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Adding this pragma because all these tests depend on deprecated XRBaseController
         /// <summary>
         /// Tests that the proximity detector detects when to change the controllers interaction mode and properly toggles the associated interactors.
         /// Also checks that the proximity detector doesn't trigger hovers on other objects
