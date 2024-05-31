@@ -88,8 +88,6 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 #pragma warning restore CS0618 // Type or member is obsolete
 
-        [Obsolete("Deprecated, please use SetupForXRI3Testing()")]
-#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
         public override IEnumerator Setup()
         {
             yield return base.Setup();
@@ -102,7 +100,6 @@ namespace MixedReality.Toolkit.Input.Tests
             // Wait for simulation HMD to update camera poses
             yield return RuntimeTestUtilities.WaitForUpdates();
         }
-#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 
         public IEnumerator SetupForXRI3Testing()
         {

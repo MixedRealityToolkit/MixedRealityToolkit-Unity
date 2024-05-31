@@ -20,9 +20,7 @@ namespace MixedReality.Toolkit.Input.Tests
 {
     public class InputTestUtilities
     {
-        [Obsolete("Deprecated, please use MRTKRigPrefabGuidForXRI3")]
         private const string MRTKRigPrefabGuid = "4d7e2f87fefe0ba468719b15288b46e7";
-        [Obsolete("Deprecated, please use MRTKRigPrefabGuidForXRI3")]
         private static readonly string MRTKRigPrefabPath = AssetDatabase.GUIDToAssetPath(MRTKRigPrefabGuid);
 
         private const string MRTKRigPrefabGuidForXRI3 = "acbf65a81ce2cf94f82a0809298acf70";
@@ -117,7 +115,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Creates and returns the deprecated pre-XRI3 MRTK rig.
         /// </summary>
-        [Obsolete("Deprecated, please use InstantiateRigForXRI3()")]
         public static GameObject InstantiateRig()
         {
             Object rigPrefab = AssetDatabase.LoadAssetAtPath(MRTKRigPrefabPath, typeof(Object));
