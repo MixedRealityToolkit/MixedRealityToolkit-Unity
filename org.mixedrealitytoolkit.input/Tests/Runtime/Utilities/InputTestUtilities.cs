@@ -125,7 +125,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Creates and returns the MRTK rig for XRI3+.
         /// </summary>
-        public static GameObject InstantiateRigForXRI3()
+        public static GameObject InstantiateControllerlessRig()
         {
             Object rigPrefab = AssetDatabase.LoadAssetAtPath(MRTKRigPrefabPathForXRI3, typeof(Object));
             rigReference = Object.Instantiate(rigPrefab) as GameObject;

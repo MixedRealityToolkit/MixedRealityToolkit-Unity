@@ -107,7 +107,7 @@ namespace MixedReality.Toolkit.Input.Tests
             input.Setup();
             XRISetup();
 
-            InputTestUtilities.InstantiateRigForXRI3();
+            InputTestUtilities.InstantiateControllerlessRig();
             InputTestUtilities.SetupSimulation(0.0f);
 
             // Wait for simulation HMD to update camera poses
