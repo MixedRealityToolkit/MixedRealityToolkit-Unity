@@ -23,8 +23,8 @@ namespace MixedReality.Toolkit.Input.Tests
         private const string MRTKRigPrefabGuid = "4d7e2f87fefe0ba468719b15288b46e7";
         private static readonly string MRTKRigPrefabPath = AssetDatabase.GUIDToAssetPath(MRTKRigPrefabGuid);
 
-        private const string MRTKRigPrefabGuidForXRI3 = "acbf65a81ce2cf94f82a0809298acf70";
-        private static readonly string MRTKRigPrefabPathForXRI3 = AssetDatabase.GUIDToAssetPath(MRTKRigPrefabGuidForXRI3);
+        private const string MRTKControllerlessRigPrefabGuid = "acbf65a81ce2cf94f82a0809298acf70";
+        private static readonly string MRTKControllerlessRigPrefabPathForXRI3 = AssetDatabase.GUIDToAssetPath(MRTKControllerlessRigPrefabGuid);
 
         private static GameObject rigReference;
         private static bool isEyeGazeTracking = true;
@@ -127,7 +127,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         public static GameObject InstantiateControllerlessRig()
         {
-            Object rigPrefab = AssetDatabase.LoadAssetAtPath(MRTKRigPrefabPathForXRI3, typeof(Object));
+            Object rigPrefab = AssetDatabase.LoadAssetAtPath(MRTKControllerlessRigPrefabPathForXRI3, typeof(Object));
             rigReference = Object.Instantiate(rigPrefab) as GameObject;
             return rigReference;
         }
