@@ -35,7 +35,7 @@ namespace MixedReality.Toolkit.Input.Tests
         [UnitySetUp]
         public override IEnumerator Setup()
         {
-            yield return base.SetupForXRI3Testing();
+            yield return base.SetupForControllerlessRig();
         }
 
         /// <summary>

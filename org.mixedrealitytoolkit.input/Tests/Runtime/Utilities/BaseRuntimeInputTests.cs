@@ -101,7 +101,7 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
         }
 
-        public IEnumerator SetupForXRI3Testing()
+        public IEnumerator SetupForControllerlessRig()
         {
             yield return base.Setup();
             input.Setup();
