@@ -49,6 +49,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Ensure the simulated input devices bind to the controllers on the rig.
         /// </summary>
+#pragma warning disable CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ActionBasedController
         [UnityTest]
         public IEnumerator InputBindingSmoketest()
         {
@@ -98,6 +99,7 @@ namespace MixedReality.Toolkit.Input.Tests
 
             yield return null;
         }
+#pragma warning restore CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ActionBasedController
 
         /// <summary>
         /// Test that anchoring the test hands on the grab point actually results in the grab interactor
@@ -410,6 +412,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// break XRDirectInteractor. Repro test for ADO#1582/1581.
         /// </summary>
         [UnityTest]
+#pragma warning disable CS0618 // Adding this pragma because all the encompassed tests depend on deprecated XRBaseController
         public IEnumerator InteractableDisabledDuringInteraction()
         {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -596,6 +599,7 @@ namespace MixedReality.Toolkit.Input.Tests
 
             yield return null;
         }
+#pragma warning restore CS0618 // Adding this pragma because all the encompassed tests depend on deprecated XRBaseController
 
         /// <summary>
         /// Test the HandModel script has the required fields.
