@@ -217,15 +217,16 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         /// <remarks>
         /// This test was originally meant to be the XRI3+ equivalent of <see cref="BasicInputTests.UntrackedControllerNearInteractions"/>,
-        /// however, the TestHand class inherits from XRSimualtedController for which there is no XRI3 equivalent and despite simulating
-        /// tracking disabling the interactions are still initiated because the interactors use the new TrackedPoseDriver component.
-        /// Therefore, since there is no way to simulate tracking loss in XRI3 TrackedPoseDriver (at least at the moment of this writing) then
-        /// this test was repurposed to test interactions with normally tracked hands.
-        /// Note: Next is a list of this of things tried to simulate loss of tracking with XRI3+ controllerless hands: disabling the TrackedPoseDriver
-        ///       component, destroying the TrackedPoseDriver component, setting TrackedPoseDriver.ignoreTrackingState, setting
-        ///       TrackedPoserDriver.trackingStateInput to a new InputActionProperty (it is not nullable).  Unfortunately none worked for simulating
-        ///       tracking loss.  Therefore this replacement test was repurposed to test tracked hands and ensure it initiates new interactions
-        ///       properly and that the interactable IsGrabSelected property is updated properly.
+        /// however, the <see cref="TestHand"/> class inherits from XRSimulatedController for which there is no XRI3 equivalent and despite
+        /// simulating tracking disabling the interactions are still initiated because the interactors use the new <see cref="TrackedPoseDriver">
+        /// component.  Therefore, since there is no way to simulate tracking loss in XRI3 <see cref="TrackedPoseDriver"> (at least at the moment
+        /// of this writing) then this test was repurposed to test interactions with normally tracked hands.
+        /// Note: Next is a list of this of things tried to simulate loss of tracking with XRI3+ controllerless hands: disabling the
+        ///       <see cref="TrackedPoseDriver"> component, destroying the <see cref="TrackedPoseDriver"> component, setting
+        ///       <see cref="TrackedPoseDriver.ignoreTrackingState">, setting <see cref="TrackedPoseDriver.trackingStateInput"> to a new
+        ///       <see cref="InputActionProperty"> (it is not nullable).  Unfortunately none worked for simulating tracking loss.  Therefore this
+        ///       replacement test was repurposed to test tracked hands and ensure it initiates new interactions properly and that the interactable
+        ///       IsGrabSelected property is updated properly.
         /// </remarks>
         [UnityTest]
         public IEnumerator TrackedHandNearInteractions()
