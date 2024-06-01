@@ -24,7 +24,7 @@ using Object = UnityEngine.Object;
 namespace MixedReality.Toolkit.Input.Tests
 {
     /// <summary>
-    /// Basic tests for verifying user input and basic interactions for the XRI3+ controller less MRTK rig.
+    /// Basic tests for verifying user input and basic interactions for the XRI3+ controllerless MRTK rig.
     /// </summary>
     /// <remarks>
     /// This tests are equivalent to those in <see cref="BasicInputTests"/> but they test with the new MRTK Rig that was
@@ -43,7 +43,7 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
-        /// Ensure the simulated input devices bind to the controllers on the rig.
+        /// Ensure the simulated input devices bind to the hands and gaze on the rig.
         /// </summary>
         /// <remarks>
         /// This test is the XRI3+ equivalent of <see cref="BasicInputTests.InputBindingSmoketest"/>
@@ -70,7 +70,7 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
-        /// Ensure the simulated input device actually makes the rig's controllers move/actuate.
+        /// Ensure the simulated input device actually makes the rig's hands move/actuate.
         /// </summary>
         /// <remarks>
         /// This test is the XRI3+ equivalent of <see cref="BasicInputTests.HandMovingSmoketest"/>
@@ -78,7 +78,6 @@ namespace MixedReality.Toolkit.Input.Tests
         [UnityTest]
         public IEnumerator HandMovingSmoketest()
         {
-            //var controller = CachedLookup.RightHandController as ActionBasedController;
             var trackedPoseDriver = CachedTrackedPoseDriverLookup.RightHandTrackedPoseDriver;
 
             var testHand = new TestHand(Handedness.Right);
@@ -221,11 +220,11 @@ namespace MixedReality.Toolkit.Input.Tests
         /// however, the TestHand class inherits from XRSimualtedController for which there is no XRI3 equivalent and despite simulating
         /// tracking disabling the interactions are still initiated because the interactors use the new TrackedPoseDriver component.
         /// Therefore, since there is no way to simulate tracking loss in XRI3 TrackedPoseDriver (at least at the moment of this writing) then
-        /// this tests was repurposed to test interactions with normally tracked hands.
+        /// this test was repurposed to test interactions with normally tracked hands.
         /// Note: Next is a list of this of things tried to simulate loss of tracking with XRI3+ controllerless hands: disabling the TrackedPoseDriver
         ///       component, destroying the TrackedPoseDriver component, setting TrackedPoseDriver.ignoreTrackingState, setting
         ///       TrackedPoserDriver.trackingStateInput to a new InputActionProperty (it is not nullable).  Unfortunately none worked for simulating
-        ///       tracking loss.  Therefore this replacemente test was repurposed to test tracked hands and ensure it initiates new interactions
+        ///       tracking loss.  Therefore this replacement test was repurposed to test tracked hands and ensure it initiates new interactions
         ///       properly and that the interactable IsGrabSelected property is updated properly.
         /// </remarks>
         [UnityTest]
