@@ -4,17 +4,13 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using MixedReality.Toolkit;
 using MixedReality.Toolkit.Core.Tests;
 using MixedReality.Toolkit.Input.Tests;
-using MixedReality.Toolkit.Input.Simulation;
 using MixedReality.Toolkit.Input;
 using NUnit.Framework;
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 using UnityEngine.XR;
 
 namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
