@@ -198,7 +198,7 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 #pragma warning restore CS0618 // Type or member is obsolete
 
-        // Returns true iff any of the ProximityDetectors in the scene are currently triggered.
+        // Returns true if and only if any of the ProximityDetectors in the scene are currently triggered.
         public static bool AnyProximityDetectorsTriggered()
         {
             ProximityDetector[] detectors = FindObjectUtility.FindObjectsByType<ProximityDetector>();
