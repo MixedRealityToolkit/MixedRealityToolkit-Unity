@@ -15,7 +15,7 @@ using UnityEngine.TestTools;
 namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 {
     /// <summary>
-    /// Tests for SolverHandler.
+    /// Tests for SolverHandler for the XRI3+ controllerles MRTK rig.
     /// </summary>
     /// <remarks>
     /// These tests are equivalent to those in <see cref="SolverHandlerTests"/> but they test with the new MRTK Rig that was
