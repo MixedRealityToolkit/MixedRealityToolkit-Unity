@@ -23,6 +23,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// Verify TapToPlace can move an object to the end of the right hand ray.
         /// </summary>
         [UnityTest]
+#pragma warning disable CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ControllerLookup
         public IEnumerator TapToPlaceFollowsRightHandRay()
         {
             // Disable gaze interactions for this unit test;
@@ -184,6 +185,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             var testObjectFinalPosition = testObject.transform.position;
             Assert.AreEqual(testObjectPlacementPosition, testObjectFinalPosition, $"Game object should not have moved.");
         }
+#pragma warning restore CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ControllerLookup
     }
 }
 #pragma warning restore CS1591
