@@ -15,7 +15,7 @@ using MixedReality.Toolkit.Core.Tests;
 namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 {
     /// <summary>
-    /// Tests for TapToPlace solver.
+    /// Tests for TapToPlace solver for the XRI3+ controllerless MRTK rig.
     /// </summary>
     /// <remarks>
     /// These tests are equivalent to those in <see cref="SolverTapToPlaceTests"/> but they test with the new MRTK Rig that was
