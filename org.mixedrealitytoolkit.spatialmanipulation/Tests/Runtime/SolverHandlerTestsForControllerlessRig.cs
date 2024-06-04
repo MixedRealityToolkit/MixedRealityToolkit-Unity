@@ -36,6 +36,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// <summary>
         /// This checks if the SolverHandler can be configured to only track left hand only
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ version of <see cref="SolverHandlerTests.SolverHandlerInteractorLeftHandOnly"/>
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerInteractorLeftHandOnly()
         {
@@ -91,6 +94,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// <summary>
         /// This checks if the SolverHandler moves with the active hand when tracking two interactors
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ version of <see cref="SolverHandlerTests.SolverHandlerInteractorMovesWithHand"/>
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerInteractorMovesWithHand()
         {
@@ -133,6 +139,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// This checks if the SolverHandler starts tracking the preferred hand if both hands are view when tracking
         /// two interactors
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ version of <see cref="SolverHandlerTests.SolverHandlerInteractorPreferredHandedness"/>
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerInteractorPreferredHandedness()
         {
@@ -174,6 +183,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// <summary>
         /// This checks if the SolverHandler can be configured to only track right hand only
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ version of <see cref="SolverHandlerTests.SolverHandlerInteractorRightHandOnly"/>
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerInteractorRightHandOnly()
         {
@@ -230,6 +242,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// This checks if the SolverHandler correctly switches to the active hand when tracking
         /// two interactors
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ version of <see cref="SolverHandlerTests.SolverHandlerInteractorSwitchesToActiveHand"/>
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerInteractorSwitchesToActiveHand()
         {
@@ -288,6 +303,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// Everything value, with is -1 or 0xFFFFFFFF. Everything can be set via Unity's
         /// inspector window.
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ version of <see cref="SolverHandlerTests.SolverHandlerInteractorSwitchesToActiveHandWithEverythingValue"/>
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerInteractorSwitchesToActiveHandWithEverythingValue()
         {
@@ -344,6 +362,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// This checks if the SolverHandler keeps tracking the current active hand if another one comes
         /// in view when tracking two interactors
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ version of <see cref="SolverHandlerTests.SolverHandlerInteractorTracksInitialActiveHand"/>
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerInteractorTracksInitialActiveHand()
         {
