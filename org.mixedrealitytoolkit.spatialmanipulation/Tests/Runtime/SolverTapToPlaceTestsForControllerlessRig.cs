@@ -36,6 +36,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// <summary>
         /// Verify TapToPlace can move an object to the end of the right hand ray.
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ equivalent of <see cref="SolverTapToPlaceTests.TapToPlaceFollowsRightHandRay"/>
+        /// </remarks>
         [UnityTest]
         public IEnumerator TapToPlaceFollowsRightHandRay()
         {
@@ -119,6 +122,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// <summary>
         /// Verify TapToPlace can move an object to the end of the left hand ray.
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ equivalent of <see cref="SolverTapToPlaceTests.TapToPlaceFollowsLeftHandRay"/>
+        /// </remarks>
         [UnityTest]
         public IEnumerator TapToPlaceFollowsLeftHandRay()
         {
