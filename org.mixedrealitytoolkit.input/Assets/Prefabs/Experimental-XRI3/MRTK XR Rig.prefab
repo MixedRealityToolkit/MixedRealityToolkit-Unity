@@ -546,6 +546,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2351505566903569412}
     m_Modifications:
+    - target: {fileID: 3021976565802998075, guid: d8a2a1f4b4f78754c86045f7a36fe424, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferenceValue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3021976565802998075, guid: d8a2a1f4b4f78754c86045f7a36fe424, type: 3}
+      propertyPath: m_ActivateInput.m_InputActionReferenceValue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3021976565802998075, guid: d8a2a1f4b4f78754c86045f7a36fe424, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3021976565802998075, guid: d8a2a1f4b4f78754c86045f7a36fe424, type: 3}
+      propertyPath: m_ActivateInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6058071957502615222, guid: d8a2a1f4b4f78754c86045f7a36fe424, type: 3}
+      propertyPath: m_UpdateType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6853218870844938225, guid: d8a2a1f4b4f78754c86045f7a36fe424, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
