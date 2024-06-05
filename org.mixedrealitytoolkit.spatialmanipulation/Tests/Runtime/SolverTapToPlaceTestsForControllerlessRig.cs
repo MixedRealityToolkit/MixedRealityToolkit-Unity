@@ -15,15 +15,31 @@ using MixedReality.Toolkit.Core.Tests;
 namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 {
     /// <summary>
-    /// Tests for TapToPlace solver
+    /// Tests for TapToPlace solver for the XRI3+ controllerless MRTK rig.
     /// </summary>
-    public class SolverTapToPlaceTests : BaseRuntimeInputTests
+    /// <remarks>
+    /// These tests are equivalent to those in <see cref="SolverTapToPlaceTests"/> but they test with the new MRTK Rig that was
+    /// created for the XRI3 migration.  Eventually, this will replace the original <see cref="SolverTapToPlaceTests"/> when
+    /// the deprecated pre-XRI3 rig is removed in its entirety from MRTK3.
+    /// Note:  This class contains only the tests that are specific to the XRI3+ rig.  Tests that are common to both rigs are in the
+    ///        original <see cref="SolverTapToPlaceTests"/>.  Once the XRI3 migration is completed by removing all the pre-XRI3
+    ///        prefabs then those tests can be moved to this class.
+    /// </remarks>
+    public class SolverTapToPlaceTestsForControllerlessRig : BaseRuntimeInputTests
     {
+        [UnitySetUp]
+        public override IEnumerator Setup()
+        {
+            yield return base.SetupForControllerlessRig();
+        }
+
         /// <summary>
         /// Verify TapToPlace can move an object to the end of the right hand ray.
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ equivalent of <see cref="SolverTapToPlaceTests.TapToPlaceFollowsRightHandRay"/>
+        /// </remarks>
         [UnityTest]
-#pragma warning disable CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ControllerLookup
         public IEnumerator TapToPlaceFollowsRightHandRay()
         {
             // Disable gaze interactions for this unit test;
@@ -40,9 +56,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = Handedness.Both;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
-            var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
-            var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
+            var lookup = FindObjectUtility.FindAnyObjectByType<TrackedPoseDriverLookup>();
+            var leftInteractor = lookup.LeftHandTrackedPoseDriver.GetComponentInChildren<MRTKRayInteractor>();
+            var rightInteractor = lookup.RightHandTrackedPoseDriver.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
             solverHandler.RightInteractor = rightInteractor;
 
@@ -106,6 +122,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// <summary>
         /// Verify TapToPlace can move an object to the end of the left hand ray.
         /// </summary>
+        /// <remarks>
+        /// This test is the XRI3+ equivalent of <see cref="SolverTapToPlaceTests.TapToPlaceFollowsLeftHandRay"/>
+        /// </remarks>
         [UnityTest]
         public IEnumerator TapToPlaceFollowsLeftHandRay()
         {
@@ -123,9 +142,9 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = Handedness.Both;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
-            var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
-            var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
+            var lookup = FindObjectUtility.FindAnyObjectByType<TrackedPoseDriverLookup>();
+            var leftInteractor = lookup.LeftHandTrackedPoseDriver.GetComponentInChildren<MRTKRayInteractor>();
+            var rightInteractor = lookup.RightHandTrackedPoseDriver.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
             solverHandler.RightInteractor = rightInteractor;
 
@@ -185,7 +204,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             var testObjectFinalPosition = testObject.transform.position;
             Assert.AreEqual(testObjectPlacementPosition, testObjectFinalPosition, $"Game object should not have moved.");
         }
-#pragma warning restore CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ControllerLookup
     }
 }
 #pragma warning restore CS1591

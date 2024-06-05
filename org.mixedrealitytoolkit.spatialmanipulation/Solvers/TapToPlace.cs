@@ -556,10 +556,27 @@ namespace MixedReality.Toolkit.SpatialManipulation
             interactionManager.GetRegisteredInteractors(interactorsCache);
             foreach (IXRInteractor interactor in interactorsCache)
             {
-                if (interactor is XRBaseInputInteractor controllerInteractor &&
-                    controllerInteractor.xrController is ActionBasedController actionController)
+                if (interactor is XRBaseInputInteractor controllerInteractor)
                 {
-                    actionController.selectAction.action.performed += StopPlacementViaPerformedAction;
+#pragma warning disable CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
+                    if (controllerInteractor.xrController is ActionBasedController actionController)
+                    {
+                        if (controllerInteractor.forceDeprecatedInput &&
+                            actionController.selectAction.action != null)
+                        {
+                            actionController.selectAction.action.performed += StopPlacementViaPerformedAction;
+                        }
+                        else if (controllerInteractor.selectInput.inputActionReferenceValue != null &&
+                                 controllerInteractor.selectInput.inputActionReferenceValue.action != null) //Use the controller-less select action if it is set
+                        {
+                            controllerInteractor.selectInput.inputActionReferenceValue.action.performed += StopPlacementViaPerformedAction;
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"Neither the deprecated XRController.selectAction nor the ControllerLess Interactor/InputConfiguration.SelectInput action are set.");
+                        }
+                    }
+#pragma warning restore CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
                 }
                 else if (interactor is IXRSelectInteractor selectInteractor)
                 {
@@ -577,10 +594,27 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 foreach (IXRInteractor interactor in interactorsCache)
                 {
-                    if (interactor is XRBaseInputInteractor controllerInteractor &&
-                        controllerInteractor.xrController is ActionBasedController actionController)
+                    if (interactor is XRBaseInputInteractor controllerInteractor)
                     {
-                        actionController.selectAction.action.performed -= StopPlacementViaPerformedAction;
+#pragma warning disable CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
+                        if (controllerInteractor.xrController is ActionBasedController actionController)
+                        {
+                            if (controllerInteractor.forceDeprecatedInput &&
+                                actionController.selectAction.action != null)
+                            {
+                                actionController.selectAction.action.performed -= StopPlacementViaPerformedAction;
+                            }
+                            else if (controllerInteractor.selectInput.inputActionReferenceValue != null &&
+                                     controllerInteractor.selectInput.inputActionReferenceValue.action != null) //Use the controller-less select action if it is set
+                            {
+                                controllerInteractor.selectInput.inputActionReferenceValue.action.performed -= StopPlacementViaPerformedAction;
+                            }
+                            else
+                            {
+                                Debug.LogWarning($"Neither the deprecated XRController.selectAction nor the ControllerLess Interactor/InputConfiguration.SelectInput action are set.");
+                            }
+                        }
+#pragma warning restore CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
                     }
                     else if (interactor is IXRSelectInteractor selectInteractor)
                     {
