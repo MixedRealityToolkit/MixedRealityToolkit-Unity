@@ -46,7 +46,35 @@ namespace MixedReality.Toolkit.Input.Tests
         private const string MRTKRightHandControllerName = "MRTK RightHand Controller";
         private const string MRTKLeftHandConrollerName = "MRTK LeftHand Controller";
         private const string MRTKGazeControllerName = "MRTK Gaze Controller";
-
+        private const string GazeInteractorName = "GazeInteractor";
+        private const string MRTKLeftHandDevicePositionName = "MRTK LeftHand/DevicePosition";
+        private const string MRTKLeftHandDeviceRotationName = "MRTK LeftHand/DeviceRotation";
+        private const string MRTKLeftHandTrackingStateName = "MRTK LeftHand/Tracking State";
+        private const string MRTKRightHandDevicePositionName = "MRTK RightHand/DevicePosition";
+        private const string MRTKRightHandDeviceRotationName = "MRTK RightHand/DeviceRotation";
+        private const string MRTKRightHandTrackingStateName = "MRTK RightHand/Tracking State";
+        private const string MRTKGazePositionName = "MRTK Gaze/Position";
+        private const string MRTKGazeRotationName = "MRTK Gaze/Rotation";
+        private const string MRTKGazeTrackingStateName = "MRTK Gaze/Tracking State";
+        private const string MRTKGazeHeadGazePositionName = "MRTK Gaze/Head Gaze Position";
+        private const string MRTKGazeHeadGazeRotationName = "MRTK Gaze/Head Gaze Rotation";
+        private const string MRTKGazeHeadGazeTrackingStateName = "MRTK Gaze/Head Gaze Tracking State";
+        private const string OpenXRLeftHandCloneName = "openxr_left_hand(Clone)";
+        private const string OpenXRLeftHandName = "openxr_left_hand";
+        private const string OpenXRRightHandCloneName = "openxr_right_hand(Clone)";
+        private const string OpenXRRightHandName = "openxr_right_hand";
+        private const string IndexTipPokeInteractorName = "IndexTip PokeInteractor";
+        private const string FarRayName = "Far Ray";
+        private const string GrabInteractorName = "GrabInteractor";
+        private const string GazePinchInteractorName = "GazePinchInteractor";
+        private const string MRTKLeftHandSelectValueName = "MRTK LeftHand/Select Value";
+        private const string MRTKLeftHandSelectName = "MRTK LeftHand/Select";
+        private const string MRTKLeftHandActivateName = "MRTK LeftHand/Activate";
+        private const string MRTKLeftHandUIPressName = "MRTK LeftHand/UI Press";
+        private const string MRTKRightHandSelectValueName = "MRTK RightHand/Select Value";
+        private const string MRTKRightHandSelectName = "MRTK RightHand/Select";
+        private const string MRTKRightHandActivateName = "MRTK RightHand/Activate";
+        private const string MRTKRightHandUIPressName = "MRTK RightHand/UI Press";
         private HashSet<string> deprecatedXRControllerInputActions = new() { "Is Tracked", "Activate Action Value", "UI Press Action Value",
                                                                              "UI Scroll", "Haptic Device", "Directional Anchor Rotation",
                                                                              "Scale Toggle", "Scale Delta", "Select", "Select Action Value",
@@ -321,9 +349,9 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
-        /// Checks that the Controllerless rig has the right components and that the XRI3+ input actions are properly referenced.  The goal of
-        /// this test is to prevent breaks when the ControllerLess rig prefabs or its associated scripts are modified.  This test also ensures
-        /// that the ControllerLess rig is shipped in the intended configuration.
+        /// Checks that the Controllerless rig has the right components and that both pre-XRI3+ and XRI3+ input actions are properly referenced.
+        /// The goal of this test is to prevent breaks when the Controllerless rig prefabs or its associated scripts are modified and prefabs are
+        /// not updated properly.  This test also ensures that the Controllerless rig is shipped in the intended configuration.
         /// </summary>
         /// <remarks>
         /// This is an XRI3+ exclusive test.
@@ -331,13 +359,11 @@ namespace MixedReality.Toolkit.Input.Tests
         [UnityTest]
         public IEnumerator ControllerlessRigSmokeTest()
         {
-            // Check the ControllerLess rig has the correct children.
+            // Check the Controllerless rig has the correct children.
             var controllerLessRig = InputTestUtilities.RigReference;
-
             List<GameObject> rigChildren = new List<GameObject>();
             controllerLessRig.GetChildGameObjects(rigChildren);
 
-            // Check the rig has the correct children
             Assert.AreEqual(4, rigChildren.Count);
             Assert.AreEqual(1, rigChildren.Where(c => c.name.Equals(MRTKInteractionManagerName)).Count());
             Assert.AreEqual(1, rigChildren.Where(c => c.name.Equals(CameraOffsetName)).Count());
@@ -365,7 +391,9 @@ namespace MixedReality.Toolkit.Input.Tests
             GameObject gazeInteractorGameObject = null;
 
             // Check all controllers have an empty XRController Component
-            var cameraOffsetControllers = cameraOffsetChildren.Where(c => c.name.Equals(MRTKRightHandControllerName) || c.name.Equals(MRTKLeftHandConrollerName) || c.name.Equals(MRTKGazeControllerName));
+            var cameraOffsetControllers = cameraOffsetChildren.Where(c => c.name.Equals(MRTKRightHandControllerName) ||
+                                                                          c.name.Equals(MRTKLeftHandConrollerName) ||
+                                                                          c.name.Equals(MRTKGazeControllerName));
             foreach (GameObject controller in cameraOffsetControllers)
             {
                 // Check the controller has the XRController component
@@ -412,7 +440,7 @@ namespace MixedReality.Toolkit.Input.Tests
                     gazeGameObject.GetChildGameObjects(gazeGameObjectChildren);
 
                     // Check the gaze GameObject has one and only one FuzzyGazeInteractor
-                    var gazeInteractors = gazeGameObjectChildren.Where(c => c.name.Equals("GazeInteractor")).ToArray();
+                    var gazeInteractors = gazeGameObjectChildren.Where(c => c.name.Equals(GazeInteractorName)).ToArray();
                     Assert.AreEqual(1, gazeInteractors.Length);
                     gazeInteractorGameObject = gazeInteractors[0];
                 }
@@ -427,44 +455,44 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.AreEqual(1, leftHandTrackedPoseDrivers.Length);
             Assert.AreEqual(TrackedPoseDriver.TrackingType.RotationAndPosition, leftHandTrackedPoseDrivers[0].trackingType);
             Assert.AreEqual(TrackedPoseDriver.UpdateType.UpdateAndBeforeRender, leftHandTrackedPoseDrivers[0].updateType);
-            Assert.IsTrue(leftHandTrackedPoseDrivers[0].positionInput.reference.name.Equals("MRTK LeftHand/DevicePosition"));
-            Assert.IsTrue(leftHandTrackedPoseDrivers[0].rotationInput.reference.name.Equals("MRTK LeftHand/DeviceRotation"));
-            Assert.IsTrue(leftHandTrackedPoseDrivers[0].trackingStateInput.reference.name.Equals("MRTK LeftHand/Tracking State"));
+            Assert.IsTrue(leftHandTrackedPoseDrivers[0].positionInput.reference.name.Equals(MRTKLeftHandDevicePositionName));
+            Assert.IsTrue(leftHandTrackedPoseDrivers[0].rotationInput.reference.name.Equals(MRTKLeftHandDeviceRotationName));
+            Assert.IsTrue(leftHandTrackedPoseDrivers[0].trackingStateInput.reference.name.Equals(MRTKLeftHandTrackingStateName));
 
             var rightHandTrackedPoseDrivers = rightHandGameObject.GetComponents<TrackedPoseDriver>();
             Assert.AreEqual(1, rightHandTrackedPoseDrivers.Length);
             Assert.AreEqual(TrackedPoseDriver.TrackingType.RotationAndPosition, rightHandTrackedPoseDrivers[0].trackingType);
             Assert.AreEqual(TrackedPoseDriver.UpdateType.UpdateAndBeforeRender, rightHandTrackedPoseDrivers[0].updateType);
-            Assert.IsTrue(rightHandTrackedPoseDrivers[0].positionInput.reference.name.Equals("MRTK RightHand/DevicePosition"));
-            Assert.IsTrue(rightHandTrackedPoseDrivers[0].rotationInput.reference.name.Equals("MRTK RightHand/DeviceRotation"));
-            Assert.IsTrue(rightHandTrackedPoseDrivers[0].trackingStateInput.reference.name.Equals("MRTK RightHand/Tracking State"));
+            Assert.IsTrue(rightHandTrackedPoseDrivers[0].positionInput.reference.name.Equals(MRTKRightHandDevicePositionName));
+            Assert.IsTrue(rightHandTrackedPoseDrivers[0].rotationInput.reference.name.Equals(MRTKRightHandDeviceRotationName));
+            Assert.IsTrue(rightHandTrackedPoseDrivers[0].trackingStateInput.reference.name.Equals(MRTKRightHandTrackingStateName));
 
             // Check that the GazeInteractor has its TrackedPoseDriverWithFallback component and that it is properly set
             var gazeInteractorTrackedPoseDriversWithFallback = gazeInteractorGameObject.GetComponents<TrackedPoseDriverWithFallback>();
             Assert.AreEqual(1, gazeInteractorTrackedPoseDriversWithFallback.Length);
             Assert.AreEqual(TrackedPoseDriver.TrackingType.RotationAndPosition, gazeInteractorTrackedPoseDriversWithFallback[0].trackingType);
             Assert.AreEqual(TrackedPoseDriver.UpdateType.UpdateAndBeforeRender, gazeInteractorTrackedPoseDriversWithFallback[0].updateType);
-            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].positionInput.reference.name.Equals("MRTK Gaze/Position"));
-            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].rotationInput.reference.name.Equals("MRTK Gaze/Rotation"));
-            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].trackingStateInput.reference.name.Equals("MRTK Gaze/Tracking State"));
-            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].FallbackPositionAction.reference.name.Equals("MRTK Gaze/Head Gaze Position"));
-            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].FallbackRotationAction.reference.name.Equals("MRTK Gaze/Head Gaze Rotation"));
-            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].FallbackTrackingStateAction.reference.name.Equals("MRTK Gaze/Head Gaze Tracking State"));
+            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].positionInput.reference.name.Equals(MRTKGazePositionName));
+            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].rotationInput.reference.name.Equals(MRTKGazeRotationName));
+            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].trackingStateInput.reference.name.Equals(MRTKGazeTrackingStateName));
+            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].FallbackPositionAction.reference.name.Equals(MRTKGazeHeadGazePositionName));
+            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].FallbackRotationAction.reference.name.Equals(MRTKGazeHeadGazeRotationName));
+            Assert.IsTrue(gazeInteractorTrackedPoseDriversWithFallback[0].FallbackTrackingStateAction.reference.name.Equals(MRTKGazeHeadGazeTrackingStateName));
 
             // Check LeftHand and RightHand have HandModel component and it is properly set
             var leftHandHandModel = leftHandGameObject.GetComponents<HandModel>();
             Assert.AreEqual(1, leftHandHandModel.Length);
             Assert.AreEqual(XRNode.LeftHand, leftHandHandModel[0].HandNode);
-            Assert.IsTrue(leftHandHandModel[0].Model.name.Equals("openxr_left_hand(Clone)"));
+            Assert.IsTrue(leftHandHandModel[0].Model.name.Equals(OpenXRLeftHandCloneName));
             Assert.IsNull(leftHandHandModel[0].ModelParent);
-            Assert.IsTrue(leftHandHandModel[0].ModelPrefab.name.Equals("openxr_left_hand"));
+            Assert.IsTrue(leftHandHandModel[0].ModelPrefab.name.Equals(OpenXRLeftHandName));
 
             var rigtHandHandModel = rightHandGameObject.GetComponents<HandModel>();
             Assert.AreEqual(1, rigtHandHandModel.Length);
             Assert.AreEqual(XRNode.RightHand, rigtHandHandModel[0].HandNode);
-            Assert.IsTrue(rigtHandHandModel[0].Model.name.Equals("openxr_right_hand(Clone)"));
+            Assert.IsTrue(rigtHandHandModel[0].Model.name.Equals(OpenXRRightHandCloneName));
             Assert.IsNull(rigtHandHandModel[0].ModelParent);
-            Assert.IsTrue(rigtHandHandModel[0].ModelPrefab.name.Equals("openxr_right_hand"));
+            Assert.IsTrue(rigtHandHandModel[0].ModelPrefab.name.Equals(OpenXRRightHandName));
 
             // Now check the interactors
 
@@ -479,10 +507,10 @@ namespace MixedReality.Toolkit.Input.Tests
             List<GameObject> leftHandChildren = new List<GameObject>();
             leftHandGameObject.GetChildGameObjects(leftHandChildren);
 
-            var leftHandPokeInteractors = leftHandChildren.Where(c => c.name.Equals("IndexTip PokeInteractor")).ToArray();
-            var leftHandFarRays = leftHandChildren.Where(c => c.name.Equals("Far Ray")).ToArray();
-            var leftHandGrabInteractors = leftHandChildren.Where(c => c.name.Equals("GrabInteractor")).ToArray();
-            var leftHandGazePinchInteractors = leftHandChildren.Where(c => c.name.Equals("GazePinchInteractor")).ToArray();
+            var leftHandPokeInteractors = leftHandChildren.Where(c => c.name.Equals(IndexTipPokeInteractorName)).ToArray();
+            var leftHandFarRays = leftHandChildren.Where(c => c.name.Equals(FarRayName)).ToArray();
+            var leftHandGrabInteractors = leftHandChildren.Where(c => c.name.Equals(GrabInteractorName)).ToArray();
+            var leftHandGazePinchInteractors = leftHandChildren.Where(c => c.name.Equals(GazePinchInteractorName)).ToArray();
 
             Assert.AreEqual(1, leftHandPokeInteractors.Length);
             Assert.AreEqual(1, leftHandFarRays.Length);
@@ -493,10 +521,10 @@ namespace MixedReality.Toolkit.Input.Tests
             List<GameObject> rightHandChildren = new List<GameObject>();
             rightHandGameObject.GetChildGameObjects(rightHandChildren);
 
-            var rightHandPokeInteractors = rightHandChildren.Where(c => c.name.Equals("IndexTip PokeInteractor")).ToArray();
-            var rightHandFarRays = rightHandChildren.Where(c => c.name.Equals("Far Ray")).ToArray();
-            var rightHandGrabInteractors = rightHandChildren.Where(c => c.name.Equals("GrabInteractor")).ToArray();
-            var rightHandGazePinchInteractors = rightHandChildren.Where(c => c.name.Equals("GazePinchInteractor")).ToArray();
+            var rightHandPokeInteractors = rightHandChildren.Where(c => c.name.Equals(IndexTipPokeInteractorName)).ToArray();
+            var rightHandFarRays = rightHandChildren.Where(c => c.name.Equals(FarRayName)).ToArray();
+            var rightHandGrabInteractors = rightHandChildren.Where(c => c.name.Equals(GrabInteractorName)).ToArray();
+            var rightHandGazePinchInteractors = rightHandChildren.Where(c => c.name.Equals(GazePinchInteractorName)).ToArray();
 
             Assert.AreEqual(1, rightHandPokeInteractors.Length);
             Assert.AreEqual(1, rightHandFarRays.Length);
@@ -506,72 +534,72 @@ namespace MixedReality.Toolkit.Input.Tests
             // Check leftHand*Interactors
             // Check that leftHandPokeInteractor has correct input configuration
             Assert.AreEqual(InteractorHandedness.Left, leftHandPokeInteractors[0].GetComponent<PokeInteractor>().handedness);
-            Assert.IsTrue(leftHandPokeInteractors[0].GetComponent<PokeInteractor>().selectInput.inputActionReferenceValue.name.Equals("MRTK LeftHand/Select Value"));
-            Assert.IsTrue(leftHandPokeInteractors[0].GetComponent<PokeInteractor>().selectInput.inputActionReferencePerformed.name.Equals("MRTK LeftHand/Select"));
-            Assert.IsTrue(leftHandPokeInteractors[0].GetComponent<PokeInteractor>().activateInput.inputActionReferenceValue.name.Equals("MRTK LeftHand/Activate"));
-            Assert.IsTrue(leftHandPokeInteractors[0].GetComponent<PokeInteractor>().activateInput.inputActionReferencePerformed.name.Equals("MRTK LeftHand/Activate"));
+            Assert.IsTrue(leftHandPokeInteractors[0].GetComponent<PokeInteractor>().selectInput.inputActionReferenceValue.name.Equals(MRTKLeftHandSelectValueName));
+            Assert.IsTrue(leftHandPokeInteractors[0].GetComponent<PokeInteractor>().selectInput.inputActionReferencePerformed.name.Equals(MRTKLeftHandSelectName));
+            Assert.IsTrue(leftHandPokeInteractors[0].GetComponent<PokeInteractor>().activateInput.inputActionReferenceValue.name.Equals(MRTKLeftHandActivateName));
+            Assert.IsTrue(leftHandPokeInteractors[0].GetComponent<PokeInteractor>().activateInput.inputActionReferencePerformed.name.Equals(MRTKLeftHandActivateName));
             Assert.AreSame(leftHandPokeInteractors[0].GetComponent<PokeInteractor>().TrackedPoseDriver, leftHandTrackedPoseDrivers[0]);
 
             // Check that the leftHandMRTKRayInteractor has correct input configuration
             Assert.AreEqual(InteractorHandedness.Left, leftHandFarRays[0].GetComponent<MRTKRayInteractor>().handedness);
-            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().selectInput.inputActionReferenceValue.name.Equals("MRTK LeftHand/Select Value"));
-            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().selectInput.inputActionReferencePerformed.name.Equals("MRTK LeftHand/Select"));
-            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().activateInput.inputActionReferenceValue.name.Equals("MRTK LeftHand/Activate"));
-            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().activateInput.inputActionReferencePerformed.name.Equals("MRTK LeftHand/Activate"));
+            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().selectInput.inputActionReferenceValue.name.Equals(MRTKLeftHandSelectValueName));
+            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().selectInput.inputActionReferencePerformed.name.Equals(MRTKLeftHandSelectName));
+            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().activateInput.inputActionReferenceValue.name.Equals(MRTKLeftHandActivateName));
+            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().activateInput.inputActionReferencePerformed.name.Equals(MRTKLeftHandActivateName));
             Assert.AreSame(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().TrackedPoseDriver, leftHandTrackedPoseDrivers[0]);
-            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().uiPressInput.inputActionReferenceValue.name.Equals("MRTK LeftHand/UI Press"));
-            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().uiPressInput.inputActionReferencePerformed.name.Equals("MRTK LeftHand/UI Press"));
+            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().uiPressInput.inputActionReferenceValue.name.Equals(MRTKLeftHandUIPressName));
+            Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().uiPressInput.inputActionReferencePerformed.name.Equals(MRTKLeftHandUIPressName));
             Assert.IsTrue(leftHandFarRays[0].GetComponent<MRTKRayInteractor>().enableUIInteraction);
 
             // Check that leftHandGrabInteractor has correct input configuration
             Assert.AreEqual(InteractorHandedness.Left, leftHandGrabInteractors[0].GetComponent<GrabInteractor>().handedness);
-            Assert.IsTrue(leftHandGrabInteractors[0].GetComponent<GrabInteractor>().selectInput.inputActionReferenceValue.name.Equals("MRTK LeftHand/Select Value"));
-            Assert.IsTrue(leftHandGrabInteractors[0].GetComponent<GrabInteractor>().selectInput.inputActionReferencePerformed.name.Equals("MRTK LeftHand/Select"));
-            Assert.IsTrue(leftHandGrabInteractors[0].GetComponent<GrabInteractor>().activateInput.inputActionReferenceValue.name.Equals("MRTK LeftHand/Activate"));
-            Assert.IsTrue(leftHandGrabInteractors[0].GetComponent<GrabInteractor>().activateInput.inputActionReferencePerformed.name.Equals("MRTK LeftHand/Activate"));
+            Assert.IsTrue(leftHandGrabInteractors[0].GetComponent<GrabInteractor>().selectInput.inputActionReferenceValue.name.Equals(MRTKLeftHandSelectValueName));
+            Assert.IsTrue(leftHandGrabInteractors[0].GetComponent<GrabInteractor>().selectInput.inputActionReferencePerformed.name.Equals(MRTKLeftHandSelectName));
+            Assert.IsTrue(leftHandGrabInteractors[0].GetComponent<GrabInteractor>().activateInput.inputActionReferenceValue.name.Equals(MRTKLeftHandActivateName));
+            Assert.IsTrue(leftHandGrabInteractors[0].GetComponent<GrabInteractor>().activateInput.inputActionReferencePerformed.name.Equals(MRTKLeftHandActivateName));
 
             // Check that the leftHandMRTKRayInteractor has correct input configuration
             Assert.AreEqual(InteractorHandedness.Left, leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().handedness);
-            Assert.IsTrue(leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().selectInput.inputActionReferenceValue.name.Equals("MRTK LeftHand/Select Value"));
-            Assert.IsTrue(leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().selectInput.inputActionReferencePerformed.name.Equals("MRTK LeftHand/Select"));
-            Assert.IsTrue(leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().activateInput.inputActionReferenceValue.name.Equals("MRTK LeftHand/Activate"));
-            Assert.IsTrue(leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().activateInput.inputActionReferencePerformed.name.Equals("MRTK LeftHand/Activate"));
+            Assert.IsTrue(leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().selectInput.inputActionReferenceValue.name.Equals(MRTKLeftHandSelectValueName));
+            Assert.IsTrue(leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().selectInput.inputActionReferencePerformed.name.Equals(MRTKLeftHandSelectName));
+            Assert.IsTrue(leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().activateInput.inputActionReferenceValue.name.Equals(MRTKLeftHandActivateName));
+            Assert.IsTrue(leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().activateInput.inputActionReferencePerformed.name.Equals(MRTKLeftHandActivateName));
             Assert.AreSame(leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().TrackedPoseDriver, leftHandTrackedPoseDrivers[0]);
             Assert.AreSame(leftHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().DependentInteractor, gazeInteractorGameObject.GetComponent<FuzzyGazeInteractor>());
 
             // Check rightHand*Interactors
             // Check that leftHandPokeInteractor has correct input configuration
             Assert.AreEqual(InteractorHandedness.Right, rightHandPokeInteractors[0].GetComponent<PokeInteractor>().handedness);
-            Assert.IsTrue(rightHandPokeInteractors[0].GetComponent<PokeInteractor>().selectInput.inputActionReferenceValue.name.Equals("MRTK RightHand/Select Value"));
-            Assert.IsTrue(rightHandPokeInteractors[0].GetComponent<PokeInteractor>().selectInput.inputActionReferencePerformed.name.Equals("MRTK RightHand/Select"));
-            Assert.IsTrue(rightHandPokeInteractors[0].GetComponent<PokeInteractor>().activateInput.inputActionReferenceValue.name.Equals("MRTK RightHand/Activate"));
-            Assert.IsTrue(rightHandPokeInteractors[0].GetComponent<PokeInteractor>().activateInput.inputActionReferencePerformed.name.Equals("MRTK RightHand/Activate"));
+            Assert.IsTrue(rightHandPokeInteractors[0].GetComponent<PokeInteractor>().selectInput.inputActionReferenceValue.name.Equals(MRTKRightHandSelectValueName));
+            Assert.IsTrue(rightHandPokeInteractors[0].GetComponent<PokeInteractor>().selectInput.inputActionReferencePerformed.name.Equals(MRTKRightHandSelectName));
+            Assert.IsTrue(rightHandPokeInteractors[0].GetComponent<PokeInteractor>().activateInput.inputActionReferenceValue.name.Equals(MRTKRightHandActivateName));
+            Assert.IsTrue(rightHandPokeInteractors[0].GetComponent<PokeInteractor>().activateInput.inputActionReferencePerformed.name.Equals(MRTKRightHandActivateName));
             Assert.AreSame(rightHandPokeInteractors[0].GetComponent<PokeInteractor>().TrackedPoseDriver, rightHandTrackedPoseDrivers[0]);
 
             // Check that the leftHandMRTKRayInteractor has correct input configuration
             Assert.AreEqual(InteractorHandedness.Right, rightHandFarRays[0].GetComponent<MRTKRayInteractor>().handedness);
-            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().selectInput.inputActionReferenceValue.name.Equals("MRTK RightHand/Select Value"));
-            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().selectInput.inputActionReferencePerformed.name.Equals("MRTK RightHand/Select"));
-            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().activateInput.inputActionReferenceValue.name.Equals("MRTK RightHand/Activate"));
-            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().activateInput.inputActionReferencePerformed.name.Equals("MRTK RightHand/Activate"));
+            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().selectInput.inputActionReferenceValue.name.Equals(MRTKRightHandSelectValueName));
+            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().selectInput.inputActionReferencePerformed.name.Equals(MRTKRightHandSelectName));
+            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().activateInput.inputActionReferenceValue.name.Equals(MRTKRightHandActivateName));
+            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().activateInput.inputActionReferencePerformed.name.Equals(MRTKRightHandActivateName));
             Assert.AreSame(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().TrackedPoseDriver, rightHandTrackedPoseDrivers[0]);
-            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().uiPressInput.inputActionReferenceValue.name.Equals("MRTK RightHand/UI Press"));
-            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().uiPressInput.inputActionReferencePerformed.name.Equals("MRTK RightHand/UI Press"));
+            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().uiPressInput.inputActionReferenceValue.name.Equals(MRTKRightHandUIPressName));
+            Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().uiPressInput.inputActionReferencePerformed.name.Equals(MRTKRightHandUIPressName));
             Assert.IsTrue(rightHandFarRays[0].GetComponent<MRTKRayInteractor>().enableUIInteraction);
 
             // Check that rightHandGrabInteractor has correct input configuration
             Assert.AreEqual(InteractorHandedness.Right, rightHandGrabInteractors[0].GetComponent<GrabInteractor>().handedness);
-            Assert.IsTrue(rightHandGrabInteractors[0].GetComponent<GrabInteractor>().selectInput.inputActionReferenceValue.name.Equals("MRTK RightHand/Select Value"));
-            Assert.IsTrue(rightHandGrabInteractors[0].GetComponent<GrabInteractor>().selectInput.inputActionReferencePerformed.name.Equals("MRTK RightHand/Select"));
-            Assert.IsTrue(rightHandGrabInteractors[0].GetComponent<GrabInteractor>().activateInput.inputActionReferenceValue.name.Equals("MRTK RightHand/Activate"));
-            Assert.IsTrue(rightHandGrabInteractors[0].GetComponent<GrabInteractor>().activateInput.inputActionReferencePerformed.name.Equals("MRTK RightHand/Activate"));
+            Assert.IsTrue(rightHandGrabInteractors[0].GetComponent<GrabInteractor>().selectInput.inputActionReferenceValue.name.Equals(MRTKRightHandSelectValueName));
+            Assert.IsTrue(rightHandGrabInteractors[0].GetComponent<GrabInteractor>().selectInput.inputActionReferencePerformed.name.Equals(MRTKRightHandSelectName));
+            Assert.IsTrue(rightHandGrabInteractors[0].GetComponent<GrabInteractor>().activateInput.inputActionReferenceValue.name.Equals(MRTKRightHandActivateName));
+            Assert.IsTrue(rightHandGrabInteractors[0].GetComponent<GrabInteractor>().activateInput.inputActionReferencePerformed.name.Equals(MRTKRightHandActivateName));
 
             // Check that the rightHandMRTKRayInteractor has correct input configuration
             Assert.AreEqual(InteractorHandedness.Right, rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().handedness);
-            Assert.IsTrue(rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().selectInput.inputActionReferenceValue.name.Equals("MRTK RightHand/Select Value"));
-            Assert.IsTrue(rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().selectInput.inputActionReferencePerformed.name.Equals("MRTK RightHand/Select"));
-            Assert.IsTrue(rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().activateInput.inputActionReferenceValue.name.Equals("MRTK RightHand/Activate"));
-            Assert.IsTrue(rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().activateInput.inputActionReferencePerformed.name.Equals("MRTK RightHand/Activate"));
+            Assert.IsTrue(rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().selectInput.inputActionReferenceValue.name.Equals(MRTKRightHandSelectValueName));
+            Assert.IsTrue(rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().selectInput.inputActionReferencePerformed.name.Equals(MRTKRightHandSelectName));
+            Assert.IsTrue(rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().activateInput.inputActionReferenceValue.name.Equals(MRTKRightHandActivateName));
+            Assert.IsTrue(rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().activateInput.inputActionReferencePerformed.name.Equals(MRTKRightHandActivateName));
             Assert.AreSame(rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().TrackedPoseDriver, rightHandTrackedPoseDrivers[0]);
             Assert.AreSame(rightHandGazePinchInteractors[0].GetComponent<GazePinchInteractor>().DependentInteractor, gazeInteractorGameObject.GetComponent<FuzzyGazeInteractor>());
 
