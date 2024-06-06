@@ -508,7 +508,7 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsNull(gazeInteractorGameObject.GetComponent<FuzzyGazeInteractor>().activateInput.inputActionReferenceValue);
             Assert.IsNull(gazeInteractorGameObject.GetComponent<FuzzyGazeInteractor>().activateInput.inputActionReferencePerformed);
 
-            // Check that the leftHand has one and only of each type of interactors
+            // Check that the leftHand has one and only one of each type of interactors
             List<GameObject> leftHandChildren = new List<GameObject>();
             leftHandGameObject.GetChildGameObjects(leftHandChildren);
 
@@ -522,7 +522,7 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.AreEqual(1, leftHandGrabInteractors.Length);
             Assert.AreEqual(1, leftHandGazePinchInteractors.Length);
 
-            // Check that the leftHand has one and only of each type of interactors
+            // Check that the leftHand has one and only one of each type of interactors
             List<GameObject> rightHandChildren = new List<GameObject>();
             rightHandGameObject.GetChildGameObjects(rightHandChildren);
 
