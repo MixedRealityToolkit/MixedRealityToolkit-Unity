@@ -31,7 +31,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
         /// </summary>
-        private TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+        protected internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         [Header("Gaze Pinch interactor settings")]
 
@@ -94,7 +94,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// The interactor we're using to query potential gaze pinch targets.
         /// </summary>
-        protected XRBaseInputInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
+        protected internal XRBaseInputInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
 
         [SerializeField]
         [Range(0, 1)]
