@@ -40,7 +40,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
         /// </summary>
-        private TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+        public TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         /// <summary>
         /// Is this ray currently hovering a UnityUI/Canvas element?

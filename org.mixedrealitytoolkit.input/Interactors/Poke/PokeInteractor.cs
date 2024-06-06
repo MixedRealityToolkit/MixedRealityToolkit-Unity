@@ -30,7 +30,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
         /// </summary>
-        private TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+        public TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         [SerializeReference]
         [InterfaceSelector(true)]
