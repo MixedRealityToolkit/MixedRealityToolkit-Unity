@@ -88,6 +88,11 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
+        /// Holds a reference to the rig used by Unity-tests
+        /// </summary>
+        public static GameObject RigReference => rigReference;
+
+        /// <summary>
         /// A sentinel value used by controller test utilities to indicate that the default number of move
         /// steps should be used or not.
         /// </summary>
