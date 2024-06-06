@@ -16,10 +16,7 @@ using MixedReality.Toolkit.Input.Simulation;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
-using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
-using System;
 using System.Linq;
-using Object = UnityEngine.Object;
 using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine.XR;
