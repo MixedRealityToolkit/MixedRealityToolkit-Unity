@@ -119,6 +119,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VanillaUGUIExample.unity
     guid: de559429d95050746be9456af0fa1e6f
+  - enabled: 1
+    path: Assets/Scenes/ObsoleteHandInteractionExamples.unity
+    guid: ef7e6dc699271434eb9b85e866eadc11
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 87467803e919cef4394e7f39c6521b51, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: e61946fb8f8ff5e418d6ebb56cca2034, type: 2}
