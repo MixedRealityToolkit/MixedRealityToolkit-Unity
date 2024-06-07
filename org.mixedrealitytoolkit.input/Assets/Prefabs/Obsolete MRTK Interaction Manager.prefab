@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6474832524069219057}
   - component: {fileID: 7601486046380051481}
   m_Layer: 0
-  m_Name: MRTK Interaction Manager
+  m_Name: Obsolete MRTK Interaction Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

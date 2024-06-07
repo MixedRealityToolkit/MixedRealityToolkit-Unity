@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 4160709927669568829}
   - component: {fileID: 6400715630075217958}
   m_Layer: 0
-  m_Name: MRTK XR Rig
+  m_Name: Obsolete MRTK XR Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
