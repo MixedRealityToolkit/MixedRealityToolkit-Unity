@@ -38,9 +38,9 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </remarks>
     public class BasicInputTestsForControllerlessRig : BaseRuntimeInputTests
     {
+        public const string MRTKSpeechName = "MRTK Speech";
         private const string MRTKInteractionManagerName = "MRTK Interaction Manager";
         private const string CameraOffsetName = "Camera Offset";
-        private const string MRTKSpeechName = "MRTK Speech";
         private const string CanvasProxyInteractorName = "CanvasProxyInteractor";
         private const string MainCameraName = "Main Camera";
         private const string MRTKRightHandControllerName = "MRTK RightHand Controller";
