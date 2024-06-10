@@ -1780,9 +1780,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2351505566903569412, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1501198612}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
+--- !u!4 &641260114 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2351505566903569412, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
+  m_PrefabInstance: {fileID: 641260113}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &683629778 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 4719360172523708786, guid: 8f6fb5f907837b645a884d67d7b70393, type: 3}
@@ -3478,8 +3486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f85af46f9bddd4ea78f11cee5e3b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handType: 3
-  proximityType: 3
+  handType: -1
+  proximityType: -1
   executionOrder: 0
   minimumScale: {x: 0.2, y: 0.2, z: 0.2}
   maximumScale: {x: 2, y: 2, z: 2}
@@ -4050,6 +4058,68 @@ MonoBehaviour:
   stencilWriteMaterial: {fileID: 0}
   outlineOffset: 0
   stencilReference: 1
+--- !u!1001 &1501198611
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 641260114}
+    m_Modifications:
+    - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862721871616905633, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_Name
+      value: MRTK Spatial Mouse Controller
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dc525621b8522034e867ed2799129315, type: 3}
+--- !u!4 &1501198612 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
+  m_PrefabInstance: {fileID: 1501198611}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1551252956
 GameObject:
   m_ObjectHideFlags: 0
