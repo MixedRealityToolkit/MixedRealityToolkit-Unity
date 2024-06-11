@@ -7,8 +7,10 @@
 using MixedReality.Toolkit.Input.Simulation;
 using System.Collections;
 using UnityEngine;
-using System;
 using Object = UnityEngine.Object;
+using Unity.XR.CoreUtils;
+using System.Collections.Generic;
+using System.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -134,6 +136,10 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             Object rigPrefab = AssetDatabase.LoadAssetAtPath(MRTKControllerlessRigPrefabPathForXRI3, typeof(Object));
             rigReference = Object.Instantiate(rigPrefab) as GameObject;
+
+            SpeechInteractor speechInteractor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
+            speechInteractor.gameObject.SetActive(false);
+
             return rigReference;
         }
 

@@ -37,6 +37,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Very basic test of SpatialMouseInteractor clicking an Interactable.
         /// </summary>
         [UnityTest]
+        [Ignore("Temporarily ignoring this while while its XRI3+ equivalent is created.")]
         public IEnumerator SpatialMouseInteractorSmokeTest()
         {
             var mouse = InputSystem.AddDevice<Mouse>();
