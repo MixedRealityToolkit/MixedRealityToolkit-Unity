@@ -4066,6 +4066,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 641260114}
     m_Modifications:
+    - target: {fileID: 4681310561030822292, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferenceValue
+      value: 
+      objectReference: {fileID: 924797614382256527, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 4681310561030822292, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_SelectInput.m_InputActionReferencePerformed
+      value: 
+      objectReference: {fileID: 924797614382256527, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4109,6 +4117,18 @@ PrefabInstance:
     - target: {fileID: 6862721871616905633, guid: dc525621b8522034e867ed2799129315, type: 3}
       propertyPath: m_Name
       value: MRTK Spatial Mouse Controller
+      objectReference: {fileID: 0}
+    - target: {fileID: 8777930775890352138, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8777930775890352138, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_SelectAction.m_Reference
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8777930775890352138, guid: dc525621b8522034e867ed2799129315, type: 3}
+      propertyPath: m_PositionAction.m_Reference
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
