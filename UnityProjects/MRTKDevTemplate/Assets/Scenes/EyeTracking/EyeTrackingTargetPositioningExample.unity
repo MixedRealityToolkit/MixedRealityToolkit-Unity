@@ -604,7 +604,7 @@ MonoBehaviour:
   <OnDisabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  gazeInteractor: {fileID: 0}
+  gazeInteractor: {fileID: 1709603650}
   useEyeSupportedTargetPlacement: 1
   minLookAwayDistToEnableEyeWarp: 5
   handInputEnabled: 1
@@ -845,6 +845,17 @@ MonoBehaviour:
   idleStateColor: {r: 1, g: 0.9294118, b: 0, a: 1}
   onHoverColor: {r: 0.5377358, g: 0.47051883, b: 0, a: 1}
   onSelectColor: {r: 1, g: 0.44559735, b: 0, a: 1}
+--- !u!114 &82544763 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 800708247703322884, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
+  m_PrefabInstance: {fileID: 205636294}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e4e6cca11330d4088d729ab4fc9d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &90326106 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7942278510844116557, guid: cea6f24b8f65d5444ba5379c831cce58, type: 3}
@@ -1331,7 +1342,7 @@ MonoBehaviour:
   <OnDisabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  gazeInteractor: {fileID: 0}
+  gazeInteractor: {fileID: 1709603650}
   useEyeSupportedTargetPlacement: 1
   minLookAwayDistToEnableEyeWarp: 5
   handInputEnabled: 1
@@ -1710,7 +1721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd6a517ee866ae45ae8fac60a8d0547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 82544763}
   m_Colliders: []
   m_InteractionLayers:
     m_Bits: 1
@@ -2322,7 +2333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ad66e7cc9a2754d8ea989740c9f00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 82544763}
   m_Colliders: []
   m_InteractionLayers:
     m_Bits: 1
@@ -2514,7 +2525,7 @@ MonoBehaviour:
   rotateLerpTime: 0.001
   scaleLerpTime: 0.001
   enableConstraints: 1
-  constraintsManager: {fileID: 0}
+  constraintsManager: {fileID: 376689154}
   manipulationLogicTypes:
     moveLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.MoveLogic, MixedReality.Toolkit.SpatialManipulation
@@ -2548,8 +2559,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f85af46f9bddd4ea78f11cee5e3b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handType: 3
-  proximityType: 3
+  handType: -1
+  proximityType: -1
   executionOrder: 0
   minimumScale: {x: 0.2, y: 0.2, z: 0.2}
   maximumScale: {x: 2, y: 2, z: 2}
@@ -2893,7 +2904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd6a517ee866ae45ae8fac60a8d0547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 82544763}
   m_Colliders: []
   m_InteractionLayers:
     m_Bits: 1
@@ -13391,7 +13402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a415ba6cec0361045be083a0a48abf4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 82544763}
   m_Colliders: []
   m_InteractionLayers:
     m_Bits: 1
@@ -13735,7 +13746,7 @@ MonoBehaviour:
   <OnDisabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  gazeInteractor: {fileID: 0}
+  gazeInteractor: {fileID: 1709603650}
   useEyeSupportedTargetPlacement: 1
   minLookAwayDistToEnableEyeWarp: 5
   handInputEnabled: 1
@@ -14570,7 +14581,7 @@ MonoBehaviour:
   <OnDisabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  gazeInteractor: {fileID: 0}
+  gazeInteractor: {fileID: 1709603650}
   useEyeSupportedTargetPlacement: 1
   minLookAwayDistToEnableEyeWarp: 5
   handInputEnabled: 1
@@ -15148,7 +15159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd6a517ee866ae45ae8fac60a8d0547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 82544763}
   m_Colliders: []
   m_InteractionLayers:
     m_Bits: 1
@@ -30062,6 +30073,17 @@ Transform:
   - {fileID: 1939725775}
   m_Father: {fileID: 563801817}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1709603650 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 529201713281613631, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
+  m_PrefabInstance: {fileID: 205636294}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1175590bcfccd6d44a4c8f9a15292536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1795169830 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3220012215463627515, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
@@ -35454,7 +35476,7 @@ MonoBehaviour:
   <OnDisabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  gazeInteractor: {fileID: 0}
+  gazeInteractor: {fileID: 1709603650}
   useEyeSupportedTargetPlacement: 1
   minLookAwayDistToEnableEyeWarp: 5
   handInputEnabled: 1
@@ -36500,7 +36522,7 @@ MonoBehaviour:
   <OnDisabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  gazeInteractor: {fileID: 0}
+  gazeInteractor: {fileID: 1709603650}
   useEyeSupportedTargetPlacement: 1
   minLookAwayDistToEnableEyeWarp: 5
   handInputEnabled: 1
@@ -36879,7 +36901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd6a517ee866ae45ae8fac60a8d0547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 82544763}
   m_Colliders: []
   m_InteractionLayers:
     m_Bits: 1
