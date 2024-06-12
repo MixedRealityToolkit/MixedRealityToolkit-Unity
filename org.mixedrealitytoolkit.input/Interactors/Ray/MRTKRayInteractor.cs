@@ -81,12 +81,6 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Cached reference to hands aggregator for efficient per-frame use.
-        /// </summary>
-        [Obsolete("Deprecated, please use XRSubsystemHelpers.HandsAggregator instead.")]
-        protected HandsAggregatorSubsystem HandsAggregator => XRSubsystemHelpers.HandsAggregator as HandsAggregatorSubsystem;
-
-        /// <summary>
         /// How unselected the interactor must be to initiate a new hover or selection on a new target.
         /// Separate from the hand controller's threshold for pinching, so that we can tune
         /// overall pinching threshold separately from the roll-off prevention.
