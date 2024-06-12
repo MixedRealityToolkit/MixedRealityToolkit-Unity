@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using MixedReality.Toolkit.Subsystems;
 using System;
 using UnityEngine;
 using UnityEngine.XR;
@@ -13,15 +12,6 @@ namespace MixedReality.Toolkit
     /// </summary>
     public static class HandsUtils
     {
-        /// <summary>
-        /// Get the first running <see cref="HandsAggregatorSubsystem"/> instance.
-        /// </summary>
-        /// <returns>
-        /// The first running <see cref="HandsAggregatorSubsystem"/> instance, or null.
-        /// </returns>
-        [Obsolete("Deprecated, please use XRSubsystemHelpers.HandsAggregator")]
-        public static IHandsAggregatorSubsystem GetSubsystem() => XRSubsystemHelpers.HandsAggregator;
-
         internal static readonly HandFinger[] HandFingers = Enum.GetValues(typeof(HandFinger)) as HandFinger[];
 
         internal static readonly InputDeviceCharacteristics LeftHandCharacteristics =
