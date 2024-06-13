@@ -15,7 +15,7 @@ namespace MixedReality.Toolkit.Input
     /// not depend on XRI.
     /// </remarks>
     [AddComponentMenu("MRTK/Input/Follow Joint")]
-    internal class FollowJoint : MonoBehaviour, ISerializationCallbackReceiver
+    internal class FollowJoint : MonoBehaviour
     {
         [SerializeField]
         [Tooltip("The pose source representing the hand joint this interactor tracks")]
@@ -32,33 +32,7 @@ namespace MixedReality.Toolkit.Input
         [SerializeField, HideInInspector]
         private bool migratedSuccessfully = false;
 
-        [SerializeField]
-        [HideInInspector]
-        private Handedness hand;
-
-        [SerializeField]
-        [HideInInspector]
-        private TrackedHandJoint joint;
-
         #region ISerializationCallbackReceiver
-
-        void ISerializationCallbackReceiver.OnBeforeSerialize() { }
-
-        /// <summary>
-        /// Using ISerializationCallbackReceiver to ensure that instances of FollowJoint are migrated to the new HandJointPoseSource
-        /// Doesn't work perfectly due to complications with prefab variants :(
-        ///
-        /// TODO: Remove this after some time to ensure users have successfully migrated.
-        /// </summary>
-        void ISerializationCallbackReceiver.OnAfterDeserialize()
-        {
-            if (!migratedSuccessfully)
-            {
-                JointPoseSource.Hand = hand;
-                JointPoseSource.Joint = joint;
-                migratedSuccessfully = true;
-            }
-        }
 
         #endregion ISerializationCallbackReceiver
 
