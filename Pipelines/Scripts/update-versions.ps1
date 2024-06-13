@@ -11,13 +11,9 @@
 .PARAMETER BuildNumber
     The fourth digit for the full version number for assembly versioning. This is the build number.
 .PARAMETER ReleaseLabel
-    The tag to append after the version (e.g. "internal" or "prerelease"). Leave blank for a release build.
-.PARAMETER ExperimentLabel
-    An additional tag to append after the version, to append after the release label (e.g. "pre.1"). Historically used for the MRTK3 packages that are still experimental.
+    The tag to append after the version (e.g. "build", "internal" or "prerelease"). Leave blank for a release build.
 .PARAMETER Revision
-    The revision number for the build, to append after the release labal and suffix.
-.PARAMETER ReleasePackages
-    An array of the package names that are no longer  If the package isn't in this array, it will get labeled with the ExperimentLabel.
+    The revision number for the build, to append after the release labal.
 #>
 param(
     [Parameter(Mandatory = $true)]
@@ -26,11 +22,8 @@ param(
     [string]$BuildNumber,
     [ValidatePattern("[A-Za-z]*")]
     [string]$ReleaseLabel = "",
-    [ValidatePattern("([A-Za-z]+\.\d+)?")]
-    [string]$ExperimentLabel = "",
     [ValidatePattern("(\d(\.\d+)*)?")]
-    [string]$Revision = "",
-    [string]$ReleasePackages = ""
+    [string]$Revision = ""
 )
 
 $releasePkgs = $ReleasePackages.Split(",")
@@ -43,10 +36,6 @@ if (-not [string]::IsNullOrEmpty($BuildNumber)) {
 
 if (-not [string]::IsNullOrEmpty($ReleaseLabel)) {
     $ReleaseLabel = $ReleaseLabel.Trim('.')
-}
-
-if (-not [string]::IsNullOrEmpty($ExperimentLabel)) {
-    $ExperimentLabel = $ExperimentLabel.Trim('.')
 }
 
 if (-not [string]::IsNullOrEmpty($Revision)) {
@@ -66,13 +55,21 @@ $day = "{0:D2}" -f (Get-Date).Day
 
 # loop through package directories, update package version, assembly version, and build version hash for updating dependencies
 Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Object {
-    $packageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*" -Path $_ | Select-Object -First 1
+    # Get the content of the package.json file
+    $jsonContent = Get-Content $_.FullName | Out-String | ConvertFrom-Json
 
-    if (-not $packageName) {
-        return # this is not an MRTK package, so skip
+    # Read the package name
+    $packageName = $jsonContent.name
+
+    # Test is package name starts with org.mixedrealitytoolkit to verify it's an MRTK package
+    if ($packageName -notmatch "^org\.mixedrealitytoolkit\.\w+(\.\w+)*") {
+        return 
     }
 
-    $packageName = $packageName.Matches[0].Value
+    # Read the version value
+    $version = $jsonContent.version
+
+    # Get the package path
     $packagePath = $_.Directory
 
     Write-Host ""
@@ -81,8 +78,28 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
     Write-Host -ForegroundColor Green "=======================================" 
     Write-Output "Package name: $packageName"
 
+    $versionParts = $version -match '([0-9.]+)(-(?<firstLabel>[a-zA-Z0-9]*)(.(?<secondLabel>[a-zA-Z][a-zA-Z0-9]*))?(.(?<labelVersion>[1-9][0-9]))?)'
+#(?<version>[0-9.]+)-(?<versionLabel>[a-zA-Z0-9]*)(?!\.[1-9][0-9]*)(\.?(?<previewLabel>[a-zA-Z][a-zA-Z0-9]*)\.(?<previewVersion>[1-9][0-9]))?
+    if (-not $versionParts) {
+        throw "Failed to parse version out of the package.json file at $($_.FullName)"
+    }
+    
+    $version = $versionParts[1]
+    $firstLabel = $versionParts['firstLabel']
+    $secondLabel = $versionParts['secondLabel']
+    $labelVersion = $versionParts['labelVersion']
+
+    if ([string]::IsNullOrEmpty($secondLabel)) {
+        $secondLabel = $ReleaseLabel
+    }
+    
+    $firstLabel = $ReleaseLabel
+    
+
     $inlineVersion = Select-String '"version" *: *"([0-9.]+)(-?[a-zA-Z0-9.]*)' -InputObject (Get-Content -Path $_)
     $version = $inlineVersion.Matches.Groups[1].Value
+
+
     
     $labelParts = @()
     

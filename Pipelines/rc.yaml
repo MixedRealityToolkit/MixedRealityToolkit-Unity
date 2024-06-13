@@ -57,7 +57,6 @@ jobs:
         parameters:
           buildNumber: $(Version.Revision)
           releaseLabel: $(ReleaseTagPrefix)
-          experimentLabel: $(MRTKReleaseTag)
           publishToFeed: true
 
   - job: DocsBinariesGeneration

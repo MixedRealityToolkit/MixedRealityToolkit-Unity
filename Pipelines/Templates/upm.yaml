@@ -8,7 +8,6 @@ parameters:
   outputDirectory: $(Build.ArtifactStagingDirectory)/build/upm/output
   buildNumber: $(Version.Revision)
   releaseLabel: $(ReleaseTagPrefix)
-  experimentLabel: $(MRTKReleaseTag)
   publishToArtifacts: true
   publishToFeed: true
 
@@ -24,7 +23,6 @@ steps:
       -OutputDirectory: ${{ parameters.outputDirectory }}
       -BuildNumber: ${{ parameters.buildNumber }}
       -ReleaseLabel: ${{ parameters.releaseLabel }}
-      -ExperimentLabel: ${{ parameters.experimentLabel }}
       -Revision: $(Version.DateCode).$(Version.DateCodeRevision)
       -ReleasePackages: $(ReleasePackages)
 
