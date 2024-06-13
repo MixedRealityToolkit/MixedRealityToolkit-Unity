@@ -26,16 +26,6 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         protected HandJointPoseSource JointPoseSource { get => jointPoseSource; set => jointPoseSource = value; }
 
-        // A temporary variable used to migrate instances of FollowJoint to use the jointPoseSource class as the source of truth
-        // rather than its own separately serialized values.
-        // TODO: Remove this after some time to ensure users have successfully migrated.
-        [SerializeField, HideInInspector]
-        private bool migratedSuccessfully = false;
-
-        #region ISerializationCallbackReceiver
-
-        #endregion ISerializationCallbackReceiver
-
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
         /// </summary>
