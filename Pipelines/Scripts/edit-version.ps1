@@ -72,7 +72,7 @@ foreach ($file in (Get-ChildItem -Path $gitRoot -Recurse)) {
     if ($NewPreview) {
         if ($file.Directory.FullName.StartsWith($PipelinesDir.FullName)) {
             if (($file.Extension -eq ".yml") -or ($file.Extension -eq ".yaml")) {
-                $errors += ReplaceVersionInFile -Path $file.FullName -NewVersion $NewPreview -Patterns @("(?<=MRTKReleaseTag:\s+')([\w.]+)")
+                $errors += ReplaceVersionInFile -Path $file.FullName -NewVersion $NewPreview -Patterns @("(?<=previewTag:\s+')([\w.]+)")
             }
         }
         elseif ($file.Name -eq "ProjectSettings.asset") {

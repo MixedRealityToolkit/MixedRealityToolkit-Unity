@@ -35,9 +35,6 @@ jobs:
 
       - checkout: PipelineTools
 
-      - pwsh: Write-Host "##vso[build.updatebuildnumber]$(MRTKVersion)-$(ReleaseTagPrefix)$(MRTKReleaseTag).$(Version.DateCode).$(Version.DateCodeRevision)"
-        displayName: Set Build Number
-
       - task: ComponentGovernanceComponentDetection@0
         inputs:
           scanType: Register
@@ -60,7 +57,6 @@ jobs:
         parameters:
           buildNumber: $(Version.Revision)
           releaseLabel: $(ReleaseTagPrefix)
-          experimentLabel: $(MRTKReleaseTag)
           publishToFeed: true
 
   - job: DocsBinariesGeneration
