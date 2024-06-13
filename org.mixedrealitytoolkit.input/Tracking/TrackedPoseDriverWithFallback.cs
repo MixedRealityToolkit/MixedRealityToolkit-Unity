@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR;
-using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 namespace MixedReality.Toolkit.Input
 {
