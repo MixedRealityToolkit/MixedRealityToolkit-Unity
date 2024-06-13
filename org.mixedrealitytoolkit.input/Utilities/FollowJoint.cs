@@ -36,21 +36,9 @@ namespace MixedReality.Toolkit.Input
         [HideInInspector]
         private Handedness hand;
 
-        /// <summary>
-        /// The hand on which to track the joint.
-        /// </summary>
-        [Obsolete("Please change the Hand value on the jointPoseSource instead")]
-        protected Handedness Hand { get => JointPoseSource.Hand; set => JointPoseSource.Hand = value; }
-
         [SerializeField]
         [HideInInspector]
         private TrackedHandJoint joint;
-
-        /// <summary>
-        /// The specific joint to track.
-        /// </summary>
-        [Obsolete("Please change the Joint value on the jointPoseSource instead")]
-        protected TrackedHandJoint Joint { get => JointPoseSource.Joint; set => JointPoseSource.Joint = value; }
 
         #region ISerializationCallbackReceiver
 
