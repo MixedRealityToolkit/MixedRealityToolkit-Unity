@@ -140,12 +140,6 @@ namespace MixedReality.Toolkit.UX
         private float value = 0.5f;
 
         /// <summary>
-        /// The current value of the slider.
-        /// </summary>
-        [Obsolete("Use Value instead")]
-        public float SliderValue => Value;
-
-        /// <summary>
         /// The current value of the slider
         /// </summary>
         public float Value
