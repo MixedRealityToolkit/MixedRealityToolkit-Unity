@@ -4,4 +4,4 @@ variables:
   # match (see scripts/packaging/versionmetadata.ps1)
   # ProjectSettings/ProjectSettings.asset:  bundleVersion: x.x.x
   # ProjectSettings/ProjectSettings.asset:  metroPackageVersion: x.x.x.0
-  MRTKVersion: 3.0.0        # used for overall build number, but each package version is read from the package.json file in each package directory.
+  ProjectVersion: 3.0.0        # used for overall build number of sample projects
