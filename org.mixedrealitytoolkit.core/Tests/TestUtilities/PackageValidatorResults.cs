@@ -242,6 +242,7 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
             return IgnoreAccountErrors &&
                 (message.Contains("\"Asset Store Terms Accepted Publish\"") ||
                 message.Contains("\"User logged in\"") ||
+                message.Contains("\"Asset Store Publisher\"") ||
                 message.Contains("\"Publisher Account Exists\""));
         }
     }
