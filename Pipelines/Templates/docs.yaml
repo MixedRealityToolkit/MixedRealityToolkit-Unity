@@ -18,7 +18,6 @@ steps:
     filePath: ${{ parameters.mrtkProjectRoot }}/Pipelines/Scripts/update-versions.ps1
     arguments: >
       -PackagesRoot: ${{ parameters.mrtkProjectRoot }}
-      -ReleasePackages: $(ReleasePackages)
 
 - task: PowerShell@2
   displayName: "Generate DocTool Unity asset package"

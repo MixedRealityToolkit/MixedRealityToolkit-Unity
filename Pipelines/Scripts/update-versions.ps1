@@ -3,30 +3,31 @@
 
 <#
 .SYNOPSIS
-    Updates the version of the UPM packages in the project.
+    Updates the version of the UPM packages in the project with a release label, revision, and build number.
 .DESCRIPTION
-    Updates the version of the UPM packages in the project.
+    The script will update the version of the package.json file with the new version label and revision number. This 
+    script will also update the AssemblyInfo.cs file with the new version number and build number. Finally, this
+    script will update the CHANGELOG.md file with the new version number and release date.
 .PARAMETER PackagesRoot
     The root folder containing the packages.
-.PARAMETER BuildNumber
-    The fourth digit for the full version number for assembly versioning. This is the build number.
-.PARAMETER ReleaseLabel
+.PARAMETER PrereleaseTag
     The tag to append after the version (e.g. "build", "internal" or "prerelease"). Leave blank for a release build.
 .PARAMETER Revision
     The revision number for the build, to append after the release labal.
+.PARAMETER BuildNumber
+    The fourth digit for the full version number for assembly versioning. This is the build number.
 #>
 param(
     [Parameter(Mandatory = $true)]
     [string]$PackagesRoot,
-    [ValidatePattern("\d+")]
-    [string]$BuildNumber,
     [ValidatePattern("[A-Za-z]*")]
-    [string]$ReleaseLabel = "",
+    [string]$PrereleaseTag = "",
     [ValidatePattern("(\d(\.\d+)*)?")]
-    [string]$Revision = ""
+    [string]$Revision = "",
+    [ValidatePattern("\d+")]
+    [string]$BuildNumber
 )
 
-$releasePkgs = $ReleasePackages.Split(",")
 $PackagesRoot = Resolve-Path -Path $PackagesRoot
 
 if (-not [string]::IsNullOrEmpty($BuildNumber)) {
@@ -34,8 +35,8 @@ if (-not [string]::IsNullOrEmpty($BuildNumber)) {
     $BuildNumber = ".$BuildNumber"
 }
 
-if (-not [string]::IsNullOrEmpty($ReleaseLabel)) {
-    $ReleaseLabel = $ReleaseLabel.Trim('.')
+if (-not [string]::IsNullOrEmpty($PrereleaseTag)) {
+    $PrereleaseTag = $PrereleaseTag.Trim('.')
 }
 
 if (-not [string]::IsNullOrEmpty($Revision)) {
@@ -47,7 +48,6 @@ Write-Host -ForegroundColor Green "======================================="
 Write-Host -ForegroundColor Green "Updating All Package Versions"
 Write-Host -ForegroundColor Green "======================================="
 Write-Output "Project root: $PackagesRoot"
-Write-Output "Release packages: $releasePkgs"
 
 $year = "{0:D4}" -f (Get-Date).Year
 $month = "{0:D2}" -f (Get-Date).Month
@@ -78,52 +78,59 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
     Write-Host -ForegroundColor Green "=======================================" 
     Write-Output "Package name: $packageName"
 
-    $versionParts = $version -match '([0-9.]+)(-(?<firstLabel>[a-zA-Z0-9]*)(.(?<secondLabel>[a-zA-Z][a-zA-Z0-9]*))?(.(?<labelVersion>[1-9][0-9]))?)'
-#(?<version>[0-9.]+)-(?<versionLabel>[a-zA-Z0-9]*)(?!\.[1-9][0-9]*)(\.?(?<previewLabel>[a-zA-Z][a-zA-Z0-9]*)\.(?<previewVersion>[1-9][0-9]))?
+    # This regex will match the a valid version is the package.json file. Some examples of valid versions are:
+    #
+    #   1.0.0
+    #   1.0.0-pre.1
+    #   1.0.0-development.pre.1
+    #   1.0.0-development  
+    #
+    # In these example "development" is the prerelease tag and "pre.1" is the meta tag.    
+    $versionParts = $version -match '(?<version>[0-9.]+)(-((?<prereleaseTag>[a-zA-Z0-9]*)?(?=$|\.[a-zA-Z])|)((?(?<=-)|\.)(?<metaTag>[a-zA-Z][a-zA-Z0-9]*)\.(?<metaTagVersion>[1-9][0-9]*))?)'
     if (-not $versionParts) {
         throw "Failed to parse version out of the package.json file at $($_.FullName)"
     }
     
-    $version = $versionParts[1]
-    $firstLabel = $versionParts['firstLabel']
-    $secondLabel = $versionParts['secondLabel']
-    $labelVersion = $versionParts['labelVersion']
-
-    if ([string]::IsNullOrEmpty($secondLabel)) {
-        $secondLabel = $ReleaseLabel
+    if (-not $versionParts.ContainsKey('version')) {
+        throw "Failed to parse version out of the package.json file at $($_.FullName)"
     }
-    
-    $firstLabel = $ReleaseLabel
-    
 
-    $inlineVersion = Select-String '"version" *: *"([0-9.]+)(-?[a-zA-Z0-9.]*)' -InputObject (Get-Content -Path $_)
-    $version = $inlineVersion.Matches.Groups[1].Value
+    # Get the version
+    $version = $versionParts['version']
 
-
-    
+    # Get all label parts to append to the version
     $labelParts = @()
     
-    if (-not [string]::IsNullOrEmpty($ReleaseLabel)) {
-        $labelParts += $ReleaseLabel
+    # Add the new version label if it's not empty
+    if (-not [string]::IsNullOrEmpty($PrereleaseTag)) {
+        $labelParts += $PrereleaseTag
     }
 
-    if ((-not [string]::IsNullOrEmpty($ExperimentLabel)) -and 
-        (-not $releasePkgs.Contains($packageName))) {
-        $labelParts += $ExperimentLabel
+    # Add the optional metatag tag and version if found in match
+    if ($versionParts.ContainsKey('metaTag') -and $versionParts.ContainsKey('metaTagVersion')) {        
+        $labelParts += $versionParts['metaTag']
+        $labelParts += $versionParts['metaTagVersion']
     }
 
+    # Add the revision number if it's not empty
     if (-not [string]::IsNullOrEmpty($Revision)) {
         $labelParts += $Revision
     }
 
+    # Create a full label string with version label and preview label
     $label = $labelParts -join "."
     if (-not [string]::IsNullOrEmpty($label)) {
         $label = "-" + $label
     }
 
-    Write-Output "Patching package version to $version$label"
-    ((Get-Content -Path $_ -Raw) -Replace '("version": )"(?:[0-9.]+|%version%)-?[a-zA-Z0-9.]*', "`$1`"$version$label") | Set-Content -Path $_ -NoNewline
+    # Update the version with the new label    
+    $jsonContent.version = "$version$label"
 
+    # Write json content back to the file
+    Write-Output "Patching package version to $version$label"
+    $jsonContent | ConvertTo-Json -Depth 10 | Set-Content -Path $_.FullName
+
+    # Update the assembly version in the AssemblyInfo.cs file
     Get-ChildItem -Path $packagePath/AssemblyInfo.cs -Recurse | ForEach-Object {
         $assemblyInfo = Get-Content -Path $_ -Raw
 
@@ -147,6 +154,7 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
         Set-Content -Path $_ -Value $assemblyInfo -NoNewline 
     }
 
+    # Update the CHANGELOG.md file with the new version and release date
     Write-Output "Patching CHANGELOG.md version to [$version$label] - $year-$month-$day"
     Get-ChildItem -Path $packagePath/CHANGELOG.md -Recurse | ForEach-Object {            
         (Get-Content -Path $_ -Raw) -Replace "## \[$version(-[a-zA-Z0-9.]+)?\] - \b\d{4}\b-\b(0[1-9]|1[0-2])\b-\b(0[1-9]|[12][0-9]|3[01])\b", "## [$version$label] - $year-$month-$day" | Set-Content -Path $_ -NoNewline
