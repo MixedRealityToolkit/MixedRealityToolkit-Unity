@@ -86,11 +86,13 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
     #   1.0.0-development  
     #
     # In these example "development" is the prerelease tag and "pre.1" is the meta tag.    
-    $versionParts = $version -match '(?<version>[0-9.]+)(-((?<prereleaseTag>[a-zA-Z0-9]*)?(?=$|\.[a-zA-Z])|)((?(?<=-)|\.)(?<metaTag>[a-zA-Z][a-zA-Z0-9]*)\.(?<metaTagVersion>[1-9][0-9]*))?)'
-    if (-not $versionParts) {
+    $validVersion = $version -match '(?<version>[0-9.]+)(-((?<prereleaseTag>[a-zA-Z0-9]*)?(?=$|\.[a-zA-Z])|)((?(?<=-)|\.)(?<metaTag>[a-zA-Z][a-zA-Z0-9]*)\.(?<metaTagVersion>[1-9][0-9]*))?)'
+    if (-not $validVersion) {
         throw "Failed to parse version out of the package.json file at $($_.FullName)"
     }
     
+    # Get the version parts from the $Matches variable, and verify that the version key exists.
+    $versionParts = $Matches
     if (-not $versionParts.ContainsKey('version')) {
         throw "Failed to parse version out of the package.json file at $($_.FullName)"
     }
@@ -98,36 +100,36 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
     # Get the version
     $version = $versionParts['version']
 
-    # Get all label parts to append to the version
-    $labelParts = @()
+    # Get all tag parts to append to the version
+    $tagParts = @()
     
     # Add the new version label if it's not empty
     if (-not [string]::IsNullOrEmpty($PrereleaseTag)) {
-        $labelParts += $PrereleaseTag
+        $tagParts += $PrereleaseTag
     }
 
     # Add the optional metatag tag and version if found in match
     if ($versionParts.ContainsKey('metaTag') -and $versionParts.ContainsKey('metaTagVersion')) {        
-        $labelParts += $versionParts['metaTag']
-        $labelParts += $versionParts['metaTagVersion']
+        $tagParts += $versionParts['metaTag']
+        $tagParts += $versionParts['metaTagVersion']
     }
 
     # Add the revision number if it's not empty
     if (-not [string]::IsNullOrEmpty($Revision)) {
-        $labelParts += $Revision
+        $tagParts += $Revision
     }
 
-    # Create a full label string with version label and preview label
-    $label = $labelParts -join "."
-    if (-not [string]::IsNullOrEmpty($label)) {
-        $label = "-" + $label
+    # Create a full tag string with prerelease tag and the meta tag
+    $tag = $tagParts -join "."
+    if (-not [string]::IsNullOrEmpty($tag)) {
+        $tag = "-" + $tag
     }
 
-    # Update the version with the new label    
-    $jsonContent.version = "$version$label"
+    # Update the version with the new tag    
+    $jsonContent.version = "$version$tag"
 
     # Write json content back to the file
-    Write-Output "Patching package version to $version$label"
+    Write-Output "Patching package version to $version$tag"
     $jsonContent | ConvertTo-Json -Depth 10 | Set-Content -Path $_.FullName
 
     # Update the assembly version in the AssemblyInfo.cs file
@@ -144,20 +146,20 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
             $assemblyInfo += "[assembly: AssemblyFileVersion(`"$version$BuildNumber`")]`r`n"
         }
 
-        Write-Output "Patching assembly information version to $version$label"
+        Write-Output "Patching assembly information version to $version$tag"
         if ($assemblyInfo -Match "\[assembly: AssemblyInformationalVersion\`(\`".*\`"\)\]") {
-            $assemblyInfo = $assemblyInfo -Replace "\[assembly: AssemblyInformationalVersion\`(\`".*\`"\)\]", "[assembly: AssemblyInformationalVersion(`"$version$label`")]"
+            $assemblyInfo = $assemblyInfo -Replace "\[assembly: AssemblyInformationalVersion\`(\`".*\`"\)\]", "[assembly: AssemblyInformationalVersion(`"$version$tag`")]"
         } else {
-            $assemblyInfo += "[assembly: AssemblyInformationalVersion(`"$version$label`")]`r`n"
+            $assemblyInfo += "[assembly: AssemblyInformationalVersion(`"$version$tag`")]`r`n"
         }
 
         Set-Content -Path $_ -Value $assemblyInfo -NoNewline 
     }
 
     # Update the CHANGELOG.md file with the new version and release date
-    Write-Output "Patching CHANGELOG.md version to [$version$label] - $year-$month-$day"
+    Write-Output "Patching CHANGELOG.md version to [$version$tag] - $year-$month-$day"
     Get-ChildItem -Path $packagePath/CHANGELOG.md -Recurse | ForEach-Object {            
-        (Get-Content -Path $_ -Raw) -Replace "## \[$version(-[a-zA-Z0-9.]+)?\] - \b\d{4}\b-\b(0[1-9]|1[0-2])\b-\b(0[1-9]|[12][0-9]|3[01])\b", "## [$version$label] - $year-$month-$day" | Set-Content -Path $_ -NoNewline
+        (Get-Content -Path $_ -Raw) -Replace "## \[$version(-[a-zA-Z0-9.]+)?\] - \b\d{4}\b-\b(0[1-9]|1[0-2])\b-\b(0[1-9]|[12][0-9]|3[01])\b", "## [$version$tag] - $year-$month-$day" | Set-Content -Path $_ -NoNewline
     }
 }
 
