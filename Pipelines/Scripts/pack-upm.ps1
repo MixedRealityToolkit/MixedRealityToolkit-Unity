@@ -10,31 +10,24 @@
     The root folder of the project.
 .PARAMETER OutputDirectory
     Where should we place the output? Defaults to ".\artifacts"
-.PARAMETER BuildNumber
-    The fourth digit for the full version number for assembly versioning. This is the build number.
-.PARAMETER ReleaseLabel
-    The tag to append after the version (e.g. "internal" or "prerelease"). Leave blank for a release build.
-.PARAMETER ExperimentLabel
-    An additional tag to append after the version, to append after the release label (e.g. "pre.1"). Historically used for the MRTK3 packages that are still experimental.
+.PARAMETER PrereleaseTag
+    The tag to append after the version (e.g. "build", "internal" or "prerelease"). Leave blank for a release build.
 .PARAMETER Revision
     The revision number for the build, to append after the release labal and suffix.
-.PARAMETER ReleasePackages
-    An array of the package names that have been released, and no longer in experimentation. If the package isn't in this array, it will get labeled with the ExperimentLabel.
+.PARAMETER BuildNumber
+    The fourth digit for the full version number for assembly versioning. This is the build number.
 
 #>
 param(
     [Parameter(Mandatory = $true)]
     [string]$ProjectRoot,
     [string]$OutputDirectory = "./artifacts/upm",
-    [ValidatePattern("\d+")]
-    [string]$BuildNumber,
     [ValidatePattern("[A-Za-z]*")]
-    [string]$ReleaseLabel = "",
-    [ValidatePattern("([A-Za-z]+\.\d+)?")]
-    [string]$ExperimentLabel = "",   
+    [string]$PrereleaseTag = "",
     [ValidatePattern("(\d(\.\d+)*)?")]
     [string]$Revision = "",
-    [string]$ReleasePackages = ""
+    [ValidatePattern("\d+")]
+    [string]$BuildNumber
 )
 
 $ProjectRoot = Resolve-Path -Path $ProjectRoot
@@ -55,7 +48,7 @@ try {
     Push-Location $OutputDirectory
 
     # Update package versions
-    . $PSScriptRoot\update-versions.ps1 -PackagesRoot $ProjectRoot -BuildNumber $BuildNumber -ReleaseLabel $ReleaseLabel -ExperimentLabel $ExperimentLabel -Revision $Revision -ReleasePackages $ReleasePackages
+    . $PSScriptRoot\update-versions.ps1 -PackagesRoot $ProjectRoot -PrereleaseTag $PrereleaseTag -Revision $Revision -BuildNumber $BuildNumber 
 
     # Loop through package directories and copy documentation
     Get-ChildItem -Path $ProjectRoot/*/package.json | ForEach-Object {
