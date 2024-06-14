@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -1059,7 +1061,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             // for modeling rotations with far rays. Therefore, we cast down to the base TrackedDevice,
             // and query the device rotation directly. If any of this can't be casted, we return the
             // interactor's attachTransform's rotation.
-            if (interactor is XRBaseControllerInteractor controllerInteractor &&
+            if (interactor is XRBaseInputInteractor controllerInteractor &&
                 controllerInteractor.xrController is ActionBasedController abController &&
                 abController.rotationAction.action?.activeControl?.device is TrackedDevice device)
             {

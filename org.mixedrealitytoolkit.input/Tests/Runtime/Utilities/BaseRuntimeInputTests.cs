@@ -5,6 +5,7 @@
 #pragma warning disable CS1591
 
 using MixedReality.Toolkit.Core.Tests;
+using System;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -42,6 +43,28 @@ namespace MixedReality.Toolkit.Input.Tests
             }
         }
 
+        private TrackedPoseDriverLookup cachedTrackedPoseDriverLookup;
+
+        /// <summary>
+        /// A cached reference to the <see cref="TrackedPoseDriverLookup"/> on the XRI3+ rig.
+        /// Cleared during <see cref="TearDown"/> at the end of each test.
+        /// </summary>
+        protected TrackedPoseDriverLookup CachedTrackedPoseDriverLookup
+        {
+            get
+            {
+                if (cachedTrackedPoseDriverLookup == null && CachedInteractionManager == null)
+                {
+                    Debug.LogError("Unable to get a reference to Rig's TrackedPoseDriverLookup because CachedInteractionManager is null.");
+                    return null;
+                }
+                cachedTrackedPoseDriverLookup = CachedInteractionManager.gameObject.GetComponent<TrackedPoseDriverLookup>();
+
+                return cachedTrackedPoseDriverLookup;
+            }
+        }
+
+#pragma warning disable CS0618 // Type or member is obsolete
         private ControllerLookup cachedLookup = null;
 
         /// <summary>
@@ -63,24 +86,41 @@ namespace MixedReality.Toolkit.Input.Tests
                 return cachedLookup;
             }
         }
+#pragma warning restore CS0618 // Type or member is obsolete
 
         public override IEnumerator Setup()
         {
             yield return base.Setup();
-
             input.Setup();
-
-            // XRI needs these... ugh
-            InputSystem.RegisterInteraction<SectorInteraction>();
-            InputSystem.RegisterBindingComposite<Vector3FallbackComposite>();
-            InputSystem.RegisterBindingComposite<QuaternionFallbackComposite>();
-            InputSystem.RegisterBindingComposite<IntegerFallbackComposite>();
+            XRISetup();
 
             InputTestUtilities.InstantiateRig();
             InputTestUtilities.SetupSimulation(0.0f);
 
             // Wait for simulation HMD to update camera poses
             yield return RuntimeTestUtilities.WaitForUpdates();
+        }
+
+        public IEnumerator SetupForControllerlessRig()
+        {
+            yield return base.Setup();
+            input.Setup();
+            XRISetup();
+
+            InputTestUtilities.InstantiateControllerlessRig();
+            InputTestUtilities.SetupSimulation(0.0f);
+
+            // Wait for simulation HMD to update camera poses
+            yield return RuntimeTestUtilities.WaitForUpdates();
+        }
+
+        public void XRISetup()
+        {
+            // XRI needs these
+            InputSystem.RegisterInteraction<SectorInteraction>();
+            InputSystem.RegisterBindingComposite<Vector3FallbackComposite>();
+            InputSystem.RegisterBindingComposite<QuaternionFallbackComposite>();
+            InputSystem.RegisterBindingComposite<IntegerFallbackComposite>();
         }
 
         public override IEnumerator TearDown()
@@ -90,6 +130,7 @@ namespace MixedReality.Toolkit.Input.Tests
             InputTestUtilities.TeardownSimulation();
             cachedInteractionManager = null;
             cachedLookup = null;
+            cachedTrackedPoseDriverLookup = null;
 
             input.TearDown();
 

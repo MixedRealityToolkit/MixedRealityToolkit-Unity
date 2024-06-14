@@ -2,7 +2,13 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.3.0-development] - 2024-04-30
+## [4.0.0-development] - 2024-05-08
+
+### Changed
+
+* Updated package com.unity.xr.interaction.toolkit to 3.0.1
+
+## [3.3.0] - 2024-04-30
 
 ### Added
 
@@ -12,7 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Added null check and index check when hiding colliders on BoundsHandleInteractable. [PR #730](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/730)
 
-## [3.2.0-development] - 2024-03-20
+## [3.2.0] - 2024-03-20
 
 ### Added
 

@@ -4,6 +4,7 @@
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -53,7 +54,7 @@ namespace MixedReality.Toolkit.Input
 
         #endregion XRBaseInteractor
 
-        #region XRBaseControllerInteractor
+        #region XRBaseInputInteractor
 
         private static readonly ProfilerMarker ProcessInteractorPerfMarker =
             new ProfilerMarker("[MRTK] HandJointInteractor.ProcessInteractor");
@@ -96,6 +97,6 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
-        #endregion XRBaseControllerInteractor
+        #endregion XRBaseInputInteractor
     }
 }

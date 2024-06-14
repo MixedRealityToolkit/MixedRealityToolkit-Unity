@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
-using UnityEngine;
 using UnityEngine.XR;
 
 namespace MixedReality.Toolkit
@@ -33,42 +31,6 @@ namespace MixedReality.Toolkit
             {
                 return Handedness.None;
             }
-        }
-
-        /// <summary>
-        /// Checks whether or not the current <see cref="Handedness"/> value is <see cref="Handedness.Right"/>.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> if the <see cref="Handedness"/> value being checked is <see cref="Handedness.Right"/>, otherwise <see langword="false"/>.
-        /// </returns>
-        [Obsolete("Use flags instead (e.g. Handedness.Right | Handedness.Left)")]
-        public static bool IsRight(this Handedness current)
-        {
-            return current == Handedness.Right;
-        }
-
-        /// <summary>
-        /// Checks whether or not the current <see cref="Handedness"/> value is <see cref="Handedness.Left"/>.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> if the <see cref="Handedness"/> value being checked is <see cref="Handedness.Left"/>, otherwise <see langword="false"/>.
-        /// </returns>
-        [Obsolete("Use flags instead (e.g. Handedness.Right | Handedness.Left)")]
-        public static bool IsLeft(this Handedness current)
-        {
-            return current == Handedness.Left;
-        }
-
-        /// <summary>
-        /// Checks whether or not the current <see cref="Handedness"/> value is <see cref="Handedness.None"/>.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> if the <see cref="Handedness"/> value being checked is <see cref="Handedness.None"/>, otherwise <see langword="false"/>.
-        /// </returns>
-        [Obsolete("Use flags instead (e.g. Handedness.Right | Handedness.Left)")]
-        public static bool IsNone(this Handedness current)
-        {
-            return current == Handedness.None;
         }
 
         /// <summary>

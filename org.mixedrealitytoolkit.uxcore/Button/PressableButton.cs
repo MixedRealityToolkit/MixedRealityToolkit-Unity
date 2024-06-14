@@ -7,6 +7,8 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX
 {
@@ -335,7 +337,7 @@ namespace MixedReality.Toolkit.UX
                     //       \
                     //        b (this frame)
 
-                    // Heuristic: Allow select iff (a in AB || ab intersects A) && (b in BC || ab intersects C)
+                    // Heuristic: Allow select if and only if (a in AB || ab intersects A) && (b in BC || ab intersects C)
 
                     // ab intersect A
                     float worldStartPlane = distanceSpaceMode == SpaceMode.Local ? startPushPlane * LocalToWorldScale : startPushPlane;

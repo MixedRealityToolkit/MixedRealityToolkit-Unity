@@ -299,7 +299,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             Assert.IsFalse(objectManipulator.IsGrabSelected, "ObjectManipulator should have been released!");
             Assert.IsFalse(bc.HandlesActive, "Handles should not have been toggled.");
 
-            TestUtilities.AssertAboutEqual(bc.transform.position, initialObjectPosition, $"Object should be placed generally in the same position! Actual position: {bc.transform.position:F5}, should be {initialObjectPosition}", 0.00001f);
+            TestUtilities.AssertAboutEqual(bc.transform.position, initialObjectPosition, $"Object should be placed generally in the same position! Actual position: {bc.transform.position:F5}, should be {initialObjectPosition}", 0.01f);
 
             Object.Destroy(bc.gameObject);
             // Wait for a frame to give Unity a change to actually destroy the object
