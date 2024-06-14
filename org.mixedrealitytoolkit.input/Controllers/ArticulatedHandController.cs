@@ -42,15 +42,6 @@ namespace MixedReality.Toolkit.Input
 
         #region Properties
 
-        /// <summary>
-        /// The currently loaded and running hands aggregator, if any.
-        /// </summary>
-        /// <remarks>
-        /// This is deprecated, please use <see cref="XRSubsystemHelpers.HandsAggregator"/> instead.
-        /// </remarks>
-        [Obsolete("Deprecated, please use XRSubsystemHelpers.HandsAggregator instead.")]
-        protected HandsAggregatorSubsystem HandsAggregator => XRSubsystemHelpers.HandsAggregator as HandsAggregatorSubsystem;
-
         #endregion Properties
 
         private bool pinchedLastFrame = false;

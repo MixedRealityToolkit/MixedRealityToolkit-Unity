@@ -55,15 +55,6 @@ namespace MixedReality.Toolkit.Input.Simulation
         /// <summary>
         /// The input action used to toggle between using the default or Secondary Handshape settings.
         /// </summary>
-        /// <remarks>
-        /// This property is deprecated, use <see cref="ToggleSecondaryHandshapes"/> instead.
-        /// </remarks>
-        [Obsolete("This property is deprecated, use ToggleSecondaryHandshapes instead.")]
-        public InputActionReference ChangeNeutralPose => ToggleSecondaryHandshapes;
-
-        /// <summary>
-        /// The input action used to toggle between using the default or Secondary Handshape settings.
-        /// </summary>
         public InputActionReference ToggleSecondaryHandshapes
         {
             get => toggleSecondaryHandshapes;

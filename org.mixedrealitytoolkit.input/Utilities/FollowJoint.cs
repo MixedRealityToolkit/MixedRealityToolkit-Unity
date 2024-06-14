@@ -15,7 +15,7 @@ namespace MixedReality.Toolkit.Input
     /// not depend on XRI.
     /// </remarks>
     [AddComponentMenu("MRTK/Input/Follow Joint")]
-    internal class FollowJoint : MonoBehaviour, ISerializationCallbackReceiver
+    internal class FollowJoint : MonoBehaviour
     {
         [SerializeField]
         [Tooltip("The pose source representing the hand joint this interactor tracks")]
@@ -25,54 +25,6 @@ namespace MixedReality.Toolkit.Input
         /// The pose source representing the hand joint this interactor tracks
         /// </summary>
         protected HandJointPoseSource JointPoseSource { get => jointPoseSource; set => jointPoseSource = value; }
-
-        // A temporary variable used to migrate instances of FollowJoint to use the jointPoseSource class as the source of truth
-        // rather than its own separately serialized values.
-        // TODO: Remove this after some time to ensure users have successfully migrated.
-        [SerializeField, HideInInspector]
-        private bool migratedSuccessfully = false;
-
-        [SerializeField]
-        [HideInInspector]
-        private Handedness hand;
-
-        /// <summary>
-        /// The hand on which to track the joint.
-        /// </summary>
-        [Obsolete("Please change the Hand value on the jointPoseSource instead")]
-        protected Handedness Hand { get => JointPoseSource.Hand; set => JointPoseSource.Hand = value; }
-
-        [SerializeField]
-        [HideInInspector]
-        private TrackedHandJoint joint;
-
-        /// <summary>
-        /// The specific joint to track.
-        /// </summary>
-        [Obsolete("Please change the Joint value on the jointPoseSource instead")]
-        protected TrackedHandJoint Joint { get => JointPoseSource.Joint; set => JointPoseSource.Joint = value; }
-
-        #region ISerializationCallbackReceiver
-
-        void ISerializationCallbackReceiver.OnBeforeSerialize() { }
-
-        /// <summary>
-        /// Using ISerializationCallbackReceiver to ensure that instances of FollowJoint are migrated to the new HandJointPoseSource
-        /// Doesn't work perfectly due to complications with prefab variants :(
-        ///
-        /// TODO: Remove this after some time to ensure users have successfully migrated.
-        /// </summary>
-        void ISerializationCallbackReceiver.OnAfterDeserialize()
-        {
-            if (!migratedSuccessfully)
-            {
-                JointPoseSource.Hand = hand;
-                JointPoseSource.Joint = joint;
-                migratedSuccessfully = true;
-            }
-        }
-
-        #endregion ISerializationCallbackReceiver
 
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
