@@ -20,7 +20,7 @@
     "org.mixedrealitytoolkit.core": "4.0.0",
     "org.mixedrealitytoolkit.uxcore": "4.0.0",
     "com.unity.inputsystem": "1.6.1",
-    "com.unity.xr.interaction.toolkit": "3.0.1"
+    "com.unity.xr.interaction.toolkit": "3.0.3"
   },
   "msftOptionalPackages": {
     "org.mixedrealitytoolkit.input": "4.0.0"
