@@ -4,30 +4,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [4.0.0-development.pre.1] - 2024-06-18
 
-### Added
-
-* MRTK3 controllerless prefabs.
-* Added ObsoleteHandInteractionExamples scene that still uses deprecated MRTK3 rig.
-* Added XRI3+ exclusive unity-tests.
-* Added new TrackedPoseDriver lookup.
-
 ### Changed
 
 * Updated package com.unity.xr.interaction.toolkit to 3.0.3
-* Updated Unity Editor to 2022.3.7f1
-* Updated all scenes to consume new MRTK3 controllerless prefabs.
-* Updated existing unity-tests.
-* Updated code to support new XRI3 patterns.
-
-### Deprecated
-
-* MRTK3 controller-based prefabs marked as obsolete and deprecated.
-* Controller lookup deprecated.
+* Updated InteractorHandednessExtensions.
 
 ### Removed
 
-* Removed obsolete methods.
-* Removed legacy dialog.
+* Removed obsolete HandednessExtensions::IsRight method.
+* Removed obsolete HandednessExtensions::IsLeft method.
+* Removed obsolete HandsUtils::GetSubsystem method.
+* Removed obsolete PlayspaceUtilities.ReferenceTransform field.
+* Removed obsolete XRSubsystemHelpers::GetAllRunningSubsystemsNonAlloc method.
+
+### Deprecated
+
+* ControllerLookup marked as Obsolete.
 
 ## [3.2.2] - 2024-06-13
 

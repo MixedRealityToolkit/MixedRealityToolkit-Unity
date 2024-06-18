@@ -6,28 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-* MRTK3 controllerless prefabs.
-* Added ObsoleteHandInteractionExamples scene that still uses deprecated MRTK3 rig.
-* Added XRI3+ exclusive unity-tests.
-* Added new TrackedPoseDriver lookup.
+* SolverTapToPlaceTestsForControllerlessRig Unity-tests.
+* Updated TapToPlace logic to handle both deprecated XRController and new controllerless actions.
+* Updated HandConstraintPalmUp logic to handle both deprecated XRController and new controllerless actions.
+* Updated Solver logic to handle both deprecated XRController and new controllerless actions.
 
 ### Changed
 
 * Updated package com.unity.xr.interaction.toolkit to 3.0.3
-* Updated Unity Editor to 2022.3.7f1
-* Updated all scenes to consume new MRTK3 controllerless prefabs.
-* Updated existing unity-tests.
-* Updated code to support new XRI3 patterns.
-
-### Deprecated
-
-* MRTK3 controller-based prefabs marked as obsolete and deprecated.
-* Controller lookup deprecated.
-
-### Removed
-
-* Removed obsolete methods.
-* Removed legacy dialog*.
 
 ## [3.3.0] - 2024-04-30
 
