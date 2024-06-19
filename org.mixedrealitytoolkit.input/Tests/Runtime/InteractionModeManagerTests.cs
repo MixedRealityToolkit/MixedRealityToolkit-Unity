@@ -13,6 +13,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -21,6 +22,7 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </summary>
     public class InteractionModeManagerTests : BaseRuntimeInputTests
     {
+#pragma warning disable CS0618 // Adding this pragma because all these tests depend on deprecated XRBaseController
         /// <summary>
         /// Tests that the proximity detector detects when to change the controllers interaction mode and properly toggles the associated interactors.
         /// Also checks that the proximity detector doesn't trigger hovers on other objects
@@ -187,16 +189,17 @@ namespace MixedReality.Toolkit.Input.Tests
             // Ensure the prox detector has actually had the desired effect of enabling/disabling interactors.
             foreach (System.Type interactorType in managedInteractorTypes)
             {
-                XRBaseInteractor interactor = controller.GetComponentInChildren(interactorType) as XRBaseControllerInteractor;
+                XRBaseInteractor interactor = controller.GetComponentInChildren(interactorType) as XRBaseInputInteractor;
                 if (interactor != null)
                 {
                     Assert.AreEqual(activeInteractorTypes.Contains(interactorType), interactor.enabled);
                 }
             }
         }
+#pragma warning restore CS0618 // Type or member is obsolete
 
-        // Returns true iff any of the ProximityDetectors in the scene are currently triggered.
-        private bool AnyProximityDetectorsTriggered()
+        // Returns true if and only if any of the ProximityDetectors in the scene are currently triggered.
+        public static bool AnyProximityDetectorsTriggered()
         {
             ProximityDetector[] detectors = FindObjectUtility.FindObjectsByType<ProximityDetector>();
             foreach (var detector in detectors)

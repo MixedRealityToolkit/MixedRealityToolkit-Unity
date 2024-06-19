@@ -132,15 +132,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         /// <summary>
-        /// This function is obsolete.
-        /// </summary>
-        /// <remarks>
-        ///  Use <see cref="Setup"/> instead for first-time initialization, and <see cref="OnManipulationStarted"/> for subsequent manipulation.
-        /// </remarks>
-        [Obsolete("Use Setup instead for first-time initialization, and OnManipulationStarted for subsequent manipulation.")]
-        public void Initialize(MixedRealityTransform worldPose) { }
-
-        /// <summary>
         /// Re-sort list of constraints. Triggered by constraints
         /// when their execution order is modified at runtime.
         /// </summary>

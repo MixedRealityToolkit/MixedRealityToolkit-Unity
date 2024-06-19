@@ -7,6 +7,10 @@
 using MixedReality.Toolkit.Input.Simulation;
 using System.Collections;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Unity.XR.CoreUtils;
+using System.Collections.Generic;
+using System.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -20,6 +24,9 @@ namespace MixedReality.Toolkit.Input.Tests
     {
         private const string MRTKRigPrefabGuid = "4d7e2f87fefe0ba468719b15288b46e7";
         private static readonly string MRTKRigPrefabPath = AssetDatabase.GUIDToAssetPath(MRTKRigPrefabGuid);
+
+        private const string MRTKControllerlessRigPrefabGuid = "acbf65a81ce2cf94f82a0809298acf70";
+        private static readonly string MRTKControllerlessRigPrefabPathForXRI3 = AssetDatabase.GUIDToAssetPath(MRTKControllerlessRigPrefabGuid);
 
         private static GameObject rigReference;
         private static bool isEyeGazeTracking = true;
@@ -83,6 +90,11 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
+        /// Holds a reference to the rig used by Unity-tests
+        /// </summary>
+        public static GameObject RigReference => rigReference;
+
+        /// <summary>
         /// A sentinel value used by controller test utilities to indicate that the default number of move
         /// steps should be used or not.
         /// </summary>
@@ -108,12 +120,26 @@ namespace MixedReality.Toolkit.Input.Tests
         #endregion Simulated Devices
 
         /// <summary>
-        /// Creates and returns the MRTK rig.
+        /// Creates and returns the deprecated pre-XRI3 MRTK rig.
         /// </summary>
         public static GameObject InstantiateRig()
         {
             Object rigPrefab = AssetDatabase.LoadAssetAtPath(MRTKRigPrefabPath, typeof(Object));
             rigReference = Object.Instantiate(rigPrefab) as GameObject;
+            return rigReference;
+        }
+
+        /// <summary>
+        /// Creates and returns the MRTK rig for XRI3+.
+        /// </summary>
+        public static GameObject InstantiateControllerlessRig()
+        {
+            Object rigPrefab = AssetDatabase.LoadAssetAtPath(MRTKControllerlessRigPrefabPathForXRI3, typeof(Object));
+            rigReference = Object.Instantiate(rigPrefab) as GameObject;
+
+            SpeechInteractor speechInteractor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
+            speechInteractor.gameObject.SetActive(false);
+
             return rigReference;
         }
 

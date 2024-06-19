@@ -274,21 +274,49 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 Ray? gazeRay = null;
                 bool usedEyeGaze = false;
 
-                if (ControllerLookup != null &&
-                    ControllerLookup.GazeController != null &&
-                    (ControllerLookup.GazeController.currentControllerState.inputTrackingState &
-                    (InputTrackingState.Position | InputTrackingState.Rotation)) > 0)
+                #pragma warning disable CS0618 // Type or member is obsolete
+                if (ControllerLookup != null)
                 {
-                    gazeRay = new Ray(
-                            ControllerLookup.GazeController.transform.position,
-                            ControllerLookup.GazeController.transform.forward);
-                    usedEyeGaze = true;
+                    if (ControllerLookup.GazeController != null &&
+                        (ControllerLookup.GazeController.currentControllerState.inputTrackingState &
+                        (InputTrackingState.Position | InputTrackingState.Rotation)) > 0)
+                    {
+                        gazeRay = new Ray(
+                                ControllerLookup.GazeController.transform.position,
+                                ControllerLookup.GazeController.transform.forward);
+                        usedEyeGaze = true;
+                    }
+                    else
+                    {
+                        gazeRay = new Ray(
+                            Camera.main.transform.position,
+                            Camera.main.transform.forward);
+                    }
+                }
+                #pragma warning restore CS0618
+                else if (TrackedPoseDriverLookup != null)
+                {
+                    InputTrackingState gazeTrackingStateInput = (InputTrackingState)TrackedPoseDriverLookup.GazeTrackedPoseDriver.trackingStateInput.action.ReadValue<int>();
+                    if (TrackedPoseDriverLookup.GazeTrackedPoseDriver != null &&
+                        gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
+                        gazeTrackingStateInput.HasFlag(InputTrackingState.Rotation))
+                    {
+                        gazeRay = new Ray(
+                                TrackedPoseDriverLookup.transform.position,
+                                TrackedPoseDriverLookup.transform.forward);
+                        usedEyeGaze = true;
+                    }
+                    else
+                    {
+                        gazeRay = new Ray(
+                            Camera.main.transform.position,
+                            Camera.main.transform.forward);
+                    }
                 }
                 else
                 {
-                    gazeRay = new Ray(
-                        Camera.main.transform.position,
-                        Camera.main.transform.forward);
+                    Debug.LogWarning("Neither ControllerLookup nor TrackedPoseDriverLookup are set, unable to determine whether user gaze meets threashold requirements or not.");
+                    return false;
                 }
 
                 if (gazeRay.HasValue)

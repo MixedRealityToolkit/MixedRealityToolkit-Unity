@@ -6,7 +6,7 @@
 variables:
   - template: Config/settings.yaml
   - name: Version.Revision
-    value: $[counter(variables['MRTKVersion'], 1)]
+    value: $[counter(variables['ProjectVersion'], 1)]
   - name: Version.DateCode
     value: $[format('{0:yyMMdd}', pipeline.startTime)]
   - name: Version.DateCodeRevision
@@ -16,12 +16,12 @@ resources:
   repositories:
     - repository: PipelineTools
       type: git
-      endpoint: ToolsAccess
+      endpoint: MRTK3 Tools Access
       name: tools.internal
       ref: 78ecf591964ecf511b4c7a0cd84d98ce11e8be16
     - repository: DocToolUnityProject
       type: git
-      endpoint: ToolsAccess
+      endpoint: MRTK3 Tools Access
       name: lib.doctools
       ref: 26723e6afa6d2adb44a734bd6ce0bc2bd90638b5
 
@@ -34,9 +34,6 @@ jobs:
       - checkout: self
 
       - checkout: PipelineTools
-
-      - pwsh: Write-Host "##vso[build.updatebuildnumber]$(MRTKVersion)-$(ReleaseTagPrefix)$(MRTKReleaseTag).$(Version.DateCode).$(Version.DateCodeRevision)"
-        displayName: Set Build Number
 
       - task: ComponentGovernanceComponentDetection@0
         inputs:
@@ -58,9 +55,8 @@ jobs:
 
       - template: Templates/upm.yaml
         parameters:
+          prereleaseTag: $(ReleaseTagPrefix)
           buildNumber: $(Version.Revision)
-          releaseLabel: $(ReleaseTagPrefix)
-          experimentLabel: $(MRTKReleaseTag)
           publishToFeed: true
 
   - job: DocsBinariesGeneration

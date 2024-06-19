@@ -10,6 +10,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
@@ -63,7 +64,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         {
             if (level0 != null)
             {
-                Object.Destroy(level0);
+                Destroy(level0);
             }
 
             interactorObject = null;

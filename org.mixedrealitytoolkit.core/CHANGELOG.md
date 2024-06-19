@@ -2,7 +2,19 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.2.1-development] - 2024-04-24
+## [4.0.0-development] - 2024-06-13
+
+### Changed
+
+* Updated package com.unity.xr.interaction.toolkit to 3.0.1
+
+## [3.2.2] - 2024-06-13
+
+### Fixed
+
+* Fixed UPM package validation so that it ignores errors caused when the test runner is not part of the MRTK publisher account. [PR #775](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/775/)
+
+## [3.2.1] - 2024-04-24
 
 ### Fixed
 

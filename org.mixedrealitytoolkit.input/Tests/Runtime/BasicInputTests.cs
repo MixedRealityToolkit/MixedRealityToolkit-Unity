@@ -7,18 +7,20 @@
 using MixedReality.Toolkit.Core.Tests;
 using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
-using MixedReality.Toolkit.Input;
 using MixedReality.Toolkit.Input.Simulation;
-using MixedReality.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using MixedReality.Toolkit.Subsystems;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -44,6 +46,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Ensure the simulated input devices bind to the controllers on the rig.
         /// </summary>
+#pragma warning disable CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ActionBasedController
         [UnityTest]
         public IEnumerator InputBindingSmoketest()
         {
@@ -93,6 +96,7 @@ namespace MixedReality.Toolkit.Input.Tests
 
             yield return null;
         }
+#pragma warning restore CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ActionBasedController
 
         /// <summary>
         /// Test that anchoring the test hands on the grab point actually results in the grab interactor
@@ -405,6 +409,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// break XRDirectInteractor. Repro test for ADO#1582/1581.
         /// </summary>
         [UnityTest]
+#pragma warning disable CS0618 // Adding this pragma because all the encompassed tests depend on deprecated XRBaseController
         public IEnumerator InteractableDisabledDuringInteraction()
         {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -591,9 +596,50 @@ namespace MixedReality.Toolkit.Input.Tests
 
             yield return null;
         }
+#pragma warning restore CS0618 // Adding this pragma because all the encompassed tests depend on deprecated XRBaseController
 
-        // Returns true iff any of the ProximityDetectors in the scene are currently triggered.
-        private bool AnyProximityDetectorsTriggered()
+        /// <summary>
+        /// Test the HandModel script has the required fields.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator HandModelHasRequiredFieldsAndAccessors()
+        {
+            FieldInfo[] fieldInfos;
+            PropertyInfo[] accessorsInfos;
+            Type HandModel = typeof(HandModel);
+
+            fieldInfos = HandModel.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            accessorsInfos = HandModel.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+            var modelPrefabFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("modelPrefab")).ToArray();
+            Assert.AreEqual(1, modelPrefabFieldInfo.Length, "HandModel is missing the 'modelPrefab' field");
+
+            var modelParentFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("modelParent")).ToArray();
+            Assert.AreEqual(1, modelParentFieldInfo.Length, "HandModel is missing the 'modelParent' field");
+
+            var modelFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("model")).ToArray();
+            Assert.AreEqual(1, modelFieldInfo.Length, "HandModel is missing the 'model' field");
+
+            var handNodeFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("handNode")).ToArray();
+            Assert.AreEqual(1, modelFieldInfo.Length, "HandModel is missing the 'handNode' field");
+
+            var modelPrefabAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("ModelPrefab")).ToArray();
+            Assert.AreEqual(1, modelPrefabAccessorInfo.Length, "HandModel is missing the 'ModelPrefab' accessor");
+
+            var modelParentAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("ModelParent")).ToArray();
+            Assert.AreEqual(1, modelParentAccessorInfo.Length, "HandModel is missing the 'ModelParent' accessor");
+
+            var modelAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("Model")).ToArray();
+            Assert.AreEqual(1, modelAccessorInfo.Length, "HandModel is missing the 'Model' accessor");
+
+            var handNodeAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("HandNode")).ToArray();
+            Assert.AreEqual(1, handNodeAccessorInfo.Length, "HandModel is missing the 'HandNode' accessor");
+
+            yield return null;
+        }
+
+        // Returns true if and only if any of the ProximityDetectors in the scene are currently triggered.
+        public static bool AnyProximityDetectorsTriggered()
         {
             ProximityDetector[] detectors = FindObjectUtility.FindObjectsByType<ProximityDetector>();
             foreach (var detector in detectors)

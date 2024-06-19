@@ -6,14 +6,14 @@
 
 using System.Collections;
 using System.Threading.Tasks;
-using MixedReality.Toolkit.Core.Tests;
 using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
 {

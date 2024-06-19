@@ -7,6 +7,7 @@ using System.Linq;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -14,7 +15,6 @@ namespace MixedReality.Toolkit.Input
     /// Used to manage interactors and ensure that each several interactors for a 'controller' aren't clashing and firing at the same time
     /// </summary>
     [AddComponentMenu("MRTK/Input/Interaction Mode Manager")]
-    [RequireComponent(typeof(ControllerLookup))]
     public class InteractionModeManager : MonoBehaviour
     {
         /// <summary>
@@ -210,7 +210,7 @@ namespace MixedReality.Toolkit.Input
             }
 
             GameObject controllerObject = null;
-            if (interactor is XRBaseControllerInteractor controllerInteractor)
+            if (interactor is XRBaseInputInteractor controllerInteractor)
             {
                 controllerObject = controllerInteractor.xrController.gameObject;
             }
@@ -247,7 +247,7 @@ namespace MixedReality.Toolkit.Input
         public void UnregisterInteractor(XRBaseInteractor interactor)
         {
             GameObject controllerObject = null;
-            if (interactor is XRBaseControllerInteractor controllerInteractor)
+            if (interactor is XRBaseInputInteractor controllerInteractor)
             {
                 controllerObject = controllerInteractor.xrController.gameObject;
             }
