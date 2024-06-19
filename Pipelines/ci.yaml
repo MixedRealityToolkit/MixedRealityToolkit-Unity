@@ -16,12 +16,10 @@ resources:
   repositories:
     - repository: PipelineTools
       type: git
-      endpoint: ToolsAccess
       name: tools.internal
       ref: 78ecf591964ecf511b4c7a0cd84d98ce11e8be16
     - repository: DocToolUnityProject
       type: git
-      endpoint: ToolsAccess
       name: lib.doctools
       ref: 26723e6afa6d2adb44a734bd6ce0bc2bd90638b5
 
