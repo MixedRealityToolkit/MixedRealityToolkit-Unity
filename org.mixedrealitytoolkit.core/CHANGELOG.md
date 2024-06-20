@@ -2,11 +2,24 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [4.0.0-development] - 2024-06-13
+## [4.0.0-development.pre.1] - 2024-06-18
 
 ### Changed
 
-* Updated package com.unity.xr.interaction.toolkit to 3.0.1
+* Updated package com.unity.xr.interaction.toolkit to 3.0.3
+* Updated InteractorHandednessExtensions.
+
+### Removed
+
+* Removed obsolete HandednessExtensions::IsRight method.
+* Removed obsolete HandednessExtensions::IsLeft method.
+* Removed obsolete HandsUtils::GetSubsystem method.
+* Removed obsolete PlayspaceUtilities.ReferenceTransform field.
+* Removed obsolete XRSubsystemHelpers::GetAllRunningSubsystemsNonAlloc method.
+
+### Deprecated
+
+* ControllerLookup marked as Obsolete.
 
 ## [3.2.2] - 2024-06-13
 

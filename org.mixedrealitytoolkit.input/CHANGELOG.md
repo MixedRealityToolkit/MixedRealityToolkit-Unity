@@ -2,11 +2,59 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [4.0.0-development] - 2024-05-08
+## [4.0.0-development.pre.1] - 2024-06-18
+
+### Added
+
+* SpatialMouseInputTestsForControllerlessRig Unity-tests.
+* BasicInputTestsForControllerlessRig Unity-tests.
+* MRTKRayInteractorVisualsTestsForControllerlessRig Unity-tests.
+* InteractionModeManagerTestsForControllerlessRig Unity-tests.
+* FuzzyGazeInteractorTestsForControllerlessRig Unity-tests.
+* TrackedPoseDriverLookup as the XRI3+ equivalent of ControllerLookup.
+* TrackedPoseDriverWithFallback as the XRI3+ equivalent of ActionBasedControllerWithFallbacks.
+* Controllerless version of MRTK XR Rig prefab.
+* Controllerless version of MRTK LeftHand Controller prefab.
+* Controllerless version of MRTK RightHand Controller prefab.
+* Controllerless version of MRTK Gaze Controller prefab.
+* Controllerless version of MRTK Interaction Manager prefab.
 
 ### Changed
 
-* Updated package com.unity.xr.interaction.toolkit to 3.0.1
+* Updated package com.unity.xr.interaction.toolkit to 3.0.3
+* Updated BaseRuntimeInputTests logic to handle both deprecated XRController and new controllerless actions.
+* Updated GazePinchInteractor logic to handle both deprecated XRController and new controllerless actions.
+* Updated PokeInteractor logic to handle both deprecated XRController and new controllerless actions.
+* Updated MRTKRayInteractor logic to handle both deprecated XRController and new controllerless actions.
+* Updated FlatScreenModeDetector logic to handle both deprecated XRController and new controllerless actions.
+* Renamed MRTK XR Rig prefab as Obsolete MRTK XR Rig.
+* Renamed MRTK LeftHand Controller prefab as Obsolete MRTK LeftHand Controller.
+* Renamed MRTK RightHand Controller prefab as Obsolete MRTK RightHand Controller.
+* Renamed MRTK Gaze Controller prefab as Obsolete MRTK Gaze Controller.
+* Renamed MRTK Interaction Manager prefab as Obsolete MRTK Interaction Manager.
+
+### Deprecated
+
+* ActionBasedControllerWithFallbacks marked as Obsolete.
+* ArticulatedHandController marked as Obsolete.
+
+### Removed
+
+* Removed obsolete ArticulatedHandController.HandsAggregatorSubsystem field.
+* Removed obsolete MRTKRayInteractor.HandsAggregatorSubsystem field.
+* Removed obsolete ControllerSimulationSettings.InputActionReference field.
+* Removed obsolete SyntheticsHandsSubsystem::GetNeutralPose method.
+* Removed obsolete SyntheticsHandsSubsystem::SetNeutralPose method.
+* Removed obsolete SyntheticsHandsSubsystem::GetSelectionPose method.
+* Removed obsolete SyntheticsHandsSubsystem::SetSelectionPose method.
+* Removed obsolete SyntheticsHandsSubsystem::GetNeutralPose method.
+* Removed obsolete SyntheticsHandsSubsystem::SetNeutralPose method.
+* Removed obsolete FollowJoint.migratedSuccessfully field.
+* Removed obsolete FollowJoint.hand field.
+* Removed obsolete FollowJoint.Joint field.
+* Removed obsolete FollowJoint::OnAfterDeserialize method.
+* Removed obsolete HandBasedPoseSource.HandsAggregator field.
+* Removed obsolete ControllerVisualizer.HandsAggregator field.
 
 ## [3.2.1] - 2024-4-23
 

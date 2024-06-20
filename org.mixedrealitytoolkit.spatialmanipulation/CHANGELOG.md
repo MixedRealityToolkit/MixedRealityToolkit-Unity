@@ -2,11 +2,18 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [4.0.0-development] - 2024-05-08
+## [4.0.0-development.pre.1] - 2024-06-18
+
+### Added
+
+* SolverTapToPlaceTestsForControllerlessRig Unity-tests.
+* Updated TapToPlace logic to handle both deprecated XRController and new controllerless actions.
+* Updated HandConstraintPalmUp logic to handle both deprecated XRController and new controllerless actions.
+* Updated Solver logic to handle both deprecated XRController and new controllerless actions.
 
 ### Changed
 
-* Updated package com.unity.xr.interaction.toolkit to 3.0.1
+* Updated package com.unity.xr.interaction.toolkit to 3.0.3
 
 ## [3.3.0] - 2024-04-30
 
