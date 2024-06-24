@@ -174,7 +174,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Check if TapToPlace stopped with pinch.
-            Assert.IsFalse(solver.IsBeingPlaced, "TapToPlace should have stopped with left hand pinch.");
+            Assert.IsFalse(solver.IsBeingPlaced, "TapToPlace should have stopped with right hand pinch.");
 
             // Aim hand
             yield return leftHand.AimAt(InputTestUtilities.InFrontOfUser(new Vector3(0.05f, -0.1f, 2.0f)));
@@ -184,6 +184,78 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             var testObjectFinalPosition = testObject.transform.position;
             Assert.AreEqual(testObjectPlacementPosition, testObjectFinalPosition, $"Game object should not have moved.");
         }
+
+        /// <summary>
+        /// Verify TapToPlace can start placement when method is called before its own Start.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TapToPlaceIsBeingPlacedBeforeStart()
+        {
+            // Disable gaze interactions for this unit test;
+            InputTestUtilities.DisableGazeInteractor();
+
+            // Set up GameObject with a SolverHandler
+            var testObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var solverHandler = testObject.AddComponent<SolverHandler>();
+            var solver = testObject.AddComponent<TapToPlace>();
+
+            // Disable smoothing so moving happens instantly. This makes testing positions easier.
+            solver.Smoothing = false;
+
+            // Set it to track interactors
+            solverHandler.TrackedHandedness = Handedness.Both;
+            solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
+            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
+            var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
+            var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
+            solverHandler.LeftInteractor = leftInteractor;
+            solverHandler.RightInteractor = rightInteractor;
+
+            int onPlacingStartedCount = 0;
+            int onPlacingStoppedCount = 0;
+            solver.OnPlacingStarted.AddListener(() => onPlacingStartedCount++);
+            solver.OnPlacingStopped.AddListener(() => onPlacingStoppedCount++);
+
+            // Call immediately, before the TapToPlace Start method has been called
+            solver.StartPlacement();
+
+            yield return RuntimeTestUtilities.WaitForUpdates(1);
+
+            Assert.IsTrue(solver.IsBeingPlaced, "TapToPlace should have started.");
+            Assert.AreEqual(1, onPlacingStartedCount, "TapToPlace should have invoked event OnPlacingStarted exactly 1 time.");
+            Assert.AreEqual(0, onPlacingStoppedCount, "TapToPlace shouldn't have invoked event OnPlacingStopped.");
+
+            // Call StartPlacement while it's already being placed
+            solver.StartPlacement();
+
+            yield return RuntimeTestUtilities.WaitForUpdates(1);
+
+            Assert.IsTrue(solver.IsBeingPlaced, "TapToPlace should still being placed.");
+            Assert.AreEqual(1, onPlacingStartedCount, "TapToPlace should have invoked event OnPlacingStarted exactly 1 time.");
+            Assert.AreEqual(0, onPlacingStoppedCount, "TapToPlace shouldn't have invoked event OnPlacingStopped.");
+
+            // Call StopPlacement too fast after StartPlacement
+            solver.StopPlacement();
+
+            yield return RuntimeTestUtilities.WaitForUpdates(1);
+
+            Assert.IsTrue(solver.IsBeingPlaced, "TapToPlace should still being placed.");
+            Assert.AreEqual(1, onPlacingStartedCount, "TapToPlace should have invoked event OnPlacingStarted exactly 1 time.");
+            Assert.AreEqual(0, onPlacingStoppedCount, "TapToPlace shouldn't have invoked event OnPlacingStopped.");
+
+            // Wait for solvers double click prevention timeout
+            yield return new WaitForSeconds(0.5f + 0.1f);
+
+            // Must call StopPlacement for following tests to not fail because rig keept reference to the TapToPlace
+            solver.StopPlacement();
+
+            yield return RuntimeTestUtilities.WaitForUpdates(1);
+
+            Assert.IsFalse(solver.IsBeingPlaced, "TapToPlace should have stopped.");
+            Assert.AreEqual(1, onPlacingStartedCount, "TapToPlace should have invoked event OnPlacingStarted exactly 1 time.");
+            Assert.AreEqual(1, onPlacingStoppedCount, "TapToPlace should have invoked event OnPlacingStopped exactly 1 time.");
+        }
+#pragma warning restore CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ControllerLookup
     }
 }
 #pragma warning restore CS1591

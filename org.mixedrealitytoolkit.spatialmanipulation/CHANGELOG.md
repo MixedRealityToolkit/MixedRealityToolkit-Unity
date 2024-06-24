@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Fixed
+
+* Fixed tap to place `StartPlacement()` when called just after instantiation of the component. [PR #785](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/785)
+
 ## [3.3.0-development] - 2024-04-30
 
 ### Added
