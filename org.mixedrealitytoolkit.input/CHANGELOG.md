@@ -33,6 +33,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Renamed MRTK Gaze Controller prefab as Obsolete MRTK Gaze Controller.
 * Renamed MRTK Interaction Manager prefab as Obsolete MRTK Interaction Manager.
 
+### Fixed
+
+* InputSimulator execution order so that it executes before InteractionManager.
+
 ### Deprecated
 
 * ActionBasedControllerWithFallbacks marked as Obsolete.
