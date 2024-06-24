@@ -23,30 +23,6 @@ namespace MixedReality.Toolkit.Input
     [AddComponentMenu("MRTK/Input/Tracked Pose Driver (with Fallbacks)")]
     public class TrackedPoseDriverWithFallback : TrackedPoseDriver
     {
-        /// <summary>
-        /// These are the same flags as TrackingState in <seealso cref="TrackedPoseDriver"/> they are repeated here because enum
-        /// TrackingStates is not public in TrackedPoseDriver class (as of Unity.InputSystem 1.8.1.0).
-        /// </summary>
-        [Flags]
-        private enum TDPwithFallbackTrackingStates
-        {
-            /// <summary>
-            /// Position and rotation are not valid.
-            /// </summary>
-            None,
-
-            /// <summary>
-            /// Position is valid.
-            /// See <c>InputTrackingState.Position</c>.
-            /// </summary>
-            Position = 1 << 0,
-
-            /// <summary>
-            /// Rotation is valid.
-            /// See <c>InputTrackingState.Rotation</c>.
-            /// </summary>
-            Rotation = 1 << 1,
-        }
 
         #region Fallback actions values
 
@@ -126,17 +102,17 @@ namespace MixedReality.Toolkit.Input
 
             if (neededToGetFallbackData) //because either position, rotation, or both data were obtained from fallback actions
             {
-                SetLocalTransformFromFallback(position, rotation, (TDPwithFallbackTrackingStates)fallbackInputTrackingState);
+                SetLocalTransformFromFallback(position, rotation, (InputTrackingState)fallbackInputTrackingState);
             }
         }
 
-        private void SetLocalTransformFromFallback(Vector3 newPosition, Quaternion newRotation, TDPwithFallbackTrackingStates currentFallbackTrackingState)
+        private void SetLocalTransformFromFallback(Vector3 newPosition, Quaternion newRotation, InputTrackingState currentFallbackTrackingState)
         {
-            var positionValid = ignoreTrackingState || (currentFallbackTrackingState & TDPwithFallbackTrackingStates.Position) != 0;
-            var rotationValid = ignoreTrackingState || (currentFallbackTrackingState & TDPwithFallbackTrackingStates.Rotation) != 0;
+            var positionValid = ignoreTrackingState || (currentFallbackTrackingState & InputTrackingState.Position) != 0;
+            var rotationValid = ignoreTrackingState || (currentFallbackTrackingState & InputTrackingState.Rotation) != 0;
 
 #if HAS_SET_LOCAL_POSITION_AND_ROTATION
-            if (this.TrackingType == TrackingType.RotationAndPosition && rotationValid && positionValid)
+            if (trackingType == TrackingType.RotationAndPosition && rotationValid && positionValid)
             {
                 transform.SetLocalPositionAndRotation(newPosition, newRotation);
                 return;
