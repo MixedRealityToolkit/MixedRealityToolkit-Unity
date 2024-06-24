@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 namespace MixedReality.Toolkit.Input.Simulation
@@ -14,6 +15,7 @@ namespace MixedReality.Toolkit.Input.Simulation
     /// Input device and HMD navigation simulator.
     /// </summary>
     [AddComponentMenu("MRTK/Input/Input Simulator")]
+    [DefaultExecutionOrder(XRInteractionUpdateOrder.k_DeviceSimulator)]
     public class InputSimulator : MonoBehaviour
     {
         #region MonoBehaviour
