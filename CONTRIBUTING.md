@@ -4,7 +4,7 @@ This project welcomes contributions, suggestions, and feedback. All contribution
 
 ## Tenets
 
-This project follows a set of tenats to help ensure a healthy code base and community. Please review the [Project tenets](.contributions/project-tenets.md) when contributing.
+This project follows a set of tenats to help ensure a healthy code base and community. Please review the [Project tenets](./contributions/project-tenets.md) when contributing.
 
 ## Contributors
 
