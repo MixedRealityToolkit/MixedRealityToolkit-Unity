@@ -32,6 +32,8 @@ Being an open source project does not mean that everyone has the ability to appr
 ## Get community feedback on large decisions
 The community are our partners and they will have the opportunity to voice their opinions on large decisions. This feedback will be taken into account by the steering committee and weighed against the "needs of the many".
 
+The primary location for requesting community feedback will be the [Discussions](https://github.com/orgs/MixedRealityToolkit/discussions) section of this repository. Other channels may be considered, based on where the MRTK3 community gravitates.
+
 Examples of decisions in which the community feedback has been solicited include; minimum Unity version for MRTK3 GA, selection of Unity XR Interaction Toolkit as the underlying abstraction layer, etc.
 
 ## Avoid backchannel code reviews
