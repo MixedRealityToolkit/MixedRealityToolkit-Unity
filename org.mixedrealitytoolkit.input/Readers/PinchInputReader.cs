@@ -65,7 +65,7 @@ namespace MixedReality.Toolkit.Input
         }
 
         [SerializeField, Tooltip("The Input System action to read values for selecting an Interactable. If not defined or if a controller is not attached to this property, the selection value will be driven by the IHandsAggregatorSubsystem subsystem's pinch amount.")]
-        InputActionProperty selectActionValue = new InputActionProperty(new InputAction("Select Value", expectedControlType: "Axis"));
+        private InputActionProperty selectActionValue = new InputActionProperty(new InputAction("Select Value", expectedControlType: "Axis"));
 
         /// <summary>
         /// The Input System action to read values for selecting an Interactable. If not defined or if a controller is not attached
@@ -112,10 +112,10 @@ namespace MixedReality.Toolkit.Input
 
         #region Private Fields
 
-        FallbackState m_fallbackState;
-        InputTrackingState m_trackingState;
-        bool m_firstUpdate = true;
-        bool m_trackingActionBound = false;
+        private FallbackState m_fallbackState;
+        private InputTrackingState m_trackingState;
+        private bool m_firstUpdate = true;
+        private bool m_trackingActionBound = false;
 
         private static readonly ProfilerMarker UpdatePinchSelectionPerfMarker =
             new ProfilerMarker("[MRTK] PinchInputReader.UpdatePinchSelection");
