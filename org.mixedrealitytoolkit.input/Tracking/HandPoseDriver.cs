@@ -60,17 +60,16 @@ namespace MixedReality.Toolkit.Input
                 m_firstUpdate = false;
             }
 
-            // In case the position input action is not provided, we will try to polyfill it with the device position.
-            // Should be removed once we have universal hand interaction profile(s) across vendors.
+            // In case the pose input actions are not provided or not bound to a control, we will try to query the 
+            // `HandsAggregator` subsystem for the device's pose. This logic and class should be removed once we 
+            // have universal hand interaction profile(s) across vendors.
             bool missingPositionController = (trackingType.HasFlag(TrackingType.PositionOnly) || trackingType.HasFlag(TrackingType.RotationAndPosition)) &&
                 (positionInput.action == null || !positionInput.action.HasAnyControls());
 
             bool missingRotationController = (trackingType.HasFlag(TrackingType.RotationOnly) || trackingType.HasFlag(TrackingType.RotationAndPosition)) &&
                 (rotationInput.action == null || !rotationInput.action.HasAnyControls());
 
-            // If we are missing the position or rotation controller, we will try to polyfill the device pose.
-            // Should be removed once we have universal hand interaction profile(s) across vendors.
-            // We will also check the tracking state here to account for a bound but untracked interaction profile.
+            // We will also check the tracking state here to account for a bound action but untracked interaction profile.
             if ((missingPositionController || missingRotationController || IsTrackingNone()) &&
                 TryGetPolyfillDevicePose(out Pose devicePose))
             {
