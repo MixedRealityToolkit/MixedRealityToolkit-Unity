@@ -73,7 +73,7 @@ namespace MixedReality.Toolkit.Input
             if ((missingPositionController || missingRotationController || IsTrackingNone()) &&
                 TryGetPolyfillDevicePose(out Pose devicePose))
             {
-                SetLocalTransform(devicePose.position, devicePose.rotation);
+                ForceSetLocalTransform(devicePose.position, devicePose.rotation);
             }
         }
         #endregion TrackedPoseDriver Overrides
@@ -189,19 +189,24 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void ForceTrackingStateUpdate()
         {
-            var trackingStateAction = trackingStateInput.action;
-            if (trackingStateAction != null && !trackingStateAction.enabled)
-            {
-                // Treat a disabled action as the default None value for the ReadValue call
-                m_trackingState = InputTrackingState.None;
-                return;
-            }
+            // Note, that the logic in this class is meant to reproduce the same logic as the base. The base
+            // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
+            // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic in a subclass is not ideal, but it is
+            // necessary since the base class does not expose the tracking state logic.
 
+            var trackingStateAction = trackingStateInput.action;
             if (trackingStateAction == null || trackingStateAction.bindings.Count == 0)
             {
                 // Treat an Input Action Reference with no reference the same as
                 // an enabled Input Action with no authored bindings, and allow driving the Transform pose.
                 m_trackingState = InputTrackingState.Position | InputTrackingState.Rotation;
+                return;
+            }
+
+            if (trackingStateAction.enabled)
+            {
+                // Treat a disabled action as the default None value for the ReadValue call
+                m_trackingState = InputTrackingState.None;
                 return;
             }
 
