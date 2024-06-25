@@ -6,6 +6,9 @@ using UnityEngine;
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
 using MixedReality.Toolkit.Input;
 #endif
+#if UNITY_LOCALIZATION_PRESENT
+using UnityEngine.Localization;
+#endif
 
 namespace MixedReality.Toolkit.UX
 {
@@ -25,6 +28,16 @@ namespace MixedReality.Toolkit.UX
     [AddComponentMenu("MRTK/UX/See It Say It Label")]
     public class SeeItSayItLabelEnabler : MonoBehaviour
     {
+        /// <summary>
+        /// The <see cref="PressableButton"/> present on the same GameObject.
+        /// </summary>
+        private PressableButton pressableButton;
+        
+        /// <summary>
+        /// The <see cref="TMP_Text"/> used to display the label present in child.
+        /// </summary>
+        private TMP_Text labelText;
+
         [SerializeField]
         [Tooltip("The GameObject for the see-it say-it label to be enabled.")]
         private GameObject seeItSayItLabel;
@@ -37,6 +50,32 @@ namespace MixedReality.Toolkit.UX
             get => seeItSayItLabel;
             set => seeItSayItLabel = value;
         }
+
+#if UNITY_LOCALIZATION_PRESENT
+        [SerializeField]
+        [Tooltip("The LocalizedString that define the label pattern. Use a smart string with one argument that will be replaced by the button's speech recognition keyword (e.g: \"Say '{0}'\").")]
+        private LocalizedString localizedPattern;
+#else
+        [SerializeField]
+        [Tooltip("The patern for the see-it say-it label using string.Format()")]
+        private string pattern = "Say '{0}'";
+
+        /// <summary>
+        /// The patern for the see-it say-it label using string.Format()
+        /// </summary>
+        public string Pattern
+        {
+            get => pattern;
+            set
+            {
+                pattern = value;
+                if (pressableButton != null)
+                {
+                    UpdateLabel(pressableButton.SpeechRecognitionKeyword);
+                }
+            }
+        }
+#endif
 
         [SerializeField]
         [Tooltip("The Transform that the label will be dynamically positioned off of. Empty by default. If positioning a Canvas label, this must be a RectTransform.")]
@@ -54,13 +93,17 @@ namespace MixedReality.Toolkit.UX
         private float canvasOffset = -10f;
         private float nonCanvasOffset = -.004f;
 
+        protected virtual void Awake()
+        {
+            pressableButton = GetComponent<PressableButton>();
+        }
+
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
-        /// </summary> 
+        /// </summary>
         protected virtual void Start()
         {
             // Check if voice commands are enabled for this button
-            PressableButton pressableButton = gameObject.GetComponent<PressableButton>();
             if (pressableButton != null && pressableButton.AllowSelectByVoice)
             {
                 // Check if input and speech packages are present
@@ -72,6 +115,8 @@ namespace MixedReality.Toolkit.UX
                 }
 
                 SeeItSayItLabel.SetActive(true);
+                labelText = SeeItSayItLabel.GetComponentInChildren<TMP_Text>(true);
+                pressableButton.OnSpeechRecognitionKeywordChanged.AddListener(UpdateLabel);
 
                 // Children must be disabled so that they are not initially visible 
                 foreach (Transform child in SeeItSayItLabel.transform)
@@ -80,15 +125,7 @@ namespace MixedReality.Toolkit.UX
                 }
 
                 // Set the label text to reflect the speech recognition keyword
-                string keyword = pressableButton.SpeechRecognitionKeyword;
-                if (keyword != null)
-                {
-                    TMP_Text labelText = SeeItSayItLabel.GetComponentInChildren<TMP_Text>(true);
-                    if (labelText != null)
-                    {
-                        labelText.text = $"Say '{keyword}'";
-                    }
-                }
+                UpdateLabel(pressableButton.SpeechRecognitionKeyword);
 
                 // If a Transform is specified, use it to reposition the object dynamically
                 if (positionControl != null)
@@ -97,7 +134,7 @@ namespace MixedReality.Toolkit.UX
                     RectTransform controlRectTransform = PositionControl.gameObject.GetComponent<RectTransform>();
 
                     // If PositionControl is a RectTransform, reposition label relative to Canvas button
-                    if (controlRectTransform != null &&  SeeItSayItLabel.transform.childCount > 0)
+                    if (controlRectTransform != null && SeeItSayItLabel.transform.childCount > 0)
                     {
                         // The parent RectTransform used to center the label
                         RectTransform canvasTransform = SeeItSayItLabel.GetComponent<RectTransform>();
@@ -107,7 +144,7 @@ namespace MixedReality.Toolkit.UX
 
                         if (labelTransform != null && canvasTransform != null)
                         {
-                            labelTransform.anchoredPosition3D = new Vector3(canvasTransform.rect.width / 2f, canvasTransform.rect.height / 2f + (controlRectTransform.rect.height /  2f * -1) + canvasOffset, canvasOffset);
+                            labelTransform.anchoredPosition3D = new Vector3(canvasTransform.rect.width / 2f, canvasTransform.rect.height / 2f + (controlRectTransform.rect.height / 2f * -1) + canvasOffset, canvasOffset);
                         }
                     }
                     else
@@ -115,8 +152,55 @@ namespace MixedReality.Toolkit.UX
                         SeeItSayItLabel.transform.localPosition = new Vector3(PositionControl.localPosition.x, (PositionControl.lossyScale.y / 2f * -1) + nonCanvasOffset, PositionControl.localPosition.z + nonCanvasOffset);
                     }
                 }
+
+#if UNITY_LOCALIZATION_PRESENT
+                if (!localizedPattern.IsEmpty)
+                {
+                    localizedPattern.StringChanged += OnLocalizedPatternChanged;
+                }
+#endif
 #endif
             }
+        }
+
+        protected virtual void OnDestroy()
+        {
+#if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT && UNITY_LOCALIZATION_PRESENT
+            if (pressableButton != null)
+            {
+                pressableButton.OnSpeechRecognitionKeywordChanged.RemoveListener(UpdateLabel);
+                if (!localizedPattern.IsEmpty)
+                {
+                    localizedPattern.StringChanged += OnLocalizedPatternChanged;
+                }
+            }
+#endif
+        }
+
+        protected virtual void UpdateLabel(string keyword)
+        {
+#if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
+            if (!string.IsNullOrEmpty(keyword) && labelText != null)
+            {
+#if UNITY_LOCALIZATION_PRESENT
+                if (!localizedPattern.IsEmpty)
+                {
+                    labelText.text = localizedPattern.GetLocalizedString(keyword);
+                }
+                else
+                {
+                    labelText.text = $"Say '{keyword}'";
+                }
+#else
+                labelText.text = string.Format(pattern, keyword);
+#endif
+            }
+#endif
+        }
+
+        protected virtual void OnLocalizedPatternChanged(string value)
+        {
+            UpdateLabel(pressableButton.SpeechRecognitionKeyword);
         }
     }
 }
