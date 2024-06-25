@@ -232,7 +232,8 @@ namespace MixedReality.Toolkit.Input
                         }
 #pragma warning restore CS0612
 #pragma warning restore CS0618
-                        else
+                        // Don't attempt palm check if the interactor is not driven by a hand (i.e. non-handed tracked controllers).
+                        else if (handedness != InteractorHandedness.None)
                         {
                             if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handedness.ToXRNode(), out isPalmFacingAway) ?? true)
                             {
