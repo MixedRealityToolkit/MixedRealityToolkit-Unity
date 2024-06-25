@@ -236,10 +236,7 @@ namespace MixedReality.Toolkit.Input
                         else if (handedness != InteractorHandedness.None &&
                             (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handedness.ToXRNode(), out isPalmFacingAway) ?? true))
                         {
-                            if (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handedness.ToXRNode(), out isPalmFacingAway) ?? true)
-                            {
-                                hoverActive &= isPalmFacingAway;
-                            }
+                            hoverActive &= isPalmFacingAway;
                         }
                     }
 
