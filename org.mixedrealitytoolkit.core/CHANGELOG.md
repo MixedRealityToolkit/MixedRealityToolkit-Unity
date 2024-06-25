@@ -2,7 +2,11 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.2.2-development] - 2024-06-13
+## [3.3.0-development] - 2024-06-24
+
+### Added
+
+* Added event `OnSpeechRecognitionKeywordChanged` to allow UI updates when the speech recognition keyword has changed. [PR #792](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/792/)
 
 ### Fixed
 

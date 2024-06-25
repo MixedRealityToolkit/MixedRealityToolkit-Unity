@@ -148,10 +148,17 @@ namespace MixedReality.Toolkit
                     {
                         interactionManager.RegisterInteractable(this as IXRInteractable);
                     }
+                    OnSpeechRecognitionKeywordChanged.Invoke(speechRecognitionKeyword);
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Fired when the <see cref="SpeechRecognitionKeyword"/> has changed.
+        /// </summary>
+        [field: SerializeField, Tooltip("Fired when the Speech Recognition Keyword has changed.")]
+        public UnityEvent<string> OnSpeechRecognitionKeywordChanged { get; private set; } = new UnityEvent<string>();
+
         /// <summary>
         /// Does the voice command require this to have focus?
         /// If true, then the voice command will only respond to voice commands while this Interactable has focus.

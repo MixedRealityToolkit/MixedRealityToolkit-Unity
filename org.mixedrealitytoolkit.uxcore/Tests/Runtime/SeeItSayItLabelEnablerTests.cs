@@ -54,6 +54,38 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         [UnityTest]
+        public IEnumerator TestAutoUpdateLabel()
+        {
+#if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
+            SpeechInteractor interactor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
+            interactor.gameObject.SetActive(true);
+
+            GameObject testButton = SetUpButton(true, Control.None);
+            yield return null;
+            if (Application.isBatchMode)
+            {
+                LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
+            }
+
+            Transform label = testButton.transform.GetChild(0);
+
+            Transform sublabel = label.transform.GetChild(0);
+            TMP_Text text = label.gameObject.GetComponentInChildren<TMP_Text>(true);
+            Assert.AreEqual(text.text, "Say 'test'", "Label text was set to voice command keyword.");
+
+            testButton.GetComponent<PressableButton>().SpeechRecognitionKeyword = "hello world";
+
+            Assert.AreEqual(text.text, "Say 'hello world'", "Label text was updated according to voice command keyword.");
+#else
+            Assert.IsTrue(!label.gameObject.activeSelf, "Did not enable label because voice commands unavailable.");
+#endif
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+            yield return null;
+        }
+
+        [UnityTest]
         public IEnumerator TestVoiceCommandsUnavailable()
         {
             GameObject testButton = SetUpButton(false, Control.None);

@@ -2,7 +2,14 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.2.1-development] - 2024-04-23
+
+## [3.3.0-development] - 2024-06-24
+
+### Added
+
+* Added automatic update for the `See It Say It Label` when the `SpeechRecognitionKeyword` of a `StatefulInteractable` has changed. Added ability to change the pattern, from inspector or code. When Unity Localization package is installed, a `LocalizedString` is used as pattern.  [PR #792](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/792)
+
+## [3.2.1] - 2024-04-23
 
 ### Fixed
 
