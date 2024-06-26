@@ -165,17 +165,19 @@ namespace MixedReality.Toolkit.UX
 
         protected virtual void OnDestroy()
         {
-#if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT && UNITY_LOCALIZATION_PRESENT
+#if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
             if (pressableButton != null)
             {
                 pressableButton.OnSpeechRecognitionKeywordChanged.RemoveListener(UpdateLabel);
+#if UNITY_LOCALIZATION_PRESENT
                 if (!localizedPattern.IsEmpty)
                 {
                     localizedPattern.StringChanged += OnLocalizedPatternChanged;
                 }
+#endif
             }
 #endif
-        }
+            }
 
         protected virtual void UpdateLabel(string keyword)
         {
