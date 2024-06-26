@@ -212,7 +212,16 @@ namespace MixedReality.Toolkit.Input
             GameObject controllerObject = null;
             if (interactor is XRBaseInputInteractor controllerInteractor)
             {
-                controllerObject = controllerInteractor.xrController.gameObject;
+#pragma warning disable CS0618 // XRController is obsolete
+                if (controllerInteractor.forceDeprecatedInput)
+                {
+                    controllerObject = controllerInteractor.xrController.gameObject;
+                }
+                else
+                {
+                    controllerObject = controllerInteractor.transform.parent.gameObject;
+                }
+#pragma warning restore CS0618 // XRController is obsolete
             }
             if (interactor is IModeManagedInteractor modeManagedInteractor)
             {
@@ -249,7 +258,16 @@ namespace MixedReality.Toolkit.Input
             GameObject controllerObject = null;
             if (interactor is XRBaseInputInteractor controllerInteractor)
             {
-                controllerObject = controllerInteractor.xrController.gameObject;
+#pragma warning disable CS0618 // xrController is obsolete
+                if (controllerInteractor.forceDeprecatedInput)
+                {
+                    controllerObject = controllerInteractor.xrController.gameObject;
+                }
+#pragma warning restore CS0618 // xrController is obsolete
+                else
+                {
+                    controllerObject = controllerInteractor.transform.parent.gameObject;
+                }
             }
             if (interactor is IModeManagedInteractor modeManagedInteractor)
             {
