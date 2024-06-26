@@ -3,6 +3,8 @@
 
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -32,7 +34,24 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc/>
-        Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+#pragma warning disable CS0618 // xrController is obsolete
+                if (forceDeprecatedInput)
+                {
+#pragma warning disable CS0612 // ArticulatedHandController is obsolete
+                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+#pragma warning restore CS0612 // ArticulatedHandController is obsolete
+                }
+                else
+                {
+                    return handedness.ToHandedness();
+                }
+#pragma warning restore CS0618 // xrController is obsolete
+            }
+        }
 
         #endregion IHandedInteractor
 
@@ -49,7 +68,21 @@ namespace MixedReality.Toolkit.Input
         public override bool isHoverActive
         {
             // Only be available for hovering if the controller is tracked or we have joint data.
-            get => base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || interactionPointTracked);
+            get
+            {
+#pragma warning disable CS0618 // XRBaseController is obsolete
+                if (forceDeprecatedInput)
+                {
+                    return base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || interactionPointTracked);
+                }
+#pragma warning restore CS0618 // XRBaseController is obsolete
+                else
+                {
+                    TrackedPoseDriver trackedPoseDriver = transform.GetComponentInParent<TrackedPoseDriver>();
+                    bool hasPositionAndRotation = ((InputTrackingState)trackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+                    return base.isHoverActive && (hasPositionAndRotation || interactionPointTracked);
+                }
+            }
         }
 
         #endregion XRBaseInteractor
