@@ -408,6 +408,10 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// <summary>
         /// This checks if the SolverHandler moves with head when tracking the head
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="SolverHandlerTests.SolverHandlerHeadMovesWithHead"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerHeadMovesWithHead()
         {
@@ -440,6 +444,10 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// <summary>
         /// This checks if the SolverHandler correctly applies additional offset and rotation
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="SolverHandlerTests.SolverHandlerAppliesOffset"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerAppliesOffset()
         {
@@ -474,6 +482,10 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// This checks if the SolverHandler correctly switches to the active hand joint when tracking
         /// two hands
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="SolverHandlerTests.DisableGazeInteractor"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerHandJointSwitchesToActiveHand()
         {
@@ -537,6 +549,10 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// Everything value, with is -1 or 0xFFFFFFFF. Everything can be set via Unity's
         /// inspector window.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="SolverHandlerTests.SolverHandlerHandJointSwitchesToActiveHandWithEverythingValue"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerHandJointSwitchesToActiveHandWithEverythingValue()
         {
@@ -597,6 +613,10 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// <summary>
         /// This checks if the SolverHandler can be configured to only track left hand joint only
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="SolverHandlerTests.SolverHandlerHandJointLeftHandOnly"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerHandJointLeftHandOnly()
         {
@@ -657,6 +677,10 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// <summary>
         /// This checks if the SolverHandler can be configured to only track right hand only
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="SolverHandlerTests.SolverHandlerHandJointRightHandOnly"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator SolverHandlerHandJointRightHandOnly()
         {

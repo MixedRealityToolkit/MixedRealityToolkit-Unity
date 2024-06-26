@@ -624,6 +624,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Ensure the simulated input devices are registered and present.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.InputDeviceSmoketest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator InputDeviceSmoketest()
         {
@@ -639,6 +643,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Test that anchoring the test hands on the grab point actually results in the grab interactor
         /// being located where we want it to be.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.GrabAnchorTest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator GrabAnchorTest()
         {
@@ -673,6 +681,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Very basic test of StatefulInteractable's poke hovering, grab selecting,
         /// and toggling mechanics. Does not test rays or gaze interactions.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.StatefulInteractableSmoketest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator StatefulInteractableSmoketest()
         {
@@ -814,6 +826,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Simple smoketest to ensure basic gaze-pinch selection functionality.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.GazePinchSmokeTest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator GazePinchSmokeTest()
         {
@@ -859,6 +875,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Test that the correct toggle state should be readable after receiving an OnClicked event.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.TestToggleEventOrdering"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator TestToggleEventOrdering()
         {
@@ -906,6 +926,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Test whether toggle state can be hydrated without firing events.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.ToggleHydrationTest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator ToggleHydrationTest()
         {

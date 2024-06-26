@@ -97,6 +97,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Basic test of FuzzyGazeInteractor. Confirm a FuzzyGazeInteractor is active in the scene, and then
         /// make sure Interactable can be hovered even when not on the direct raycast from the interactor.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="FuzzyGazeInteractorTests.BasicFuzzyGazeTest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator BasicFuzzyGazeTest()
         {
@@ -173,6 +177,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Test the behavior of FuzzyGazeInteractor with different levels of precision and
         /// with performAdditionalRaycast on and off.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="FuzzyGazeInteractorTests.FuzzyGazePrecisionTest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator FuzzyGazePrecisionTest()
         {
@@ -231,6 +239,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Test that gaze fallbacks to HMD pose, if eye gaze loses tracking.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="FuzzyGazeInteractorTests.GazeFallbackWhenEyeGazeLosesTrackingTest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator GazeFallbackWhenEyeGazeLosesTrackingTest()
         {
@@ -302,6 +314,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Test that gaze fallbacks to HMD pose, if eye gaze is disabled.
         /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="FuzzyGazeInteractorTests.GazeFallbackWhenEyeGazeIsDisabledTest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
         [UnityTest]
         public IEnumerator GazeFallbackWhenEyeGazeIsDisabledTest()
         {
