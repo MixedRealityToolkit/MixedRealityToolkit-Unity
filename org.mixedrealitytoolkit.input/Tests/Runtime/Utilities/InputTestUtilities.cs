@@ -755,7 +755,7 @@ namespace MixedReality.Toolkit.Input.Tests
             public HandshapeId handShape;
 
             /// <summary>
-            /// The simulate controller that represents the hand. This is the controller that will be updated, moved,
+            /// The simulated controller that represents the hand. This is the controller that will be updated, moved,
             /// and rotated.
             /// </summary>
             public SimulatedController controller;
