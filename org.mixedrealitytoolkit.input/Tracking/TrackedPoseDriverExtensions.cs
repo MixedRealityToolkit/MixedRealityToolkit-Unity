@@ -61,7 +61,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         /// <remarks>
         /// If the <see cref="TrackedPoseDriver"/> has no tracking state action or the action has no bindings, it will return `<see cref="InputTrackingState.Position"/> |
-        /// <see cref="InputTrackingState.Rotation"/>`. If the action is enabled, it will return `<see cref="InputTrackingState.None"/>`. If the action has controls, it will return the value of the action.
+        /// <see cref="InputTrackingState.Rotation"/>`. If the action is disabled, it will return `<see cref="InputTrackingState.None"/>`. If the action has controls, it will return the value of the action.
         /// </remarks>
         internal static InputTrackingState GetInputTrackingStateNoCache(this TrackedPoseDriver driver)
         {
