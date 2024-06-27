@@ -337,7 +337,7 @@ namespace MixedReality.Toolkit.Input.Tests
             });
 
             HandUpdates.Enqueue(handUpdate);
-            while (!handUpdate.Completed)
+            while (!handUpdate.IsCompleted)
             {
                 yield return null;
             }
@@ -808,7 +808,7 @@ namespace MixedReality.Toolkit.Input.Tests
             /// <summary>
             /// Get if the hand update is completed. This is true when the hand has reached its final position and rotation.
             /// </summary>
-            public bool Completed => currentStep > request.totalSteps;
+            public bool IsCompleted => currentStep > request.totalSteps;
 
             /// <summary>
             /// Update the hand controller based on the given update state. Returns true if the hand was updated.
