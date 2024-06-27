@@ -14,7 +14,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 using Object = UnityEngine.Object;
 
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
