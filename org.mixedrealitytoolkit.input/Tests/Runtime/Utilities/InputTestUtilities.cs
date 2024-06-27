@@ -775,7 +775,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         /// <remarks>
         /// This allows updates to be executed at a particular time within the update loop. For example, the caller
-        /// may want to hand's updates to tick immediately after the input system has performed its updates. This can
+        /// may want hand's updates to tick immediately after the input system has performed its updates. This can
         /// be important since the input system is particular on when and input action is "performed this frame".
         /// Updates to the hand controller can result in a selection action to be trigger. In order for an action to
         /// work, the update times of an input action's <see cref="InputActionState.TriggerState.lastPerformedInUpdate"/>
