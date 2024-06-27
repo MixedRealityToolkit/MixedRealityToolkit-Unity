@@ -34,6 +34,14 @@ namespace MixedReality.Toolkit.Input
         private InputAction m_boundTrackingAction = null;
         private InputTrackingState m_trackingState = InputTrackingState.None;
 
+        /// <summary>
+        /// Expose the tracking state for the hand pose driver, to allow <see cref="TrackedPoseDriverExtensions"/> to query it.
+        /// </summary>
+        /// <remarks
+        /// Avoid exposing this publicly as this <see cref="HandPoseDriver"/> is a workaround solution to support hand tracking on devices without interaction profiles.
+        /// </remarks>
+        internal InputTrackingState CachedTrackingState => m_trackingState;
+
         #region Serialized Fields
         [Header("Hand Pose Driver Settings")]
 
@@ -193,31 +201,7 @@ namespace MixedReality.Toolkit.Input
             // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
             // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic in a subclass is not ideal, but it is
             // necessary since the base class does not expose the tracking state logic.
-
-            var trackingStateAction = trackingStateInput.action;
-            if (trackingStateAction == null || trackingStateAction.bindings.Count == 0)
-            {
-                // Treat an Input Action Reference with no reference the same as
-                // an enabled Input Action with no authored bindings, and allow driving the Transform pose.
-                m_trackingState = InputTrackingState.Position | InputTrackingState.Rotation;
-                return;
-            }
-
-            if (trackingStateAction.enabled)
-            {
-                // Treat a disabled action as the default None value for the ReadValue call
-                m_trackingState = InputTrackingState.None;
-                return;
-            }
-
-            if (trackingStateAction.HasAnyControls())
-            {
-                m_trackingState = (InputTrackingState)trackingStateAction.ReadValue<int>();
-            }
-            else
-            {
-                m_trackingState = InputTrackingState.None;
-            }
+            m_trackingState = this.GetInputTrackingStateNoCache();
         }
 
         /// <summary>
