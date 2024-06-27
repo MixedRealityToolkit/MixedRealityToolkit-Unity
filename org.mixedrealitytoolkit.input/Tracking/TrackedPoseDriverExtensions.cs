@@ -23,7 +23,7 @@ namespace MixedReality.Toolkit.Input
                 return false;
             }
 
-            if (trackingStateAction.enabled)
+            if (!trackingStateAction.enabled)
             {
                 return false;
             }
