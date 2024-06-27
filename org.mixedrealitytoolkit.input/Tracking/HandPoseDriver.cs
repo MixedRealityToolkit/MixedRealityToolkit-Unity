@@ -186,7 +186,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private bool HandleDisablement()
         {
-            // If backing native object has been destoryed (this == null) or component is
+            // If backing native object has been destroyed (this == null) or component is
             // disabled, we should unbind the tracking state updates.
             if (this == null || !isActiveAndEnabled || !Application.isPlaying)
             {
