@@ -264,7 +264,7 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             if (HandUpdates.TryPeek(out HandUpdate handUpdate))
             {
-                if (!handUpdate.Update())
+                if (handUpdate.Update())
                 {
                     HandUpdates.TryDequeue(out _);
                 }
@@ -806,7 +806,7 @@ namespace MixedReality.Toolkit.Input.Tests
             public bool IsCompleted => currentStep > request.totalSteps;
 
             /// <summary>
-            /// Update the hand controller based on the given update state. Returns true if the hand was updated.
+            /// Update the hand controller based on the given update state. Returns true if the hand update was completed.
             /// </summary>
             public bool Update()
             {
