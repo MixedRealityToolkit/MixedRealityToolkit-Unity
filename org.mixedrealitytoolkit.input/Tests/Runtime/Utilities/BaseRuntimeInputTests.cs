@@ -109,7 +109,7 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
         }
 
-        private void InputSystmSetup()
+        private void InputSystemSetup()
         {
             input.Setup();
             InputSystem.onAfterUpdate += OnAfterUpdate;
