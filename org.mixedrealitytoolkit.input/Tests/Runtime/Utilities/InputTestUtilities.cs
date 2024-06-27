@@ -810,48 +810,47 @@ namespace MixedReality.Toolkit.Input.Tests
             /// </summary>
             public bool Update()
             {
-                bool updated = false;
-
-                if (currentStep <= request.totalSteps)
+                if (IsCompleted)
                 {
-                    updated = true;
-                    if (firstUpdate)
-                    {
-                        firstUpdate = false;
-                        startingPinchAmount = request.controls.TriggerAxis;
-                        isPinching = request.handShape == HandshapeId.Grab ||
-                            request.handShape == HandshapeId.Pinch ||
-                            request.handShape == HandshapeId.PinchSteadyWrist;
-                    }
+                    return true;
+                }
 
-                    float t = currentStep / (float)request.totalSteps;
+                if (firstUpdate)
+                {
+                    firstUpdate = false;
+                    startingPinchAmount = request.controls.TriggerAxis;
+                    isPinching = request.handShape == HandshapeId.Grab ||
+                        request.handShape == HandshapeId.Pinch ||
+                        request.handShape == HandshapeId.PinchSteadyWrist;
+                }
 
-                    Pose handPose = new Pose(
-                        Vector3.Lerp(request.startPosition, request.endPosition, t),
-                        Quaternion.Lerp(request.startRotation, request.endRotation, t)
-                    );
-                    float pinchAmount = Mathf.Lerp(startingPinchAmount, isPinching ? 1 : 0, t);
+                float t = currentStep / (float)request.totalSteps;
 
-                    request.controls.TriggerAxis = pinchAmount;
-                    switch (request.anchorPoint)
-                    {
-                        // We always pass in useRayVector = false during unit tests, because we always want the pointerPosition
-                        // to match the devicePosition so that we can aim the "hand" wherever we'd like. Otherwise, we'd
-                        // be using the generated hand-joint-based ray vector which is unreliable to aim from automated tests.
-                        case ControllerAnchorPoint.Device:
-                            request.controller.UpdateAbsolute(handPose, request.controls, ControllerRotationMode.UserControl, false);
-                            break;
-                        case ControllerAnchorPoint.IndexFinger:
-                            request.controller.UpdateAbsoluteWithPokeAnchor(handPose, request.controls, ControllerRotationMode.UserControl, false);
-                            break;
-                        case ControllerAnchorPoint.Grab:
-                            request.controller.UpdateAbsoluteWithGrabAnchor(handPose, request.controls, ControllerRotationMode.UserControl, false);
-                            break;
-                    }
+                Pose handPose = new Pose(
+                    Vector3.Lerp(request.startPosition, request.endPosition, t),
+                    Quaternion.Lerp(request.startRotation, request.endRotation, t)
+                );
+                float pinchAmount = Mathf.Lerp(startingPinchAmount, isPinching ? 1 : 0, t);
+
+                request.controls.TriggerAxis = pinchAmount;
+                switch (request.anchorPoint)
+                {
+                    // We always pass in useRayVector = false during unit tests, because we always want the pointerPosition
+                    // to match the devicePosition so that we can aim the "hand" wherever we'd like. Otherwise, we'd
+                    // be using the generated hand-joint-based ray vector which is unreliable to aim from automated tests.
+                    case ControllerAnchorPoint.Device:
+                        request.controller.UpdateAbsolute(handPose, request.controls, ControllerRotationMode.UserControl, false);
+                        break;
+                    case ControllerAnchorPoint.IndexFinger:
+                        request.controller.UpdateAbsoluteWithPokeAnchor(handPose, request.controls, ControllerRotationMode.UserControl, false);
+                        break;
+                    case ControllerAnchorPoint.Grab:
+                        request.controller.UpdateAbsoluteWithGrabAnchor(handPose, request.controls, ControllerRotationMode.UserControl, false);
+                        break;
                 }
 
                 currentStep++;
-                return updated;
+                return IsCompleted;
             }
         }
     }
