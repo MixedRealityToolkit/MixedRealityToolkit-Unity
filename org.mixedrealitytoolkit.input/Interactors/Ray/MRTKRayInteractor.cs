@@ -30,7 +30,8 @@ namespace MixedReality.Toolkit.Input
         XRRayInteractor,
         IRayInteractor,
         IHandedInteractor,
-        IVariableSelectInteractor
+        IVariableSelectInteractor,
+        IModeManagedInteractor
     {
         #region MRTKRayInteractor
 
@@ -41,6 +42,23 @@ namespace MixedReality.Toolkit.Input
         /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
         /// </summary>
         protected internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+
+        [SerializeField]
+        [Tooltip("The root management GameObject that interactor belongs to. T")]
+        private GameObject modeManagedRoot = null;
+
+        /// <summary>
+        /// Returns the GameObject that this interactor belongs to. This GameObject is governed by the
+        /// interaction mode manager and is assigned an interaction mode. This GameObject represents the group that this interactor belongs to.
+        /// </summary>
+        /// <remarks>
+        /// This will default to the GameObject that this attached to a parent <see cref="TrackedPoseDriver"/>.
+        /// </remarks>
+        public GameObject ModeManagedRoot
+        {
+            get => modeManagedRoot;
+            set => modeManagedRoot = value;
+        }
 
         /// <summary>
         /// Is this ray currently hovering a UnityUI/Canvas element?
@@ -74,8 +92,8 @@ namespace MixedReality.Toolkit.Input
                         return false;
                     }
 
-                    //If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
-                    return ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+                    // If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
+                    return TrackedPoseDriver.GetInputTrackingState().HasPositionAndRotation();
                 }
             }
         }
@@ -303,21 +321,35 @@ namespace MixedReality.Toolkit.Input
 
         #endregion XRBaseInteractor
 
+        #region IModeManagedInteractor
+        /// <inheritdoc/>
+        [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        public GameObject GetModeManagedController() => ModeManagedRoot;
+        #endregion IModeManagedInteractor
+
+        #region Unity Event Functions
         /// <inheritdoc/>
         protected override void Start()
         {
             base.Start();
 
-            if (trackedPoseDriver == null) //Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            // Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            if (trackedPoseDriver == null) 
             {
                 trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+
+            // If mode managed root is not defined, default to the tracked pose driver's game object
+            if (modeManagedRoot == null && trackedPoseDriver != null)
+            {
+                modeManagedRoot = trackedPoseDriver.gameObject;
             }
         }
 
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
         /// </summary>
-        private void Update()
+        protected virtual void Update()
         {
             // Use Pose Sources to calculate the interactor's pose and the attach transform's position
             // We have to make sure the ray interactor is oriented appropriately before calling
@@ -338,6 +370,13 @@ namespace MixedReality.Toolkit.Input
             {
                 attachTransform.rotation = devicePose.rotation;
             }
+
+            // If mode managed root is not defined, default to the tracked pose driver's game object
+            if (modeManagedRoot == null && trackedPoseDriver != null)
+            {
+                modeManagedRoot = trackedPoseDriver.gameObject;
+            }
         }
+        #endregion Unity Event Functions
     }
 }

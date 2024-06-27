@@ -1,8 +1,10 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -16,8 +18,36 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     public abstract class HandJointInteractor :
         XRDirectInteractor,
-        IHandedInteractor
+        IHandedInteractor,
+        IModeManagedInteractor
     {
+        #region Serialized Fields
+        [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
+        private TrackedPoseDriver trackedPoseDriver = null;
+
+        /// <summary>
+        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// </summary>
+        protected internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+
+        [SerializeField]
+        [Tooltip("The root management GameObject that interactor belongs to. T")]
+        private GameObject modeManagedRoot = null;
+
+        /// <summary>
+        /// Returns the GameObject that this interactor belongs to. This GameObject is governed by the
+        /// interaction mode manager and is assigned an interaction mode. This GameObject represents the group that this interactor belongs to.
+        /// </summary>
+        /// <remarks>
+        /// This will default to the GameObject that this attached to a parent <see cref="TrackedPoseDriver"/>.
+        /// </remarks>
+        public GameObject ModeManagedRoot
+        {
+            get => modeManagedRoot;
+            set => modeManagedRoot = value;
+        }
+        #endregion Serialized Fields
+
         #region HandJointInteractor
 
         /// <summary>
@@ -32,7 +62,10 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc/>
-        Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+        Handedness IHandedInteractor.Handedness
+        {
+            get => base.handedness.ToHandedness();
+        }
 
         #endregion IHandedInteractor
 
@@ -49,7 +82,27 @@ namespace MixedReality.Toolkit.Input
         public override bool isHoverActive
         {
             // Only be available for hovering if the controller is tracked or we have joint data.
-            get => base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || interactionPointTracked);
+            get
+            {
+                bool result = base.isHoverActive;
+
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+                    result &= (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || interactionPointTracked);
+                }
+#pragma warning restore CS0618 // Type or member is obsolete
+                else if (trackedPoseDriver != null)
+                {
+                    bool tracked = (trackedPoseDriver.GetInputTrackingState().HasPositionAndRotation() || interactionPointTracked);
+                }
+                else
+                {
+                    result &= interactionPointTracked;
+                }
+
+                return result;
+            }
         }
 
         #endregion XRBaseInteractor
@@ -96,7 +149,32 @@ namespace MixedReality.Toolkit.Input
                 }
             }
         }
-
         #endregion XRBaseInputInteractor
+
+        #region IModeManagedInteractor
+        /// <inheritdoc/>
+        [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        public GameObject GetModeManagedController() => ModeManagedRoot;
+        #endregion IModeManagedInteractor
+
+        #region Unity Event Functions
+        /// <inheritdoc/>
+        protected override void Start()
+        {
+            base.Start();
+
+            // Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            if (trackedPoseDriver == null) 
+            {
+                trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+
+            // If mode managed root is not defined, default to the tracked pose driver's game object
+            if (modeManagedRoot == null && trackedPoseDriver != null)
+            {
+                modeManagedRoot = trackedPoseDriver.gameObject;
+            }
+        }
+        #endregion Unity Event Functions
     }
 }
