@@ -98,7 +98,7 @@ namespace MixedReality.Toolkit.Input.Tests
         public override IEnumerator Setup()
         {
             yield return base.Setup();
-            InputSystmSetup();
+            InputSystemSetup();
             XRISetup();
 
 
