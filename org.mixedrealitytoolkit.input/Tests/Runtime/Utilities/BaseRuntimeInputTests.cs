@@ -139,11 +139,13 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return base.TearDown();
         }
 
+        /// <summary>
+        /// Update the simulation immediately after the input system has updated. For more details see <see cref="InputTestUtilities.HandUpdate"/>.
+        /// </summary>
         private void OnAfterUpdate()
         {
-            InputTestUtilities.OnAfterUpdate();
+            InputTestUtilities.UpdateSimulation();
         }
-
     }
 }
 #pragma warning restore CS1591

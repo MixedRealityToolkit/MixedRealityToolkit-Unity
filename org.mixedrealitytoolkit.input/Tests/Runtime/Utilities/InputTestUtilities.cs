@@ -262,9 +262,9 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
-        /// Invoked after the input system is updated.
+        /// Invoked to tick the update of hands. Calling this is required to process hand updates and move the hands to their new positions.
         /// </summary>
-        public static void OnAfterUpdate()
+        public static void UpdateSimulation()
         {
             if (HandUpdates.TryPeek(out HandUpdate handUpdate))
             {
@@ -723,7 +723,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// <summary>
         /// Represents the state of a hand update request.
         /// </summary>
-        private struct HandUpdateRequest
+        internal struct HandUpdateRequest
         {
             /// <summary>
             /// The total number of steps for this update to take.
@@ -785,11 +785,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// need to match exactly with the frame counter the action was actually updated in, see
         /// `InputSystem.LowLevel.InputUpdate.s_UpdateStepCount`. This counter, `InputUpdate.s_UpdateStepCount`, is
         /// updated during <see cref="InputSystem.onBeforeUpdate"/>and before <see cref="XRInteractionManager"/> is
-        /// updated. This means that the hand controller updates need to happen immediately after
-        /// <see cref="InputSystem.onAfterUpdate"/> so that <see cref="XRInteractionManager"/> is able see a proper
-        /// update of the hand controller's selection.
+        /// updated. This means that the hand controller updates need to happen during <see cref="InputSystem.onAfterUpdate"/>
+        /// so that <see cref="XRInteractionManager"/> is able see a proper update of the hand controller's selection.
         /// </summary>
-        private class HandUpdate
+        internal class HandUpdate
         {
             private int currentStep = 1;
             private HandUpdateRequest request;
