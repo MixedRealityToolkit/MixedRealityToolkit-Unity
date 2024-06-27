@@ -46,7 +46,7 @@ namespace MixedReality.Toolkit.Input
         /// </remarks>
         public static InputTrackingState GetInputTrackingState(this TrackedPoseDriver driver)
         {
-            // If the driver is a HandPoseDriver, return the cached value, istead of hitting the overhead of querying the action.
+            // If the driver is a HandPoseDriver, return the cached value, instead of hitting the overhead of querying the action.
             if (driver is HandPoseDriver handPoseDriver)
             {
                 return handPoseDriver.CachedTrackingState;
