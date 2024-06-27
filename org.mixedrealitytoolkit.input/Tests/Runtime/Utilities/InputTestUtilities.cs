@@ -780,7 +780,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// work, the update times of an input action's <see cref="InputActionState.TriggerState.lastPerformedInUpdate"/>
         /// need to match exactly with the frame counter the action was actually updated in, see
         /// `InputSystem.LowLevel.InputUpdate.s_UpdateStepCount`. This counter, `InputUpdate.s_UpdateStepCount`, is
-        /// updated during <see cref="InputSystem.onBeforeUpdate"/>and before <see cref="XRInteractionManager"/> is
+        /// updated during <see cref="InputSystem.onBeforeUpdate"/> and before <see cref="XRInteractionManager"/> is
         /// updated. This means that the hand controller updates need to happen during <see cref="InputSystem.onAfterUpdate"/>
         /// so that <see cref="XRInteractionManager"/> is able see a proper update of the hand controller's selection.
         /// </summary>
