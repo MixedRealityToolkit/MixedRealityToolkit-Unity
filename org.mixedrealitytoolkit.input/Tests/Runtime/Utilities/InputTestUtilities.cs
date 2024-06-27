@@ -14,10 +14,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 using Object = UnityEngine.Object;
 
-
-
-
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -697,7 +693,6 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return null;
         }
 
-
         /// <summary>
         /// The version of the MRTK rig to create for the tests.
         /// </summary>
@@ -757,7 +752,7 @@ namespace MixedReality.Toolkit.Input.Tests
             public HandshapeId handShape;
 
             /// <summary>
-            /// The simulate controller that represents the hand. This is the controller that will be updated, moved,
+            /// The simulated controller that represents the hand. This is the controller that will be updated, moved,
             /// and rotated.
             /// </summary>
             public SimulatedController controller;
@@ -778,13 +773,13 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         /// <remarks>
         /// This allows updates to be executed at a particular time within the update loop. For example, the caller
-        /// may want to hand's updates to tick immediately after the input system has performed its updates. This can
+        /// may want hand's updates to tick immediately after the input system has performed its updates. This can
         /// be important since the input system is particular on when and input action is "performed this frame".
         /// Updates to the hand controller can result in a selection action to be trigger. In order for an action to
         /// work, the update times of an input action's <see cref="InputActionState.TriggerState.lastPerformedInUpdate"/>
         /// need to match exactly with the frame counter the action was actually updated in, see
         /// `InputSystem.LowLevel.InputUpdate.s_UpdateStepCount`. This counter, `InputUpdate.s_UpdateStepCount`, is
-        /// updated during <see cref="InputSystem.onBeforeUpdate"/>and before <see cref="XRInteractionManager"/> is
+        /// updated during <see cref="InputSystem.onBeforeUpdate"/> and before <see cref="XRInteractionManager"/> is
         /// updated. This means that the hand controller updates need to happen during <see cref="InputSystem.onAfterUpdate"/>
         /// so that <see cref="XRInteractionManager"/> is able see a proper update of the hand controller's selection.
         /// </summary>

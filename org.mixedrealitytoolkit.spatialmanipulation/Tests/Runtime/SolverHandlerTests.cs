@@ -26,7 +26,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /// </summary>
         protected override InputTestUtilities.RigVersion RigVersion => InputTestUtilities.RigVersion.Version1;
 
-
         /// <summary>
         /// This checks if the SolverHandler correctly switches to the active hand when tracking
         /// two interactors
