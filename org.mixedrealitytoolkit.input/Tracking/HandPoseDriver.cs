@@ -184,11 +184,18 @@ namespace MixedReality.Toolkit.Input
         /// The base class has not made OnDisable virtual, so we need to check for disablement in
         /// tracking state callbacks. If base ever make OnDisable virtual, we can unbind in OnDisable instead.
         /// </summary>
-        private void HandleDisablement()
+        private bool HandleDisablement()
         {
-            if (!isActiveAndEnabled || !Application.isPlaying)
+            // If backing native object has been destoryed (this == null) or component is
+            // disabled, we should unbind the tracking state updates.
+            if (this == null || !isActiveAndEnabled || !Application.isPlaying)
             {
                 UnbindTrackingState();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -241,14 +248,18 @@ namespace MixedReality.Toolkit.Input
 
         private void OnTrackingStateInputPerformed(InputAction.CallbackContext context)
         {
-            HandleDisablement();
-            m_trackingState = (InputTrackingState)context.ReadValue<int>();
+            if (!HandleDisablement())
+            {
+                m_trackingState = (InputTrackingState)context.ReadValue<int>();
+            }
         }
 
         private void OnTrackingStateInputCanceled(InputAction.CallbackContext context)
         {
-            HandleDisablement();
-            m_trackingState = InputTrackingState.None;
+            if (!HandleDisablement())
+            {
+                m_trackingState = InputTrackingState.None;
+            }
         }
         #endregion Private Functions
     }
