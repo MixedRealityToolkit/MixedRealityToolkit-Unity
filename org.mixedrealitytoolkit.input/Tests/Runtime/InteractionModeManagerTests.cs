@@ -22,6 +22,12 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </summary>
     public class InteractionModeManagerTests : BaseRuntimeInputTests
     {
+        /// <summary>
+        /// Override of the rig version to use for these tests. These tests validate that the old rig remain functional.
+        /// The <see cref="InteractionModeManagerTestsForControllerlessRig"/> will validate the new rig.
+        /// </summary>
+        protected override InputTestUtilities.RigVersion RigVersion => InputTestUtilities.RigVersion.Version1;
+
 #pragma warning disable CS0618 // Adding this pragma because all these tests depend on deprecated XRBaseController
         /// <summary>
         /// Tests that the proximity detector detects when to change the controllers interaction mode and properly toggles the associated interactors.

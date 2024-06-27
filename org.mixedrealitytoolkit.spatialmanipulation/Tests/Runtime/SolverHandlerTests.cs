@@ -21,6 +21,13 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
     public class SolverHandlerTests : BaseRuntimeInputTests
     {
         /// <summary>
+        /// Override of the rig version to use for these tests. These tests validate that the old rig remain functional.
+        /// The <see cref="SolverHandlerTestsForControllerlessRig"/> will validate the new rig.
+        /// </summary>
+        protected override InputTestUtilities.RigVersion RigVersion => InputTestUtilities.RigVersion.Version1;
+
+
+        /// <summary>
         /// This checks if the SolverHandler correctly switches to the active hand when tracking
         /// two interactors
         /// </summary>

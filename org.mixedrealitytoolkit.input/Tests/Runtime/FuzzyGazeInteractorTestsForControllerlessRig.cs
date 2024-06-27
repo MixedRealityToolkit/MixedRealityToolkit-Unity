@@ -26,12 +26,6 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </remarks>
     public class FuzzyGazeInteractorTestsForControllerlessRig : BaseRuntimeInputTests
     {
-        [UnitySetUp]
-        public override IEnumerator Setup()
-        {
-            yield return base.SetupForControllerlessRig();
-        }
-
         /// <summary>
         /// Test that eye-gaze works as expected.
         /// </summary>

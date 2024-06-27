@@ -30,6 +30,12 @@ namespace MixedReality.Toolkit.Input.Tests
     public class BasicInputTests : BaseRuntimeInputTests
     {
         /// <summary>
+        /// Override of the rig version to use for these tests. These tests validate that the old rig remain functional.
+        /// The <see cref="BasicInputTestsForControllerlessRig"/> will validate the new rig.
+        /// </summary>
+        protected override InputTestUtilities.RigVersion RigVersion => InputTestUtilities.RigVersion.Version1;
+
+        /// <summary>
         /// Ensure the simulated input devices are registered and present.
         /// </summary>
         [UnityTest]

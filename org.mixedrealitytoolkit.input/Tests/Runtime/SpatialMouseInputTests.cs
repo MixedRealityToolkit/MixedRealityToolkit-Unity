@@ -28,6 +28,12 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </summary>
     public class SpatialMouseInputTests : BaseRuntimeInputTests
     {
+        /// <summary>
+        /// Override of the rig version to use for these tests. These tests validate that the old rig remain functional.
+        /// The <see cref="SpatialMouseInputTestsForControllerlessRig"/> will validate the new rig.
+        /// </summary>
+        protected override InputTestUtilities.RigVersion RigVersion => InputTestUtilities.RigVersion.Version1;
+
         private const string SpatialMouseControllerPrefabGuid = "dc525621b8522034e867ed2799129315";
         private static readonly string SpatialMouseControllerPrefabPath = AssetDatabase.GUIDToAssetPath(SpatialMouseControllerPrefabGuid);
 

@@ -14,6 +14,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
 
@@ -32,12 +33,6 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </remarks>
     public class InteractionModeManagerTestsForControllerlessRig : BaseRuntimeInputTests
     {
-        [UnitySetUp]
-        public override IEnumerator Setup()
-        {
-            yield return base.SetupForControllerlessRig();
-        }
-
         /// <summary>
         /// Tests that the proximity detector detects when to change the hand's interaction mode and properly toggles the associated interactors.
         /// Also checks that the proximity detector doesn't trigger hovers on other objects
@@ -140,6 +135,9 @@ namespace MixedReality.Toolkit.Input.Tests
             cube.AddComponent<StatefulInteractable>();
             yield return RuntimeTestUtilities.WaitForUpdates();
 
+            // Otherwise, poke will conflict with grab.
+            cube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
+
             var rightHand = new TestHand(Handedness.Right);
             yield return rightHand.Show(InputTestUtilities.InFrontOfUser());
             yield return RuntimeTestUtilities.WaitForUpdates();
@@ -148,7 +146,7 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsTrue(rightHandTrackedPoseDriver != null, "Right hand TrackedPoseDriver was not found.");
 
             // Grab stabilization == ray stabilization
-            InputTestUtilities.SetHandAnchorPoint(Handedness.Right, ControllerAnchorPoint.Grab);
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Right, ControllerAnchorPoint.Device);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Moving the hand to a position where it's far ray is hovering over the cube
@@ -178,7 +176,6 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             rightHandInteractionDetector = rightHandTrackedPoseDriver.transform.parent.GetComponentInChildren<GrabInteractor>().GetComponent<InteractionDetector>();
-
             InteractionMode grabMode = rightHandInteractionDetector.ModeOnSelect;
             Assert.AreEqual(grabMode, rightHandInteractionDetector.ModeOnDetection);
             yield return RuntimeTestUtilities.WaitForUpdates();

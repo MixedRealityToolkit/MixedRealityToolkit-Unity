@@ -18,6 +18,12 @@ namespace MixedReality.Toolkit.Input.Tests
     public class FuzzyGazeInteractorTests : BaseRuntimeInputTests
     {
         /// <summary>
+        /// Override of the rig version to use for these tests. These tests validate that the old rig remain functional.
+        /// The <see cref="FuzzyGazeInteractorTestsForControllerlessRig"/> will validate the new rig.
+        /// </summary>
+        protected override InputTestUtilities.RigVersion RigVersion => InputTestUtilities.RigVersion.Version1;
+
+        /// <summary>
         /// Basic test of FuzzyGazeInteractor. Confirm a FuzzyGazeInteractor is active in the scene, and then
         /// make sure Interactable can be hovered even when not on the direct raycast from the interactor.
         /// </summary>

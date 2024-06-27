@@ -27,12 +27,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
     /// </remarks>
     public class SolverHandlerTestsForControllerlessRig : BaseRuntimeInputTests
     {
-        [UnitySetUp]
-        public override IEnumerator Setup()
-        {
-            yield return base.SetupForControllerlessRig();
-        }
-
         /// <summary>
         /// This checks if the SolverHandler can be configured to only track left hand only
         /// </summary>

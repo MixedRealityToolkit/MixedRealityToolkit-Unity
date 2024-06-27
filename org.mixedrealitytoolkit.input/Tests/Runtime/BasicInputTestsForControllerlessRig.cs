@@ -81,12 +81,6 @@ namespace MixedReality.Toolkit.Input.Tests
                                                                              "Activate", "Activate Action Value", "UI Press", "Rotate Anchor",
                                                                              "Directional Anchor Rotation", "Translate Anchor", "Scale Toggle" };
 
-        [UnitySetUp]
-        public override IEnumerator Setup()
-        {
-            yield return base.SetupForControllerlessRig();
-        }
-
         /// <summary>
         /// Ensure the simulated input devices bind to the hands and gaze on the rig.
         /// </summary>
@@ -165,6 +159,7 @@ namespace MixedReality.Toolkit.Input.Tests
             cube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
 
             var rightHand = new TestHand(Handedness.Right);
+
             yield return rightHand.Show(InputTestUtilities.InFrontOfUser());
 
             yield return RuntimeTestUtilities.WaitForUpdates();
@@ -286,7 +281,7 @@ namespace MixedReality.Toolkit.Input.Tests
 
             var rightHand = new TestHand(Handedness.Right);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            yield return rightHand.Show(InputTestUtilities.InFrontOfUser(0.5f));
+            yield return rightHand.Show(InputTestUtilities.InFrontOfUser());
             yield return RuntimeTestUtilities.WaitForUpdates();
             // First ensure that the interactor can interact with a cube normally
             yield return rightHand.MoveTo(cube.transform.position);
@@ -314,6 +309,9 @@ namespace MixedReality.Toolkit.Input.Tests
             newCube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(-3.0f, 0.1f, 1.0f));
             newCube.transform.localScale = Vector3.one * 0.1f;
             newCube.AddComponent<StatefulInteractable>();
+
+            // Otherwise, poke will conflict with grab.
+            newCube.GetComponent<StatefulInteractable>().selectMode = InteractableSelectMode.Multiple;
 
             yield return rightHand.MoveTo(newCube.transform.position);
             yield return RuntimeTestUtilities.WaitForUpdates();
