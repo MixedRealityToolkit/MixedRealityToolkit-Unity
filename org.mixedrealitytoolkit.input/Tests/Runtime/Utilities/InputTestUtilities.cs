@@ -696,7 +696,6 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return null;
         }
 
-
         /// <summary>
         /// The version of the MRTK rig to create for the tests.
         /// </summary>
