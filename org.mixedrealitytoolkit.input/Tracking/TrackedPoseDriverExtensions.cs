@@ -68,7 +68,7 @@ namespace MixedReality.Toolkit.Input
             // Note, that the logic in this class is meant to reproduce the same logic as the base. The base
             // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
             // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic in a subclass is not ideal, but it is
-            // necessary since the base class does not expose the tracking static update logic.
+            // necessary since the base class does not expose its tracking status field.
 
             var trackingStateAction = driver.trackingStateInput.action;
             if (trackingStateAction == null || trackingStateAction.bindings.Count == 0)
