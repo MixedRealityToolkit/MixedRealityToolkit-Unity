@@ -564,7 +564,7 @@ namespace MixedReality.Toolkit.Input
             {
                 interactorGroupObject = controllerInteractor.xrController.gameObject;
             }
-#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning restore CS0618 // xrController is obsolete
             else if (interactor is IModeManagedInteractor modeManagedInteractor)
             {
                 interactorGroupObject = modeManagedInteractor.ModeManagedRoot;
