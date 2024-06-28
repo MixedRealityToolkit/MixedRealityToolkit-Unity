@@ -30,7 +30,7 @@ namespace MixedReality.Toolkit.Input.Editor
         public void OnEnable()
         {
             interactor = serializedObject.FindProperty("interactor");
-            controllers = serializedObject.FindProperty("controllers");
+            controllers = serializedObject.FindProperty("interactorGroups");
             detectHover = serializedObject.FindProperty("detectHover");
             modeOnHover = serializedObject.FindProperty("modeOnHover");
             detectSelect = serializedObject.FindProperty("detectSelect");
