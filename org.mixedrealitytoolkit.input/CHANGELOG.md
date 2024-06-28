@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * SpatialMouseInputTestsForControllerlessRig Unity-tests.
 * BasicInputTestsForControllerlessRig Unity-tests.
+* Ported BasicInputTests so that they also test the new controllerless prefabs.
+* Ported FuzzyGazeInteractorTests so that they also test the new controllerless prefabs.
 * MRTKRayInteractorVisualsTestsForControllerlessRig Unity-tests.
 * InteractionModeManagerTestsForControllerlessRig Unity-tests.
 * FuzzyGazeInteractorTestsForControllerlessRig Unity-tests.

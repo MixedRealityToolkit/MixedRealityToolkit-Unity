@@ -16,12 +16,14 @@ using MixedReality.Toolkit.Input.Simulation;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine.XR;
 using Unity.XR.CoreUtils;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using MixedReality.Toolkit.Subsystems;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -615,6 +617,390 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsTrue(rightHandGazePinchInteractor.GetComponent<GazePinchInteractor>().activateInput.inputActionReferencePerformed.name.Equals(MRTKRightHandActivateName));
             Assert.AreSame(rightHandGazePinchInteractor.GetComponent<GazePinchInteractor>().TrackedPoseDriver, rightHandTrackedPoseDriver);
             Assert.AreSame(rightHandGazePinchInteractor.GetComponent<GazePinchInteractor>().DependentInteractor, gazeInteractorGameObject.GetComponent<FuzzyGazeInteractor>());
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Ensure the simulated input devices are registered and present.
+        /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.InputDeviceSmoketest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
+        [UnityTest]
+        public IEnumerator InputDeviceSmoketest()
+        {
+            foreach (var device in InputSystem.devices)
+            {
+                Debug.Log(device);
+            }
+            Assert.That(InputSystem.devices, Has.Exactly(2).TypeOf<MRTKSimulatedController>());
+            yield return null;
+        }
+
+        /// <summary>
+        /// Test that anchoring the test hands on the grab point actually results in the grab interactor
+        /// being located where we want it to be.
+        /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.GrabAnchorTest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
+        [UnityTest]
+        public IEnumerator GrabAnchorTest()
+        {
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var interactable = cube.AddComponent<MRTKBaseInteractable>();
+
+            Vector3 cubePos = InputTestUtilities.InFrontOfUser();
+            cube.transform.position = cubePos;
+            cube.transform.localScale = Vector3.one * 1.0f;
+
+            var testHand = new TestHand(Handedness.Right);
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Right, ControllerAnchorPoint.Grab);
+
+            yield return testHand.Show(Vector3.zero);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return testHand.MoveTo(cubePos);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            var hands = XRSubsystemHelpers.GetFirstRunningSubsystem<HandsAggregatorSubsystem>();
+
+            bool gotJoint = hands.TryGetPinchingPoint(XRNode.RightHand, out HandJointPose jointPose);
+
+            Assert.IsTrue(interactable.IsGrabHovered, "Interactable wasn't grab hovered!");
+
+            Assert.IsTrue((interactable.HoveringGrabInteractors[0] as GrabInteractor).enabled, "Interactor wasn't enabled");
+
+            TestUtilities.AssertAboutEqual(interactable.HoveringGrabInteractors[0].GetAttachTransform(interactable).position,
+                                           cubePos, "Grab interactor's attachTransform wasn't where we wanted it to go!", 0.001f);
+        }
+
+        /// <summary>
+        /// Very basic test of StatefulInteractable's poke hovering, grab selecting,
+        /// and toggling mechanics. Does not test rays or gaze interactions.
+        /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.StatefulInteractableSmoketest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
+        [UnityTest]
+        public IEnumerator StatefulInteractableSmoketest()
+        {
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.AddComponent<StatefulInteractable>();
+            cube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0.2f, 0.2f, 0.5f));
+            cube.transform.localScale = Vector3.one * 0.1f;
+
+            // For this test, we won't use poke selection.
+            cube.GetComponent<StatefulInteractable>().DisableInteractorType(typeof(PokeInteractor));
+
+            GameObject cube2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube2.AddComponent<StatefulInteractable>();
+            cube2.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(-0.2f, -0.2f, 0.5f));
+            cube2.transform.localScale = Vector3.one * 0.1f;
+
+            // For this test, we won't use poke selection.
+            cube2.GetComponent<StatefulInteractable>().DisableInteractorType(typeof(PokeInteractor));
+
+            var rightHand = new TestHand(Handedness.Right);
+
+            yield return rightHand.Show(InputTestUtilities.InFrontOfUser(0.5f));
+
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            bool shouldTestToggle = false;
+
+            StatefulInteractable firstCubeInteractable = cube.GetComponent<StatefulInteractable>();
+            StatefulInteractable secondCubeInteractable = cube2.GetComponent<StatefulInteractable>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                // Flip this back and forth to test both toggleability and un-toggleability
+                shouldTestToggle = !shouldTestToggle;
+
+                yield return rightHand.RotateTo(Quaternion.Euler(0, 45, 0));
+                yield return RuntimeTestUtilities.WaitForUpdates();
+
+                // Test the first cube.
+                firstCubeInteractable.ForceSetToggled(false);
+                firstCubeInteractable.ToggleMode = shouldTestToggle ? StatefulInteractable.ToggleType.Toggle : StatefulInteractable.ToggleType.Button;
+                firstCubeInteractable.TriggerOnRelease = (i % 2) == 0;
+
+                Assert.IsFalse(firstCubeInteractable.IsGrabHovered,
+                               "StatefulInteractable was already hovered.");
+
+                yield return rightHand.MoveTo(cube.transform.position);
+                yield return RuntimeTestUtilities.WaitForUpdates();
+                Assert.IsTrue(firstCubeInteractable.IsGrabHovered,
+                              "StatefulInteractable did not get hovered.");
+
+                yield return rightHand.SetHandshape(HandshapeId.Pinch);
+                yield return RuntimeTestUtilities.WaitForUpdates();
+                Assert.IsTrue(firstCubeInteractable.IsGrabSelected,
+                              "StatefulInteractable did not get GrabSelected.");
+
+                if (shouldTestToggle)
+                {
+                    if (secondCubeInteractable.TriggerOnRelease)
+                    {
+                        Assert.IsFalse(secondCubeInteractable.IsToggled, "StatefulInteractable toggled on press, when it was set to be toggled on release.");
+                    }
+                    else
+                    {
+                        Assert.IsFalse(secondCubeInteractable.IsToggled, "StatefulInteractable didn't toggled on press, when it was set to be toggled on press.");
+                    }
+                }
+
+                yield return rightHand.SetHandshape(HandshapeId.Open);
+                yield return RuntimeTestUtilities.WaitForUpdates();
+                Assert.IsFalse(firstCubeInteractable.IsGrabSelected,
+                              "StatefulInteractable did not get un-GrabSelected.");
+
+                if (shouldTestToggle)
+                {
+                    Assert.IsTrue(firstCubeInteractable.IsToggled, "StatefulInteractable did not get toggled.");
+                }
+                else
+                {
+                    Assert.IsFalse(firstCubeInteractable.IsToggled, "StatefulInteractable shouldn't have been toggled, but it was.");
+                }
+
+                // Test the second cube.
+                secondCubeInteractable.ForceSetToggled(false);
+                secondCubeInteractable.ToggleMode = shouldTestToggle ? StatefulInteractable.ToggleType.Toggle : StatefulInteractable.ToggleType.Button;
+                secondCubeInteractable.TriggerOnRelease = (i % 2) == 0;
+
+                yield return rightHand.MoveTo(InputTestUtilities.InFrontOfUser(0.5f));
+                yield return RuntimeTestUtilities.WaitForUpdates();
+                yield return rightHand.RotateTo(Quaternion.Euler(0, -45, 0));
+                yield return RuntimeTestUtilities.WaitForUpdates();
+
+                Assert.IsFalse(secondCubeInteractable.IsGrabHovered,
+                               "StatefulInteractable was already hovered.");
+
+                yield return rightHand.MoveTo(secondCubeInteractable.transform.position);
+                yield return RuntimeTestUtilities.WaitForUpdates();
+                Assert.IsTrue(secondCubeInteractable.IsGrabHovered,
+                              "StatefulInteractable did not get hovered.");
+
+                yield return rightHand.SetHandshape(HandshapeId.Pinch);
+                yield return RuntimeTestUtilities.WaitForUpdates();
+                Assert.IsTrue(secondCubeInteractable.IsGrabSelected,
+                              "StatefulInteractable did not get GrabSelected.");
+
+                if (shouldTestToggle)
+                {
+                    if (secondCubeInteractable.TriggerOnRelease)
+                    {
+                        Assert.IsFalse(secondCubeInteractable.IsToggled, "StatefulInteractable toggled on press, when it was set to be toggled on release.");
+                    }
+                    else
+                    {
+                        Assert.IsFalse(secondCubeInteractable.IsToggled, "StatefulInteractable didn't toggled on press, when it was set to be toggled on press.");
+                    }
+                }
+
+                yield return rightHand.SetHandshape(HandshapeId.Open);
+                yield return RuntimeTestUtilities.WaitForUpdates();
+                Assert.IsFalse(secondCubeInteractable.IsGrabSelected,
+                              "StatefulInteractable did not get un-GrabSelected.");
+
+                if (shouldTestToggle)
+                {
+                    Assert.IsTrue(secondCubeInteractable.IsToggled, "StatefulInteractable did not get toggled.");
+                }
+                else
+                {
+                    Assert.IsFalse(secondCubeInteractable.IsToggled, "StatefulInteractable shouldn't have been toggled, but it was.");
+                }
+
+                yield return rightHand.MoveTo(InputTestUtilities.InFrontOfUser(0.5f));
+                yield return RuntimeTestUtilities.WaitForUpdates();
+            }
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Simple smoketest to ensure basic gaze-pinch selection functionality.
+        /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.GazePinchSmokeTest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
+        [UnityTest]
+        public IEnumerator GazePinchSmokeTest()
+        {
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            StatefulInteractable interactable = cube.AddComponent<StatefulInteractable>();
+            cube.transform.position = InputTestUtilities.InFrontOfUser();
+            cube.transform.localScale = Vector3.one * 0.1f;
+
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.IsTrue(interactable.isHovered);
+            Assert.IsTrue(interactable.IsGazeHovered);
+            Assert.IsFalse(interactable.IsGazePinchHovered);
+
+            var rightHand = new TestHand(Handedness.Right);
+            yield return rightHand.Show(InputTestUtilities.InFrontOfUser() + new Vector3(0.2f, 0, 0f));
+
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.IsTrue(interactable.isHovered);
+            Assert.IsTrue(interactable.IsGazePinchHovered);
+
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.IsTrue(interactable.isSelected);
+            Assert.IsTrue(interactable.IsGazePinchSelected);
+
+            yield return rightHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.IsFalse(interactable.isSelected);
+            Assert.IsFalse(interactable.IsGazePinchSelected);
+            Assert.IsTrue(interactable.isHovered);
+            Assert.IsTrue(interactable.IsGazePinchHovered);
+        }
+
+        /// <summary>
+        /// A dummy interactor used to test basic selection/toggle logic.
+        /// </summary>
+        private class TestInteractor : XRBaseInteractor { }
+
+        /// <summary>
+        /// Test that the correct toggle state should be readable after receiving an OnClicked event.
+        /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.TestToggleEventOrdering"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
+        [UnityTest]
+        public IEnumerator TestToggleEventOrdering()
+        {
+            var gameObject = new GameObject();
+            var interactable = gameObject.AddComponent<StatefulInteractable>();
+            var interactor = gameObject.AddComponent<TestInteractor>();
+
+            bool receivedOnClicked = false;
+            bool expectedToggleState = false;
+
+            interactable.OnClicked.AddListener(() =>
+            {
+                receivedOnClicked = true;
+                Assert.IsTrue(interactable.IsToggled == expectedToggleState, "Toggle state had an unexpected value");
+            });
+
+            interactor.StartManualInteraction(interactable as IXRSelectInteractable);
+            yield return null;
+            interactor.EndManualInteraction();
+            yield return null;
+
+            Assert.IsTrue(receivedOnClicked, "Didn't receive click event");
+            receivedOnClicked = false;
+
+            interactable.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+            expectedToggleState = true;
+
+            interactor.StartManualInteraction(interactable as IXRSelectInteractable);
+            yield return null;
+            interactor.EndManualInteraction();
+            yield return null;
+
+            Assert.IsTrue(receivedOnClicked, "Didn't receive click event");
+            receivedOnClicked = false;
+            expectedToggleState = false;
+
+            interactor.StartManualInteraction(interactable as IXRSelectInteractable);
+            yield return null;
+            interactor.EndManualInteraction();
+            yield return null;
+
+            Assert.IsTrue(receivedOnClicked, "Didn't receive click event");
+        }
+
+        /// <summary>
+        /// Test whether toggle state can be hydrated without firing events.
+        /// </summary>
+        /// <remarks>
+        /// This test is the same as <see cref="BasicInputTests.ToggleHydrationTest"/>, it is repeated here so that the same functionality is tested against
+        /// the new controllerless prefabs.
+        /// </remarks>
+        [UnityTest]
+        public IEnumerator ToggleHydrationTest()
+        {
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var interactable = cube.AddComponent<StatefulInteractable>();
+
+            bool didFireEvent = false;
+
+            interactable.IsToggled.OnEntered.AddListener((_) => didFireEvent = true);
+            interactable.IsToggled.OnExited.AddListener((_) => didFireEvent = true);
+            interactable.ForceSetToggled(true);
+
+            Assert.IsTrue(interactable.IsToggled, "Interactable didn't get toggled.");
+            Assert.IsTrue(didFireEvent, "ForceSetToggled(true) should have fired the event.");
+
+            didFireEvent = false;
+            interactable.ForceSetToggled(false);
+
+            Assert.IsFalse(interactable.IsToggled, "Interactable didn't get detoggled.");
+            Assert.IsTrue(didFireEvent, "ForceSetToggled(false) should have fired the event.");
+
+            didFireEvent = false;
+            interactable.ForceSetToggled(true, fireEvents: false);
+
+            Assert.IsTrue(interactable.IsToggled, "Interactable didn't get toggled.");
+            Assert.IsFalse(didFireEvent, "ForceSetToggled(true, fireEvents:false) should NOT have fired the event.");
+
+            interactable.ForceSetToggled(false, fireEvents: false);
+
+            Assert.IsFalse(interactable.IsToggled, "Interactable didn't get detoggled.");
+            Assert.IsFalse(didFireEvent, "ForceSetToggled(false, fireEvents:false) should NOT have fired the event.");
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Test the HandModel script has the required fields.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator HandModelHasRequiredFieldsAndAccessors()
+        {
+            FieldInfo[] fieldInfos;
+            PropertyInfo[] accessorsInfos;
+            Type HandModel = typeof(HandModel);
+
+            fieldInfos = HandModel.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            accessorsInfos = HandModel.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+            var modelPrefabFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("modelPrefab")).ToArray();
+            Assert.AreEqual(1, modelPrefabFieldInfo.Length, "HandModel is missing the 'modelPrefab' field");
+
+            var modelParentFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("modelParent")).ToArray();
+            Assert.AreEqual(1, modelParentFieldInfo.Length, "HandModel is missing the 'modelParent' field");
+
+            var modelFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("model")).ToArray();
+            Assert.AreEqual(1, modelFieldInfo.Length, "HandModel is missing the 'model' field");
+
+            var handNodeFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("handNode")).ToArray();
+            Assert.AreEqual(1, modelFieldInfo.Length, "HandModel is missing the 'handNode' field");
+
+            var modelPrefabAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("ModelPrefab")).ToArray();
+            Assert.AreEqual(1, modelPrefabAccessorInfo.Length, "HandModel is missing the 'ModelPrefab' accessor");
+
+            var modelParentAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("ModelParent")).ToArray();
+            Assert.AreEqual(1, modelParentAccessorInfo.Length, "HandModel is missing the 'ModelParent' accessor");
+
+            var modelAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("Model")).ToArray();
+            Assert.AreEqual(1, modelAccessorInfo.Length, "HandModel is missing the 'Model' accessor");
+
+            var handNodeAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("HandNode")).ToArray();
+            Assert.AreEqual(1, handNodeAccessorInfo.Length, "HandModel is missing the 'HandNode' accessor");
 
             yield return null;
         }
