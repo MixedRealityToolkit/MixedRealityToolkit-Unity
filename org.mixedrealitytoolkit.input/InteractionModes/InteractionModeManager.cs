@@ -104,7 +104,7 @@ namespace MixedReality.Toolkit.Input
                 }
             }
 
-            // For backwards capatability, we will continue to support the obsolete "controller" types, and group based on "controller" partents.
+            // For backwards compatibility, we will continue to support the obsolete "controller" types, and group based on "controller" parents.
             // Once XRI removes "controller" types, we can remove this block of code.
 #pragma warning disable CS0618 // Type or member is obsolete
             InitializeControllers();
