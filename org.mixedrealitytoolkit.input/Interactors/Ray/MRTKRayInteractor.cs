@@ -30,8 +30,7 @@ namespace MixedReality.Toolkit.Input
         XRRayInteractor,
         IRayInteractor,
         IHandedInteractor,
-        IVariableSelectInteractor,
-        IModeManagedInteractor
+        IVariableSelectInteractor
     {
         #region MRTKRayInteractor
 

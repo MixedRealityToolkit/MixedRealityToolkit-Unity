@@ -21,8 +21,7 @@ namespace MixedReality.Toolkit.Input
     public class GazePinchInteractor :
         XRBaseInputInteractor,
         IGazePinchInteractor,
-        IHandedInteractor,
-        IModeManagedInteractor
+        IHandedInteractor
     {
         #region GazePinchInteractor
 
