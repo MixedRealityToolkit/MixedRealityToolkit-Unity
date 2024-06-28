@@ -72,7 +72,7 @@ namespace MixedReality.Toolkit.Input
         #region XRBaseInteractor
 
         /// <summary>
-        /// Used to keep track of whether the `TrackPoseDriver` or controller (if using deprecated XRI) has an interaction point.
+        /// Used to keep track of whether the `TrackedPoseDriver` or controller (if using deprecated XRI) has an interaction point.
         /// </summary>
         private bool interactionPointTracked;
 
