@@ -136,10 +136,6 @@ namespace MixedReality.Toolkit.Input.Tests
             Object rigPrefab = AssetDatabase.LoadAssetAtPath(version == RigVersion.Version1 ? MRTKRigPrefabPath : MRTKControllerlessRigPrefabPath, typeof(Object));
             rigReference = Object.Instantiate(rigPrefab) as GameObject;
 
-            // TODO: Remove explict disablement of speech once the new rig has speech off by default, like the old rig.
-            SpeechInteractor speechInteractor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
-            speechInteractor.gameObject.SetActive(false);
-
             return rigReference;
         }
 
