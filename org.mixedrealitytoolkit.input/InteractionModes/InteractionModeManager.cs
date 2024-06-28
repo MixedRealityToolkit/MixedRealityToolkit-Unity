@@ -432,6 +432,7 @@ namespace MixedReality.Toolkit.Input
                 {
                     List<GameObject> groups = detector.GetInteractorGroups();
 
+                    // For backwards compatibility, we will continue to support the obsolete "GetControllers()" function.
                     if (groups == null)
                     {
 #pragma warning disable CS0618 // Type or member is obsolete
