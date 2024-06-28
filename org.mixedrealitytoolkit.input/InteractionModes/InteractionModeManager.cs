@@ -170,7 +170,7 @@ namespace MixedReality.Toolkit.Input
         private List<IInteractionModeDetector> interactionModeDectectors = new List<IInteractionModeDetector>();
 
         /// <summary>
-        /// Mapping of the root game objects to the set of interactors tha will be managed as a group.
+        /// Mapping of the root game objects to the set of interactors that will be managed as a group.
         /// </summary>
         /// <remarks>
         /// The MRTK Interaction Mode Manager will only mediate interactors which are designated as managed.
