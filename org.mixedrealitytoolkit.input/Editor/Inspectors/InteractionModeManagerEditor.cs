@@ -45,7 +45,7 @@ namespace MixedReality.Toolkit.Input.Editor
             if (GUILayout.Button(InitControllers))
             {
                 Undo.RecordObject(target, InitControllers);
-                interactionModeManager.InitializeControllers();
+                interactionModeManager.InitializeInteractorGroups();
                 PrefabUtility.RecordPrefabInstancePropertyModifications(target);
             }
 

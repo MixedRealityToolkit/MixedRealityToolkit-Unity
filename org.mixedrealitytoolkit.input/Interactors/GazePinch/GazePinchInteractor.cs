@@ -21,7 +21,8 @@ namespace MixedReality.Toolkit.Input
     public class GazePinchInteractor :
         XRBaseInputInteractor,
         IGazePinchInteractor,
-        IHandedInteractor
+        IHandedInteractor,
+        IModeManagedInteractor
     {
         #region GazePinchInteractor
 
@@ -563,7 +564,19 @@ namespace MixedReality.Toolkit.Input
         #region IModeManagedInteractor
         /// <inheritdoc/>
         [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
-        public GameObject GetModeManagedController() => ModeManagedRoot;
+        public GameObject GetModeManagedController()
+        {
+            // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
+            // interaction mode manager is used instead.
+#pragma warning disable CS0618 // Type or member is obsolete 
+            if (forceDeprecatedInput)
+            {
+                return null;
+            }
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            return ModeManagedRoot;
+        }
         #endregion IModeManagedInteractor
 
         #region Private Methods

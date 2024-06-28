@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -35,11 +36,16 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeField]
         [FormerlySerializedAs("associatedControllers")]
-        [Tooltip("List of GameObjects which represent the 'controllers' that this interaction mode detector has jurisdiction over. Interaction modes will be set on all specified controllers.")]
-        private List<GameObject> controllers;
+        [FormerlySerializedAs("controllers")]
+        [Tooltip("List of GameObjects which represent the interactor groups that this interaction mode detector has jurisdiction over. Interaction modes will be set on all specified groups.")]
+        private List<GameObject> interactorGroups;
 
-        /// <inheritdoc />
-        public List<GameObject> GetControllers() => controllers;
+        /// <inheritdoc /> 
+        [Obsolete("This function is obsolete and will be removed in a future version. Please use GetInteractorGroups instead.")]
+        public List<GameObject> GetControllers() => GetInteractorGroups();
+
+        /// <inheritdoc /> 
+        public List<GameObject> GetInteractorGroups() => interactorGroups;
 
         // Visualizing the proximity zone
         private SphereCollider detectionZone;
