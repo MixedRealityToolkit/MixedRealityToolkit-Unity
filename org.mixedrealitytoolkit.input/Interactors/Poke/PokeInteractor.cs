@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
@@ -31,6 +32,23 @@ namespace MixedReality.Toolkit.Input
         /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
         /// </summary>
         protected internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+
+        [SerializeField]
+        [Tooltip("The root management GameObject that interactor belongs to.")]
+        private GameObject modeManagedRoot = null;
+
+        /// <summary>
+        /// Returns the GameObject that this interactor belongs to. This GameObject is governed by the
+        /// interaction mode manager and is assigned an interaction mode. This GameObject represents the group that this interactor belongs to.
+        /// </summary>
+        /// <remarks>
+        /// This will default to the GameObject that this attached to a parent <see cref="TrackedPoseDriver"/>.
+        /// </remarks>
+        public GameObject ModeManagedRoot
+        {
+            get => modeManagedRoot;
+            set => modeManagedRoot = value;
+        }
 
         [SerializeReference]
         [InterfaceSelector(true)]
@@ -133,9 +151,16 @@ namespace MixedReality.Toolkit.Input
         {
             base.Start();
 
-            if (trackedPoseDriver == null) //Try to get the <see cref="TrackedPoseDriver"> component from the parent if it hasn't been set yet
+            // Try to get the <see cref="TrackedPoseDriver"> component from the parent if it hasn't been set yet
+            if (trackedPoseDriver == null) 
             {
                 trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+
+            // If mode managed root is not defined, default to the tracked pose driver's game object
+            if (modeManagedRoot == null && trackedPoseDriver != null)
+            {
+                modeManagedRoot = trackedPoseDriver.gameObject;
             }
         }
 
@@ -188,13 +213,13 @@ namespace MixedReality.Toolkit.Input
 #pragma warning restore CS0618 // Type or member is obsolete
                 else
                 {
-                    if (TrackedPoseDriver == null) //If the interactor does not have a <see cref="TrackedPoseDriver"> component then we cannot determine if it is hover active
+                    // If the interactor does not have a <see cref="TrackedPoseDriver"> component then we cannot determine if it is hover active
+                    if (TrackedPoseDriver == null) 
                     {
                         return false;
                     }
 
-                    //If this interactor has an associated <see cref="TrackedPoseDriver"> component then use it to determine if the interactor is hover active
-                    return base.isHoverActive && ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+                    return base.isHoverActive && (TrackedPoseDriver.GetInputTrackingState().HasPositionAndRotation() || pokePointTracked);
                 }
             }
         }
@@ -292,5 +317,11 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
+
+        #region IModeManagedInteractor
+        /// <inheritdoc/>
+        [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        public GameObject GetModeManagedController() => ModeManagedRoot;
+        #endregion IModeManagedInteractor
     }
 }
