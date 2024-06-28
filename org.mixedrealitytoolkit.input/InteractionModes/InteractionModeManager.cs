@@ -177,7 +177,7 @@ namespace MixedReality.Toolkit.Input
         /// </remarks>
         [SerializeField]
         [FormerlySerializedAs("controllerMapping")]
-        [Tooltip("Mapping of the root game objects to the set of interactors tha will be managed as a group. The MRTK Interaction Mode Manager will only mediate interactors which are designated as managed")]
+        [Tooltip("Mapping of the root game objects to the set of interactors that will be managed as a group. The MRTK Interaction Mode Manager will only mediate interactors which are designated as managed")]
         private SerializableDictionary<GameObject, ManagedInteractorStatus> interactorGroupMappings = new SerializableDictionary<GameObject, ManagedInteractorStatus>();
 
         /// <summary>
