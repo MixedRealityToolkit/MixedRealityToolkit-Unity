@@ -558,7 +558,7 @@ namespace MixedReality.Toolkit.Input
 
             // For backwards compatibility, we will continue to support the obsolete "controller-based" interactors,
             // and group based on "controller" partents.
-#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // xrController is obsolete
             if (interactor is XRBaseInputInteractor controllerInteractor &&
                 controllerInteractor.xrController != null)
             {
