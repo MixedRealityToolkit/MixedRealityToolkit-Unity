@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 * SolverTapToPlaceTestsForControllerlessRig Unity-tests.
+* Ported SolverTapToPlaceTests so that they also test the new controllerless prefabs.
 * Updated TapToPlace logic to handle both deprecated XRController and new controllerless actions.
 * Updated HandConstraintPalmUp logic to handle both deprecated XRController and new controllerless actions.
 * Updated Solver logic to handle both deprecated XRController and new controllerless actions.
