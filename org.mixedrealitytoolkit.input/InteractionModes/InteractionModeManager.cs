@@ -555,7 +555,16 @@ namespace MixedReality.Toolkit.Input
         {
             GameObject interactorGroupObject = null;
 
-            if (interactor is IModeManagedInteractor modeManagedInteractor)
+            // For backwards compatibility, we will continue to support the obsolete "controller-based" interactors,
+            // and group based on "controller" partents.
+#pragma warning disable CS0618 // Type or member is obsolete
+            if (interactor is XRBaseInputInteractor controllerInteractor &&
+                controllerInteractor.xrController != null)
+            {
+                interactorGroupObject = controllerInteractor.xrController.gameObject;
+            }
+#pragma warning restore CS0618 // Type or member is obsolete
+            else if (interactor is IModeManagedInteractor modeManagedInteractor)
             {
                 interactorGroupObject = modeManagedInteractor.ModeManagedRoot;
 
@@ -566,15 +575,6 @@ namespace MixedReality.Toolkit.Input
                     interactorGroupObject = modeManagedInteractor.GetModeManagedController();
 #pragma warning restore CS0618 // Type or member is obsolete
                 }
-            }
-
-            // For backwards compatibility, we will continue to support the obsolete "controller" types, and group based on "controller" partents.
-            if (interactorGroupObject == null &&
-                interactor is XRBaseInputInteractor controllerInteractor)
-            {
-#pragma warning disable CS0618 // Type or member is obsolete
-                interactorGroupObject = controllerInteractor.xrController.gameObject;
-#pragma warning restore CS0618 // Type or member is obsolete
             }
 
             return interactorGroupObject;
