@@ -15,7 +15,7 @@ using TrackedPoseDriver = UnityEngine.InputSystem.XR.TrackedPoseDriver;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// Used to manage interactors and ensure that each several interactors for an internactor group aren't clashing and firing at the same time.
+    /// Used to manage interactors and ensure that each several interactors for an interactor group aren't clashing and firing at the same time.
     /// </summary>
     [AddComponentMenu("MRTK/Input/Interaction Mode Manager")]
     public class InteractionModeManager : MonoBehaviour
