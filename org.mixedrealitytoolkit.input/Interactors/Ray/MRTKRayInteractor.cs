@@ -77,9 +77,13 @@ namespace MixedReality.Toolkit.Input
                     hasUISelection &= isUISelectActive;
                 }
 #pragma warning restore CS0618 // isUISelectActiver is obsolete
-                else
+                else if (uiPressInput != null)
                 {
                     hasUISelection &= uiPressInput.ReadIsPerformed();
+                }
+                else
+                {
+                    hasUISelection = false;
                 }
                 return hasUISelection;
             }
