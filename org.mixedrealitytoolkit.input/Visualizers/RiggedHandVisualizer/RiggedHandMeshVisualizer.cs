@@ -410,7 +410,6 @@ namespace MixedReality.Toolkit.Input
                 {
                     controller = GetComponentInParent<XRController>();
                 }
-
                 if (controller != null)
                 {
                     value = controller.selectInteractionState.value;
