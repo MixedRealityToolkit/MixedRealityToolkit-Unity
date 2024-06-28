@@ -2,11 +2,13 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.Subsystems;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -60,6 +62,19 @@ namespace MixedReality.Toolkit.Input
                  "Generally, maps to something like a glow or an outline color!")]
         private string pinchAmountMaterialProperty = "_PinchAmount";
 
+        [SerializeField]
+        [Tooltip("The input reader user when pinch selecting an interactable.")]
+        XRInputButtonReader selectInput = new XRInputButtonReader("Select");
+
+        /// <summary>
+        /// Input reader used when pinch selecting an interactable.
+        /// </summary>
+        public XRInputButtonReader SelectInput
+        {
+            get => selectInput;
+            set => SetInputProperty(ref selectInput, value);
+        }
+
         // Automatically calculated over time, based on the accumulated error
         // between the user's actual joint locations and the armature's bones/joints.
         private float handScale = 1.0f;
@@ -74,6 +89,7 @@ namespace MixedReality.Toolkit.Input
         private List<XRDisplaySubsystem> displaySubsystems = new List<XRDisplaySubsystem>();
 
         // The XRController that is used to determine the pinch strength (i.e., select value!)
+        [Obsolete("This field is obsolete and will be removed in a future version. Use the SelectInput property instead.")]
         private XRBaseController controller;
 
         // The actual, physical, rigged joints that drive the skinned mesh.
@@ -85,11 +101,20 @@ namespace MixedReality.Toolkit.Input
         private const string endJointName = "end";
 
         /// <summary>
+        /// The list of button input readers used by this interactor. This interactor will automatically enable or disable direct actions
+        /// if that mode is used during <see cref="OnEnable"/> and <see cref="OnDisable"/>.
+        /// </summary>
+        /// <seealso cref="XRInputButtonReader.EnableDirectActionIfModeUsed"/>
+        /// <seealso cref="XRInputButtonReader.DisableDirectActionIfModeUsed"/>
+        protected List<XRInputButtonReader> buttonReaders { get; } = new List<XRInputButtonReader>();
+
+        /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
         /// </summary>
         protected virtual void Awake()
         {
             propertyBlock = new MaterialPropertyBlock();
+            buttonReaders.Add(selectInput);
 
             if (handRenderer == null)
             {
@@ -136,6 +161,8 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         protected void OnEnable()
         {
+            buttonReaders.ForEach(reader => reader?.EnableDirectActionIfModeUsed());
+
             // Ensure hand is not visible until we can update position first time.
             handRenderer.enabled = false;
 
@@ -155,6 +182,8 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         protected void OnDisable()
         {
+            buttonReaders.ForEach(reader => reader?.DisableDirectActionIfModeUsed());
+
             // Disable the rigged hand renderer when this component is disabled
             handRenderer.enabled = false;
         }
@@ -266,6 +295,43 @@ namespace MixedReality.Toolkit.Input
             UpdateHandMaterial();
         }
 
+        /// <summary>
+        /// Helper method for setting an input property.
+        /// </summary>
+        /// <param name="property">The <see langword="ref"/> to the field.</param>
+        /// <param name="value">The new value being set.</param>
+        /// <remarks>
+        /// If the application is playing, this method will also enable or disable directly embedded input actions
+        /// serialized by the input if that mode is used. It will also add or remove the input from the list of button inputs
+        /// to automatically manage enabling and disabling direct actions with this behavior.
+        /// </remarks>
+        /// <seealso cref="buttonReaders"/>
+        protected void SetInputProperty(ref XRInputButtonReader property, XRInputButtonReader value)
+        {
+            if (value == null)
+            {
+                Debug.LogError("Setting XRInputButtonReader property to null is disallowed and has therefore been ignored.");
+                return;
+            }
+
+            if (Application.isPlaying && property != null)
+            {
+                buttonReaders?.Remove(property);
+                property.DisableDirectActionIfModeUsed();
+            }
+
+            property = value;
+
+            if (Application.isPlaying)
+            {
+                buttonReaders?.Add(property);
+                if (isActiveAndEnabled)
+                {
+                    property.EnableDirectActionIfModeUsed();
+                }
+            }
+        }
+
         // Computes the error between the rig's joint position and
         // the user's joint position along the finger vector.
         private float JointError(Vector3 armatureJointPosition, Vector3 userJointPosition, Vector3 fingerVector)
@@ -306,18 +372,54 @@ namespace MixedReality.Toolkit.Input
 
         private void UpdateHandMaterial()
         {
-            if (controller == null)
+            if (handRenderer == null)
             {
-                controller = GetComponentInParent<XRBaseController>();
+                return;
             }
 
-            if (controller == null || handRenderer == null) { return; }
+            if (TryGetSelectionValue(out float selectionValue))
+            {
+                // Update the hand material
+                float pinchAmount = Mathf.Pow(selectionValue, 2.0f);
+                handRenderer.GetPropertyBlock(propertyBlock);
+                propertyBlock.SetFloat(pinchAmountMaterialProperty, pinchAmount);
+                handRenderer.SetPropertyBlock(propertyBlock);
+            }
+        }
 
-            // Update the hand material
-            float pinchAmount = Mathf.Pow(controller.selectInteractionState.value, 2.0f);
-            handRenderer.GetPropertyBlock(propertyBlock);
-            propertyBlock.SetFloat(pinchAmountMaterialProperty, pinchAmount);
-            handRenderer.SetPropertyBlock(propertyBlock);
+        /// <summary>
+        /// Try to obtain the tracked devices selection value from the provided input reader.
+        /// </summary>
+        /// <remarks>
+        /// For backwards compatibility, this method will also attempt to get the pinch amount from a
+        /// legacy XRI controller if the input reader is not set.
+        /// </remaks> 
+        private bool TryGetSelectionValue(out float value)
+        {
+            bool success = false;
+            value = 0.0f;
+
+            if (selectInput != null)
+            {
+                success = selectInput.TryReadValue(out value);
+            }
+            else
+            {
+#pragma warning disable CS0618 // XRController is obsolete
+                if (controller == null)
+                {
+                    controller = GetComponentInParent<XRController>();
+                }
+
+                if (controller != null)
+                {
+                    value = controller.selectInteractionState.value;
+                    success = true;
+                }
+#pragma warning restore CS0618 //XRController is obsolete
+            }
+
+            return success;
         }
     }
 }
