@@ -435,7 +435,7 @@ namespace MixedReality.Toolkit.Input
                     // For backwards compatibility, we will continue to support the obsolete "GetControllers()" function.
                     if (groups == null)
                     {
-#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // GetControllers is obsolete
                         groups = detector.GetControllers();
 #pragma warning restore CS0618 // Type or member is obsolete
                     }
