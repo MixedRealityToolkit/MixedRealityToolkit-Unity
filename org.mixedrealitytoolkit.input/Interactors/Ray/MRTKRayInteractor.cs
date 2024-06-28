@@ -3,11 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using MixedReality.Toolkit.Subsystems;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
-using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -68,7 +66,24 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Is this ray currently selecting a UnityUI/Canvas element?
         /// </summary>
-        public bool HasUISelection => HasUIHover && isUISelectActive;
+        public bool HasUISelection
+        {
+            get
+            {
+                bool hasUISelection = HasUIHover;
+#pragma warning disable CS0618 // isUISelectActive is obsolete
+                if (forceDeprecatedInput)
+                {
+                    hasUISelection &= isUISelectActive;
+                }
+#pragma warning restore CS0618 // isUISelectActiver is obsolete
+                else
+                {
+                    hasUISelection &= uiPressInput.ReadIsPerformed();
+                }
+                return hasUISelection;
+            }
+        }
 
         /// <summary>
         /// Used to check if the parent controller is tracked or not
