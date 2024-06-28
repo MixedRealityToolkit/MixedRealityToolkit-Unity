@@ -35,7 +35,7 @@ namespace MixedReality.Toolkit.Input
         {
 #pragma warning disable CS0618 // ControllerLookup is obsolete
             controllerLookup = ComponentCache<ControllerLookup>.FindFirstActiveInstance();
-pragma warning restore CS0618 // ControllerLookup is obsolete
+#pragma warning restore CS0618 // ControllerLookup is obsolete
 
             trackedPoseDriverLookup = ComponentCache<TrackedPoseDriverLookup>.FindFirstActiveInstance();
         }
