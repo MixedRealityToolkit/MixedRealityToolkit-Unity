@@ -63,7 +63,7 @@ namespace MixedReality.Toolkit.Input
         private string pinchAmountMaterialProperty = "_PinchAmount";
 
         [SerializeField]
-        [Tooltip("The input reader user when pinch selecting an interactable.")]
+        [Tooltip("The input reader used when pinch selecting an interactable.")]
         XRInputButtonReader selectInput = new XRInputButtonReader("Select");
 
         /// <summary>
