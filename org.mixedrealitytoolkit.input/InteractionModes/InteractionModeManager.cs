@@ -108,7 +108,7 @@ namespace MixedReality.Toolkit.Input
             // Once XRI removes "controller" types, we can remove this block of code.
 #pragma warning disable CS0618 // InitializeControllers is obsolete
             InitializeControllers();
-#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning restore CS0618 // InitializeControllers is obsolete
         }
 
         /// <summary>
