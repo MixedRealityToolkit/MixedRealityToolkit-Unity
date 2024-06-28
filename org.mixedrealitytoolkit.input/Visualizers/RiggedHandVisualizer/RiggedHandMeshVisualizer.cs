@@ -391,7 +391,7 @@ namespace MixedReality.Toolkit.Input
         /// Try to obtain the tracked devices selection value from the provided input reader.
         /// </summary>
         /// <remarks>
-        /// For backwards compatibility, this method will also attempt to get the pinch amount from a
+        /// For backwards compatibility, this method will also attempt to get the selection amount from a
         /// legacy XRI controller if the input reader is not set.
         /// </remaks> 
         private bool TryGetSelectionValue(out float value)
