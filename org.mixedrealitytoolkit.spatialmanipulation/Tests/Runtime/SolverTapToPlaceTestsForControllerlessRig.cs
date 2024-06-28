@@ -27,12 +27,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
     /// </remarks>
     public class SolverTapToPlaceTestsForControllerlessRig : BaseRuntimeInputTests
     {
-        [UnitySetUp]
-        public override IEnumerator Setup()
-        {
-            yield return base.SetupForControllerlessRig();
-        }
-
         /// <summary>
         /// Verify TapToPlace can move an object to the end of the right hand ray.
         /// </summary>

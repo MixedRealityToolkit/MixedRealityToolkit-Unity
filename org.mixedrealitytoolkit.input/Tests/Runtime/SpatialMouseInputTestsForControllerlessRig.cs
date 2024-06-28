@@ -42,7 +42,7 @@ namespace MixedReality.Toolkit.Input.Tests
         [UnitySetUp]
         public override IEnumerator Setup()
         {
-            yield return base.SetupForControllerlessRig();
+            yield return base.Setup();
             var spatialMouseController = InstantiateSpatialMouseController();
             List<GameObject> rigChildren = new List<GameObject>();
             InputTestUtilities.RigReference.GetChildGameObjects(rigChildren);

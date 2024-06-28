@@ -21,6 +21,11 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
     /// </summary>
     public class BoundsControlTests : BaseRuntimeInputTests
     {
+        /// <summary>
+        /// Temporary override of the rig version to use for these tests. Once the test are fixed to work with new MRTK3 rig, this should be removed.
+        /// </summary>
+        protected override InputTestUtilities.RigVersion RigVersion => InputTestUtilities.RigVersion.Version1;
+
         private static readonly string BoundsVisuals3DOcclusionPath = AssetDatabase.GUIDToAssetPath("7b542306e34a62f4c9a822fcb19b7d99");
 
         private static readonly string BoundsVisualsTraditionalPath = AssetDatabase.GUIDToAssetPath("ecbf05ce2121a744cb893e82377ba3cd");

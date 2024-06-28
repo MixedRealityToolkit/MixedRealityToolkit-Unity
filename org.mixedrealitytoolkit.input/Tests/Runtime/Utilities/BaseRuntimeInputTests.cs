@@ -12,6 +12,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Interactions;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Composites;
 using UnityEngine;
+using static MixedReality.Toolkit.Input.Tests.InputTestUtilities;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -22,6 +23,7 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </summary>
     public abstract class BaseRuntimeInputTests : BaseRuntimeTests
     {
+
         // Isolates/sandboxes the input system state for each test instance.
         private InputTestFixture input = new InputTestFixture();
 
@@ -64,6 +66,11 @@ namespace MixedReality.Toolkit.Input.Tests
             }
         }
 
+        /// <summary>
+        /// Get the version of the input rig to use with these tests
+        /// </summary>
+        protected virtual RigVersion RigVersion { get; } = RigVersion.Default;
+
 #pragma warning disable CS0618 // Type or member is obsolete
         private ControllerLookup cachedLookup = null;
 
@@ -91,30 +98,24 @@ namespace MixedReality.Toolkit.Input.Tests
         public override IEnumerator Setup()
         {
             yield return base.Setup();
-            input.Setup();
+            InputSystemSetup();
             XRISetup();
 
-            InputTestUtilities.InstantiateRig();
+
+            InputTestUtilities.InstantiateRig(RigVersion);
             InputTestUtilities.SetupSimulation(0.0f);
 
             // Wait for simulation HMD to update camera poses
             yield return RuntimeTestUtilities.WaitForUpdates();
         }
 
-        public IEnumerator SetupForControllerlessRig()
+        private void InputSystemSetup()
         {
-            yield return base.Setup();
             input.Setup();
-            XRISetup();
-
-            InputTestUtilities.InstantiateControllerlessRig();
-            InputTestUtilities.SetupSimulation(0.0f);
-
-            // Wait for simulation HMD to update camera poses
-            yield return RuntimeTestUtilities.WaitForUpdates();
+            InputSystem.onAfterUpdate += OnAfterUpdate;
         }
 
-        public void XRISetup()
+        private void XRISetup()
         {
             // XRI needs these
             InputSystem.RegisterInteraction<SectorInteraction>();
@@ -133,8 +134,17 @@ namespace MixedReality.Toolkit.Input.Tests
             cachedTrackedPoseDriverLookup = null;
 
             input.TearDown();
+            InputSystem.onAfterUpdate -= OnAfterUpdate;
 
             yield return base.TearDown();
+        }
+
+        /// <summary>
+        /// Update the simulation immediately after the input system has updated. For more details see <see cref="InputTestUtilities.HandUpdate"/>.
+        /// </summary>
+        private void OnAfterUpdate()
+        {
+            InputTestUtilities.UpdateSimulation();
         }
     }
 }

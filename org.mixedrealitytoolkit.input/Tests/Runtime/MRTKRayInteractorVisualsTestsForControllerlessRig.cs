@@ -25,12 +25,6 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </remarks>
     public class MRTKRayInteractorVisualsTestsForControllerlessRig : BaseRuntimeInputTests
     {
-        [UnitySetUp]
-        public override IEnumerator Setup()
-        {
-            yield return base.SetupForControllerlessRig();
-        }
-
         /// <summary>
         /// Ensure that far ray interactor visuals are set active/inactive appropriately.
         /// </summary>
