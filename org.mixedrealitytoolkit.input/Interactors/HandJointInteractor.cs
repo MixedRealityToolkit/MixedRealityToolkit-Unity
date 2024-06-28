@@ -18,7 +18,8 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     public abstract class HandJointInteractor :
         XRDirectInteractor,
-        IHandedInteractor
+        IHandedInteractor,
+        IModeManagedInteractor
     {
         #region Serialized Fields
         [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]

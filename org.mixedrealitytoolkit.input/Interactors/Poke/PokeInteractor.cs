@@ -21,7 +21,8 @@ namespace MixedReality.Toolkit.Input
     public class PokeInteractor :
         XRBaseInputInteractor,
         IPokeInteractor,
-        IHandedInteractor
+        IHandedInteractor,
+        IModeManagedInteractor
     {
         #region PokeInteractor
 
