@@ -81,7 +81,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         public override bool isHoverActive
         {
-            // Only be available for hovering if the `TrackPoseDriver` or controller (if using deprecated XRI) pose driver is tracked or we have joint data.
+            // Only be available for hovering if the `TrackedPoseDriver` or controller (if using deprecated XRI) pose driver is tracked or we have joint data.
             get
             {
                 bool result = base.isHoverActive;
