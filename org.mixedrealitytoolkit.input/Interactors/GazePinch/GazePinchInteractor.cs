@@ -33,6 +33,23 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         protected internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
+        [SerializeField]
+        [Tooltip("The root management GameObject that interactor belongs to. T")]
+        private GameObject modeManagedRoot = null;
+
+        /// <summary>
+        /// Returns the GameObject that this interactor belongs to. This GameObject is governed by the
+        /// interaction mode manager and is assigned an interaction mode. This GameObject represents the group that this interactor belongs to.
+        /// </summary>
+        /// <remarks>
+        /// This will default to the GameObject that this attached to a parent <see cref="TrackedPoseDriver"/>.
+        /// </remarks>
+        public GameObject ModeManagedRoot
+        {
+            get => modeManagedRoot;
+            set => modeManagedRoot = value;
+        }
+
         [Header("Gaze Pinch interactor settings")]
 
         [SerializeField]
@@ -165,8 +182,8 @@ namespace MixedReality.Toolkit.Input
                         return false;
                     }
 
-                    //If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
-                    return ((InputTrackingState)TrackedPoseDriver.trackingStateInput.action.ReadValue<int>()).HasPositionAndRotation();
+                    // If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
+                    return TrackedPoseDriver.GetInputTrackingState().HasPositionAndRotation();
                 }
             }
         }
@@ -233,9 +250,16 @@ namespace MixedReality.Toolkit.Input
         {
             base.Start();
 
-            if (trackedPoseDriver == null) //Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            // Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            if (trackedPoseDriver == null)
             {
                 trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+
+            // If mode managed root is not defined, default to the tracked pose driver's game object
+            if (modeManagedRoot == null && trackedPoseDriver != null)
+            {
+                modeManagedRoot = trackedPoseDriver.gameObject;
             }
         }
 
@@ -536,6 +560,13 @@ namespace MixedReality.Toolkit.Input
 
         #endregion XRBaseInteractor
 
+        #region IModeManagedInteractor
+        /// <inheritdoc/>
+        [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        public GameObject GetModeManagedController() => ModeManagedRoot;
+        #endregion IModeManagedInteractor
+
+        #region Private Methods
         /// <summary>
         /// Updates the pinch state of the GazePinchInteractor.
         /// If handedness is not set then it defaults to right hand.
@@ -569,5 +600,6 @@ namespace MixedReality.Toolkit.Input
                 pinchReady = isPinchReady;
             }
         }
+        #endregion Private Methods
     }
 }
