@@ -33,7 +33,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         protected void Awake()
         {
-#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // ControllerLookup is obsolete
             controllerLookup = ComponentCache<ControllerLookup>.FindFirstActiveInstance();
 #pragma warning restore CS0618 // Type or member is obsolete
 
