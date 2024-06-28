@@ -139,7 +139,7 @@ namespace MixedReality.Toolkit.Input
                     }
                     else
                     {
-                        // If we don't have a joint pose, reset to whatever our parent `TrackPoseDriver` pose is.
+                        // If we don't have a joint pose, reset to whatever our parent `TrackedPoseDriver` pose is.
                         transform.localPosition = Vector3.zero;
                         transform.localRotation = Quaternion.identity;
                     }
