@@ -51,7 +51,7 @@ namespace MixedReality.Toolkit.Examples
         {
             if (gazeInteractor == null)
             {
-                return;                
+                return;
             }
 
             targets.Clear();
