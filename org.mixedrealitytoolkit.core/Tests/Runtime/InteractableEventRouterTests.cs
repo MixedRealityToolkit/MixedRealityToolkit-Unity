@@ -363,7 +363,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             level2 = new GameObject("level 2");
 
             // Setup interactor
-            interactorObject.AddComponent<XRController>();
             interactor = interactorObject.AddComponent<XRRayInteractor>();
             interactorObject.transform.SetParent(level0.transform, worldPositionStays: true);
 
