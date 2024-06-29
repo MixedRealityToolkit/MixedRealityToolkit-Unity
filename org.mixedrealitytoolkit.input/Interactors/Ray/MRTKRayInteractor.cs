@@ -29,7 +29,8 @@ namespace MixedReality.Toolkit.Input
         IRayInteractor,
         IHandedInteractor,
         IVariableSelectInteractor,
-        IModeManagedInteractor
+        IModeManagedInteractor,
+        ITrackedInteractor
     {
         #region MRTKRayInteractor
 
@@ -140,8 +141,14 @@ namespace MixedReality.Toolkit.Input
 
         #endregion MRTKRayInteractor
 
+        #region ITrackedInteractor
+        /// <inheritdoc />
+        public GameObject TrackedParent => trackedPoseDriver == null ? null : trackedPoseDriver.gameObject;
+        #endregion ITrackedInteractor
+
         #region IHandedInteractor
 
+        /// <inheritdoc />
         Handedness IHandedInteractor.Handedness
         {
             get
