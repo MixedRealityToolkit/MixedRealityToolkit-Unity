@@ -11,7 +11,7 @@ namespace MixedReality.Toolkit
     public interface ITrackedInteractor
     {
         /// <summary>
-        /// Get the interactor's parent whoee pose is backed by a tracked input device.
+        /// Get the interactor's parent whose pose is backed by a tracked input device.
         /// </summary>
         public GameObject TrackedParent { get; }
     }
