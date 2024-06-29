@@ -460,7 +460,7 @@ MonoBehaviour:
   flatScreenInteractionMode:
     name: FlatScreen
     priority: 6
-  controllers:
+  interactorGroups:
   - {fileID: 7735890427496681069}
 --- !u!1 &8479077998186684813
 GameObject:
@@ -618,14 +618,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1175590bcfccd6d44a4c8f9a15292536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &8193081038271214069 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6853218870844938225, guid: d8a2a1f4b4f78754c86045f7a36fe424, type: 3}
-  m_PrefabInstance: {fileID: 3361987198643840516}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8843580732919085234 stripped
+--- !u!114 &6369988576007060339 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6058071957502615222, guid: d8a2a1f4b4f78754c86045f7a36fe424, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8560941944935669111, guid: d8a2a1f4b4f78754c86045f7a36fe424, type: 3}
   m_PrefabInstance: {fileID: 3361987198643840516}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -634,6 +629,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a248d282774a21744b8cf69201ce8279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &8193081038271214069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6853218870844938225, guid: d8a2a1f4b4f78754c86045f7a36fe424, type: 3}
+  m_PrefabInstance: {fileID: 3361987198643840516}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6214226033703350519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -721,7 +721,7 @@ PrefabInstance:
     - target: {fileID: 919676360596656614, guid: 02502921f64c38d48b14f1d6c2438b16, type: 3}
       propertyPath: gazeTrackedPoseDriver
       value: 
-      objectReference: {fileID: 8843580732919085234}
+      objectReference: {fileID: 6369988576007060339}
     - target: {fileID: 919676360596656614, guid: 02502921f64c38d48b14f1d6c2438b16, type: 3}
       propertyPath: leftHandTrackedPoseDriver
       value: 

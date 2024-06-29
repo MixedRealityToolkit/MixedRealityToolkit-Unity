@@ -469,10 +469,10 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsTrue(rightHandTrackedPoseDriver.rotationInput.reference.name.Equals(MRTKRightHandDeviceRotationName));
             Assert.IsTrue(rightHandTrackedPoseDriver.trackingStateInput.reference.name.Equals(MRTKRightHandTrackingStateName));
 
-            // Check that the GazeInteractor has its TrackedPoseDriverWithFallback component and that it is properly set
-            var gazeInteractorTrackedPoseDriversWithFallback = gazeInteractorGameObject.GetComponents<TrackedPoseDriverWithFallback>();
-            Assert.AreEqual(1, gazeInteractorTrackedPoseDriversWithFallback.Length);
-            TrackedPoseDriverWithFallback gazeInteractorTrackedPoseDriverWithFallback = gazeInteractorTrackedPoseDriversWithFallback[0];
+            // Check that the GazeController has its TrackedPoseDriverWithFallback component and that it is properly set
+            var gazeControllerTrackedPoseDriversWithFallback = gazeGameObject.GetComponents<TrackedPoseDriverWithFallback>();
+            Assert.AreEqual(1, gazeControllerTrackedPoseDriversWithFallback.Length);
+            TrackedPoseDriverWithFallback gazeInteractorTrackedPoseDriverWithFallback = gazeControllerTrackedPoseDriversWithFallback[0];
             Assert.AreEqual(TrackedPoseDriver.TrackingType.RotationAndPosition, gazeInteractorTrackedPoseDriverWithFallback.trackingType);
             Assert.AreEqual(TrackedPoseDriver.UpdateType.UpdateAndBeforeRender, gazeInteractorTrackedPoseDriverWithFallback.updateType);
             Assert.IsTrue(gazeInteractorTrackedPoseDriverWithFallback.positionInput.reference.name.Equals(MRTKGazePositionName));
