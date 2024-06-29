@@ -1061,6 +1061,29 @@ namespace MixedReality.Toolkit.SpatialManipulation
             // for modeling rotations with far rays. Therefore, we cast down to the base TrackedDevice,
             // and query the device rotation directly. If any of this can't be casted, we return the
             // interactor's attachTransform's rotation.
+            if (TryGetTrackedRotation(interactor, out rotation))
+            {
+                return true;
+            }
+
+            rotation = interactor.GetAttachTransform(this).rotation;
+            return true;
+        }
+
+        /// <summary>
+        /// Try to get the tracked rotation of the interactor.
+        /// </summary>
+        private bool TryGetTrackedRotation(IXRInteractor interactor, out Quaternion rotation)
+        {
+            if (interactor is ITrackedInteractor trackedInteractor &&
+                trackedInteractor.TrackedParent != null)
+            {
+                rotation = trackedInteractor.TrackedParent.transform.rotation;
+                return true;                
+            }
+
+            // To maintain support of older interactors that rely on controllers, fallback to the xrController's rotation.
+#pragma warning disable CS0618 // ActionBasedController and xrController are obsolete
             if (interactor is XRBaseInputInteractor controllerInteractor &&
                 controllerInteractor.xrController is ActionBasedController abController &&
                 abController.rotationAction.action?.activeControl?.device is TrackedDevice device)
@@ -1068,9 +1091,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 rotation = device.deviceRotation.ReadValue();
                 return true;
             }
+#pragma warning restore CS0618 // ActionBasedController and xrController are obsolete
 
-            rotation = interactor.GetAttachTransform(this).rotation;
-            return true;
+            rotation = Quaternion.identity;
+            return false;
         }
     }
 
