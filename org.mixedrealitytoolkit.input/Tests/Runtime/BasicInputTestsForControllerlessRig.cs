@@ -396,33 +396,11 @@ namespace MixedReality.Toolkit.Input.Tests
                                                                           c.name.Equals(MRTKGazeControllerName));
             foreach (GameObject controller in cameraOffsetControllers)
             {
-                // Check the controller has the XRController component
+                // Check the controller does not have an XRController component
 #pragma warning disable CS0618 // ActionBasedController is obsolete
                 var xrControllers = controller.GetComponents<ActionBasedController>();
 #pragma warning restore CS0618 // ActionBasedController is obsolete
-                Assert.AreEqual(1, xrControllers.Length);
-
-                // Check the deprecated XRController does not have actions in it
-                var xrControllerProperties = xrControllers[0].GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                                                                       .Where(p => p.PropertyType == typeof(InputActionProperty))
-                                                                       .ToArray();
-                foreach (PropertyInfo xrControllerPropertyInfo in xrControllerProperties)
-                {
-                    InputActionProperty inputActionProperty = (InputActionProperty)xrControllerPropertyInfo.GetValue(xrControllers[0]);
-                    if (inputActionProperty.action != null)
-                    {
-                        Assert.IsNull(inputActionProperty.reference);
-                        Assert.IsTrue(deprecatedXRControllerInputActions.Contains(inputActionProperty.action.name));
-                    }
-                    else
-                    {
-                        Assert.IsNull(inputActionProperty.reference);
-                    }
-                }
-
-                // Check the deprecated XRController/Model and ModelPrefab properties are empty
-                Assert.IsNull(xrControllers[0].model);
-                Assert.IsNull(xrControllers[0].modelPrefab);
+                Assert.AreEqual(0, xrControllers.Length);
 
                 // Hold a reference to the controllers for later easier testing
                 if (controller.name.Equals(MRTKLeftHandConrollerName))
