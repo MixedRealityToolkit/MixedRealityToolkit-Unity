@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -577,6 +578,9 @@ namespace MixedReality.Toolkit.Input
 #pragma warning restore CS0618 // Type or member is obsolete
                 }
             }
+
+            Assert.IsNotNull(interactorGroupObject, $"Interactor {interactor.name} ({interactor.GetType().Name}) is not managed by any interactor group. " + Environment.NewLine +
+                    $"Please ensure that the interactor implements IModeManagedInteractor, has a ModeManagedRoot field, and that ModeManagedRoot is set to the parent GameObject.");
 
             return interactorGroupObject;
         }
