@@ -396,6 +396,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   performAdditionalRaycast: 1
+  modeManagedRoot: {fileID: 7470888221916766567}
 --- !u!114 &6715372278736142266
 MonoBehaviour:
   m_ObjectHideFlags: 0
