@@ -360,7 +360,7 @@ MonoBehaviour:
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: 0
   trackedPoseDriver: {fileID: 9028998875765828509}
-  modeManagedRoot: {fileID: 0}
+  modeManagedRoot: {fileID: 1948193615953854874}
   aimPoseSource:
     rid: 0
   devicePoseSource:
@@ -860,7 +860,7 @@ MonoBehaviour:
     m_Bits: 1
   m_PhysicsTriggerInteraction: 1
   trackedPoseDriver: {fileID: 0}
-  modeManagedRoot: {fileID: 0}
+  modeManagedRoot: {fileID: 1948193615953854874}
   pinchPoseSource:
     rid: 0
   references:
@@ -1246,7 +1246,7 @@ MonoBehaviour:
   m_HapticHoverCancelDuration: 0
   m_AllowHoverHapticsWhileSelecting: 1
   trackedPoseDriver: {fileID: 9028998875765828509}
-  modeManagedRoot: {fileID: 0}
+  modeManagedRoot: {fileID: 1948193615953854874}
   pokePoseSource:
     rid: 0
   references:
@@ -1585,7 +1585,7 @@ MonoBehaviour:
   m_HapticHoverCancelDuration: 0
   m_AllowHoverHapticsWhileSelecting: 1
   trackedPoseDriver: {fileID: 9028998875765828509}
-  modeManagedRoot: {fileID: 0}
+  modeManagedRoot: {fileID: 1948193615953854874}
   handController: {fileID: 0}
   devicePoseSource:
     rid: 0
