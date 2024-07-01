@@ -83,6 +83,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Object.Destroy(testButton);
             // Wait for a frame to give Unity a change to actually destroy the object
             yield return null;
+            // The speech recognition keyword change will trigger this exception at next update when speech recognition is not supported
+            if (Application.isBatchMode)
+            {
+                LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
+            }
         }
 
         [UnityTest]
