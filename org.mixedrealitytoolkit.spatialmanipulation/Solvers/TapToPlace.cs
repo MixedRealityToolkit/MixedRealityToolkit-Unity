@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityPhysics = UnityEngine.Physics;
 
@@ -556,27 +557,18 @@ namespace MixedReality.Toolkit.SpatialManipulation
             interactionManager.GetRegisteredInteractors(interactorsCache);
             foreach (IXRInteractor interactor in interactorsCache)
             {
-                if (interactor is XRBaseInputInteractor controllerInteractor)
-                {
 #pragma warning disable CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
-                    if (controllerInteractor.xrController is ActionBasedController actionController)
-                    {
-                        if (controllerInteractor.forceDeprecatedInput &&
-                            actionController.selectAction.action != null)
-                        {
-                            actionController.selectAction.action.performed += StopPlacementViaPerformedAction;
-                        }
-                        else if (controllerInteractor.selectInput.inputActionReferenceValue != null &&
-                                 controllerInteractor.selectInput.inputActionReferenceValue.action != null) //Use the controller-less select action if it is set
-                        {
-                            controllerInteractor.selectInput.inputActionReferenceValue.action.performed += StopPlacementViaPerformedAction;
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"Neither the deprecated XRController.selectAction nor the ControllerLess Interactor/InputConfiguration.SelectInput action are set.");
-                        }
-                    }
+                if (interactor is XRBaseInputInteractor controllerInteractor &&
+                    controllerInteractor.forceDeprecatedInput &&
+                    controllerInteractor.xrController is ActionBasedController actionController)
+                {
+                    actionController.selectAction.action.performed += StopPlacementViaPerformedAction;
+                }
 #pragma warning restore CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
+                else if (interactor is XRBaseInputInteractor inputInteractor &&
+                    TryGetActionValueOrActionReferenceValue(inputInteractor.selectInput, out InputAction selectionAction))
+                {
+                    selectionAction.performed += StopPlacementViaPerformedAction;
                 }
                 else if (interactor is IXRSelectInteractor selectInteractor)
                 {
@@ -594,27 +586,18 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 foreach (IXRInteractor interactor in interactorsCache)
                 {
-                    if (interactor is XRBaseInputInteractor controllerInteractor)
-                    {
 #pragma warning disable CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
-                        if (controllerInteractor.xrController is ActionBasedController actionController)
-                        {
-                            if (controllerInteractor.forceDeprecatedInput &&
-                                actionController.selectAction.action != null)
-                            {
-                                actionController.selectAction.action.performed -= StopPlacementViaPerformedAction;
-                            }
-                            else if (controllerInteractor.selectInput.inputActionReferenceValue != null &&
-                                     controllerInteractor.selectInput.inputActionReferenceValue.action != null) //Use the controller-less select action if it is set
-                            {
-                                controllerInteractor.selectInput.inputActionReferenceValue.action.performed -= StopPlacementViaPerformedAction;
-                            }
-                            else
-                            {
-                                Debug.LogWarning($"Neither the deprecated XRController.selectAction nor the ControllerLess Interactor/InputConfiguration.SelectInput action are set.");
-                            }
-                        }
+                    if (interactor is XRBaseInputInteractor controllerInteractor &&
+                        controllerInteractor.forceDeprecatedInput &&
+                        controllerInteractor.xrController is ActionBasedController actionController)
+                    {
+                        actionController.selectAction.action.performed -= StopPlacementViaPerformedAction;
+                    }
 #pragma warning restore CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
+                    else if (interactor is XRBaseInputInteractor inputInteractor &&
+                        TryGetActionValueOrActionReferenceValue(inputInteractor.selectInput, out InputAction selectionAction))
+                    {
+                        selectionAction.performed -= StopPlacementViaPerformedAction;
                     }
                     else if (interactor is IXRSelectInteractor selectInteractor)
                     {
@@ -623,6 +606,35 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 }
                 interactorsCache.Clear();
             }
+        }
+
+        /// <summary>
+        /// Try to obtain the action value or action referecne value from the given button reader.
+        /// </summary>
+        private bool TryGetActionValueOrActionReferenceValue(XRInputButtonReader reader, out InputAction action)
+        {
+            if (reader == null)
+            {
+                action = null;
+                return false;
+            }
+
+            if (reader.inputSourceMode == XRInputButtonReader.InputSourceMode.InputAction &&
+                reader.inputActionPerformed != null)
+            {
+                action = reader.inputActionPerformed;
+                return true;
+            }
+
+            if (reader.inputSourceMode == XRInputButtonReader.InputSourceMode.InputActionReference &&
+                reader.inputActionReferencePerformed)
+            {
+                action = reader.inputActionReferencePerformed.action;
+                return true;
+            }
+
+            action = null;
+            return false;
         }
 
         /// <summary>
