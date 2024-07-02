@@ -16,7 +16,7 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("MRTK/Input/Fuzzy Gaze Interactor")]
-    public class FuzzyGazeInteractor : GazeInteractor, IModeManagedInteractor
+    public class FuzzyGazeInteractor : GazeInteractor
     {
         #region FuzzyGazeInteractor
 
@@ -65,10 +65,6 @@ namespace MixedReality.Toolkit.Input
 
         private static readonly ProfilerMarker IsHitValidPerfMarker =
             new ProfilerMarker("[MRTK] FuzzyGazeInteractor.IsHitValid");
-
-        [SerializeField]
-        [Tooltip("The root management GameObject that interactor belongs to.")]
-        private GameObject modeManagedRoot = null;
 
         private bool IsHitValid(IXRInteractable target, RaycastHit hit)
         {
@@ -235,19 +231,6 @@ namespace MixedReality.Toolkit.Input
         /// Returns the best case estimate for the hit location for fuzzy gaze.
         /// </summary>
         public GazeRaycastHitResult PreciseHitResult => preciseHitResult;
-
-        /// <summary>
-        /// Returns the GameObject that this interactor belongs to. This GameObject is governed by the
-        /// interaction mode manager and is assigned an interaction mode. This GameObject represents the group that this interactor belongs to.
-        /// </summary>
-        /// <remarks>
-        /// This will default to the GameObject that this attached to a parent <see cref="TrackedPoseDriver"/>.
-        /// </remarks>
-        public GameObject ModeManagedRoot
-        {
-            get => modeManagedRoot;
-            set => modeManagedRoot = value;
-        }
 
         /// <summary>
         /// A workaround function for getting where the sphere-cast hit on the target.
@@ -531,23 +514,5 @@ namespace MixedReality.Toolkit.Input
 #endif
 
         #endregion MonoBehaviour
-
-        #region IModeManagedInteractor
-        /// <inheritdoc/>
-        [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
-        public GameObject GetModeManagedController()
-        {
-            // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
-            // interaction mode manager is used instead.
-#pragma warning disable CS0618 // forceDeprecatedInput is obsolete
-            if (forceDeprecatedInput)
-            {
-                return null;
-            }
-#pragma warning restore CS0618 // forceDeprecatedInput is obsolete
-
-            return ModeManagedRoot;
-        }
-        #endregion IModeManagedInteractor
     }
 }
