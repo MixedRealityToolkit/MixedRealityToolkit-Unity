@@ -247,6 +247,9 @@ namespace MixedReality.Toolkit.Input
 
             GameObject interactorGroupObject = FindInteractorGroupObject(interactor);
 
+            Assert.IsNotNull(interactorGroupObject, $"Interactor {interactor.name} ({interactor.GetType().Name}) is not managed by any interactor group. " + Environment.NewLine +
+                    $"Please ensure that the interactor implements IModeManagedInteractor, has a ModeManagedRoot field, and that ModeManagedRoot is set to the parent GameObject.");
+
             if (!interactorGroupMappings.ContainsKey(interactorGroupObject))
             {
                 interactorGroupMappings.Add(interactorGroupObject, new ManagedInteractorStatus());
@@ -569,9 +572,6 @@ namespace MixedReality.Toolkit.Input
             else if (interactor is IModeManagedInteractor modeManagedInteractor)
             {
                 interactorGroupObject = modeManagedInteractor.ModeManagedRoot;
-
-                Assert.IsNotNull(interactorGroupObject, $"Interactor {interactor.name} ({interactor.GetType().Name}) is not managed by any interactor group. " + Environment.NewLine +
-                        $"Please ensure that the interactor implements IModeManagedInteractor, has a ModeManagedRoot field, and that ModeManagedRoot is set to the parent GameObject.");
 
                 // For backwards compatibility, we will continue to support the obsolete "GetModeManagedController()" function.
                 if (interactorGroupObject == null)
