@@ -578,7 +578,7 @@ namespace MixedReality.Toolkit.Input
                 {
 #pragma warning disable CS0618 // GetModeManagedController is obsolete
                     interactorGroupObject = modeManagedInteractor.GetModeManagedController();
-#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning restore CS0618 // GetModeManagedController is obsolete
                 }
             }
 
