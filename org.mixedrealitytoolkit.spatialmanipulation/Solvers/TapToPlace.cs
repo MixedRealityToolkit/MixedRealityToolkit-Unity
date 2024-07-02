@@ -619,6 +619,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
                             }
                         }
 #pragma warning restore CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
+                        else //if controllerInteractor.xrController is null then it is an interactor from a controllerless controller
+                        {
+                            controllerInteractor.selectInput.inputActionReferenceValue.action.performed -= StopPlacementViaPerformedAction;
+                        }
                     }
                     else if (interactor is IXRSelectInteractor selectInteractor)
                     {
