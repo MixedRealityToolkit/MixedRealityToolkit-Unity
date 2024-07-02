@@ -92,15 +92,15 @@ namespace MixedReality.Toolkit.Input
             {
                 bool result = base.isHoverActive;
 
-#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // xrController is obsolete
                 if (forceDeprecatedInput)
                 {
                     result &= (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || interactionPointTracked);
                 }
-#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning restore CS0618 // xrController is obsolete
                 else if (trackedPoseDriver != null)
                 {
-                    bool tracked = (trackedPoseDriver.GetInputTrackingState().HasPositionAndRotation() || interactionPointTracked);
+                    result &= (trackedPoseDriver.GetInputTrackingState().HasPositionAndRotation() || interactionPointTracked);
                 }
                 else
                 {

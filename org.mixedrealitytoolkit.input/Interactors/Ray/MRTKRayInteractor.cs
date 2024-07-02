@@ -43,7 +43,7 @@ namespace MixedReality.Toolkit.Input
         protected internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         [SerializeField]
-        [Tooltip("The root management GameObject that interactor belongs to. T")]
+        [Tooltip("The root management GameObject that interactor belongs to.")]
         private GameObject modeManagedRoot = null;
 
         /// <summary>

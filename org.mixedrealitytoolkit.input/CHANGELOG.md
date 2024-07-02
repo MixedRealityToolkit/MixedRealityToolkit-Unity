@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Controllerless version of MRTK RightHand Controller prefab.
 * Controllerless version of MRTK Gaze Controller prefab.
 * Controllerless version of MRTK Interaction Manager prefab.
+* Added ModeManagerdRoot field to interactors to hold a reference to parent GameObject.
 
 ### Changed
 
