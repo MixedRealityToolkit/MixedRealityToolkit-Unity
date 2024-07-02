@@ -466,7 +466,7 @@ namespace MixedReality.Toolkit.Input.Tests
             HandModel leftHandHandModel = leftHandHandModels[0];
             Assert.AreEqual(XRNode.LeftHand, leftHandHandModel.HandNode);
             Assert.IsTrue(leftHandHandModel.Model.name.Equals(OpenXRLeftHandCloneName));
-            Assert.IsNull(leftHandHandModel.ModelParent);
+            Assert.AreEqual(leftHandHandModel.ModelParent.transform.parent, leftHandGameObject.transform);
             Assert.IsTrue(leftHandHandModel.ModelPrefab.name.Equals(OpenXRLeftHandName));
 
             var rigtHandHandModels = rightHandGameObject.GetComponents<HandModel>();
@@ -474,7 +474,7 @@ namespace MixedReality.Toolkit.Input.Tests
             HandModel rightHandHandModel = rigtHandHandModels[0];
             Assert.AreEqual(XRNode.RightHand, rightHandHandModel.HandNode);
             Assert.IsTrue(rightHandHandModel.Model.name.Equals(OpenXRRightHandCloneName));
-            Assert.IsNull(rightHandHandModel.ModelParent);
+            Assert.AreEqual(rightHandHandModel.ModelParent.transform.parent, rightHandHandModel.transform);
             Assert.IsTrue(rightHandHandModel.ModelPrefab.name.Equals(OpenXRRightHandName));
 
             // Now check the interactors
