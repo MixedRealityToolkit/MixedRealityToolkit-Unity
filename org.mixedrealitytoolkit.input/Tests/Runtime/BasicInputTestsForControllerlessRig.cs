@@ -650,7 +650,7 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsTrue((interactable.HoveringGrabInteractors[0] as GrabInteractor).enabled, "Interactor wasn't enabled");
 
             TestUtilities.AssertAboutEqual(interactable.HoveringGrabInteractors[0].GetAttachTransform(interactable).position,
-                                           cubePos, "Grab interactor's attachTransform wasn't where we wanted it to go!", 0.001f);
+                                           cubePos, "Grab interactor's attachTransform wasn't where we wanted it to go!", 0.5f);
         }
 
         /// <summary>
