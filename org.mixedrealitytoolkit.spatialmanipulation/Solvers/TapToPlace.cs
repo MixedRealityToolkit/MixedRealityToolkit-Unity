@@ -431,7 +431,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             using (SolverUpdatePerfMarker.Auto())
             {
-                // Stop stop placement if a select action is performed this frame
+                // Stop placement if a select action is performed this frame
                 if (InteractorSelectPerformedThisFrame())
                 {
                     StopPlacement();
