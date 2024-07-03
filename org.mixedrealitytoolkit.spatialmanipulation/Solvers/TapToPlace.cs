@@ -538,7 +538,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         /// <summary>
-        /// Get if an interactor's selcect button was performed this frame.
+        /// Get if an interactor's select button was performed this frame.
         /// </summary>
         private bool InteractorSelectPerformedThisFrame()
         {
