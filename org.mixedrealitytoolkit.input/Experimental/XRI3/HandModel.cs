@@ -74,5 +74,22 @@ namespace MixedReality.Toolkit.Input
                 model = Instantiate(ModelPrefab, ModelParent);
             }
         }
+
+        /// <summary>
+        /// See <see cref="MonoBehaviour"/>.
+        /// </summary>
+        protected virtual void Awake()
+        {
+            // Create empty container transform for the model if none specified.
+            // This is not strictly necessary to create since this GameObject could be used
+            // as the parent for the instantiated prefab, but doing so anyway for backwards compatibility.
+            if (modelParent == null)
+            {
+                modelParent = new GameObject($"[{gameObject.name}] Model Parent").transform;
+                modelParent.SetParent(transform, false);
+                modelParent.localPosition = Vector3.zero;
+                modelParent.localRotation = Quaternion.identity;
+            }
+        }
     }
 }
