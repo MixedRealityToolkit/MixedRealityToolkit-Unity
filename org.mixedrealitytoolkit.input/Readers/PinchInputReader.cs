@@ -104,6 +104,7 @@ namespace MixedReality.Toolkit.Input
                     SetInputActionProperty(ref trackingStateInput, value);
                     BindTrackingState();
                     ForceTrackingStateUpdate();
+                    UpdateActionValidCaches();
                 }
             }
         }
@@ -115,7 +116,9 @@ namespace MixedReality.Toolkit.Input
         private FallbackState m_fallbackState;
         private InputTrackingState m_trackingState;
         private bool m_firstUpdate = true;
-        private bool m_trackingActionBound = false;
+        private InputAction m_boundTrackingAction = null;
+        private bool m_isSelectionActionValidCache = false;
+        private bool m_isSelectionActionValueValidCache = false; 
 
         private static readonly ProfilerMarker UpdatePinchSelectionPerfMarker =
             new ProfilerMarker("[MRTK] PinchInputReader.UpdatePinchSelection");
@@ -163,13 +166,14 @@ namespace MixedReality.Toolkit.Input
             if (m_firstUpdate)
             {
                 ForceTrackingStateUpdate();
-                m_firstUpdate = false;
+                UpdateActionValidCaches();
+                m_firstUpdate = false;                
             }
 
             // Workaround for missing select actions on devices without interaction profiles
             // for hands, such as Varjo and Quest. Should be removed once we have universal
             // hand interaction profile(s) across vendors.
-            if (!IsSelectionActionValid() || !IsSelectionActionValueValid())
+            if (!m_isSelectionActionValidCache || !m_isSelectionActionValueValidCache || IsTrackingNone())
             {
                 UpdatePinchSelection();
             }
@@ -182,7 +186,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool ReadIsPerformed()
         {
-            if (IsSelectionActionValid())
+            if (m_isSelectionActionValidCache)
             {
                 var action = selectAction.action;
                 var phase = action.phase;
@@ -197,7 +201,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool ReadWasPerformedThisFrame()
         {
-            if (IsSelectionActionValid())
+            if (m_isSelectionActionValidCache)
             {
                 return selectAction.action.WasPerformedThisFrame();
             }
@@ -210,7 +214,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool ReadWasCompletedThisFrame()
         {
-            if (IsSelectionActionValid())
+            if (m_isSelectionActionValidCache)
             {
                 return selectAction.action.WasCompletedThisFrame();
             }
@@ -223,7 +227,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public float ReadValue()
         {
-            if (IsSelectionActionValueValid())
+            if (m_isSelectionActionValueValidCache)
             {
                 return selectActionValue.action.ReadValue<float>();
             }
@@ -236,7 +240,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool TryReadValue(out float value)
         {
-            if (IsSelectionActionValueValid())
+            if (m_isSelectionActionValueValidCache)
             {
                 var action = selectActionValue.action;
                 value = action.ReadValue<float>();
@@ -299,6 +303,15 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
+        /// Update the cached "is valid" states of the selection action and selection action value.
+        /// </summary>
+        private void UpdateActionValidCaches()
+        {
+            m_isSelectionActionValidCache = IsSelectionActionValid();
+            m_isSelectionActionValueValidCache = IsSelectionActionValueValid();
+        }
+
+        /// <summary>
         /// Get if the selection action is attached to a control and the hand is being tracked. If not, the selection state is
         /// considered "polyfilled" and the HandsAggregator subsystem should be used to determine selection state.
         /// </summary>
@@ -322,7 +335,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private bool IsActionValid(InputAction action)
         {
-            return action != null && action.HasAnyControls() && !IsTrackingNone();
+            return action != null && action.HasAnyControls();
         }
 
         /// <summary>
@@ -359,7 +372,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void BindTrackingState()
         {
-            if (m_trackingActionBound)
+            if (m_boundTrackingAction != null)
             {
                 return;
             }
@@ -370,9 +383,9 @@ namespace MixedReality.Toolkit.Input
                 return;
             }
 
-            action.performed += OnTrackingStateInputPerformed;
-            action.canceled += OnTrackingStateInputCanceled;
-            m_trackingActionBound = true;
+            m_boundTrackingAction = action;
+            m_boundTrackingAction.performed += OnTrackingStateInputPerformed;
+            m_boundTrackingAction.canceled += OnTrackingStateInputCanceled;
         }
 
         /// <summary>
@@ -386,17 +399,13 @@ namespace MixedReality.Toolkit.Input
             {
                 // Treat an Input Action Reference with no reference as the hand being tracked
                 m_trackingState = InputTrackingState.Position | InputTrackingState.Rotation;
-                return;
             }
-
-            if (!trackingStateAction.enabled)
+            else if (!trackingStateAction.enabled)
             {
                 // Treat a disabled action as the default None value for the ReadValue call
                 m_trackingState = InputTrackingState.None;
-                return;
             }
-
-            if (trackingStateAction.HasAnyControls())
+            else if (trackingStateAction.HasAnyControls())
             {
                 m_trackingState = (InputTrackingState)trackingStateAction.ReadValue<int>();
             }
@@ -411,30 +420,26 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void UnbindTrackingState()
         {
-            if (!m_trackingActionBound)
+            if (m_boundTrackingAction == null)
             {
                 return;
             }
 
-            var action = trackingStateInput.action;
-            if (action == null)
-            {
-                return;
-            }
-
-            action.performed -= OnTrackingStateInputPerformed;
-            action.canceled -= OnTrackingStateInputCanceled;
-            m_trackingActionBound = false;
+            m_boundTrackingAction.performed -= OnTrackingStateInputPerformed;
+            m_boundTrackingAction.canceled -= OnTrackingStateInputCanceled;
+            m_boundTrackingAction = null;
         }
 
         private void OnTrackingStateInputPerformed(InputAction.CallbackContext context)
         {
             m_trackingState = (InputTrackingState)context.ReadValue<int>();
+            UpdateActionValidCaches();
         }
 
         private void OnTrackingStateInputCanceled(InputAction.CallbackContext context)
         {
             m_trackingState = InputTrackingState.None;
+            UpdateActionValidCaches();
         }
         #endregion Private Functions
     }
