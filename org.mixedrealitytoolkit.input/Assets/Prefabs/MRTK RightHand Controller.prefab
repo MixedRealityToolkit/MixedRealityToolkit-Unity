@@ -299,6 +299,22 @@ PrefabInstance:
       propertyPath: modelPrefab
       value: 
       objectReference: {fileID: 3973969148631863464, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
+    - target: {fileID: 5536072158143193164, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: handNode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5536072158143193164, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: selectAction.m_Reference
+      value: 
+      objectReference: {fileID: 187161793506945269, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 5536072158143193164, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: selectActionValue.m_Reference
+      value: 
+      objectReference: {fileID: 2995356199736570127, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 5536072158143193164, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: trackingStateInput.m_Reference
+      value: 
+      objectReference: {fileID: 3239510804178183174, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 6164080946324827545, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
       propertyPath: handNode
       value: 5
@@ -315,6 +331,22 @@ PrefabInstance:
       propertyPath: settings.handedness
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8876097134604027714, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: handNode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876097134604027714, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: selectAction.m_Reference
+      value: 
+      objectReference: {fileID: 3279264004350380116, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 8876097134604027714, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: selectActionValue.m_Reference
+      value: 
+      objectReference: {fileID: 3279264004350380116, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 8876097134604027714, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: trackingStateInput.m_Reference
+      value: 
+      objectReference: {fileID: 3239510804178183174, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 9028998875765828509, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
       propertyPath: m_PositionInput.m_Reference
       value: 

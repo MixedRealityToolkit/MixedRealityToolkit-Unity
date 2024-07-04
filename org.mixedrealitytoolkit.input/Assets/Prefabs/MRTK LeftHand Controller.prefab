@@ -74,7 +74,7 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_SelectInput:
-    m_InputSourceMode: 2
+    m_InputSourceMode: 3
     m_InputActionPerformed:
       m_Name: Select
       m_Type: 1
@@ -95,7 +95,7 @@ MonoBehaviour:
       m_Flags: 0
     m_InputActionReferencePerformed: {fileID: -6131295136447488360, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     m_InputActionReferenceValue: {fileID: -294446728694031702, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
-    m_ObjectReferenceObject: {fileID: 0}
+    m_ObjectReferenceObject: {fileID: 5536072158143193164}
     m_ManualPerformed: 0
     m_ManualValue: 0
     m_ManualQueuePerformed: 0
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_OccludeARHitsWith2DObjects: 0
   m_ScaleMode: 0
   m_UIPressInput:
-    m_InputSourceMode: 2
+    m_InputSourceMode: 3
     m_InputActionPerformed:
       m_Name: UI Press
       m_Type: 1
@@ -237,7 +237,7 @@ MonoBehaviour:
       m_Flags: 0
     m_InputActionReferencePerformed: {fileID: -6395602842196007441, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     m_InputActionReferenceValue: {fileID: -6395602842196007441, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
-    m_ObjectReferenceObject: {fileID: 0}
+    m_ObjectReferenceObject: {fileID: 8876097134604027714}
     m_ManualPerformed: 0
     m_ManualValue: 0
     m_ManualQueuePerformed: 0
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_SelectInput:
-    m_InputSourceMode: 2
+    m_InputSourceMode: 3
     m_InputActionPerformed:
       m_Name: Select
       m_Type: 1
@@ -779,7 +779,7 @@ MonoBehaviour:
       m_Flags: 0
     m_InputActionReferencePerformed: {fileID: -6131295136447488360, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     m_InputActionReferenceValue: {fileID: -294446728694031702, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
-    m_ObjectReferenceObject: {fileID: 0}
+    m_ObjectReferenceObject: {fileID: 5536072158143193164}
     m_ManualPerformed: 0
     m_ManualValue: 0
     m_ManualQueuePerformed: 0
@@ -990,6 +990,7 @@ Transform:
   - {fileID: 4332395624789801014}
   - {fileID: 4443155524692848376}
   - {fileID: 9148848192675160673}
+  - {fileID: 2497193556380645624}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1150,7 +1151,7 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_SelectInput:
-    m_InputSourceMode: 2
+    m_InputSourceMode: 3
     m_InputActionPerformed:
       m_Name: Select
       m_Type: 1
@@ -1171,7 +1172,7 @@ MonoBehaviour:
       m_Flags: 0
     m_InputActionReferencePerformed: {fileID: -6131295136447488360, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     m_InputActionReferenceValue: {fileID: -294446728694031702, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
-    m_ObjectReferenceObject: {fileID: 0}
+    m_ObjectReferenceObject: {fileID: 5536072158143193164}
     m_ManualPerformed: 0
     m_ManualValue: 0
     m_ManualQueuePerformed: 0
@@ -1320,6 +1321,87 @@ MonoBehaviour:
   baseReticle: {fileID: 8086910922498750391}
   pokeInteractor: {fileID: 1948193616346090107}
   proximityLight: {fileID: 3552666654439622812}
+--- !u!1 &2077625120998166826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6709287148685916850}
+  - component: {fileID: 8876097134604027714}
+  m_Layer: 0
+  m_Name: UISelectInputReader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6709287148685916850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077625120998166826}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2497193556380645624}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8876097134604027714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077625120998166826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63844496262f1724ba77344d77fbf000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handNode: 4
+  selectAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Select
+      m_Type: 1
+      m_ExpectedControlType: 
+      m_Id: 274dbdee-86c5-4e13-9545-aad0747660ea
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -6395602842196007441, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  selectActionValue:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Select Value
+      m_Type: 0
+      m_ExpectedControlType: Axis
+      m_Id: 4187c111-e55d-45b5-ae00-ff97983a2cb5
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -6395602842196007441, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  trackingStateInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Tracking State Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b3d35a08-7602-4652-99ab-54ccb6e66f86
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -7613329581162844239, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
 --- !u!1 &4299642553989019656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,7 +1571,7 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_SelectInput:
-    m_InputSourceMode: 2
+    m_InputSourceMode: 3
     m_InputActionPerformed:
       m_Name: Select
       m_Type: 1
@@ -1510,7 +1592,7 @@ MonoBehaviour:
       m_Flags: 0
     m_InputActionReferencePerformed: {fileID: -6131295136447488360, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     m_InputActionReferenceValue: {fileID: -294446728694031702, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
-    m_ObjectReferenceObject: {fileID: 0}
+    m_ObjectReferenceObject: {fileID: 5536072158143193164}
     m_ManualPerformed: 0
     m_ManualValue: 0
     m_ManualQueuePerformed: 0
@@ -1728,6 +1810,87 @@ MonoBehaviour:
     priority: 4
   interactorGroups:
   - {fileID: 1948193615953854874}
+--- !u!1 &5292933843203249875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1980541278490804707}
+  - component: {fileID: 5536072158143193164}
+  m_Layer: 0
+  m_Name: SelectInputReader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1980541278490804707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292933843203249875}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2497193556380645624}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5536072158143193164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292933843203249875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63844496262f1724ba77344d77fbf000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handNode: 4
+  selectAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Select
+      m_Type: 1
+      m_ExpectedControlType: 
+      m_Id: 274dbdee-86c5-4e13-9545-aad0747660ea
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -6131295136447488360, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  selectActionValue:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Select Value
+      m_Type: 0
+      m_ExpectedControlType: Axis
+      m_Id: 4187c111-e55d-45b5-ae00-ff97983a2cb5
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -294446728694031702, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  trackingStateInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Tracking State Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b3d35a08-7602-4652-99ab-54ccb6e66f86
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -7613329581162844239, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
 --- !u!1 &6406844254730761679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1773,6 +1936,39 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7842264648853585747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2497193556380645624}
+  m_Layer: 0
+  m_Name: InputReaders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2497193556380645624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842264648853585747}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1980541278490804707}
+  - {fileID: 6709287148685916850}
+  m_Father: {fileID: 1948193615953854875}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8822000602352085715
 GameObject:
   m_ObjectHideFlags: 0
