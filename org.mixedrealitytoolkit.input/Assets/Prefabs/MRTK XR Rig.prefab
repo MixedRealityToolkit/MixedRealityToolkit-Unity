@@ -695,22 +695,22 @@ PrefabInstance:
       objectReference: {fileID: 529201713281613631}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e5b90c191b94004182e55a48f0ca427, type: 3}
---- !u!114 &3915442999186804333 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6947698589674946202, guid: 2e5b90c191b94004182e55a48f0ca427, type: 3}
-  m_PrefabInstance: {fileID: 6214226033703350519}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2fadf230d1919748a9aa21d40f74619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5769779419222680683 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 445577537456690332, guid: 2e5b90c191b94004182e55a48f0ca427, type: 3}
   m_PrefabInstance: {fileID: 6214226033703350519}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7390493297764135087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3507481504517029976, guid: 2e5b90c191b94004182e55a48f0ca427, type: 3}
+  m_PrefabInstance: {fileID: 6214226033703350519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af98ad782bb7df43838b825cd681336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7089027141941546269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -725,11 +725,11 @@ PrefabInstance:
     - target: {fileID: 919676360596656614, guid: 02502921f64c38d48b14f1d6c2438b16, type: 3}
       propertyPath: leftHandTrackedPoseDriver
       value: 
-      objectReference: {fileID: 251758394784793142}
+      objectReference: {fileID: 6032659918864907508}
     - target: {fileID: 919676360596656614, guid: 02502921f64c38d48b14f1d6c2438b16, type: 3}
       propertyPath: rightHandTrackedPoseDriver
       value: 
-      objectReference: {fileID: 3915442999186804333}
+      objectReference: {fileID: 7390493297764135087}
     - target: {fileID: 7821592117992173381, guid: 02502921f64c38d48b14f1d6c2438b16, type: 3}
       propertyPath: m_Name
       value: MRTK Interaction Manager
@@ -861,15 +861,15 @@ PrefabInstance:
       objectReference: {fileID: 529201713281613631}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
---- !u!114 &251758394784793142 stripped
+--- !u!114 &6032659918864907508 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9028998875765828509, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3281803018082669919, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
   m_PrefabInstance: {fileID: 9093645396457204139}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2fadf230d1919748a9aa21d40f74619, type: 3}
+  m_Script: {fileID: 11500000, guid: 5af98ad782bb7df43838b825cd681336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &7294214612838230064 stripped

@@ -359,7 +359,7 @@ MonoBehaviour:
     m_InputActionReference: {fileID: 0}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: 0
-  trackedPoseDriver: {fileID: 9028998875765828509}
+  trackedPoseDriver: {fileID: 3281803018082669919}
   modeManagedRoot: {fileID: 1948193615953854874}
   aimPoseSource:
     rid: 0
@@ -859,7 +859,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_PhysicsTriggerInteraction: 1
-  trackedPoseDriver: {fileID: 0}
+  trackedPoseDriver: {fileID: 3281803018082669919}
   modeManagedRoot: {fileID: 1948193615953854874}
   pinchPoseSource:
     rid: 0
@@ -964,7 +964,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1948193615953854875}
-  - component: {fileID: 9028998875765828509}
+  - component: {fileID: 3281803018082669919}
   - component: {fileID: 3853158803892222464}
   m_Layer: 0
   m_Name: MRTK LeftHand Controller
@@ -993,7 +993,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9028998875765828509
+--- !u!114 &3281803018082669919
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1948193615953854874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2fadf230d1919748a9aa21d40f74619, type: 3}
+  m_Script: {fileID: 11500000, guid: 5af98ad782bb7df43838b825cd681336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackingType: 0
@@ -1014,7 +1014,7 @@ MonoBehaviour:
       m_Name: Position
       m_Type: 0
       m_ExpectedControlType: Vector3
-      m_Id: cd2c4895-1dfe-4883-81d9-ff1d4b81f2e0
+      m_Id: 2ffafb7a-83b5-458e-9344-31822edabb07
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -1026,7 +1026,7 @@ MonoBehaviour:
       m_Name: Rotation
       m_Type: 0
       m_ExpectedControlType: Quaternion
-      m_Id: ca3498d7-fb68-4776-bfd9-71d4b6e67283
+      m_Id: 6a54d6b2-6c9e-4212-8c6f-a3aa7064a85a
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -1038,7 +1038,7 @@ MonoBehaviour:
       m_Name: Tracking State
       m_Type: 0
       m_ExpectedControlType: Integer
-      m_Id: 447fa40b-89bf-4f96-85f3-d5b06c92b640
+      m_Id: f1180364-649d-4893-87ef-4ccbb1fcd39b
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -1048,7 +1048,7 @@ MonoBehaviour:
     m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 481154e0-2a0c-428a-b123-5af141803b03
+    m_Id: c28ff882-6402-4713-8461-e09fa2f081a5
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -1057,11 +1057,12 @@ MonoBehaviour:
     m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 598d8cfb-763d-4057-a59c-8ef67ef9fc98
+    m_Id: 896a2bca-bf2d-414e-95a7-b6a5d7b758c7
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  handNode: 4
 --- !u!114 &3853158803892222464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1245,7 +1246,7 @@ MonoBehaviour:
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
   m_AllowHoverHapticsWhileSelecting: 1
-  trackedPoseDriver: {fileID: 9028998875765828509}
+  trackedPoseDriver: {fileID: 3281803018082669919}
   modeManagedRoot: {fileID: 1948193615953854874}
   pokePoseSource:
     rid: 0
@@ -1584,7 +1585,7 @@ MonoBehaviour:
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
   m_AllowHoverHapticsWhileSelecting: 1
-  trackedPoseDriver: {fileID: 9028998875765828509}
+  trackedPoseDriver: {fileID: 3281803018082669919}
   modeManagedRoot: {fileID: 1948193615953854874}
   handController: {fileID: 0}
   devicePoseSource:
