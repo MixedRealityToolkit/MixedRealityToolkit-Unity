@@ -74,7 +74,7 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_SelectInput:
-    m_InputSourceMode: 3
+    m_InputSourceMode: 2
     m_InputActionPerformed:
       m_Name: Select
       m_Type: 1
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_SelectInput:
-    m_InputSourceMode: 3
+    m_InputSourceMode: 2
     m_InputActionPerformed:
       m_Name: Select
       m_Type: 1
@@ -947,12 +947,12 @@ MonoBehaviour:
   interactor: {fileID: 2572330550550829917}
   detectHover: 0
   modeOnHover:
-    name: 
-    priority: 0
+    name: FarRayHover
+    priority: 1
   detectSelect: 1
   modeOnSelect:
-    name: GrabSelect
-    priority: 5
+    name: FarRaySelect
+    priority: 3
   interactorGroups:
   - {fileID: 1948193615953854874}
 --- !u!1 &1948193615953854874
@@ -1151,7 +1151,7 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_SelectInput:
-    m_InputSourceMode: 3
+    m_InputSourceMode: 2
     m_InputActionPerformed:
       m_Name: Select
       m_Type: 1
@@ -1685,7 +1685,7 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_SelectInput:
-    m_InputSourceMode: 3
+    m_InputSourceMode: 2
     m_InputActionPerformed:
       m_Name: Select
       m_Type: 1
