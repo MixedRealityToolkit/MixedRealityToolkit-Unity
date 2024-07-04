@@ -57,8 +57,7 @@ namespace MixedReality.Toolkit.Input
 
         #region TrackedPoseDriver Overrides 
         /// <inheritdoc />
-        //protected override void PerformUpdate()
-        private void REMOVEPerformUpdate()
+        protected override void PerformUpdate()
         {
             base.PerformUpdate();
 
