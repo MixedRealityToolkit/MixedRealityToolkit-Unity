@@ -2,7 +2,7 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [4.0.0-development.pre.1] - 2024-06-18
+## [4.0.0-development.pre.1] - 2024-07-09
 
 ### Added
 
@@ -30,11 +30,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Updated PokeInteractor logic to handle both deprecated XRController and new controllerless actions.
 * Updated MRTKRayInteractor logic to handle both deprecated XRController and new controllerless actions.
 * Updated FlatScreenModeDetector logic to handle both deprecated XRController and new controllerless actions.
+* Updated ObjectManipulator so to not rely on obsolete XRI controllers.
+* Moved the Gaze Interactor TrackedPoseDriver to parent GameObject so that all controller prefabs have the same structure.
 * Renamed MRTK XR Rig prefab as Obsolete MRTK XR Rig.
 * Renamed MRTK LeftHand Controller prefab as Obsolete MRTK LeftHand Controller.
 * Renamed MRTK RightHand Controller prefab as Obsolete MRTK RightHand Controller.
 * Renamed MRTK Gaze Controller prefab as Obsolete MRTK Gaze Controller.
 * Renamed MRTK Interaction Manager prefab as Obsolete MRTK Interaction Manager.
+* Added ITrackedInteractor interface to GazePinchInteractor class.
+* Added ITrackedInteractor interface to HandJointInteractor class.
+* Added ITrackedInteractor interface to PokeInteractor class.
+* Added ITrackedInteractor interface to MRTKRayInteractor class.
+* Updated new controllerless rig to use HandPoseDrive and PinchInputReader to support devices without a Hand Interaction profile.
 
 ### Fixed
 
