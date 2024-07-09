@@ -2,7 +2,11 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [4.0.0-development.pre.1] - 2024-06-18
+## [4.0.0-development.pre.1] - 2024-07-09
+
+### Added
+
+* Added ITrackedInteractor to represent interactor with parent pose backed by a tracked input device.
 
 ### Changed
 
