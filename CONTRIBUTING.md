@@ -2,14 +2,11 @@
 
 This project welcomes contributions, suggestions, and feedback. All contributions, suggestions, and feedback you submitted are accepted under the [Project's license](./LICENSE.md). You represent that if you do not own copyright in the code that you have the authority to submit it under the [Project's license](./LICENSE.md). All feedback, suggestions, or contributions are not confidential.
 
-## Tenets
-
-This project follows a set of tenats to help ensure a healthy code base and community. Please review the [Project tenets](./contributions/project-tenets.md) when contributing.
-
 ## Contributors
 
 Contributors must abide by the Mixed Reality Toolkit Organization's [code of conduct](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CODE-OF-CONDUCT.md), [trademark policy](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/TRADEMARKS.md), and observe the following procedures:
 
+* [Project Tenets](contributions/project-tenets.md)
 * [Code Contributions](contributions/code-contributions.md)
 * [Opening and Assessing Issues](contributions/opening-and-assessing-issues.md)
 * [Approving Pull Requests](contributions/merging-pull-requests.md)
