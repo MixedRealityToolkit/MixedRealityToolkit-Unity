@@ -133,6 +133,8 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         public static GameObject InstantiateRig(RigVersion version)
         {
+            Debug.Assert(rigReference == null, "RigReference should be null before creating a new rig.");
+
             Object rigPrefab = AssetDatabase.LoadAssetAtPath(version == RigVersion.Version1 ? MRTKRigPrefabPath : MRTKControllerlessRigPrefabPath, typeof(Object));
             rigReference = Object.Instantiate(rigPrefab) as GameObject;
 
@@ -209,7 +211,8 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             if (Application.isPlaying)
             {
-                UnityEngine.Object.Destroy(rigReference);
+                Object.Destroy(rigReference);
+                rigReference = null;
             }
         }
 
