@@ -16,6 +16,8 @@ The following are the guiding principles by which the MRTK3 project abides. This
 
 Every contributor is expected to limit the size of their pull requests to something that can be considered reasonable to review. Excessively large changes are difficult to review and often hide bugs and less than ideal architectures.
 
+For more change management details, please review the [merging pull requests](merging-pull-requests.md) document.
+
 ## Support all application stages
 
 MRTK3 is designed to be used by developers of new and existing Unity projects. Features should not be added that limit the abilities of developers to create their applications, regardless of the current stage of development.
@@ -37,6 +39,8 @@ Examples of decisions in which the community feedback has been solicited include
 ## Avoid backchannel code reviews
 
 Code review feedback benefits everybody. All feedback should be documented in the pull request so that everyone can learn from the discussions and understand the criteria by which the change was approved. In person conversations are not discouraged, provided that the feedback is documented in the appropriate pull request.
+
+Please review the process for [merging pull requests](merging-pull-requests.md).
 
 ## Community contributions are the responsibility of the project
 
