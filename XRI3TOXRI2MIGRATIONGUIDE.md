@@ -22,7 +22,7 @@ The new, XRI3, MRTK rig + controllers have a slightly different structure which 
 
 <img width="583" alt="xri3Structure" src="https://github.com/ms-RistoRK/MixedRealityToolkit-Unity/assets/84108471/6598fc5e-1a3c-4600-8e52-70115f514f18">
 
-In essence, the main difference is that the [XRController](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/api/UnityEngine.InputSystem.XR.XRController.html) component has been removed and replaced with a Tracked Pose Driver component which stores references to the Position, Rotation, and Tracking State actions (these can be and are the same as in the old structure).  The other input actions (e.g. Select, Activate, UIPress, etc) are moved from the Controller to the Interactor.  They are stored in fields already defined in the [Unity's XR Interaction Toolkit 3+](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html) package.
+In essence, the main difference is that the [XRController](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/api/UnityEngine.InputSystem.XR.XRController.html) component has been removed and replaced with a [Tracked Pose Driver](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/api/UnityEngine.InputSystem.XR.TrackedPoseDriver.html) component which stores references to the Position, Rotation, and Tracking State actions (these can be and are the same as in the old structure).  The other input actions (e.g. Select, Activate, UIPress, etc) are moved from the Controller to the Interactor.  They are stored in fields already defined in the [Unity's XR Interaction Toolkit 3+](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html) package.
 
 The XRI3 migration consisted of a set of steps to remove deprecated components and reference the existing Input Actions in their new homes.  We recommend that the first step is to move the Position, Rotation and Tracking State actions to their new home according to the new [Unity's XR Interaction Toolkit 3+](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html).
 
@@ -48,7 +48,7 @@ The Input Compatibility Mode can be found via Inspector under the *(Deprecated) 
 
 ## Step 3 - Move the remaining [XRController](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/api/UnityEngine.InputSystem.XR.XRController.html) input actions to their respective Interactors
 
-Once you have moved the device tracking input actions to the Tracked Pose Driver component and implemented your own Model functionality then you can move the remaining input actions from the original [XRController](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/api/UnityEngine.InputSystem.XR.XRController.html) to the Interactors themselves.  The following image highlights the new controller prefab interactors fields that we needed to update for the XRI3 migration.
+Once you have moved the device tracking input actions to the [Tracked Pose Driver](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/api/UnityEngine.InputSystem.XR.TrackedPoseDriver.html) component and implemented your own Model functionality then you can move the remaining input actions from the original [XRController](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/api/UnityEngine.InputSystem.XR.XRController.html) to the Interactors themselves.  The following image highlights the new controller prefab interactors fields that we needed to update for the XRI3 migration.
 
 <img width="1024" alt="InteractorsInputActions" src="https://github.com/ms-RistoRK/MixedRealityToolkit-Unity/assets/84108471/e6bae726-99b4-4683-8333-f08d90c583d3">
 
@@ -62,11 +62,11 @@ We added this child + script as a workaround for devices without interaction pro
 
 ### TrackedPoseDriver and ModeManagedRoot references
 
-In addition to the InputReaders child you may have also noticed that MRTK interactors now have two new fields: Tracked Pose Driver and Mode Managed Root, as shown next:
+In addition to the InputReaders child you may have also noticed that MRTK interactors now have two new fields: [Tracked Pose Driver](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/api/UnityEngine.InputSystem.XR.TrackedPoseDriver.html) and Mode Managed Root, as shown next:
 
 <img width="368" alt="TPDAndMMR" src="https://github.com/ms-RistoRK/MixedRealityToolkit-Unity/assets/84108471/b1f4e4a6-daff-48d9-9eeb-68e4546070a3">
 
-These are just convenient fields to hold references to the parent controller Tracked Pose Driver component and GameObject.  These are not mandatory for a successful XRI3 migration but they facilitate coding as well as writing Unity-tests.
+These are just convenient fields to hold references to the parent controller [Tracked Pose Driver](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/api/UnityEngine.InputSystem.XR.TrackedPoseDriver.html) component and GameObject.  These are not mandatory for a successful XRI3 migration but they facilitate coding as well as writing Unity-tests.
 
 ## Step 4 - Update scripts
 
