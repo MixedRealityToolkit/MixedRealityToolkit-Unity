@@ -336,9 +336,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 return;
             }
 
-            // Get the time of this click action
-            lastTimeClicked = Time.time;
-
             using (StartPlacementPerfMarker.Auto())
             {
                 // Check to see if Start() has been called, if not set placementRequested to true. This will make sure StartPlacement() will be
@@ -352,6 +349,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 // Added for code configurability to avoid multiple calls to StartPlacement in a row
                 if (!IsBeingPlaced)
                 {
+                    // Get the time of this click action
+                    lastTimeClicked = Time.time;
+
                     // Store the initial game object layer
                     GameObjectLayer = gameObject.layer;
 
@@ -401,14 +401,15 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 return;
             }
-            // Get the time of this click action
-            lastTimeClicked = Time.time;
 
             using (StopPlacementPerfMarker.Auto())
             {
                 // Added for code configurability to avoid multiple calls to StopPlacementViaPerformedAction in a row
                 if (IsBeingPlaced)
                 {
+                    // Get the time of this click action
+                    lastTimeClicked = Time.time;
+
                     // Change the game object layer back to the game object's layer on start
                     gameObject.layer = GameObjectLayer;
 
