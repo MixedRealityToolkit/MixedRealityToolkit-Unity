@@ -2,7 +2,9 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [4.0.0-development.pre.1] - 2024-07-09
+## Unreleased
+
+## [4.0.0-development.pre.1] - 2024-07-11
 
 ### Added
 
@@ -43,10 +45,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Added ITrackedInteractor interface to MRTKRayInteractor class.
 * Updated new controllerless rig to use HandPoseDrive and PinchInputReader to support devices without a Hand Interaction profile.
 
-### Fixed
-
-* InputSimulator execution order so that it executes before InteractionManager.
-
 ### Deprecated
 
 * ActionBasedControllerWithFallbacks marked as Obsolete.
@@ -70,7 +68,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Removed obsolete HandBasedPoseSource.HandsAggregator field.
 * Removed obsolete ControllerVisualizer.HandsAggregator field.
 
-## [3.2.1] - 2024-4-23
+## [3.2.2] - 2024-06-24
+
+### Fixed
+
+* InputSimulator execution order so that it executes before InteractionManager.
+
+## [3.2.1] - 2024-04-23
 
 ### Fixed
 

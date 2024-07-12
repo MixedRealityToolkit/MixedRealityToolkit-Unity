@@ -2,6 +2,8 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
 ## [4.0.0-development.pre.1] - 2024-07-09
 
 ### Added
@@ -15,6 +17,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 * Updated package com.unity.xr.interaction.toolkit to 3.0.3
+
+## [3.3.0] - 2024-04-30
+
+### Fixed
+
+* Fixed tap to place `StartPlacement()` when called just after instantiation of the component. [PR #785](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/785)
 
 ## [3.3.0] - 2024-04-30
 
