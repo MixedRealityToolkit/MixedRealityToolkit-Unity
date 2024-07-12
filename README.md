@@ -87,7 +87,7 @@ MRTK3 has been upgraded to use [Unity's XR Interaction Toolkit 3+](https://docs.
 * New controller prefabs and a new rig have been created following the new XRI3 pattern.
   * The old controllers and rig have been marked as osbolete and renamed as "Obsolete MRTK XR Rig", "Obsolete MRTK LeftHand Controller", "Obsolete MRTK RightHand Controller", "Obsolete MRTK Hand Controller", "Obsolete MRTK Interaction Manager", and "Obsolete MRTK Gaze Controller".
   * The new controllers and rig retake the original names of the obsolete controllers.
-* New controllers structure have been uniformized so that all of them have the same structure.
+* New controllers structure have been modified so that all of them have the same structure.
 * The deprecated XRI2 XRController component has been removed from the controllers and its input actions have been moved to their interactors.
     * The new controllers now have a Tracked Pose Driver components that holds references to the device's position, rotation, and tracking state input actions.
 * Interactors now have a Tracked Pose Driver field that holds a reference to the Tracked Pose Driver component of the parent controller.

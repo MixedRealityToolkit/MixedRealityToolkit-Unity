@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Thank you for choosing MRTK as your Mixed Reality framework.  MRTK has been upgraded to follow XRI3 patterns and consume [Unity's XR Interaction Toolkit 3+](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html) package.  The upgrade encompass various changes from the previous MRTK version and we want to share our experience during the upgrade so that the community is aware of the changes that had to be implemented.  We also want to provide an overall roadmap for others to do their own upgrades in their forks or propietary solutions and therefore we created this guide.  We created this guide to empower you and your organization to achieve more in Mixed Reality solutions.  
+Thank you for choosing MRTK as your Mixed Reality framework.  MRTK has been upgraded to follow XRI3 patterns and consume [Unity's XR Interaction Toolkit 3+](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html) package.  The upgrade encompasses various changes from the previous MRTK version and we want to share our experience during the upgrade so that the community is aware of the changes that had to be implemented.  We also want to provide an overall roadmap for others to do their own upgrades in their forks or propietary solutions and therefore we created this guide.  We created this guide to empower you and your organization to achieve more in Mixed Reality solutions.
 
 ## Original MRTK rig structure
 
@@ -81,6 +81,6 @@ We encourage you to check the code in each script as well as the commit history 
 
 ## Step 5 - Update Unity-tests
 
-Last but not least, Unity-tests!.  We created several new Unity-tests to ensure the correct functionality of the new XRI3 MRTK rig as well as the old functionality.  We encourage you to visit the code and commit history related to Unity-tests to get a sense of the changes.  Note that the changes focus mostly on where and how the input actions are queried but the overal functionality test remains the same.
+Last but not least, Unity-tests!  We created several new Unity-tests to ensure the correct functionality of the new XRI3 MRTK rig as well as the old functionality.  We encourage you to visit the code and commit history related to Unity-tests to get a sense of the changes.  Note that the changes focus mostly on where and how the input actions are queried but the overall functionality test remains the same.
 
 Thank you for reading this guide, we hope it empowers you to achieve more.  Please feel free to submit an issue if you have comments or questions.
