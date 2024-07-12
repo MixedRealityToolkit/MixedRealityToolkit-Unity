@@ -1080,6 +1080,36 @@ MonoBehaviour:
   modelParent: {fileID: 0}
   model: {fileID: 0}
   handNode: 4
+  selectInput:
+    m_InputSourceMode: 3
+    m_InputActionPerformed:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 867e1f70-c3d1-4990-b976-117e838adc5d
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_InputActionValue:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: f556ae41-4065-4e06-8810-95966a80b522
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_InputActionReferencePerformed: {fileID: 0}
+    m_InputActionReferenceValue: {fileID: 0}
+    m_ObjectReferenceObject: {fileID: 5536072158143193164}
+    m_ManualPerformed: 0
+    m_ManualValue: 0
+    m_ManualQueuePerformed: 0
+    m_ManualQueueWasPerformedThisFrame: 0
+    m_ManualQueueWasCompletedThisFrame: 0
+    m_ManualQueueValue: 0
+    m_ManualQueueTargetFrame: 0
 --- !u!1 &1948193616346090105
 GameObject:
   m_ObjectHideFlags: 0
