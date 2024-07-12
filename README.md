@@ -98,7 +98,7 @@ MRTK3 has been upgraded to use [Unity's XR Interaction Toolkit 3+](https://docs.
 * Updated all scenes to use the new XRI3 rig + controllers.
     * Made a copy of the old HandInteractionExamples scene and renamed as ObsoleteHandInteractionExample, this scene still consumes the old rig + controllers.
 
-A more detailed explanation of the changes can be found in [XRI3TOXRI2MIGRATIONGUIDE.md](./XRI3TOXRI2MIGRATIONGUIDE.md).  The guide can also help others as a path for migrating their own solutions or MRTK3 forks from XRI2 to XRI3.
+A more detailed explanation of the changes can be found in [XRI2TOXRI3MIGRATIONGUIDE.md](./XRI2TOXRI3MIGRATIONGUIDE.md).  The guide can also help others as a path for migrating their own solutions or MRTK3 forks from XRI2 to XRI3.
 
 ## Governance
 
