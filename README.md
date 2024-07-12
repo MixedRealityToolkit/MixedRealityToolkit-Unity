@@ -80,6 +80,26 @@ This project welcomes contributions, suggestions, and feedback. All contribution
 
 For more information on how to contribute Mixed Reality Toolkit for Unity Project, please read [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+## MRTK3 XRI2 to XRI3 migration guide
+
+MRTK3 has been upgraded to use [Unity's XR Interaction Toolkit 3+](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html).  As part of the upgrade several changes were made to properly consume XRI 3 package and adhere to the new patterns.  In a nutshell, the main changes are summarized as follows:
+
+* New controller prefabs and a new rig have been created following the new XRI3 pattern.
+  * The old controllers and rig have been marked as osbolete and renamed as "Obsolete MRTK XR Rig", "Obsolete MRTK LeftHand Controller", "Obsolete MRTK RightHand Controller", "Obsolete MRTK Hand Controller", "Obsolete MRTK Interaction Manager", and "Obsolete MRTK Gaze Controller".
+  * The new controllers and rig retake the original names of the obsolete controllers.
+* New controllers structure have been modified so that all of them have the same structure.
+* The deprecated XRI2 XRController component has been removed from the controllers and its input actions have been moved to their interactors.
+    * The new controllers now have a Tracked Pose Driver components that holds references to the device's position, rotation, and tracking state input actions.
+* Interactors now have a Tracked Pose Driver field that holds a reference to the Tracked Pose Driver component of the parent controller.
+* Interactors now have a Mode Managed Root that holds a reference to the parent controller GameObject.
+* Added new unity-tests for the new XRI3 functionality + components.
+* Updated several unity-tests.
+* Updated several scripts so that they work with both obsolete XRI2 and new XRI3 prefabs.
+* Updated all scenes to use the new XRI3 rig + controllers.
+    * Made a copy of the old HandInteractionExamples scene and renamed as ObsoleteHandInteractionExample, this scene still consumes the old rig + controllers.
+
+A more detailed explanation of the changes can be found in [XRI3TOXRI2MIGRATIONGUIDE.md](./XRI3TOXRI2MIGRATIONGUIDE.md).  The guide can also help others as a path for migrating their own solutions or MRTK3 forks from XRI2 to XRI3.
+
 ## Governance
 
 For information on how the Mixed Reality Toolkit for Unity Project is governed, please read [GOVERNANCE.md](./GOVERNANCE.md).
