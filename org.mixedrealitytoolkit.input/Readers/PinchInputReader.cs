@@ -28,6 +28,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private struct FallbackState
         {
+            public bool hasPinchData;
             public bool isPerformed;
             public bool wasPerformedThisFrame;
             public bool wasCompletedThisFrame;
@@ -249,7 +250,7 @@ namespace MixedReality.Toolkit.Input
             else
             {
                 value = m_fallbackState.value;
-                return m_fallbackState.isPerformed;
+                return m_fallbackState.hasPinchData;
             }
         }
 
@@ -293,6 +294,7 @@ namespace MixedReality.Toolkit.Input
                     m_fallbackState.wasCompletedThisFrame = !isPinched && m_fallbackState.isPerformed;
                     m_fallbackState.isPerformed = isPinched;
                     m_fallbackState.value = pinchAmount;
+                    m_fallbackState.hasPinchData = true;
                 }
                 else
                 {
