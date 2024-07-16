@@ -17,14 +17,18 @@ namespace MixedReality.Toolkit.Input
     {
         #region Properties
 
-        [SerializeField, Tooltip("The prefab of the MRTK Controller to show that will be automatically instantitated by this behaviour.")]
+        [SerializeField, Tooltip("The prefab of the MRTK Controller to show that will be automatically instantiated by this behavior.")]
         private Transform modelPrefab;
 
         /// <summary>
-        /// The prefab of the model to show that will be automatically instantitated by this <see cref="MonoBehaviour"/>.
+        /// The prefab of the model to show that will be automatically instantiated by this <see cref="MonoBehaviour"/>.
         /// </summary>
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
-        public Transform ModelPrefab => modelPrefab;
+        public Transform ModelPrefab
+        {
+            get => modelPrefab;
+            set => modelPrefab = value;
+        }
 
         [SerializeField, Tooltip("The transform that is used as the parent for the model prefab when it is instantiated.  Will be set to a new child GameObject if None.")]
         private Transform modelParent;
