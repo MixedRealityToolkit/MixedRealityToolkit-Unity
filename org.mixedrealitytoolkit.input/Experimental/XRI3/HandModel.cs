@@ -83,6 +83,8 @@ namespace MixedReality.Toolkit.Input
             {
                 model = Instantiate(ModelPrefab, ModelParent);
 
+                Debug.Assert(selectInput != null, $"The Select Input reader for {handNode} is not set and will not be used with the instantiated hand model.");
+
                 // Set the select input reader for the model if it implements ISelectInputVisualizer
                 if (selectInput != null && model != null && model.TryGetComponent(out ISelectInputVisualizer selectInputVisualizer))
                 {
