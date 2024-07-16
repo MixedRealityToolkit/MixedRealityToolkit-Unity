@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -56,6 +57,15 @@ namespace MixedReality.Toolkit.Input
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public XRNode HandNode => handNode;
 
+        [SerializeField, Tooltip("The XRInputButtonReader representing selection values to be used by the hand model prefab when implementing ISelectInputVisualizer.")]
+        private XRInputButtonReader selectInput;
+
+        /// <summary>
+        /// The <see cref="XRInputButtonReader"/> representing selection values to be used by
+        /// the hand model prefab when implementing <see cref="ISelectInputVisualizer"/>.
+        /// </summary>
+        public XRInputButtonReader SelectInput => selectInput;
+        
         #endregion Associated hand select values
 
         /// <summary>
@@ -72,6 +82,14 @@ namespace MixedReality.Toolkit.Input
             if (ModelPrefab != null)
             {
                 model = Instantiate(ModelPrefab, ModelParent);
+
+                Debug.Assert(selectInput != null, $"The Select Input reader for {handNode} is not set and will not be used with the instantiated hand model.");
+
+                // Set the select input reader for the model if it implements ISelectInputVisualizer
+                if (selectInput != null && model != null && model.TryGetComponent(out ISelectInputVisualizer selectInputVisualizer))
+                {
+                    selectInputVisualizer.SelectInput = selectInput;
+                }
             }
         }
 
