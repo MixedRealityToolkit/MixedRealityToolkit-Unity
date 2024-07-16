@@ -57,7 +57,7 @@ namespace MixedReality.Toolkit.Input
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public XRNode HandNode => handNode;
 
-        [SerializeField, Tooltip("The select input reader to be used by the hand model prefab when implementing ISelectInputVisualizer.")]
+        [SerializeField, Tooltip("The XRInputButtonReader representing selection values to be used by the hand model prefab when implementing ISelectInputVisualizer.")]
         private XRInputButtonReader selectInput;
 
         /// <summary>
