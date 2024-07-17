@@ -4,7 +4,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
-## [4.0.0-development.pre.1] - 2024-07-11
+## [4.0.0-development.pre.1] - 2024-07-16
 
 ### Added
 
@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Updated FlatScreenModeDetector logic to handle both deprecated XRController and new controllerless actions.
 * Updated ObjectManipulator so to not rely on obsolete XRI controllers.
 * Moved the Gaze Interactor TrackedPoseDriver to parent GameObject so that all controller prefabs have the same structure.
+* Moved HandModel script from Experimental\XRI3 to Controllers\
 * Renamed MRTK XR Rig prefab as Obsolete MRTK XR Rig.
 * Renamed MRTK LeftHand Controller prefab as Obsolete MRTK LeftHand Controller.
 * Renamed MRTK RightHand Controller prefab as Obsolete MRTK RightHand Controller.
@@ -67,6 +68,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Removed obsolete FollowJoint::OnAfterDeserialize method.
 * Removed obsolete HandBasedPoseSource.HandsAggregator field.
 * Removed obsolete ControllerVisualizer.HandsAggregator field.
+* Removed no longer needed Experimental\XRI3 folder
 
 ## [3.2.2] - 2024-06-24
 
