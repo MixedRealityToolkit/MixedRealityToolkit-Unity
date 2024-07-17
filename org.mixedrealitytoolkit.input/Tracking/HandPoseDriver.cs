@@ -208,7 +208,7 @@ namespace MixedReality.Toolkit.Input
             // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
             // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic in a subclass is not ideal, but it is
             // necessary since the base class does not expose the tracking state logic.
-            m_trackingState = this.GetInputTrackingStateNoCache();
+            m_trackingState = this.GetInputTrackingStateNoCache(handNode);
         }
 
         /// <summary>
