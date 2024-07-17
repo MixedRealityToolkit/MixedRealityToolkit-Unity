@@ -531,6 +531,17 @@
                 },
                 {
                     "name": "",
+                    "id": "088cece3-47b8-4235-8748-ae126d30e43c",
+                    "path": "<XRController>{LeftHand}/squeeze",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4d87855e-c552-4fb0-aea1-62c767d03b3c",
                     "path": "<XRController>{LeftHand}/trackingState",
                     "interactions": "",
@@ -1015,6 +1026,17 @@
                     "name": "",
                     "id": "e2252ec0-28dd-410d-9aea-8f8db08645d6",
                     "path": "<XRController>{RightHand}/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22582dee-b12b-46a7-92bf-f56cf7a4833a",
+                    "path": "<XRController>{RightHand}/squeeze",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
