@@ -94,10 +94,6 @@ namespace MixedReality.Toolkit.Input
             {
                 result = (InputTrackingState)trackingStateAction.ReadValue<int>();
             }
-            else
-            {
-                result = InputTrackingState.None;
-            }
 
             // this else block is a workaround for missing device pose on devices without interaction profiles, and is
             // not part of the original code in `TrackedPoseDriver::ReadTrackingState`
