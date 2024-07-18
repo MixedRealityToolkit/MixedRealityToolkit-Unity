@@ -297,7 +297,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 else if (TrackedPoseDriverLookup != null)
                 {
                     InputTrackingState gazeTrackingStateInput = TrackedPoseDriverLookup.GazeTrackedPoseDriver != null ?
-                        (InputTrackingState)TrackedPoseDriverLookup.GazeTrackedPoseDriver.trackingStateInput.action?.ReadValue<int>() :
+                        (InputTrackingState)(TrackedPoseDriverLookup.GazeTrackedPoseDriver.trackingStateInput.action?.ReadValue<int>() ?? default) :
                         InputTrackingState.None;
 
                     if (gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
