@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using MixedReality.Toolkit.Input;
 using System.Collections;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
-using MixedReality.Toolkit.Input;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -297,9 +297,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 #pragma warning restore CS0618
                 else if (TrackedPoseDriverLookup != null)
                 {
-                    if (TrackedPoseDriverLookup.GazeTrackedPoseDriver != null &&
-                        TrackedPoseDriverLookup.GazeTrackedPoseDriver.TryGetTrackingState(out InputTrackingState gazeTrackingStateInput) &&
-                        gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
+                    InputTrackingState gazeTrackingStateInput = TrackedPoseDriverLookup.GazeTrackedPoseDriver != null ?
+                        (InputTrackingState)TrackedPoseDriverLookup.GazeTrackedPoseDriver.trackingStateInput.action?.ReadValue<int>() :
+                        InputTrackingState.None;
+
+                    if (gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
                         gazeTrackingStateInput.HasFlag(InputTrackingState.Rotation))
                     {
                         gazeRay = new Ray(

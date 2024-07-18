@@ -3,7 +3,6 @@
     "rootNamespace": "MixedReality.Toolkit.SpatialManipulation",
     "references": [
         "MixedReality.Toolkit.Core",
-        "MixedReality.Toolkit.Input",
         "Unity.InputSystem",
         "Unity.XR.Interaction.Toolkit"
     ],
