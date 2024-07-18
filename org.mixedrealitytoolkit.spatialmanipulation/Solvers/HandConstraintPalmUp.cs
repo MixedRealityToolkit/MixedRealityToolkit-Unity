@@ -6,6 +6,7 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
+using MixedReality.Toolkit.Input;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -296,14 +297,14 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 #pragma warning restore CS0618
                 else if (TrackedPoseDriverLookup != null)
                 {
-                    InputTrackingState gazeTrackingStateInput = (InputTrackingState)TrackedPoseDriverLookup.GazeTrackedPoseDriver.trackingStateInput.action.ReadValue<int>();
                     if (TrackedPoseDriverLookup.GazeTrackedPoseDriver != null &&
+                        TrackedPoseDriverLookup.GazeTrackedPoseDriver.TryGetTrackingState(out InputTrackingState gazeTrackingStateInput) &&
                         gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
                         gazeTrackingStateInput.HasFlag(InputTrackingState.Rotation))
                     {
                         gazeRay = new Ray(
-                                TrackedPoseDriverLookup.transform.position,
-                                TrackedPoseDriverLookup.transform.forward);
+                                TrackedPoseDriverLookup.GazeTrackedPoseDriver.transform.position,
+                                TrackedPoseDriverLookup.GazeTrackedPoseDriver.transform.forward);
                         usedEyeGaze = true;
                     }
                     else
