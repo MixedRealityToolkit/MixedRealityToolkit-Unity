@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using MixedReality.Toolkit.Input;
 using System.Collections;
 using Unity.Profiling;
 using UnityEngine;
