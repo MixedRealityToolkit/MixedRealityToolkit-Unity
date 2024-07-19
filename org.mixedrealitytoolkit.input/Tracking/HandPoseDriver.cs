@@ -55,7 +55,7 @@ namespace MixedReality.Toolkit.Input
         public XRNode HandNode => handNode;
         #endregion Serialized Fields
 
-        #region TrackedPoseDriver Overrides 
+        #region TrackedPoseDriver Overrides
         /// <inheritdoc />
         protected override void PerformUpdate()
         {
@@ -71,16 +71,24 @@ namespace MixedReality.Toolkit.Input
             // In case the pose input actions are not provided or not bound to a control, we will try to query the 
             // `HandsAggregator` subsystem for the device's pose. This logic and class should be removed once we 
             // have universal hand interaction profile(s) across vendors.
-            bool missingPositionController = (trackingType.HasFlag(TrackingType.PositionOnly) || trackingType.HasFlag(TrackingType.RotationAndPosition)) &&
-                (positionInput.action == null || !positionInput.action.HasAnyControls());
+            //
+            // Note, for this workaround we need to consider the fact that the positon and rotation can be bound
+            // to a control, but the control may not be active even if the tracking state is valid. So we need to
+            // check if there's an active control before using the position and rotation values.
 
-            bool missingRotationController = (trackingType.HasFlag(TrackingType.RotationOnly) || trackingType.HasFlag(TrackingType.RotationAndPosition)) &&
-                (rotationInput.action == null || !rotationInput.action.HasAnyControls());
+            bool missingPositionController =
+                (trackingType == TrackingType.RotationAndPosition || trackingType == TrackingType.PositionOnly) &&
+                (positionInput.action == null || !positionInput.action.HasAnyControls() || positionInput.action.activeControl == null);
+
+            bool missingRotationController =
+                (trackingType == TrackingType.RotationAndPosition || trackingType == TrackingType.RotationOnly) &&
+                (rotationInput.action == null || !rotationInput.action.HasAnyControls() || rotationInput.action.activeControl == null);
 
             // We will also check the tracking state here to account for a bound action but untracked interaction profile.
-            if ((missingPositionController || missingRotationController || IsTrackingNone()) &&
+            if ((missingPositionController || missingRotationController || m_trackingState == InputTrackingState.None) &&
                 TryGetPolyfillDevicePose(out Pose devicePose))
             {
+                m_trackingState = InputTrackingState.Position | InputTrackingState.Rotation;
                 ForceSetLocalTransform(devicePose.position, devicePose.rotation);
             }
         }
@@ -208,7 +216,7 @@ namespace MixedReality.Toolkit.Input
             // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
             // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic in a subclass is not ideal, but it is
             // necessary since the base class does not expose the tracking state logic.
-            m_trackingState = this.GetInputTrackingStateNoCache(handNode);
+            m_trackingState = this.GetInputTrackingStateNoCache();
         }
 
         /// <summary>

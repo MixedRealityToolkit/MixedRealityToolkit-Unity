@@ -52,23 +52,18 @@ namespace MixedReality.Toolkit.Input
                 return handPoseDriver.CachedTrackingState;
             }
 
-            return GetInputTrackingStateNoCache(driver, fallbackPolyfillDeviceNode: null);
+            return GetInputTrackingStateNoCache(driver);
         }
 
 
         /// <summary>
         /// Gets the tracking state of the <see cref="TrackedPoseDriver"/>, avoid reading value for internal caches.
         /// </summary>
-        /// <param name="fallbackPolyfillDeviceNode">
-        /// If specified and the tracking state action is not bound to any controls or is not being tracked, this code will
-        /// try to query joints on this node. In which case if joints are found, this will mark the pose driver as
-        /// being tracked.
-        /// </param>
         /// <remarks>
         /// If the <see cref="TrackedPoseDriver"/> has no tracking state action or the action has no bindings, it will return `<see cref="InputTrackingState.Position"/> |
         /// <see cref="InputTrackingState.Rotation"/>`. If the action is disabled, it will return `<see cref="InputTrackingState.None"/>`. If the action has controls, it will return the value of the action.
         /// </remarks>
-        internal static InputTrackingState GetInputTrackingStateNoCache(this TrackedPoseDriver driver, XRNode? fallbackPolyfillDeviceNode = null)
+        internal static InputTrackingState GetInputTrackingStateNoCache(this TrackedPoseDriver driver)
         {
             // Note, that the logic in this class is meant to reproduce the same logic as the base. The base
             // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
@@ -93,16 +88,6 @@ namespace MixedReality.Toolkit.Input
             if (trackingStateAction.HasAnyControls())
             {
                 result = (InputTrackingState)trackingStateAction.ReadValue<int>();
-            }
-
-            // this else block is a workaround for missing device pose on devices without interaction profiles, and is
-            // not part of the original code in `TrackedPoseDriver::ReadTrackingState`
-            if (result == InputTrackingState.None &&
-                fallbackPolyfillDeviceNode != null &&
-                XRSubsystemHelpers.HandsAggregator != null &&
-                XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.Palm, fallbackPolyfillDeviceNode.Value, out HandJointPose palmPose))
-            {
-                result = InputTrackingState.Position | InputTrackingState.Rotation;
             }
 
             return result;

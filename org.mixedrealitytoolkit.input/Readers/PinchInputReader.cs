@@ -335,9 +335,15 @@ namespace MixedReality.Toolkit.Input
         /// Get if the action value is attached to a control and the hand is being tracked. If not, the selection state is
         /// considered "polyfilled" and the HandsAggregator subsystem should be used to determine selection state and value.
         /// </summary>
+        /// <remarks>
+        /// We need to consider the fact that the action can be bound to a control, but the control may not be active even
+        /// if the tracking state is valid. So we need to check if there's an active control before using the action.
+        /// If there is no active control, this component will fallback to using the HandsAggregator subsystem to determine
+        /// selection press and value.
+        /// </remarks>
         private bool IsActionValid(InputAction action)
         {
-            return action != null && action.HasAnyControls();
+            return action != null && action.HasAnyControls() && action.activeControl != null;
         }
 
         /// <summary>

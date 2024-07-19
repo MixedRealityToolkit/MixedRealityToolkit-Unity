@@ -4,6 +4,7 @@
 using System.Collections;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
 
@@ -294,16 +295,16 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     }
                 }
                 #pragma warning restore CS0618
-                else if (TrackedPoseDriverLookup != null)
+                else if (TrackedPoseDriverLookup != null || TrackedPoseDriverLookup.GazeTrackedPoseDriver == null)
                 {
-                    InputTrackingState gazeTrackingStateInput = (InputTrackingState)TrackedPoseDriverLookup.GazeTrackedPoseDriver.trackingStateInput.action.ReadValue<int>();
+                    InputTrackingState gazeTrackingStateInput = GetInputTrackingState(TrackedPoseDriverLookup.GazeTrackedPoseDriver);
                     if (TrackedPoseDriverLookup.GazeTrackedPoseDriver != null &&
                         gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
                         gazeTrackingStateInput.HasFlag(InputTrackingState.Rotation))
                     {
                         gazeRay = new Ray(
-                                TrackedPoseDriverLookup.transform.position,
-                                TrackedPoseDriverLookup.transform.forward);
+                            TrackedPoseDriverLookup.GazeTrackedPoseDriver.transform.position,
+                            TrackedPoseDriverLookup.GazeTrackedPoseDriver.transform.forward);
                         usedEyeGaze = true;
                     }
                     else
@@ -353,6 +354,39 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private static readonly ProfilerMarker TryGenerateHandPlaneAndActivationPointPerfMarker =
             new ProfilerMarker("[MRTK] HandConstraintPalmUp.TryGenerateHandPlaneAndActivationPoint");
+
+        /// <summary>
+        /// Get the input tracking state.
+        /// </summary>
+        private InputTrackingState GetInputTrackingState(TrackedPoseDriver driver)
+        {
+            // Note, that the logic in this class is meant to reproduce the same logic as the base. The base
+            // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
+            // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic in a subclass is not ideal, but it is
+            // necessary since the base class does not expose its tracking status field.
+
+            var trackingStateAction = driver.trackingStateInput.action;
+            if (trackingStateAction == null || trackingStateAction.bindings.Count == 0)
+            {
+                // Treat an Input Action Reference with no reference the same as
+                // an enabled Input Action with no authored bindings, and allow driving the Transform pose.
+                return InputTrackingState.Position | InputTrackingState.Rotation;
+            }
+
+            if (!trackingStateAction.enabled)
+            {
+                // Treat a disabled action as the default None value for the ReadValue call
+                return InputTrackingState.None;
+            }
+
+            InputTrackingState result = InputTrackingState.None;
+            if (trackingStateAction.controls.Count > 0)
+            {
+                result = (InputTrackingState)trackingStateAction.ReadValue<int>();
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// This function attempts to generate a hand plane based on the wrist, index knuckle and pinky
