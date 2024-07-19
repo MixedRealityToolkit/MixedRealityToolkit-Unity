@@ -363,8 +363,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             // Note, that the logic in this class is meant to reproduce the same logic as the base. The base
             // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
-            // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic in a subclass is not ideal, but it is
-            // necessary since the base class does not expose its tracking status field.
+            // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic is not ideal, but it is
+            // necessary since the class does not expose its tracking status logic. Note this
+            // code also exists in the MRTK3 input package in `TrackedPoseDriverExtensions::GetInputTrackingState`,
+            // but to avoid pulling in the `input` package, we've replicated the logic here.
 
             var trackingStateAction = driver.trackingStateInput.action;
             if (trackingStateAction == null || trackingStateAction.bindings.Count == 0)

@@ -85,7 +85,7 @@ namespace MixedReality.Toolkit.Input
                 (rotationInput.action == null || !rotationInput.action.HasAnyControls() || rotationInput.action.activeControl == null);
 
             // We will also check the tracking state here to account for a bound action but untracked interaction profile.
-            if ((missingPositionController || missingRotationController || m_trackingState == InputTrackingState.None) &&
+            if ((missingPositionController || missingRotationController || IsTrackingNone()) &&
                 TryGetPolyfillDevicePose(out Pose devicePose))
             {
                 m_trackingState = InputTrackingState.Position | InputTrackingState.Rotation;
