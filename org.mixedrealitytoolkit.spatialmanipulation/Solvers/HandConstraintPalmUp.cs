@@ -295,12 +295,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     }
                 }
                 #pragma warning restore CS0618
-                else if (TrackedPoseDriverLookup != null &&
-                    TrackedPoseDriverLookup.GazeTrackedPoseDriver != null)
+                else if (TrackedPoseDriverLookup != null)
                 {
-                    InputTrackingState gazeTrackingStateInput = GetInputTrackingState(TrackedPoseDriverLookup.GazeTrackedPoseDriver);
-                    if (TrackedPoseDriverLookup.GazeTrackedPoseDriver != null &&
-                        gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
+                    InputTrackingState gazeTrackingStateInput = GetGazeInputTrackingState(TrackedPoseDriverLookup.GazeTrackedPoseDriver);
+                    if (gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
                         gazeTrackingStateInput.HasFlag(InputTrackingState.Rotation))
                     {
                         gazeRay = new Ray(
@@ -357,18 +355,24 @@ namespace MixedReality.Toolkit.SpatialManipulation
             new ProfilerMarker("[MRTK] HandConstraintPalmUp.TryGenerateHandPlaneAndActivationPoint");
 
         /// <summary>
-        /// Get the input tracking state.
+        /// Get the input tracking state for the given gaze pose gazePoseDriver.
         /// </summary>
-        private InputTrackingState GetInputTrackingState(TrackedPoseDriver driver)
+        private InputTrackingState GetGazeInputTrackingState(TrackedPoseDriver gazePoseDriver)
         {
+            // Special case for when the gazePoseDriver is null, we return None so caller can fallback to head pose.
+            if (gazePoseDriver == null)
+            {
+                return InputTrackingState.None;
+            }
+
             // Note, that the logic in this class is meant to reproduce the same logic as the base. The base
             // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
             // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic is not ideal, but it is
             // necessary since the class does not expose its tracking status logic. Note this
-            // code also exists in the MRTK3 input package in `TrackedPoseDriverExtensions::GetInputTrackingState`,
+            // code also exists in the MRTK3 input package in `TrackedPoseDriverExtensions::GetGazeInputTrackingState`,
             // but to avoid pulling in the `input` package, we've replicated the logic here.
 
-            var trackingStateAction = driver.trackingStateInput.action;
+            var trackingStateAction = gazePoseDriver.trackingStateInput.action;
             if (trackingStateAction == null || trackingStateAction.bindings.Count == 0)
             {
                 // Treat an Input Action Reference with no reference the same as
