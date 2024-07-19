@@ -37,7 +37,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Expose the tracking state for the hand pose driver, to allow <see cref="TrackedPoseDriverExtensions"/> to query it.
         /// </summary>
-        /// <remarks
+        /// <remarks>
         /// Avoid exposing this publicly as this <see cref="HandPoseDriver"/> is a workaround solution to support hand tracking on devices without interaction profiles.
         /// </remarks>
         internal InputTrackingState CachedTrackingState => m_trackingState;
