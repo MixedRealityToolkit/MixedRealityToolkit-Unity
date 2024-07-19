@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR;
 
@@ -64,13 +65,25 @@ namespace MixedReality.Toolkit.Input
         /// <see cref="InputTrackingState.Rotation"/>`. If the action is disabled, it will return `<see cref="InputTrackingState.None"/>`. If the action has controls, it will return the value of the action.
         /// </remarks>
         internal static InputTrackingState GetInputTrackingStateNoCache(this TrackedPoseDriver driver)
+        {           
+            return GetInputTrackingState(driver.trackingStateInput);
+        }
+
+        /// <summary>
+        /// Get the input tracking state of the <see cref="InputActionProperty"/>.
+        /// </summary>
+        /// <remarks>
+        /// If the <see cref="InputActionProperty"/> has no tracking state action or the action has no bindings, it will return `<see cref="InputTrackingState.Position"/> |
+        /// <see cref="InputTrackingState.Rotation"/>`. If the action is disabled, it will return `<see cref="InputTrackingState.None"/>`. If the action has controls, it will return the value of the action.
+        /// </remarks>
+        public static InputTrackingState GetInputTrackingState(this InputActionProperty trackingStateInput)
         {
             // Note, that the logic in this class is meant to reproduce the same logic as the base. The base
             // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
             // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic in a subclass is not ideal, but it is
             // necessary since the base class does not expose its tracking status field.
 
-            var trackingStateAction = driver.trackingStateInput.action;
+            var trackingStateAction = trackingStateInput.action;
             if (trackingStateAction == null || trackingStateAction.bindings.Count == 0)
             {
                 // Treat an Input Action Reference with no reference the same as
@@ -85,7 +98,7 @@ namespace MixedReality.Toolkit.Input
             }
 
             InputTrackingState result = InputTrackingState.None;
-            if (trackingStateAction.HasAnyControls())
+            if (trackingStateAction.controls.Count > 0)
             {
                 result = (InputTrackingState)trackingStateAction.ReadValue<int>();
             }

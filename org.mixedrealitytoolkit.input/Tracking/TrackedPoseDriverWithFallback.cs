@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
@@ -23,7 +22,6 @@ namespace MixedReality.Toolkit.Input
     [AddComponentMenu("MRTK/Input/Tracked Pose Driver (with Fallbacks)")]
     public class TrackedPoseDriverWithFallback : TrackedPoseDriver
     {
-
         #region Fallback actions values
 
         [SerializeField, Tooltip("The fallback Input System action to use for Position Tracking for this GameObject when the default position input action has no data. Must be a Vector3Control Control.")]
@@ -71,41 +69,59 @@ namespace MixedReality.Toolkit.Input
             var hasPositionFallbackAction = fallbackPositionAction != null;
             var hasRotationFallbackAction = fallbackRotationAction != null;
 
-            InputTrackingState inputTrackingState = (InputTrackingState)trackingStateInput.action.ReadValue<int>();
+            // If default InputTrackingState does not have position and rotation data,
+            // use fallback if it exists
+            InputTrackingState inputTrackingState = trackingStateInput.GetInputTrackingState();
+
+            bool defaultPostionAvailable =
+                inputTrackingState.HasFlag(InputTrackingState.Position);
+
+            bool defaultRotationAvailable =
+                inputTrackingState.HasFlag(InputTrackingState.Rotation);
+            bool defaultPostitionAndRotationDataAvailable =
+                defaultPostionAvailable &&
+                defaultRotationAvailable;
+
+            // Only allow fallbacks to be used if the default tracking state has no data
             InputTrackingState fallbackInputTrackingState = InputTrackingState.None;
-
-            // If default InputTrackingState does not have position and rotation data, use fallback if it exists
-            bool defaultPostitionAndRotationDataAvailable = !inputTrackingState.HasFlag(InputTrackingState.Position) || !inputTrackingState.HasFlag(InputTrackingState.Rotation);
-
-            if (FallbackTrackingStateAction.action != null && !defaultPostitionAndRotationDataAvailable)
+            if (FallbackTrackingStateAction.action != null &&
+                !defaultPostitionAndRotationDataAvailable)
             {
-                fallbackInputTrackingState = (InputTrackingState)FallbackTrackingStateAction.action.ReadValue<int>();
+                fallbackInputTrackingState = FallbackTrackingStateAction.GetInputTrackingState();
             }
 
-            bool neededToGetFallbackData = false;
+            InputTrackingState fallbackDataUsed = InputTrackingState.None;
             Vector3 position = transform.localPosition;
             Quaternion rotation = transform.localRotation;
 
             // If no position data then use the data from the fallback action if it exists
-            if (!inputTrackingState.HasFlag(InputTrackingState.Position) && hasPositionFallbackAction && !defaultPostitionAndRotationDataAvailable)
+            if (!defaultPostionAvailable &&
+                hasPositionFallbackAction &&
+                fallbackInputTrackingState.HasFlag(InputTrackingState.Position))
             {
-                neededToGetFallbackData = true;
+                fallbackDataUsed |= InputTrackingState.Position;
                 position = fallbackPositionAction.action.ReadValue<Vector3>();
             }
 
             // If no rotation data then use the data from the fallback action if it exists
-            if (!inputTrackingState.HasFlag(InputTrackingState.Rotation) && hasRotationFallbackAction && !defaultPostitionAndRotationDataAvailable)
+            if (!defaultRotationAvailable &&
+                hasRotationFallbackAction &&
+                fallbackInputTrackingState.HasFlag(InputTrackingState.Rotation))
             {
-                neededToGetFallbackData = true;
+                fallbackDataUsed |= InputTrackingState.Rotation;
                 rotation = fallbackRotationAction.action.ReadValue<Quaternion>();
             }
 
-            if (neededToGetFallbackData) //because either position, rotation, or both data were obtained from fallback actions
+            // Id either position, rotation, or both data were obtained from fallback actions,
+            // set the local transform from the fallback actions.
+            if (fallbackDataUsed != InputTrackingState.None) 
             {
-                SetLocalTransformFromFallback(position, rotation, (InputTrackingState)fallbackInputTrackingState);
+                SetLocalTransformFromFallback(position, rotation, fallbackDataUsed);
             }
         }
+        #endregion TrackedPoseDriver Overrides
 
+        #region Private Methods
         private void SetLocalTransformFromFallback(Vector3 newPosition, Quaternion newRotation, InputTrackingState currentFallbackTrackingState)
         {
             var positionValid = ignoreTrackingState || (currentFallbackTrackingState & InputTrackingState.Position) != 0;
@@ -132,6 +148,6 @@ namespace MixedReality.Toolkit.Input
                 transform.localPosition = newPosition;
             }
         }
-        #endregion ActionBasedController Overrides 
+        #endregion Private Methods 
     }
 }

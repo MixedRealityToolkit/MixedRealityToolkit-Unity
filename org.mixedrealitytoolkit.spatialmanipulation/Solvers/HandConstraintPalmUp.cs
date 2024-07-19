@@ -295,7 +295,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     }
                 }
                 #pragma warning restore CS0618
-                else if (TrackedPoseDriverLookup != null || TrackedPoseDriverLookup.GazeTrackedPoseDriver == null)
+                else if (TrackedPoseDriverLookup != null &&
+                    TrackedPoseDriverLookup.GazeTrackedPoseDriver != null)
                 {
                     InputTrackingState gazeTrackingStateInput = GetInputTrackingState(TrackedPoseDriverLookup.GazeTrackedPoseDriver);
                     if (TrackedPoseDriverLookup.GazeTrackedPoseDriver != null &&
