@@ -26,7 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-* Updated package com.unity.xr.interaction.toolkit to 3.0.3
+* Updated package com.unity.xr.interaction.toolkit to 3.0.4
 * Updated BaseRuntimeInputTests logic to handle both deprecated XRController and new controllerless actions.
 * Updated GazePinchInteractor logic to handle both deprecated XRController and new controllerless actions.
 * Updated PokeInteractor logic to handle both deprecated XRController and new controllerless actions.
