@@ -21,7 +21,7 @@
     "org.mixedrealitytoolkit.core": "4.0.0",
     "com.unity.inputsystem": "1.6.1",
     "com.unity.textmeshpro": "3.0.6",
-    "com.unity.xr.interaction.toolkit": "3.0.3"
+    "com.unity.xr.interaction.toolkit": "3.0.4"
   },
   "msftOptionalPackages": {
     "org.mixedrealitytoolkit.data": "1.0.0-development",

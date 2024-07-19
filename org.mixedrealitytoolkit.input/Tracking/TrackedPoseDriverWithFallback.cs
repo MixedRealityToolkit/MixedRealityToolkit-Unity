@@ -112,7 +112,7 @@ namespace MixedReality.Toolkit.Input
                 rotation = fallbackRotationAction.action.ReadValue<Quaternion>();
             }
 
-            // Id either position, rotation, or both data were obtained from fallback actions,
+            // If either position, rotation, or both data were obtained from fallback actions,
             // set the local transform from the fallback actions.
             if (fallbackDataUsed != InputTrackingState.None) 
             {
