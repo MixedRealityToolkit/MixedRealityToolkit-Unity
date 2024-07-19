@@ -43,7 +43,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Very basic test of SpatialMouseInteractor clicking an Interactable.
         /// </summary>
         [UnityTest]
-        [Ignore("Temporarily ignoring this while while its XRI3+ equivalent is created.")]
         public IEnumerator SpatialMouseInteractorSmokeTest()
         {
             var mouse = InputSystem.AddDevice<Mouse>();
@@ -91,7 +90,6 @@ namespace MixedReality.Toolkit.Input.Tests
             {
                 ((ButtonControl)mouse["press"]).WriteValueIntoEvent(1f, eventPtr);
                 InputSystem.QueueEvent(eventPtr);
-                InputSystem.Update();
             }
 
             yield return RuntimeTestUtilities.WaitForUpdates();
@@ -108,7 +106,6 @@ namespace MixedReality.Toolkit.Input.Tests
             {
                 ((ButtonControl)mouse["press"]).WriteValueIntoEvent(0f, eventPtr);
                 InputSystem.QueueEvent(eventPtr);
-                InputSystem.Update();
             }
 
             yield return RuntimeTestUtilities.WaitForUpdates();
