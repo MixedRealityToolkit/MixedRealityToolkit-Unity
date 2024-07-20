@@ -42,6 +42,11 @@ namespace MixedReality.Toolkit.Input
         /// </remarks>
         internal InputTrackingState CachedTrackingState => m_trackingState;
 
+        /// <summary>
+        /// Get if the last pose set was from a polyfill device pose. That is, if the last pose originated from the <see cref="XRSubsystemHelpers.HandsAggregator "/>.
+        /// </summary>
+        internal bool IsPolyfillDevicePose { get; private set; }
+
         #region Serialized Fields
         [Header("Hand Pose Driver Settings")]
 
@@ -74,7 +79,8 @@ namespace MixedReality.Toolkit.Input
             //
             // Note, for this workaround we need to consider the fact that the positon and rotation can be bound
             // to a control, but the control may not be active even if the tracking state is valid. So we need to
-            // check if there's an active control before using the position and rotation values.
+            // check if there's an active control before using the position and rotation values. If there's no active
+            // this means the action was not updated this frame and we should use the polyfill pose.
 
             bool missingPositionController =
                 (trackingType == TrackingType.RotationAndPosition || trackingType == TrackingType.PositionOnly) &&
@@ -89,7 +95,12 @@ namespace MixedReality.Toolkit.Input
                 TryGetPolyfillDevicePose(out Pose devicePose))
             {
                 m_trackingState = InputTrackingState.Position | InputTrackingState.Rotation;
+                IsPolyfillDevicePose = true;
                 ForceSetLocalTransform(devicePose.position, devicePose.rotation);
+            }
+            else
+            {
+                IsPolyfillDevicePose = false;
             }
         }
         #endregion TrackedPoseDriver Overrides

@@ -56,6 +56,22 @@ namespace MixedReality.Toolkit.Input
             return GetInputTrackingStateNoCache(driver);
         }
 
+        /// <summary>
+        /// Get if the last pose set was from a polyfill device pose. 
+        /// </summary>
+        /// <returns>
+        /// Returns <see langword="true"/> if the last pose originated from the <see cref="XRSubsystemHelpers.HandsAggregator "/>.
+        /// </returns>
+        public static bool GetIsPolyfillDevicePose(this TrackedPoseDriver driver)
+        {
+            // If the driver is a HandPoseDriver, return the cached value, instead of hitting the overhead of querying the action.
+            if (driver is HandPoseDriver handPoseDriver)
+            {
+                return handPoseDriver.IsPolyfillDevicePose;
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Gets the tracking state of the <see cref="TrackedPoseDriver"/>, avoid reading value for internal caches.
