@@ -296,14 +296,16 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 #pragma warning restore CS0618
                 else if (TrackedPoseDriverLookup != null)
                 {
-                    InputTrackingState gazeTrackingStateInput = (InputTrackingState)TrackedPoseDriverLookup.GazeTrackedPoseDriver.trackingStateInput.action.ReadValue<int>();
-                    if (TrackedPoseDriverLookup.GazeTrackedPoseDriver != null &&
-                        gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
+                    InputTrackingState gazeTrackingStateInput = TrackedPoseDriverLookup.GazeTrackedPoseDriver != null ?
+                        (InputTrackingState)(TrackedPoseDriverLookup.GazeTrackedPoseDriver.trackingStateInput.action?.ReadValue<int>() ?? default) :
+                        InputTrackingState.None;
+
+                    if (gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
                         gazeTrackingStateInput.HasFlag(InputTrackingState.Rotation))
                     {
                         gazeRay = new Ray(
-                                TrackedPoseDriverLookup.transform.position,
-                                TrackedPoseDriverLookup.transform.forward);
+                                TrackedPoseDriverLookup.GazeTrackedPoseDriver.transform.position,
+                                TrackedPoseDriverLookup.GazeTrackedPoseDriver.transform.forward);
                         usedEyeGaze = true;
                     }
                     else
