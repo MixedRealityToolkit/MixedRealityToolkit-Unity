@@ -42,6 +42,11 @@ namespace MixedReality.Toolkit.Input
         /// </remarks>
         internal InputTrackingState CachedTrackingState => m_trackingState;
 
+        /// <summary>
+        /// Get if the last pose set was from a polyfill device pose. That is, if the last pose originated from the <see cref="XRSubsystemHelpers.HandsAggregator "/>.
+        /// </summary>
+        internal bool IsPolyfillDevicePose { get; private set; }
+
         #region Serialized Fields
         [Header("Hand Pose Driver Settings")]
 
@@ -55,7 +60,7 @@ namespace MixedReality.Toolkit.Input
         public XRNode HandNode => handNode;
         #endregion Serialized Fields
 
-        #region TrackedPoseDriver Overrides 
+        #region TrackedPoseDriver Overrides
         /// <inheritdoc />
         protected override void PerformUpdate()
         {
@@ -71,17 +76,31 @@ namespace MixedReality.Toolkit.Input
             // In case the pose input actions are not provided or not bound to a control, we will try to query the 
             // `HandsAggregator` subsystem for the device's pose. This logic and class should be removed once we 
             // have universal hand interaction profile(s) across vendors.
-            bool missingPositionController = (trackingType.HasFlag(TrackingType.PositionOnly) || trackingType.HasFlag(TrackingType.RotationAndPosition)) &&
-                (positionInput.action == null || !positionInput.action.HasAnyControls());
+            //
+            // Note, for this workaround we need to consider the fact that the positon and rotation can be bound
+            // to a control, but the control may not be active even if the tracking state is valid. So we need to
+            // check if there's an active control before using the position and rotation values. If there's no active
+            // this means the action was not updated this frame and we should use the polyfill pose.
 
-            bool missingRotationController = (trackingType.HasFlag(TrackingType.RotationOnly) || trackingType.HasFlag(TrackingType.RotationAndPosition)) &&
-                (rotationInput.action == null || !rotationInput.action.HasAnyControls());
+            bool missingPositionController =
+                (trackingType == TrackingType.RotationAndPosition || trackingType == TrackingType.PositionOnly) &&
+                (positionInput.action == null || !positionInput.action.HasAnyControls() || positionInput.action.activeControl == null);
+
+            bool missingRotationController =
+                (trackingType == TrackingType.RotationAndPosition || trackingType == TrackingType.RotationOnly) &&
+                (rotationInput.action == null || !rotationInput.action.HasAnyControls() || rotationInput.action.activeControl == null);
 
             // We will also check the tracking state here to account for a bound action but untracked interaction profile.
             if ((missingPositionController || missingRotationController || IsTrackingNone()) &&
                 TryGetPolyfillDevicePose(out Pose devicePose))
             {
+                m_trackingState = InputTrackingState.Position | InputTrackingState.Rotation;
+                IsPolyfillDevicePose = true;
                 ForceSetLocalTransform(devicePose.position, devicePose.rotation);
+            }
+            else
+            {
+                IsPolyfillDevicePose = false;
             }
         }
         #endregion TrackedPoseDriver Overrides
