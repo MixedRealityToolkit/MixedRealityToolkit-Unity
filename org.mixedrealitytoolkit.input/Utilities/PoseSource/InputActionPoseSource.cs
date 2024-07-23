@@ -35,10 +35,13 @@ namespace MixedReality.Toolkit.Input
             InputAction positionAction = positionActionProperty.action;
             InputAction rotationAction = rotationActionProperty.action;
 
-            if (trackingStateAction.HasAnyControls()
-                && positionAction.HasAnyControls()
-                && rotationAction.HasAnyControls()
-                && ((InputTrackingState)trackingStateAction.ReadValue<int>() & (InputTrackingState.Position | InputTrackingState.Rotation)) != 0)
+            // We need to consider the fact that the positon and rotation can be bound
+            // to a control, but the control may not be active even if the tracking state is valid. So we need to
+            // check if there's an active control before using the position and rotation values.
+            if (trackingStateAction.HasAnyControls() &&
+                (positionAction.HasAnyControls() && positionAction.activeControl != null) &&
+                (rotationAction.HasAnyControls() && rotationAction.activeControl != null) &&
+                ((InputTrackingState)trackingStateAction.ReadValue<int>() & (InputTrackingState.Position | InputTrackingState.Rotation)) != 0)
             {
                 // Transform the pose into worldspace, as input actions are returned
                 // in floor-offset-relative coordinates.
