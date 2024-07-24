@@ -21,8 +21,8 @@ namespace MixedReality.Toolkit.Examples.Demos
         private float destScroll;
         private bool animate;
 
-        private string[] words = { "one", "two", "three", "zebra", "keyboard", "rabbit", "graphite", "ruby", };
-        
+        private readonly string[] words = { "one", "two", "three", "zebra", "keyboard", "rabbit", "graphite", "ruby", };
+
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
         /// </summary> 
@@ -34,7 +34,9 @@ namespace MixedReality.Toolkit.Examples.Demos
                 foreach (var text in go.GetComponentsInChildren<TextMeshProUGUI>())
                 {
                     if (text.gameObject.name == "Text")
-	                    text.text = $"{i} {words[i%words.Length]}";
+                    {
+                        text.text = $"{i} {words[i % words.Length]}";
+                    }
                 }
             };
         }
@@ -47,8 +49,8 @@ namespace MixedReality.Toolkit.Examples.Demos
             if (sinScroll)
             {
                 list.Scroll = (Mathf.Sin(Time.time * 0.5f - (Mathf.PI / 2)) * 0.5f + 0.5f) * list.MaxScroll;
-                destScroll  = list.Scroll;
-                animate     = false;
+                destScroll = list.Scroll;
+                animate = false;
             }
 
             if (animate)
@@ -58,7 +60,7 @@ namespace MixedReality.Toolkit.Examples.Demos
                 if (Mathf.Abs(list.Scroll - destScroll) < 0.02f)
                 {
                     list.Scroll = destScroll;
-                    animate     = false;
+                    animate = false;
                 }
             }
         }
@@ -68,8 +70,8 @@ namespace MixedReality.Toolkit.Examples.Demos
         /// </summary>
         public void Next()
         {
-            sinScroll  = false;
-            animate    = true;
+            sinScroll = false;
+            animate = true;
             destScroll = Mathf.Min(list.MaxScroll, Mathf.Floor(list.Scroll / list.RowsOrColumns) * list.RowsOrColumns + list.TotallyVisibleCount);
         }
         /// <summary>
@@ -77,8 +79,8 @@ namespace MixedReality.Toolkit.Examples.Demos
         /// </summary>
         public void Prev()
         {
-            sinScroll  = false;
-            animate    = true;
+            sinScroll = false;
+            animate = true;
             destScroll = Mathf.Max(0, Mathf.Floor(list.Scroll / list.RowsOrColumns) * list.RowsOrColumns - list.TotallyVisibleCount);
         }
 
