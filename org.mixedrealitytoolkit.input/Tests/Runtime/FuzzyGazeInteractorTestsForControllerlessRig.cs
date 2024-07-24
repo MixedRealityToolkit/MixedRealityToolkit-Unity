@@ -70,6 +70,9 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsTrue(backgroundCube.GetComponent<StatefulInteractable>().IsGazeHovered,
                            "Background's StatefulInteractable was not hovered by FuzzyGazeInteractor.");
 
+            // Ensure eyes gaze has tracking
+            InputTestUtilities.IsEyeGazeTracking = true;
+
             // Point camera (HMD) at cube 1
             yield return InputTestUtilities.RotateCameraToTarget(cube1.transform.position);
 
@@ -79,12 +82,12 @@ namespace MixedReality.Toolkit.Input.Tests
             // The eyes gaze should have focused cube 2
             Assert.IsFalse(cube1.GetComponent<StatefulInteractable>().IsGazeHovered,
                            "Cube 1's StatefulInteractable was hovered, perhaps by head gaze. Expected eye gaze to hover different object.");
-            // Note: Commenting out the following assert because the assert works correctly when Unity-test is run in desktop Editor but it
-            //       fails when it runs in pipeline.  This issue is tracked in: https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/766
-            //Assert.IsFalse(cube2.GetComponent<StatefulInteractable>().IsGazeHovered,
-            //               "Cube 2's StatefulInteractable should have been hovered by eye gaze.");
-            //Assert.IsFalse(backgroundCube.GetComponent<StatefulInteractable>().IsGazeHovered,
-            //               "Background's StatefulInteractable was unexpectedly hovered.");
+
+            Assert.IsTrue(cube2.GetComponent<StatefulInteractable>().IsGazeHovered,
+                           "Cube 2's StatefulInteractable should have been hovered by eye gaze.");
+
+            Assert.IsFalse(backgroundCube.GetComponent<StatefulInteractable>().IsGazeHovered,
+                           "Background's StatefulInteractable was unexpectedly hovered.");
         }
 
         /// <summary>
@@ -294,12 +297,10 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             // The head gaze should have focused cube 1
-            // Note: Commenting out the following assert because the assert works correctly when Unity-test is run in desktop Editor but it
-            //       fails when it runs in pipeline.  This issue is tracked in: https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/766
-            //Assert.IsTrue(cube1.GetComponent<StatefulInteractable>().IsGazeHovered,
-            //               "Cube 1's StatefulInteractable should have been hovered by head gaze.");
-            //Assert.IsFalse(cube2.GetComponent<StatefulInteractable>().IsGazeHovered,
-            //               "Cube 2's StatefulInteractable should have been hovered by eye gaze.");
+            Assert.IsTrue(cube1.GetComponent<StatefulInteractable>().IsGazeHovered,
+                           "Cube 1's StatefulInteractable should have been hovered by head gaze.");
+            Assert.IsFalse(cube2.GetComponent<StatefulInteractable>().IsGazeHovered,
+                           "Cube 2's StatefulInteractable should have been hovered by eye gaze.");
             Assert.IsFalse(backgroundCube.GetComponent<StatefulInteractable>().IsGazeHovered,
                            "Background's StatefulInteractable was unexpectedly hovered.");
         }

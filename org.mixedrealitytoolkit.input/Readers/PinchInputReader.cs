@@ -4,6 +4,7 @@
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
@@ -85,29 +86,17 @@ namespace MixedReality.Toolkit.Input
             set => SetInputActionProperty(ref selectActionValue, value);
         }
 
-        [SerializeField, Tooltip("The input action to read the tracking state value of a tracked device. Identifies if the hand is being tracked can provide selection input.")]
-        private InputActionProperty trackingStateInput;
+        [SerializeField, Tooltip("The tracked pose driver used to determine if the select actions should be utilized or if selection should fallback to join positions from XRSubsystemHelpers.HandsAggregator.")]
+        private TrackedPoseDriver trackedPoseDriver = null;
 
         /// <summary>
-        /// The input action to read the tracking state value of a tracked device.
+        /// The <see cref="TrackedPoseDriver"/> used to determine if the select actions should be utilized or if selection
+        /// should fallback to join positions from XRSubsystemHelpers.HandsAggregator.
         /// </summary>
-        /// <remarks>
-        /// Identifies if the hand is being tracked can provide selection input. If not defined, the hand is assumed tracked.
-        /// </remarks>
-        public InputActionProperty TrackingStateInput
+        public TrackedPoseDriver TrackedPoseDriver
         {
-            get => trackingStateInput;
-            set
-            {
-                if (value != trackingStateInput)
-                {
-                    UnbindTrackingState();
-                    SetInputActionProperty(ref trackingStateInput, value);
-                    BindTrackingState();
-                    ForceTrackingStateUpdate();
-                    UpdateActionValidCaches();
-                }
-            }
+            get => trackedPoseDriver;
+            set => trackedPoseDriver = value;
         }
 
         #endregion Serialized Fields
@@ -115,9 +104,7 @@ namespace MixedReality.Toolkit.Input
         #region Private Fields
 
         private FallbackState m_fallbackState;
-        private InputTrackingState m_trackingState;
         private bool m_firstUpdate = true;
-        private InputAction m_boundTrackingAction = null;
         private bool m_isSelectionActionValidCache = false;
         private bool m_isSelectionActionValueValidCache = false; 
 
@@ -135,9 +122,6 @@ namespace MixedReality.Toolkit.Input
         {
             selectAction.EnableDirectAction();
             selectActionValue.EnableDirectAction();
-            trackingStateInput.EnableDirectAction();
-
-            BindTrackingState();
 
             // Read current input values when becoming enabled,
             // but wait until after the input update so the input is read at a consistent time
@@ -152,11 +136,8 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         protected virtual void OnDisable()
         {
-            UnbindTrackingState();
-
             selectAction.DisableDirectAction();
             selectActionValue.DisableDirectAction();
-            trackingStateInput.DisableDirectAction();
         }
 
         /// <summary>
@@ -166,7 +147,6 @@ namespace MixedReality.Toolkit.Input
         {
             if (m_firstUpdate)
             {
-                ForceTrackingStateUpdate();
                 UpdateActionValidCaches();
                 m_firstUpdate = false;                
             }
@@ -174,7 +154,7 @@ namespace MixedReality.Toolkit.Input
             // Workaround for missing select actions on devices without interaction profiles
             // for hands, such as Varjo and Quest. Should be removed once we have universal
             // hand interaction profile(s) across vendors.
-            if (!m_isSelectionActionValidCache || !m_isSelectionActionValueValidCache || IsTrackingNone())
+            if (!m_isSelectionActionValidCache || !m_isSelectionActionValueValidCache || GetIsPolyfillDevicePose())
             {
                 UpdatePinchSelection();
             }
@@ -187,7 +167,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool ReadIsPerformed()
         {
-            if (m_isSelectionActionValidCache)
+            if (m_isSelectionActionValidCache && !GetIsPolyfillDevicePose())
             {
                 var action = selectAction.action;
                 var phase = action.phase;
@@ -202,7 +182,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool ReadWasPerformedThisFrame()
         {
-            if (m_isSelectionActionValidCache)
+            if (m_isSelectionActionValidCache && !GetIsPolyfillDevicePose())
             {
                 return selectAction.action.WasPerformedThisFrame();
             }
@@ -215,7 +195,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool ReadWasCompletedThisFrame()
         {
-            if (m_isSelectionActionValidCache)
+            if (m_isSelectionActionValidCache && !GetIsPolyfillDevicePose())
             {
                 return selectAction.action.WasCompletedThisFrame();
             }
@@ -228,7 +208,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public float ReadValue()
         {
-            if (m_isSelectionActionValueValidCache)
+            if (m_isSelectionActionValueValidCache && !GetIsPolyfillDevicePose())
             {
                 return selectActionValue.action.ReadValue<float>();
             }
@@ -241,7 +221,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool TryReadValue(out float value)
         {
-            if (m_isSelectionActionValueValidCache)
+            if (m_isSelectionActionValueValidCache && !GetIsPolyfillDevicePose())
             {
                 var action = selectActionValue.action;
                 value = action.ReadValue<float>();
@@ -335,20 +315,24 @@ namespace MixedReality.Toolkit.Input
         /// Get if the action value is attached to a control and the hand is being tracked. If not, the selection state is
         /// considered "polyfilled" and the HandsAggregator subsystem should be used to determine selection state and value.
         /// </summary>
+        /// <remarks>
+        /// We need to consider the fact that the action can be bound to a control, but the control may not be active even
+        /// if the tracking state is valid. So we need to check if there's an active control before using the action.
+        /// If there is no active control, this component will fallback to using the HandsAggregator subsystem to determine
+        /// selection press and value.
+        /// </remarks>
         private bool IsActionValid(InputAction action)
         {
             return action != null && action.HasAnyControls();
         }
 
         /// <summary>
-        /// Check the tracking state here to account for a bound but untracked interaction profile.
-        /// This could show up on runtimes where a controller is disconnected, hand tracking spins up,
-        /// but the interaction profile is not cleared. This is allowed, per-spec: "The runtime may
-        /// return the last-known interaction profile in the event that no controllers are active."
+        /// Check if the device pose is a polyfill device pose. If polyfill device pose is true,
+        /// this means the pose is being driven by the HandsAggregator subsystem.
         /// </summary>
-        private bool IsTrackingNone()
+        private bool GetIsPolyfillDevicePose()
         {
-            return m_trackingState == InputTrackingState.None;
+            return trackedPoseDriver != null && trackedPoseDriver.GetIsPolyfillDevicePose();
         }
 
         /// <summary>
@@ -367,81 +351,6 @@ namespace MixedReality.Toolkit.Input
             {
                 property.EnableDirectAction();
             }
-        }
-
-        /// <summary>
-        /// Listen for tracking state changes and update the tracking state.
-        /// </summary>
-        private void BindTrackingState()
-        {
-            if (m_boundTrackingAction != null)
-            {
-                return;
-            }
-
-            var action = trackingStateInput.action;
-            if (action == null)
-            {
-                return;
-            }
-
-            m_boundTrackingAction = action;
-            m_boundTrackingAction.performed += OnTrackingStateInputPerformed;
-            m_boundTrackingAction.canceled += OnTrackingStateInputCanceled;
-        }
-
-        /// <summary>
-        /// Force an update of the tracking state from the Input Action Reference.
-        /// </summary>
-        private void ForceTrackingStateUpdate()
-        {
-            var trackingStateAction = trackingStateInput.action;
-
-            if (trackingStateAction == null || trackingStateAction.bindings.Count == 0)
-            {
-                // Treat an Input Action Reference with no reference as the hand being tracked
-                m_trackingState = InputTrackingState.Position | InputTrackingState.Rotation;
-            }
-            else if (!trackingStateAction.enabled)
-            {
-                // Treat a disabled action as the default None value for the ReadValue call
-                m_trackingState = InputTrackingState.None;
-            }
-            else if (trackingStateAction.HasAnyControls())
-            {
-                m_trackingState = (InputTrackingState)trackingStateAction.ReadValue<int>();
-            }
-            else
-            {
-                m_trackingState = InputTrackingState.None;
-            }
-        }
-
-        /// <summary>
-        /// Stop listening for tracking state changes.
-        /// </summary>
-        private void UnbindTrackingState()
-        {
-            if (m_boundTrackingAction == null)
-            {
-                return;
-            }
-
-            m_boundTrackingAction.performed -= OnTrackingStateInputPerformed;
-            m_boundTrackingAction.canceled -= OnTrackingStateInputCanceled;
-            m_boundTrackingAction = null;
-        }
-
-        private void OnTrackingStateInputPerformed(InputAction.CallbackContext context)
-        {
-            m_trackingState = (InputTrackingState)context.ReadValue<int>();
-            UpdateActionValidCaches();
-        }
-
-        private void OnTrackingStateInputCanceled(InputAction.CallbackContext context)
-        {
-            m_trackingState = InputTrackingState.None;
-            UpdateActionValidCaches();
         }
         #endregion Private Functions
     }

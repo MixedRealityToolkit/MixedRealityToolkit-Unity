@@ -144,7 +144,8 @@ namespace MixedReality.Toolkit.Input
             // This could show up on runtimes where a controller is disconnected, hand tracking spins up,
             // but the interaction profile is not cleared. This is allowed, per-spec: "The runtime may
             // return the last-known interaction profile in the event that no controllers are active."
-            if ((!positionAction.action.HasAnyControls() || controllerState.inputTrackingState == InputTrackingState.None)
+            // Also check that the action was updated this frame by an active control, if is wasn't use polyfill pose.
+            if ((!positionAction.action.HasAnyControls() || controllerState.inputTrackingState == InputTrackingState.None || positionAction.action.activeControl == null)
                 && TryGetPolyfillDevicePose(out Pose devicePose))
             {
                 controllerState.position = devicePose.position;
