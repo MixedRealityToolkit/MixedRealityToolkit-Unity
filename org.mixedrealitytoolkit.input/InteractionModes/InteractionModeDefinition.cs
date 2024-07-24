@@ -26,7 +26,7 @@ namespace MixedReality.Toolkit.Input
 
         // private field to ensure serialization
         [SerializeField]
-        [Extends(typeof(XRBaseInputInteractor), TypeGrouping.ByNamespaceFlat)]
+        [Extends(typeof(XRBaseInteractor), TypeGrouping.ByNamespaceFlat)]
         [Tooltip("The class types of the interactors that this Interaction Mode Definition instance is targeting.")]
         private List<SystemType> associatedTypes = new List<SystemType>();
 

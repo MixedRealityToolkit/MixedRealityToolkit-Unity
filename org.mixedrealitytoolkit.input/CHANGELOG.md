@@ -70,7 +70,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Removed obsolete ControllerVisualizer.HandsAggregator field.
 * Removed no longer needed Experimental\XRI3 folder
 
-## [3.2.2] - 2024-06-24
+## [3.2.2-development] - 2024-06-24
 
 ### Fixed
 
