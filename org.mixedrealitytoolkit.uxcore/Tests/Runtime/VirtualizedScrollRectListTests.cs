@@ -18,11 +18,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
     /// <summary>
     /// Tests for the VirtualizedScrollRectList.
     /// </summary>
-    public class VirtualizedScrollRectListTests: BaseRuntimeInputTests
+    public class VirtualizedScrollRectListTests : BaseRuntimeInputTests
     {
         private const string virtualizedScrollRectListTestPrefab = "Packages/org.mixedrealitytoolkit.uxcore/Tests/Runtime/Prefabs/VirtualizedScrollRectListTest.prefab";
-        private string[] wordSet1 = { "one", "two", "three", "zebra", "keyboard", "rabbit", "graphite", "ruby", };
-        private string[] wordSet2 = { "four", "five", "six", "apple", "mouse", "tortoise", "wool", "car", };
+        private readonly string[] wordSet1 = { "one", "two", "three", "zebra", "keyboard", "rabbit", "graphite", "ruby", };
+        private readonly string[] wordSet2 = { "four", "five", "six", "apple", "mouse", "tortoise", "wool", "car", };
 
         private VirtualizedScrollRectList virtualizedScrollRectList;
 
@@ -35,7 +35,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
 
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(virtualizedScrollRectListTestPrefab);
-            GameObject obj = GameObject.Instantiate(prefab);
+            GameObject obj = Object.Instantiate(prefab);
             virtualizedScrollRectList = obj.GetComponentInChildren<VirtualizedScrollRectList>();
 
             Assert.IsNotNull(virtualizedScrollRectList, "VirtualizedScrollRectList was not found in spawned prefab.");
@@ -83,15 +83,15 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             for (i = 0; i < wordSet1.Length; i++)
             {
-                if(virtualizedScrollRectList.TryGetVisible(i, out item))
+                if (virtualizedScrollRectList.TryGetVisible(i, out item))
                 {
                     refItem = item;
                     refI = i;
-                    Assert.IsTrue(wordSet1.Contains(item.transform.name), $"Item seen does't belong to the items passed in (set1). Got {item.transform.name} at {i}");
+                    Assert.IsTrue(wordSet1.Contains(item.transform.name), $"Item seen doesn't belong to the items passed in (set1). Got {item.transform.name} at {i}");
                     foundItems++;
                 }
             }
-            Assert.IsTrue(foundItems > 0, "Non of the expected items were found in the scollable list (set1).");
+            Assert.IsTrue(foundItems > 0, "Non of the expected items were found in the scrollable list (set1).");
 
             virtualizedScrollRectList.OnVisible = OnVisibleCallbackForSet1;
             yield return null; // changes happens in next frame
@@ -109,13 +109,13 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             for (i = 0; i < wordSet2.Length; i++)
             {
-                if(virtualizedScrollRectList.TryGetVisible(i, out item))
+                if (virtualizedScrollRectList.TryGetVisible(i, out item))
                 {
-                    Assert.IsTrue(wordSet2.Contains(item.transform.name), $"Item seen does't belong to the items passed in (set2). Got {item.transform.name} at {i}");
+                    Assert.IsTrue(wordSet2.Contains(item.transform.name), $"Item seen doesn't belong to the items passed in (set2). Got {item.transform.name} at {i}");
                     foundItems++;
                 }
             }
-            Assert.IsTrue(foundItems > 0, "Non of the expected items were found in the scollable list (set2).");
+            Assert.IsTrue(foundItems > 0, "Non of the expected items were found in the scrollable list (set2).");
         }
     }
 }
