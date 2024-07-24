@@ -51,7 +51,7 @@ namespace MixedReality.Toolkit.UX.Experimental
     ///   <item>
     ///     <description>
     ///         As the list loads items into view, the
-    ///         <see cref="VirtualizedScrollRectList.OnVisible"/> callback wll be
+    ///         <see cref="VirtualizedScrollRectList.OnVisible"/> callback will be
     ///         called. This callback should populate a Unity prefab with the data
     ///         associated with the provided index.
     ///     </description>
@@ -59,7 +59,7 @@ namespace MixedReality.Toolkit.UX.Experimental
     ///   <item>
     ///     <description>
     ///         As the list unloads items from view, the
-    ///         <see cref="VirtualizedScrollRectList.OnInvisible"/> callback wll be
+    ///         <see cref="VirtualizedScrollRectList.OnInvisible"/> callback will be
     ///         called. This callback should perform any cleanup for the data
     ///         associated with the provided index.
     ///     </description>
@@ -72,11 +72,11 @@ namespace MixedReality.Toolkit.UX.Experimental
     ///   </item>
     /// </list>
     /// <para>
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
     /// value out of them early enough so to provide feedback.
     /// </para>
     /// </remarks>
@@ -167,6 +167,7 @@ namespace MixedReality.Toolkit.UX.Experimental
 
         private Action<GameObject, int> onVisible;
         private Action<GameObject, int> onInvisible;
+
         #endregion
 
         #region Public properties and fields
@@ -470,7 +471,7 @@ namespace MixedReality.Toolkit.UX.Experimental
 
         private void UpdateScroll(float newScroll)
         {
-            if ((scroll == newScroll && visibleValid == true) || initialized == false) { return; }
+            if ((scroll == newScroll && visibleValid) || !initialized) { return; }
             scroll = newScroll;
             visibleValid = true;
 
@@ -533,6 +534,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             visibleValid = false;
             Initialize();
         }
+
         #endregion
 
         #region Public Methods
@@ -583,14 +585,14 @@ namespace MixedReality.Toolkit.UX.Experimental
         }
 
         /// <summary>
-        /// Resets the VirtualizedScrollRectList. This may remove items aready
+        /// Resets the VirtualizedScrollRectList. This may remove items already
         /// visible and create new items.
         /// </summary>
         public void ResetLayout()
         {
             // We only want to reset things if it has already been initialized,
             // we don't want to initialize it prematurely!
-            if (initialized == false)
+            if (!initialized)
             {
                 return;
             }
@@ -604,6 +606,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             resetCalled = true;
             StartCoroutine(ResetLayoutNextFrame());
         }
+
         #endregion
     }
 }
