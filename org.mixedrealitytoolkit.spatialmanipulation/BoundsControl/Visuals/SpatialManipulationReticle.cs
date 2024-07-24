@@ -55,7 +55,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     {
                         for (int i = 0; i < hoveredCount; i++)
                         {
-                            if (hoveredInteractables[i] is ISnapInteractable)
+                            if (hoveredInteractables[i] is BoundsHandleInteractable)
                             {
                                 interactableIndex = i;
                                 break;
