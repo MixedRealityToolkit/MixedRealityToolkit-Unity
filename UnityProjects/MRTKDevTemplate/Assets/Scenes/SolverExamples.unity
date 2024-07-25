@@ -4489,7 +4489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6540126486176102408, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
       propertyPath: m_Name
-      value: DescriptionPanel - Coffee Cup
+      value: DescriptionPanel - Solver Handlers
       objectReference: {fileID: 0}
     - target: {fileID: 6809291684801504143, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
       propertyPath: m_text
@@ -4933,6 +4933,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
+--- !u!114 &1317663108 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7193962308655016478, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
+  m_PrefabInstance: {fileID: 1317663107}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e85416945309f8244a5715a2ec5c254f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1317663109 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6268457481263998533, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
+  m_PrefabInstance: {fileID: 1317663107}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e85416945309f8244a5715a2ec5c254f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1350045067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8509,8 +8531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CustomTrackedObject: {fileID: 7219966623798432840}
-  LeftInteractor: {fileID: 0}
-  RightInteractor: {fileID: 0}
+  LeftInteractor: {fileID: 1317663109}
+  RightInteractor: {fileID: 1317663108}
 --- !u!4 &2985051721846992313
 Transform:
   m_ObjectHideFlags: 0
