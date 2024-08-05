@@ -2,7 +2,14 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.2.1-development] - 2024-4-23
+## [3.2.2-development] - 2024-06-24
+
+### Fixed
+
+* InputSimulator execution order so that it executes before InteractionManager.
+* Ensure all relevant interactor types show up in InteractionModeManager's dropdowns. [PR #872](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/872)
+
+## [3.2.1] - 2024-04-23
 
 ### Fixed
 
