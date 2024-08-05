@@ -2,6 +2,8 @@
 
 This document provides the governance policy for the Mixed Reality Toolkit for Unity Project. Maintainers agree to this policy and to abide by all Project polices, including the [code of conduct](../org-docs/CODE-OF-CONDUCT.md), [trademark policy](../org-docs/TRADEMARKS.md), and [antitrust policy](../org-docs/ANTITRUST.md) by adding their name to the [MAINTAINERS.md](./MAINTAINERS.md) file.
 
+Mixed Reality Toolkit projects are governed by the Steering Committee. The Steering Committee is responsible for all technical oversight, project approval and oversight, policy oversight, and trademark management for the Organization. To learn more about the Steering Committee, visit this link: https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CHARTER.md
+
 ## 1. Roles
 
 This project may include the following roles. Additional roles may be adopted and documented by the Project.
@@ -28,20 +30,15 @@ This project may include the following roles. Additional roles may be adopted an
 
 **3.5. Written procedures**. This governance document and other materials documenting this project's development process shall be available to any interested person.
 
-## 4. Steering Committee
-At a high level, MRTK3 is governed by the Steering Committee. The Steering Committee is responsible for all technical oversight, project approval and oversight, policy oversight, and trademark management for the Organization. 
-
-To learn more about the Steering Committee, visit this link: https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CHARTER.md
-
-## 5. No Confidentiality
+## 4. No Confidentiality
 
 Information disclosed in connection with any Project activity, including but not limited to meetings, contributions, and submissions, is not confidential, regardless of any markings or statements to the contrary.
 
-## 6. Trademarks
+## 5. Trademarks
 
 Any names, trademarks, logos, or goodwill developed by and associated with the Project (the "Marks") are controlled by the Organization. Maintainers may only use these Marks in accordance with the Organization's trademark policy. If a Maintainer resigns or is removed, any rights the Maintainer may have in the Marks revert to the Organization.
 
-## 7. Amendments
+## 6. Amendments
 
 Amendments to this governance policy may be made by affirmative vote of 2/3 of all Maintainers, with approval by the Organization's Steering Committee.
 
