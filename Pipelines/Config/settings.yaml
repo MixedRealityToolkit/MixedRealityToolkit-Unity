@@ -4,6 +4,4 @@ variables:
   # match (see scripts/packaging/versionmetadata.ps1)
   # ProjectSettings/ProjectSettings.asset:  bundleVersion: x.x.x
   # ProjectSettings/ProjectSettings.asset:  metroPackageVersion: x.x.x.0
-  MRTKVersion: 3.0.0        # used for overall build number, but each package version is read from the package.json file in each package directory.
-  MRTKReleaseTag: 'pre.20'  # final version component, e.g. 'RC2.1' or empty string.
-  ReleasePackages: '"org.mixedrealitytoolkit.audio,org.mixedrealitytoolkit.core,org.mixedrealitytoolkit.diagnostics,org.mixedrealitytoolkit.extendedassets,org.mixedrealitytoolkit.input,org.mixedrealitytoolkit.spatialmanipulation,org.mixedrealitytoolkit.standardassets,org.mixedrealitytoolkit.tools,org.mixedrealitytoolkit.uxcomponents,org.mixedrealitytoolkit.uxcomponents.noncanvas,org.mixedrealitytoolkit.uxcore,org.mixedrealitytoolkit.windowsspeech"'   # array of packages that shouldn't get the prerelease tag  e.g.  '"org.mixedrealitytoolkit.core,org.mixedrealitytoolkit.tools"'
+  ProjectVersion: 3.0.0        # used for overall build number of sample projects
