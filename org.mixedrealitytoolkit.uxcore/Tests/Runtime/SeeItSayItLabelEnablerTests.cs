@@ -26,18 +26,18 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         [UnityTest]
         public IEnumerator TestEnableAndSetLabel()
         {
+            GameObject testButton = SetUpButton(true, Control.None);
+            Transform label = testButton.transform.GetChild(0);
+
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
             SpeechInteractor interactor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
             interactor.gameObject.SetActive(true);
 
-            GameObject testButton = SetUpButton(true, Control.None);
             yield return null;
             if (Application.isBatchMode)
             {
                 LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
             }
-
-            Transform label = testButton.transform.GetChild(0);
 
             Transform sublabel = label.transform.GetChild(0);
             Assert.IsTrue(label.gameObject.activeSelf, "Label is enabled");
@@ -51,6 +51,43 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Object.Destroy(testButton);
             // Wait for a frame to give Unity a change to actually destroy the object
             yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator TestAutoUpdateLabel()
+        {
+            GameObject testButton = SetUpButton(true, Control.None);
+            Transform label = testButton.transform.GetChild(0);
+
+#if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
+            SpeechInteractor interactor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
+            interactor.gameObject.SetActive(true);
+
+            yield return null;
+            if (Application.isBatchMode)
+            {
+                LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
+            }
+
+            Transform sublabel = label.transform.GetChild(0);
+            TMP_Text text = label.gameObject.GetComponentInChildren<TMP_Text>(true);
+            Assert.AreEqual(text.text, "Say 'test'", "Label text was set to voice command keyword.");
+
+            testButton.GetComponent<PressableButton>().SpeechRecognitionKeyword = "hello world";
+
+            Assert.AreEqual(text.text, "Say 'hello world'", "Label text was updated according to voice command keyword.");
+#else
+            Assert.IsTrue(!label.gameObject.activeSelf, "Did not enable label because voice commands unavailable.");
+#endif
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+            yield return null;
+            // The speech recognition keyword change will trigger this exception at next update when speech recognition is not supported
+            if (Application.isBatchMode)
+            {
+                LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
+            }
         }
 
         [UnityTest]
@@ -70,18 +107,19 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         [UnityTest]
         public IEnumerator TestPositionCanvasLabel()
         {
+            GameObject testButton = SetUpButton(true, Control.Canvas);
+            Transform label = testButton.transform.GetChild(0);
+
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
             SpeechInteractor interactor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
             interactor.gameObject.SetActive(true);
 
-            GameObject testButton = SetUpButton(true, Control.Canvas);
             yield return null;
             if (Application.isBatchMode)
             {
                 LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
             }
 
-            Transform label = testButton.transform.GetChild(0);
             RectTransform sublabel = label.transform.GetChild(0) as RectTransform;
             Assert.AreEqual(sublabel.anchoredPosition3D, new Vector3(10, -30, -10), "Label is positioned correctly");
 #else
@@ -96,18 +134,19 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         [UnityTest]
         public IEnumerator TestPositionNonCanvasLabel()
         {
+            GameObject testButton = SetUpButton(true, Control.NonCanvas);
+            Transform label = testButton.transform.GetChild(0);
+
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
             SpeechInteractor interactor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
             interactor.gameObject.SetActive(true);
 
-            GameObject testButton = SetUpButton(true, Control.NonCanvas);
             yield return null;
             if (Application.isBatchMode)
             {
                 LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
             }
 
-            Transform label = testButton.transform.GetChild(0);
             Assert.AreEqual(label.transform.localPosition, new Vector3(10f, -.504f, -.004f), "Label is positioned correctly");
 #else
             Assert.IsTrue(!label.gameObject.activeSelf, "Did not enable label because voice commands unavailable.");
