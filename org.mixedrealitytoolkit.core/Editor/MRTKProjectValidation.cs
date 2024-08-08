@@ -130,7 +130,7 @@ namespace MixedReality.Toolkit
                 AssetDatabase.LoadAssetAtPath<MRTKProfile>(AssetDatabase.GUIDToAssetPath(DefaultMRTKProfileGuid))),
                 FixItMessage = $"Assign the default MRTK3 profile for the {buildTargetGroup} build target",
                 Error = false,
-                HelpLink = "https://docs.microsoft.com/windows/mixed-reality/mrtk-unity/mrtk3-overview/setup#4-configure-mrtk-profile-after-import"
+                HelpLink = "https://learn.microsoft.com/windows/mixed-reality/mrtk-unity/mrtk3-overview/getting-started/setting-up/setup-new-project#4-configure-mrtk-profile-after-import"
             };
         }
 
