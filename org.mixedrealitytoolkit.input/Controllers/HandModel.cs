@@ -109,8 +109,12 @@ namespace MixedReality.Toolkit.Input
             {
                 modelParent = new GameObject($"[{gameObject.name}] Model Parent").transform;
                 modelParent.SetParent(transform, false);
+#if HAS_SET_LOCAL_POSITION_AND_ROTATION
+                modelParent.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+#else
                 modelParent.localPosition = Vector3.zero;
                 modelParent.localRotation = Quaternion.identity;
+#endif
             }
         }
     }
