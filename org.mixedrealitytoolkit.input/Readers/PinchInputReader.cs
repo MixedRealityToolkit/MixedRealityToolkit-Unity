@@ -104,9 +104,9 @@ namespace MixedReality.Toolkit.Input
         #region Private Fields
 
         private FallbackState m_fallbackState;
-        private bool m_firstUpdate = true;
-        private bool m_isSelectionActionValidCache = false;
-        private bool m_isSelectionActionValueValidCache = false; 
+        private bool m_isTrackingStatePolyfilled = false;
+        private bool m_isSelectPolyfilled = false;
+        private bool m_isSelectValuePolyfilled = false;
 
         private static readonly ProfilerMarker UpdatePinchSelectionPerfMarker =
             new ProfilerMarker("[MRTK] PinchInputReader.UpdatePinchSelection");
@@ -122,10 +122,6 @@ namespace MixedReality.Toolkit.Input
         {
             selectAction.EnableDirectAction();
             selectActionValue.EnableDirectAction();
-
-            // Read current input values when becoming enabled,
-            // but wait until after the input update so the input is read at a consistent time
-            m_firstUpdate = true;
 
             // reset fallback state
             m_fallbackState = default;
@@ -145,16 +141,14 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         protected virtual void Update()
         {
-            if (m_firstUpdate)
-            {
-                UpdateActionValidCaches();
-                m_firstUpdate = false;
-            }
+            m_isTrackingStatePolyfilled = trackedPoseDriver.GetIsPolyfillDevicePose();
+            m_isSelectPolyfilled = !selectAction.action.HasAnyControls();
+            m_isSelectValuePolyfilled = !selectActionValue.action.HasAnyControls();
 
             // Workaround for missing select actions on devices without interaction profiles
             // for hands, such as Varjo and Quest. Should be removed once we have universal
             // hand interaction profile(s) across vendors.
-            if (!m_isSelectionActionValidCache || !m_isSelectionActionValueValidCache || GetIsPolyfillDevicePose())
+            if (m_isTrackingStatePolyfilled || m_isSelectPolyfilled || m_isSelectValuePolyfilled)
             {
                 UpdatePinchSelection();
             }
@@ -167,10 +161,10 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool ReadIsPerformed()
         {
-            if (m_isSelectionActionValidCache && !GetIsPolyfillDevicePose())
+            if (!m_isSelectPolyfilled && !m_isTrackingStatePolyfilled)
             {
-                var action = selectAction.action;
-                var phase = action.phase;
+                InputAction action = selectAction.action;
+                InputActionPhase phase = action.phase;
                 return phase == InputActionPhase.Performed || (phase != InputActionPhase.Disabled && action.WasPerformedThisFrame());
             }
             else
@@ -182,7 +176,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool ReadWasPerformedThisFrame()
         {
-            if (m_isSelectionActionValidCache && !GetIsPolyfillDevicePose())
+            if (!m_isSelectPolyfilled && !m_isTrackingStatePolyfilled)
             {
                 return selectAction.action.WasPerformedThisFrame();
             }
@@ -195,7 +189,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool ReadWasCompletedThisFrame()
         {
-            if (m_isSelectionActionValidCache && !GetIsPolyfillDevicePose())
+            if (!m_isSelectPolyfilled && !m_isTrackingStatePolyfilled)
             {
                 return selectAction.action.WasCompletedThisFrame();
             }
@@ -208,7 +202,7 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public float ReadValue()
         {
-            if (m_isSelectionActionValueValidCache && !GetIsPolyfillDevicePose())
+            if (!m_isSelectValuePolyfilled && !m_isTrackingStatePolyfilled)
             {
                 return selectActionValue.action.ReadValue<float>();
             }
@@ -221,9 +215,9 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public bool TryReadValue(out float value)
         {
-            if (m_isSelectionActionValueValidCache && !GetIsPolyfillDevicePose())
+            if (!m_isSelectValuePolyfilled && !m_isTrackingStatePolyfilled)
             {
-                var action = selectActionValue.action;
+                InputAction action = selectActionValue.action;
                 value = action.ReadValue<float>();
                 return action.IsInProgress();
             }
@@ -237,6 +231,7 @@ namespace MixedReality.Toolkit.Input
         #endregion IXRInputButtonReader
 
         #region Private Functions
+
         /// <summary>
         /// Workaround for missing select actions on devices without interaction profiles for hands, such as Varjo and Quest.
         /// </summary>
@@ -253,15 +248,12 @@ namespace MixedReality.Toolkit.Input
                     return;
                 }
 
-                bool gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(
-                    handNode,
-                    out bool isPinchReady,
-                    out bool isPinching,
-                    out float pinchAmount
-                );
-
                 // If we got pinch data, write it into our select interaction state.
-                if (gotPinchData)
+                if (XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(
+                    handNode,
+                    out _,
+                    out _,
+                    out float pinchAmount))
                 {
                     // Workaround for missing select actions on devices without interaction profiles
                     // for hands, such as Varjo and Quest. Should be removed once we have universal
@@ -285,28 +277,6 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Update the cached "is valid" states of the selection action and selection action value.
-        /// </summary>
-        /// <remarks>
-        /// If actions are not considered "valid", the actions are considered "polyfilled", and the
-        /// HandsAggregator subsystem should be used to determine selection state and value.
-        /// </remarks>
-        private void UpdateActionValidCaches()
-        {
-            m_isSelectionActionValidCache = selectAction.action.HasAnyControls();
-            m_isSelectionActionValueValidCache = selectActionValue.action.HasAnyControls();
-        }
-
-        /// <summary>
-        /// Check if the device pose is a polyfill device pose. If polyfill device pose is true,
-        /// this means the pose is being driven by the HandsAggregator subsystem.
-        /// </summary>
-        private bool GetIsPolyfillDevicePose()
-        {
-            return trackedPoseDriver != null && trackedPoseDriver.GetIsPolyfillDevicePose();
-        }
-
-        /// <summary>
         /// Apply and enable the new action property if the application is running and this component is enabled.
         /// </summary>
         private void SetInputActionProperty(ref InputActionProperty property, InputActionProperty value)
@@ -323,6 +293,7 @@ namespace MixedReality.Toolkit.Input
                 property.EnableDirectAction();
             }
         }
+
         #endregion Private Functions
     }
 }
