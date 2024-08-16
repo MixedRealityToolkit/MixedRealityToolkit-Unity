@@ -381,14 +381,11 @@ namespace MixedReality.Toolkit.Input
                 return;
             }
 
-            if (TryGetSelectionValue(out float selectionValue))
-            {
-                // Update the hand material
-                float pinchAmount = Mathf.Pow(selectionValue, 2.0f);
-                handRenderer.GetPropertyBlock(propertyBlock);
-                propertyBlock.SetFloat(pinchAmountMaterialProperty, pinchAmount);
-                handRenderer.SetPropertyBlock(propertyBlock);
-            }
+            // Update the hand material
+            float pinchAmount = TryGetSelectionValue(out float selectionValue) ? Mathf.Pow(selectionValue, 2.0f) : 0;
+            handRenderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetFloat(pinchAmountMaterialProperty, pinchAmount);
+            handRenderer.SetPropertyBlock(propertyBlock);
         }
 
         /// <summary>
