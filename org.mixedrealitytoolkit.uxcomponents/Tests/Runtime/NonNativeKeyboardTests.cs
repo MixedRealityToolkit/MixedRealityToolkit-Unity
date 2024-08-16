@@ -428,8 +428,8 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
         private IEnumerator TypeFunctionKey(NonNativeFunctionKey.Function value)
         {
-            var key = FindFunctionKey(value);
-            Assert.IsNotNull(key, $"Could not find function key '{value.ToString()}'");
+            NonNativeFunctionKey key = FindFunctionKey(value);
+            Assert.IsNotNull(key, $"Could not find function key '{value}'");
             key.GetComponent<Button>().onClick.Invoke();
             yield return RuntimeTestUtilities.WaitForUpdates();
         }

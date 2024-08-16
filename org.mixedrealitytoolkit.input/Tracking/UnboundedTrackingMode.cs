@@ -76,8 +76,7 @@ namespace MixedReality.Toolkit.Input
                 return;
             }
 
-            XROrigin xrOrigin = gameObject.GetComponent<XROrigin>();
-            if (xrOrigin != null)
+            if (gameObject.TryGetComponent(out XROrigin xrOrigin))
             {
                 m_requestedTrackingOriginMode = xrOrigin.RequestedTrackingOriginMode;
             }
