@@ -57,7 +57,7 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Get if the last pose set was from a polyfill device pose. 
+        /// Get if the last pose set was from a polyfill device pose.
         /// </summary>
         /// <returns>
         /// Returns <see langword="true"/> if the last pose originated from the <see cref="XRSubsystemHelpers.HandsAggregator "/>.
@@ -81,7 +81,7 @@ namespace MixedReality.Toolkit.Input
         /// <see cref="InputTrackingState.Rotation"/>`. If the action is disabled, it will return `<see cref="InputTrackingState.None"/>`. If the action has controls, it will return the value of the action.
         /// </remarks>
         internal static InputTrackingState GetInputTrackingStateNoCache(this TrackedPoseDriver driver)
-        {           
+        {
             return GetInputTrackingState(driver.trackingStateInput);
         }
 
