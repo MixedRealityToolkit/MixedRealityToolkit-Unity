@@ -146,7 +146,7 @@ namespace MixedReality.Toolkit.Input
             m_isSelectValuePolyfilled = !selectActionValue.action.HasAnyControls();
 
             // Workaround for missing select actions on devices without interaction profiles
-            // for hands, such as Varjo and Quest. Should be removed once we have universal
+            // for hands, such as Quest. Should be removed once we have universal
             // hand interaction profile(s) across vendors.
             if (m_isTrackingStatePolyfilled || m_isSelectPolyfilled || m_isSelectValuePolyfilled)
             {
