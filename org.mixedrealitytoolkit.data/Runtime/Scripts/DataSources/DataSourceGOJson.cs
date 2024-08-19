@@ -63,20 +63,14 @@ namespace MixedReality.Toolkit.Data
                 if (webRequest.isHttpError || webRequest.isNetworkError)
 #endif
                 {
-                    if (failureDelegate != null)
-                    {
-                        failureDelegate.Invoke(webRequest.error, requestRef);
-                    }
+                    failureDelegate?.Invoke(webRequest.error, requestRef);
                 }
                 else
                 {
                     string jsonText = RemoveCallbackWrapper(webRequest.downloadHandler.text);
 
                     DataSourceJson.UpdateFromJson(jsonText);
-                    if (successDelegate != null)
-                    {
-                        successDelegate.Invoke(jsonText, requestRef);
-                    }
+                    successDelegate?.Invoke(jsonText, requestRef);
                 }
             }
         }
