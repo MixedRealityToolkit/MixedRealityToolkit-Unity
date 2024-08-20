@@ -468,13 +468,18 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 Vector3 toTarget = currentPosition - refPosition;
                 float currentDistance = toTarget.magnitude;
-                if (currentDistance <= 9.999999747378752E-06)
+                if (currentDistance <= 0f)
                 {
                     // No need to clamp
                     return false;
                 }
 
                 toTarget.Normalize();
+
+                if(toTarget == Vector3.zero)
+                {
+                    return false;
+                }
 
                 // Start off with a rotation towards the target. If it's within leashing bounds, we can leave it alone.
                 Quaternion rotation = Quaternion.LookRotation(toTarget, Vector3.up);
