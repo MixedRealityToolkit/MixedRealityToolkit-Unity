@@ -172,7 +172,7 @@ namespace MixedReality.Toolkit.UX
 #if UNITY_LOCALIZATION_PRESENT
                 if (!localizedPattern.IsEmpty)
                 {
-                    localizedPattern.StringChanged += OnLocalizedPatternChanged;
+                    localizedPattern.StringChanged -= OnLocalizedPatternChanged;
                 }
 #endif
             }
