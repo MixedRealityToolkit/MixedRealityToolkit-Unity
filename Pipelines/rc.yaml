@@ -48,7 +48,7 @@ resources:
 
 extends:
   template: v1/1ES.Official.PipelineTemplate.yml@1ESPipelineTemplates
-  
+  parameters:
     pool:
       name: Unity_2021.3.21f1_Pool
     
