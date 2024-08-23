@@ -55,9 +55,15 @@ extends:
     stages:
     - stage: 'Build'
       jobs:
-      - job: Build_MixedRealityToolkit
+      - job: UnityValidation
 
         steps:
+        - checkout: self
+        - checkout: PipelineTools
 
         - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
           displayName: 'Initial source tree'
+
+        - template: Templates/unity.yaml
+          parameters:
+            Platform: Standalone
