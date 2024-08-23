@@ -1,10 +1,10 @@
 {
   "name": "org.mixedrealitytoolkit.uxcomponents.noncanvas",
-  "version": "3.0.1-development",
-  "description": "MRTK non-Canvas UX component library, for building 3D UX without Canvas layout. For most production-grade UI, we recommend the dynamic hybrid Canvas-based UX systems, located in org.mixedrealitytoolkit.uxcomponents. However, in some circumstances, static/non-Canvas UI may offer improved performance and batching, and may be desirable in resource-constrained scenarios.",
+  "version": "3.1.3-development",
+  "description": "UX component library for 3D UX without Canvas layout. In some cases, non-Canvas UI may offer better performance.",
   "displayName": "MRTK UX Components (Non-Canvas)",
   "msftFeatureCategory": "MRTK3",
-  "author": "Microsoft",
+  "author": "Mixed Reality Toolkit Contributors",
   "license": "BSD 3-Clause",
   "repository": {
     "type": "git",
@@ -14,11 +14,12 @@
     "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
   },
   "unity": "2021.3",
-  "unityRelease": "22f1",
+  "unityRelease": "26f1",
+  "documentationUrl": "https://www.mixedrealitytoolkit.org",
   "dependencies": {
-    "org.mixedrealitytoolkit.uxcore": "3.0.0",
+    "org.mixedrealitytoolkit.uxcore": "3.1.0",
     "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0",
-    "org.mixedrealitytoolkit.standardassets": "3.0.0"
+    "org.mixedrealitytoolkit.standardassets": "3.1.0"
   },
   "msftOptionalPackages": {
     "org.mixedrealitytoolkit.data": "1.0.0-development"

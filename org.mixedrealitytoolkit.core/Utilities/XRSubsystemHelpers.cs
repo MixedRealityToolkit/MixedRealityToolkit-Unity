@@ -96,8 +96,7 @@ namespace MixedReality.Toolkit
             }
 
             List<T> cache = scratchCaches[typeof(T)] as List<T>;
-            SubsystemManager.GetSubsystems<T>(cache);
-
+            SubsystemManager.GetSubsystems(cache);
             return cache;
         }
 

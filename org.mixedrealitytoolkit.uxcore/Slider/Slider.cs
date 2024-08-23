@@ -153,6 +153,7 @@ namespace MixedReality.Toolkit.UX
             {
                 if (this.value != value)
                 {
+                    value = Mathf.Clamp(value, minValue, maxValue);
                     var oldSliderValue = this.value;
                     this.value = value;
                     OnValueUpdated.Invoke(new SliderEventData(oldSliderValue, value));
@@ -369,11 +370,11 @@ namespace MixedReality.Toolkit.UX
 
             var handDelta = Vector3.Dot(SliderTrackDirection.normalized, interactorDelta);
 
-            float unsnappedValue = Mathf.Clamp(StartSliderValue + handDelta / SliderTrackDirection.magnitude, 0f, 1.0f);
+            float normalizedValue = Mathf.Clamp(StartSliderValue + handDelta / SliderTrackDirection.magnitude, 0f, 1.0f);
 
-            var normalizedValue = useSliderStepDivisions ? SnapSliderToStepPositions(unsnappedValue) : unsnappedValue;
-            Value = normalizedValue * (MaxValue - MinValue) + MinValue;
-    }
+            var unsnappedValue = normalizedValue * (MaxValue - MinValue) + MinValue;
+            Value = useSliderStepDivisions ? SnapSliderToStepPositions(unsnappedValue) : unsnappedValue;
+        }
 
         #endregion
 

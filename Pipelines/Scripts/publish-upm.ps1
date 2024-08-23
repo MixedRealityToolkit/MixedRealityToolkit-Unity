@@ -45,14 +45,6 @@ try {
         npm publish $_
     }
     
-    # Publish the deprecated package files
-    Get-ChildItem -Path $PackageDirectory -Filter "com.microsoft.mrtk.*.tgz" | ForEach-Object {
-        Write-Output "======================="
-        Write-Output "Publishing: $($_.Name) "
-        Write-Output "======================="
-        npm publish $_
-    }
-    
 }
 finally {
     if ($RegistryPath) {

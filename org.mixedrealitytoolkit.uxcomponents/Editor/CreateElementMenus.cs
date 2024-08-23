@@ -11,6 +11,7 @@ using Microsoft.MixedReality.GraphicsTools;
 using TMPro;
 using System.Reflection;
 using System.Linq;
+using UnityEditor.SceneManagement;
 
 namespace MixedReality.Toolkit.Editor
 {
@@ -29,9 +30,23 @@ namespace MixedReality.Toolkit.Editor
         // The basic building block button; contains an icon, text, and label.
         private static readonly string ActionButtonPath = AssetDatabase.GUIDToAssetPath("c6b351a67ceb69140b199996bbbea156");
 
+        // ActionButtonCheckbox.prefab
+        // Derived ActionButton with a checkbox; contains an icon, text, and label.
+        private static readonly string ActionButtonCheckboxPath = AssetDatabase.GUIDToAssetPath("102308bb87362e54ab2cb5f9b455aeb4");
+
         // CanvasBackplate.mat
         // Backplate material for menu plates.
         private static readonly string PlateMaterialPath = AssetDatabase.GUIDToAssetPath("65972ebbfd5c529479f9c30fd3ec3f6a");
+
+        // SimpleEmptyButton.prefab
+        // A simple button with empty content.  A lighter version of EmptyButton for improved rendering performance.
+        private static readonly string SimpleEmptyButtonPath = AssetDatabase.GUIDToAssetPath("7ed78718e86d3cc469e6abbecb4a8508");
+
+        // SimpleActionButton.prefab
+        // A simple action button, this is a prefab variant of SimpleEmptyButton prefab.  SimpleActionButton has a TextMeshPro-Text(UI)
+        // component under Content child, in addition to SimpleEmptyButton components.  A lighter version of ActionButton for
+        // improved rendering performance.
+        private static readonly string SimpleActionButtonPath = AssetDatabase.GUIDToAssetPath("a2b07dcaa4b2f8e4fa68b319f1477f4c");
 
         // Reflection into internal UGUI editor utilities.
         private static System.Reflection.MethodInfo PlaceUIElementRoot = null;
@@ -83,6 +98,7 @@ namespace MixedReality.Toolkit.Editor
         {
             Object prefab = AssetDatabase.LoadAssetAtPath(path, typeof(Object));
             GameObject gameObject = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+            StageUtility.PlaceGameObjectInCurrentStage(gameObject);
             Undo.RegisterCreatedObjectUndo(gameObject, "Create " + gameObject.name);
 
             return SetupElement(gameObject, menuCommand);
@@ -104,8 +120,21 @@ namespace MixedReality.Toolkit.Editor
             canvas.renderMode = RenderMode.WorldSpace;
             Undo.RecordObject(canvas, "Set Canvas RenderMode to WorldSpace");
 
-            // 30cm in front of the camera.
-            rt.position = Camera.main.transform.position + Camera.main.transform.forward * 0.3f;
+            // Position the canvas in front of the camera (if in the main stage and not prefab stage).
+            if (PrefabStageUtility.GetCurrentPrefabStage() == null)
+            {
+                // 30cm in front of the camera.
+                // If no main camera present, use default rig setup of 1.6 meters above 0,0,0.
+                Pose cameraPose = Camera.main != null ?
+                    new Pose(Camera.main.transform.position, Camera.main.transform.rotation) :
+                    new Pose(new Vector3(0.0f, 1.6f, 0.0f), Quaternion.identity);
+                rt.position = cameraPose.position + cameraPose.forward * 0.3f;
+            }
+            else
+            {
+                // Center the canvas in prefab stage
+                rt.position = Vector3.zero;
+            }
             Undo.RecordObject(rt, "Set Canvas Position");
 
             // No GraphicRaycaster by default. Users can add one, if they like.
@@ -128,6 +157,7 @@ namespace MixedReality.Toolkit.Editor
             int group = Undo.GetCurrentGroup();
 
             GameObject gameObject = new GameObject("Canvas");
+            StageUtility.PlaceGameObjectInCurrentStage(gameObject);
             Undo.RegisterCreatedObjectUndo(gameObject, "Create blank MRTK Canvas");
 
             Canvas canvas = Undo.AddComponent<Canvas>(gameObject);
@@ -143,6 +173,7 @@ namespace MixedReality.Toolkit.Editor
             int group = Undo.GetCurrentGroup();
 
             GameObject gameObject = new GameObject("Canvas");
+            StageUtility.PlaceGameObjectInCurrentStage(gameObject);
             Undo.RegisterCreatedObjectUndo(gameObject, "Create MRTK Canvas with Graphic Raycasting");
 
             Canvas canvas = Undo.AddComponent<Canvas>(gameObject);
@@ -163,7 +194,7 @@ namespace MixedReality.Toolkit.Editor
             int group = Undo.GetCurrentGroup();
 
             GameObject gameObject = new GameObject("Plate", typeof(CanvasElementRoundedRect));
-            
+            StageUtility.PlaceGameObjectInCurrentStage(gameObject);
 
             Undo.RegisterCreatedObjectUndo(gameObject, "Create " + gameObject.name);
 
@@ -193,6 +224,24 @@ namespace MixedReality.Toolkit.Editor
             CreateElementFromPath(ActionButtonPath, menuCommand);
         }
 
+        [MenuItem("GameObject/UI/MRTK/Experimental/Simple Empty Button")]
+        private static void CreateSimpleEmptyButton(MenuCommand menuCommand)
+        {
+            Undo.SetCurrentGroupName("Create SimpleEmptyButton");
+
+            GameObject simpleEmptyButton = CreateElementFromPath(SimpleEmptyButtonPath, menuCommand);
+            Undo.RecordObject(simpleEmptyButton, "Added SimpleEmptyButton instance.");
+        }
+
+        [MenuItem("GameObject/UI/MRTK/Experimental/Simple Action Button")]
+        private static void CreateSimpleActionButton(MenuCommand menuCommand)
+        {
+            Undo.SetCurrentGroupName("Create SimpleActionButton");
+
+            GameObject simpleActionButton = CreateElementFromPath(SimpleActionButtonPath, menuCommand);
+            Undo.RecordObject(simpleActionButton, "Added SimpleActionButton instance.");
+        }
+
         [MenuItem("GameObject/UI/MRTK/Action Button (Wide)", false, 1)]
         private static GameObject CreateActionButtonWide(MenuCommand menuCommand)
         {
@@ -217,6 +266,17 @@ namespace MixedReality.Toolkit.Editor
             PrefabUtility.RecordPrefabInstancePropertyModifications(gameObject);
 
             return gameObject;
+        }
+
+        [MenuItem("GameObject/UI/MRTK/Action Button Checkbox", false, 1)]
+        private static GameObject CreateActionButtonCheckbox(MenuCommand menuCommand)
+        {
+            Undo.SetCurrentGroupName("Create Action Button Checkbox");
+
+            GameObject actionButtonCheckbox = CreateElementFromPath(ActionButtonCheckboxPath, menuCommand);
+            Undo.RecordObject(actionButtonCheckbox, "Added Action Button Checkbox instance.");
+
+            return actionButtonCheckbox;
         }
 
         [MenuItem("GameObject/UI/MRTK/Empty Button", false, 2)]

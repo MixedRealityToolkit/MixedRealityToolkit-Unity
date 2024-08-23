@@ -25,7 +25,7 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator BasicFuzzyGazeTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
-            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindAnyObjectByType<FuzzyGazeInteractor>();
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
             // Instantiate two foregound cubes and one background cube for testing
@@ -101,7 +101,7 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator FuzzyGazePrecisionTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene and configure it for the test
-            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindFirstObjectByType<FuzzyGazeInteractor>();
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
             fuzzyGazeInteractor.precision = 0;
             fuzzyGazeInteractor.performAdditionalRaycast = false;
@@ -159,7 +159,7 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator GazeFallbackWhenEyeGazeLosesTrackingTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
-            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindFirstObjectByType<FuzzyGazeInteractor>();
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
             // Instantiate two foregound cubes and one background cube for testing
@@ -228,7 +228,7 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator GazeFallbackWhenEyeGazeIsDisabledTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
-            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindObjectOfType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindFirstObjectByType<FuzzyGazeInteractor>();
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
             // Instantiate two foregound cubes and one background cube for testing

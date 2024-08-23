@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -90,6 +91,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private float initialParentScale;
 
+        private float initialLocalScale;
+
         /// <inheritdoc/>
         protected override void Awake()
         {
@@ -99,7 +102,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
             DisableInteractorType(typeof(IPokeInteractor));
 
             handleRenderer = GetComponentInChildren<MeshRenderer>();
-            HideOnStartup();
         }
 
         /// <summary>
@@ -110,6 +112,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             // Record initial values at Start(), so that we
             // capture the bounds sizing, etc.
             initialParentScale = MaxComponent(transform.parent.lossyScale);
+            initialLocalScale = MaxComponent(transform.localScale);
         }
 
         /// <summary>
@@ -129,15 +132,17 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
 
             // Maintain the aspect ratio/proportion of the handles, globally.
+            // Setting localScale to ensure that lossyScale remains equal to initialLocalScale across all axes. 
             transform.localScale = Vector3.one;
-            transform.localScale = new Vector3(1.0f / transform.lossyScale.x,
-                                               1.0f / transform.lossyScale.y,
-                                               1.0f / transform.lossyScale.z);
-            
+            transform.localScale = new Vector3(
+                transform.lossyScale.x == 0 ? transform.localScale.x : (initialLocalScale / transform.lossyScale.x),
+                transform.lossyScale.y == 0 ? transform.localScale.y : (initialLocalScale / transform.lossyScale.y),
+                transform.lossyScale.z == 0 ? transform.localScale.z : (initialLocalScale / transform.lossyScale.z));
+
             // If we don't want to maintain the overall *size*, we scale
             // by the maximum component of the box so that the handles grow/shrink
             // with the overall box manipulation.
-            if (!maintainGlobalSize)
+            if (!maintainGlobalSize && initialParentScale != 0)
             {
                 transform.localScale = transform.localScale * (MaxComponent(transform.parent.lossyScale) / initialParentScale);
             }
@@ -145,20 +150,44 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private float MaxComponent(Vector3 v)
         {
-            return Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
+            return Mathf.Max(Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y)), Mathf.Abs(v.z));
         }
 
         /// <summary>
         /// Occludes the handle so it is not initially visible when it should start disabled.
         /// </summary>
+        [Obsolete("Force hiding is no longer supported. Use IsOccluded instead.")]
         public void HideOnStartup()
         {
             if (handleRenderer != null)
             {
                 handleRenderer.enabled = false;
             }
-            colliders[0].enabled = false;
+            if (colliders.Count > 0 && colliders[0] != null) 
+            {
+                colliders[0].enabled = false;
+            }
             wasOccludedLastFrame = true;
+        }
+
+        /// <summary>
+        /// Sets <see cref="IsOccluded"/> to true, and forces handling of occlusion immediately.
+        /// </summary>
+        internal void ForceOcclusion()
+        {
+            if (!wasOccludedLastFrame)
+            {
+                IsOccluded = true;
+                wasOccludedLastFrame = true;
+                if (handleRenderer != null)
+                {
+                    handleRenderer.enabled = false;
+                }
+                if (colliders.Count > 0 && colliders[0] != null) 
+                {
+                    colliders[0].enabled = false;
+                }
+            }
         }
 
         /// <inheritdoc />

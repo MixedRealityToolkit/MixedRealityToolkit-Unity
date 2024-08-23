@@ -60,6 +60,24 @@ namespace MixedReality.Toolkit.Input
         public HashSet<Collider> DetectedColliders => colliders;
 
         /// <summary>
+        /// The interaction manager to use to query interactors and their registration events.
+        /// Currently protected internal, may be exposed in a future update.
+        /// </summary>
+        internal protected XRInteractionManager InteractionManager
+        {
+            get
+            {
+                if (interactionManager == null)
+                {
+                    interactionManager = ComponentCache<XRInteractionManager>.FindFirstActiveInstance();
+                }
+
+                return interactionManager;
+            }
+            set => interactionManager = value;
+        }
+
+        /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
         /// </summary>
         private void Awake()

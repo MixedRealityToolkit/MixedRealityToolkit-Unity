@@ -11,6 +11,7 @@ namespace MixedReality.Toolkit.Editor
     /// A custom Unity editor for the <see cref="PressableButton"/> class.
     /// </summary>
     [CustomEditor(typeof(PressableButton), true)]
+    [CanEditMultipleObjects]
     public class PressableButtonEditor : StatefulInteractableEditor
     {
         // Struct used to store state of preview.
@@ -51,6 +52,7 @@ namespace MixedReality.Toolkit.Editor
         private SerializedProperty rejectXYRollOff;
         private SerializedProperty rollOffXYDepth;
         private SerializedProperty rejectZRollOff;
+        private SerializedProperty IsProximityHovered;
 
         private static readonly Vector3[] startPlaneVertices = new Vector3[4];
         private static readonly Vector3[] endPlaneVertices = new Vector3[4];
@@ -81,6 +83,8 @@ namespace MixedReality.Toolkit.Editor
             rejectXYRollOff = serializedObject.FindProperty("rejectXYRollOff");
             rollOffXYDepth = serializedObject.FindProperty("rollOffXYDepth");
             rejectZRollOff = serializedObject.FindProperty("rejectZRollOff");
+
+            IsProximityHovered = SetUpAutoProperty(nameof(IsProximityHovered));
         }
 
         [DrawGizmo(GizmoType.Selected)]
@@ -209,6 +213,24 @@ namespace MixedReality.Toolkit.Editor
 
         static bool advancedButtonFoldout = false;
         static bool editorFoldout = false;
+
+        /// <inheritdoc />
+        protected override void DrawMRTKInteractableFlags()
+        {
+            Color previousGUIColor = GUI.color;
+
+            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+            {
+                PressableButton pressableButton = target as PressableButton;
+                EditorGUILayout.LabelField("PressableButton Events", EditorStyles.boldLabel);
+                EditorGUILayout.Space();
+                DrawTimedFlag(IsProximityHovered, pressableButton.IsProximityHovered, previousGUIColor, Color.cyan);
+            }
+
+            EditorGUILayout.Space();
+
+            base.DrawMRTKInteractableFlags();
+        }
 
         /// <inheritdoc />
         protected override void DrawProperties()

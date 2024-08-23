@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -19,7 +20,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [field: SerializeField, Tooltip("The type of the reticle visuals. Scale or Rotate.")]
         public SpatialManipulationReticleType ReticleType { get; set; }
 
-        private Transform contextTransform;
         private Quaternion worldRotationCache;
 
         /// <summary>
@@ -47,7 +47,23 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 }
                 else if (rayInteractor.interactablesHovered.Count > 0)
                 {
-                    RotateReticle(args.ReticleNormal, rayInteractor.interactablesHovered[0].transform);
+                    int interactableIndex = 0;
+
+                    List<IXRHoverInteractable> hoveredInteractables = rayInteractor.interactablesHovered;
+                    int hoveredCount = hoveredInteractables.Count;
+                    if (hoveredCount > 1)
+                    {
+                        for (int i = 0; i < hoveredCount; i++)
+                        {
+                            if (hoveredInteractables[i] is BoundsHandleInteractable)
+                            {
+                                interactableIndex = i;
+                                break;
+                            }
+                        }
+                    }
+
+                    RotateReticle(args.ReticleNormal, hoveredInteractables[interactableIndex].transform);
                 }
             }
         }

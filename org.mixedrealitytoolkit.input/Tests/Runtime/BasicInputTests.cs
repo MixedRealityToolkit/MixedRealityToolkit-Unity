@@ -133,7 +133,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// and toggling mechanics. Does not test rays or gaze interactions.
         /// </summary>
         [UnityTest]
-        public IEnumerator StatefulInteractableSmoketest()
+        public IEnumerator StatefulInteractableSmokeTest()
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.AddComponent<StatefulInteractable>();
@@ -271,7 +271,7 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
-        /// Simple smoketest to ensure basic gaze-pinch selection functionality.
+        /// Simple smoke test to ensure basic gaze-pinch selection functionality.
         /// </summary>
         [UnityTest]
         public IEnumerator GazePinchSmokeTest()
@@ -595,7 +595,7 @@ namespace MixedReality.Toolkit.Input.Tests
         // Returns true iff any of the ProximityDetectors in the scene are currently triggered.
         private bool AnyProximityDetectorsTriggered()
         {
-            ProximityDetector[] detectors = Object.FindObjectsOfType<ProximityDetector>();
+            ProximityDetector[] detectors = FindObjectUtility.FindObjectsByType<ProximityDetector>();
             foreach (var detector in detectors)
             {
                 if (detector.IsModeDetected())

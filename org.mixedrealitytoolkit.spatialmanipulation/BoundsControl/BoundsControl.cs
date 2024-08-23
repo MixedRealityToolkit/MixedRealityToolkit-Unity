@@ -4,6 +4,8 @@
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using static MixedReality.Toolkit.SpatialManipulation.ObjectManipulator;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -406,6 +408,34 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => constraintsManager = value;
         }
 
+        [SerializeField]
+        [Tooltip("The concrete types of ManipulationLogic<T> to use for manipulations.")]
+        private LogicType manipulationLogicTypes = new LogicType
+        {
+            moveLogicType = typeof(BoundsControlMoveLogic),
+            rotateLogicType = typeof(BoundsControlRotateLogic),
+            scaleLogicType = typeof(BoundsControlScaleLogic)
+        };
+
+        /// <summary>
+        /// The concrete types of <see cref="ManipulationLogicImplementations<T>"/> to use for manipulations.
+        /// </summary>
+        /// <remarks>
+        /// Setting this field at runtime can be expensive (reflection) and interrupt/break
+        /// currently occurring manipulations. Use with caution. Best used at startup or when
+        /// instantiating ObjectManipulators from code.
+        /// </remarks>
+        public LogicType ManipulationLogicTypes
+        {
+            get => manipulationLogicTypes;
+            set
+            {
+                // Re-instantiating manip logics is expensive and can interrupt ongoing interactions.
+                manipulationLogicTypes = value;
+                InstantiateManipulationLogic();
+            }
+        }
+
         [Header("Events")]
 
         [SerializeField]
@@ -445,6 +475,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
         public bool IsFlat { get; protected set; }
 
         private Bounds currentBounds = new Bounds();
+        /// <summary>
+        /// Accessor that can be used to retrieve most recently calculated bounds for the bounds control cube
+        /// </summary>
+        public Bounds CurrentBounds => currentBounds;
 
         // The box visuals GameObject instantiated at Awake.
         private GameObject boxInstance;
@@ -454,9 +488,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         // certain threshold, we toggle the handles on/off. If the interactable was moved further than the
         // threshold, we don't toggle the handles (as it was probably an intentional ObjectManipulation!)
         private Vector3 startMovePosition;
-
-        // The interactor selecting the currentHandle's attachTransform position at time of selection.
-        private Vector3 initialGrabPoint;
 
         // The handle that is currently being manipulated.
         private BoundsHandleInteractable currentHandle;
@@ -470,17 +501,16 @@ namespace MixedReality.Toolkit.SpatialManipulation
         // The corner opposite from the current scale handle (if a scale handle is being selected)
         private Vector3 oppositeCorner;
 
-        // The vector representing the diagonal (from the current scale handle to the opposite corner)
-        private Vector3 diagonalDir;
+        /// <summary>
+        /// Accessor for the corner opposite from the current scale handle (if a scale handle is being selected)
+        /// </summary>
+        public Vector3 OppositeCorner => oppositeCorner;
 
         // Position of the anchor when manipulation started.
         private Vector3 initialAnchorOnGrabStart;
 
         // Delta from the anchor to the object's center when manipulation started.
         private Vector3 initialAnchorDeltaOnGrabStart;
-
-        // Rotate axis during a rotation, translation axis during a translation, etc
-        private Vector3 currentManipulationAxis;
 
         // If we calculate the bounds at Awake and discover a UGUI autolayout group,
         // we need to queue up a second bounds computation pass to take the newly computed
@@ -501,6 +531,43 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         // Has the bounds control moved past the toggle threshold throughout the time it was selected?
         private bool hasPassedToggleThreshold = false;
+
+        /// <summary>
+        /// Struct that defines all the manipulation logic required types for translation, rotation and scaling respectively
+        /// </summary>
+        protected struct LogicImplementation
+        {
+            /// <summary>
+            /// Manipulation logic type for translation (returns a vector3)
+            /// </summary>
+            public ManipulationLogic<Vector3> moveLogic;
+
+            /// <summary>
+            /// Manipulation logic type for rotation (returns a quaternion)
+            /// </summary>
+            public ManipulationLogic<Quaternion> rotateLogic;
+
+            /// <summary>
+            /// Manipulation logic type for scaling (returns a vector3)
+            /// </summary>
+            public ManipulationLogic<Vector3> scaleLogic;
+        }
+
+        /// <summary>
+        /// The instantiated manipulation logic objects, as specified by the types in <see cref="ManipulationLogicTypes"/>.
+        /// </summary>
+        protected LogicImplementation ManipulationLogicImplementations { get; private set; }
+
+        private void InstantiateManipulationLogic()
+        {
+            // Re-instantiate the manipulation logic objects.
+            ManipulationLogicImplementations = new LogicImplementation()
+            {
+                moveLogic = Activator.CreateInstance(ManipulationLogicTypes.moveLogicType) as ManipulationLogic<Vector3>,
+                rotateLogic = Activator.CreateInstance(ManipulationLogicTypes.rotateLogicType) as ManipulationLogic<Quaternion>,
+                scaleLogic = Activator.CreateInstance(ManipulationLogicTypes.scaleLogicType) as ManipulationLogic<Vector3>,
+            };
+        }
 
         /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
@@ -533,12 +600,14 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 constraintsManager.Setup(new MixedRealityTransform(Target.transform));
             }
+
+            ManipulationLogicTypes = manipulationLogicTypes;
         }
 
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
         /// </summary>
-        private void Update()
+        protected virtual void Update()
         {
             // If we need to recompute bounds (usually because we found a
             // UGUI element), make sure we've waited enough frames since
@@ -711,28 +780,32 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 manipulationStarted?.Invoke(args);
 
                 currentHandle = handle;
-                initialGrabPoint = args.interactorObject.GetAttachTransform(handle).position;
                 initialTransformOnGrabStart = new MixedRealityTransform(Target.transform);
                 Vector3 anchorPoint = RotateAnchor == RotateAnchorType.BoundsCenter ? Target.transform.TransformPoint(currentBounds.center) : Target.transform.position;
                 initialAnchorOnGrabStart = anchorPoint;
                 initialAnchorDeltaOnGrabStart = Target.transform.position - anchorPoint;
+
                 // todo: move this out?
                 if (currentHandle.HandleType == HandleType.Scale)
                 {
                     // Will use this to scale the target relative to the opposite corner
                     oppositeCorner = boxInstance.transform.TransformPoint(-currentHandle.transform.localPosition);
-                    diagonalDir = (currentHandle.transform.position - oppositeCorner).normalized;
                     // ScaleStarted?.Invoke();
+
+                    ManipulationLogicImplementations.scaleLogic.Setup(currentHandle.interactorsSelecting, args.interactableObject, initialTransformOnGrabStart);
                 }
                 else if (currentHandle.HandleType == HandleType.Rotation)
                 {
-                    currentManipulationAxis = handle.transform.forward;
                     // RotateStarted?.Invoke();
+
+                    ManipulationLogicImplementations.rotateLogic.Setup(currentHandle.interactorsSelecting, args.interactableObject, initialTransformOnGrabStart);
                 }
                 else if (currentHandle.HandleType == HandleType.Translation)
                 {
                     // currentTranslationAxis = GetTranslationAxis(handle);
                     // TranslateStarted?.Invoke();
+
+                    ManipulationLogicImplementations.moveLogic.Setup(currentHandle.interactorsSelecting, args.interactableObject, initialTransformOnGrabStart);
                 }
 
                 if (EnableConstraints && constraintsManager != null)
@@ -751,21 +824,12 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 if (currentHandle != null)
                 {
-                    Vector3 currentGrabPoint = currentHandle.interactorsSelecting[0].GetAttachTransform(currentHandle).position;
-                    // bool isNear = currentInteractor is IGrabInteractor;
-
                     TransformFlags transformUpdated = 0;
+                    MixedRealityTransform targetTransform = new MixedRealityTransform(target.transform);
+
                     if (currentHandle.HandleType == HandleType.Rotation)
                     {
-                        // Compute the anchor around which we will be rotating the object, based
-                        // on the desired RotateAnchorType.
-                        Vector3 anchorPoint = RotateAnchor == RotateAnchorType.BoundsCenter ? Target.transform.TransformPoint(currentBounds.center) : Target.transform.position;
-
-                        Vector3 initDir = Vector3.ProjectOnPlane(initialGrabPoint - anchorPoint, currentManipulationAxis).normalized;
-                        Vector3 currentDir = Vector3.ProjectOnPlane(currentGrabPoint - anchorPoint, currentManipulationAxis).normalized;
-                        Quaternion initQuat = Quaternion.LookRotation(initDir, currentManipulationAxis);
-                        Quaternion currentQuat = Quaternion.LookRotation(currentDir, currentManipulationAxis);
-                        Quaternion goalRotation = (currentQuat * Quaternion.Inverse(initQuat)) * initialTransformOnGrabStart.Rotation;
+                        var goalRotation = ManipulationLogicImplementations.rotateLogic.Update(currentHandle.interactorsSelecting, interactable, targetTransform, RotateAnchor == RotateAnchorType.BoundsCenter);
 
                         Quaternion rotationDelta = goalRotation * Quaternion.Inverse(initialTransformOnGrabStart.Rotation);
                         Vector3 goalPosition = initialAnchorOnGrabStart + (rotationDelta * initialAnchorDeltaOnGrabStart);
@@ -803,26 +867,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     else if (currentHandle.HandleType == HandleType.Scale)
                     {
                         Vector3 anchorPoint = ScaleAnchor == ScaleAnchorType.BoundsCenter ? Target.transform.TransformPoint(currentBounds.center) : oppositeCorner;
-                        Vector3 scaleFactor = Target.transform.localScale;
-                        if (ScaleBehavior == HandleScaleMode.Uniform)
-                        {
-                            float initialDist = Vector3.Dot(initialGrabPoint - anchorPoint, diagonalDir);
-                            float currentDist = Vector3.Dot(currentGrabPoint - anchorPoint, diagonalDir);
-                            float scaleFactorUniform = 1 + (currentDist - initialDist) / initialDist;
-                            scaleFactor = new Vector3(scaleFactorUniform, scaleFactorUniform, scaleFactorUniform);
-                        }
-                        else // non-uniform scaling
-                        {
-                            // get diff from center point of box
-                            Vector3 initialDist = Target.transform.InverseTransformVector(initialGrabPoint - anchorPoint);
-                            Vector3 currentDist = Target.transform.InverseTransformVector(currentGrabPoint - anchorPoint);
-                            Vector3 grabDiff = (currentDist - initialDist);
+                        var newScale = ManipulationLogicImplementations.scaleLogic.Update(currentHandle.interactorsSelecting, interactable, targetTransform, ScaleAnchor == ScaleAnchorType.BoundsCenter);
 
-                            scaleFactor = Vector3.one + grabDiff.Div(initialDist);
-                        }
-
-                        Vector3 newScale = initialTransformOnGrabStart.Scale.Mul(scaleFactor);
                         MixedRealityTransform clampedTransform = MixedRealityTransform.NewScale(newScale);
+
                         if (EnableConstraints && constraintsManager != null)
                         {
                             constraintsManager.ApplyScaleConstraints(ref clampedTransform, true, currentHandle.IsGrabSelected);
@@ -852,9 +900,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     }
                     else if (currentHandle.HandleType == HandleType.Translation)
                     {
-                        Vector3 translateVectorAlongAxis = Vector3.Project(currentGrabPoint - initialGrabPoint, currentHandle.transform.forward);
+                        var goal = ManipulationLogicImplementations.moveLogic.Update(currentHandle.interactorsSelecting, interactable, targetTransform, true);
 
-                        var goal = initialTransformOnGrabStart.Position + translateVectorAlongAxis;
                         MixedRealityTransform constraintTranslate = MixedRealityTransform.NewTranslate(goal);
                         if (EnableConstraints && constraintsManager != null)
                         {

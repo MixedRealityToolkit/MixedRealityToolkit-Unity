@@ -93,7 +93,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2828958437302116051}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
@@ -341,6 +341,7 @@ GameObject:
   - component: {fileID: 3705378105823492763}
   - component: {fileID: 3705378105823492760}
   - component: {fileID: 3705378105823492761}
+  - component: {fileID: 7288588985133169393}
   - component: {fileID: 3705378105823492766}
   - component: {fileID: 3705378105823492764}
   - component: {fileID: 8714766618717182506}
@@ -612,6 +613,38 @@ MonoBehaviour:
   rollOffXYDepth: 3
   rejectZRollOff: 0
   extendSpeed: 0.5
+  <IsProximityHovered>k__BackingField:
+    active: 0
+    onEntered:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7746750332524202746}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    onExited:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7746750332524202746}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &3705378105823492763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,6 +717,21 @@ MonoBehaviour:
   attachedRectTransform: {fileID: 3705378105823492765}
   padding: {x: 0, y: 0}
   forceUpdateEveryFrame: 0
+  canToggleCollider: 1
+--- !u!114 &7288588985133169393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3705378105823492738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9d6a03b734049145b6eaf0d01bbd59b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statefulInteractable: {fileID: 3705378105823492762}
+  colliderFitter: {fileID: 3705378105823492761}
 --- !u!95 &3705378105823492766
 Animator:
   serializedVersion: 5

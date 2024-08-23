@@ -35,7 +35,7 @@ steps:
   - pwsh: Install-Module PowerShellGet -Force
     displayName: Update PowerShellGet
 
-  - pwsh: Install-Module UnitySetup -Scope CurrentUser -Force -AllowPrerelease
+  - pwsh: Install-Module UnitySetup -Scope CurrentUser -Force -AllowPrerelease -RequiredVersion 5.6.161-develop
     displayName: Install unitysetup.powershell
 
   - template: Templates/license-unity.yaml@PipelineTools
@@ -75,7 +75,7 @@ steps:
 
       - pwsh: |
           $manifestPath = "$(Agent.TempDirectory)/build/uwp/${{ parameters.ProjectName }}/Package.appxmanifest"
-          ((Get-Content -Path $manifestPath -Raw) -Replace '(<Identity[^\>]*Version=)"[0-9.]+', '$1"$(MRTKVersion).0') | Set-Content -Path $manifestPath -NoNewline
+          ((Get-Content -Path $manifestPath -Raw) -Replace '(<Identity[^\>]*Version=)"[0-9.]+', '$1"$(ProjectVersion).0') | Set-Content -Path $manifestPath -NoNewline
         displayName: Patch UWP AppX version
 
       - template: Tasks/build-appx.yaml
@@ -83,7 +83,7 @@ steps:
           ProjectName: ${{ parameters.ProjectName }}
           BuildFolderPath: $(Agent.TempDirectory)/build/uwp
           Architectures: [x64, ARM64]
-          Version: $(MRTKVersion)
+          Version: $(ProjectVersion)
           TargetFolder: $(Build.ArtifactStagingDirectory)/Apps-${{ parameters.Platform }}
 
     # Android tasks

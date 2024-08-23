@@ -6,7 +6,7 @@
 variables:
   - template: Config/settings.yaml
   - name: Version.Revision
-    value: $[counter(variables['MRTKVersion'], 1)]
+    value: $[counter(variables['ProjectVersion'], 1)]
   - name: Version.DateCode
     value: $[format('{0:yyMMdd}', pipeline.startTime)]
   - name: Version.DateCodeRevision
@@ -35,9 +35,6 @@ jobs:
 
       - checkout: PipelineTools
 
-      - pwsh: Write-Host "##vso[build.updatebuildnumber]$(MRTKVersion)-$(ReleaseTagPrefix)$(MRTKReleaseTag).$(Version.DateCode).$(Version.DateCodeRevision)"
-        displayName: Set Build Number
-
       - task: ComponentGovernanceComponentDetection@0
         inputs:
           scanType: Register
@@ -58,8 +55,8 @@ jobs:
 
       - template: Templates/upm.yaml
         parameters:
+          prereleaseTag: $(ReleaseTagPrefix)
           buildNumber: $(Version.Revision)
-          previewTag: $(MRTKReleaseTag)
           publishToFeed: true
 
   - job: DocsBinariesGeneration
