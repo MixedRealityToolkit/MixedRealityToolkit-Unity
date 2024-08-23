@@ -25,7 +25,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * ControllerLookup marked as Obsolete.
 
-## [3.2.2] - 2024-06-13
+## [3.3.0-development] - 2024-06-24
+
+### Fixed
+
+* Fixed broken project validation help link, for item 'MRTK3 profile may need to be assigned for the Standalone build target' (Issue #882) [PR#886 (https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/886)]
+
+## [3.2.2-development] - 2024-06-13
 
 ### Fixed
 

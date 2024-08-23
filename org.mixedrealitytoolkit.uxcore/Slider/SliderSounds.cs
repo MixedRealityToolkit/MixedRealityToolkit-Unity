@@ -129,17 +129,13 @@ namespace MixedReality.Toolkit.UX
 
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
-        /// </summary> 
+        /// </summary>
         private void Start()
         {
             // Ensure that we have a valid audio source to work with.
-            if (audioSource == null)
+            if (audioSource == null && !gameObject.TryGetComponent(out audioSource))
             {
-                audioSource = gameObject.GetComponent<AudioSource>();
-                if (audioSource == null)
-                {
-                    audioSource = gameObject.AddComponent<AudioSource>();
-                }
+                audioSource = gameObject.AddComponent<AudioSource>();
             }
 
             slider = GetComponent<Slider>();

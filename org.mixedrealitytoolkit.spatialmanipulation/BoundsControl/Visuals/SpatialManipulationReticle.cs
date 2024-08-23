@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -46,7 +47,23 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 }
                 else if (rayInteractor.interactablesHovered.Count > 0)
                 {
-                    RotateReticle(args.ReticleNormal, rayInteractor.interactablesHovered[0].transform);
+                    int interactableIndex = 0;
+
+                    List<IXRHoverInteractable> hoveredInteractables = rayInteractor.interactablesHovered;
+                    int hoveredCount = hoveredInteractables.Count;
+                    if (hoveredCount > 1)
+                    {
+                        for (int i = 0; i < hoveredCount; i++)
+                        {
+                            if (hoveredInteractables[i] is BoundsHandleInteractable)
+                            {
+                                interactableIndex = i;
+                                break;
+                            }
+                        }
+                    }
+
+                    RotateReticle(args.ReticleNormal, hoveredInteractables[interactableIndex].transform);
                 }
             }
         }
