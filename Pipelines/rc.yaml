@@ -64,6 +64,6 @@ extends:
         - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
           displayName: 'Initial source tree'
 
-        - template: Templates/unity.yaml
+        - template: /Pipelines/Templates/unity.yaml@self
           parameters:
             Platform: Standalone
