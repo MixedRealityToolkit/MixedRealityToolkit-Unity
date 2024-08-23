@@ -1,73 +1,59 @@
 # Copyright (c) Mixed Reality Toolkit Contributors
 # Licensed under the BSD 3-Clause
 
-# RC build producing release candidate packages.
+name: '$(date:yyMM).$(date:dd)$(rev:rr)-MixedRealityToolkit-RC'
+parameters:
+- name: Sign
+  type: boolean
+  default: false
+
+# schedules:
+# - cron: "0 2 1,15 * *"
+#   displayName: Run At 02:00 on the 1st and 15th of each month
+#   # run even when there are no code changes
+#   always: true
+#   branches:
+#     include:
+#     - main
+    
+trigger: none
+pr: none
 
 variables:
-  - template: Config/settings.yaml
-  - name: Version.Revision
-    value: $[counter(variables['ProjectVersion'], 1)]
-  - name: Version.DateCode
-    value: $[format('{0:yyMMdd}', pipeline.startTime)]
-  - name: Version.DateCodeRevision
-    value: $[counter(format('{0:yyMMdd}', pipeline.startTime), 0)]
+  BuildConfiguration: Release
+  ProjectFriendlyName: WinRTTextToSpeech
+  Sign: ${{ parameters.Sign }}
+
 
 resources:
   repositories:
-    - repository: PipelineTools
-      type: git
-      endpoint: ToolsAccess
-      name: tools.internal
-      ref: 78ecf591964ecf511b4c7a0cd84d98ce11e8be16
-    - repository: DocToolUnityProject
-      type: git
-      endpoint: ToolsAccess
-      name: lib.doctools
-      ref: 26723e6afa6d2adb44a734bd6ce0bc2bd90638b5
+  - repository: 1ESPipelineTemplates
+    type: git
+    name: 1ESPipelineTemplates/1ESPipelineTemplates
+    ref: refs/tags/release
+  - repository: PipelineTools
+    type: git
+    endpoint: ToolsAccess
+    name: tools.internal
+    ref: 78ecf591964ecf511b4c7a0cd84d98ce11e8be16
+  - repository: DocToolUnityProject
+    type: git
+    endpoint: ToolsAccess
+    name: lib.doctools
+    ref: 26723e6afa6d2adb44a734bd6ce0bc2bd90638b5
 
-trigger: none # only manual runs
+extends:
+  template: v1/1ES.Official.PipelineTemplate.yml@1ESPipelineTemplates
+  
+    pool:
+      name: Unity_2021.3.21f1_Pool
+    
+    stages:
+    - stage: 'Build'
+      jobs:
+      - job: Build_MixedRealityToolkit
 
-jobs:
-  - job: UnityValidation
-    pool: Unity_2021.3.21f1_Pool
-    steps:
-      - checkout: self
+        steps:
 
-      - checkout: PipelineTools
-
-      - task: ComponentGovernanceComponentDetection@0
-        inputs:
-          scanType: Register
-          alertWarningLevel: Medium
-          failOnAlert: true
-
-      - template: Templates/unity.yaml
-        parameters:
-          Platform: Standalone
-
-      - template: Templates/unity.yaml
-        parameters:
-          Platform: UWP
-
-      - template: Templates/unity.yaml
-        parameters:
-          Platform: Android
-
-      - template: Templates/upm.yaml
-        parameters:
-          prereleaseTag: $(ReleaseTagPrefix)
-          buildNumber: $(Version.Revision)
-          publishToFeed: true
-
-  - job: DocsBinariesGeneration
-    pool: Unity_2021.3.21f1_Pool
-    steps:
-      - checkout: self
-
-      - checkout: PipelineTools
-
-      - checkout: DocToolUnityProject
-
-      - template: Templates/license-unity.yaml@PipelineTools
-
-      - template: Templates/docs.yaml
+        - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
+          displayName: 'Initial source tree'
