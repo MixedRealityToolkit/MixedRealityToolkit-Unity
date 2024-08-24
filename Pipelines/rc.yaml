@@ -56,6 +56,10 @@ extends:
         exclude:
         - repository: PipelineTools
         - repository: DocToolUnityProject
+      baseline:
+        baselineFile: $(Build.SourcesDirectory)\Pipelines\Config\1ES\.gdnbaselines
+      suppression:
+        suppressionFile: $(Build.SourcesDirectory)\Pipelines\Config\1ES\.gdnsuppress
 
     stages:
     - stage: 'Build'
