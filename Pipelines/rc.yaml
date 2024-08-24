@@ -51,7 +51,12 @@ extends:
   parameters:
     pool:
       name: Unity_2021.3.21f1_Pool
-    
+    sdl:
+      sourceRepositoriesToScan:
+        exclude:
+        - repository: PipelineTools
+        - repository: DocToolUnityProject
+        
     stages:
     - stage: 'Build'
       jobs:
