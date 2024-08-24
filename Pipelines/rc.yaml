@@ -73,10 +73,10 @@ extends:
           parameters:
             Platform: Standalone
 
-        - template: Templates/unity.yaml
+        - template: /Pipelines/Templates/1ES/unity.yaml@self
           parameters:
             Platform: UWP
 
-        - template: Templates/unity.yaml
+        - template: /Pipelines/Templates/1ES/unity.yaml@self
           parameters:
             Platform: Android            
