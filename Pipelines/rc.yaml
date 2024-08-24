@@ -56,7 +56,7 @@ extends:
         exclude:
         - repository: PipelineTools
         - repository: DocToolUnityProject
-        
+
     stages:
     - stage: 'Build'
       jobs:
@@ -72,3 +72,11 @@ extends:
         - template: /Pipelines/Templates/1ES/unity.yaml@self
           parameters:
             Platform: Standalone
+
+        - template: Templates/unity.yaml
+          parameters:
+            Platform: UWP
+
+        - template: Templates/unity.yaml
+          parameters:
+            Platform: Android            

@@ -99,9 +99,9 @@ steps:
 
     # Publishing tasks
 
-  # - ${{ if not(eq(parameters.Platform, 'None')) }}:
-  #     - task: PublishPipelineArtifact@1
-  #       displayName: Publish apps
-  #       inputs:
-  #         targetPath: $(Build.ArtifactStagingDirectory)/Apps-${{ parameters.Platform }}
-  #         artifactName: Apps-${{ parameters.ProjectName }}-${{ parameters.Platform }}
+  - ${{ if not(eq(parameters.Platform, 'None')) }}:
+      - task: 1ES.PublishPipelineArtifact@1
+        displayName: Publish apps
+        inputs:
+          path: $(Build.ArtifactStagingDirectory)/Apps-${{ parameters.Platform }}
+          artifact: Apps-${{ parameters.ProjectName }}-${{ parameters.Platform }}
