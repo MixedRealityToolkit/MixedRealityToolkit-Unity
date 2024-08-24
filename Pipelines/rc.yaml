@@ -57,9 +57,9 @@ extends:
         - repository: PipelineTools
         - repository: DocToolUnityProject
       baseline:
-        baselineFile: $(Build.SourcesDirectory)\Pipelines\Config\1ES\.gdnbaselines
+        baselineFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnbaselines
       suppression:
-        suppressionFile: $(Build.SourcesDirectory)\Pipelines\Config\1ES\.gdnsuppress
+        suppressionFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnsuppress
 
     stages:
     - stage: 'Build'
