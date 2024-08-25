@@ -2,10 +2,7 @@
 # Licensed under the BSD 3-Clause
 
 name: '$(date:yyMM).$(date:dd)$(rev:rr)-MixedRealityToolkit-RC'
-parameters:
-- name: Sign
-  type: boolean
-  default: false
+
 
 schedules:
 - cron: "0 4 1,15 * *"
