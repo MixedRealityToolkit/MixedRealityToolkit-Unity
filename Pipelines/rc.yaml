@@ -2,27 +2,28 @@
 # Licensed under the BSD 3-Clause
 
 name: '$(date:yyMM).$(date:dd)$(rev:rr)-MixedRealityToolkit-RC'
-parameters:
-- name: Sign
-  type: boolean
-  default: false
 
-# schedules:
-# - cron: "0 2 1,15 * *"
-#   displayName: Run At 02:00 on the 1st and 15th of each month
-#   # run even when there are no code changes
-#   always: true
-#   branches:
-#     include:
-#     - main
+
+schedules:
+- cron: "0 4 1,15 * *"
+  displayName: Run At 04:00 on the 1st and 15th of each month
+  # run even when there are no code changes
+  always: true
+  branches:
+    include:
+    - main
     
 trigger: none
 pr: none
 
 variables:
-  BuildConfiguration: Release
-  ProjectFriendlyName: WinRTTextToSpeech
-  Sign: ${{ parameters.Sign }}
+  - template: Config/settings.yaml
+  - name: Version.Revision
+    value: $[counter(variables['ProjectVersion'], 1)]
+  - name: Version.DateCode
+    value: $[format('{0:yyMMdd}', pipeline.startTime)]
+  - name: Version.DateCodeRevision
+    value: $[counter(format('{0:yyMMdd}', pipeline.startTime), 0)]
 
 
 resources:
@@ -44,16 +45,38 @@ resources:
 
 extends:
   template: v1/1ES.Official.PipelineTemplate.yml@1ESPipelineTemplates
-  
+  parameters:
     pool:
       name: Unity_2021.3.21f1_Pool
-    
+    sdl:
+      sourceRepositoriesToScan:
+        exclude:
+        - repository: PipelineTools
+        - repository: DocToolUnityProject
+      baseline:
+        baselineFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnbaselines
+      suppression:
+        suppressionFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnsuppress
+      tsa:
+        enabled: true
+        configFile: '$(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\TSAOptions.json'
     stages:
     - stage: 'Build'
       jobs:
-      - job: Build_MixedRealityToolkit
+      - job: UnityValidation
 
         steps:
+        - checkout: self
+        - checkout: PipelineTools
 
-        - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
-          displayName: 'Initial source tree'
+        - template: /Pipelines/Templates/1ES/unity.yaml@self
+          parameters:
+            Platform: Standalone
+
+        - template: /Pipelines/Templates/1ES/unity.yaml@self
+          parameters:
+            Platform: UWP
+
+        - template: /Pipelines/Templates/1ES/unity.yaml@self
+          parameters:
+            Platform: Android            
