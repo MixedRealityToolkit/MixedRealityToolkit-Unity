@@ -92,6 +92,4 @@ extends:
 
           - checkout: DocToolUnityProject
 
-          - template: /Pipelines/Templates/license-unity.yaml@PipelineTools
-
           - template: /Pipelines/Templates/docs.yaml            
