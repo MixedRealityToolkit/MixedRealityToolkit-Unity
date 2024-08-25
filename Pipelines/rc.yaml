@@ -7,14 +7,14 @@ parameters:
   type: boolean
   default: false
 
-# schedules:
-# - cron: "0 2 1,15 * *"
-#   displayName: Run At 02:00 on the 1st and 15th of each month
-#   # run even when there are no code changes
-#   always: true
-#   branches:
-#     include:
-#     - main
+schedules:
+- cron: "0 4 1,15 * *"
+  displayName: Run At 04:00 on the 1st and 15th of each month
+  # run even when there are no code changes
+  always: true
+  branches:
+    include:
+    - main
     
 trigger: none
 pr: none
@@ -60,7 +60,9 @@ extends:
         baselineFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnbaselines
       suppression:
         suppressionFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnsuppress
-
+      tsa:
+        enabled: true
+        configFile: '$(Build.SourcesDirectory)\Pipelines\Config\1ES\TSAOptions.json'
     stages:
     - stage: 'Build'
       jobs:
