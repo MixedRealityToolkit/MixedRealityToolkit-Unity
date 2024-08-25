@@ -82,4 +82,16 @@ extends:
 
         - template: /Pipelines/Templates/1ES/unity.yaml@self
           parameters:
-            Platform: Android            
+            Platform: Android
+            
+      - job: DocsBinariesGeneration
+        steps:
+          - checkout: self
+
+          - checkout: PipelineTools
+
+          - checkout: DocToolUnityProject
+
+          - template: /Pipelines/Templates/license-unity.yaml@PipelineTools
+
+          - template: /Pipelines/Templates/docs.yaml            
