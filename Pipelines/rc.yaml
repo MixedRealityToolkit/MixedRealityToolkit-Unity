@@ -59,7 +59,7 @@ extends:
         suppressionFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnsuppress
       tsa:
         enabled: true
-        configFile: '$(Build.SourcesDirectory)\Pipelines\Config\1ES\TSAOptions.json'
+        configFile: '$(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\TSAOptions.json'
     stages:
     - stage: 'Build'
       jobs:
