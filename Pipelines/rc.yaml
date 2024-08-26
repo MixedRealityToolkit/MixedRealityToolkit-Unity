@@ -59,7 +59,14 @@ extends:
         suppressionFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnsuppress
       tsa:
         enabled: true
-        # configFile: '$(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\TSAOptions.json'
+        config:
+          codebaseName: $(Pipeline.tsaCodeBasename)
+          instanceUrl: $(Pipeline.tsaAdoOrg)
+          projectName: $(Pipeline.tsaAdoProject)
+          areaPath: $(Pipeline.tsaAreaPath)
+          interationPath: $(Pipeline.tsaIterationPath)
+          notificationAliases: $(Pipeline.tsaNotificationAliases)
+
       binskim:
         break: false
         scanOutputDirectoryOnly: true
