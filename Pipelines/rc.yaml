@@ -82,29 +82,6 @@ extends:
 
         - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
           displayName: 'Initial source tree'
-        - powershell: |
-            Write-Host 'codebaseName: $(Pipeline.tsaCodeBasename)'
-            Write-Host 'instanceUrl: $(Pipeline.tsaAdoOrg)'
-            Write-Host 'projectName: $(Pipeline.tsaAdoProject)'
-            Write-Host 'areaPath: $(Pipeline.tsaAreaPath)'
-            Write-Host 'interationPath: $(Pipeline.tsaIterationPath)'
-            Write-Host 'notificationAliases: $(Pipeline.tsaNotificationAliases)'
-            Write-Host ''
-            Write-Host 'codebaseName: $env:tsaCodeBasename'
-            Write-Host 'instanceUrl: $env:tsaAdoOrg'
-            Write-Host 'projectName: $env:tsaAdoProject'
-            Write-Host 'areaPath: $env:tsaAreaPath'
-            Write-Host 'interationPath: $env:tsaIterationPath'
-            Write-Host 'notificationAliases: $env:tsaNotificationAliases'
-            Write-Host ''
-            Write-Host 'codebaseName: $tsaCodeBasename'
-            Write-Host 'instanceUrl: $tsaAdoOrg'
-            Write-Host 'projectName: $tsaAdoProject'
-            Write-Host 'areaPath: $tsaAreaPath'
-            Write-Host 'interationPath: $tsaIterationPath'
-            Write-Host 'notificationAliases: $tsaNotificationAliases'
-            
-
 
         - pwsh: Install-Module PowerShellGet -Force
           displayName: Update PowerShellGet
