@@ -68,6 +68,7 @@ extends:
         steps:
         - checkout: self
         - checkout: PipelineTools
+        - checkout: DocToolUnityProject
 
         - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
           displayName: 'Initial source tree'
