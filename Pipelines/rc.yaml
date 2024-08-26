@@ -59,7 +59,17 @@ extends:
         suppressionFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnsuppress
       tsa:
         enabled: true
-        configFile: '$(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\TSAOptions.json'
+        config:
+          codebaseName: $(tsaCodeBasename)
+          instanceUrl: $(tsaAdoOrg)
+          projectName: $(tsaAdoProject)
+          areaPath: $(tsaAreaPath)
+          interationPath: $(tsaIterationPath)
+          notificationAliases: $(tsaNotificationAliases)
+
+      binskim:
+        break: false
+        scanOutputDirectoryOnly: true
     stages:
     - stage: 'Build'
       jobs:
@@ -68,6 +78,19 @@ extends:
         steps:
         - checkout: self
         - checkout: PipelineTools
+        - checkout: DocToolUnityProject
+
+        - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
+          displayName: 'Initial source tree'
+
+        - pwsh: Install-Module PowerShellGet -Force
+          displayName: Update PowerShellGet
+
+        - pwsh: Install-Module UnitySetup -Scope CurrentUser -Force -AllowPrerelease -RequiredVersion 5.6.161-develop
+          displayName: Install unitysetup.powershell
+
+        - template: Templates/license-unity.yaml@PipelineTools
+
 
         - template: /Pipelines/Templates/1ES/unity.yaml@self
           parameters:
@@ -79,4 +102,9 @@ extends:
 
         - template: /Pipelines/Templates/1ES/unity.yaml@self
           parameters:
-            Platform: Android            
+            Platform: Android
+
+        - template: /Pipelines/Templates/1ES/docs.yaml@self             
+      
+
+                  
