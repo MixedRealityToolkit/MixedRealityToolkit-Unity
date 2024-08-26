@@ -60,12 +60,12 @@ extends:
       tsa:
         enabled: true
         config:
-          codebaseName: $(Pipeline.tsaCodeBasename)
-          instanceUrl: $(Pipeline.tsaAdoOrg)
-          projectName: $(Pipeline.tsaAdoProject)
-          areaPath: $(Pipeline.tsaAreaPath)
-          interationPath: $(Pipeline.tsaIterationPath)
-          notificationAliases: $(Pipeline.tsaNotificationAliases)
+          codebaseName: $(tsaCodeBasename)
+          instanceUrl: $(tsaAdoOrg)
+          projectName: $(tsaAdoProject)
+          areaPath: $(tsaAreaPath)
+          interationPath: $(tsaIterationPath)
+          notificationAliases: $(tsaNotificationAliases)
 
       binskim:
         break: false
@@ -96,6 +96,13 @@ extends:
             Write-Host 'areaPath: $env:tsaAreaPath'
             Write-Host 'interationPath: $env:tsaIterationPath'
             Write-Host 'notificationAliases: $env:tsaNotificationAliases'
+            Write-Host ''
+            Write-Host 'codebaseName: $tsaCodeBasename'
+            Write-Host 'instanceUrl: $tsaAdoOrg'
+            Write-Host 'projectName: $tsaAdoProject'
+            Write-Host 'areaPath: $tsaAreaPath'
+            Write-Host 'interationPath: $tsaIterationPath'
+            Write-Host 'notificationAliases: $tsaNotificationAliases'
             
 
 
