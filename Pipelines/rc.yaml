@@ -82,6 +82,15 @@ extends:
 
         - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
           displayName: 'Initial source tree'
+          
+        - pwsh: Install-Module PowerShellGet -Force
+          displayName: Update PowerShellGet
+
+        - pwsh: Install-Module UnitySetup -Scope CurrentUser -Force -AllowPrerelease -RequiredVersion 5.6.161-develop
+          displayName: Install unitysetup.powershell
+
+        - template: Templates/license-unity.yaml@PipelineTools
+
 
         - template: /Pipelines/Templates/1ES/unity.yaml@self
           parameters:
