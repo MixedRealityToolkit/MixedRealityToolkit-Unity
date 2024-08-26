@@ -59,7 +59,7 @@ extends:
         suppressionFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnsuppress
       tsa:
         enabled: true
-        configFile: '$(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\TSAOptions.json'
+        # configFile: '$(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\TSAOptions.json'
       binskim:
         break: false
         scanOutputDirectoryOnly: true
@@ -70,7 +70,6 @@ extends:
 
         steps:
         - checkout: self
-          path: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\
         - checkout: PipelineTools
         - checkout: DocToolUnityProject
 
