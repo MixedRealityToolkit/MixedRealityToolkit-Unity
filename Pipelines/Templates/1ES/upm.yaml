@@ -33,7 +33,7 @@ steps:
       artifact: "mrtk-upm"
 
 - ${{ if eq(parameters.publishToFeed, true) }}:
-  - template: Tasks/publish-upm.yaml
+  - template: ../Tasks/publish-upm.yaml
     parameters:
       packageDirectory: ${{ parameters.outputDirectory }}
       registryPath: $(UpmRegistry)
