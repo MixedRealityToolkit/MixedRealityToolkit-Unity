@@ -60,6 +60,9 @@ extends:
       tsa:
         enabled: true
         configFile: '$(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\TSAOptions.json'
+      binskim:
+        break: false
+        scanOutputDirectoryOnly: true
     stages:
     - stage: 'Build'
       jobs:
@@ -67,6 +70,7 @@ extends:
 
         steps:
         - checkout: self
+          path: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\
         - checkout: PipelineTools
         - checkout: DocToolUnityProject
 
