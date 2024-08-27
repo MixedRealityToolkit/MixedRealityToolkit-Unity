@@ -104,6 +104,12 @@ extends:
           parameters:
             Platform: Android
 
+        - template: /Pipelines/Templates/1ES/upm.yaml@self
+          parameters:
+            prereleaseTag: $(ReleaseTagPrefix)
+            buildNumber: $(Version.Revision)
+            publishToFeed: true
+
         - template: /Pipelines/Templates/1ES/docs.yaml@self             
       
 
