@@ -1,0 +1,53 @@
+# Copyright (c) Mixed Reality Toolkit Contributors
+# Licensed under the BSD 3-Clause
+
+# [Template] Generate binaries for API reference docs.
+
+parameters:
+  unityDirectory: "C:/Program Files/Unity/Hub/Editor/2021.3.21f1"
+  docToolProjectRoot: $(Build.SourcesDirectory)/lib.doctools
+  mrtkProjectRoot: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
+  outputDirectory: $(Build.ArtifactStagingDirectory)/docs
+
+steps:
+- task: PowerShell@2
+  displayName: 'Update package versions'
+  inputs:
+    pwsh: true
+    targetType: filePath
+    filePath: ${{ parameters.mrtkProjectRoot }}/Pipelines/Scripts/update-versions.ps1
+    arguments: >
+      -PackagesRoot: ${{ parameters.mrtkProjectRoot }}
+
+- task: PowerShell@2
+  displayName: "Generate DocTool Unity asset package"
+  inputs:
+    pwsh: true
+    targetType: filePath
+    filePath: ${{ parameters.docToolProjectRoot }}/Scripts/exportunitypackage.ps1
+    arguments: >
+          -UnityDirectory: "${{ parameters.unityDirectory }}"
+
+- task: PowerShell@2
+  displayName: "Generate docs binaries using DocTool package"
+  inputs:
+    targetType: filePath
+    pwsh: true
+    filePath: ${{ parameters.docToolProjectRoot }}/Scripts/importdoctoolgeneratebinaries.ps1
+    arguments: > 
+      -ProjectDirectory: "${{ parameters.mrtkProjectRoot }}/UnityProjects/MRTKDevTemplate"
+      -UnityDirectory: "${{ parameters.unityDirectory }}"
+      -OutputDirectory: "${{ parameters.outputDirectory }}"
+      -ImportPackagePath: "${{ parameters.docToolProjectRoot }}/Export/DocTool.unitypackage"
+      -ProductName: "MRTK3"
+      -TargetPlatform: "WindowsStoreApps"
+      -DocsPackageMap: @{"MixedReality.Toolkit.Accessibility"="mrtkaccessibility";"MixedReality.Toolkit.Audio"="mrtkaudio";"MixedReality.Toolkit.Core"="mrtkcore";"MixedReality.Toolkit.Data"="mrtkdata";"MixedReality.Toolkit.Diagnostics"="mrtkdiagnostics";"MixedReality.Toolkit.Input"="mrtkinput";"MixedReality.Toolkit.SpatialManipulation"="mrtkspatialmanipulation";"MixedReality.Toolkit.UXComponents"="mrtkuxcomponents";"MixedReality.Toolkit.UXCore"="mrtkuxcore";"MixedReality.Toolkit.Speech.Windows"="mrtkwindowsspeech"}
+      -IgnoreTestAssemblies: $true
+      -OutputDirectoryPostfixVersion
+      -CommonDependenciesDirectory
+
+- task: 1ES.PublishPipelineArtifact@1
+  displayName: "Publish binaries for API reference docs"
+  inputs:
+    path: ${{ parameters.outputDirectory }}
+    artifact: "docs-binaries"
