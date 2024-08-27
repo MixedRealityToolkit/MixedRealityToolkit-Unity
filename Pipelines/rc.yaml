@@ -53,10 +53,10 @@ extends:
         exclude:
         - repository: PipelineTools
         - repository: DocToolUnityProject
-      baseline:
-        baselineFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnbaselines
-      suppression:
-        suppressionFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnsuppress
+      # baseline:
+      #   baselineFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnbaselines
+      # suppression:
+      #   suppressionFile: $(Build.SourcesDirectory)\MixedRealityToolkit-Unity\Pipelines\Config\1ES\.gdnsuppress
       tsa:
         enabled: true
         config:
