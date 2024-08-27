@@ -12,19 +12,19 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
-    /// This class allows for the move, rotate, and scale manipulation 
+    /// This class allows for the move, rotate, and scale manipulation
     /// of an object by any interactor with a valid transform.
     /// </summary>
     /// <remarks>
     /// Multi-handed interactions and physics-enabled objects are supported.
-    /// 
+    ///
     /// The <see cref="ObjectManipulator"/> class works with both rigidbody and non-rigidbody objects,
     /// and allows for throwing and catching interactions. Any interactor
     /// with an attach transform can interact with and manipulate
-    /// an <see cref="ObjectManipulator"/>. 
-    /// 
-    /// This is a drop-in replacement for the built-in Unity's <see cref="XRGrabInteractable"/>, 
-    /// that allows for flexible multi-handed interactions. Note, the <see cref="ObjectManipulator"/> 
+    /// an <see cref="ObjectManipulator"/>.
+    ///
+    /// This is a drop-in replacement for the built-in Unity's <see cref="XRGrabInteractable"/>,
+    /// that allows for flexible multi-handed interactions. Note, the <see cref="ObjectManipulator"/>
     /// class doesn't track controller velocity, so for precise fast-paced
     /// throwing interactions that only need one hand, <see cref="XRGrabInteractable"/> may
     /// give better results.
@@ -37,17 +37,17 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         /// <summary>
         /// Describes what pivot the manipulated object will rotate about when
-        /// a controller or hand is rotated. 
+        /// a controller or hand is rotated.
         /// </summary>
         /// <remarks>
         /// This is not a description of any limits or additional rotation logic.
-        /// 
+        ///
         /// If no other factors, such as constraints, are involved, rotating a controller or hand by an
-        /// amount should rotate the object by that same amount. 
-        /// 
+        /// amount should rotate the object by that same amount.
+        ///
         /// A possible future value is `RotateAboutUserDefinedPoint`, this would indicate the user could specify
         /// a pivot that the object is to rotate around.
-        /// 
+        ///
         /// An example of a value that should not be found here is `MaintainRotationToUser`,
         /// as this would restrict rotation of the object when a controller or hand is rotated.
         /// </remarks>
@@ -57,7 +57,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             /// Rotation will occur around the center of the object.
             /// </summary>
             RotateAboutObjectCenter = 0,
-            
+
             /// <summary>
             /// Rotation will occur at the point the control or hand grabbed the object.
             /// </summary>
@@ -65,7 +65,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         };
 
         /// <summary>
-        /// This enumeration describing the type of behavior to apply when a 
+        /// This enumeration describing the type of behavior to apply when a
         /// <see cref="ObjectManipulator"/> is released by a controller.
         /// </summary>
         [System.Flags]
@@ -113,7 +113,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 if (interactorsSelecting.Count != 0)
                 {
-                    Debug.LogWarning("Changing the host transform while the object is being manipulated is not yet supported. " + 
+                    Debug.LogWarning("Changing the host transform while the object is being manipulated is not yet supported. " +
                         "Check interactorsSelecting.Count before changing the host transform.");
                     return;
                 }
@@ -127,7 +127,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     {
                         constraintsManager.Setup(new MixedRealityTransform(HostTransform));
                     }
-                  
+
                     // Reacquire reference to the rigidbody.
                     rigidBody = HostTransform.GetComponent<Rigidbody>();
                 }
@@ -472,8 +472,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         /// <remarks>
         /// Setting this field at runtime can be expensive (reflection) and interrupt pr break
-        /// currently occurring manipulations. So use this with caution. 
-        /// 
+        /// currently occurring manipulations. So use this with caution.
+        ///
         /// This is best used at startup or when instantiating ObjectManipulators from code.
         /// </remarks>
         public LogicType ManipulationLogicTypes
@@ -631,9 +631,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         #endregion
-        
+
         /// <summary>
-        /// Invoked on <see cref="ObjectManipulator"/>, <see cref="Awake"/>, and <see cref="Reset"/> to apply required 
+        /// Invoked on <see cref="ObjectManipulator"/>, <see cref="Awake"/>, and <see cref="Reset"/> to apply required
         /// settings to this <see cref="ObjectManipulator"/> instance.
         /// </summary>
         protected virtual void ApplyRequiredSettings()
@@ -685,7 +685,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         // When the player is carrying a Rigidbody, the physics damping of interaction should act within the moving frame of reference of the player.
-        // The reference frame logic allows compensating for that 
+        // The reference frame logic allows compensating for that
         private Transform referenceFrameTransform = null;
         private bool referenceFrameHasLastPos = false;
         private Vector3 referenceFrameLastPos;
@@ -850,6 +850,19 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     ApplyForcesToRigidbody();
                 }
             }
+        }
+
+        public Vector3 GetAttachCentroid()
+        {
+            Vector3 sumPos = Vector3.zero;
+            int count = 0;
+            foreach (IXRSelectInteractor interactor in interactorsSelecting)
+            {
+                sumPos += interactor.GetAttachTransform(this).position;
+                count++;
+            }
+
+            return sumPos / Mathf.Max(1, count);
         }
 
         /// <summary>
