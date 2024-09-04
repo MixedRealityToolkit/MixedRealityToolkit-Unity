@@ -358,7 +358,7 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         private bool AtStartOfLine(in TMP_LineInfo lineInfo, in TMP_CharacterInfo prevChar)
         {
-            return lineInfo.characterCount == 0 ? true : lineInfo.firstCharacterIndex > prevChar.index;
+            return lineInfo.characterCount == 0 || lineInfo.firstCharacterIndex > prevChar.index;
         }
 
         /// <summary>

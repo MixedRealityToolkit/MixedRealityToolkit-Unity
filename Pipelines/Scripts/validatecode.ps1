@@ -245,7 +245,11 @@ function GetProjectRelativePath {
     )
     process {
         $normalizedFileName = $FileName.Replace("\", "/")
-        $substringLength = $Directory.EndsWith("/") ? $Directory.Length : $Directory.Length + 1
+        if ($Directory.EndsWith("/")) {
+            $substringLength = $Directory.Length
+        } else {
+            $substringLength = $Directory.Length + 1
+        }
         $assetFileName = $normalizedFileName.SubString($substringLength)
         $assetFileName
     }

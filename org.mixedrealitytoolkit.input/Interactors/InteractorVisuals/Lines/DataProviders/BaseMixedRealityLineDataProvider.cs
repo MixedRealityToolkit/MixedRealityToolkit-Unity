@@ -116,9 +116,6 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         protected abstract float GetUnClampedWorldLengthInternal();
 
-        private Matrix4x4 localToWorldMatrix;
-        private Matrix4x4 worldToLocalMatrix;
-
         protected const int UnclampedWorldLengthSearchSteps = 10;
         private const float MinRotationMagnitude = 0.0001f;
         private const float MinLineStartClamp = 0.0001f;

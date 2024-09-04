@@ -1,6 +1,6 @@
 # Mixed Reality Toolkit for Unity
 
-![Mixed Reality Toolkit](https://user-images.githubusercontent.com/13754172/122838732-89ea3400-d2ab-11eb-8c79-32dd84944989.png)
+![Mixed Reality Toolkit](./Images/MRTK_Unity_header.png)
 
 ![MRTK3 Banner](./Images/MRTK3_banner.png)
 
