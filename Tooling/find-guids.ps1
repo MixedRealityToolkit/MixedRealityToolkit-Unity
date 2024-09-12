@@ -30,6 +30,14 @@ Get-ChildItem . -File -Recurse -Include *.unity, *.prefab, *.asset, *.mat, *.met
     }
 }
 
-Write-Host "`nFound GUIDs in $count file$($count -eq 1 ? '' : 's')"
+if ($count -eq 1) {
+    Write-Host "`nFound GUIDs in $count file"
+} else {
+    Write-Host "`nFound GUIDs in $count files"
+}
 
-exit $count -gt 0 ? 1 : 0
+if ($count -gt 0) {
+    exit 1
+} else {
+    exit 0
+}

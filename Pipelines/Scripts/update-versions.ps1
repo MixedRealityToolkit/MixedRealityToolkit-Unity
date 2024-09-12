@@ -86,7 +86,7 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
     #   1.0.0-development  
     #
     # In these example "development" is the prerelease tag and "pre.1" is the meta tag.    
-    $validVersion = $version -match '(?<version>[0-9.]+)(-((?<prereleaseTag>[a-zA-Z0-9]*)?(?=$|\.[a-zA-Z])|)((?(?<=-)|\.)(?<metaTag>[a-zA-Z][a-zA-Z0-9]*)\.(?<metaTagVersion>[1-9][0-9]*))?)'
+    $validVersion = $version -match '(?<version>[0-9.]+)(-((?<prereleaseTag>[a-zA-Z0-9]*)?(?=(|\.[a-zA-Z]*\.[0-9]*)(\.[0-9]{6}\.[0-9]|$))|)((?(?<=-)|\.)(?<metaTag>[a-zA-Z][a-zA-Z0-9]*)\.(?<metaTagVersion>[1-9][0-9]*))?)?'
     if (-not $validVersion) {
         throw "Failed to parse version out of the package.json file at $($_.FullName)"
     }
