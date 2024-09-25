@@ -23,6 +23,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Removed LegacyDialog/README files.
 * Removed obsolete Slider.SliderValue fields.
 
+## [3.3.0-development] - 2024-09-12
+
+### Changed
+
+* StateVisualizer: Modified access modifiers of State, stateContainers and UpdateStateValue to protected internal to allow adding states through subclassing. [PR #926](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/926)
+
+## [3.2.2-development] - 2024-08-29
+
+### Changed
+
+* Package patch version update to allow UPM publishing
+
 ## [3.2.1] - 2024-04-23
 
 ### Fixed
