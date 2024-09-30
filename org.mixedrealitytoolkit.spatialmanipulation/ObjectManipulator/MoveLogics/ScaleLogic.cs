@@ -78,8 +78,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 for (int j = i + 1; j < interactors.Count; j++)
                 {
                     // Defer square root until end for performance.
-                    var distance = Vector3.SqrMagnitude(interactors[i].transform.position -
-                                                       interactors[j].transform.position);
+                    var distance = Vector3.SqrMagnitude(interactors[i].GetAttachTransform(interactable).position -
+                                                       interactors[j].GetAttachTransform(interactable).position);
                     if (distance < Mathf.Epsilon)
                     {
                         distance = 1.0f;
