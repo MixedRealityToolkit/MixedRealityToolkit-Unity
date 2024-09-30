@@ -80,6 +80,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     // Defer square root until end for performance.
                     var distance = Vector3.SqrMagnitude(interactors[i].transform.position -
                                                        interactors[j].transform.position);
+                    if (distance < Mathf.Epsilon)
+                    {
+                        distance = 1.0f;
+                    }
                     if (distance < result)
                     {
                         result = distance;
