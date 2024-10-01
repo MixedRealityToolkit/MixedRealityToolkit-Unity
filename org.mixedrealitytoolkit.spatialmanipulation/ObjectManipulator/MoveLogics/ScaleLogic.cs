@@ -24,7 +24,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private float startHandDistanceMeters;
 
         // Meaningful minimum distance of scaling handles to calculate scale.
-        private const float scaleDistanceEpsilon = .01f;
+        private const float scaleDistanceEpsilon = .0001f;
 
         /// <inheritdoc />
         public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
