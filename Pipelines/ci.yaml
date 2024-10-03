@@ -18,7 +18,7 @@ resources:
       type: git
       endpoint: ToolsAccess
       name: tools.internal
-      ref: 78ecf591964ecf511b4c7a0cd84d98ce11e8be16
+      ref: 9f54deb8134c5c910a302c5d70f61a3dc5ffc6fa
     - repository: DocToolUnityProject
       type: git
       endpoint: ToolsAccess
