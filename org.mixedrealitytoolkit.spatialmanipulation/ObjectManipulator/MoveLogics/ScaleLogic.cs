@@ -23,6 +23,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private Vector3 startAttachTransformScale;
         private float startHandDistanceMeters;
 
+        // Meaningful minimum squared distance of scaling handles to calculate scale.
+        private const float scaleDistanceSquaredEpsilon = .0001f;
+
         /// <inheritdoc />
         public override void Setup(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable, MixedRealityTransform currentTarget)
         {
@@ -80,6 +83,17 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     // Defer square root until end for performance.
                     var distance = Vector3.SqrMagnitude(interactors[i].transform.position -
                                                        interactors[j].transform.position);
+
+                    // Prefer to use the interactor positions directly above for scaling stability, but
+                    // fallback to attach transforms if the interactor positions appear identical.
+                    if (distance < Mathf.Epsilon)
+                    {
+                        distance = Vector3.SqrMagnitude(interactors[i].GetAttachTransform(interactable).position -
+                                                       interactors[j].GetAttachTransform(interactable).position);
+                    }
+                    // Ensure distance is a meaningful magnitude for scaling.
+                    distance = Mathf.Max(distance, scaleDistanceSquaredEpsilon);
+
                     if (distance < result)
                     {
                         result = distance;
