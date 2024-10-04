@@ -71,7 +71,7 @@ extends:
     - stage: 'Build'
       jobs:
       - job: UnityValidation
-
+        timeoutInMinutes: 120
         steps:
         - checkout: self
         - checkout: PipelineTools
