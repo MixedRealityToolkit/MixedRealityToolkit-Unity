@@ -19,18 +19,19 @@ trigger: none # disable CI
 stages:
   - stage: UnityValidation
     jobs:
-      - job: Test library file
-        - task: DownloadSecureFile@1
-          name: testfile
-          displayName: 'Download testfile.md'
-          inputs:
-            secureFile: 'testfile.md'
+      - job: TestLibraryFile
+        steps: 
+          - task: DownloadSecureFile@1
+            name: testfile
+            displayName: 'Download testfile.md'
+            inputs:
+              secureFile: 'testfile.md'
 
-      - pwsh: |
-          echo Installing $(testfile.secureFilePath) to the temp directory...
-          Copy-Item -Path $(testfile.secureFilePath) -Destination "C:\Temp"
-          Write-Host "Contents:  "
-          Get-Content -Path "C:\Temp\testfile.md" | Write-Host
+          - pwsh: |
+              echo Installing $(testfile.secureFilePath) to the temp directory...
+              Copy-Item -Path $(testfile.secureFilePath) -Destination "C:\Temp"
+              Write-Host "Contents:  "
+              Get-Content -Path "C:\Temp\testfile.md" | Write-Host
             
       - job: BuildStandaloneAndTest
         pool: Unity_2021.3.21f1_Pool
