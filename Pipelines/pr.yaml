@@ -28,10 +28,8 @@ stages:
               secureFile: 'testfile.md'
 
           - pwsh: |
-              echo Installing $(testfile.secureFilePath) to the temp directory...
-              Copy-Item -Path $(testfile.secureFilePath) -Destination "C:\Temp"
               Write-Host "Contents:  "
-              Get-Content -Path "C:\Temp\testfile.md" | Write-Host
+              Get-Content -Path $(testFile.secureFilePath) | Write-Host
             
       - job: BuildStandaloneAndTest
         pool: Unity_2021.3.21f1_Pool
