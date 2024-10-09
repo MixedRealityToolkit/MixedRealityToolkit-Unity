@@ -17,8 +17,6 @@ stages:
           - checkout: self
             fetchDepth: 3
 
-          - checkout: PipelineTools
-
           - template: Templates/unity.yaml
             parameters:
               Platform: Standalone
@@ -30,8 +28,6 @@ stages:
           - checkout: self
             fetchDepth: 3
 
-          - checkout: PipelineTools
-
           - template: Templates/unity.yaml
             parameters:
               Platform: UWP
@@ -41,8 +37,6 @@ stages:
         steps:
           - checkout: self
             fetchDepth: 3
-
-          - checkout: PipelineTools
 
           - template: Templates/unity.yaml
             parameters:
