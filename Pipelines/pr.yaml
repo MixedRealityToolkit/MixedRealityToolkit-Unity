@@ -6,14 +6,6 @@
 variables:
   - template: Config/settings.yaml
 
-resources:
-  repositories:
-    - repository: PipelineTools
-      type: git
-      endpoint: ToolsAccess
-      name: tools.internal
-      ref: 9f54deb8134c5c910a302c5d70f61a3dc5ffc6fa
-
 trigger: none # disable CI
 
 stages:
