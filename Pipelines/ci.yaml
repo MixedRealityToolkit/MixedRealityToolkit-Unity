@@ -62,6 +62,9 @@ jobs:
       - checkout: DocToolUnityProject
 
       - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
-        displayName: 'Source Tree'
+        displayName: 'SourcesDirectory Tree'
+
+      - powershell: Get-ChildItem -Path $(Agent.BuildDirectory) -recurse
+        displayName: 'Agent.BuildDirectory Tree'
 
       - template: Templates/docs.yaml
