@@ -81,25 +81,25 @@ extends:
         - pwsh: Install-Module UnitySetup -Scope CurrentUser -Force -AllowPrerelease -RequiredVersion 5.6.161-develop
           displayName: Install unitysetup.powershell
 
-        - template: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
+        - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
           parameters:
             Platform: Standalone
 
-        - template: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
+        - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
           parameters:
             Platform: UWP
 
-        - template: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
+        - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
           parameters:
             Platform: Android
 
-        - template: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/Pipelines/Templates/1ES/upm.yaml
+        - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/upm.yaml
           parameters:
             prereleaseTag: $(ReleaseTagPrefix)
             buildNumber: $(Version.Revision)
             publishToFeed: true
 
-        - template: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/Pipelines/Templates/1ES/docs.yaml             
+        - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/docs.yaml             
       
 
                   
