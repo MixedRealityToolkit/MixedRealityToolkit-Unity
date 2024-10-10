@@ -6,14 +6,6 @@
 variables:
   - template: Config/settings.yaml
 
-resources:
-  repositories:
-    - repository: PipelineTools
-      type: git
-      endpoint: ToolsAccess
-      name: tools.internal
-      ref: 78ecf591964ecf511b4c7a0cd84d98ce11e8be16
-
 trigger: none # disable CI
 
 stages:
@@ -24,8 +16,7 @@ stages:
         steps:
           - checkout: self
             fetchDepth: 3
-
-          - checkout: PipelineTools
+            path: MixedRealityToolkit-Unity
 
           - template: Templates/unity.yaml
             parameters:
@@ -37,8 +28,7 @@ stages:
         steps:
           - checkout: self
             fetchDepth: 3
-
-          - checkout: PipelineTools
+            path: MixedRealityToolkit-Unity
 
           - template: Templates/unity.yaml
             parameters:
@@ -49,8 +39,7 @@ stages:
         steps:
           - checkout: self
             fetchDepth: 3
-
-          - checkout: PipelineTools
+            path: MixedRealityToolkit-Unity
 
           - template: Templates/unity.yaml
             parameters:

@@ -14,11 +14,6 @@ variables:
 
 resources:
   repositories:
-    - repository: PipelineTools
-      type: git
-      endpoint: ToolsAccess
-      name: tools.internal
-      ref: 78ecf591964ecf511b4c7a0cd84d98ce11e8be16
     - repository: DocToolUnityProject
       type: git
       endpoint: ToolsAccess
@@ -32,8 +27,7 @@ jobs:
     pool: Unity_2021.3.21f1_Pool
     steps:
       - checkout: self
-
-      - checkout: PipelineTools
+        path: MixedRealityToolkit-Unity
 
       - task: ComponentGovernanceComponentDetection@0
         inputs:
@@ -63,11 +57,8 @@ jobs:
     pool: Unity_2021.3.21f1_Pool
     steps:
       - checkout: self
-
-      - checkout: PipelineTools
+        path: MixedRealityToolkit-Unity
 
       - checkout: DocToolUnityProject
-
-      - template: Templates/license-unity.yaml@PipelineTools
 
       - template: Templates/docs.yaml
