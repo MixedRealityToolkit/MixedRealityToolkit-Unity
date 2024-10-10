@@ -16,7 +16,7 @@ parameters:
 
   - name: PathToProject
     type: string
-    default: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/UnityProjects/MRTKDevTemplate
+    default: $(Build.SourcesDirectory)/UnityProjects/MRTKDevTemplate
 
   - name: RunTests
     type: boolean
