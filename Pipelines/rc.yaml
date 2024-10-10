@@ -70,9 +70,7 @@ extends:
         timeoutInMinutes: 120
         steps:
         - checkout: self
-          path: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
         - checkout: DocToolUnityProject
-          path: $(Build.SourcesDirectory)/lib.doctools
 
         - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
           displayName: 'Initial source tree'
