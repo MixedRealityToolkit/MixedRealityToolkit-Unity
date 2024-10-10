@@ -72,8 +72,8 @@ extends:
         - checkout: self
         - checkout: DocToolUnityProject
 
-        - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
-          displayName: 'Initial source tree'
+        - powershell: Get-ChildItem -Path $(Agent.BuildDirectory) -recurse
+          displayName: 'Initial agent builddirectory tree'
 
         - pwsh: Install-Module PowerShellGet -Force
           displayName: Update PowerShellGet
@@ -81,25 +81,25 @@ extends:
         - pwsh: Install-Module UnitySetup -Scope CurrentUser -Force -AllowPrerelease -RequiredVersion 5.6.161-develop
           displayName: Install unitysetup.powershell
 
-        - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
-          parameters:
-            Platform: Standalone
+        # - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
+        #   parameters:
+        #     Platform: Standalone
 
-        - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
-          parameters:
-            Platform: UWP
+        # - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
+        #   parameters:
+        #     Platform: UWP
 
-        - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
-          parameters:
-            Platform: Android
+        # - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
+        #   parameters:
+        #     Platform: Android
 
-        - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/upm.yaml
-          parameters:
-            prereleaseTag: $(ReleaseTagPrefix)
-            buildNumber: $(Version.Revision)
-            publishToFeed: true
+        # - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/upm.yaml
+        #   parameters:
+        #     prereleaseTag: $(ReleaseTagPrefix)
+        #     buildNumber: $(Version.Revision)
+        #     publishToFeed: true
 
-        - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/docs.yaml             
+        # - template: /MixedRealityToolkit-Unity/Pipelines/Templates/1ES/docs.yaml             
       
 
                   
