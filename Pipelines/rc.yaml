@@ -70,7 +70,9 @@ extends:
         timeoutInMinutes: 120
         steps:
         - checkout: self
+          path: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
         - checkout: DocToolUnityProject
+          path: $(Build.SourcesDirectory)/lib.doctools
 
         - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
           displayName: 'Initial source tree'
@@ -81,25 +83,25 @@ extends:
         - pwsh: Install-Module UnitySetup -Scope CurrentUser -Force -AllowPrerelease -RequiredVersion 5.6.161-develop
           displayName: Install unitysetup.powershell
 
-        - template: /Pipelines/Templates/1ES/unity.yaml@self
+        - template: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
           parameters:
             Platform: Standalone
 
-        - template: /Pipelines/Templates/1ES/unity.yaml@self
+        - template: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
           parameters:
             Platform: UWP
 
-        - template: /Pipelines/Templates/1ES/unity.yaml@self
+        - template: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/Pipelines/Templates/1ES/unity.yaml
           parameters:
             Platform: Android
 
-        - template: /Pipelines/Templates/1ES/upm.yaml@self
+        - template: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/Pipelines/Templates/1ES/upm.yaml
           parameters:
             prereleaseTag: $(ReleaseTagPrefix)
             buildNumber: $(Version.Revision)
             publishToFeed: true
 
-        - template: /Pipelines/Templates/1ES/docs.yaml@self             
+        - template: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity/Pipelines/Templates/1ES/docs.yaml             
       
 
                   

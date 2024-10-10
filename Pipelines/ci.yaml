@@ -27,7 +27,7 @@ jobs:
     pool: Unity_2021.3.21f1_Pool
     steps:
       - checkout: self
-        path: MixedRealityToolkit-Unity
+        path: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
 
       - task: ComponentGovernanceComponentDetection@0
         inputs:
@@ -57,9 +57,10 @@ jobs:
     pool: Unity_2021.3.21f1_Pool
     steps:
       - checkout: self
-        path: MixedRealityToolkit-Unity
+        path: $(Build.SourcesDirectory)/MixedRealityToolkit-Unity
 
       - checkout: DocToolUnityProject
+        path: $(Build.SourcesDirectory)/lib.doctools
 
       - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
         displayName: 'SourcesDirectory Tree'
