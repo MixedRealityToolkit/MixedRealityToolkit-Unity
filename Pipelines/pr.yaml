@@ -16,31 +16,31 @@ stages:
         steps:
           - checkout: self
             fetchDepth: 3
-            path: MixedRealityToolkit-Unity
 
           - template: Templates/unity.yaml
             parameters:
               Platform: Standalone
               RunTests: true
+              PathToProject: $(Build.SourcesDirectory)/UnityProjects/MRTKDevTemplate
 
       - job: BuildUWP
         pool: Unity_2021.3.21f1_Pool
         steps:
           - checkout: self
             fetchDepth: 3
-            path: MixedRealityToolkit-Unity
 
           - template: Templates/unity.yaml
             parameters:
               Platform: UWP
+              PathToProject: $(Build.SourcesDirectory)/UnityProjects/MRTKDevTemplate
 
       - job: BuildAndroid
         pool: Unity_2021.3.21f1_Pool
         steps:
           - checkout: self
             fetchDepth: 3
-            path: MixedRealityToolkit-Unity
 
           - template: Templates/unity.yaml
             parameters:
               Platform: Android
+              PathToProject: $(Build.SourcesDirectory)/UnityProjects/MRTKDevTemplate
