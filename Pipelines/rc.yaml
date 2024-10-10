@@ -32,11 +32,7 @@ resources:
     type: git
     name: 1ESPipelineTemplates/1ESPipelineTemplates
     ref: refs/tags/release
-  - repository: PipelineTools
-    type: git
-    endpoint: ToolsAccess
-    name: tools.internal
-    ref: 9f54deb8134c5c910a302c5d70f61a3dc5ffc6fa
+
   - repository: DocToolUnityProject
     type: git
     endpoint: ToolsAccess
@@ -74,7 +70,6 @@ extends:
         timeoutInMinutes: 120
         steps:
         - checkout: self
-        - checkout: PipelineTools
         - checkout: DocToolUnityProject
 
         - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
@@ -85,9 +80,6 @@ extends:
 
         - pwsh: Install-Module UnitySetup -Scope CurrentUser -Force -AllowPrerelease -RequiredVersion 5.6.161-develop
           displayName: Install unitysetup.powershell
-
-        - template: Templates/license-unity.yaml@PipelineTools
-
 
         - template: /Pipelines/Templates/1ES/unity.yaml@self
           parameters:
