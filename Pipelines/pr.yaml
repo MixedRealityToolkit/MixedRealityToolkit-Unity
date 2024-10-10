@@ -16,6 +16,7 @@ stages:
         steps:
           - checkout: self
             fetchDepth: 3
+            path: MixedRealityToolkit-Unity
 
           - template: Templates/unity.yaml
             parameters:
@@ -27,6 +28,7 @@ stages:
         steps:
           - checkout: self
             fetchDepth: 3
+            path: MixedRealityToolkit-Unity
 
           - template: Templates/unity.yaml
             parameters:
@@ -37,6 +39,7 @@ stages:
         steps:
           - checkout: self
             fetchDepth: 3
+            path: MixedRealityToolkit-Unity
 
           - template: Templates/unity.yaml
             parameters:

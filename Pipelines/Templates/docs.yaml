@@ -10,6 +10,9 @@ parameters:
   outputDirectory: $(Build.ArtifactStagingDirectory)/docs
 
 steps:
+
+- template: license-unity.yaml
+
 - task: PowerShell@2
   displayName: 'Update package versions'
   inputs:
