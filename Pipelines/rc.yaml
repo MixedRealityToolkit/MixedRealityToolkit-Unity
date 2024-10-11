@@ -72,8 +72,6 @@ extends:
         - checkout: self
         - checkout: DocToolUnityProject
 
-        - powershell: Get-ChildItem -Path $(Build.SourcesDirectory) -recurse
-          displayName: 'Initial source tree'
 
         - pwsh: Install-Module PowerShellGet -Force
           displayName: Update PowerShellGet
