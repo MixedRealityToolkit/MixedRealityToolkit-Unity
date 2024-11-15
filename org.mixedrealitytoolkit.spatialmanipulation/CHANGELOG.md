@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Changed
+
+### Fixed
+
+* Fixed issues with HandConstraint hand tracking events not being fired (OnFirstHandDetected/OnHandActivate/OnLastHandLost/OnHandDeactivate) when SolverHandler TrackedHand is set to Right or Left (not Both) [Issue 944](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/940)
+
 ### Fixed
 
 * Fixed tap to place `StartPlacement()` when called just after instantiation of the component. [PR #785](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/785)
