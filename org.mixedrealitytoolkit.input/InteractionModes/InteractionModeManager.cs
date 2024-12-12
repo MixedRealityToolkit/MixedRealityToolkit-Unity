@@ -496,7 +496,7 @@ namespace MixedReality.Toolkit.Input
 
                 foreach (GameObject groupObject in destroyedGroups)
                 {
-                    destroyedGroups.Remove(groupObject);
+                    interactorGroupMappings.Remove(groupObject);
                 }
 
                 foreach (XRBaseInteractor interactor in destroyedInteractors)
