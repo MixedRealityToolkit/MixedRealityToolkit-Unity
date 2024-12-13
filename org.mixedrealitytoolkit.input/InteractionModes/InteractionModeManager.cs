@@ -75,7 +75,7 @@ namespace MixedReality.Toolkit.Input
         [Obsolete("This method is obsolete. Please use InitializeInteractorGroups instead.")]
         public void InitializeControllers()
         {
-            foreach (XRController xrController in FindObjectUtility.FindObjectsByType<XRController>())
+            foreach (XRBaseController xrController in FindObjectUtility.FindObjectsByType<XRBaseController>())
             {
                 if (!interactorGroupMappings.ContainsKey(xrController.gameObject))
                 {
