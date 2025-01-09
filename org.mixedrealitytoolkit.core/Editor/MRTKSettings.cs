@@ -14,7 +14,7 @@ namespace MixedReality.Toolkit.Editor
     [System.Serializable]
     public class MRTKSettings : ScriptableObject
     {
-        internal static string MRTKSettingsPath => Path.Combine(MRTKFiles.GeneratedFolderPath, "MRTKSettings.asset");
+        internal static string MRTKSettingsPath => Path.Combine(MRTKFiles.GetOrCreateGeneratedFolderPath(), "MRTKSettings.asset");
 
         [SerializeField]
         private SerializableDictionary<BuildTargetGroup, MRTKProfile> settings = new SerializableDictionary<BuildTargetGroup, MRTKProfile>();
