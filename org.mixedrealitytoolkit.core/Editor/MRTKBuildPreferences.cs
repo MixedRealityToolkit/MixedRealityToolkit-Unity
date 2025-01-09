@@ -51,7 +51,7 @@ namespace MixedReality.Toolkit.Editor
 
             static void GUIHandler(string searchContext)
             {
-                EditorGUILayout.HelpBox($"These settings are serialized into MRTKSettings.asset in {MRTKFiles.GeneratedFolderPath}.\nThis file can be checked into source control to maintain consistent settings across collaborators.", MessageType.Info);
+                EditorGUILayout.HelpBox($"These settings are serialized into MRTKSettings.asset in {MRTKFiles.GetOrCreateGeneratedFolderPath()}.\nThis file can be checked into source control to maintain consistent settings across collaborators.", MessageType.Info);
                 DrawAppLauncherModelField();
             }
 
