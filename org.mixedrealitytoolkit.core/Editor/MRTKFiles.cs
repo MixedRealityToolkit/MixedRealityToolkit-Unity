@@ -41,7 +41,7 @@ namespace MixedReality.Toolkit.Editor
                     if (!File.Exists(DefaultSentinelFilePath))
                     {
                         // Make sure we create and dispose/close the filestream just created
-                        using (FileStream f = File.Create(DefaultSentinelFilePath)) { }
+                        using FileStream f = File.Create(DefaultSentinelFilePath);
                     }
                     generatedFolderPath = DefaultGeneratedFolderPath;
                 }
