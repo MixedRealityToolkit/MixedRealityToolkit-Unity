@@ -6,7 +6,7 @@
     "com.microsoft.mrtk.tts.windows": "file:../../../ExternalDependencies/com.microsoft.mrtk.tts.windows-1.0.4.tgz",
     "com.microsoft.spatialaudio.spatializer.unity": "file:../../../ExternalDependencies/com.microsoft.spatialaudio.spatializer.unity-2.0.55.tgz",
     "com.unity.asset-store-validation": "0.5.1",
-    "com.unity.cloud.gltfast": "6.2.0",
+    "com.unity.cloud.gltfast": "6.10.1",
     "com.unity.cloud.ktx": "3.4.5",
     "com.unity.collab-proxy": "2.0.1",
     "com.unity.ide.rider": "3.0.18",
