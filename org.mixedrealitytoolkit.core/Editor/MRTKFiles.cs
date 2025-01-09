@@ -66,12 +66,15 @@ namespace MixedReality.Toolkit.Editor
                     if (Path.GetFileName(asset) == GeneratedSentinelFileName)
                     {
                         string newPath = Path.GetDirectoryName(asset);
-                        if (generatedFolderPath != string.Empty && generatedFolderPath != newPath)
+                        if (generatedFolderPath != newPath)
                         {
-                            Debug.LogWarning($"Previous MRTK.Generated folder was not unregistered properly: {generatedFolderPath}.\nReplacing with {newPath}");
+                            if (generatedFolderPath != string.Empty)
+                            {
+                                Debug.LogWarning($"Previous MRTK.Generated folder was not unregistered properly: {generatedFolderPath}.\nReplacing with {newPath}");
+                            }
+                            Debug.Log($"Found MRTK.Generated at {newPath}.");
+                            generatedFolderPath = newPath;
                         }
-                        Debug.Log($"Found MRTK.Generated at {newPath}.");
-                        generatedFolderPath = newPath;
                     }
                 }
             }
