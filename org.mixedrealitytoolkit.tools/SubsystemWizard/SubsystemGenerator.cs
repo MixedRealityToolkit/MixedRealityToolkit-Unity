@@ -159,7 +159,7 @@ namespace MixedReality.Toolkit.Tools
         {
             // Make sure there is a folder in which to create the new files.
             DirectoryInfo outputFolder = new DirectoryInfo(
-                Path.Combine(MRTKFiles.GeneratedFolderPath, SubsystemName));
+                Path.Combine(MRTKFiles.GetOrCreateGeneratedFolderPath(), SubsystemName));
             if (!outputFolder.Exists)
             {
                 outputFolder.Create();
