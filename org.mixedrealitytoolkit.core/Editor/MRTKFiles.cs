@@ -33,30 +33,17 @@ namespace MixedReality.Toolkit.Editor
                         }
                     }
 
+                    if (!Directory.Exists(DefaultGeneratedFolderPath))
+                    {
+                        Directory.CreateDirectory(DefaultGeneratedFolderPath);
+                    }
 
-                    //string[] filePathResults = Directory.GetFiles(Application.dataPath, GeneratedSentinelFileName, SearchOption.AllDirectories);
-                    //if (filePathResults.Length > 0)
-                    //{
-                    //    generatedFolderPath = Path.GetDirectoryName(filePathResults[0]);
-                    //    if (filePathResults.Length > 1)
-                    //    {
-                    //        Debug.LogWarning($"{filePathResults.Length} MRTK.Generated sentinels were found.\nUsing the one in {generatedFolderPath}");
-                    //    }
-                    //}
-                    //else
-                    //{
-                        if (!Directory.Exists(DefaultGeneratedFolderPath))
-                        {
-                            Directory.CreateDirectory(DefaultGeneratedFolderPath);
-                        }
-
-                        if (!File.Exists(DefaultSentinelFilePath))
-                        {
-                            // Make sure we create and dispose/close the filestream just created
-                            using (FileStream f = File.Create(DefaultSentinelFilePath)) { }
-                        }
-                        generatedFolderPath = DefaultGeneratedFolderPath;
-                    //}
+                    if (!File.Exists(DefaultSentinelFilePath))
+                    {
+                        // Make sure we create and dispose/close the filestream just created
+                        using (FileStream f = File.Create(DefaultSentinelFilePath)) { }
+                    }
+                    generatedFolderPath = DefaultGeneratedFolderPath;
                 }
                 return generatedFolderPath;
             }
