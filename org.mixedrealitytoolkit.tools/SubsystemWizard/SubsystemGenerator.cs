@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using Microsoft.CSharp;
+using MixedReality.Toolkit.Editor;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,7 +34,6 @@ namespace MixedReality.Toolkit.Tools
 
         private const bool DefaultCreateConfiguration = false;
         private static readonly string DefaultBaseSubsystemName = $"NewSubsystem";
-        private static readonly string OutputFolderRoot = Path.Combine("Assets", "MRTK.Generated");
 
         [SerializeField]
         private SubsystemWizardState state = SubsystemWizardState.Start;
@@ -159,7 +159,7 @@ namespace MixedReality.Toolkit.Tools
         {
             // Make sure there is a folder in which to create the new files.
             DirectoryInfo outputFolder = new DirectoryInfo(
-                Path.Combine(OutputFolderRoot, SubsystemName));
+                Path.Combine(MRTKFiles.GeneratedFolderPath, SubsystemName));
             if (!outputFolder.Exists)
             {
                 outputFolder.Create();
