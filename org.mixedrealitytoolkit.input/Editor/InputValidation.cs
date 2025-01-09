@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.XR.CoreUtils.Editor;
 using UnityEditor;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace MixedReality.Toolkit.Input.Editor
@@ -74,9 +75,9 @@ namespace MixedReality.Toolkit.Input.Editor
                     return false;
 #endif
                 },
-                FixIt = () => Application.OpenURL("https://github.com/Unity-Technologies/com.unity.cloud.gltfast.git"),
-                FixItMessage = "Open the GitHub repo for glTFast. Please refer to the installing section for instructions.",
-                FixItAutomatic = false,
+                FixIt = () => Client.Add("com.unity.cloud.gltfast"),
+                FixItMessage = "Add com.unity.cloud.gltfast to this project.",
+                FixItAutomatic = true,
                 Error = false
             };
         }
@@ -97,9 +98,9 @@ namespace MixedReality.Toolkit.Input.Editor
                     return false;
 #endif
                 },
-                FixIt = () => Application.OpenURL("https://github.com/atteneder/KtxUnity"),
-                FixItMessage = "Open the GitHub repo for KTX Unity. Please refer to the installing section for instructions.",
-                FixItAutomatic = false,
+                FixIt = () => Client.Add("com.unity.cloud.ktx"),
+                FixItMessage = "Add com.unity.cloud.ktx to this project.",
+                FixItAutomatic = true,
                 Error = false
             };
         }
