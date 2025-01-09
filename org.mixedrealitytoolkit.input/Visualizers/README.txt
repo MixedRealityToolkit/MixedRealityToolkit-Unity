@@ -6,5 +6,6 @@ MRTK3 does not take a hard dependency on these packages, but they are required t
 
 To add these packages to your project. go to
 	Window -> Package Manager -> '+ icon' -> Add package by name...
-	glTFast: com.unity.cloud.gltfast
-	KTX: com.unity.cloud.ktx
+
+glTFast: com.unity.cloud.gltfast
+KTX: com.unity.cloud.ktx
