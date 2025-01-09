@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Editor
 {
+    /// <summary>
+    /// Provides helper methods for accessing MRTK-defined files and folders.
+    /// </summary>
     public class MRTKFiles
     {
         private const string GeneratedName = "MRTK.Generated";
@@ -17,38 +20,43 @@ namespace MixedReality.Toolkit.Editor
         private static readonly string DefaultSentinelFilePath = Path.Combine(DefaultGeneratedFolderPath, GeneratedSentinelFileName);
         private static string generatedFolderPath = string.Empty;
 
-        public static string GeneratedFolderPath
+        /// <summary>
+        /// Finds the current MRTK.Generated folder based on the sentinel file. If a sentinel file is not found,
+        /// a new MRTK.Generated folder and sentinel are created and this new path is returned.
+        /// </summary>
+        /// <returns>The AssetDatabase-compatible path to the MRTK.Generated folder.</returns>
+        public static string GetOrCreateGeneratedFolderPath()
         {
-            get
+            if (string.IsNullOrWhiteSpace(generatedFolderPath))
             {
-                if (string.IsNullOrWhiteSpace(generatedFolderPath))
+                foreach (string guid in AssetDatabase.FindAssets(GeneratedName))
                 {
-                    foreach (string guid in AssetDatabase.FindAssets(GeneratedName))
+                    string path = AssetDatabase.GUIDToAssetPath(guid);
+                    if (path.Contains(GeneratedSentinelFileName))
                     {
-                        string path = AssetDatabase.GUIDToAssetPath(guid);
-                        if (path.Contains(GeneratedSentinelFileName))
-                        {
-                            generatedFolderPath = Path.GetDirectoryName(path);
-                            return generatedFolderPath;
-                        }
+                        generatedFolderPath = Path.GetDirectoryName(path);
+                        return generatedFolderPath;
                     }
-
-                    if (!Directory.Exists(DefaultGeneratedFolderPath))
-                    {
-                        Directory.CreateDirectory(DefaultGeneratedFolderPath);
-                    }
-
-                    if (!File.Exists(DefaultSentinelFilePath))
-                    {
-                        // Make sure we create and dispose/close the filestream just created
-                        using FileStream f = File.Create(DefaultSentinelFilePath);
-                    }
-                    generatedFolderPath = DefaultGeneratedFolderPath;
                 }
-                return generatedFolderPath;
+
+                if (!Directory.Exists(DefaultGeneratedFolderPath))
+                {
+                    Directory.CreateDirectory(DefaultGeneratedFolderPath);
+                }
+
+                if (!File.Exists(DefaultSentinelFilePath))
+                {
+                    // Make sure we create and dispose/close the filestream just created
+                    using FileStream f = File.Create(DefaultSentinelFilePath);
+                }
+                generatedFolderPath = DefaultGeneratedFolderPath;
             }
+            return generatedFolderPath;
         }
 
+        /// <summary>
+        /// Checks for an existing MRTK.Generated sentinel file on asset import. Allows the path to be pre-cached before use.
+        /// </summary>
         private class AssetPostprocessor : UnityEditor.AssetPostprocessor
         {
             public static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
