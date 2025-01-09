@@ -247,7 +247,7 @@ namespace MixedReality.Toolkit.Tools
                 }
 
                 EditorGUILayout.LabelField(
-                    $"The new subsystem will be created in your project's {Path.Combine(MRTKFiles.GeneratedFolderPath, subsystemGenerator.SubsystemName)} folder.",
+                    $"The new subsystem will be created in your project's {Path.Combine(MRTKFiles.GetOrCreateGeneratedFolderPath(), subsystemGenerator.SubsystemName)} folder.",
                     EditorStyles.boldLabel);
 
                 EditorGUILayout.Space(6);
@@ -345,7 +345,7 @@ namespace MixedReality.Toolkit.Tools
         {
             StringBuilder sb = new StringBuilder();
             int step = 1;
-            sb.AppendLine($" {step}. In the Project view, navigate to {Path.Combine(MRTKFiles.GeneratedFolderPath, subsystemGenerator.SubsystemName)}");
+            sb.AppendLine($" {step}. In the Project view, navigate to {Path.Combine(MRTKFiles.GetOrCreateGeneratedFolderPath(), subsystemGenerator.SubsystemName)}");
             step++;
             sb.AppendLine($" {step}. Open {subsystemGenerator.DescriptorName}.cs");
             step++;
