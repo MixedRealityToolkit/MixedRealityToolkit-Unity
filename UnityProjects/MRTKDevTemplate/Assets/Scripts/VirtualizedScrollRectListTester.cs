@@ -74,6 +74,7 @@ namespace MixedReality.Toolkit.Examples.Demos
             animate = true;
             destScroll = Mathf.Min(list.MaxScroll, Mathf.Floor(list.Scroll / list.RowsOrColumns) * list.RowsOrColumns + list.TotallyVisibleCount);
         }
+
         /// <summary>
         /// Scrolls the VirtualizedScrollRect to the previous page.
         /// </summary>
