@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [3.3.0-development] - 2025-01-09
+
+### Added
+
+* Added support for Unity's com.unity.cloud.gltfast and com.unity.cloud.ktx packages when loading controller models.
+
 ## [3.2.2-development] - 2024-06-24
 
 ### Fixed
