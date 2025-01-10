@@ -2,9 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.Editor;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.XR.CoreUtils.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -44,7 +42,7 @@ namespace MixedReality.Toolkit
 
         private static void AddMRTKValidationRules()
         {
-            foreach (var buildTargetGroup in validationRulesDictionary.Keys)
+            foreach (BuildTargetGroup buildTargetGroup in validationRulesDictionary.Keys)
             {
                 BuildValidator.AddRules(buildTargetGroup, validationRulesDictionary[buildTargetGroup]);
             }
