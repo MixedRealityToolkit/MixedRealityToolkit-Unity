@@ -89,7 +89,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// The direction the cell layout should flow in, top to bottom, or
         /// left to right.
         /// </summary>
-        public enum Layout
+        private enum Layout
         {
             /// <summary>
             /// This layout flows from top to bottom along the Y axis.
@@ -102,10 +102,9 @@ namespace MixedReality.Toolkit.UX.Experimental
             Horizontal,
         }
 
-        // Header Objects
-
         [Experimental]
         [Header("Objects")]
+
         [Tooltip("The pool of list item objects will be composed of this Prefab.")]
         [SerializeField]
         private GameObject prefab;
@@ -114,9 +113,8 @@ namespace MixedReality.Toolkit.UX.Experimental
         [SerializeField]
         private ScrollRect scrollRect;
 
-        // Header Layout
-
         [Header("Layout")]
+
         [Tooltip("Should the layout cells scroll horizontally on the X axis, or vertically on the Y axis?")]
         [SerializeField]
         private Layout layoutDirection = Layout.Vertical;
@@ -141,9 +139,8 @@ namespace MixedReality.Toolkit.UX.Experimental
         [SerializeField]
         private float trailingSpace;
 
-        // Header State
-
         [Header("State")]
+
         [Tooltip("This is mostly for debug and inspection. Item Count should be driven by using SetItemCount in the API.")]
         [SerializeField]
         private int itemCount = 10;
@@ -359,7 +356,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// <summary>
         /// A Unity Editor only event function that is called when the script is loaded or a value changes in the Unity Inspector.
         /// </summary>
-        private void OnValidate()
+        protected void OnValidate()
         {
             ResetLayout();
         }
@@ -367,7 +364,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
         /// </summary>
-        private void Start()
+        protected void Start()
         {
             visibleValid = false;
             scrollRect = scrollRect == null ? GetComponent<ScrollRect>() : scrollRect;
