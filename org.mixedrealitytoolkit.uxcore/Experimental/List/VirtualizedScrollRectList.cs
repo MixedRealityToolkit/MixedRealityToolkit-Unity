@@ -361,6 +361,15 @@ namespace MixedReality.Toolkit.UX.Experimental
             ResetLayout();
         }
 
+        protected void OnEnable()
+        {
+            // Check if reset was called while this script was disabled and ensure the layout is reset
+            if (resetCalled)
+            {
+                StartCoroutine(ResetLayoutNextFrame());
+            }
+        }
+
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
         /// </summary>
@@ -601,7 +610,11 @@ namespace MixedReality.Toolkit.UX.Experimental
             }
 
             resetCalled = true;
-            StartCoroutine(ResetLayoutNextFrame());
+
+            if (isActiveAndEnabled)
+            {
+                StartCoroutine(ResetLayoutNextFrame());
+            }
         }
 
         #endregion
