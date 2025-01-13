@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using MixedReality.Toolkit.Editor;
 using MixedReality.Toolkit.Subsystems;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +8,12 @@ using Unity.XR.CoreUtils.Editor;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEngine;
+
+#if UNITY_OPENXR_PRESENT
+using MixedReality.Toolkit.Editor;
 using UnityEngine.XR.Hands.OpenXR;
 using UnityEngine.XR.OpenXR;
+#endif
 
 namespace MixedReality.Toolkit.Input.Editor
 {
@@ -26,13 +29,19 @@ namespace MixedReality.Toolkit.Input.Editor
             {
                 MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateSpeechInteractorRule(buildTargetGroup) }, buildTargetGroup);
 
+#if UNITY_OPENXR_PRESENT
                 // Skip the standalone target as the hand subsystem rule for it is already present for all build targets
                 if (buildTargetGroup != BuildTargetGroup.Standalone)
                 {
                     MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateUnityHandsRule(buildTargetGroup) }, buildTargetGroup);
                 }
+#endif
             }
-            MRTKProjectValidation.AddTargetIndependentRules(new List<BuildValidationRule>() { GenerateSkinWeightsRule(), GenerateGLTFastRule(), GenerateUnityHandsRule(BuildTargetGroup.Standalone) });
+            MRTKProjectValidation.AddTargetIndependentRules(new List<BuildValidationRule>() { GenerateSkinWeightsRule(), GenerateGLTFastRule(),
+#if UNITY_OPENXR_PRESENT
+                GenerateUnityHandsRule(BuildTargetGroup.Standalone)
+#endif
+            });
 
             // Only generate the KTX rule for platforms related to Meta
             MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateKTXRule() }, BuildTargetGroup.Android);
@@ -114,6 +123,7 @@ namespace MixedReality.Toolkit.Input.Editor
             };
         }
 
+#if UNITY_OPENXR_PRESENT
         private static BuildValidationRule GenerateUnityHandsRule(BuildTargetGroup buildTargetGroup)
         {
             return new BuildValidationRule()
@@ -152,5 +162,6 @@ namespace MixedReality.Toolkit.Input.Editor
                 Error = true
             };
         }
+#endif
     }
 }
