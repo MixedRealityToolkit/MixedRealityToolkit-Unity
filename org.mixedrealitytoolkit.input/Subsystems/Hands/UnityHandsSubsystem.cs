@@ -119,7 +119,7 @@ namespace MixedReality.Toolkit.Input
             private static readonly ProfilerMarker TryCalculateEntireHandPerfMarker =
                 new ProfilerMarker("[MRTK] UnityHandContainer.TryCalculateEntireHand");
 
-            /// <summary/>
+            /// <summary>
             /// For a certain hand, query every Bone in the hand, and write all results to the
             /// HandJoints collection.
             /// </summary>
@@ -164,7 +164,7 @@ namespace MixedReality.Toolkit.Input
             private static readonly ProfilerMarker TryUpdateJointPerfMarker =
                 new ProfilerMarker("[MRTK] UnityHandContainer.TryUpdateJoint");
 
-            /// <summary/>
+            /// <summary>
             /// Given a destination jointIndex, apply the pose and radius to the correct struct
             /// in the HandJoints collection.
             /// </summary>

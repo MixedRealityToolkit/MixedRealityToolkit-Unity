@@ -2,13 +2,23 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.2.1-development] - 2024-03-20
+## [3.2.2-development] - 2024-06-24
 
 ### Fixed
 
-* Add logic to account for a bound but untracked interaction profile. [PR #704](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/704)
+* InputSimulator execution order so that it executes before InteractionManager.
+* Ensure all relevant interactor types show up in InteractionModeManager's dropdowns. [PR #872](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/872)
 
-## [3.2.0-development] - 2024-03-20
+## [3.2.1] - 2024-04-23
+
+### Fixed
+
+* Fixed missing [CanEditMultipleObject] attributes as per Bug 573 [PR #698](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/698)
+* Add logic to account for a bound but untracked interaction profile. [PR #704](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/704)
+* Reduced package description to support for UPM package publishing in the Unity Asset Store.
+* Ensures the simulated input sources hold their state (including gestures) when their toggle state is locked on. [PR #705](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/705)
+
+## [3.2.0] - 2024-03-20
 
 ### Added
 

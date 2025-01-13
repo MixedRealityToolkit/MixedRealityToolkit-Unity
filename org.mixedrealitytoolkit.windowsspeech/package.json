@@ -1,7 +1,7 @@
 {
   "name": "org.mixedrealitytoolkit.windowsspeech",
-  "version": "3.0.2-development",
-  "description": "Speech subsystem implementation for native Windows speech APIs. Allows for the use of native Windows text to speech and speech recognition (keyword recognition and dictation) to fire events and drive XRI interactions.",
+  "version": "3.0.3-development",
+  "description": "Speech subsystem implementation for native Windows speech APIs enables native Windows text-to-speech and speech recognition features, producing events to drive XRI interactions using speech.",
   "displayName": "MRTK Windows Speech",
   "msftFeatureCategory": "MRTK3",
   "author": "Mixed Reality Toolkit Contributors",

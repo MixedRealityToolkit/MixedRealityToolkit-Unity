@@ -1,7 +1,7 @@
 {
   "name": "org.mixedrealitytoolkit.uxcomponents.noncanvas",
-  "version": "3.1.2-development",
-  "description": "MRTK non-Canvas UX component library, for building 3D UX without Canvas layout. For most production-grade UI, we recommend the dynamic hybrid Canvas-based UX systems, located in org.mixedrealitytoolkit.uxcomponents. However, in some circumstances, static/non-Canvas UI may offer improved performance and batching, and may be desirable in resource-constrained scenarios.",
+  "version": "3.1.4-development",
+  "description": "UX component library for 3D UX without Canvas layout. In some cases, non-Canvas UI may offer better performance.",
   "displayName": "MRTK UX Components (Non-Canvas)",
   "msftFeatureCategory": "MRTK3",
   "author": "Mixed Reality Toolkit Contributors",

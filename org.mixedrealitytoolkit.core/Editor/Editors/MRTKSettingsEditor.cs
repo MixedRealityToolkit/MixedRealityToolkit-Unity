@@ -11,6 +11,7 @@ namespace MixedReality.Toolkit.Editor
     /// This allows the user to edit the per-platform profiles, and the configurations stored therein.
     /// </summary>
     [CustomEditor(typeof(MRTKSettings))]
+    [CanEditMultipleObjects]
     public class MRTKSettingsEditor : UnityEditor.Editor
     {
         // Serialized property corresponding to the serialized dictionary of
