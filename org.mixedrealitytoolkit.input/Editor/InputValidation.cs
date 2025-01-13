@@ -119,7 +119,8 @@ namespace MixedReality.Toolkit.Input.Editor
             {
                 IsRuleEnabled = () => MRTKSettings.ProfileForBuildTarget(buildTargetGroup).LoadedSubsystems.Contains(typeof(UnityHandsSubsystem)),
                 Category = "MRTK3",
-                Message = $"When {nameof(UnityHandsSubsystem)} is enabled for the {buildTargetGroup} build target, {nameof(HandTracking)} must also be enabled in the OpenXR settings for {buildTargetGroup}.",
+                Message = $"When {nameof(UnityHandsSubsystem)} is enabled for the {buildTargetGroup} build target, " +
+                $"{nameof(HandTracking)} must also be enabled in the OpenXR settings for {buildTargetGroup}.",
                 CheckPredicate = () =>
                 {
                     OpenXRSettings settings = OpenXRSettings.GetSettingsForBuildTargetGroup(buildTargetGroup);
