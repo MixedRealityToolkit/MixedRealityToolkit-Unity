@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Updated the MRTK Default Profile to use the Unity XR Hands subsystem by default instead of the Microsoft OpenXR Plugin subsystem. [PR #973](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/973)
+
 ## [4.0.0-development.pre.1] - 2024-07-09
 
 ### Added
