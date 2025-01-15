@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-* Package patch version update to allow UPM publishing
+* Package patch version update to allow UPM publishing.
 
 ## [3.2.1] - 2024-06-12
 
