@@ -630,7 +630,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <returns>
         /// <see langword="true"/> if the hand is tracked, or <see langword="false"/>.
         /// </returns>
-        private bool IsHandTracked(Handedness hand)
+        public static bool IsHandTracked(Handedness hand)
         {
             // Early out if the hand isn't a valid XRNode
             // (i.e., Handedness.None or Handedness.Both)
