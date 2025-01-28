@@ -486,9 +486,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Disable gaze interactions for this unit test;
             InputTestUtilities.DisableGazeInteractor();
 
-            // For tracking joint pose in test
-            HandJointPose jointPose = new HandJointPose();
-
             // Set up GameObject with a SolverHandler
             var testObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             var solverHandler = testObject.AddComponent<SolverHandler>();
@@ -511,7 +508,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Check if SolverHandler starts with target on right hand joint
-            XRSubsystemHelpers.HandsAggregator.TryGetJoint(joint, rightHandNode, out jointPose);
+            XRSubsystemHelpers.HandsAggregator.TryGetJoint(joint, rightHandNode, out HandJointPose jointPose);
             Assert.IsTrue(solverHandler.TransformTarget.position == jointPose.Position, $"Solver Handler started tracking incorrect hand joint");
 
             // Hide the right hand and make the left hand active at a new position
@@ -553,9 +550,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Disable gaze interactions for this unit test;
             InputTestUtilities.DisableGazeInteractor();
 
-            // For tracking joint pose in test
-            HandJointPose jointPose = new HandJointPose();
-
             // Set up GameObject with a SolverHandler
             var testObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             var solverHandler = testObject.AddComponent<SolverHandler>();
@@ -578,7 +572,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Check if SolverHandler starts with target on right hand joint
-            XRSubsystemHelpers.HandsAggregator.TryGetJoint(joint, rightHandNode, out jointPose);
+            XRSubsystemHelpers.HandsAggregator.TryGetJoint(joint, rightHandNode, out HandJointPose jointPose);
             Assert.IsTrue(solverHandler.TransformTarget.position == jointPose.Position, $"Solver Handler started tracking incorrect hand joint");
 
             // Hide the right hand and make the left hand active at a new position
@@ -617,9 +611,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Disable gaze interactions for this unit test;
             InputTestUtilities.DisableGazeInteractor();
 
-            // For tracking joint pose in test
-            HandJointPose jointPose = new HandJointPose();
-
             // Set up GameObject with a SolverHandler
             var testObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             var solverHandler = testObject.AddComponent<SolverHandler>();
@@ -642,7 +633,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Check if SolverHandler did not start with target on right hand joint
-            XRSubsystemHelpers.HandsAggregator.TryGetJoint(joint, rightHandNode, out jointPose);
+            XRSubsystemHelpers.HandsAggregator.TryGetJoint(joint, rightHandNode, out HandJointPose jointPose);
             Assert.IsTrue(solverHandler.TransformTarget.position != jointPose.Position, $"Solver Handler started tracking incorrect hand joint");
 
             // Hide the right hand and make the left hand active at a new position
@@ -681,9 +672,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Disable gaze interactions for this unit test;
             InputTestUtilities.DisableGazeInteractor();
 
-            // For tracking joint pose in test
-            HandJointPose jointPose = new HandJointPose();
-
             // Set up GameObject with a SolverHandler
             var testObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             var solverHandler = testObject.AddComponent<SolverHandler>();
@@ -706,7 +694,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Check if SolverHandler did not start with target on left hand joint
-            XRSubsystemHelpers.HandsAggregator.TryGetJoint(joint, leftHandNode, out jointPose);
+            XRSubsystemHelpers.HandsAggregator.TryGetJoint(joint, leftHandNode, out HandJointPose jointPose);
             Assert.IsTrue(solverHandler.TransformTarget.position != jointPose.Position, $"Solver Handler started tracking incorrect hand joint");
 
             // Hide the left hand and make the right hand active at a new position
