@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.Editor;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -27,6 +28,17 @@ namespace MixedReality.Toolkit.Input.Editor
             InteractionModeManager interactionModeManager = (InteractionModeManager)target;
 
             // Raise lots of errors if the interaction mode manager is configured incorrectly
+            var duplicateInteractorGroupMappings = GetDuplicateInteractorGroupMappings();
+            if (duplicateInteractorGroupMappings.Count > 0)
+            {
+                var duplicatedNameString = interactionModeManager.CompileDuplicatedNames(duplicateInteractorGroupMappings);
+
+                InspectorUIUtility.DrawError($"Duplicate interactor group mapping keys detected in the interaction mode manager on {interactionModeManager.gameObject.name}. " +
+                                    $"Please check the following interactor group mappings: {duplicatedNameString}");
+
+                GUI.color = InspectorUIUtility.ErrorColor;
+            }
+
             var duplicatedNames = interactionModeManager.GetDuplicateInteractionModes();
             if (duplicatedNames.Count > 0)
             {
@@ -57,6 +69,42 @@ namespace MixedReality.Toolkit.Input.Editor
             }
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private HashSet<string> GetDuplicateInteractorGroupMappings()
+        {
+            HashSet<string> duplicatedNames = new HashSet<string>();
+
+            SerializedProperty interactorGroupMappings = serializedObject.FindProperty("interactorGroupMappings");
+            SerializedProperty entries = interactorGroupMappings?.FindPropertyRelative("entries");
+
+            if (entries != null && entries.arraySize > 0)
+            {
+                HashSet<int> seenInstanceIDs = new HashSet<int>();
+
+                for (int i = 0; i < entries.arraySize; ++i)
+                {
+                    SerializedProperty entry = entries.GetArrayElementAtIndex(i);
+                    SerializedProperty key = entry.FindPropertyRelative("key");
+
+                    int instanceID = key != null && key.objectReferenceValue != null ?
+                        key.objectReferenceValue.GetInstanceID() : 0;
+                        
+                    if (seenInstanceIDs.Contains(instanceID))
+                    {
+                        string duplicateName = key != null && key.objectReferenceValue != null ?
+                            key.objectReferenceValue.name : "None (Game Object)";
+
+                        duplicatedNames.Add(duplicateName);
+                    }
+                    else
+                    {
+                        seenInstanceIDs.Add(instanceID);
+                    }
+                }
+            }
+
+            return duplicatedNames;
         }
     }
 }
