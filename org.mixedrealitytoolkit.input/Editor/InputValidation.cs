@@ -8,10 +8,16 @@ using Unity.XR.CoreUtils.Editor;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_OPENXR_PRESENT
+using MixedReality.Toolkit.Editor;
+using UnityEngine.XR.Hands.OpenXR;
+using UnityEngine.XR.OpenXR;
+#endif
+
 namespace MixedReality.Toolkit.Input.Editor
 {
     /// <summary>
-    /// A class adding input related rule(s) to the validator
+    /// A class adding input related rule(s) to the validator.
     /// </summary>
     internal static class InputValidation
     {
@@ -21,8 +27,20 @@ namespace MixedReality.Toolkit.Input.Editor
             foreach (var buildTargetGroup in MRTKProjectValidation.BuildTargetGroups)
             {
                 MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateSpeechInteractorRule(buildTargetGroup) }, buildTargetGroup);
+
+#if UNITY_OPENXR_PRESENT
+                // Skip the standalone target as the hand subsystem rule for it is already present for all build targets
+                if (buildTargetGroup != BuildTargetGroup.Standalone)
+                {
+                    MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateUnityHandsRule(buildTargetGroup) }, buildTargetGroup);
+                }
+#endif
             }
-            MRTKProjectValidation.AddTargetIndependentRules(new List<BuildValidationRule>() { GenerateSkinWeightsRule(), GenerateGLTFastRule() });
+            MRTKProjectValidation.AddTargetIndependentRules(new List<BuildValidationRule>() { GenerateSkinWeightsRule(), GenerateGLTFastRule(),
+#if UNITY_OPENXR_PRESENT
+                GenerateUnityHandsRule(BuildTargetGroup.Standalone)
+#endif
+            });
 
             // Only generate the KTX rule for platforms related to Meta
             MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateKTXRule() }, BuildTargetGroup.Android);
@@ -103,5 +121,46 @@ namespace MixedReality.Toolkit.Input.Editor
                 Error = false
             };
         }
+
+#if UNITY_OPENXR_PRESENT
+        private static BuildValidationRule GenerateUnityHandsRule(BuildTargetGroup buildTargetGroup)
+        {
+            return new BuildValidationRule()
+            {
+                IsRuleEnabled = () => MRTKSettings.ProfileForBuildTarget(buildTargetGroup).LoadedSubsystems.Contains(typeof(UnityHandsSubsystem)),
+                Category = "MRTK3",
+                Message = $"When {nameof(UnityHandsSubsystem)} is enabled for the {buildTargetGroup} build target, " +
+                $"{nameof(HandTracking)} must also be enabled in the OpenXR settings for {buildTargetGroup}.",
+                CheckPredicate = () =>
+                {
+                    OpenXRSettings settings = OpenXRSettings.GetSettingsForBuildTargetGroup(buildTargetGroup);
+                    if (settings == null)
+                    {
+                        return false;
+                    }
+
+                    HandTracking handFeature = settings.GetFeature<HandTracking>();
+                    return handFeature != null && handFeature.enabled;
+                },
+                FixIt = () =>
+                {
+                    OpenXRSettings settings = OpenXRSettings.GetSettingsForBuildTargetGroup(buildTargetGroup);
+                    if (settings == null)
+                    {
+                        return;
+                    }
+
+                    HandTracking handFeature = settings.GetFeature<HandTracking>();
+                    if (handFeature != null)
+                    {
+                        handFeature.enabled = true;
+                        EditorUtility.SetDirty(settings);
+                    }
+                },
+                FixItMessage = $"Enable {nameof(HandTracking)} in the OpenXR settings.",
+                Error = true
+            };
+        }
+#endif
     }
 }
