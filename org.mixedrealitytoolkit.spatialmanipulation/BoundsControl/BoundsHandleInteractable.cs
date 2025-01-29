@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -36,13 +37,34 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         [SerializeField]
-        [Tooltip("Should the handle maintain its global size, even as the object changes size?")]
-        private bool maintainGlobalSize = true;
+        [Tooltip("How should the handle scale be maintained?")]
+        private ScaleMaintainType scaleMaintainType = ScaleMaintainType.GlobalSize;
 
+        // For backward compatibilty, the scaleAdjustType is set according to the maintainGlobalSize property on start.
+        private bool maintainGlobalSize = true;
         /// <summary>
         /// Should the handle maintain its global size, even as the object changes size?
         /// </summary>
-        public bool MaintainGlobalSize { get => maintainGlobalSize; set => maintainGlobalSize = value;}
+        [Obsolete("Use ScaleMaintainType instead.")]
+        public bool MaintainGlobalSize
+        {
+            get => scaleMaintainType == ScaleMaintainType.GlobalSize;
+            set => scaleMaintainType = value ? ScaleMaintainType.GlobalSize : ScaleMaintainType.InitialParentScale;
+        }
+
+        private float targetParentScale = 1f;
+
+        [SerializeField]
+        [Tooltip("Target lossy scale for the handle. Set value only applicable if ScaleAdjustType is ClampedSize.")]
+        private float targetLossyScale = 2f;
+
+        [SerializeField]
+        [Tooltip("Minimum lossy scale for the handle. Only applicable if ScaleAdjustType is ClampedSize.")]
+        private float minLossyScale = 1f;
+
+        [SerializeField]
+        [Tooltip("Maximum lossy scale for the handle. Only applicable if ScaleAdjustType is ClampedSize.")]
+        private float maxLossyScale = 4f;
 
         #region ISnapInteractable
 
@@ -89,10 +111,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private bool wasOccludedLastFrame = false;
 
-        private float initialParentScale;
-
-        private float initialLocalScale;
-
         /// <inheritdoc/>
         protected override void Awake()
         {
@@ -102,6 +120,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             DisableInteractorType(typeof(IPokeInteractor));
 
             handleRenderer = GetComponentInChildren<MeshRenderer>();
+            scaleMaintainType = maintainGlobalSize ? ScaleMaintainType.GlobalSize : ScaleMaintainType.InitialParentScale;
         }
 
         /// <summary>
@@ -109,10 +128,14 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         public void Start()
         {
-            // Record initial values at Start(), so that we
-            // capture the bounds sizing, etc.
-            initialParentScale = MaxComponent(transform.parent.lossyScale);
-            initialLocalScale = MaxComponent(transform.localScale);
+            if (scaleMaintainType == ScaleMaintainType.GlobalSize ||
+                scaleMaintainType == ScaleMaintainType.InitialParentScale)
+            {
+                // Record initial values at Start(), so that we
+                // capture the bounds sizing, etc.
+                targetParentScale = MaxComponent(transform.parent.lossyScale);
+                targetLossyScale = MaxComponent(transform.localScale);
+            }
         }
 
         /// <summary>
@@ -132,26 +155,69 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
 
             // Maintain the aspect ratio/proportion of the handles, globally.
-            // Setting localScale to ensure that lossyScale remains equal to initialLocalScale across all axes. 
-            transform.localScale = Vector3.one;
-            transform.localScale = new Vector3(
-                transform.lossyScale.x == 0 ? transform.localScale.x : (initialLocalScale / transform.lossyScale.x),
-                transform.lossyScale.y == 0 ? transform.localScale.y : (initialLocalScale / transform.lossyScale.y),
-                transform.lossyScale.z == 0 ? transform.localScale.z : (initialLocalScale / transform.lossyScale.z));
+            UpdateLocalScale();
+        }
 
-            // If we don't want to maintain the overall *size*, we scale
-            // by the maximum component of the box so that the handles grow/shrink
-            // with the overall box manipulation.
-            if (!maintainGlobalSize && initialParentScale != 0)
+        protected virtual void UpdateLocalScale()
+        {
+            transform.localScale = Vector3.one;
+
+            switch (scaleMaintainType)
             {
-                transform.localScale = transform.localScale * (MaxComponent(transform.parent.lossyScale) / initialParentScale);
+                case ScaleMaintainType.GlobalSize:
+                    transform.localScale = GetLocalScale(targetLossyScale);
+                    break;
+
+                case ScaleMaintainType.InitialParentScale:
+                    transform.localScale = GetLocalScale(targetLossyScale);
+
+                    // If we don't want to maintain the overall *size*, we scale
+                    // by the maximum component of the box so that the handles grow/shrink
+                    // with the overall box manipulation.
+                    if (targetParentScale != 0)
+                    {
+                        transform.localScale = transform.localScale * (MaxComponent(transform.parent.lossyScale) / targetParentScale);
+                    }
+                    break;
+
+                case ScaleMaintainType.ClampedSize:
+                    // Find the local scale that would result in the target lossy
+                    // scale (the desired scale if the parent scale is 1)
+                    Vector3 targetScale = GetLocalScale(targetLossyScale);
+                    Vector3 minScale = GetLocalScale(minLossyScale);
+                    Vector3 maxScale = GetLocalScale(maxLossyScale);
+
+                    // We scale by the maximum component of the box so that 
+                    // the handles grow/shrink with the overall box manipulation.
+                    transform.localScale = targetScale * (MaxComponent(transform.parent.lossyScale) / targetParentScale);
+
+                    // If this scale is greater than our desired lossy scale then clamp it to the max lossy scale
+                    if (MaxComponent(transform.lossyScale) > maxLossyScale)
+                    {
+                        transform.localScale = maxScale;
+                    }
+                    // If this scale is less than our desired lossy scale then clamp it to the min lossy scale
+                    else if (MinComponent(transform.lossyScale) < minLossyScale)
+                    {
+                        transform.localScale = minScale;
+                    }
+                    break;
+
+                default:
+                    break;
             }
         }
 
-        private float MaxComponent(Vector3 v)
-        {
-            return Mathf.Max(Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y)), Mathf.Abs(v.z));
-        }
+        // Returns the local scale this transform needs to have in order to have the desired lossy scale
+        protected Vector3 GetLocalScale(float lossyScale) => new(
+            transform.lossyScale.x == 0 ? transform.localScale.x : (lossyScale / transform.lossyScale.x),
+            transform.lossyScale.y == 0 ? transform.localScale.y : (lossyScale / transform.lossyScale.y),
+            transform.lossyScale.z == 0 ? transform.localScale.z : (lossyScale / transform.lossyScale.z)
+            );
+
+        protected float MaxComponent(Vector3 v) => Mathf.Max(Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y)), Mathf.Abs(v.z));
+
+        protected float MinComponent(Vector3 v) => Mathf.Min(Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y)), Mathf.Abs(v.z));
 
         /// <summary>
         /// Occludes the handle so it is not initially visible when it should start disabled.
@@ -163,7 +229,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 handleRenderer.enabled = false;
             }
-            if (colliders.Count > 0 && colliders[0] != null) 
+            if (colliders.Count > 0 && colliders[0] != null)
             {
                 colliders[0].enabled = false;
             }
@@ -183,7 +249,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 {
                     handleRenderer.enabled = false;
                 }
-                if (colliders.Count > 0 && colliders[0] != null) 
+                if (colliders.Count > 0 && colliders[0] != null)
                 {
                     colliders[0].enabled = false;
                 }

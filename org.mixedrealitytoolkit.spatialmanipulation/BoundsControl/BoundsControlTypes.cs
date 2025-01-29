@@ -56,12 +56,12 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// A handle that is mounted to the edge of a <see cref="BoundsControl"/>, and can rotate the object.
         /// </summary>
         Rotation = 1 << 0,
-        
+
         /// <summary>
         /// A handle that is mounted to the corner of a <see cref="BoundsControl"/>, and can scale the object.
         /// </summary>
         Scale = 1 << 1,
-        
+
         /// <summary>
         /// A handle that is mounted to the face of a <see cref="BoundsControl"/>, and can move the object.
         /// </summary>
@@ -108,5 +108,27 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// the BoundsControl will always flatten along the thinnest axis.
         /// </summary>
         Always,
+    }
+
+    /// <summary>
+    /// Scale adjusting type that is used for determining how to maintain target scale of bounds control.
+    /// </summary>
+    public enum ScaleMaintainType
+    {
+        /// <summary>
+        /// Maintain global size, even as the object changes size.
+        /// </summary>
+        GlobalSize,
+
+        /// <summary>
+        /// Adjust the handle's scale based on the initial parent scale. 
+        /// </summary>
+        InitialParentScale,
+
+        /// <summary>
+        /// Adjust the handle's scale to be the same size regardless of the
+        /// initial parent scale and clamp the scale to a min and max value
+        /// </summary>
+        ClampedSize
     }
 }
