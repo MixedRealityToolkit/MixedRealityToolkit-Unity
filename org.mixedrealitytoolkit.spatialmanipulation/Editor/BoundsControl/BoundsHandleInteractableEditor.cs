@@ -34,7 +34,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
             EditorGUILayout.PropertyField(scaleMaintainType);
 
-            if (scaleMaintainType.enumValueIndex == (int)ScaleMaintainType.ClampedSize)
+            if (scaleMaintainType.enumValueIndex == (int)ScaleMaintainType.Advanced)
             {
                 EditorGUILayout.PropertyField(targetLossyScale);
                 EditorGUILayout.PropertyField(minLossyScale);

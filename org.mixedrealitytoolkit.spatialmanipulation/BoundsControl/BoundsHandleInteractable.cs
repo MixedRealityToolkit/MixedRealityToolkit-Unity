@@ -49,21 +49,21 @@ namespace MixedReality.Toolkit.SpatialManipulation
         public bool MaintainGlobalSize
         {
             get => scaleMaintainType == ScaleMaintainType.GlobalSize;
-            set => scaleMaintainType = value ? ScaleMaintainType.GlobalSize : ScaleMaintainType.InitialParentScale;
+            set => scaleMaintainType = value ? ScaleMaintainType.GlobalSize : ScaleMaintainType.FixedScale;
         }
 
         private float targetParentScale = 1f;
 
         [SerializeField]
-        [Tooltip("Target lossy scale for the handle. Set value only applicable if ScaleAdjustType is ClampedSize.")]
+        [Tooltip("Target lossy scale for the handle. Set value only applicable if ScaleAdjustType is Advanced.")]
         private float targetLossyScale = 2f;
 
         [SerializeField]
-        [Tooltip("Minimum lossy scale for the handle. Only applicable if ScaleAdjustType is ClampedSize.")]
+        [Tooltip("Minimum lossy scale for the handle. Only applicable if ScaleAdjustType is Advanced.")]
         private float minLossyScale = 1f;
 
         [SerializeField]
-        [Tooltip("Maximum lossy scale for the handle. Only applicable if ScaleAdjustType is ClampedSize.")]
+        [Tooltip("Maximum lossy scale for the handle. Only applicable if ScaleAdjustType is Advanced.")]
         private float maxLossyScale = 4f;
 
         #region ISnapInteractable
@@ -120,7 +120,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             DisableInteractorType(typeof(IPokeInteractor));
 
             handleRenderer = GetComponentInChildren<MeshRenderer>();
-            scaleMaintainType = maintainGlobalSize ? ScaleMaintainType.GlobalSize : ScaleMaintainType.InitialParentScale;
+            scaleMaintainType = maintainGlobalSize ? ScaleMaintainType.GlobalSize : ScaleMaintainType.FixedScale;
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         public void Start()
         {
             if (scaleMaintainType == ScaleMaintainType.GlobalSize ||
-                scaleMaintainType == ScaleMaintainType.InitialParentScale)
+                scaleMaintainType == ScaleMaintainType.FixedScale)
             {
                 // Record initial values at Start(), so that we
                 // capture the bounds sizing, etc.
@@ -168,7 +168,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     transform.localScale = GetLocalScale(targetLossyScale);
                     break;
 
-                case ScaleMaintainType.InitialParentScale:
+                case ScaleMaintainType.FixedScale:
                     transform.localScale = GetLocalScale(targetLossyScale);
 
                     // If we don't want to maintain the overall *size*, we scale
@@ -180,7 +180,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     }
                     break;
 
-                case ScaleMaintainType.ClampedSize:
+                case ScaleMaintainType.Advanced:
                     // Find the local scale that would result in the target lossy
                     // scale (the desired scale if the parent scale is 1)
                     Vector3 targetScale = GetLocalScale(targetLossyScale);

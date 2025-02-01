@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using System;
+using UnityEngine;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -118,17 +119,19 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Maintain global size, even as the object changes size.
         /// </summary>
+        [Tooltip("Maintain global size, even as the object changes size.")]
         GlobalSize,
 
         /// <summary>
-        /// Adjust the handle's scale based on the initial parent scale. 
+        /// Adjust the handle's scale based on the initial parent scale.
         /// </summary>
-        InitialParentScale,
+        [Tooltip("Adjust the handle's scale based on the initial parent scale.")]
+        FixedScale,
 
         /// <summary>
-        /// Adjust the handle's scale to be the same size regardless of the
-        /// initial parent scale and clamp the scale to a min and max value
+        /// Adjust the handle's scale to be the same size regardless of the initial parent scale and clamp the scale to a min and max value.
         /// </summary>
-        ClampedSize
+        [Tooltip("Adjust the handle's scale to be the same size regardless of the initial parent scale and clamp the scale to a min and max value.")]
+        Advanced
     }
 }
