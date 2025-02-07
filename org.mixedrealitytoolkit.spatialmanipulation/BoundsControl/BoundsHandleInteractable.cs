@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -128,8 +127,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         public void Start()
         {
-            if (scaleMaintainType == ScaleMaintainType.GlobalSize ||
-                scaleMaintainType == ScaleMaintainType.FixedScale)
+            if (scaleMaintainType != ScaleMaintainType.Advanced)
             {
                 // Record initial values at Start(), so that we
                 // capture the bounds sizing, etc.
