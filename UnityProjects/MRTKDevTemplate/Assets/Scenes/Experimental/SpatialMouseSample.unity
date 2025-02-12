@@ -137,7 +137,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5604401826787249420, guid: dc525621b8522034e867ed2799129315, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4185,7 +4185,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
 --- !u!4 &1687818733 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2351505566903569412, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2351505566771328526, guid: acbf65a81ce2cf94f82a0809298acf70, type: 3}
   m_PrefabInstance: {fileID: 1687818732}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1708103289
