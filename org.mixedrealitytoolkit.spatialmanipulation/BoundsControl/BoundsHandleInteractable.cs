@@ -4,6 +4,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.XR.CoreUtils;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -12,7 +13,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
     /// Scale handles subclass this to implement custom occlusion + reorientation logic.
     /// </summary>
     [AddComponentMenu("MRTK/Spatial Manipulation/Bounds Handle Interactable")]
-    public class BoundsHandleInteractable : StatefulInteractable, ISnapInteractable
+    public class BoundsHandleInteractable : StatefulInteractable, ISnapInteractable, ISerializationCallbackReceiver
     {
         private BoundsControl boundsControlRoot;
 
@@ -39,8 +40,15 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [Tooltip("How should the handle scale be maintained?")]
         private ScaleMaintainType scaleMaintainType = ScaleMaintainType.GlobalSize;
 
-        // For backward compatibilty, the scaleAdjustType is set according to the maintainGlobalSize property on start.
+        // A temporary variable used to migrate instances of FollowJoint to use the jointPoseSource class as the source of truth
+        // rather than its own separately serialized values.
+        // TODO: Remove this after some time to ensure users have successfully migrated.
+        [SerializeField, HideInInspector]
+        private bool migratedSuccessfully = false;
+
+        [SerializeField, HideInInspector]
         private bool maintainGlobalSize = true;
+
         /// <summary>
         /// Should the handle maintain its global size, even as the object changes size?
         /// </summary>
@@ -49,6 +57,18 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             get => scaleMaintainType == ScaleMaintainType.GlobalSize;
             set => scaleMaintainType = value ? ScaleMaintainType.GlobalSize : ScaleMaintainType.FixedScale;
+        }
+
+        public void OnBeforeSerialize() { }
+
+        public void OnAfterDeserialize()
+        {
+            // Only update the scaleMaintainType if it hasn't been set and the old property was not migrated yet
+            if (!migratedSuccessfully && scaleMaintainType == ScaleMaintainType.GlobalSize)
+            {
+                scaleMaintainType = maintainGlobalSize ? ScaleMaintainType.GlobalSize : ScaleMaintainType.FixedScale;
+                migratedSuccessfully = true;
+            }
         }
 
         private float targetParentScale = 1f;
@@ -119,7 +139,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
             DisableInteractorType(typeof(IPokeInteractor));
 
             handleRenderer = GetComponentInChildren<MeshRenderer>();
-            scaleMaintainType = maintainGlobalSize ? ScaleMaintainType.GlobalSize : ScaleMaintainType.FixedScale;
         }
 
         /// <summary>
@@ -131,8 +150,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 // Record initial values at Start(), so that we
                 // capture the bounds sizing, etc.
-                targetParentScale = MaxComponent(transform.parent.lossyScale);
-                targetLossyScale = MaxComponent(transform.localScale);
+                targetParentScale = transform.parent.lossyScale.MaxComponent();
+                targetLossyScale = transform.localScale.MaxComponent();
             }
         }
 
@@ -174,7 +193,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     // with the overall box manipulation.
                     if (targetParentScale != 0)
                     {
-                        transform.localScale = transform.localScale * (MaxComponent(transform.parent.lossyScale) / targetParentScale);
+                        transform.localScale = transform.localScale * (transform.parent.lossyScale.MaxComponent() / targetParentScale);
                     }
                     break;
 
@@ -187,15 +206,15 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
                     // We scale by the maximum component of the box so that 
                     // the handles grow/shrink with the overall box manipulation.
-                    transform.localScale = targetScale * (MaxComponent(transform.parent.lossyScale) / targetParentScale);
+                    transform.localScale = targetScale * (transform.parent.lossyScale.MaxComponent() / targetParentScale);
 
                     // If this scale is greater than our desired lossy scale then clamp it to the max lossy scale
-                    if (MaxComponent(transform.lossyScale) > maxLossyScale)
+                    if (transform.lossyScale.MaxComponent() > maxLossyScale)
                     {
                         transform.localScale = maxScale;
                     }
                     // If this scale is less than our desired lossy scale then clamp it to the min lossy scale
-                    else if (MinComponent(transform.lossyScale) < minLossyScale)
+                    else if (transform.lossyScale.MinComponent() < minLossyScale)
                     {
                         transform.localScale = minScale;
                     }
@@ -213,9 +232,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
             transform.lossyScale.z == 0 ? transform.localScale.z : (lossyScale / transform.lossyScale.z)
             );
 
-        protected float MaxComponent(Vector3 v) => Mathf.Max(Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y)), Mathf.Abs(v.z));
-
-        protected float MinComponent(Vector3 v) => Mathf.Min(Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y)), Mathf.Abs(v.z));
 
         /// <summary>
         /// Occludes the handle so it is not initially visible when it should start disabled.
