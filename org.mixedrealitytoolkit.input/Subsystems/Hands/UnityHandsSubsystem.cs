@@ -9,6 +9,10 @@ using UnityEngine.Scripting;
 using UnityEngine.XR;
 using UnityEngine.XR.Hands;
 
+#if UNITY_ANDROID
+using UnityEngine.Android;
+#endif
+
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
@@ -37,6 +41,41 @@ namespace MixedReality.Toolkit.Input
             {
                 Debug.LogError($"Failed to register the {cinfo.Name} subsystem.");
             }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnityHandsSubsystem"/> class.
+        /// </summary>
+        public UnityHandsSubsystem()
+        {
+#if UNITY_ANDROID
+
+            if (!Permission.HasUserAuthorizedPermission(HandTrackingPermission))
+            {
+                var callbacks = new PermissionCallbacks();
+                callbacks.PermissionDenied += OnPermissionDenied;
+                callbacks.PermissionGranted += OnPermissionGranted;
+
+                Permission.RequestUserPermission(HandTrackingPermission, callbacks);
+                Debug.Log($"Requesting {HandTrackingPermission}!");
+            }
+            else
+            {
+                Debug.Log($"{HandTrackingPermission} already granted!");
+            }
+        }
+
+        const string HandTrackingPermission = "android.permission.HAND_TRACKING";
+
+        void OnPermissionDenied(string permission)
+        {
+            Debug.Log($"{HandTrackingPermission} denied :(");
+        }
+
+        void OnPermissionGranted(string permission)
+        {
+            Debug.Log($"{HandTrackingPermission} newly granted! :)");
+#endif // UNITY_ANDROID
         }
 
         private class UnityHandContainer : HandDataContainer
