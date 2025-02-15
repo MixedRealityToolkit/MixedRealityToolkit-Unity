@@ -49,19 +49,18 @@ namespace MixedReality.Toolkit.Input
         public UnityHandsSubsystem()
         {
 #if UNITY_ANDROID
-
             if (!Permission.HasUserAuthorizedPermission(HandTrackingPermission))
             {
-                var callbacks = new PermissionCallbacks();
+                PermissionCallbacks callbacks = new();
                 callbacks.PermissionDenied += OnPermissionDenied;
                 callbacks.PermissionGranted += OnPermissionGranted;
 
                 Permission.RequestUserPermission(HandTrackingPermission, callbacks);
-                Debug.Log($"Requesting {HandTrackingPermission}!");
+                Debug.Log($"MRTK is requesting {HandTrackingPermission}.");
             }
             else
             {
-                Debug.Log($"{HandTrackingPermission} already granted!");
+                Debug.Log($"{HandTrackingPermission} already granted for MRTK.");
             }
         }
 
@@ -69,12 +68,18 @@ namespace MixedReality.Toolkit.Input
 
         void OnPermissionDenied(string permission)
         {
-            Debug.Log($"{HandTrackingPermission} denied :(");
+            if (permission == HandTrackingPermission)
+            {
+                Debug.Log($"{HandTrackingPermission} denied. MRTK hand tracking may not work as expected.");
+            }
         }
 
         void OnPermissionGranted(string permission)
         {
-            Debug.Log($"{HandTrackingPermission} newly granted! :)");
+            if (permission == HandTrackingPermission)
+            {
+                Debug.Log($"{HandTrackingPermission} newly granted for MRTK.");
+            }
 #endif // UNITY_ANDROID
         }
 
