@@ -36,12 +36,31 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
+        #region Bounds Handle Scaling
+
         [SerializeField]
         [Tooltip("How should the handle scale be maintained?")]
         private ScaleMaintainType scaleMaintainType = ScaleMaintainType.GlobalSize;
 
-        // A temporary variable used to migrate instances of FollowJoint to use the jointPoseSource class as the source of truth
-        // rather than its own separately serialized values.
+        // Properties applicable for advanced scale maintenance
+        private float targetParentScale = 1f;
+
+        [SerializeField]
+        [Tooltip("Target lossy scale for the handle. Set value only applicable if ScaleAdjustType is Advanced.")]
+        private float targetLossyScale = 2f;
+
+        [SerializeField]
+        [Tooltip("Minimum lossy scale for the handle. Only applicable if ScaleAdjustType is Advanced.")]
+        private float minLossyScale = 1f;
+
+        [SerializeField]
+        [Tooltip("Maximum lossy scale for the handle. Only applicable if ScaleAdjustType is Advanced.")]
+        private float maxLossyScale = 4f;
+
+        #region Handling Obsolete Properties
+
+        // A temporary variable used to migrate instances of BoundsHandleInteractable to use the scaleMaintainType property
+        // instead of the serialized field maintainGlobalSize.
         // TODO: Remove this after some time to ensure users have successfully migrated.
         [SerializeField, HideInInspector]
         private bool migratedSuccessfully = false;
@@ -71,19 +90,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
-        private float targetParentScale = 1f;
+        #endregion Handling Obsolete Properties
 
-        [SerializeField]
-        [Tooltip("Target lossy scale for the handle. Set value only applicable if ScaleAdjustType is Advanced.")]
-        private float targetLossyScale = 2f;
-
-        [SerializeField]
-        [Tooltip("Minimum lossy scale for the handle. Only applicable if ScaleAdjustType is Advanced.")]
-        private float minLossyScale = 1f;
-
-        [SerializeField]
-        [Tooltip("Maximum lossy scale for the handle. Only applicable if ScaleAdjustType is Advanced.")]
-        private float maxLossyScale = 4f;
+        #endregion Bounds Handle Scaling
 
         #region ISnapInteractable
 
@@ -171,7 +180,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 colliders[0].enabled = !IsOccluded;
             }
 
-            // Maintain the aspect ratio/proportion of the handles, globally.
+            // Maintain the aspect ratio/proportion of the handles based on scaleMaintainType.
             UpdateLocalScale();
         }
 
