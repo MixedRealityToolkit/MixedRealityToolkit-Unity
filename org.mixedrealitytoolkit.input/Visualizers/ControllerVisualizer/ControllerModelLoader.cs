@@ -2,11 +2,8 @@
 // Licensed under the BSD 3-Clause
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT
 using Microsoft.MixedReality.OpenXR;
@@ -28,7 +25,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Stores a boolean indicating whether a warning was recently raised when trying to get the model key for this input device.
         /// </summary>
-        private static Dictionary<InputDevice, bool> warningCache = new Dictionary<InputDevice, bool>();
+        private static Dictionary<string, bool> warningCache = new Dictionary<string, bool>();
 
         /// <summary>
         /// Stores a boolean indicating whether an error was recently raised when trying to get the model for this model key.
@@ -39,15 +36,11 @@ namespace MixedReality.Toolkit.Input
         /// Tries to load the controller model game object of the specified input device with the corresponding handedness.
         /// Requires the MR OpenXR plugin to work.
         /// </summary>
-        /// <param name="inputDevice">The input device we are trying to get the controller model of.</param>
+        /// <param name="inputDeviceKey">A deterministic key representing the current input device.</param>
         /// <param name="handedness">The handedness of the input device requesting the controller model.</param>
         /// <returns>A GameObject representing the generated controller model in the scene.</returns>
-        public async static Task<GameObject> TryGenerateControllerModelFromPlatformSDK(InputDevice inputDevice, Handedness handedness)
+        public async static Task<GameObject> TryGenerateControllerModelFromPlatformSDK(string inputDeviceKey, Handedness handedness)
         {
-            // Sanity check to ensure that the xrInputDevice's usages matches the provided handedness
-            InternedString targetUsage = handedness == Handedness.Left ? CommonUsages.LeftHand : CommonUsages.RightHand;
-            Debug.Assert(inputDevice.usages.Contains(targetUsage));
-
             // Proceed with trying to load the model from the platform
             GameObject gltfGameObject = null;
 
@@ -64,19 +57,19 @@ namespace MixedReality.Toolkit.Input
             // Try to obtain a model key
             if (!controllerModelProvider.TryGetControllerModelKey(out ulong modelKey))
             {
-                if (!warningCache.TryGetValue(inputDevice, out bool warningLogged) || !warningLogged)
+                if (!warningCache.TryGetValue(inputDeviceKey, out bool warningLogged) || !warningLogged)
                 {
-                    Debug.LogFormat("{0} didn't provide a key for a controller model from the platform.", inputDevice.name);
+                    Debug.LogFormat("{0} didn't provide a key for a controller model from the platform.", inputDeviceKey);
                 }
 
                 // Make sure we record in our cache that we've previously raised a warning for this input device
-                warningCache[inputDevice] = true;
+                warningCache[inputDeviceKey] = true;
 
                 return null;
             }
 
             // Make sure we record in our cache that we've succeeded in loading this model without warnings
-            warningCache[inputDevice] = false;
+            warningCache[inputDeviceKey] = false;
 
             // Check if a GameObject already exists for this model key
             if (controllerModelDictionary.TryGetValue(modelKey, out gltfGameObject) && gltfGameObject != null)
