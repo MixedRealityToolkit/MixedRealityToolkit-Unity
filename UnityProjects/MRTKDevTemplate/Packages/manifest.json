@@ -2,7 +2,7 @@
   "dependencies": {
     "com.microsoft.mixedreality.openxr": "1.11.2",
     "com.microsoft.mixedreality.visualprofiler": "https://github.com/microsoft/VisualProfiler-Unity.git#v2.2.0",
-    "com.microsoft.mrtk.graphicstools.unity": "https://github.com/microsoft/MixedReality-GraphicsTools-Unity.git?path=/com.microsoft.mrtk.graphicstools.unity#v0.6.6",
+    "com.microsoft.mrtk.graphicstools.unity": "0.8.0",
     "com.microsoft.mrtk.tts.windows": "1.0.4",
     "com.microsoft.spatialaudio.spatializer.unity": "2.0.55",
     "com.unity.asset-store-validation": "0.5.1",
