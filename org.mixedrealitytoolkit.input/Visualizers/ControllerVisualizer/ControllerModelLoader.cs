@@ -36,12 +36,12 @@ namespace MixedReality.Toolkit.Input
         private static Dictionary<ulong, bool> errorCache = new Dictionary<ulong, bool>();
 
         /// <summary>
-        /// Tries to load the controller model game object of the specified input device with the corresponding handedness
+        /// Tries to load the controller model game object of the specified input device with the corresponding handedness.
         /// Requires the MR OpenXR plugin to work.
         /// </summary>
-        /// <param name="inputDevice">The input device we are trying to get the controller model of</param>
-        /// <param name="handedness">The handedness of the input device requesting the controller model</param>
-        /// <returns>A GameObject representing the generated controller model in the scene</returns>
+        /// <param name="inputDevice">The input device we are trying to get the controller model of.</param>
+        /// <param name="handedness">The handedness of the input device requesting the controller model.</param>
+        /// <returns>A GameObject representing the generated controller model in the scene.</returns>
         public async static Task<GameObject> TryGenerateControllerModelFromPlatformSDK(InputDevice inputDevice, Handedness handedness)
         {
             // Sanity check to ensure that the xrInputDevice's usages matches the provided handedness
@@ -53,8 +53,8 @@ namespace MixedReality.Toolkit.Input
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT
             ControllerModel controllerModelProvider = handedness == Handedness.Left ? ControllerModel.Left :
-                                                        handedness == Handedness.Right ?  ControllerModel.Right :
-                                                        null;
+                                                      handedness == Handedness.Right ? ControllerModel.Right :
+                                                      null;
             if (controllerModelProvider == null)
             {
                 Debug.Log("Controller model provider does not exist for this handedness");
@@ -64,7 +64,7 @@ namespace MixedReality.Toolkit.Input
             // Try to obtain a model key
             if (!controllerModelProvider.TryGetControllerModelKey(out ulong modelKey))
             {
-                if(!warningCache.TryGetValue(inputDevice, out bool warningLogged) || !warningLogged)
+                if (!warningCache.TryGetValue(inputDevice, out bool warningLogged) || !warningLogged)
                 {
                     Debug.LogFormat("{0} didn't provide a key for a controller model from the platform.", inputDevice.name);
                 }
@@ -78,10 +78,9 @@ namespace MixedReality.Toolkit.Input
             // Make sure we record in our cache that we've succeeded in loading this model without warnings
             warningCache[inputDevice] = false;
 
-            // Check if a GameObject already exists for this modelkey. If so, set it active and return it
+            // Check if a GameObject already exists for this model key
             if (controllerModelDictionary.TryGetValue(modelKey, out gltfGameObject) && gltfGameObject != null)
             {
-                gltfGameObject.SetActive(true);
                 return gltfGameObject;
             }
 
