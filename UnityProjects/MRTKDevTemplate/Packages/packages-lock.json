@@ -1,15 +1,16 @@
 {
   "dependencies": {
     "com.microsoft.mixedreality.openxr": {
-      "version": "file:../../../ExternalDependencies/com.microsoft.mixedreality.openxr-1.10.0.tgz",
+      "version": "1.11.2",
       "depth": 0,
-      "source": "local-tarball",
+      "source": "registry",
       "dependencies": {
-        "com.unity.xr.arfoundation": "4.1.7",
-        "com.unity.xr.management": "4.2.0",
         "com.unity.xr.openxr": "1.7.0",
-        "com.unity.xr.core-utils": "2.1.0"
-      }
+        "com.unity.xr.core-utils": "2.1.0",
+        "com.unity.xr.management": "4.2.0",
+        "com.unity.xr.arfoundation": "4.1.7"
+      },
+      "url": "https://packages.unity.com"
     },
     "com.microsoft.mixedreality.visualprofiler": {
       "version": "https://github.com/microsoft/VisualProfiler-Unity.git#v2.2.0",
@@ -26,16 +27,18 @@
       "hash": "4497602bcf9d4e7a175cf9d2a2bee9f086a3129c"
     },
     "com.microsoft.mrtk.tts.windows": {
-      "version": "file:../../../ExternalDependencies/com.microsoft.mrtk.tts.windows-1.0.4.tgz",
+      "version": "1.0.4",
       "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
     },
     "com.microsoft.spatialaudio.spatializer.unity": {
-      "version": "file:../../../ExternalDependencies/com.microsoft.spatialaudio.spatializer.unity-2.0.55.tgz",
+      "version": "2.0.55",
       "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
     },
     "com.unity.asset-store-validation": {
       "version": "0.5.1",
