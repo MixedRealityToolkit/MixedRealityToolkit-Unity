@@ -74,6 +74,15 @@ namespace MixedReality.Toolkit.Input
             // Check if a GameObject already exists for this model key
             if (controllerModelDictionary.TryGetValue(modelKey, out gltfGameObject) && gltfGameObject != null)
             {
+#if MROPENXR_ANIM_PRESENT
+                // Try to add an animator to the controller model
+                ControllerModelArticulator controllerModelArticulator = gltfGameObject.EnsureComponent<ControllerModelArticulator>();
+                if (!controllerModelArticulator.TryStartArticulating(controllerModelProvider, modelKey))
+                {
+                    Debug.LogError("Unable to load model animation.");
+                }
+#endif
+
                 return gltfGameObject;
             }
 
