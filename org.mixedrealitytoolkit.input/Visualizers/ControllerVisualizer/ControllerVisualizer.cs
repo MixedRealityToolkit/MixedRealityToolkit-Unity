@@ -102,7 +102,9 @@ namespace MixedReality.Toolkit.Input
                 {
                     RenderControllerVisuals(controllerDetectedAction.action.activeControl.device);
                 }
-                else if (controllerGameObject != null)
+                // Only remove the fallback controller. Some runtimes provide synthesized hand joints when using controllers,
+                // and we may want to render them conforming to the controller model.
+                else if (controllerGameObject != null && controllerGameObject == fallbackGameObject)
                 {
                     RemoveControllerVisuals();
                 }
