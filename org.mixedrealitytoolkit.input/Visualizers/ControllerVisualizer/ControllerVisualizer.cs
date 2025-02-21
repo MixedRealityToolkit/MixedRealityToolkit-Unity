@@ -100,7 +100,7 @@ namespace MixedReality.Toolkit.Input
                 if (XRSubsystemHelpers.HandsAggregator == null ||
                     !XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.Palm, handNode, out _))
                 {
-                    RenderControllerVisuals(controllerDetectedAction.action.activeControl.device);
+                    RenderControllerVisuals(controllerDetectedAction.action.activeControl.device, true);
                 }
                 // Only remove the fallback controller. Some runtimes provide synthesized hand joints when using controllers,
                 // and we may want to render them conforming to the controller model.
@@ -116,7 +116,7 @@ namespace MixedReality.Toolkit.Input
             RenderControllerVisuals(context.control.device);
         }
 
-        private void RenderControllerVisuals(UnityInputSystem.InputDevice inputDevice)
+        private void RenderControllerVisuals(UnityInputSystem.InputDevice inputDevice, bool forceAllowFallback = false)
         {
             // We're already loading or rendering a controller, so there's no need to change it
             if (controllerTask != null || controllerGameObject != null)
@@ -140,8 +140,8 @@ namespace MixedReality.Toolkit.Input
                 }
                 else
                 {
-                    InstantiateControllerVisuals(inputDevice.deviceId.ToString(), true, XRSubsystemHelpers.HandsAggregator == null ||
-                        !XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.Palm, handNode, out _));
+                    InstantiateControllerVisuals(inputDevice.deviceId.ToString(), true, forceAllowFallback ||
+                        XRSubsystemHelpers.HandsAggregator == null || !XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.Palm, handNode, out _));
                 }
             }
         }
