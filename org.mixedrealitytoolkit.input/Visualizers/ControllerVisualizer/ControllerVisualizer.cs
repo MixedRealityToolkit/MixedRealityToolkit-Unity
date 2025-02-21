@@ -185,7 +185,6 @@ namespace MixedReality.Toolkit.Input
                     {
                         platformLoadedGameObjectRoot = new GameObject("Platform Model Root");
                     }
-                    platformLoadedGameObject.SetActive(true);
                     platformLoadedGameObject.transform.parent = platformLoadedGameObjectRoot.transform;
                     platformLoadedGameObject.transform.SetPositionAndRotation(platformLoadedGameObjectRoot.transform.position, platformLoadedGameObjectRoot.transform.rotation * ControllerModelRotatedOffset);
 
