@@ -132,10 +132,6 @@ namespace MixedReality.Toolkit.Input
             // when appropriate
             if (inputDevice is UnityInputSystem.XR.XRController xrInputDevice && xrInputDevice.usages.Contains(targetUsage))
             {
-                // Sanity check to ensure that the InputDevice's usages matches the provided handedness
-                InternedString targetUsage = handNode.ToHandedness() == Handedness.Left ? UnityInputSystem.CommonUsages.LeftHand : UnityInputSystem.CommonUsages.RightHand;
-                Debug.Assert(inputDevice.usages.Contains(targetUsage));
-
                 // Fallback visuals are only used if NO hand joints are detected
                 // OR the input device is specifically a simulated controller that is in the MotionController Simulation Mode.
                 if (xrInputDevice is MRTKSimulatedController simulatedController)
