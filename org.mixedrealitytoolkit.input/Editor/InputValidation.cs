@@ -39,12 +39,16 @@ namespace MixedReality.Toolkit.Input.Editor
             }
             MRTKProjectValidation.AddTargetIndependentRules(new List<BuildValidationRule>() { GenerateSkinWeightsRule(), GenerateGLTFastRule(),
 #if UNITY_OPENXR_PRESENT
-                GenerateUnityHandsRule(BuildTargetGroup.Standalone)
+                GenerateUnityHandsRule(BuildTargetGroup.Standalone),
 #endif
             });
 
             // Only generate the KTX rule for platforms related to Meta
-            MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateKTXRule() }, BuildTargetGroup.Android);
+            MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateKTXRule(),
+#if UNITY_OPENXR_PRESENT
+                GenerateAndroidHandsRule(),
+#endif
+            }, BuildTargetGroup.Android);
             MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateKTXRule() }, BuildTargetGroup.Standalone);
         }
 
@@ -128,7 +132,7 @@ namespace MixedReality.Toolkit.Input.Editor
         {
             return new BuildValidationRule()
             {
-                IsRuleEnabled = () => MRTKSettings.ProfileForBuildTarget(buildTargetGroup).LoadedSubsystems.Contains(typeof(UnityHandsSubsystem)),
+                IsRuleEnabled = () => MRTKProjectValidation.GetLoadedSubsystemsForBuildTarget(buildTargetGroup)?.Contains(typeof(UnityHandsSubsystem)) ?? false,
                 Category = "MRTK3",
                 Message = $"When {nameof(UnityHandsSubsystem)} is enabled for the {buildTargetGroup} build target, " +
                 $"{nameof(HandTracking)} must also be enabled in the OpenXR settings for {buildTargetGroup}.",
@@ -161,6 +165,37 @@ namespace MixedReality.Toolkit.Input.Editor
                 FixItMessage = $"Enable {nameof(HandTracking)} in the OpenXR settings.",
                 Error = true
             };
+        }
+
+        private static BuildValidationRule GenerateAndroidHandsRule()
+        {
+            // Disable this warning because this rule's purpose is to help migrate away from the obsolete type
+#pragma warning disable CS0618 // Type or member is obsolete
+            return new BuildValidationRule()
+            {
+                Category = "MRTK3",
+                Message = "Hand tracking on Android with the Mixed Reality OpenXR Plugin has been deprecated. " +
+                $"Please turn off {nameof(OpenXRHandsSubsystem)} in the MRTK profile and use {nameof(UnityHandsSubsystem)} instead.",
+                CheckPredicate = () => !MRTKProjectValidation.GetLoadedSubsystemsForBuildTarget(BuildTargetGroup.Android)?.Contains(typeof(OpenXRHandsSubsystem)) ?? true,
+                FixIt = () =>
+                {
+                    MRTKProfile profile = MRTKSettings.ProfileForBuildTarget(BuildTargetGroup.Android);
+                    if (profile == null)
+                    {
+                        return;
+                    }
+
+                    profile.LoadedSubsystems.Remove(typeof(OpenXRHandsSubsystem));
+                    if (!profile.LoadedSubsystems.Contains(typeof(UnityHandsSubsystem)))
+                    {
+                        profile.LoadedSubsystems.Add(typeof(UnityHandsSubsystem));
+                    }
+                    EditorUtility.SetDirty(profile);
+                },
+                FixItMessage = $"Turn off {nameof(OpenXRHandsSubsystem)} in the MRTK profile and ensure {typeof(UnityHandsSubsystem)} is enabled instead.",
+                Error = false
+            };
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 #endif
     }
