@@ -4,7 +4,6 @@
 using MixedReality.Toolkit.Subsystems;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 namespace MixedReality.Toolkit
 {
