@@ -15,7 +15,7 @@ using UnityEngine.Scripting;
 using Microsoft.MixedReality.OpenXR;
 #endif // MSFT_OPENXR_1_5_0_OR_NEWER
 using UnityEngine.Windows.Speech;
-#endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
+#endif // UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_WSA
 
 namespace MixedReality.Toolkit.Speech.Windows
 {
@@ -43,16 +43,20 @@ namespace MixedReality.Toolkit.Speech.Windows
             // Fetch subsystem metadata from the attribute.
             var cinfo = XRSubsystemHelpers.ConstructCinfo<WindowsKeywordRecognitionSubsystem, KeywordRecognitionSubsystemCinfo>();
 
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_WSA
             if (!Register(cinfo))
             {
                 Debug.LogError($"Failed to register the {cinfo.Name} subsystem.");
             }
+#else
+            Debug.Log($"Skipping registration of the {cinfo.Name} subsystem due to running on an unsupported platform.");
+#endif
         }
 
         /// <summary>
         /// A subsystem provider used with <see cref="WindowsKeywordRecognitionSubsystem"/> that exposes methods on the
-        /// <see cref="Microsoft.MixedReality.OpenXR.SelectKeywordRecognizer">SelectKeywordRecognizer</see> and Unity's 
-        /// `KeywordRecognizer`. 
+        /// <see cref="Microsoft.MixedReality.OpenXR.SelectKeywordRecognizer">SelectKeywordRecognizer</see> and Unity's
+        /// `KeywordRecognizer`.
         /// </summary>
         [Preserve]
         class WindowsKeywordRecognitionProvider : Provider

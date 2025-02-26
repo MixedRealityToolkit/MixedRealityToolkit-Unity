@@ -4,7 +4,7 @@
     "references": [
         "MixedReality.Toolkit.Core",
         "MixedReality.Toolkit.Core.Editor",
-        "MixedReality.Toolkit.Input",        
+        "MixedReality.Toolkit.Input",
         "Unity.XR.CoreUtils",
         "Unity.XR.CoreUtils.Editor",
         "Unity.XR.Interaction.Toolkit",
@@ -22,9 +22,19 @@
     "defineConstraints": [],
     "versionDefines": [
         {
+            "name": "com.unity.cloud.gltfast",
+            "expression": "",
+            "define": "GLTFAST_PRESENT"
+        },
+        {
             "name": "com.atteneder.gltfast",
             "expression": "",
             "define": "GLTFAST_PRESENT"
+        },
+        {
+            "name": "com.unity.cloud.ktx",
+            "expression": "",
+            "define": "KTX_PRESENT"
         },
         {
             "name": "com.atteneder.ktx",

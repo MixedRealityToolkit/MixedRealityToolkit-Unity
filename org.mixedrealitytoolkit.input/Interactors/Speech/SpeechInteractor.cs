@@ -74,8 +74,8 @@ namespace MixedReality.Toolkit.Input
                     }
                     else
                     {
-                        Debug.LogError("Failed to retrieve a running KeywordRecognitionSubsystem while registering an interactable. " +
-                            "Please make sure the subsystem is correctly set up or disable this speech interactor.");
+                        Debug.LogWarning("Failed to retrieve a running KeywordRecognitionSubsystem while registering an interactable. " +
+                            "Please make sure the subsystem is correctly set up for this platform or disable this speech interactor if it's unused.");
                     }
                 }
             }

@@ -8,10 +8,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-#if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT && KTX_PRESENT
+#if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT
 using Microsoft.MixedReality.OpenXR;
 using GLTFast;
-#endif // MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT && KTX_PRESENT
+#endif // MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT
 
 namespace MixedReality.Toolkit.Input
 {
@@ -41,7 +41,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         /// <param name="inputDevice">The input device we are trying to get the controller model of</param>
         /// <param name="handedness">The handedness of the input device requesting the controller model</param>
-        /// <returns>A gameobject representing the generated controller model in the scene</returns>
+        /// <returns>A GameObject representing the generated controller model in the scene</returns>
         public async static Task<GameObject> TryGenerateControllerModelFromPlatformSDK(InputDevice inputDevice, Handedness handedness)
         {
             // Sanity check to ensure that the xrInputDevice's usages matches the provided handedness
@@ -51,7 +51,7 @@ namespace MixedReality.Toolkit.Input
             // Proceed with trying to load the model from the platform
             GameObject gltfGameObject = null;
 
-#if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT && KTX_PRESENT
+#if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT
             ControllerModel controllerModelProvider = handedness == Handedness.Left ? ControllerModel.Left :
                                                         handedness == Handedness.Right ?  ControllerModel.Right :
                                                         null;
@@ -78,7 +78,7 @@ namespace MixedReality.Toolkit.Input
             // Make sure we record in our cache that we've succeeded in loading this model without warnings
             warningCache[inputDevice] = false;
 
-            // Check if a gameobject already exists for this modelkey. If so, set it active and return it
+            // Check if a GameObject already exists for this modelkey. If so, set it active and return it
             if (controllerModelDictionary.TryGetValue(modelKey, out gltfGameObject) && gltfGameObject != null)
             {
                 gltfGameObject.SetActive(true);
@@ -102,11 +102,11 @@ namespace MixedReality.Toolkit.Input
             // Make sure we record in our cache that we've succeeded in loading this model without warnings
             errorCache[modelKey] = false;
 
-            // Finally try to create a gameobject from the model data
+            // Finally try to create a GameObject from the model data
             GltfImport gltf = new GltfImport();
             bool success = await gltf.LoadGltfBinary(modelStream);
             gltfGameObject = new GameObject(modelKey.ToString());
-            if (success && gltf.InstantiateMainScene(gltfGameObject.transform))
+            if (success && await gltf.InstantiateMainSceneAsync(gltfGameObject.transform))
             {
                 // After all the awaits, double check that another task didn't finish earlier
                 if (controllerModelDictionary.TryGetValue(modelKey, out GameObject existingGameObject) && existingGameObject != null)
@@ -132,7 +132,7 @@ namespace MixedReality.Toolkit.Input
             }
 #else
             await Task.CompletedTask;
-#endif // MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT && KTX_PRESENT
+#endif // MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID) && GLTFAST_PRESENT
 
             return gltfGameObject;
         }
