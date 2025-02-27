@@ -257,7 +257,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 }
 
                 // Calculate if events should be fired
-                Handedness newHandedness = trackedNode.HasValue ? trackedNode.Value.ToHandedness() : Handedness.None;
+                Handedness newHandedness = (trackedNode.HasValue && SolverHandler.IsHandTracked(trackedNode.Value.ToHandedness())) ? trackedNode.Value.ToHandedness() : Handedness.None;
+
                 if (previousHandedness == Handedness.None && newHandedness != Handedness.None)
                 {
                     previousHandedness = newHandedness;
