@@ -22,33 +22,8 @@ namespace MixedReality.Toolkit.Input
     /// can be more distracting than it's worth. However, for opaque platforms, this is a great solution.
     /// </remarks>
     [AddComponentMenu("MRTK/Input/Visualizers/Rigged Hand Mesh Visualizer")]
-    public class RiggedHandMeshVisualizer : MonoBehaviour, ISelectInputVisualizer
+    public class RiggedHandMeshVisualizer : HandMeshVisualizer, ISelectInputVisualizer
     {
-        [SerializeField]
-        [Tooltip("The XRNode on which this hand is located.")]
-        private XRNode handNode = XRNode.LeftHand;
-
-        /// <summary> The XRNode on which this hand is located. </summary>
-        public XRNode HandNode { get => handNode; set => handNode = value; }
-
-        [SerializeField]
-        [Tooltip("When true, this visualizer will render rigged hands even on XR devices " +
-                 "with transparent displays. When false, the rigged hands will only render " +
-                 "on devices with opaque displays.")]
-        private bool showHandsOnTransparentDisplays;
-
-        /// <summary>
-        /// When true, this visualizer will render rigged hands even on XR devices with transparent displays.
-        /// When false, the rigged hands will only render on devices with opaque displays.
-        /// Usually, it's recommended not to show hand visualization on transparent displays as it can
-        /// distract from the user's real hands, and cause a "double image" effect that can be disconcerting.
-        /// </summary>
-        public bool ShowHandsOnTransparentDisplays
-        {
-            get => showHandsOnTransparentDisplays;
-            set => showHandsOnTransparentDisplays = value;
-        }
-
         [SerializeField]
         [Tooltip("The transform of the wrist joint.")]
         private Transform wrist;
@@ -163,15 +138,14 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
         /// </summary>
-        protected void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             buttonReaders.ForEach(reader => reader?.EnableDirectActionIfModeUsed());
 
             // Ensure hand is not visible until we can update position first time.
             handRenderer.enabled = false;
-
-            Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand,
-                         $"HandVisualizer has an invalid XRNode ({handNode})!");
 
             handsSubsystem = XRSubsystemHelpers.GetFirstRunningSubsystem<HandsAggregatorSubsystem>();
 
@@ -204,11 +178,11 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
         /// </summary>
-        private void Update()
+        protected void Update()
         {
             // Query all joints in the hand.
             if (!ShouldRenderHand() ||
-                !handsSubsystem.TryGetEntireHand(handNode, out IReadOnlyList<HandJointPose> joints))
+                !handsSubsystem.TryGetEntireHand(HandNode, out IReadOnlyList<HandJointPose> joints))
             {
                 // Hide the hand and abort if we shouldn't be
                 // showing the hand, for whatever reason.
@@ -293,7 +267,7 @@ namespace MixedReality.Toolkit.Input
             // Apply.
             handScale += -error * errorGainFactor;
             handScale = Mathf.Clamp(handScale, minScale, maxScale);
-            transform.localScale = new Vector3(handNode == XRNode.LeftHand ? -handScale : handScale, handScale, handScale);
+            transform.localScale = new Vector3(HandNode == XRNode.LeftHand ? -handScale : handScale, handScale, handScale);
 
             // Update the hand material based on selectedness value
             UpdateHandMaterial();
@@ -365,7 +339,7 @@ namespace MixedReality.Toolkit.Input
             if (displaySubsystems.Count > 0 &&
                 displaySubsystems[0].running &&
                 !displaySubsystems[0].displayOpaque &&
-                !showHandsOnTransparentDisplays)
+                !ShowHandsOnTransparentDisplays)
             {
                 return false;
             }
