@@ -400,7 +400,7 @@
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "org.mixedrealitytoolkit.core": "3.0.0"
+        "org.mixedrealitytoolkit.core": "3.3.0"
       }
     },
     "org.mixedrealitytoolkit.uxcomponents": {
