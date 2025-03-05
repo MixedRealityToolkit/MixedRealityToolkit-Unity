@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 * Added a project validation rule to ensure the Unity XR Hands subsystem is enabled in the OpenXR settings when the corresponding MRTK subsystem is enabled. [PR #973](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/973)
+* Added support for Unity's com.unity.cloud.gltfast and com.unity.cloud.ktx packages when loading controller models. [PR #631](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/631)
+
+### Fixed
+
+* Fixed controller model fallback visualization becoming stuck visible when hands became tracked after initialization. [PR #984](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/984)
 
 ## [4.0.0-development.pre.1] - 2024-07-16
 
@@ -74,14 +79,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Removed obsolete ControllerVisualizer.HandsAggregator field.
 * Removed no longer needed Experimental\XRI3 folder
 
-## [3.2.2-development] - 2024-06-24
+## [3.2.2] - 2024-09-18
 
 ### Fixed
 
 * InputSimulator execution order so that it executes before InteractionManager.
 * Ensure all relevant interactor types show up in InteractionModeManager's dropdowns. [PR #872](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/872)
 
-## [3.2.1] - 2024-04-23
+## [3.2.1] - 2024-06-12
 
 ### Fixed
 
@@ -90,7 +95,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Reduced package description to support for UPM package publishing in the Unity Asset Store.
 * Ensures the simulated input sources hold their state (including gestures) when their toggle state is locked on. [PR #705](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/705)
 
-## [3.2.0] - 2024-03-20
+## [3.2.0] - 2024-03-27
 
 ### Added
 
