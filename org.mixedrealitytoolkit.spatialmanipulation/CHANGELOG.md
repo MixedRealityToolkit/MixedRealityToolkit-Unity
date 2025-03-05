@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+
+* Added different types of maintaining scale for bounds handles. [PR #976](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/976)
+
 ### Fixed
 
 * Fixed tap to place `StartPlacement()` when called just after instantiation of the component. [PR #785](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/785)
