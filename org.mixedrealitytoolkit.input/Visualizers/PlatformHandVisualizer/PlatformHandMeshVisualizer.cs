@@ -1,7 +1,10 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
 using Microsoft.MixedReality.OpenXR;
@@ -28,6 +31,8 @@ namespace MixedReality.Toolkit.Input
         private Mesh neutralPoseMesh;
         private bool initializedUVs = false;
 
+        private XRMeshSubsystem meshSubsystem = null;
+
         /// <inheritdoc/>
         protected override void OnEnable()
         {
@@ -41,10 +46,23 @@ namespace MixedReality.Toolkit.Input
             }
 
 #if UNITY_OPENXR_PRESENT
-            if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_MSFT_hand_tracking_mesh"))
+            if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_ANDROID_hand_mesh"))
+            {
+                List<XRMeshSubsystem> meshSubsystems = new List<XRMeshSubsystem>();
+                SubsystemManager.GetSubsystems(meshSubsystems);
+                foreach (XRMeshSubsystem subsystem in meshSubsystems)
+                {
+                    if (subsystem.subsystemDescriptor.id == "AndroidXRHandMeshProvider")
+                    {
+                        meshSubsystem = subsystem;
+                        break;
+                    }
+                }
+            }
+            else if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_MSFT_hand_tracking_mesh"))
             {
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
-                handMeshTracker = HandNode == UnityEngine.XR.XRNode.LeftHand ? HandMeshTracker.Left : HandMeshTracker.Right;
+                handMeshTracker = HandNode == XRNode.LeftHand ? HandMeshTracker.Left : HandMeshTracker.Right;
 #endif
             }
             else
@@ -56,8 +74,33 @@ namespace MixedReality.Toolkit.Input
 
         protected void Update()
         {
+            if (meshSubsystem != null)
+            {
+                List<MeshInfo> meshInfos = new List<MeshInfo>();
+                if (meshSubsystem.TryGetMeshInfos(meshInfos))
+                {
+                    int handMeshIndex = HandNode == XRNode.LeftHand ? 0 : 1;
+
+                    if (meshInfos[handMeshIndex].ChangeState == MeshChangeState.Added
+                        || meshInfos[handMeshIndex].ChangeState == MeshChangeState.Updated)
+                    {
+                        meshSubsystem.GenerateMeshAsync(meshInfos[handMeshIndex].MeshId, meshFilter.mesh,
+                            null, MeshVertexAttributes.Normals, result => { });
+
+                        if (!handRenderer.enabled)
+                        {
+                            handRenderer.enabled = true;
+                        }
+                    }
+                }
+                else if (handRenderer.enabled)
+                {
+                    handRenderer.enabled = false;
+                }
+            }
+
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
-            if (!ShouldRenderHand() ||
+            else if (!ShouldRenderHand() ||
                 !handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, meshFilter.mesh) ||
                 !handMeshTracker.TryLocateHandMesh(FrameTime.OnUpdate, out Pose pose))
             {
