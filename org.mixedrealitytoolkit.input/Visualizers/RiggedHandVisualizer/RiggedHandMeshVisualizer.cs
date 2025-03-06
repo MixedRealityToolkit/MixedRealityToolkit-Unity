@@ -14,7 +14,7 @@ namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// Hand visualizer that uses a rigged mesh/armature to render high-quality hand meshes.
-    /// Not recommended for AR platforms like HoloLens, both for performance and design reasons. 
+    /// Not recommended for AR platforms like HoloLens, both for performance and design reasons.
     /// </summary>
     /// <remarks>
     /// For augmented reality platforms such as HoloLens, we recommend not using any hand visualizations,
