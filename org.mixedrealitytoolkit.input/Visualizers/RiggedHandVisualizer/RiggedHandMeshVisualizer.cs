@@ -64,9 +64,6 @@ namespace MixedReality.Toolkit.Input
         // Caching local references 
         private HandsAggregatorSubsystem handsSubsystem;
 
-        // Scratch list for checking for the presence of display subsystems.
-        private List<XRDisplaySubsystem> displaySubsystems = new List<XRDisplaySubsystem>();
-
         // The XRController that is used to determine the pinch strength (i.e., select value!)
         [Obsolete("This field has been deprecated in version 4.0.0 and will be removed in a future version. Use the SelectInput property instead.")]
         private XRBaseController controller;
@@ -320,32 +317,10 @@ namespace MixedReality.Toolkit.Input
             return Vector3.Dot((armatureJointPosition - userJointPosition), fingerVector);
         }
 
-        private bool ShouldRenderHand()
+        protected override bool ShouldRenderHand()
         {
             // If we're missing anything, don't render the hand.
-            if (handsSubsystem == null || wrist == null || handRenderer == null)
-            {
-                return false;
-            }
-
-            if (displaySubsystems.Count == 0)
-            {
-                SubsystemManager.GetSubsystems(displaySubsystems);
-            }
-
-            // Are we running on an XR display and it happens to be transparent?
-            // Probably shouldn't be showing rigged hands! (Users can
-            // specify showHandsOnTransparentDisplays if they disagree.)
-            if (displaySubsystems.Count > 0 &&
-                displaySubsystems[0].running &&
-                !displaySubsystems[0].displayOpaque &&
-                !ShowHandsOnTransparentDisplays)
-            {
-                return false;
-            }
-
-            // All checks out!
-            return true;
+            return handsSubsystem != null && wrist != null && handRenderer != null && base.ShouldRenderHand();
         }
 
         private void UpdateHandMaterial()

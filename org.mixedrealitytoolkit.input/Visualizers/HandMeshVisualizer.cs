@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -33,10 +34,35 @@ namespace MixedReality.Toolkit.Input
             set => showHandsOnTransparentDisplays = value;
         }
 
+        // Scratch list for checking for the presence of display subsystems.
+        private readonly List<XRDisplaySubsystem> displaySubsystems = new List<XRDisplaySubsystem>();
+
         protected virtual void OnEnable()
         {
             Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand,
                 $"HandVisualizer has an invalid XRNode ({handNode})!");
+        }
+
+        protected virtual bool ShouldRenderHand()
+        {
+            if (displaySubsystems.Count == 0)
+            {
+                SubsystemManager.GetSubsystems(displaySubsystems);
+            }
+
+            // Are we running on an XR display and it happens to be transparent?
+            // Probably shouldn't be showing rigged hands! (Users can
+            // specify showHandsOnTransparentDisplays if they disagree.)
+            if (displaySubsystems.Count > 0 &&
+                displaySubsystems[0].running &&
+                !displaySubsystems[0].displayOpaque &&
+                !showHandsOnTransparentDisplays)
+            {
+                return false;
+            }
+
+            // All checks out!
+            return true;
         }
     }
 }
