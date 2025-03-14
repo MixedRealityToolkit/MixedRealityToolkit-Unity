@@ -3,7 +3,6 @@
 
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.Serialization;
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
 using Microsoft.MixedReality.OpenXR;
@@ -16,7 +15,7 @@ namespace MixedReality.Toolkit.Input
         [SerializeField]
         private MeshFilter meshFilter;
 
-        [SerializeField, FormerlySerializedAs("meshRenderer")]
+        [SerializeField]
         private Renderer handRenderer;
 
         [SerializeField]
@@ -61,11 +60,11 @@ namespace MixedReality.Toolkit.Input
         protected void Update()
         {
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
-            if (handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, meshFilter.mesh))
+            if (ShouldRenderHand() && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, meshFilter.mesh))
             {
                 if (!initializedUVs && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, neutralPoseMesh, HandPoseType.ReferenceOpenPalm))
                 {
-                    meshFilter.mesh.uv = InitializeUVs(neutralPoseMesh.vertices); ;
+                    meshFilter.mesh.uv = InitializeUVs(neutralPoseMesh.vertices);
                     initializedUVs = true;
                 }
 
@@ -105,6 +104,12 @@ namespace MixedReality.Toolkit.Input
         }
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
+        protected override bool ShouldRenderHand()
+        {
+            // If we're missing anything, don't render the hand.
+            return handMeshTracker != null && meshFilter != null && handRenderer != null && base.ShouldRenderHand();
+        }
+
         private Vector2[] InitializeUVs(Vector3[] neutralPoseVertices)
         {
             if (neutralPoseVertices?.Length == 0)
