@@ -31,6 +31,7 @@ internal class AndroidXRConfig
     {
         if (request.IsCompleted)
         {
+            Debug.Log($"Package install request complete ({request.Status})");
             EditorApplication.update -= Progress;
             request = null;
         }
