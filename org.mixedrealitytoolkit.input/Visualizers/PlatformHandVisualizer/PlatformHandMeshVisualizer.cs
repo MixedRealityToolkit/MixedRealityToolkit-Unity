@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using UnityEngine.XR.OpenXR;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -48,12 +47,14 @@ namespace MixedReality.Toolkit.Input
 
             propertyBlock ??= new MaterialPropertyBlock();
 
-            if (OpenXRRuntime.IsExtensionEnabled("XR_MSFT_hand_tracking_mesh"))
+#if UNITY_OPENXR_PRESENT
+            if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_MSFT_hand_tracking_mesh"))
             {
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
                 handMeshTracker = HandNode == UnityEngine.XR.XRNode.LeftHand ? HandMeshTracker.Left : HandMeshTracker.Right;
 #endif
             }
+#endif
         }
 
         protected void Update()
