@@ -4,17 +4,36 @@
 #if UNITY_6000_0_OR_NEWER
 using UnityEditor;
 using UnityEditor.PackageManager;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 #endif
 
 internal class AndroidXRConfig
 {
 #if UNITY_6000_0_OR_NEWER
+    private static AddAndRemoveRequest request;
+
     [MenuItem("Mixed Reality/MRTK3/Examples/Configure for Android XR...", priority = int.MaxValue)]
     public static void InstallPackages()
     {
+        // Already a request in progress, so don't re-run
+        if (request != null)
+        {
+            return;
+        }
+
         Debug.Log("Adding com.unity.xr.androidxr-openxr and com.google.xr.extensions...");
-        Client.AddAndRemove(new[] { "com.unity.xr.androidxr-openxr", "https://github.com/android/android-xr-unity-package.git" });
+        request = Client.AddAndRemove(new[] { "com.unity.xr.androidxr-openxr", "https://github.com/android/android-xr-unity-package.git" });
+        EditorApplication.update += Progress;
+    }
+
+    private static void Progress()
+    {
+        if (request.IsCompleted)
+        {
+            EditorApplication.update -= Progress;
+            request = null;
+        }
     }
 #endif
 }
