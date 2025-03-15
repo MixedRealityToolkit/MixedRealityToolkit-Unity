@@ -10,6 +10,7 @@ using Microsoft.MixedReality.OpenXR;
 
 namespace MixedReality.Toolkit.Input
 {
+    [AddComponentMenu("MRTK/Input/Visualizers/Platform Hand Mesh Visualizer")]
     public class PlatformHandMeshVisualizer : HandMeshVisualizer
     {
         [SerializeField]
@@ -60,7 +61,9 @@ namespace MixedReality.Toolkit.Input
         protected void Update()
         {
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
-            if (ShouldRenderHand() && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, meshFilter.mesh))
+            if (ShouldRenderHand()
+                && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, meshFilter.mesh)
+                && handMeshTracker.TryLocateHandMesh(FrameTime.OnUpdate, out Pose pose))
             {
                 if (!initializedUVs && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, neutralPoseMesh, HandPoseType.ReferenceOpenPalm))
                 {
@@ -68,10 +71,7 @@ namespace MixedReality.Toolkit.Input
                     initializedUVs = true;
                 }
 
-                if (handMeshTracker.TryLocateHandMesh(FrameTime.OnUpdate, out Pose pose))
-                {
-                    transform.SetPositionAndRotation(pose.position, pose.rotation);
-                }
+                transform.SetPositionAndRotation(pose.position, pose.rotation);
 
                 if (!handRenderer.enabled)
                 {
