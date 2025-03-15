@@ -61,27 +61,27 @@ namespace MixedReality.Toolkit.Input
         protected void Update()
         {
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
-            if (ShouldRenderHand()
-                && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, meshFilter.mesh)
-                && handMeshTracker.TryLocateHandMesh(FrameTime.OnUpdate, out Pose pose))
+            if (!ShouldRenderHand() ||
+                !handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, meshFilter.mesh) ||
+                !handMeshTracker.TryLocateHandMesh(FrameTime.OnUpdate, out Pose pose))
             {
-                if (!initializedUVs && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, neutralPoseMesh, HandPoseType.ReferenceOpenPalm))
-                {
-                    meshFilter.mesh.uv = InitializeUVs(neutralPoseMesh.vertices);
-                    initializedUVs = true;
-                }
-
-                transform.SetPositionAndRotation(pose.position, pose.rotation);
-
-                if (!handRenderer.enabled)
-                {
-                    handRenderer.enabled = true;
-                }
-            }
-            else if (handRenderer.enabled)
-            {
+                // Hide the hand and abort if we shouldn't be
+                // showing the hand, for whatever reason.
+                // (Missing joint data, no subsystem, additive
+                // display, etc!)
                 handRenderer.enabled = false;
+                return;
             }
+
+            handRenderer.enabled = true;
+
+            if (!initializedUVs && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, neutralPoseMesh, HandPoseType.ReferenceOpenPalm))
+            {
+                meshFilter.mesh.uv = InitializeUVs(neutralPoseMesh.vertices);
+                initializedUVs = true;
+            }
+
+            transform.SetPositionAndRotation(pose.position, pose.rotation);
 #endif
 
             UpdateHandMaterial();
