@@ -34,6 +34,11 @@ namespace MixedReality.Toolkit.Input
             set => showHandsOnTransparentDisplays = value;
         }
 
+        /// <summary>
+        /// Whether this visualizer currently has a loaded and visible hand mesh or not.
+        /// </summary>
+        public abstract bool IsRendering { get; }
+
         // Scratch list for checking for the presence of display subsystems.
         private readonly List<XRDisplaySubsystem> displaySubsystems = new List<XRDisplaySubsystem>();
 

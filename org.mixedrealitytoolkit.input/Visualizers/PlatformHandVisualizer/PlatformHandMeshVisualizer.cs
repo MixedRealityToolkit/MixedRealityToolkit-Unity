@@ -38,6 +38,9 @@ namespace MixedReality.Toolkit.Input
         private XRBaseController controller;
 
         /// <inheritdoc/>
+        public override bool IsRendering => handRenderer != null && handRenderer.enabled && ShouldRenderHand();
+
+        /// <inheritdoc/>
         protected override void OnEnable()
         {
             base.OnEnable();

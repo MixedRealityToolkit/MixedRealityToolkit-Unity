@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7366846053233975685, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
@@ -99,6 +100,18 @@ PrefabInstance:
       propertyPath: controllerDetectedAction.m_Action.m_SingletonActionBindings.Array.data[0].m_Action
       value: Controller Detected
       objectReference: {fileID: 0}
+    - target: {fileID: 1493009138236857671, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800205545854781715, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
+      propertyPath: handNode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263138549649042646, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
+      propertyPath: handNode
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3507431783398283103, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
       propertyPath: handNode
       value: 4
@@ -110,10 +123,6 @@ PrefabInstance:
     - target: {fileID: 3973969148631863464, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973969148631863464, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
-      propertyPath: m_LocalScale.x
-      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3973969148631863464, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
       propertyPath: m_LocalPosition.x
@@ -160,4 +169,7 @@ PrefabInstance:
       value: openxr_left_hand
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da93d751ddc0f64468dfc02f18d02d00, type: 3}
