@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
 using Microsoft.MixedReality.OpenXR;
@@ -17,12 +16,9 @@ namespace MixedReality.Toolkit.Input
         private MeshFilter meshFilter;
 
         [SerializeField]
-        private Renderer handRenderer;
+        private MeshRenderer handRenderer;
 
-        [SerializeField]
-        [Tooltip("Name of the shader property used to drive pinch-amount-based visual effects. " +
-         "Generally, maps to something like a glow or an outline color!")]
-        private string pinchAmountMaterialProperty = "_PinchAmount";
+        protected override Renderer HandRenderer => handRenderer;
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
         private HandMeshTracker handMeshTracker;
@@ -30,12 +26,6 @@ namespace MixedReality.Toolkit.Input
 
         private Mesh neutralPoseMesh;
         private bool initializedUVs = false;
-
-        // The property block used to modify the pinch amount property on the material
-        private MaterialPropertyBlock propertyBlock = null;
-
-        // The XRController that is used to determine the pinch strength (i.e., select value!)
-        private XRBaseController controller;
 
         /// <inheritdoc/>
         public override bool IsRendering => handRenderer != null && handRenderer.enabled && ShouldRenderHand();
@@ -52,8 +42,6 @@ namespace MixedReality.Toolkit.Input
                 neutralPoseMesh = new Mesh();
             }
 
-            propertyBlock ??= new MaterialPropertyBlock();
-
 #if UNITY_OPENXR_PRESENT
             if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_MSFT_hand_tracking_mesh"))
             {
@@ -62,15 +50,6 @@ namespace MixedReality.Toolkit.Input
 #endif
             }
 #endif
-        }
-
-        /// <summary>
-        /// A Unity event function that is called when the script component has been disabled.
-        /// </summary>
-        protected void OnDisable()
-        {
-            // Disable the rigged hand renderer when this component is disabled
-            handRenderer.enabled = false;
         }
 
         protected void Update()
@@ -100,22 +79,6 @@ namespace MixedReality.Toolkit.Input
 #endif
 
             UpdateHandMaterial();
-        }
-
-        private void UpdateHandMaterial()
-        {
-            if (controller == null)
-            {
-                controller = GetComponentInParent<XRBaseController>();
-            }
-
-            if (controller == null || handRenderer == null) { return; }
-
-            // Update the hand material
-            float pinchAmount = Mathf.Pow(controller.selectInteractionState.value, 2.0f);
-            handRenderer.GetPropertyBlock(propertyBlock);
-            propertyBlock.SetFloat(pinchAmountMaterialProperty, pinchAmount);
-            handRenderer.SetPropertyBlock(propertyBlock);
         }
 
         protected override bool ShouldRenderHand()
