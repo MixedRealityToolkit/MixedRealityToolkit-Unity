@@ -567,7 +567,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3973969148631863464}
   - component: {fileID: -7366846053233975685}
-  - component: {fileID: 9181990906488135268}
   m_Layer: 0
   m_Name: openxr_right_hand
   m_TagString: Untagged
@@ -626,21 +625,6 @@ MonoBehaviour:
         m_Flags: 0
       m_Flags: 0
     m_Reference: {fileID: 0}
---- !u!114 &9181990906488135268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4354293980546992658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 595ce5ac335c53647a1f7270d450d94b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visualizers:
-  - {fileID: 2263138549649042646}
-  - {fileID: 1800205545854781715}
 --- !u!1 &4657295888579565740
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,9 +789,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handNode: 5
   showHandsOnTransparentDisplays: 0
+  pinchAmountMaterialProperty: _PinchAmount
+  selectInput:
+    m_InputSourceMode: 2
+    m_InputActionPerformed:
+      m_Name: Select
+      m_Type: 1
+      m_ExpectedControlType: 
+      m_Id: 5a174afe-679f-4e85-a45a-988046773313
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_InputActionValue:
+      m_Name: Select Value
+      m_Type: 0
+      m_ExpectedControlType: Axis
+      m_Id: 8594ff63-7803-4c60-a5c8-62dc67ba5c1a
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_InputActionReferencePerformed: {fileID: 0}
+    m_InputActionReferenceValue: {fileID: 0}
+    m_ObjectReferenceObject: {fileID: 0}
+    m_ManualPerformed: 0
+    m_ManualValue: 0
+    m_ManualQueuePerformed: 0
+    m_ManualQueueWasPerformedThisFrame: 0
+    m_ManualQueueWasCompletedThisFrame: 0
+    m_ManualQueueValue: 0
+    m_ManualQueueTargetFrame: 0
   meshFilter: {fileID: 3936565761691908697}
   handRenderer: {fileID: 769216864695519206}
-  pinchAmountMaterialProperty: _PinchAmount
 --- !u!1 &5839269735351241340
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,9 +938,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handNode: 5
   showHandsOnTransparentDisplays: 0
+  pinchAmountMaterialProperty: _PinchAmount
+  selectInput:
+    m_InputSourceMode: 2
+    m_InputActionPerformed:
+      m_Name: Select
+      m_Type: 1
+      m_ExpectedControlType: 
+      m_Id: 455696a2-5c34-4e97-838a-bc2b6ac85675
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_InputActionValue:
+      m_Name: Select Value
+      m_Type: 0
+      m_ExpectedControlType: Axis
+      m_Id: de553aeb-f229-4e9f-af88-39757e695f7d
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_InputActionReferencePerformed: {fileID: 0}
+    m_InputActionReferenceValue: {fileID: 0}
+    m_ObjectReferenceObject: {fileID: 0}
+    m_ManualPerformed: 0
+    m_ManualValue: 0
+    m_ManualQueuePerformed: 0
+    m_ManualQueueWasPerformedThisFrame: 0
+    m_ManualQueueWasCompletedThisFrame: 0
+    m_ManualQueueValue: 0
+    m_ManualQueueTargetFrame: 0
   wrist: {fileID: 5446693289115484214}
   handRenderer: {fileID: 5709336421934327412}
-  pinchAmountMaterialProperty: _PinchAmount
+  primaryMeshVisualizer: {fileID: 2263138549649042646}
 --- !u!1 &6561479249547925302
 GameObject:
   m_ObjectHideFlags: 0
