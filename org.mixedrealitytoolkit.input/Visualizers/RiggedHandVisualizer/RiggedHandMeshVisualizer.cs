@@ -76,6 +76,9 @@ namespace MixedReality.Toolkit.Input
         // at the end of a finger, which is discarded.
         private const string endJointName = "end";
 
+        /// <inheritdoc/>
+        public override bool IsRendering => handRenderer != null && handRenderer.enabled && ShouldRenderHand();
+
         /// <summary>
         /// The list of button input readers used by this interactor. This interactor will automatically enable or disable direct actions
         /// if that mode is used during <see cref="OnEnable"/> and <see cref="OnDisable"/>.
