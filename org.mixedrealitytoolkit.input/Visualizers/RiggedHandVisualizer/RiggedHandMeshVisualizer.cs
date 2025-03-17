@@ -132,9 +132,7 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
-        /// <summary>
-        /// A Unity event function that is called when the script component has been enabled.
-        /// </summary>
+        /// <inheritdoc/>
         protected override void OnEnable()
         {
             base.OnEnable();
