@@ -37,6 +37,9 @@ namespace MixedReality.Toolkit.Input
         // Scratch list for checking for the presence of display subsystems.
         private readonly List<XRDisplaySubsystem> displaySubsystems = new List<XRDisplaySubsystem>();
 
+        /// <summary>
+        /// A Unity event function that is called when the script component has been enabled.
+        /// </summary>
         protected virtual void OnEnable()
         {
             Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand,

@@ -37,6 +37,7 @@ namespace MixedReality.Toolkit.Input
         // The XRController that is used to determine the pinch strength (i.e., select value!)
         private XRBaseController controller;
 
+        /// <inheritdoc/>
         protected override void OnEnable()
         {
             base.OnEnable();
