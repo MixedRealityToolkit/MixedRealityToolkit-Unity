@@ -42,6 +42,8 @@ namespace MixedReality.Toolkit.Input
         {
             base.OnEnable();
 
+            handRenderer.enabled = false;
+
             if (neutralPoseMesh == null)
             {
                 neutralPoseMesh = new Mesh();
@@ -57,6 +59,15 @@ namespace MixedReality.Toolkit.Input
 #endif
             }
 #endif
+        }
+
+        /// <summary>
+        /// A Unity event function that is called when the script component has been disabled.
+        /// </summary>
+        protected void OnDisable()
+        {
+            // Disable the rigged hand renderer when this component is disabled
+            handRenderer.enabled = false;
         }
 
         protected void Update()
@@ -104,13 +115,17 @@ namespace MixedReality.Toolkit.Input
             handRenderer.SetPropertyBlock(propertyBlock);
         }
 
-#if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
         protected override bool ShouldRenderHand()
         {
             // If we're missing anything, don't render the hand.
-            return handMeshTracker != null && meshFilter != null && handRenderer != null && base.ShouldRenderHand();
+            return
+#if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
+                handMeshTracker != null &&
+#endif
+                meshFilter != null && handRenderer != null && base.ShouldRenderHand();
         }
 
+#if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
         private Vector2[] InitializeUVs(Vector3[] neutralPoseVertices)
         {
             if (neutralPoseVertices?.Length == 0)
