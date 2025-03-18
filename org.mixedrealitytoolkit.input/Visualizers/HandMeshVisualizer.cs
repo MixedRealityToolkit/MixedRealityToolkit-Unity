@@ -1,9 +1,11 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
 
 namespace MixedReality.Toolkit.Input
@@ -69,6 +71,10 @@ namespace MixedReality.Toolkit.Input
 
         // Scratch list for checking for the presence of display subsystems.
         private readonly List<XRDisplaySubsystem> displaySubsystems = new List<XRDisplaySubsystem>();
+
+        // The XRController that is used to determine the pinch strength (i.e., select value!)
+        [Obsolete("This field is obsolete and will be removed in a future version. Use the SelectInput property instead.")]
+        private XRBaseController controller;
 
         /// <summary>
         /// The list of button input readers used by this interactor. This interactor will automatically enable or disable direct actions
@@ -201,8 +207,22 @@ namespace MixedReality.Toolkit.Input
                 return true;
             }
 
+            bool success = false;
             value = 0.0f;
-            return false;
+
+#pragma warning disable CS0618 // XRBaseController is obsolete
+            if (controller == null)
+            {
+                controller = GetComponentInParent<XRBaseController>();
+            }
+            if (controller != null)
+            {
+                value = controller.selectInteractionState.value;
+                success = true;
+            }
+#pragma warning restore CS0618 // XRBaseController is obsolete
+
+            return success;
         }
     }
 }
