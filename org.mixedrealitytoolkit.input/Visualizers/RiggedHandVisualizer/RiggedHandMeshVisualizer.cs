@@ -33,6 +33,7 @@ namespace MixedReality.Toolkit.Input
         [Tooltip("The primary visualizer. Rigged hand will not render if the primary is rendering.")]
         private HandMeshVisualizer primaryMeshVisualizer = null;
 
+        /// <inheritdoc/>
         protected override Renderer HandRenderer => handRenderer;
 
         // Automatically calculated over time, based on the accumulated error
@@ -49,9 +50,6 @@ namespace MixedReality.Toolkit.Input
         // The substring used to determine the "leaf joint"
         // at the end of a finger, which is discarded.
         private const string endJointName = "end";
-
-        /// <inheritdoc/>
-        public override bool IsRendering => handRenderer != null && handRenderer.enabled && ShouldRenderHand();
 
         /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
