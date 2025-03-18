@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -29,6 +28,10 @@ namespace MixedReality.Toolkit.Input
         [SerializeField]
         [Tooltip("Renderer of the hand mesh")]
         private SkinnedMeshRenderer handRenderer = null;
+
+        [SerializeField]
+        [Tooltip("The primary visualizer. Rigged hand will not render if the primary is rendering.")]
+        private HandMeshVisualizer primaryMeshVisualizer = null;
 
         protected override Renderer HandRenderer => handRenderer;
 
@@ -230,7 +233,12 @@ namespace MixedReality.Toolkit.Input
         protected override bool ShouldRenderHand()
         {
             // If we're missing anything, don't render the hand.
-            return handsSubsystem != null && wrist != null && handRenderer != null && base.ShouldRenderHand();
+            // Also don't render if the preferred visualizer is rendering.
+            return handsSubsystem != null
+                && wrist != null
+                && handRenderer != null
+                && (primaryMeshVisualizer == null || !primaryMeshVisualizer.IsRendering)
+                && base.ShouldRenderHand();
         }
     }
 }
