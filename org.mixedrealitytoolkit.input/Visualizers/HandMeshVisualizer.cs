@@ -59,13 +59,6 @@ namespace MixedReality.Toolkit.Input
 
         #endregion ISelectInputVisualizer implementation
 
-        /// <summary>
-        /// Whether this visualizer currently has a loaded and visible hand mesh or not.
-        /// </summary>
-        public abstract bool IsRendering { get; }
-
-        protected abstract Renderer HandRenderer { get; }
-
         // The property block used to modify the pinch amount property on the material
         private MaterialPropertyBlock propertyBlock = null;
 
@@ -83,6 +76,16 @@ namespace MixedReality.Toolkit.Input
         /// <seealso cref="XRInputButtonReader.EnableDirectActionIfModeUsed"/>
         /// <seealso cref="XRInputButtonReader.DisableDirectActionIfModeUsed"/>
         protected List<XRInputButtonReader> buttonReaders { get; } = new List<XRInputButtonReader>();
+
+        /// <summary>
+        /// Whether this visualizer currently has a loaded and visible hand mesh or not.
+        /// </summary>
+        protected internal bool IsRendering => HandRenderer != null && HandRenderer.enabled;
+
+        /// <summary>
+        /// The renderer for this visualizer, to use to visualize the pinch amount.
+        /// </summary>
+        protected abstract Renderer HandRenderer { get; }
 
         /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
