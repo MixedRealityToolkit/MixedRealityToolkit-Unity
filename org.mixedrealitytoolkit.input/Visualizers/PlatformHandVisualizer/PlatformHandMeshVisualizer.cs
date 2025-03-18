@@ -54,6 +54,7 @@ namespace MixedReality.Toolkit.Input
                 {
                     if (subsystem.subsystemDescriptor.id == "AndroidXRHandMeshProvider")
                     {
+                        Debug.Log($"Using XR_ANDROID_hand_mesh for {HandNode} visualization.");
                         meshSubsystem = subsystem;
                         break;
                     }
@@ -62,6 +63,7 @@ namespace MixedReality.Toolkit.Input
             else if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_MSFT_hand_tracking_mesh"))
             {
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
+                Debug.Log($"Using XR_MSFT_hand_tracking_mesh for {HandNode} visualization.");
                 handMeshTracker = HandNode == XRNode.LeftHand ? HandMeshTracker.Left : HandMeshTracker.Right;
 #endif
             }
@@ -84,24 +86,30 @@ namespace MixedReality.Toolkit.Input
                 return;
             }
 
-            if (meshSubsystem != null &&
-                meshSubsystem.TryGetMeshInfos(meshInfos))
+            if (meshSubsystem != null
+                && meshSubsystem.running
+                && meshSubsystem.TryGetMeshInfos(meshInfos))
             {
                 int handMeshIndex = HandNode == XRNode.LeftHand ? 0 : 1;
 
-                if (meshInfos[handMeshIndex].ChangeState == MeshChangeState.Added
-                    || meshInfos[handMeshIndex].ChangeState == MeshChangeState.Updated)
+                MeshInfo meshInfo = meshInfos[handMeshIndex];
+                if (meshInfo.ChangeState == MeshChangeState.Added
+                    || meshInfo.ChangeState == MeshChangeState.Updated)
                 {
-                    meshSubsystem.GenerateMeshAsync(meshInfos[handMeshIndex].MeshId, meshFilter.mesh,
+                    handRenderer.enabled = true;
+
+                    meshSubsystem.GenerateMeshAsync(meshInfo.MeshId, meshFilter.mesh,
                         null, MeshVertexAttributes.Normals, result => { });
 
-                    handRenderer.enabled = true;
+                    // This hand mesh is provided pre-translated from the world origin,
+                    // so we want to ensure the mesh is "centered" at the world origin
+                    transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
                 }
             }
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
-            else if (handMeshTracker != null &&
-                handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, meshFilter.mesh) &&
-                handMeshTracker.TryLocateHandMesh(FrameTime.OnUpdate, out Pose pose))
+            else if (handMeshTracker != null
+                && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, meshFilter.mesh)
+                && handMeshTracker.TryLocateHandMesh(FrameTime.OnUpdate, out Pose pose))
             {
                 handRenderer.enabled = true;
 
