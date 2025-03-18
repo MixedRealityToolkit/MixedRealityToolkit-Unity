@@ -18,6 +18,7 @@ namespace MixedReality.Toolkit.Input
         [SerializeField]
         private MeshRenderer handRenderer;
 
+        /// <inheritdoc/>
         protected override Renderer HandRenderer => handRenderer;
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
@@ -26,9 +27,6 @@ namespace MixedReality.Toolkit.Input
 
         private Mesh neutralPoseMesh;
         private bool initializedUVs = false;
-
-        /// <inheritdoc/>
-        public override bool IsRendering => handRenderer != null && handRenderer.enabled && ShouldRenderHand();
 
         /// <inheritdoc/>
         protected override void OnEnable()
