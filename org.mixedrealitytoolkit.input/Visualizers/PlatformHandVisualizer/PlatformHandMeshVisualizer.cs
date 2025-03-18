@@ -47,7 +47,11 @@ namespace MixedReality.Toolkit.Input
                 handMeshTracker = HandNode == UnityEngine.XR.XRNode.LeftHand ? HandMeshTracker.Left : HandMeshTracker.Right;
 #endif
             }
+            else
 #endif
+            {
+                enabled = false;
+            }
         }
 
         protected void Update()
