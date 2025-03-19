@@ -25,10 +25,9 @@ namespace MixedReality.Toolkit.Input
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
         private HandMeshTracker handMeshTracker;
-#endif
-
         private Mesh neutralPoseMesh;
         private bool initializedUVs = false;
+#endif
 
         private XRMeshSubsystem meshSubsystem = null;
         private readonly List<MeshInfo> meshInfos = new List<MeshInfo>();
@@ -39,11 +38,6 @@ namespace MixedReality.Toolkit.Input
             base.OnEnable();
 
             handRenderer.enabled = false;
-
-            if (neutralPoseMesh == null)
-            {
-                neutralPoseMesh = new Mesh();
-            }
 
 #if UNITY_OPENXR_PRESENT
             if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_ANDROID_hand_mesh"))
@@ -65,6 +59,11 @@ namespace MixedReality.Toolkit.Input
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
                 Debug.Log($"Using XR_MSFT_hand_tracking_mesh for {HandNode} visualization.");
                 handMeshTracker = HandNode == XRNode.LeftHand ? HandMeshTracker.Left : HandMeshTracker.Right;
+
+                if (neutralPoseMesh == null)
+                {
+                    neutralPoseMesh = new Mesh();
+                }
 #endif
             }
             else
