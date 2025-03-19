@@ -18,7 +18,7 @@ namespace MixedReality.Toolkit.Input
     [Preserve]
     [MRTKSubsystem(
         Name = "org.mixedrealitytoolkit.unityxrhands",
-        DisplayName = "Subsystem for Unity XR Hands API",
+        DisplayName = "Unity XR Hands",
         Author = "Mixed Reality Toolkit Contributors",
         ProviderType = typeof(HandsProvider<UnityHandContainer>),
         SubsystemTypeOverride = typeof(UnityHandsSubsystem))]
