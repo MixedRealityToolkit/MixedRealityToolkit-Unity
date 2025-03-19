@@ -64,13 +64,17 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
-        const string HandTrackingPermission = "android.permission.HAND_TRACKING";
+        private const string HandTrackingPermission = "android.permission.HAND_TRACKING";
 
         void OnPermissionDenied(string permission)
         {
             if (permission == HandTrackingPermission)
             {
-                Debug.Log($"{HandTrackingPermission} denied. MRTK hand tracking may not work as expected.");
+                Debug.Log($"{HandTrackingPermission} denied or not needed on this runtime" +
+#if UNITY_OPENXR_PRESENT
+                    $" ({UnityEngine.XR.OpenXR.OpenXRRuntime.name})" +
+#endif
+                    ". MRTK hand tracking may not work as expected.");
             }
         }
 
