@@ -27,7 +27,7 @@ jobs:
 
     - name: Pack preview UPM packages
       if: github.event_name == 'push'
-      run: |
+      run: >
         ${{ github.workspace }}/Pipelines/Scripts/pack-upm.ps1
         -ProjectRoot: ${{ github.workspace }}/MixedRealityToolkit-Unity
         -OutputDirectory: ${{ github.workspace }}/build/upm/output
