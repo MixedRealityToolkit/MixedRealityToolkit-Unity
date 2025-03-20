@@ -9,6 +9,10 @@ using UnityEngine.Scripting;
 using UnityEngine.XR;
 using UnityEngine.XR.Hands;
 
+#if UNITY_ANDROID
+using UnityEngine.Android;
+#endif
+
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
@@ -37,6 +41,50 @@ namespace MixedReality.Toolkit.Input
             {
                 Debug.LogError($"Failed to register the {cinfo.Name} subsystem.");
             }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnityHandsSubsystem"/> class.
+        /// </summary>
+        public UnityHandsSubsystem()
+        {
+#if UNITY_ANDROID
+            if (!Permission.HasUserAuthorizedPermission(HandTrackingPermission))
+            {
+                PermissionCallbacks callbacks = new();
+                callbacks.PermissionDenied += OnPermissionDenied;
+                callbacks.PermissionGranted += OnPermissionGranted;
+
+                Permission.RequestUserPermission(HandTrackingPermission, callbacks);
+                Debug.Log($"MRTK is requesting {HandTrackingPermission}.");
+            }
+            else
+            {
+                Debug.Log($"{HandTrackingPermission} already granted for MRTK.");
+            }
+        }
+
+        private const string HandTrackingPermission = "android.permission.HAND_TRACKING";
+
+        void OnPermissionDenied(string permission)
+        {
+            if (permission == HandTrackingPermission)
+            {
+                Debug.Log($"{HandTrackingPermission} denied or not needed on this runtime" +
+#if UNITY_OPENXR_PRESENT
+                    $" ({UnityEngine.XR.OpenXR.OpenXRRuntime.name})" +
+#endif
+                    ". MRTK hand tracking may not work as expected.");
+            }
+        }
+
+        void OnPermissionGranted(string permission)
+        {
+            if (permission == HandTrackingPermission)
+            {
+                Debug.Log($"{HandTrackingPermission} newly granted for MRTK.");
+            }
+#endif // UNITY_ANDROID
         }
 
         private class UnityHandContainer : HandDataContainer
