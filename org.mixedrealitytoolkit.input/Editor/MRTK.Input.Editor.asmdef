@@ -7,9 +7,11 @@
         "MixedReality.Toolkit.Input",
         "Unity.XR.CoreUtils",
         "Unity.XR.CoreUtils.Editor",
+        "Unity.XR.Hands",
         "Unity.XR.Interaction.Toolkit",
         "Unity.XR.Interaction.Toolkit.Editor",
-        "Unity.XR.Management"
+        "Unity.XR.Management",
+        "Unity.XR.OpenXR"
     ],
     "includePlatforms": [
         "Editor"
@@ -45,6 +47,11 @@
             "name": "com.unity.xr.management",
             "expression": "4.2",
             "define": "UNITYXR_MANAGEMENT_PRESENT"
+        },
+        {
+            "name": "com.unity.xr.openxr",
+            "expression": "",
+            "define": "UNITY_OPENXR_PRESENT"
         }
     ],
     "noEngineReferences": false
