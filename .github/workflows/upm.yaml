@@ -1,0 +1,42 @@
+name: UPM Pack
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/*'
+  pull_request:
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Pack dev UPM packages
+      if: github.event_name == 'pull_request'
+      run: |
+        ${{ github.workspace }}/Pipelines/Scripts/pack-upm.ps1 -ProjectRoot: ${{ github.workspace }} -OutputDirectory: ${{ github.workspace }}/build/upm/output -PrereleaseTag: dev -Revision: $(Get-Date -Format "yyMMddHHmmss") -BuildNumber: ${{ github.run_number }}
+      shell: pwsh
+
+    - name: Pack preview UPM packages
+      if: github.event_name == 'push'
+      run: |
+        ${{ github.workspace }}/Pipelines/Scripts/pack-upm.ps1 -ProjectRoot: ${{ github.workspace }} -OutputDirectory: ${{ github.workspace }}/build/upm/output -PrereleaseTag: pre -Revision: $(Get-Date -Format "yyMMddHHmmss") -BuildNumber: ${{ github.run_number }}
+      shell: pwsh
+
+    - uses: actions/upload-artifact@v4
+      if: github.event_name == 'pull_request'
+      with:
+        name: packages
+        path: ${{ github.workspace }}/build/upm/output
+        retention-days: 1
+
+        
+    - uses: actions/upload-artifact@v4
+      if: github.event_name == 'push'
+      with:
+        name: packages
+        path: ${{ github.workspace }}/build/upm/output
+        retention-days: 15
