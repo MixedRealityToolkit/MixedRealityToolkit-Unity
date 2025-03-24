@@ -5,7 +5,7 @@
 .SYNOPSIS
     Updates the version of the UPM packages in the project with a release label, revision, and build number.
 .DESCRIPTION
-    The script will update the version of the package.json file with the new version label and revision number. This 
+    The script will update the version of the package.json file with the new version label and revision number. This
     script will also update the AssemblyInfo.cs file with the new version number and build number. Finally, this
     script will update the CHANGELOG.md file with the new version number and release date.
 .PARAMETER PackagesRoot
@@ -13,7 +13,7 @@
 .PARAMETER PrereleaseTag
     The tag to append after the version (e.g. "build", "internal" or "prerelease"). Leave blank for a release build.
 .PARAMETER Revision
-    The revision number for the build, to append after the release labal.
+    The revision number for the build, to append after the release label.
 .PARAMETER BuildNumber
     The fourth digit for the full version number for assembly versioning. This is the build number.
 #>
@@ -44,7 +44,7 @@ if (-not [string]::IsNullOrEmpty($Revision)) {
 }
 
 Write-Host ""
-Write-Host -ForegroundColor Green "=======================================" 
+Write-Host -ForegroundColor Green "======================================="
 Write-Host -ForegroundColor Green "Updating All Package Versions"
 Write-Host -ForegroundColor Green "======================================="
 Write-Output "Project root: $PackagesRoot"
@@ -63,7 +63,7 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
 
     # Test is package name starts with org.mixedrealitytoolkit to verify it's an MRTK package
     if ($packageName -notmatch "^org\.mixedrealitytoolkit\.\w+(\.\w+)*") {
-        return 
+        return
     }
 
     # Read the version value
@@ -73,9 +73,9 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
     $packagePath = $_.Directory
 
     Write-Host ""
-    Write-Host -ForegroundColor Green "======================================="  
+    Write-Host -ForegroundColor Green "======================================="
     Write-Host -ForegroundColor Green "Updating Package Version"
-    Write-Host -ForegroundColor Green "=======================================" 
+    Write-Host -ForegroundColor Green "======================================="
     Write-Output "Package name: $packageName"
 
     # This regex will match the a valid version is the package.json file. Some examples of valid versions are:
@@ -83,14 +83,14 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
     #   1.0.0
     #   1.0.0-pre.1
     #   1.0.0-development.pre.1
-    #   1.0.0-development  
+    #   1.0.0-development
     #
-    # In these example "development" is the prerelease tag and "pre.1" is the meta tag.    
+    # In these example "development" is the prerelease tag and "pre.1" is the meta tag.
     $validVersion = $version -match '(?<version>[0-9.]+)(-((?<prereleaseTag>[a-zA-Z0-9]*)?(?=(|\.[a-zA-Z]*\.[0-9]*)(\.[0-9]{6}\.[0-9]|$))|)((?(?<=-)|\.)(?<metaTag>[a-zA-Z][a-zA-Z0-9]*)\.(?<metaTagVersion>[1-9][0-9]*))?)?'
     if (-not $validVersion) {
         throw "Failed to parse version out of the package.json file at $($_.FullName)"
     }
-    
+
     # Get the version parts from the $Matches variable, and verify that the version key exists.
     $versionParts = $Matches
     if (-not $versionParts.ContainsKey('version')) {
@@ -102,14 +102,14 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
 
     # Get all tag parts to append to the version
     $tagParts = @()
-    
+
     # Add the new version label if it's not empty
     if (-not [string]::IsNullOrEmpty($PrereleaseTag)) {
         $tagParts += $PrereleaseTag
     }
 
     # Add the optional metatag tag and version if found in match
-    if ($versionParts.ContainsKey('metaTag') -and $versionParts.ContainsKey('metaTagVersion')) {        
+    if ($versionParts.ContainsKey('metaTag') -and $versionParts.ContainsKey('metaTagVersion')) {
         $tagParts += $versionParts['metaTag']
         $tagParts += $versionParts['metaTagVersion']
     }
@@ -125,7 +125,7 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
         $tag = "-" + $tag
     }
 
-    # Update the version with the new tag    
+    # Update the version with the new tag
     $jsonContent.version = "$version$tag"
 
     # Write json content back to the file
@@ -153,18 +153,18 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
             $assemblyInfo += "[assembly: AssemblyInformationalVersion(`"$version$tag`")]`r`n"
         }
 
-        Set-Content -Path $_ -Value $assemblyInfo -NoNewline 
+        Set-Content -Path $_ -Value $assemblyInfo -NoNewline
     }
 
     # Update the CHANGELOG.md file with the new version and release date
     Write-Output "Patching CHANGELOG.md version to [$version$tag] - $year-$month-$day"
-    Get-ChildItem -Path $packagePath/CHANGELOG.md -Recurse | ForEach-Object {            
+    Get-ChildItem -Path $packagePath/CHANGELOG.md -Recurse | ForEach-Object {
         (Get-Content -Path $_ -Raw) -Replace "## \[$version(-[a-zA-Z0-9.]+)?\] - \b\d{4}\b-\b(0[1-9]|1[0-2])\b-\b(0[1-9]|[12][0-9]|3[01])\b", "## [$version$tag] - $year-$month-$day" | Set-Content -Path $_ -NoNewline
     }
 }
 
 Write-Host ""
-Write-Host -ForegroundColor Green "=======================================" 
+Write-Host -ForegroundColor Green "======================================="
 Write-Host -ForegroundColor Green "Successfully Updated Package Versions"
 Write-Host -ForegroundColor Green "======================================="
 Write-Host ""
