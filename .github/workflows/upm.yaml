@@ -17,13 +17,13 @@ jobs:
     - name: Pack dev UPM packages
       if: github.event_name == 'pull_request'
       run: |
-        ${{ github.workspace }}/Pipelines/Scripts/pack-upm.ps1 -ProjectRoot: ${{ github.workspace }} -OutputDirectory: ${{ github.workspace }}/build/upm/output -PrereleaseTag: dev -Revision: $(Get-Date -Format "yyMMddHHmmss") -BuildNumber: ${{ github.run_number }}
+        ${{ github.workspace }}/Pipelines/Scripts/pack-upm.ps1 -ProjectRoot: ${{ github.workspace }} -OutputDirectory: ${{ github.workspace }}/build/upm/output -PrereleaseTag: dev -Revision: ${{ github.run_number }} -BuildNumber: ${{ github.run_number }}
       shell: pwsh
 
     - name: Pack preview UPM packages
       if: github.event_name == 'push'
       run: |
-        ${{ github.workspace }}/Pipelines/Scripts/pack-upm.ps1 -ProjectRoot: ${{ github.workspace }} -OutputDirectory: ${{ github.workspace }}/build/upm/output -PrereleaseTag: pre -Revision: $(Get-Date -Format "yyMMddHHmmss") -BuildNumber: ${{ github.run_number }}
+        ${{ github.workspace }}/Pipelines/Scripts/pack-upm.ps1 -ProjectRoot: ${{ github.workspace }} -OutputDirectory: ${{ github.workspace }}/build/upm/output -PrereleaseTag: pre -Revision: ${{ github.run_number }} -BuildNumber: ${{ github.run_number }}
       shell: pwsh
 
     - uses: actions/upload-artifact@v4
@@ -33,7 +33,6 @@ jobs:
         path: ${{ github.workspace }}/build/upm/output
         retention-days: 1
 
-        
     - uses: actions/upload-artifact@v4
       if: github.event_name == 'push'
       with:
