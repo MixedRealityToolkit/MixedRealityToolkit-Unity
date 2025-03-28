@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-* Subsystem no longer registers itself on non-Windows platforms.
+* Subsystems no longer register themselves on non-Windows platforms.
 
 ## [3.0.3] - 2024-04-17
 
