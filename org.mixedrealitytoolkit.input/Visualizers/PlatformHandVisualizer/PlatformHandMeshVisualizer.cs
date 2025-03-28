@@ -95,10 +95,10 @@ namespace MixedReality.Toolkit.Input
                 if (meshInfo.ChangeState == MeshChangeState.Added
                     || meshInfo.ChangeState == MeshChangeState.Updated)
                 {
-                    handRenderer.enabled = true;
-
                     meshSubsystem.GenerateMeshAsync(meshInfo.MeshId, meshFilter.mesh,
                         null, MeshVertexAttributes.Normals, result => { });
+
+                    handRenderer.enabled = true;
 
                     // This hand mesh is provided pre-translated from the world origin,
                     // so we want to ensure the mesh is "centered" at the world origin
@@ -110,6 +110,11 @@ namespace MixedReality.Toolkit.Input
                 && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, meshFilter.mesh)
                 && handMeshTracker.TryLocateHandMesh(FrameTime.OnUpdate, out Pose pose))
             {
+                // On some runtimes, the mesh is moved in its local space instead of world space,
+                // while its world space location is unchanged. In this case, we want to ensure the
+                // bounds follow the hand around by manually recalculating them.
+                meshFilter.mesh.RecalculateBounds();
+
                 handRenderer.enabled = true;
 
                 if (!initializedUVs && handMeshTracker.TryGetHandMesh(FrameTime.OnUpdate, neutralPoseMesh, HandPoseType.ReferenceOpenPalm))
