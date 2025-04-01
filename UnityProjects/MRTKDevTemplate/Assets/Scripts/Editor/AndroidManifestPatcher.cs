@@ -9,7 +9,7 @@ using UnityEngine.XR.OpenXR;
 /// <summary>
 /// Adds a required manifest entry to use the virtual keyboard on Quest.
 /// </summary>
-public class AndroidManifestPatcher : IAndroidManifestRequirementProvider
+internal class AndroidManifestPatcher : IAndroidManifestRequirementProvider
 {
     /// <inheritdoc/>
     ManifestRequirement IAndroidManifestRequirementProvider.ProvideManifestRequirement() => new()
