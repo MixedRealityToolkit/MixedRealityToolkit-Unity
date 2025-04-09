@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -102,7 +103,8 @@ namespace MixedReality.Toolkit.Input
 
                     // This hand mesh is provided pre-translated from the world origin,
                     // so we want to ensure the mesh is "centered" at the world origin
-                    transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                    PlayspaceUtilities.XROrigin.CameraFloorOffsetObject.transform.GetPositionAndRotation(out Vector3 position, out Quaternion rotation);
+                    transform.SetPositionAndRotation(position, rotation);
                 }
             }
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
@@ -123,7 +125,7 @@ namespace MixedReality.Toolkit.Input
                     initializedUVs = true;
                 }
 
-                transform.SetPositionAndRotation(pose.position, pose.rotation);
+                transform.SetWorldPose(PlayspaceUtilities.TransformPose(pose));
             }
 #endif
             else
