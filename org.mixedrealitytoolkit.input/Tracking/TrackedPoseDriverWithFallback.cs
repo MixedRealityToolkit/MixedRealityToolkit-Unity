@@ -127,13 +127,12 @@ namespace MixedReality.Toolkit.Input
             var positionValid = ignoreTrackingState || (currentFallbackTrackingState & InputTrackingState.Position) != 0;
             var rotationValid = ignoreTrackingState || (currentFallbackTrackingState & InputTrackingState.Rotation) != 0;
 
-#if HAS_SET_LOCAL_POSITION_AND_ROTATION
             if (trackingType == TrackingType.RotationAndPosition && rotationValid && positionValid)
             {
                 transform.SetLocalPositionAndRotation(newPosition, newRotation);
                 return;
             }
-#endif
+
             if (rotationValid &&
                 (trackingType == TrackingType.RotationAndPosition ||
                  trackingType == TrackingType.RotationOnly))
