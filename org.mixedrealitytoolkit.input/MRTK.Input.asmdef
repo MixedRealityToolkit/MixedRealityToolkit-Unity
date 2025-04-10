@@ -46,21 +46,6 @@
             "define": "UNITYXR_MANAGEMENT_PRESENT"
         },
         {
-            "name": "Unity",
-            "expression": "[2021.3.11,2022.1)",
-            "define": "HAS_SET_LOCAL_POSITION_AND_ROTATION"
-        },
-        {
-            "name": "Unity",
-            "expression": "[2022.1.19,2022.2)",
-            "define": "HAS_SET_LOCAL_POSITION_AND_ROTATION"
-        },
-        {
-            "name": "Unity",
-            "expression": "2022.2",
-            "define": "HAS_SET_LOCAL_POSITION_AND_ROTATION"
-        },
-        {
             "name": "com.unity.xr.openxr",
             "expression": "",
             "define": "UNITY_OPENXR_PRESENT"
