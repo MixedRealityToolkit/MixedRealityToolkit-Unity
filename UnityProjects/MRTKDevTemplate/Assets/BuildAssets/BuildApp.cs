@@ -176,6 +176,10 @@ namespace MixedReality.Toolkit.Examples.Build
         [MenuItem("Mixed Reality/MRTK3/Examples/Unpatch debug hand visualization...", true)]
         private static bool ValidateUnpatchDebugHands() => AreHandsPatched();
 
+        /// <summary>
+        /// Checks both hand prefabs for their current <see cref="XRBaseController.modelPrefab"/>s.
+        /// </summary>
+        /// <returns>Whether the left and right hand <see cref="XRBaseController.modelPrefab"/>s have the debugging visualization prefabs set.</returns>
         private static bool AreHandsPatched()
         {
             bool isPatched = false;
@@ -203,6 +207,11 @@ namespace MixedReality.Toolkit.Examples.Build
             return isPatched;
         }
 
+        /// <summary>
+        /// Updates both the left and right hand prefabs' <see cref="XRBaseController.modelPrefab"/> with the requested prefabs.
+        /// </summary>
+        /// <param name="newLeftGuid">The new left hand prefab's GUID.</param>
+        /// <param name="newRightGuid">The new right hand prefab's GUID.</param>
         private static void PatchHands(string newLeftGuid, string newRightGuid)
         {
             string leftHandPath = AssetDatabase.GUIDToAssetPath(LeftHandControllerGuid);
