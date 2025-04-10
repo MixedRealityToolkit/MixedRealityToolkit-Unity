@@ -1,15 +1,13 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-// Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
-#pragma warning disable CS1591
-
 using System;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace MixedReality.Toolkit.Examples.Build
 {
@@ -18,7 +16,7 @@ namespace MixedReality.Toolkit.Examples.Build
     /// </summary>
     public static class BuildApp
     {
-        private static string[] scenes = 
+        private static string[] scenes =
         {
             "Assets/Scenes/BoundsControlExamples.unity",
             "Assets/Scenes/CanvasExample.unity",
@@ -151,7 +149,82 @@ namespace MixedReality.Toolkit.Examples.Build
                     case "-buildOutput":
                         buildPath = arguments[++i];
                         break;
+                    case "-debug":
+                        // Add hand joints to hand visualization for debugging purposes
+                        PatchDebugHands();
+                        break;
                 }
+            }
+        }
+
+        private const string LeftHandControllerGuid = "c89f12cb641c27e47b7b71af1d6518a5";
+        private const string RightHandControllerGuid = "82333e6e543cb7e4dbd5b1d47aff3f58";
+        private const string LeftHandDebugPrefabGuid = "f5341909e57eaa648a189b24eded9bc4";
+        private const string RightHandDebugPrefabGuid = "5a0dd0b0add2f7c4db8547a048d8f201";
+        private const string LeftHandNormalPrefabGuid = "2b468cc4fe6d2b44ebc53b958b38b91a";
+        private const string RightHandNormalPrefabGuid = "da93d751ddc0f64468dfc02f18d02d00";
+
+        [MenuItem("Mixed Reality/MRTK3/Examples/Patch debug hand visualization...")]
+        private static void PatchDebugHands() => PatchHands(newLeftGuid: LeftHandDebugPrefabGuid, newRightGuid: RightHandDebugPrefabGuid);
+
+        [MenuItem("Mixed Reality/MRTK3/Examples/Patch debug hand visualization...", true)]
+        private static bool ValidatePatchDebugHands() => !AreHandsPatched();
+
+        [MenuItem("Mixed Reality/MRTK3/Examples/Unpatch debug hand visualization...")]
+        private static void UnpatchDebugHands() => PatchHands(newLeftGuid: LeftHandNormalPrefabGuid, newRightGuid: RightHandNormalPrefabGuid);
+
+        [MenuItem("Mixed Reality/MRTK3/Examples/Unpatch debug hand visualization...", true)]
+        private static bool ValidateUnpatchDebugHands() => AreHandsPatched();
+
+        private static bool AreHandsPatched()
+        {
+            bool isPatched = false;
+
+            string leftHandPath = AssetDatabase.GUIDToAssetPath(LeftHandControllerGuid);
+            {
+                GameObject leftHandController = PrefabUtility.LoadPrefabContents(leftHandPath);
+                if (leftHandController != null && leftHandController.TryGetComponent(out XRBaseController xrController))
+                {
+                    isPatched |= xrController.modelPrefab == AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(LeftHandDebugPrefabGuid)).transform;
+                }
+                PrefabUtility.UnloadPrefabContents(leftHandController);
+            }
+
+            string rightHandPath = AssetDatabase.GUIDToAssetPath(RightHandControllerGuid);
+            {
+                GameObject rightHandController = PrefabUtility.LoadPrefabContents(rightHandPath);
+                if (rightHandController != null && rightHandController.TryGetComponent(out XRBaseController xrController))
+                {
+                    isPatched |= xrController.modelPrefab == AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(RightHandDebugPrefabGuid)).transform;
+                }
+                PrefabUtility.UnloadPrefabContents(rightHandController);
+            }
+
+            return isPatched;
+        }
+
+        private static void PatchHands(string newLeftGuid, string newRightGuid)
+        {
+            string leftHandPath = AssetDatabase.GUIDToAssetPath(LeftHandControllerGuid);
+            {
+                GameObject leftHandController = PrefabUtility.LoadPrefabContents(leftHandPath);
+                if (leftHandController != null && leftHandController.TryGetComponent(out XRBaseController leftXRController))
+                {
+                    leftXRController.modelPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(newLeftGuid)).transform;
+                    PrefabUtility.SaveAsPrefabAsset(leftHandController, leftHandPath);
+                }
+                PrefabUtility.UnloadPrefabContents(leftHandController);
+            }
+
+            string rightHandPath = AssetDatabase.GUIDToAssetPath(RightHandControllerGuid);
+            {
+                GameObject rightHandController = PrefabUtility.LoadPrefabContents(rightHandPath);
+                if (rightHandController != null && rightHandController.TryGetComponent(out XRBaseController rightXRController))
+                {
+                    rightXRController.modelPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(newRightGuid)).transform;
+                    PrefabUtility.SaveAsPrefabAsset(rightHandController, rightHandPath);
+                }
+                PrefabUtility.UnloadPrefabContents(rightHandController);
             }
         }
 
@@ -162,4 +235,3 @@ namespace MixedReality.Toolkit.Examples.Build
         }
     }
 }
-#pragma warning restore CS1591
