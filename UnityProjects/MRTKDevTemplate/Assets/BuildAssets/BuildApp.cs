@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using MixedReality.Toolkit.Input;
 using System;
 using System.IO;
 using System.Linq;
@@ -157,83 +158,101 @@ namespace MixedReality.Toolkit.Examples.Build
             }
         }
 
-        private const string LeftHandControllerGuid = "c89f12cb641c27e47b7b71af1d6518a5";
-        private const string RightHandControllerGuid = "82333e6e543cb7e4dbd5b1d47aff3f58";
-        private const string LeftHandDebugPrefabGuid = "f5341909e57eaa648a189b24eded9bc4";
-        private const string RightHandDebugPrefabGuid = "5a0dd0b0add2f7c4db8547a048d8f201";
-        private const string LeftHandNormalPrefabGuid = "2b468cc4fe6d2b44ebc53b958b38b91a";
-        private const string RightHandNormalPrefabGuid = "da93d751ddc0f64468dfc02f18d02d00";
+        private const string LeftHandVisualizerGuid = "2b468cc4fe6d2b44ebc53b958b38b91a";
+        private const string RightHandVisualizerGuid = "da93d751ddc0f64468dfc02f18d02d00";
+        private const string HandJointMaterialGuid = "f115122e8379c044faecfec013fda057";
 
         [MenuItem("Mixed Reality/MRTK3/Examples/Patch debug hand visualization...")]
-        private static void PatchDebugHands() => PatchHands(newLeftGuid: LeftHandDebugPrefabGuid, newRightGuid: RightHandDebugPrefabGuid);
+        private static void PatchDebugHands() => PatchHands(true);
 
         [MenuItem("Mixed Reality/MRTK3/Examples/Patch debug hand visualization...", true)]
         private static bool ValidatePatchDebugHands() => !AreHandsPatched();
 
         [MenuItem("Mixed Reality/MRTK3/Examples/Unpatch debug hand visualization...")]
-        private static void UnpatchDebugHands() => PatchHands(newLeftGuid: LeftHandNormalPrefabGuid, newRightGuid: RightHandNormalPrefabGuid);
+        private static void UnpatchDebugHands() => PatchHands(false);
 
         [MenuItem("Mixed Reality/MRTK3/Examples/Unpatch debug hand visualization...", true)]
         private static bool ValidateUnpatchDebugHands() => AreHandsPatched();
 
         /// <summary>
-        /// Checks both hand prefabs for their current <see cref="XRBaseController.modelPrefab"/>s.
+        /// Checks both hand prefabs for a <see cref="HandJointVisualizer"/>.
         /// </summary>
-        /// <returns>Whether the left and right hand <see cref="XRBaseController.modelPrefab"/>s have the debugging visualization prefabs set.</returns>
+        /// <returns>Whether the left and right hands both have <see cref="HandJointVisualizer"/> scripts.</returns>
         private static bool AreHandsPatched()
         {
-            bool isPatched = false;
+            bool isPatched = true;
 
-            string leftHandPath = AssetDatabase.GUIDToAssetPath(LeftHandControllerGuid);
+            string rightHandPath = AssetDatabase.GUIDToAssetPath(RightHandVisualizerGuid);
             {
-                GameObject leftHandController = PrefabUtility.LoadPrefabContents(leftHandPath);
-                if (leftHandController != null && leftHandController.TryGetComponent(out XRBaseController xrController))
+                GameObject rightHandVisualizer = PrefabUtility.LoadPrefabContents(rightHandPath);
+                if (rightHandVisualizer != null)
                 {
-                    isPatched |= xrController.modelPrefab == AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(LeftHandDebugPrefabGuid)).transform;
+                    isPatched &= rightHandVisualizer.TryGetComponent<HandJointVisualizer>(out _);
                 }
-                PrefabUtility.UnloadPrefabContents(leftHandController);
+                PrefabUtility.UnloadPrefabContents(rightHandVisualizer);
             }
 
-            string rightHandPath = AssetDatabase.GUIDToAssetPath(RightHandControllerGuid);
+            string leftHandPath = AssetDatabase.GUIDToAssetPath(LeftHandVisualizerGuid);
             {
-                GameObject rightHandController = PrefabUtility.LoadPrefabContents(rightHandPath);
-                if (rightHandController != null && rightHandController.TryGetComponent(out XRBaseController xrController))
+                GameObject leftHandVisualizer = PrefabUtility.LoadPrefabContents(leftHandPath);
+                if (leftHandVisualizer != null)
                 {
-                    isPatched |= xrController.modelPrefab == AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(RightHandDebugPrefabGuid)).transform;
+                    isPatched &= leftHandVisualizer.TryGetComponent<HandJointVisualizer>(out _);
                 }
-                PrefabUtility.UnloadPrefabContents(rightHandController);
+                PrefabUtility.UnloadPrefabContents(leftHandVisualizer);
             }
 
             return isPatched;
         }
 
         /// <summary>
-        /// Updates both the left and right hand prefabs' <see cref="XRBaseController.modelPrefab"/> with the requested prefabs.
+        /// Updates both the left and right hand prefabs with <see cref="HandJointVisualizer"/> scripts.
         /// </summary>
-        /// <param name="newLeftGuid">The new left hand prefab's GUID.</param>
-        /// <param name="newRightGuid">The new right hand prefab's GUID.</param>
-        private static void PatchHands(string newLeftGuid, string newRightGuid)
+        /// <param name="addDebug">If <see langword="true"/>, <see cref="HandJointVisualizer"/> will be added. If <see langword="false"/>, it'll be removed.</param>
+        private static void PatchHands(bool addDebug)
         {
-            string leftHandPath = AssetDatabase.GUIDToAssetPath(LeftHandControllerGuid);
+            string rightHandPath = AssetDatabase.GUIDToAssetPath(RightHandVisualizerGuid);
             {
-                GameObject leftHandController = PrefabUtility.LoadPrefabContents(leftHandPath);
-                if (leftHandController != null && leftHandController.TryGetComponent(out XRBaseController leftXRController))
+                GameObject rightHandVisualizer = PrefabUtility.LoadPrefabContents(rightHandPath);
+                if (rightHandVisualizer != null)
                 {
-                    leftXRController.modelPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(newLeftGuid)).transform;
-                    PrefabUtility.SaveAsPrefabAsset(leftHandController, leftHandPath);
+                    if (addDebug)
+                    {
+                        HandJointVisualizer visualizer = rightHandVisualizer.EnsureComponent<HandJointVisualizer>();
+                        visualizer.HandNode = UnityEngine.XR.XRNode.RightHand;
+                        visualizer.JointMaterial = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(HandJointMaterialGuid));
+                        visualizer.JointMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+                    }
+                    else if (rightHandVisualizer.TryGetComponent(out HandJointVisualizer handJointVisualizer))
+                    {
+                        UnityEngine.Object.DestroyImmediate(handJointVisualizer);
+                    }
+                    PrefabUtility.SaveAsPrefabAsset(rightHandVisualizer, rightHandPath);
                 }
-                PrefabUtility.UnloadPrefabContents(leftHandController);
+                PrefabUtility.UnloadPrefabContents(rightHandVisualizer);
             }
 
-            string rightHandPath = AssetDatabase.GUIDToAssetPath(RightHandControllerGuid);
+            string leftHandPath = AssetDatabase.GUIDToAssetPath(LeftHandVisualizerGuid);
             {
-                GameObject rightHandController = PrefabUtility.LoadPrefabContents(rightHandPath);
-                if (rightHandController != null && rightHandController.TryGetComponent(out XRBaseController rightXRController))
+                GameObject leftHandVisualizer = PrefabUtility.LoadPrefabContents(leftHandPath);
+                if (leftHandVisualizer != null)
                 {
-                    rightXRController.modelPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(newRightGuid)).transform;
-                    PrefabUtility.SaveAsPrefabAsset(rightHandController, rightHandPath);
+                    if (addDebug)
+                    {
+                        HandJointVisualizer visualizer = leftHandVisualizer.EnsureComponent<HandJointVisualizer>();
+                        visualizer.HandNode = UnityEngine.XR.XRNode.LeftHand;
+                        visualizer.JointMaterial = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(HandJointMaterialGuid));
+                        visualizer.JointMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+                    }
+#if UNITY_6000_0_OR_NEWER
+                    else
+                    {
+                        PrefabUtility.RemoveUnusedOverrides(new[] { leftHandVisualizer }, UnityEditor.InteractionMode.UserAction);
+                    }
+#endif
+                    PrefabUtility.SaveAsPrefabAsset(leftHandVisualizer, leftHandPath);
                 }
-                PrefabUtility.UnloadPrefabContents(rightHandController);
+                PrefabUtility.UnloadPrefabContents(leftHandVisualizer);
             }
         }
 
