@@ -16,6 +16,7 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Inverted Shell)" {
         _OutlineThickness ("_OutlineThickness", Range(0.0,0.00003)) = 0.000012
         _HandThickness ("_HandThickness", Range(-0.0001,0.0001)) = 0.0
         [PerRendererData]_PinchAmount ("Pinch Amount", Float) = 0
+        [PerRendererData]_WristPosition ("Wrist Position", Vector) = (0,0,0,1)
     }
 
     SubShader {
@@ -48,6 +49,7 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Inverted Shell)" {
                 float4 vertex : POSITION;
                 float4 color : COLOR;
                 float3 normal : NORMAL;
+                float3 worldPos : TEXCOORD1;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -61,16 +63,19 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Inverted Shell)" {
                 UNITY_INITIALIZE_OUTPUT(v2f, o);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+                float4 objectPos = v.vertex + v.normal * (_HandThickness + _OutlineThickness);
                 o.normal = UnityObjectToWorldNormal(v.normal);
-                o.vertex = UnityObjectToClipPos(v.vertex + v.normal * (_HandThickness + _OutlineThickness));
+                o.vertex = UnityObjectToClipPos(objectPos);
                 o.color = v.color;
-                
+                o.worldPos = mul(unity_ObjectToWorld, objectPos).xyz;
+
                 return o;
             }
 
             uniform float4 _OutlineColor;
             uniform float4 _OutlineColorPinching;
             uniform float _PinchAmount;
+            uniform float4 _WristPosition;
 
             fixed4 frag(v2f i) : SV_Target
             {
@@ -81,7 +86,9 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Inverted Shell)" {
 
                 // Fade the entire result based on the red channel. This is used to fade the hand
                 // out by the wrist, so the abrupt edge of the hand model is not visible.
-                return float4(blendedOutlineColor.r, blendedOutlineColor.g, blendedOutlineColor.b, blendedOutlineColor.a * i.color.r);
+                return float4(blendedOutlineColor.r, blendedOutlineColor.g, blendedOutlineColor.b,
+                    blendedOutlineColor.a *
+                    ((_WristPosition.w * i.color.r) + ((1 - _WristPosition.w) * clamp((distance(i.worldPos, _WristPosition) - 0.025) * 50, 0, 1))));
             }
 
             ENDCG
