@@ -148,7 +148,45 @@ namespace MixedReality.Toolkit.Input
         }
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
-        private Vector2[] InitializeUVs(Vector3[] neutralPoseVertices)
+        private static Color32[] InitializeColors(Vector3[] neutralPoseVertices)
+        {
+            if (neutralPoseVertices?.Length == 0)
+            {
+                Debug.LogError("Loaded 0 vertices for neutralPoseVertices");
+                return System.Array.Empty<Color32>();
+            }
+
+            float minY = neutralPoseVertices[0].y;
+            float maxY = minY;
+
+            for (int ix = 1; ix < neutralPoseVertices.Length; ix++)
+            {
+                Vector3 p = neutralPoseVertices[ix];
+
+                if (p.y < minY)
+                {
+                    minY = p.y;
+                }
+                else if (p.y > maxY)
+                {
+                    maxY = p.y;
+                }
+            }
+
+            float scale = 1.0f / (maxY - minY);
+
+            Color32[] colors = new Color32[neutralPoseVertices.Length];
+
+            for (int i = 0; i < neutralPoseVertices.Length; i++)
+            {
+                Debug.Log($"{neutralPoseVertices[i].y} | {neutralPoseVertices[i].y * scale} | {Mathf.Clamp01(((neutralPoseVertices[i].y * scale) - 0.1f) * 10f)}");
+                //colors[i] = new Color32(164, 25, 28, 255);
+                colors[i] = Color32.Lerp(Color.black, new Color32(164, 25, 28, 255), Mathf.Clamp01(((neutralPoseVertices[i].y * scale) - 0.1f) * 10f));
+            }
+
+            return colors;
+        }
+
         {
             if (neutralPoseVertices?.Length == 0)
             {
