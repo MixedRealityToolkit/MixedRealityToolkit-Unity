@@ -110,8 +110,6 @@ namespace MixedReality.Toolkit.Input
                 $"HandVisualizer has an invalid XRNode ({handNode})!");
         }
 
-
-
         /// <summary>
         /// A Unity event function that is called when the script component has been disabled.
         /// </summary>
