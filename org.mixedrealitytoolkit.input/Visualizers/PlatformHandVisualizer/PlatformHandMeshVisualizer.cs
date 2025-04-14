@@ -33,12 +33,16 @@ namespace MixedReality.Toolkit.Input
         private XRMeshSubsystem meshSubsystem = null;
         private readonly List<MeshInfo> meshInfos = new List<MeshInfo>();
 
+        // The property block used to modify the wrist position property on the material
+        private MaterialPropertyBlock propertyBlock = null;
+
         /// <inheritdoc/>
         protected override void OnEnable()
         {
             base.OnEnable();
 
             handRenderer.enabled = false;
+            propertyBlock ??= new MaterialPropertyBlock();
 
 #if UNITY_OPENXR_PRESENT
             if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_ANDROID_hand_mesh"))
@@ -145,6 +149,18 @@ namespace MixedReality.Toolkit.Input
         {
             // If we're missing anything, don't render the hand.
             return meshFilter != null && handRenderer != null && base.ShouldRenderHand();
+        }
+
+        protected override void UpdateHandMaterial()
+        {
+            base.UpdateHandMaterial();
+
+            if (XRSubsystemHelpers.HandsAggregator?.TryGetJoint(TrackedHandJoint.Wrist, HandNode, out HandJointPose pose) ?? false)
+            {
+                HandRenderer.GetPropertyBlock(propertyBlock);
+                propertyBlock.SetVector("_WristPosition", pose.Position);
+                HandRenderer.SetPropertyBlock(propertyBlock);
+            }
         }
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
