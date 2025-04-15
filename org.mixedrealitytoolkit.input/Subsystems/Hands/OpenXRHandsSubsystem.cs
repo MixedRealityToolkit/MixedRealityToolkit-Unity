@@ -22,7 +22,7 @@ namespace MixedReality.Toolkit.Input
     [Preserve]
     [MRTKSubsystem(
         Name = "org.mixedrealitytoolkit.openxrhands",
-        DisplayName = "Subsystem for OpenXR Hands API",
+        DisplayName = "Mixed Reality OpenXR Plugin Hands",
         Author = "Mixed Reality Toolkit Contributors",
         ProviderType = typeof(HandsProvider<OpenXRHandContainer>),
         SubsystemTypeOverride = typeof(OpenXRHandsSubsystem),
