@@ -221,8 +221,7 @@ function IsNamespace {
         [string]$Line
     )
     process {
-        if (($Line -match "^namespace\sMicrosoft\.MixedReality\.Toolkit") -or
-            ($Line -match "^namespace\sMicrosoft\.Windows\.MixedReality")) {
+        if ($Line -match "^namespace\sMixedReality\.Toolkit") {
             $true;
         }
         $false;
@@ -247,7 +246,8 @@ function GetProjectRelativePath {
         $normalizedFileName = $FileName.Replace("\", "/")
         if ($Directory.EndsWith("/")) {
             $substringLength = $Directory.Length
-        } else {
+        }
+        else {
             $substringLength = $Directory.Length + 1
         }
         $assetFileName = $normalizedFileName.SubString($substringLength)
