@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: RiggedHand-InvertedShell
   m_Shader: {fileID: 4800000, guid: 1e78bf4fa2e9ae0459a4b1836f7a74b5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -17,6 +19,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -30,6 +33,7 @@ Material:
     - _Displacement_: 0
     - _Enable_: 1
     - _Exponent_: 2.16
+    - _FadeSphereRadius: 0.025
     - _Fade_In_End_: 0
     - _Fade_In_Start_: 0
     - _HandThickness: 0
@@ -50,4 +54,5 @@ Material:
     - _HandColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 0.7137255}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 0.03529412}
     - _OutlineColorPinching: {r: 1, g: 1, b: 1, a: 1}
+    - _WristPosition: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
