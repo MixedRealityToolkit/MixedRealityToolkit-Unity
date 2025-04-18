@@ -15,8 +15,8 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Main)" {
         _HandThickness ("Hand Thickness", Range(-0.0001,0.0001)) = 0.0
         _IlluminationExponent ("Illumination Exponent", Range(0,10)) = 1
         _IlluminationAmount ("Illumination Amount", Range(0,10)) = 1
-        _FadeSphereRadius ("Fade Sphere Radius", Range(0,1)) = 0.025
-        [PerRendererData]_WristPosition ("Wrist Position", Vector) = (0,0,0,1)
+        [PerRendererData]_FadeSphereRadius ("Fade Sphere Radius", Range(0,1)) = 0.05
+        [PerRendererData]_FadeSpherePosition ("Fade Sphere Position", Vector) = (0,0,0,1)
     }
 
     SubShader {
@@ -82,7 +82,7 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Main)" {
             uniform float _IlluminationExponent;
             uniform float4 _HandColor;
             uniform float _FadeSphereRadius;
-            uniform float4 _WristPosition;
+            uniform float4 _FadeSpherePosition;
 
             fixed4 frag(v2f i) : SV_Target
             {
@@ -92,7 +92,7 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Main)" {
                 // Blend base color with the illumination/spotlight.
                 float4 hand = _HandColor + pow(spotlight, _IlluminationExponent) * _IlluminationAmount;
                 return hand * float4(1,1,1,
-                    ((_WristPosition.w * i.color.r) + ((1 - _WristPosition.w) * smoothstep(0.0, _FadeSphereRadius, distance(i.worldPos, _WristPosition) - _FadeSphereRadius))));
+                    ((_FadeSpherePosition.w * i.color.r) + ((1 - _FadeSpherePosition.w) * smoothstep(_FadeSphereRadius, _FadeSphereRadius + 0.025, distance(i.worldPos, _FadeSpherePosition)))));
             }
 
             ENDCG
