@@ -15,9 +15,9 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Inverted Shell)" {
         _OutlineColorPinching ("Outline Color (Pinching)", Color) = (1,1,1,1)
         _OutlineThickness ("Outline Thickness", Range(0.0,0.00003)) = 0.000012
         _HandThickness ("Hand Thickness", Range(-0.0001,0.0001)) = 0.0
-        _FadeSphereRadius ("Fade Sphere Radius", Range(0,1)) = 0.025
         [PerRendererData]_PinchAmount ("Pinch Amount", Float) = 0
-        [PerRendererData]_WristPosition ("Wrist Position", Vector) = (0,0,0,1)
+        [PerRendererData]_FadeSphereRadius ("Fade Sphere Radius", Range(0,1)) = 0.05
+        [PerRendererData]_FadeSpherePosition ("Fade Sphere Position", Vector) = (0,0,0,1)
     }
 
     SubShader {
@@ -77,7 +77,7 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Inverted Shell)" {
             uniform float4 _OutlineColorPinching;
             uniform float _PinchAmount;
             uniform float _FadeSphereRadius;
-            uniform float4 _WristPosition;
+            uniform float4 _FadeSpherePosition;
 
             fixed4 frag(v2f i) : SV_Target
             {
@@ -90,7 +90,7 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Inverted Shell)" {
                 // out by the wrist, so the abrupt edge of the hand model is not visible.
                 return float4(blendedOutlineColor.r, blendedOutlineColor.g, blendedOutlineColor.b,
                     blendedOutlineColor.a *
-                    ((_WristPosition.w * i.color.r) + ((1 - _WristPosition.w) * smoothstep(0.0, _FadeSphereRadius, distance(i.worldPos, _WristPosition) - _FadeSphereRadius))));
+                    ((_FadeSpherePosition.w * i.color.r) + ((1 - _FadeSpherePosition.w) * smoothstep(0.5 * _FadeSphereRadius, _FadeSphereRadius, distance(i.worldPos, _FadeSpherePosition)))));
             }
 
             ENDCG
