@@ -822,6 +822,7 @@ MonoBehaviour:
     m_ManualQueueTargetFrame: 0
   meshFilter: {fileID: 3936565761691908697}
   handRenderer: {fileID: 769216864695519206}
+  fadeDistance: 0.025
 --- !u!1 &5839269735351241340
 GameObject:
   m_ObjectHideFlags: 0
