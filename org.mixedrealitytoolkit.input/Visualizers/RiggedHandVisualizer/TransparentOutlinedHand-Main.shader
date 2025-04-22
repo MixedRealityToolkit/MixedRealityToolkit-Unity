@@ -12,7 +12,7 @@
 Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Main)" {
     Properties {
         _HandColor ("Hand Color", Color) = (1,1,1,1)
-        _HandThickness ("Hand Thickness", Range(-0.0001,0.0001)) = 0.0
+        _HandThickness ("Hand Thickness", Range(-0.01,0.01)) = 0.0
         _IlluminationExponent ("Illumination Exponent", Range(0,10)) = 1
         _IlluminationAmount ("Illumination Amount", Range(0,10)) = 1
         [PerRendererData]_FadeSphereCenter ("Fade Sphere Center", Vector) = (0,0,0,1)
@@ -62,7 +62,7 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Main)" {
                 UNITY_INITIALIZE_OUTPUT(v2f, o);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-                float4 objectPos = v.vertex + v.normal * _HandThickness;
+                float4 objectPos = v.vertex + normalize(v.normal) * _HandThickness;
                 o.normal = UnityObjectToWorldNormal(v.normal);
                 o.vertex = UnityObjectToClipPos(objectPos);
                 o.color = v.color;

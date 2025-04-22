@@ -44,7 +44,7 @@ Material:
     - _Metallic: 0
     - _OutlineExponent: 1
     - _OutlineSmoothing: 0.05
-    - _OutlineThickness: 0.00001337
+    - _OutlineThickness: 0.0012
     - _OutlineThreshold: 0.474
     - _PinchAmount: 0
     - _Radius_: 0.09
