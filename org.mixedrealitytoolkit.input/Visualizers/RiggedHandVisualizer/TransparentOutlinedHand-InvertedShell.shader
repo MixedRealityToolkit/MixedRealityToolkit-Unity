@@ -13,8 +13,8 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Inverted Shell)" {
     Properties {
         _OutlineColor ("Outline Color", Color) = (1,1,1,1)
         _OutlineColorPinching ("Outline Color (Pinching)", Color) = (1,1,1,1)
-        _OutlineThickness ("Outline Thickness", Range(0.0,0.00003)) = 0.000012
-        _HandThickness ("Hand Thickness", Range(-0.0001,0.0001)) = 0.0
+        _OutlineThickness ("Outline Thickness", Range(0.0,0.003)) = 0.0012
+        _HandThickness ("Hand Thickness", Range(-0.01,0.01)) = 0.0
         [PerRendererData]_PinchAmount ("Pinch Amount", Float) = 0
         [PerRendererData]_FadeSphereCenter ("Fade Sphere Center", Vector) = (0,0,0,1)
         [PerRendererData]_FadeSphereRadius ("Fade Sphere Radius", Range(0,1)) = 0.05
@@ -65,7 +65,7 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Inverted Shell)" {
                 UNITY_INITIALIZE_OUTPUT(v2f, o);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-                float4 objectPos = v.vertex + v.normal * (_HandThickness + _OutlineThickness);
+                float4 objectPos = v.vertex + normalize(v.normal) * (_HandThickness + _OutlineThickness);
                 o.normal = UnityObjectToWorldNormal(v.normal);
                 o.vertex = UnityObjectToClipPos(objectPos);
                 o.color = v.color;
