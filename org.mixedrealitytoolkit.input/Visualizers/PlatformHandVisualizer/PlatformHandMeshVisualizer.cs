@@ -21,6 +21,9 @@ namespace MixedReality.Toolkit.Input
         [SerializeField]
         private MeshRenderer handRenderer;
 
+        [SerializeField, Range(0, 1)]
+        private float fadeDistance = 0.025f;
+
         /// <inheritdoc/>
         protected override Renderer HandRenderer => handRenderer;
 
@@ -155,10 +158,15 @@ namespace MixedReality.Toolkit.Input
         {
             base.UpdateHandMaterial();
 
-            if (XRSubsystemHelpers.HandsAggregator?.TryGetJoint(TrackedHandJoint.Wrist, HandNode, out HandJointPose pose) ?? false)
+            if ((XRSubsystemHelpers.HandsAggregator?.TryGetJoint(TrackedHandJoint.Wrist, HandNode, out HandJointPose wristPose) ?? false)
+                && XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.LittleMetacarpal, HandNode, out HandJointPose littleMetaPose)
+                && XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.ThumbMetacarpal, HandNode, out HandJointPose thumbMetaPose))
             {
                 HandRenderer.GetPropertyBlock(propertyBlock);
-                propertyBlock.SetVector("_WristPosition", pose.Position);
+                float radius = Vector3.Distance(littleMetaPose.Position, thumbMetaPose.Position);
+                propertyBlock.SetVector("_FadeSphereCenter", wristPose.Position - (radius * 0.5f * wristPose.Forward));
+                propertyBlock.SetFloat("_FadeSphereRadius", radius);
+                propertyBlock.SetFloat("_FadeDistance", fadeDistance);
                 HandRenderer.SetPropertyBlock(propertyBlock);
             }
         }
