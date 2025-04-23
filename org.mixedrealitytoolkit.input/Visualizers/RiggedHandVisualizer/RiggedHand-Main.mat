@@ -33,8 +33,8 @@ Material:
     - _Displacement_: 0
     - _Enable_: 1
     - _Exponent_: 2.16
-    - _FadeDistance: 0.015
-    - _FadeSphereRadius: 0.025
+    - _FadeDistance: 0.025
+    - _FadeSphereRadius: 0.05
     - _Fade_In_End_: 0
     - _Fade_In_Start_: 0
     - _HandThickness: 0
