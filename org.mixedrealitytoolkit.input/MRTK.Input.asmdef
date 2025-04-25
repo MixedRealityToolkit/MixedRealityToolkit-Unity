@@ -9,7 +9,8 @@
         "Unity.XR.CoreUtils",
         "Unity.XR.Hands",
         "Unity.XR.Interaction.Toolkit",
-        "Unity.XR.Management"
+        "Unity.XR.Management",
+        "Unity.XR.OpenXR"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -58,6 +59,11 @@
             "name": "Unity",
             "expression": "2022.2",
             "define": "HAS_SET_LOCAL_POSITION_AND_ROTATION"
+        },
+        {
+            "name": "com.unity.xr.openxr",
+            "expression": "",
+            "define": "UNITY_OPENXR_PRESENT"
         }
     ],
     "noEngineReferences": false
