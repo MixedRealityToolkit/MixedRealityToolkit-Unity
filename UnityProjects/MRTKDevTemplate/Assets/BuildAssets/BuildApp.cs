@@ -8,7 +8,6 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
 namespace MixedReality.Toolkit.Examples.Build
 {
@@ -158,6 +157,14 @@ namespace MixedReality.Toolkit.Examples.Build
             }
         }
 
+        private static string[] SplitSceneList(string sceneList)
+        {
+            return (from scene in sceneList.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    select scene.Trim()).ToArray();
+        }
+
+        #region Hand Debug Patching
+
         private const string LeftHandVisualizerGuid = "2b468cc4fe6d2b44ebc53b958b38b91a";
         private const string RightHandVisualizerGuid = "da93d751ddc0f64468dfc02f18d02d00";
         private const string HandJointMaterialGuid = "f115122e8379c044faecfec013fda057";
@@ -256,10 +263,6 @@ namespace MixedReality.Toolkit.Examples.Build
             }
         }
 
-        private static string[] SplitSceneList(string sceneList)
-        {
-            return (from scene in sceneList.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    select scene.Trim()).ToArray();
-        }
+        #endregion Hand Debug Patching
     }
 }
