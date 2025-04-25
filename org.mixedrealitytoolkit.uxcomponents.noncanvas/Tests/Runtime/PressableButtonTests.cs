@@ -925,7 +925,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return null;
 
             SeeItSayItLabelEnabler[] seeItSayitLabelEnablerComponents = testSimpleEmptyButton.GetComponents<SeeItSayItLabelEnabler>();
-            Assert.AreEqual(1, seeItSayitLabelEnablerComponents.Length); //Check it has the component
+            Assert.AreEqual(1, seeItSayitLabelEnablerComponents.Length); // Check it has the component
 
             GameObject seeItSayItLabelGameObject = null;
             foreach (Transform child in testSimpleEmptyButton.transform)
@@ -935,7 +935,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
                     seeItSayItLabelGameObject = child.gameObject;
                 }
             }
-            Assert.IsNotNull(seeItSayItLabelGameObject); //Check the referenced GameObject is not null
+            Assert.IsNotNull(seeItSayItLabelGameObject); // Check the referenced GameObject is not null
 
             Object.Destroy(testSimpleEmptyButton);
             // Wait for a frame to give Unity a change to actually destroy the object
@@ -958,7 +958,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return null;
 
             SeeItSayItLabelEnabler[] seeItSayitLabelEnablerComponents = testSimpleActionButton.GetComponents<SeeItSayItLabelEnabler>();
-            Assert.AreEqual(1, seeItSayitLabelEnablerComponents.Length); //Check it has the component
+            Assert.AreEqual(1, seeItSayitLabelEnablerComponents.Length); // Check it has the component
 
             GameObject seeItSayItLabelGameObject = null;
             foreach (Transform child in testSimpleActionButton.transform)
@@ -968,7 +968,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
                     seeItSayItLabelGameObject = child.gameObject;
                 }
             }
-            Assert.IsNotNull(seeItSayItLabelGameObject); //Check the referenced GameObject is not null
+            Assert.IsNotNull(seeItSayItLabelGameObject); // Check the referenced GameObject is not null
 
             Object.Destroy(testSimpleActionButton);
             // Wait for a frame to give Unity a change to actually destroy the object
