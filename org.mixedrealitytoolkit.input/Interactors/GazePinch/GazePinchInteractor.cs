@@ -179,7 +179,7 @@ namespace MixedReality.Toolkit.Input
 #pragma warning restore CS0618
                 else
                 {
-                    if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver associated to it then it is not tracked
+                    if (TrackedPoseDriver == null) // If the interactor does not have a TrackedPoseDriver associated to it then it is not tracked
                     {
                         return false;
                     }
@@ -608,7 +608,7 @@ namespace MixedReality.Toolkit.Input
             var xrNode = handedness.ToXRNode();
             bool gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xrNode,
                 out bool isPinchReady, out bool isPinching, out float pinchAmount);
-            if (!gotPinchData) //Try the other hand if the set hand does not have pinch data.
+            if (!gotPinchData) // Try the other hand if the set hand does not have pinch data.
             {
                 gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xrNode == XRNode.LeftHand ? XRNode.RightHand : XRNode.LeftHand,
                     out isPinchReady, out isPinching, out pinchAmount);

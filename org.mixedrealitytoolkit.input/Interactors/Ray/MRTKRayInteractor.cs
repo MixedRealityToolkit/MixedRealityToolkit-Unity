@@ -99,15 +99,15 @@ namespace MixedReality.Toolkit.Input
             get
             {
 #pragma warning disable CS0618 // Type or member is obsolete
-                if (forceDeprecatedInput) //If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
+                if (forceDeprecatedInput) // If no XRController is associated with this interactor then try to get the TrackedPoseDriver component instead
                 {
-                    //If the XRController has already been set then use it to check if the controller is tracked
+                    // If the XRController has already been set then use it to check if the controller is tracked
                     return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
                 }
 #pragma warning restore CS0618
                 else
                 {
-                    if (TrackedPoseDriver == null) //If the interactor does not have a TrackedPoseDriver component then it is not tracked
+                    if (TrackedPoseDriver == null) // If the interactor does not have a TrackedPoseDriver component then it is not tracked
                     {
                         return false;
                     }
