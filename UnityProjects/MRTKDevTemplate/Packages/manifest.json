@@ -22,7 +22,7 @@
     "com.unity.xr.arcore": "5.0.5",
     "com.unity.xr.arfoundation": "5.0.5",
     "com.unity.xr.interaction.toolkit": "2.3.2",
-    "com.unity.xr.management": "4.3.3",
+    "com.unity.xr.management": "4.4.0",
     "com.unity.xr.openxr": "1.7.0",
     "org.mixedrealitytoolkit.accessibility": "file:../../../org.mixedrealitytoolkit.accessibility",
     "org.mixedrealitytoolkit.audio": "file:../../../org.mixedrealitytoolkit.audio",
