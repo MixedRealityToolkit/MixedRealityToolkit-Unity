@@ -1,7 +1,10 @@
 {
     "name": "MixedReality.Toolkit.Examples.Build",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:f9fe0089ec81f4079af78eb2287a6163",
+        "GUID:4847341ff46394e83bb78fbd0652937e"
+    ],
     "includePlatforms": [
         "Editor"
     ],
