@@ -40,6 +40,7 @@ namespace MixedReality.Toolkit.Input.Simulation
         }
 
         #region Move controls
+        
 
         [SerializeField]
         [Tooltip("Should camera movement be smoothed?")]
@@ -52,10 +53,23 @@ namespace MixedReality.Toolkit.Input.Simulation
         /// Enabling smoothing can result in the camera 'gliding' to a stop
         /// when movement controls are released.
         /// </remarks>
+      
         public bool IsMovementSmoothed
         {
             get => isMovementSmoothed;
             set => isMovementSmoothed = value;
+        }
+
+
+        [SerializeField]
+        [Tooltip("Multiply resulting speed with deltaTime?")]
+        private bool isFramerateIndependent = true;
+
+
+        public bool IsFramerateIndependent
+        {
+            get => isFramerateIndependent;
+            set => isFramerateIndependent = value;
         }
 
         [SerializeField]

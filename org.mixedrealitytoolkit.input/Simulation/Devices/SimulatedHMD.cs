@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.Utilities;
 using UnityEngine.Scripting;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation;
@@ -44,6 +45,7 @@ namespace MixedReality.Toolkit.Input.Simulation
 
         // Smoothing time for the camera position.
         private const float moveSmoothingTime = 0.02f;
+        private Vector3 curVelocity = Vector3.zero;
 
         /// <summary>
         /// Initializes a new instance of a <see cref="SimulatedHMD"/> class.
@@ -121,7 +123,8 @@ namespace MixedReality.Toolkit.Input.Simulation
             Vector3 rotationDelta,
             bool isSmoothed = true,
             float moveSpeed = 1f,
-            float rotationSensitivity = 1f)
+            float rotationSensitivity = 1f,
+            bool framerateIndependent = true)
         {
             using (UpdatePerfMarker.Auto())
             {
@@ -132,19 +135,36 @@ namespace MixedReality.Toolkit.Input.Simulation
                 // wherein the *polling rate* of your mouse can cause severe lagspikes in the
                 // editor; this causes deltaTimes to go all over the place while moving your mouse.
                 // Using fixedDeltaTime is a good workaround until this bug is resolved.
-                smoothedMoveDelta = isSmoothed ?
-                    Smoothing.SmoothTo(smoothedMoveDelta, moveDelta, moveSmoothingTime, Time.fixedDeltaTime) :
-                    moveDelta;
-
+                if (framerateIndependent)
+                {
+                    smoothedMoveDelta = isSmoothed ?
+                        Smoothing.SmoothTo(smoothedMoveDelta, moveDelta, moveSmoothingTime, Time.deltaTime) :
+                        moveDelta * Time.deltaTime * 100f;
+                }
+                else
+                {
+                    smoothedMoveDelta = isSmoothed ?
+                        Smoothing.SmoothTo(smoothedMoveDelta, moveDelta, moveSmoothingTime, Time.fixedDeltaTime) :
+                        moveDelta;
+                }
+                
                 simulatedHmdState.trackingState = (int)(InputTrackingState.Position | InputTrackingState.Rotation);
 
                 // HMD poses are relative to the camera floor offset.
                 Transform origin = PlayspaceUtilities.XROrigin.CameraFloorOffsetObject.transform;
-                Vector3 cameraPosition = simulatedHmdState.centerEyePosition + Quaternion.Inverse(origin.rotation) * Camera.main.transform.rotation * (smoothedMoveDelta * moveSpeed);
-
+                Vector3 cameraPosition = simulatedHmdState.centerEyePosition;
+                if (framerateIndependent)
+                {
+                    cameraPosition += Quaternion.Inverse(origin.rotation) * Camera.main.transform.rotation * (smoothedMoveDelta * moveSpeed * Time.deltaTime * 1000f);
+                }
+                else
+                {
+                    cameraPosition += Quaternion.Inverse(origin.rotation) * Camera.main.transform.rotation * (smoothedMoveDelta * moveSpeed);
+                }
                 // Update camera rotation
                 cameraRotation += rotationDelta * rotationSensitivity;
 
+             
                 Change(cameraPosition, Quaternion.Euler(cameraRotation));
             }
         }
