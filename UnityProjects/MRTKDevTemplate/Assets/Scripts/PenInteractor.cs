@@ -1,9 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-// Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
-#pragma warning disable CS1591
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -38,14 +35,14 @@ namespace MixedReality.Toolkit.Examples.Demos
         #region IPokeInteractor Implementation
 
         /// <inheritdoc />
-        public float PokeRadius => 0.001f;
+        float IPokeInteractor.PokeRadius => 0.001f;
 
         // The last and current poke points, forming a
         // continuous poking trajectory.
         private PokePath pokeTrajectory;
 
         /// <inheritdoc />
-        public PokePath PokeTrajectory => pokeTrajectory;
+        PokePath IPokeInteractor.PokeTrajectory => pokeTrajectory;
 
         #endregion IPokeInteractor Implementation
 
@@ -86,9 +83,13 @@ namespace MixedReality.Toolkit.Examples.Demos
             }
         }
 
-        void OnTriggerStay(Collider c)
+        /// <summary>
+        /// OnTriggerStay is called once per physics update for every Collider <paramref name="other"/> that is touching the trigger.
+        /// </summary>
+        /// <param name="other">The other Collider involved in this collision.</param>
+        protected void OnTriggerStay(Collider other)
         {
-            if (interactionManager.TryGetInteractableForCollider(c, out var associatedInteractable))
+            if (interactionManager.TryGetInteractableForCollider(other, out IXRInteractable associatedInteractable))
             {
                 hoveredTargets.Add(associatedInteractable);
             }
@@ -97,10 +98,9 @@ namespace MixedReality.Toolkit.Examples.Demos
         /// <summary>
         /// A Unity event function that is called at an framerate independent frequency, and is only called if this object is enabled.
         /// </summary>
-        private void FixedUpdate()
+        protected void FixedUpdate()
         {
             hoveredTargets.Clear();
         }
     }
 }
-#pragma warning restore CS1591
