@@ -21,16 +21,19 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeField]
         [Tooltip("When true, this visualizer will render rigged hands even on XR devices " +
-                 "with transparent displays. When false, the rigged hands will only render " +
-                 "on devices with opaque displays.")]
+                 "with transparent displays or with passthrough enabled. When false, the rigged hands will only render " +
+                 "on devices with opaque displays. This behavior uses XRDisplaySubsystem.displayOpaque.")]
         private bool showHandsOnTransparentDisplays;
 
         /// <summary>
-        /// When true, this visualizer will render rigged hands even on XR devices with transparent displays.
+        /// When true, this visualizer will render rigged hands even on XR devices with transparent displays or with passthrough enabled.
         /// When false, the rigged hands will only render on devices with opaque displays.
+        /// </summary>
+        /// <remarks>
+        /// This behavior uses <see cref="XRDisplaySubsystem.displayOpaque"/>.
         /// Usually, it's recommended not to show hand visualization on transparent displays as it can
         /// distract from the user's real hands, and cause a "double image" effect that can be disconcerting.
-        /// </summary>
+        /// </remarks>
         public bool ShowHandsOnTransparentDisplays
         {
             get => showHandsOnTransparentDisplays;
