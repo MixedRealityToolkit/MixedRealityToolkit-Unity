@@ -121,7 +121,7 @@ namespace MixedReality.Toolkit.Subsystems
         #endregion IDictationSubsystem implementation
 
         /// <summary>
-        /// Registers a dication subsystem implementation based on the given subsystem parameters.
+        /// Registers a dictation subsystem implementation based on the given subsystem parameters.
         /// </summary>
         /// <param name="DictationSubsystemParams">The parameters defining the dictation subsystem functionality implemented
         /// by the subsystem provider.</param>
