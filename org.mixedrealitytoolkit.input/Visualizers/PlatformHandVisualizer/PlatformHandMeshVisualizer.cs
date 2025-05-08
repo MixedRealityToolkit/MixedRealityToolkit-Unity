@@ -37,10 +37,13 @@ namespace MixedReality.Toolkit.Input
         private bool initializedUVs = false;
 #endif
 
-        private XRHandSubsystem handSubsystem = null;
-        private XRHandMeshDataQueryParams queryParams = new()
+        // Share these among all instances to only query once per frame
+        private static int lastUpdatedFrame = -1;
+        private static XRHandSubsystem handSubsystem = null;
+        private static XRHandMeshDataQueryResult result;
+        private static XRHandMeshDataQueryParams queryParams = new()
         {
-            allocator = Unity.Collections.Allocator.Persistent,
+            allocator = Unity.Collections.Allocator.Temp,
         };
 
         // The property block used to modify the wrist position property on the material
@@ -54,12 +57,17 @@ namespace MixedReality.Toolkit.Input
             handRenderer.enabled = false;
             propertyBlock ??= new MaterialPropertyBlock();
 
+            if (handSubsystem != null)
+            {
+                return;
+            }
+
             List<XRHandSubsystem> subsystems = XRSubsystemHelpers.GetAllSubsystems<XRHandSubsystem>();
             foreach (XRHandSubsystem subsystem in subsystems)
             {
                 if (subsystem.GetProvider() is OpenXRHandProvider provider && provider.handMeshDataSupplier != null)
                 {
-                    Debug.Log($"Using {nameof(provider.handMeshDataSupplier)} for {HandNode} visualization.");
+                    Debug.Log($"Using {provider.handMeshDataSupplier.GetType()} for hand visualization.");
                     handSubsystem = subsystem;
                     return;
                 }
@@ -97,8 +105,9 @@ namespace MixedReality.Toolkit.Input
 
             if (handSubsystem != null
                 && handSubsystem.running
-                && handSubsystem.TryGetMeshData(out XRHandMeshDataQueryResult result, ref queryParams))
+                && (lastUpdatedFrame == Time.frameCount || handSubsystem.TryGetMeshData(out result, ref queryParams)))
             {
+                lastUpdatedFrame = Time.frameCount;
                 XRHandMeshData handMeshData = HandNode == XRNode.LeftHand ? result.leftHand : result.rightHand;
 
                 meshFilter.mesh.SetVertices(handMeshData.positions);
