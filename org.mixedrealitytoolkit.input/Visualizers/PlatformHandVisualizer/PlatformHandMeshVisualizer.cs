@@ -54,7 +54,8 @@ namespace MixedReality.Toolkit.Input
                 SubsystemManager.GetSubsystems(meshSubsystems);
                 foreach (XRMeshSubsystem subsystem in meshSubsystems)
                 {
-                    if (subsystem.subsystemDescriptor.id == "AndroidXRHandMeshProvider")
+                    if (subsystem.subsystemDescriptor.id == "AndroidXRHandMeshProvider"
+                        || subsystem.subsystemDescriptor.id == "AndroidXRMeshProvider")
                     {
                         Debug.Log($"Using XR_ANDROID_hand_mesh for {HandNode} visualization.");
                         meshSubsystem = subsystem;
@@ -77,6 +78,7 @@ namespace MixedReality.Toolkit.Input
             else
 #endif
             {
+                Debug.Log($"No active hand mesh extension was found for {HandNode} visualization.");
                 enabled = false;
             }
         }
