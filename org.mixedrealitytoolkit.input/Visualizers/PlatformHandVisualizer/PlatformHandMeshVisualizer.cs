@@ -110,9 +110,10 @@ namespace MixedReality.Toolkit.Input
                 lastUpdatedFrame = Time.frameCount;
                 XRHandMeshData handMeshData = HandNode == XRNode.LeftHand ? result.leftHand : result.rightHand;
 
+                meshFilter.mesh.Clear();
                 meshFilter.mesh.SetVertices(handMeshData.positions);
-                meshFilter.mesh.SetIndices(handMeshData.indices, MeshTopology.Triangles, 0);
                 meshFilter.mesh.SetUVs(0, handMeshData.uvs);
+                meshFilter.mesh.SetIndices(handMeshData.indices, MeshTopology.Triangles, 0);
 
                 handRenderer.enabled = true;
 
