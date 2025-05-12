@@ -24,7 +24,7 @@ namespace MixedReality.Toolkit.UX.Deprecated
         Uninitialized = 0,
 
         /// <summary>
-        /// The dialog is the the process of opening.
+        /// The dialog is in the process of opening.
         /// </summary>
         Opening,
 
