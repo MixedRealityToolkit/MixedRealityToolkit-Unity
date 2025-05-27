@@ -606,7 +606,7 @@ MonoBehaviour:
   handNode: 5
   fallbackControllerModel: {fileID: 3339478339056654981, guid: 3bd614f14cda63940b56faf0518b55f3, type: 3}
   controllerDetectedAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Controller Detected
       m_Type: 0
@@ -624,7 +624,7 @@ MonoBehaviour:
         m_Action: Controller Detected
         m_Flags: 0
       m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 3239510804178183174, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
 --- !u!1 &4657295888579565740
 GameObject:
   m_ObjectHideFlags: 0
