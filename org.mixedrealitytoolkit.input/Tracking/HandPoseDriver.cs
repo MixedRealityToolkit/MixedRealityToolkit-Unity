@@ -167,13 +167,11 @@ namespace MixedReality.Toolkit.Input
         /// <param name="newRotation">The new local rotation to possibly set.</param>
         protected virtual void ForceSetLocalTransform(Vector3 newPosition, Quaternion newRotation)
         {
-#if HAS_SET_LOCAL_POSITION_AND_ROTATION
             if (trackingType == TrackingType.RotationAndPosition)
             {
                 transform.SetLocalPositionAndRotation(newPosition, newRotation);
                 return;
             }
-#endif
 
             if (trackingType == TrackingType.RotationAndPosition ||
                 trackingType == TrackingType.RotationOnly)

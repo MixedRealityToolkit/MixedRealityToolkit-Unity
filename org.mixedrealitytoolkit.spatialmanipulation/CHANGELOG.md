@@ -2,11 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [4.0.0-development.pre.2] - 2024-10-28
+## Unreleased
 
 ### Changed
 
 * Updated ObjectManipulator and ObjectManipulatorTests to be compatible with renamed rigidbody properties in Unity 6.
+* Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
 
 ## [4.0.0-development.pre.1] - 2024-07-09
 
