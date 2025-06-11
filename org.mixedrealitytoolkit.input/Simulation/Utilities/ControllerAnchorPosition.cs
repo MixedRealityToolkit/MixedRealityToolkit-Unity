@@ -14,7 +14,7 @@ namespace MixedReality.Toolkit.Input.Simulation
         /// </summary>
         Device = 0,
 
-        // Something which might be useful in the future. Applications like Beat Saber greatly benefitted from being able to offset the rotation and position of the controllers
+        // Something which might be useful in the future. Applications like Beat Saber greatly benefited from being able to offset the rotation and position of the controllers
         ///// <summary>
         ///// The Controller's anchor will be offset from the device's position by a fixed relative offset
         ///// </summary>

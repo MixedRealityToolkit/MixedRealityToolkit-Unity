@@ -59,6 +59,19 @@ namespace MixedReality.Toolkit.Input.Simulation
         }
 
         [SerializeField]
+        [Tooltip("Multiply resulting speed with deltaTime?")]
+        private bool isFrameRateIndependent = true;
+
+        /// <summary>
+        /// Multiply resulting speed with deltaTime?
+        /// </summary>
+        public bool IsFrameRateIndependent
+        {
+            get => isFrameRateIndependent;
+            set => isFrameRateIndependent = value;
+        }
+
+        [SerializeField]
         [Tooltip("The input action used to move the camera along the depth axis.")]
         private InputActionReference moveDepth;
 
