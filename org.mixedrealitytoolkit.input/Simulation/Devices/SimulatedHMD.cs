@@ -44,7 +44,6 @@ namespace MixedReality.Toolkit.Input.Simulation
 
         // Smoothing time for the camera position.
         private const float moveSmoothingTime = 0.02f;
-        private Vector3 curVelocity = Vector3.zero;
 
         /// <summary>
         /// Initializes a new instance of a <see cref="SimulatedHMD"/> class.
