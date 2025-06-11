@@ -126,7 +126,7 @@ namespace MixedReality.Toolkit.Accessibility
             /// <summary>
             /// Collects the registered <see cref="GameObject"/> instances from the requested <see cref="AccessibleObjectClassification"/> objects.
             /// </summary>
-            /// <param name="classifications">The combined flags specifiying the desired classification(s) (people, places, things, etc.).</param>
+            /// <param name="classifications">The combined flags specifying the desired classification(s) (people, places, things, etc.).</param>
             /// <param name="accessibleObjectsList">The collection which will receive the requested <see cref="GameObject"/> instances.</param>
             /// <remarks>When this method is called, the objectList will be cleared prior to adding the requested <see cref="GameObject"/> instances.</remarks>
             private void AssembleAccessibleObjects(

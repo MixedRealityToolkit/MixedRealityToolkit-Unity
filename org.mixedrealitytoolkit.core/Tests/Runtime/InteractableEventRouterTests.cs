@@ -285,7 +285,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             levelA_router.AddEventRoute<TrickleChildHoverEvents>();
             levelA_router.AddEventRoute<TrickleChildSelectEvents>();
 
-            // Refersh level 0 router, to ensure it doesn't pickup levelB_testInteractableParent
+            // Refresh level 0 router, to ensure it doesn't pickup levelB_testInteractableParent
             level0_router.Refresh();
 
 
@@ -330,7 +330,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             levelA_router.AddEventRoute<TrickleChildHoverEvents>();
             levelA_router.AddEventRoute<TrickleChildSelectEvents>();
 
-            // Refersh level 0 router, to ensure it doesn't pickup levelB_testInteractableParent
+            // Refresh level 0 router, to ensure it doesn't pickup levelB_testInteractableParent
             level0_router.Refresh();
 
             Assert.AreEqual(0, level2_testInteractableChild.ParentSelectEnteredCount, "No parent select entered events should have occurred yet.");

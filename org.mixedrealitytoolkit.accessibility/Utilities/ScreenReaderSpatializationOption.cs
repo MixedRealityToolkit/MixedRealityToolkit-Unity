@@ -11,7 +11,7 @@ namespace MixedReality.Toolkit.Accessibility
     {
         /// <summary>
         /// The screen reader will not spatialize the audio. It will be played as a
-        /// 'flat strereo' presentation.
+        /// 'flat stereo' presentation.
         /// </summary>
         None = 0,
 
