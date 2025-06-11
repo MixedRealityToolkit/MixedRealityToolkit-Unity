@@ -204,7 +204,7 @@ namespace MixedReality.Toolkit.Input.Simulation
                     CameraSettings.IsMovementSmoothed,
                     CameraSettings.MoveSpeed,
                     CameraSettings.RotationSensitivity,
-                    CameraSettings.IsFramerateIndependent);
+                    CameraSettings.IsFrameRateIndependent);
             }
         }
 
