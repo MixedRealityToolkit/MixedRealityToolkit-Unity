@@ -1,6 +1,6 @@
 {
   "name": "org.mixedrealitytoolkit.core",
-  "version": "4.0.0-development.pre.1",
+  "version": "4.0.0-development.pre.2",
   "description": "A limited collection of common interfaces and utilities that most MRTK packages share. Most implementations of these interfaces are contained in other packages in the MRTK ecosystem.",
   "displayName": "MRTK Core Definitions",
   "msftFeatureCategory": "MRTK3",
