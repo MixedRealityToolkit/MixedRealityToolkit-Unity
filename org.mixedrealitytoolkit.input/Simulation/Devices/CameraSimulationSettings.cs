@@ -63,13 +63,13 @@ namespace MixedReality.Toolkit.Input.Simulation
 
         [SerializeField]
         [Tooltip("Multiply resulting speed with deltaTime?")]
-        private bool isFramerateIndependent = true;
+        private bool isFrameRateIndependent = true;
 
 
         public bool IsFramerateIndependent
         {
-            get => isFramerateIndependent;
-            set => isFramerateIndependent = value;
+            get => isFrameRateIndependent;
+            set => isFrameRateIndependent = value;
         }
 
         [SerializeField]
