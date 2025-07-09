@@ -59,6 +59,11 @@ namespace MixedReality.Toolkit.Input
                     {
                         Debug.Log($"Using XR_ANDROID_hand_mesh for {HandNode} visualization.");
                         meshSubsystem = subsystem;
+
+                        // Since the hand mesh is likely to change every frame, we
+                        // "optimize mesh for frequent updates" by marking it dynamic
+                        meshFilter.mesh.MarkDynamic();
+
                         break;
                     }
                 }
@@ -68,6 +73,10 @@ namespace MixedReality.Toolkit.Input
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
                 Debug.Log($"Using XR_MSFT_hand_tracking_mesh for {HandNode} visualization.");
                 handMeshTracker = HandNode == XRNode.LeftHand ? HandMeshTracker.Left : HandMeshTracker.Right;
+
+                // Since the hand mesh is likely to change every frame, we
+                // "optimize mesh for frequent updates" by marking it dynamic
+                meshFilter.mesh.MarkDynamic();
 
                 if (neutralPoseMesh == null)
                 {
