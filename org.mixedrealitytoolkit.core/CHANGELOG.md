@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+
+* Added input action focus handling to disable controller/hand tracked state when the application goes out of focus. [PR #1039](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1039)
+
 ### Changed
 
 * Updated the MRTK Default Profile to use the Unity XR Hands subsystem by default instead of the Microsoft OpenXR Plugin subsystem. [PR #973](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/973)
