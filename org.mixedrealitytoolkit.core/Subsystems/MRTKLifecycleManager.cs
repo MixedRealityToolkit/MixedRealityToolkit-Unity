@@ -191,16 +191,13 @@ namespace MixedReality.Toolkit.Subsystems
             // and applications should react to an inactive input action by skipping rendering of that action's input avatar
             // (depictions of hands or other tracked objects controlled by the user)."
 
-            if (focus)
+            foreach (InputActionReference reference in inputActionReferences)
             {
-                foreach (InputActionReference reference in inputActionReferences)
+                if (focus)
                 {
                     reference.action.Enable();
                 }
-            }
-            else
-            {
-                foreach (InputActionReference reference in inputActionReferences)
+                else
                 {
                     reference.action.Disable();
                 }
