@@ -41,10 +41,6 @@ namespace MixedReality.Toolkit.Input
         private static int lastUpdatedFrame = -1;
         private static XRHandSubsystem handSubsystem = null;
         private static XRHandMeshDataQueryResult result;
-        private static XRHandMeshDataQueryParams queryParams = new()
-        {
-            allocator = Unity.Collections.Allocator.Temp,
-        };
         private XRHandSubsystem.UpdateSuccessFlags updateSuccessFlags;
 
         // The property block used to modify the wrist position property on the material
@@ -60,6 +56,14 @@ namespace MixedReality.Toolkit.Input
 
             if (handSubsystem != null)
             {
+                updateSuccessFlags = HandNode == XRNode.LeftHand ?
+                    XRHandSubsystem.UpdateSuccessFlags.LeftHandJoints | XRHandSubsystem.UpdateSuccessFlags.LeftHandRootPose :
+                    XRHandSubsystem.UpdateSuccessFlags.RightHandJoints | XRHandSubsystem.UpdateSuccessFlags.RightHandRootPose;
+
+                // Since the hand mesh is likely to change every frame, we
+                // "optimize mesh for frequent updates" by marking it dynamic
+                meshFilter.mesh.MarkDynamic();
+
                 return;
             }
 
@@ -118,33 +122,53 @@ namespace MixedReality.Toolkit.Input
                 return;
             }
 
-            if (handSubsystem != null
-                && handSubsystem.running
-                && (handSubsystem.updateSuccessFlags & updateSuccessFlags) != 0
-                && (lastUpdatedFrame == Time.frameCount || handSubsystem.TryGetMeshData(out result, ref queryParams)))
+            if (handSubsystem != null && handSubsystem.running)
             {
-                lastUpdatedFrame = Time.frameCount;
-                XRHandMeshData handMeshData = HandNode == XRNode.LeftHand ? result.leftHand : result.rightHand;
-
-                if (handMeshData.positions.Length > 0 && handMeshData.indices.Length > 0)
+                XRHandMeshDataQueryParams queryParams = new()
                 {
-                    meshFilter.mesh.SetVertices(handMeshData.positions);
-                    meshFilter.mesh.SetIndices(handMeshData.indices, MeshTopology.Triangles, 0);
-                }
+                    allocator = Unity.Collections.Allocator.Temp,
+                };
 
-                if (handMeshData.uvs.IsCreated && handMeshData.uvs.Length == meshFilter.mesh.vertexCount)
+                Debug.Log($"Success?? {HandNode} | {Time.frameCount} | {handSubsystem.updateSuccessFlags} | {updateSuccessFlags} | {(handSubsystem.updateSuccessFlags & updateSuccessFlags) != 0}");
+                if ((handSubsystem.updateSuccessFlags & updateSuccessFlags) != 0
+                    && (lastUpdatedFrame == Time.frameCount || handSubsystem.TryGetMeshData(out result, ref queryParams)))
                 {
-                    meshFilter.mesh.SetUVs(0, handMeshData.uvs);
+                    lastUpdatedFrame = Time.frameCount;
+                    XRHandMeshData handMeshData = HandNode == XRNode.LeftHand ? result.leftHand : result.rightHand;
+                    handRenderer.enabled = true;
+
+                    if (handMeshData.positions.IsCreated && handMeshData.indices.IsCreated)
+                    {
+                        meshFilter.mesh.SetVertices(handMeshData.positions);
+                        Unity.Collections.NativeArray<int> indices = handMeshData.indices;
+                        // This API appears to return CCW triangles, but Unity expects CW triangles
+                        for (int i = 0; i < indices.Length; i += 3)
+                        {
+                            (indices[i + 1], indices[i + 2]) = (indices[i + 2], indices[i + 1]);
+                        }
+                        meshFilter.mesh.SetIndices(indices, MeshTopology.Triangles, 0);
+                        meshFilter.mesh.RecalculateBounds();
+                    }
+
+                    if (handMeshData.uvs.IsCreated)
+                    {
+                        meshFilter.mesh.SetUVs(0, handMeshData.uvs);
+                    }
+
+                    if (handMeshData.normals.IsCreated)
+                    {
+                        meshFilter.mesh.SetNormals(handMeshData.normals);
+                    }
+                    else
+                    {
+                        meshFilter.mesh.RecalculateNormals();
+                    }
+
+                    if (handMeshData.TryGetRootPose(out Pose rootPose))
+                    {
+                        transform.SetWorldPose(PlayspaceUtilities.TransformPose(rootPose));
+                    }
                 }
-
-                handRenderer.enabled = true;
-
-                if (!handMeshData.TryGetRootPose(out Pose rootPose))
-                {
-                    rootPose = Pose.identity;
-                }
-
-                transform.SetWorldPose(PlayspaceUtilities.TransformPose(rootPose));
             }
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
             else if (handMeshTracker != null
