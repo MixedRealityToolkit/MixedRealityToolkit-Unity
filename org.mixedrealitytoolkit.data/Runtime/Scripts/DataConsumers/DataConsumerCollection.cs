@@ -56,7 +56,7 @@ namespace MixedReality.Toolkit.Data
         [SerializeField]
         protected DataCollectionItemPlacerGOBase itemPlacer;
 
-        [Tooltip("Maximum number of items to allow in the prefeb re-use pool. This generally should be at least 2 times the number of items visible at any one time to allow for scrolling and paging.")]
+        [Tooltip("Maximum number of items to allow in the prefab re-use pool. This generally should be at least 2 times the number of items visible at any one time to allow for scrolling and paging.")]
         [SerializeField]
         protected int itemPrefabPoolSize = 20;
 
