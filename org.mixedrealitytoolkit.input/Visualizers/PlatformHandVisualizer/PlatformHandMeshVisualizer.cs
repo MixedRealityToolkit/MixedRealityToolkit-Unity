@@ -4,7 +4,11 @@
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.SubsystemsImplementation.Extensions;
 using UnityEngine.XR;
+using UnityEngine.XR.Hands;
+using UnityEngine.XR.Hands.Meshing;
+using UnityEngine.XR.Hands.OpenXR;
 
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
 using Microsoft.MixedReality.OpenXR;
@@ -33,8 +37,14 @@ namespace MixedReality.Toolkit.Input
         private bool initializedUVs = false;
 #endif
 
-        private XRMeshSubsystem meshSubsystem = null;
-        private readonly List<MeshInfo> meshInfos = new List<MeshInfo>();
+        // Share these among all instances to only query once per frame
+        private static int lastUpdatedFrame = -1;
+        private static XRHandSubsystem handSubsystem = null;
+        private static XRHandMeshDataQueryResult result;
+        private static XRHandMeshDataQueryParams queryParams = new()
+        {
+            allocator = Unity.Collections.Allocator.Temp,
+        };
 
         // The property block used to modify the wrist position property on the material
         private MaterialPropertyBlock propertyBlock = null;
@@ -47,25 +57,25 @@ namespace MixedReality.Toolkit.Input
             handRenderer.enabled = false;
             propertyBlock ??= new MaterialPropertyBlock();
 
-#if UNITY_OPENXR_PRESENT
-            if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_ANDROID_hand_mesh"))
+            if (handSubsystem != null)
             {
-                List<XRMeshSubsystem> meshSubsystems = new List<XRMeshSubsystem>();
-                SubsystemManager.GetSubsystems(meshSubsystems);
-                foreach (XRMeshSubsystem subsystem in meshSubsystems)
+                return;
+            }
+
+            List<XRHandSubsystem> subsystems = XRSubsystemHelpers.GetAllSubsystems<XRHandSubsystem>();
+            foreach (XRHandSubsystem subsystem in subsystems)
+            {
+                if (subsystem.GetProvider() is OpenXRHandProvider provider && provider.handMeshDataSupplier != null)
                 {
-                    if (subsystem.subsystemDescriptor.id == "AndroidXRHandMeshProvider"
-                        || subsystem.subsystemDescriptor.id == "AndroidXRMeshProvider")
-                    {
-                        Debug.Log($"Using XR_ANDROID_hand_mesh for {HandNode} visualization.");
-                        meshSubsystem = subsystem;
-                        break;
-                    }
+                    Debug.Log($"Using {provider.handMeshDataSupplier.GetType()} for hand visualization.");
+                    handSubsystem = subsystem;
+                    return;
                 }
             }
-            else if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_MSFT_hand_tracking_mesh"))
-            {
+
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
+            if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_MSFT_hand_tracking_mesh"))
+            {
                 Debug.Log($"Using XR_MSFT_hand_tracking_mesh for {HandNode} visualization.");
                 handMeshTracker = HandNode == XRNode.LeftHand ? HandMeshTracker.Left : HandMeshTracker.Right;
 
@@ -73,14 +83,13 @@ namespace MixedReality.Toolkit.Input
                 {
                     neutralPoseMesh = new Mesh();
                 }
-#endif
+
+                return;
             }
-            else
 #endif
-            {
-                Debug.Log($"No active hand mesh extension was found for {HandNode} visualization.");
-                enabled = false;
-            }
+
+            Debug.Log($"No active hand mesh extension was found for {HandNode} visualization.");
+            enabled = false;
         }
 
         protected void Update()
@@ -95,26 +104,26 @@ namespace MixedReality.Toolkit.Input
                 return;
             }
 
-            if (meshSubsystem != null
-                && meshSubsystem.running
-                && meshSubsystem.TryGetMeshInfos(meshInfos))
+            if (handSubsystem != null
+                && handSubsystem.running
+                && (lastUpdatedFrame == Time.frameCount || handSubsystem.TryGetMeshData(out result, ref queryParams)))
             {
-                int handMeshIndex = HandNode == XRNode.LeftHand ? 0 : 1;
+                lastUpdatedFrame = Time.frameCount;
+                XRHandMeshData handMeshData = HandNode == XRNode.LeftHand ? result.leftHand : result.rightHand;
 
-                MeshInfo meshInfo = meshInfos[handMeshIndex];
-                if (meshInfo.ChangeState == MeshChangeState.Added
-                    || meshInfo.ChangeState == MeshChangeState.Updated)
+                meshFilter.mesh.Clear();
+                meshFilter.mesh.SetVertices(handMeshData.positions);
+                meshFilter.mesh.SetUVs(0, handMeshData.uvs);
+                meshFilter.mesh.SetIndices(handMeshData.indices, MeshTopology.Triangles, 0);
+
+                handRenderer.enabled = true;
+
+                if (!handMeshData.TryGetRootPose(out Pose rootPose))
                 {
-                    meshSubsystem.GenerateMeshAsync(meshInfo.MeshId, meshFilter.mesh,
-                        null, MeshVertexAttributes.Normals, result => { });
-
-                    handRenderer.enabled = true;
-
-                    // This hand mesh is provided pre-translated from the world origin,
-                    // so we want to ensure the mesh is "centered" at the world origin
-                    PlayspaceUtilities.XROrigin.CameraFloorOffsetObject.transform.GetPositionAndRotation(out Vector3 position, out Quaternion rotation);
-                    transform.SetPositionAndRotation(position, rotation);
+                    rootPose = Pose.identity;
                 }
+
+                transform.SetWorldPose(PlayspaceUtilities.TransformPose(rootPose));
             }
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
             else if (handMeshTracker != null
