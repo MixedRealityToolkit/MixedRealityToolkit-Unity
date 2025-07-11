@@ -318,6 +318,28 @@
                 },
                 {
                     "name": "",
+                    "id": "ba2c5f3f-578e-4990-9312-9c6e19d90546",
+                    "path": "<XRController>{LeftHand}/selectPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "34811019-f37c-4093-b804-65290f05d0c9",
+                    "path": "<KHRSimpleController>{LeftHand}/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "487f4f2e-9e9b-49aa-b0f2-4037a24624f5",
                     "path": "<XRController>{LeftHand}/triggerPressed",
                     "interactions": "",
@@ -551,6 +573,17 @@
                     "name": "",
                     "id": "4f4d3966-bfa3-4b07-95b6-731952f22ad6",
                     "path": "<XRController>{LeftHand}/pointerActivateValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47a1b661-5b1f-437d-b2ec-21d45256e698",
+                    "path": "<HololensHand>{LeftHand}/select",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -1104,6 +1137,28 @@
                 },
                 {
                     "name": "",
+                    "id": "c1acd281-b0c0-4c9a-abbc-51e0b1bfa598",
+                    "path": "<XRController>{RightHand}/selectPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91641aa7-a880-4f4d-a179-68e19b2fea42",
+                    "path": "<KHRSimpleController>{RightHand}/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e2252ec0-28dd-410d-9aea-8f8db08645d6",
                     "path": "<XRController>{RightHand}/trigger",
                     "interactions": "",
@@ -1117,6 +1172,17 @@
                     "name": "",
                     "id": "9f382697-c77a-4b17-a060-4b059b7dbc5d",
                     "path": "<XRController>{RightHand}/pointerActivateValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "baba96a2-4c77-43d8-980f-a30ff13161b0",
+                    "path": "<HololensHand>{RightHand}/select",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
