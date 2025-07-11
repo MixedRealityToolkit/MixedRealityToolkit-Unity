@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1948193615953854874, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
@@ -87,6 +88,18 @@ PrefabInstance:
       propertyPath: managedReferences[2].trackingStateActionProperty.m_Reference
       value: 
       objectReference: {fileID: 3239510804178183174, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 2393634401634928266, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: handNode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2393634401634928266, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: selectAction.m_Reference
+      value: 
+      objectReference: {fileID: -7447404843880048209, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+    - target: {fileID: 2393634401634928266, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
+      propertyPath: selectActionValue.m_Reference
+      value: 
+      objectReference: {fileID: -5185190146762457406, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     - target: {fileID: 2493754451733599906, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
       propertyPath: m_Handedness
       value: 2
@@ -356,4 +369,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3239510804178183174, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90f955d6c9d709448a0b1e29e1f9c046, type: 3}
