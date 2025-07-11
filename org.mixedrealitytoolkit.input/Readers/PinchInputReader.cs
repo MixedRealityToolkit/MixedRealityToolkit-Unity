@@ -29,7 +29,6 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private struct FallbackState
         {
-            public bool isInProgress;
             public bool isPerformed;
             public bool wasPerformedThisFrame;
             public bool wasCompletedThisFrame;
@@ -215,7 +214,7 @@ namespace MixedReality.Toolkit.Input
             }
 
             value = m_fallbackState.value;
-            return m_fallbackState.isInProgress;
+            return value > 0;
         }
 
         #endregion IXRInputButtonReader
@@ -236,8 +235,7 @@ namespace MixedReality.Toolkit.Input
                 // We can use the data from the bound action to synthesize the other better than the hand joint logic will.
                 if (!m_isSelectPolyfilled && !m_isTrackingStatePolyfilled)
                 {
-                    m_fallbackState.isInProgress = ReadIsPerformed();
-                    m_fallbackState.value = m_fallbackState.isInProgress ? 1 : 0;
+                    m_fallbackState.value = ReadIsPerformed() ? 1 : 0;
                     return;
                 }
                 else if (!m_isSelectValuePolyfilled && !m_isTrackingStatePolyfilled)
@@ -274,7 +272,6 @@ namespace MixedReality.Toolkit.Input
                     m_fallbackState.wasCompletedThisFrame = !isPinched && m_fallbackState.isPerformed;
                     m_fallbackState.isPerformed = isPinched;
                     m_fallbackState.value = pinchAmount;
-                    m_fallbackState.isInProgress = pinchAmount > 0;
                 }
                 else
                 {
