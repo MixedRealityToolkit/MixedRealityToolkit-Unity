@@ -241,6 +241,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ca36da0f-8a15-4ed7-bc67-3c35b0cd0f87",
+                    "path": "<HandInteraction>{LeftHand}/pointerActivated",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "UI Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b8edee81-6779-4aa8-89cd-29b149a8f55e",
                     "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
@@ -308,7 +319,7 @@
                 {
                     "name": "",
                     "id": "9e1cc5d8-6da8-46b5-8c29-dff20eb8df72",
-                    "path": "<XRController>{LeftHand}/pointerActivated",
+                    "path": "<HandInteraction>{LeftHand}/pointerActivated",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -319,7 +330,7 @@
                 {
                     "name": "",
                     "id": "ba2c5f3f-578e-4990-9312-9c6e19d90546",
-                    "path": "<XRController>{LeftHand}/selectPressed",
+                    "path": "<HololensHand>{LeftHand}/selectPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -527,19 +538,8 @@
                 },
                 {
                     "name": "",
-                    "id": "870ff66f-f058-4da3-8934-1cbb0a6e5e32",
-                    "path": "<XRController>{LeftHand}/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Generic XR Controller",
-                    "action": "UI Press",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "edd7e96d-d752-446b-aea5-250b155ba1de",
-                    "path": "<XRController>{LeftHand}/squeezePressed",
+                    "path": "<HololensHand>{LeftHand}/selectPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -549,8 +549,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ca36da0f-8a15-4ed7-bc67-3c35b0cd0f87",
-                    "path": "<XRController>{LeftHand}/pointerActivated",
+                    "id": "febfe6c6-dee4-41cb-aff3-e7dbe209508b",
+                    "path": "<KHRSimpleController>{LeftHand}/select",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -572,7 +572,7 @@
                 {
                     "name": "",
                     "id": "4f4d3966-bfa3-4b07-95b6-731952f22ad6",
-                    "path": "<XRController>{LeftHand}/pointerActivateValue",
+                    "path": "<HandInteraction>{LeftHand}/pointerActivateValue",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -627,7 +627,7 @@
                 {
                     "name": "",
                     "id": "a56bf4f5-ecf2-470b-a1a1-65aee1f02745",
-                    "path": "<XRController>{LeftHand}/pinchTouched",
+                    "path": "<HandInteraction>{LeftHand}/pinchTouched",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -649,7 +649,7 @@
                 {
                     "name": "",
                     "id": "c3a3091b-479c-4682-84d9-42dbc87b1da6",
-                    "path": "<XRController>{LeftHand}/pinchValue",
+                    "path": "<HandInteraction>{LeftHand}/pinchValue",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -917,11 +917,11 @@
                 },
                 {
                     "name": "",
-                    "id": "f80623c7-da67-458c-8e7a-88f221dd3135",
-                    "path": "<XRController>{RightHand}/trigger",
+                    "id": "7453fec3-e8b1-4d6e-b996-489a239a60f0",
+                    "path": "<HandInteraction>{RightHand}/pointerActivated",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
                     "action": "UI Press",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -929,7 +929,7 @@
                 {
                     "name": "",
                     "id": "bd8c8773-adc4-42fc-b7e9-13989b701b5e",
-                    "path": "<XRController>{RightHand}/squeezePressed",
+                    "path": "<HololensHand>{RightHand}/selectPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
@@ -939,8 +939,8 @@
                 },
                 {
                     "name": "",
-                    "id": "7453fec3-e8b1-4d6e-b996-489a239a60f0",
-                    "path": "<XRController>{RightHand}/pointerActivated",
+                    "id": "e9ebb1b7-ad23-49a2-aab4-a577819b760c",
+                    "path": "<KHRSimpleController>{RightHand}/select",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -1127,7 +1127,7 @@
                 {
                     "name": "",
                     "id": "bfac43db-cf33-4047-8f11-8a83fa190307",
-                    "path": "<XRController>{RightHand}/pointerActivated",
+                    "path": "<HandInteraction>{RightHand}/pointerActivated",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -1138,10 +1138,10 @@
                 {
                     "name": "",
                     "id": "c1acd281-b0c0-4c9a-abbc-51e0b1bfa598",
-                    "path": "<XRController>{RightHand}/selectPressed",
+                    "path": "<HololensHand>{RightHand}/selectPressed",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Generic XR Controller",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1171,7 +1171,7 @@
                 {
                     "name": "",
                     "id": "9f382697-c77a-4b17-a060-4b059b7dbc5d",
-                    "path": "<XRController>{RightHand}/pointerActivateValue",
+                    "path": "<HandInteraction>{RightHand}/pointerActivateValue",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -1226,7 +1226,7 @@
                 {
                     "name": "",
                     "id": "db2bda4e-1489-488a-b3ae-c39bd831ab70",
-                    "path": "<XRController>{RightHand}/pinchTouched",
+                    "path": "<HandInteraction>{RightHand}/pinchTouched",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
@@ -1248,7 +1248,7 @@
                 {
                     "name": "",
                     "id": "fe8eaadd-e088-4021-bc6f-848e427c19ce",
-                    "path": "<XRController>{RightHand}/pinchValue",
+                    "path": "<HandInteraction>{RightHand}/pinchValue",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Generic XR Controller",
