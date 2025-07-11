@@ -29,7 +29,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private struct FallbackState
         {
-            public bool hasPinchData;
+            public bool isInProgress;
             public bool isPerformed;
             public bool wasPerformedThisFrame;
             public bool wasCompletedThisFrame;
@@ -167,10 +167,8 @@ namespace MixedReality.Toolkit.Input
                 InputActionPhase phase = action.phase;
                 return phase == InputActionPhase.Performed || (phase != InputActionPhase.Disabled && action.WasPerformedThisFrame());
             }
-            else
-            {
-                return m_fallbackState.isPerformed;
-            }
+
+            return m_fallbackState.isPerformed;
         }
 
         /// <inheritdoc />
@@ -180,10 +178,8 @@ namespace MixedReality.Toolkit.Input
             {
                 return selectAction.action.WasPerformedThisFrame();
             }
-            else
-            {
-                return m_fallbackState.wasPerformedThisFrame;
-            }
+
+            return m_fallbackState.wasPerformedThisFrame;
         }
 
         /// <inheritdoc />
@@ -193,10 +189,8 @@ namespace MixedReality.Toolkit.Input
             {
                 return selectAction.action.WasCompletedThisFrame();
             }
-            else
-            {
-                return m_fallbackState.wasCompletedThisFrame;
-            }
+
+            return m_fallbackState.wasCompletedThisFrame;
         }
 
         /// <inheritdoc />
@@ -206,10 +200,8 @@ namespace MixedReality.Toolkit.Input
             {
                 return selectActionValue.action.ReadValue<float>();
             }
-            else
-            {
-                return m_fallbackState.value;
-            }
+
+            return m_fallbackState.value;
         }
 
         /// <inheritdoc />
@@ -221,11 +213,9 @@ namespace MixedReality.Toolkit.Input
                 value = action.ReadValue<float>();
                 return action.IsInProgress();
             }
-            else
-            {
-                value = m_fallbackState.value;
-                return m_fallbackState.hasPinchData;
-            }
+
+            value = m_fallbackState.value;
+            return m_fallbackState.isInProgress;
         }
 
         #endregion IXRInputButtonReader
@@ -242,6 +232,24 @@ namespace MixedReality.Toolkit.Input
         {
             using (UpdatePinchSelectionPerfMarker.Auto())
             {
+                // This section accounts for one of "select" and "select value" being bound while the other is polyfilled.
+                // We can use the data from the bound action to synthesize the other better than the hand joint logic will.
+                if (!m_isSelectPolyfilled && !m_isTrackingStatePolyfilled)
+                {
+                    m_fallbackState.isInProgress = ReadIsPerformed();
+                    m_fallbackState.value = m_fallbackState.isInProgress ? 1 : 0;
+                    return;
+                }
+                else if (!m_isSelectValuePolyfilled && !m_isTrackingStatePolyfilled)
+                {
+                    bool isPinched = ReadValue() >= (m_fallbackState.isPerformed ? 0.9f : 1.0f);
+
+                    m_fallbackState.wasPerformedThisFrame = isPinched && !m_fallbackState.isPerformed;
+                    m_fallbackState.wasCompletedThisFrame = !isPinched && m_fallbackState.isPerformed;
+                    m_fallbackState.isPerformed = isPinched;
+                    return;
+                }
+
                 // If we still don't have an aggregator, then don't update selects.
                 if (XRSubsystemHelpers.HandsAggregator == null)
                 {
@@ -266,7 +274,7 @@ namespace MixedReality.Toolkit.Input
                     m_fallbackState.wasCompletedThisFrame = !isPinched && m_fallbackState.isPerformed;
                     m_fallbackState.isPerformed = isPinched;
                     m_fallbackState.value = pinchAmount;
-                    m_fallbackState.hasPinchData = true;
+                    m_fallbackState.isInProgress = pinchAmount > 0;
                 }
                 else
                 {
