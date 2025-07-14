@@ -21,8 +21,10 @@ namespace MixedReality.Toolkit.Input
     public class GazePinchInteractor :
         XRBaseInputInteractor,
         IGazePinchInteractor,
-        IHandedInteractor,
-        IModeManagedInteractor
+        IModeManagedInteractor,
+#pragma warning disable CS0618 // Type or member is obsolete
+        IHandedInteractor
+#pragma warning restore CS0618 // Type or member is obsolete
     {
         #region GazePinchInteractor
 
