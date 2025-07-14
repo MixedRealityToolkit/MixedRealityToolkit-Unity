@@ -90,13 +90,11 @@ namespace MixedReality.Toolkit.Input
             }
 #pragma warning disable CS0612 // Type or member is obsolete
 #pragma warning restore CS0618 // Type or member is obsolete
-            else
+            else if (handedness != InteractorHandedness.None &&
+                (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handedness.ToXRNode(), out jointPose) ?? false))
             {
-                if (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handedness.ToXRNode(), out jointPose) ?? false)
-                {
-                    radius = jointPose.Radius;
-                    return true;
-                }
+                radius = jointPose.Radius;
+                return true;
             }
 
             radius = default;
@@ -153,7 +151,7 @@ namespace MixedReality.Toolkit.Input
             base.Start();
 
             // Try to get the <see cref="TrackedPoseDriver"> component from the parent if it hasn't been set yet
-            if (trackedPoseDriver == null) 
+            if (trackedPoseDriver == null)
             {
                 trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
             }
@@ -213,7 +211,7 @@ namespace MixedReality.Toolkit.Input
                 }
 #pragma warning restore CS0618 // Type or member is obsolete
                 // If the interactor does not have a TrackedPoseDriver component then we cannot determine if it is hover active
-                else if (trackedPoseDriver == null) 
+                else if (trackedPoseDriver == null)
                 {
                     return false;
                 }
@@ -323,7 +321,7 @@ namespace MixedReality.Toolkit.Input
         {
             // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
             // interaction mode manager is used instead.
-#pragma warning disable CS0618 // Type or member is obsolete 
+#pragma warning disable CS0618 // Type or member is obsolete
             if (forceDeprecatedInput)
             {
                 return null;

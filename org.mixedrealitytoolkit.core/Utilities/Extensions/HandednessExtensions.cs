@@ -17,21 +17,12 @@ namespace MixedReality.Toolkit
         /// If Left, returns Right, if Right, returns Left otherwise returns None.
         /// Otherwise, returns None
         /// </remarks>
-        public static Handedness GetOppositeHandedness(this Handedness current)
+        public static Handedness GetOppositeHandedness(this Handedness current) => current switch
         {
-            if (current == Handedness.Left)
-            {
-                return Handedness.Right;
-            }
-            else if (current == Handedness.Right)
-            {
-                return Handedness.Left;
-            }
-            else
-            {
-                return Handedness.None;
-            }
-        }
+            Handedness.Left => Handedness.Right,
+            Handedness.Right => Handedness.Left,
+            _ => Handedness.None
+        };
 
         /// <summary>
         /// Checks whether or not the current <see cref="Handedness"/> value matches the specified value.
@@ -53,11 +44,11 @@ namespace MixedReality.Toolkit
         /// <returns>
         /// <see cref="XRNode"/> representing the specified <see cref="Handedness"/>, or <see langword="null"/>.
         /// </returns>
-        public static XRNode? ToXRNode(this Handedness hand)
+        public static XRNode? ToXRNode(this Handedness hand) => hand switch
         {
-            if (hand == Handedness.Left) { return XRNode.LeftHand; }
-            if (hand == Handedness.Right) { return XRNode.RightHand; }
-            return null;
-        }
+            Handedness.Left => XRNode.LeftHand,
+            Handedness.Right => XRNode.RightHand,
+            _ => null
+        };
     }
 }

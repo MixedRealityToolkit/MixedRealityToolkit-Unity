@@ -21,20 +21,12 @@ namespace MixedReality.Toolkit
         /// This will return <see cref="Handedness.None"/> for XRNode values other than
         /// LeftHand or RightHand.
         /// </remarks>
-        public static Handedness ToHandedness(this XRNode node)
+        public static Handedness ToHandedness(this XRNode node) => node switch
         {
-            switch (node)
-            {
-                case XRNode.LeftHand:
-                    return Handedness.Left;
-
-                case XRNode.RightHand:
-                    return Handedness.Right;
-
-                default:
-                    return Handedness.None;
-            }
-        }
+            XRNode.LeftHand => Handedness.Left,
+            XRNode.RightHand => Handedness.Right,
+            _ => Handedness.None,
+        };
 
         /// <summary>
         /// Determine if the specified XRNode represents a hand.

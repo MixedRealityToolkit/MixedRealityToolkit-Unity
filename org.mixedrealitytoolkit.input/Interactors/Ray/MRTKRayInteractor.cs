@@ -178,10 +178,8 @@ namespace MixedReality.Toolkit.Input
                 {
                     return selectInput.ReadValue();
                 }
-                else
-                {
-                    Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
-                }
+
+                Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
                 return 0;
             }
         }
@@ -263,7 +261,7 @@ namespace MixedReality.Toolkit.Input
                             xrController is ArticulatedHandController handController &&
                             (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true))
                         {
-                                hoverActive &= isPalmFacingAway;
+                            hoverActive &= isPalmFacingAway;
                         }
 #pragma warning restore CS0612
 #pragma warning restore CS0618
@@ -345,7 +343,7 @@ namespace MixedReality.Toolkit.Input
         {
             // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
             // interaction mode manager is used instead.
-#pragma warning disable CS0618 // Type or member is obsolete 
+#pragma warning disable CS0618 // Type or member is obsolete
             if (forceDeprecatedInput)
             {
                 return null;
@@ -363,7 +361,7 @@ namespace MixedReality.Toolkit.Input
             base.Start();
 
             // Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
-            if (trackedPoseDriver == null) 
+            if (trackedPoseDriver == null)
             {
                 trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
             }
