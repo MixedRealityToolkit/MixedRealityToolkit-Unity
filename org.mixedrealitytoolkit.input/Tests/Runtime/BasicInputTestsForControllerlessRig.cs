@@ -464,7 +464,6 @@ namespace MixedReality.Toolkit.Input.Tests
             var leftHandHandModels = leftHandGameObject.GetComponents<HandModel>();
             Assert.AreEqual(1, leftHandHandModels.Length);
             HandModel leftHandHandModel = leftHandHandModels[0];
-            Assert.AreEqual(XRNode.LeftHand, leftHandHandModel.HandNode);
             Assert.IsTrue(leftHandHandModel.Model.name.Equals(OpenXRLeftHandCloneName));
             Assert.AreEqual(leftHandHandModel.ModelParent.transform.parent, leftHandGameObject.transform);
             Assert.IsTrue(leftHandHandModel.ModelPrefab.name.Equals(OpenXRLeftHandName));
@@ -472,7 +471,6 @@ namespace MixedReality.Toolkit.Input.Tests
             var rigtHandHandModels = rightHandGameObject.GetComponents<HandModel>();
             Assert.AreEqual(1, rigtHandHandModels.Length);
             HandModel rightHandHandModel = rigtHandHandModels[0];
-            Assert.AreEqual(XRNode.RightHand, rightHandHandModel.HandNode);
             Assert.IsTrue(rightHandHandModel.Model.name.Equals(OpenXRRightHandCloneName));
             Assert.AreEqual(rightHandHandModel.ModelParent.transform.parent, rightHandHandModel.transform);
             Assert.IsTrue(rightHandHandModel.ModelPrefab.name.Equals(OpenXRRightHandName));
@@ -963,9 +961,6 @@ namespace MixedReality.Toolkit.Input.Tests
             var modelFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("model")).ToArray();
             Assert.AreEqual(1, modelFieldInfo.Length, "HandModel is missing the 'model' field");
 
-            var handNodeFieldInfo = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("handNode")).ToArray();
-            Assert.AreEqual(1, modelFieldInfo.Length, "HandModel is missing the 'handNode' field");
-
             var modelPrefabAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("ModelPrefab")).ToArray();
             Assert.AreEqual(1, modelPrefabAccessorInfo.Length, "HandModel is missing the 'ModelPrefab' accessor");
 
@@ -974,9 +969,6 @@ namespace MixedReality.Toolkit.Input.Tests
 
             var modelAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("Model")).ToArray();
             Assert.AreEqual(1, modelAccessorInfo.Length, "HandModel is missing the 'Model' accessor");
-
-            var handNodeAccessorInfo = accessorsInfos.Where(accessorInfo => accessorInfo.Name.Equals("HandNode")).ToArray();
-            Assert.AreEqual(1, handNodeAccessorInfo.Length, "HandModel is missing the 'HandNode' accessor");
 
             yield return null;
         }
