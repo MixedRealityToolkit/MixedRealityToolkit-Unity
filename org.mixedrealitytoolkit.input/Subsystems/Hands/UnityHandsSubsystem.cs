@@ -263,8 +263,7 @@ namespace MixedReality.Toolkit.Input
                         }
                     }
 
-                    XRHand hand = HandNode == XRNode.LeftHand ? xrHandSubsystem.leftHand : xrHandSubsystem.rightHand;
-                    return hand;
+                    return HandNode == XRNode.LeftHand ? xrHandSubsystem.leftHand : xrHandSubsystem.rightHand;
                 }
             }
 
