@@ -561,7 +561,7 @@ namespace MixedReality.Toolkit.Input
             GameObject interactorGroupObject = null;
 
             // For backwards compatibility, we will continue to support the obsolete "controller-based" interactors,
-            // and group based on "controller" partents.
+            // and group based on "controller" parents.
 #pragma warning disable CS0618 // xrController is obsolete
             if (interactor is XRBaseInputInteractor controllerInteractor &&
                 controllerInteractor.xrController != null)

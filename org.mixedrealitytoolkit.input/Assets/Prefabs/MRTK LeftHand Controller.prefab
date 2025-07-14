@@ -365,6 +365,7 @@ MonoBehaviour:
     rid: 0
   devicePoseSource:
     rid: 1
+  isHandednessMigrated: 1
   references:
     version: 2
     RefIds:
@@ -864,6 +865,7 @@ MonoBehaviour:
   m_PhysicsTriggerInteraction: 1
   trackedPoseDriver: {fileID: 3281803018082669919}
   modeManagedRoot: {fileID: 1948193615953854874}
+  isHandednessMigrated: 1
   pinchPoseSource:
     rid: 0
   references:
@@ -1295,6 +1297,7 @@ MonoBehaviour:
   modeManagedRoot: {fileID: 1948193615953854874}
   pokePoseSource:
     rid: 0
+  isHandednessMigrated: 1
   references:
     version: 2
     RefIds:
@@ -1731,6 +1734,7 @@ MonoBehaviour:
   dependentInteractor: {fileID: 0}
   stickyHoverThreshold: 0.5
   relaxationThreshold: 0.1
+  isHandednessMigrated: 1
   references:
     version: 2
     RefIds:

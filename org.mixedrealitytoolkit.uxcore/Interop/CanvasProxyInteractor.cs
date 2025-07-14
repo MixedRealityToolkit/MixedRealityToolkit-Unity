@@ -34,7 +34,7 @@ namespace MixedReality.Toolkit.UX
         private bool isCancellingInteraction = false;
 
         /// <inheritdoc />
-        public GameObject ModeManagedRoot { get => gameObject; }
+        public GameObject ModeManagedRoot => gameObject;
 
         /// <inheritdoc />
         public void StartHover(IXRHoverInteractable target)

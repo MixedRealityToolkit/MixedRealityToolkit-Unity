@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit
 {
@@ -26,6 +27,24 @@ namespace MixedReality.Toolkit
             XRNode.LeftHand => Handedness.Left,
             XRNode.RightHand => Handedness.Right,
             _ => Handedness.None,
+        };
+
+        /// <summary>
+        /// Returns the <see cref="InteractorHandedness"/> of the specified XRNode.
+        /// </summary>
+        /// <param name="node">The XRNode for which the <see cref="InteractorHandedness"/> is requested.</param>
+        /// <returns>
+        /// <see cref="InteractorHandedness"/> value representing the XRNode.
+        /// </returns>
+        /// <remarks>
+        /// This will return <see cref="InteractorHandedness.None"/> for XRNode values other than
+        /// LeftHand or RightHand.
+        /// </remarks>
+        public static InteractorHandedness ToInteractorHandedness(this XRNode node) => node switch
+        {
+            XRNode.LeftHand => InteractorHandedness.Left,
+            XRNode.RightHand => InteractorHandedness.Right,
+            _ => InteractorHandedness.None,
         };
 
         /// <summary>

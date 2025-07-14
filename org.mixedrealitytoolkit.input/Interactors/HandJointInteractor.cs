@@ -19,7 +19,8 @@ namespace MixedReality.Toolkit.Input
     public abstract class HandJointInteractor :
         XRDirectInteractor,
         IHandedInteractor,
-        IModeManagedInteractor
+        IModeManagedInteractor,
+        ISerializationCallbackReceiver
     {
         #region Serialized Fields
 
@@ -58,10 +59,21 @@ namespace MixedReality.Toolkit.Input
 
         #region IHandedInteractor
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
+        [Obsolete("Use handedness from IXRInteractor instead.")]
         Handedness IHandedInteractor.Handedness
         {
-            get => base.handedness.ToHandedness();
+            get
+            {
+                if (forceDeprecatedInput)
+                {
+                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                }
+                else
+                {
+                    return handedness.ToHandedness();
+                }
+            }
         }
 
         #endregion IHandedInteractor
@@ -73,9 +85,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private bool interactionPointTracked;
 
-        /// <summary>
-        /// Indicates whether this Interactor is in a state where it could hover.
-        /// </summary>
+        /// <inheritdoc />
         public override bool isHoverActive
         {
             // Only be available for hovering if the `TrackedPoseDriver` or controller (if using deprecated XRI) pose driver is tracked or we have joint data.
@@ -156,17 +166,30 @@ namespace MixedReality.Toolkit.Input
         {
             // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
             // interaction mode manager is used instead.
-#pragma warning disable CS0618 // Type or member is obsolete 
-            if (forceDeprecatedInput)
-            {
-                return null;
-            }
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            return ModeManagedRoot;
+            return forceDeprecatedInput ? null : ModeManagedRoot;
         }
 
         #endregion IModeManagedInteractor
+
+        #region ISerializationCallbackReceiver
+
+        [SerializeField, HideInInspector]
+        private bool isHandednessMigrated = false;
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize() { }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+#pragma warning disable CS0618 // Type or member is obsolete
+            if (!isHandednessMigrated && handedness == InteractorHandedness.None && (xrController is ArticulatedHandController handController))
+            {
+                handedness = handController.HandNode.ToInteractorHandedness();
+            }
+#pragma warning restore CS0618 // Type or member is obsolete
+            isHandednessMigrated = true;
+        }
+
+        #endregion ISerializationCallbackReceiver
 
         #region Unity Event Functions
 

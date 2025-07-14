@@ -17,7 +17,7 @@ namespace MixedReality.Toolkit.Input
     /// This is able to support variable pinch select through the use of <see cref="HandsAggregatorSubsystem"/>.
     /// </remarks>
     [AddComponentMenu("MRTK/Input/XR Controller (Articulated Hand)")]
-    [Obsolete]
+    [Obsolete("ArticulatedHandController has been deprecated in version 4.0.0. Its functionality has been distributed into different components.")]
     public class ArticulatedHandController : ActionBasedController
     {
         #region Associated hand select values
