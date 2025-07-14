@@ -29,8 +29,7 @@ namespace MixedReality.Toolkit.Input
         IRayInteractor,
         IHandedInteractor,
         IVariableSelectInteractor,
-        IModeManagedInteractor,
-        ISerializationCallbackReceiver
+        IModeManagedInteractor
     {
         #region MRTKRayInteractor
 
@@ -398,25 +397,5 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion Unity Event Functions
-
-        #region ISerializationCallbackReceiver
-
-        [SerializeField, HideInInspector]
-        private bool isHandednessMigrated = false;
-
-        void ISerializationCallbackReceiver.OnBeforeSerialize() { }
-
-        void ISerializationCallbackReceiver.OnAfterDeserialize()
-        {
-#pragma warning disable CS0618 // Type or member is obsolete
-            if (!isHandednessMigrated && handedness == InteractorHandedness.None && (xrController is ArticulatedHandController handController))
-            {
-                handedness = handController.HandNode.ToInteractorHandedness();
-            }
-#pragma warning restore CS0618 // Type or member is obsolete
-            isHandednessMigrated = true;
-        }
-
-        #endregion ISerializationCallbackReceiver
     }
 }
