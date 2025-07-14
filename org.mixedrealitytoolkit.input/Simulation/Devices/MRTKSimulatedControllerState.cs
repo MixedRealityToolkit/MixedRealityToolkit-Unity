@@ -42,7 +42,7 @@ namespace MixedReality.Toolkit.Input.Simulation
         /// <summary>
         /// Represents the user's grip on the controller.
         /// </summary>
-        [InputControl(usage = "Grip", layout = "Axis")]
+        [InputControl(usage = "Grip", alias = "squeeze", layout = "Axis")]
         [FieldOffset(12)]
         public float grip;
 
