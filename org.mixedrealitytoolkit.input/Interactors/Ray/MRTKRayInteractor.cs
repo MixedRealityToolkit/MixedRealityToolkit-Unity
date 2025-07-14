@@ -147,14 +147,13 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
-                if (forceDeprecatedInput)
+                if (forceDeprecatedInput &&
+                    xrController is ArticulatedHandController handController)
                 {
-                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                    return handController.HandNode.ToHandedness();
                 }
-                else
-                {
-                    return handedness.ToHandedness();
-                }
+
+                return handedness.ToHandedness();
             }
         }
 
