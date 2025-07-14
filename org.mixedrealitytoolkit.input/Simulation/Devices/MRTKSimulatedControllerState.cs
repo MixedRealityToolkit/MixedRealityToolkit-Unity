@@ -60,7 +60,7 @@ namespace MixedReality.Toolkit.Input.Simulation
         [InputControl(name = nameof(XRSimulatedController.primaryTouch), usage = "PrimaryTouch", layout = "Button", bit = (uint)ControllerButton.PrimaryTouch)]
         [InputControl(name = nameof(XRSimulatedController.secondaryButton), usage = "SecondaryButton", layout = "Button", bit = (uint)ControllerButton.SecondaryButton)]
         [InputControl(name = nameof(XRSimulatedController.secondaryTouch), usage = "SecondaryTouch", layout = "Button", bit = (uint)ControllerButton.SecondaryTouch)]
-        [InputControl(name = nameof(XRSimulatedController.gripButton), usage = "GripButton", layout = "Button", bit = (uint)ControllerButton.GripButton, alias = "gripPressed")]
+        [InputControl(name = nameof(XRSimulatedController.gripButton), usage = "GripButton", layout = "Button", bit = (uint)ControllerButton.GripButton, aliases = new[] { "gripPressed", "squeezeClicked" })]
         [InputControl(name = nameof(XRSimulatedController.triggerButton), usage = "TriggerButton", layout = "Button", bit = (uint)ControllerButton.TriggerButton, alias = "triggerPressed")]
         [InputControl(name = nameof(XRSimulatedController.menuButton), usage = "MenuButton", layout = "Button", bit = (uint)ControllerButton.MenuButton)]
         [InputControl(name = nameof(XRSimulatedController.primary2DAxisClick), usage = "Primary2DAxisClick", layout = "Button", bit = (uint)ControllerButton.Primary2DAxisClick)]
