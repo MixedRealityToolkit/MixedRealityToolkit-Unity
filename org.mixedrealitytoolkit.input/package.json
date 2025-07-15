@@ -1,6 +1,6 @@
 {
   "name": "org.mixedrealitytoolkit.input",
-  "version": "4.0.0-development.pre.1",
+  "version": "4.0.0-development.pre.2",
   "description": "This package extends the XR Interaction Toolkit with custom interactors and controllers, hand-joint aggregation, and simulation subsystems. It seamlessly integrates with the Unity Input System.",
   "displayName": "MRTK Input",
   "msftFeatureCategory": "MRTK3",

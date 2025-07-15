@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 * Added input action focus handling to disable controller/hand tracked state when the application goes out of focus. [PR #1039](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1039)
+* Added ToInteractorHandedness extension for XRNode. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
 
 ### Changed
 
@@ -16,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Removed
 
 * Removed ITrackedInteractor, as it was supporting an unused codepath and there are better ways to get this data (like querying the attach transform). [PR #1044](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1044)
+
+### Deprecated
+
+* Deprecated IHandedInteractor, as its info is now queryable directly from IXRInteractor's handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
 
 ## [4.0.0-development.pre.1] - 2024-07-09
 
