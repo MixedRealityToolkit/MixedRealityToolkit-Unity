@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -119,7 +118,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                         "Check interactorsSelecting.Count before changing the host transform.");
                     return;
                 }
-                if (hostTransform != value )
+                if (hostTransform != value)
                 {
                     hostTransform = value;
 
@@ -791,7 +790,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 base.ProcessInteractable(updatePhase);
 
-                if(!isSelected)
+                if (!isSelected)
                 {
                     return;
                 }
