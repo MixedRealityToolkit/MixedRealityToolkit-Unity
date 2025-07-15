@@ -142,6 +142,7 @@ namespace MixedReality.Toolkit.Input
 
         #region IHandedInteractor
 
+        /// <inheritdoc />
         Handedness IHandedInteractor.Handedness
         {
             get
