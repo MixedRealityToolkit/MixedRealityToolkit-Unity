@@ -11,8 +11,6 @@ using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-using TrackedPoseDriver = UnityEngine.InputSystem.XR.TrackedPoseDriver;
-
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
@@ -72,7 +70,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Editor only function for initializing the Interaction Mode Manager with the existing XR controllers in the scene
         /// </summary>
-        [Obsolete("This method is obsolete. Please use InitializeInteractorGroups instead.")]
+        [Obsolete("This method has been deprecated in version 4.0.0. Please use InitializeInteractorGroups instead.")]
         public void InitializeControllers()
         {
             foreach (XRBaseController xrController in FindObjectUtility.FindObjectsByType<XRBaseController>())
@@ -436,13 +434,10 @@ namespace MixedReality.Toolkit.Input
                 {
                     List<GameObject> groups = detector.GetInteractorGroups();
 
-                    // For backwards compatibility, we will continue to support the obsolete "GetControllers()" function.
-                    if (groups == null)
-                    {
 #pragma warning disable CS0618 // GetControllers is obsolete
-                        groups = detector.GetControllers();
+                    // For backwards compatibility, we will continue to support the obsolete "GetControllers()" function.
+                    groups ??= detector.GetControllers();
 #pragma warning restore CS0618 // GetControllers is obsolete
-                    }
 
                     foreach (GameObject group in groups)
                     {

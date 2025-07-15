@@ -17,13 +17,13 @@ namespace MixedReality.Toolkit.SpatialManipulation
     [HelpURL("https://docs.microsoft.com/windows/mixed-reality/mrtk-unity/features/ux-building-blocks/solvers/solver")]
     public abstract class Solver : MonoBehaviour
     {
-        [Obsolete("Deprecated, please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
+        [Obsolete("This field has been deprecated in version 4.0.0. Please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
         private static ControllerLookup controllerLookup;
 
         /// <summary>
         /// Get the <see cref="Toolkit.ControllerLookup">ControllerLookup</see> that will be used all application <see cref="Solver"/> objects.
         /// </summary>
-        [Obsolete("Deprecated, please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
+        [Obsolete("This property has been deprecated in version 4.0.0. Please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
         protected static ControllerLookup ControllerLookup => controllerLookup;
 
         private static TrackedPoseDriverLookup trackedPoseDriverLookup;

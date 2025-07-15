@@ -56,7 +56,7 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeField]
         [Tooltip("The hand controller used to get the selection progress values")]
-        [Obsolete("Deprecated, please use this.TrackedPoseDriver instead.")]
+        [Obsolete("This field has been deprecated in version 4.0.0. Please use this.TrackedPoseDriver instead.")]
         private ArticulatedHandController handController;
 
         /// <summary>
@@ -327,11 +327,11 @@ namespace MixedReality.Toolkit.Input
 
         /// <summary>
         /// Given the specified interactable, this computes and applies the relevant
-        /// position and rotation to the attach transform. 
+        /// position and rotation to the attach transform.
         /// </summary>
         /// <remarks>
-        /// If there is currently an active selection, the attach transform is computed 
-        /// as an offset from selected object, where the offset vector is a function of 
+        /// If there is currently an active selection, the attach transform is computed
+        /// as an offset from selected object, where the offset vector is a function of
         /// the centroid between all currently participating <see cref="GazePinchInteractor"/>
         /// objects. This models ray-like manipulations, but with virtual attach offsets
         /// from object, modeled from the relationship between each participating hand.
@@ -485,7 +485,7 @@ namespace MixedReality.Toolkit.Input
             interactorLocalAttachPoint = Quaternion.Inverse(noRollRay) * (virtualAttachTransform - aimPose.position);
 
             // Record the distance from the controller to the body of the user, to use as reference for subsequent
-            // distance measurements. 
+            // distance measurements.
             bodyDistanceOnSelect = PoseUtilities.GetDistanceToBody(aimPose);
         }
 
@@ -568,21 +568,16 @@ namespace MixedReality.Toolkit.Input
         #endregion ITrackedInteractor
 
         #region IModeManagedInteractor
+
         /// <inheritdoc/>
-        [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in the next major release. Use ModeManagedRoot instead.")]
         public GameObject GetModeManagedController()
         {
             // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
             // interaction mode manager is used instead.
-#pragma warning disable CS0618 // Type or member is obsolete 
-            if (forceDeprecatedInput)
-            {
-                return null;
-            }
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            return ModeManagedRoot;
+            return forceDeprecatedInput ? null : ModeManagedRoot;
         }
+
         #endregion IModeManagedInteractor
 
         #region Private Methods

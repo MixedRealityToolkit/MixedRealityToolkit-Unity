@@ -13,7 +13,7 @@ namespace MixedReality.Toolkit
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("MRTK/Core/Controller Lookup")]
-    [Obsolete("Deprecated, please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
+    [Obsolete("ControllerLookup has been deprecated in version 4.0.0. Please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
     public class ControllerLookup : MonoBehaviour
     {
         // Gaze

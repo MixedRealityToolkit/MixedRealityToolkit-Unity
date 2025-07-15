@@ -41,7 +41,7 @@ namespace MixedReality.Toolkit.Input
         private List<GameObject> interactorGroups;
 
         /// <inheritdoc /> 
-        [Obsolete("This function is obsolete and will be removed in a future version. Please use GetInteractorGroups instead.")]
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in a future version. Please use GetInteractorGroups instead.")]
         public List<GameObject> GetControllers() => GetInteractorGroups();
 
         /// <inheritdoc /> 
