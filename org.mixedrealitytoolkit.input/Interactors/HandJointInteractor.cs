@@ -19,8 +19,7 @@ namespace MixedReality.Toolkit.Input
     public abstract class HandJointInteractor :
         XRDirectInteractor,
         IHandedInteractor,
-        IModeManagedInteractor,
-        ITrackedInteractor
+        IModeManagedInteractor
     {
         #region Serialized Fields
         [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
@@ -59,11 +58,6 @@ namespace MixedReality.Toolkit.Input
         protected abstract bool TryGetInteractionPoint(out Pose pose);
 
         #endregion HandJointInteractor
-
-        #region ITrackedInteractor
-        /// <inheritdoc />
-        public GameObject TrackedParent => trackedPoseDriver == null ? null : trackedPoseDriver.gameObject;
-        #endregion ITrackedInteractor
 
         #region IHandedInteractor
 

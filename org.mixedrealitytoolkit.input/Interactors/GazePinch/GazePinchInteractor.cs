@@ -22,8 +22,7 @@ namespace MixedReality.Toolkit.Input
         XRBaseInputInteractor,
         IGazePinchInteractor,
         IHandedInteractor,
-        IModeManagedInteractor,
-        ITrackedInteractor
+        IModeManagedInteractor
     {
         #region GazePinchInteractor
 
@@ -561,11 +560,6 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
-
-        #region ITrackedInteractor
-        /// <inheritdoc />
-        public GameObject TrackedParent => trackedPoseDriver == null ? null : trackedPoseDriver.gameObject;
-        #endregion ITrackedInteractor
 
         #region IModeManagedInteractor
         /// <inheritdoc/>
