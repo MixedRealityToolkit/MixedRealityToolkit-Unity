@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Updated the MRTK Default Profile to use the Unity XR Hands subsystem by default instead of the Microsoft OpenXR Plugin subsystem. [PR #973](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/973)
 * Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
 
+### Removed
+
+* Removed ITrackedInteractor, as it was supporting an unused codepath and there are better ways to get this data (like querying the attach transform). [PR #1044](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1044)
+
 ## [4.0.0-development.pre.1] - 2024-07-09
 
 ### Added
