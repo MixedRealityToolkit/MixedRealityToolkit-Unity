@@ -4,6 +4,7 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
+using MixedReality.Toolkit.Core.Tests;
 using MixedReality.Toolkit.Experimental;
 using NUnit.Framework;
 using System.Collections;
@@ -16,7 +17,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
     /// <summary>
     /// Tests for the <see cref="InteractableEventRouter"/> class.
     /// </summary>
-    public class InteractableEventRouterTests : MonoBehaviour
+    public class InteractableEventRouterTests : BaseRuntimeTests
     {
         private GameObject level0 = null;
         private GameObject interactorObject = null;
@@ -38,7 +39,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
         /// <summary>
         /// A cached reference to the <see cref="XRInteractionManager"/> in the scene.
-        /// Cleared during <see cref="Teardown"/> at the end of each test.
+        /// Cleared during <see cref="TearDown"/> at the end of each test.
         /// </summary>
         private XRInteractionManager CachedInteractionManager
         {
@@ -52,14 +53,13 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
         }
 
-        [SetUp]
-        public void Init()
+        public override IEnumerator Setup()
         {
+            yield return base.Setup();
             CreateTestObjectsWithEventRouter();
         }
 
-        [TearDown]
-        public void Teardown()
+        public override IEnumerator TearDown()
         {
             if (level0 != null)
             {
@@ -80,6 +80,8 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             level1_testInteractableParent = null;
             level2_statefulInteractableChild = null;
             level2_testInteractableChild = null;
+
+            yield return base.TearDown();
         }
 
         [UnityTest]
@@ -270,7 +272,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         {
             var levelA = new GameObject("level a");
             var levelB = new GameObject("level b");
- 
+
             // Setup level b 
             levelB.AddComponent<StatefulInteractable>();
             var levelB_testInteractableParent = levelB.AddComponent<TestInteractableParent>();
@@ -302,7 +304,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(1, levelB_testInteractableParent.ChildSelectExitedCount, "The child select exited event should have occurred once.");
 
 
-            Destroy(levelA);
+            Object.Destroy(levelA);
             level0 = null;
             level1 = null;
             level2 = null;
@@ -346,7 +348,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual(1, level2_testInteractableChild.ParentSelectExitedCount, "The parent select exited event should have occurred once.");
 
 
-            Destroy(levelA);
+            Object.Destroy(levelA);
             level0 = null;
             level1 = null;
             level2 = null;
