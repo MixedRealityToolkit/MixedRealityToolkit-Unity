@@ -29,18 +29,17 @@ namespace MixedReality.Toolkit.Input
         IRayInteractor,
         IHandedInteractor,
         IVariableSelectInteractor,
-        IModeManagedInteractor,
-        ITrackedInteractor
+        IModeManagedInteractor
     {
         #region MRTKRayInteractor
 
-        [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
+        [SerializeField, Tooltip("Holds a reference to the TrackedPoseDriver associated with this interactor, if it exists.")]
         private TrackedPoseDriver trackedPoseDriver = null;
 
         /// <summary>
-        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// Holds a reference to the <see cref="UnityEngine.InputSystem.XR.TrackedPoseDriver"/> associated with this interactor, if it exists.
         /// </summary>
-        protected internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+        internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         [SerializeField]
         [Tooltip("The root management GameObject that interactor belongs to.")]
@@ -105,16 +104,13 @@ namespace MixedReality.Toolkit.Input
                     return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
                 }
 #pragma warning restore CS0618
-                else
+                else if (trackedPoseDriver == null) // If the interactor does not have a TrackedPoseDriver component then it is not tracked
                 {
-                    if (TrackedPoseDriver == null) // If the interactor does not have a TrackedPoseDriver component then it is not tracked
-                    {
-                        return false;
-                    }
-
-                    // If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
-                    return TrackedPoseDriver.GetInputTrackingState().HasPositionAndRotation();
+                    return false;
                 }
+
+                // If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
+                return trackedPoseDriver.GetInputTrackingState().HasPositionAndRotation();
             }
         }
 
@@ -140,11 +136,6 @@ namespace MixedReality.Toolkit.Input
         private Pose initialLocalAttach = Pose.identity;
 
         #endregion MRTKRayInteractor
-
-        #region ITrackedInteractor
-        /// <inheritdoc />
-        public GameObject TrackedParent => trackedPoseDriver == null ? null : trackedPoseDriver.gameObject;
-        #endregion ITrackedInteractor
 
         #region IHandedInteractor
 

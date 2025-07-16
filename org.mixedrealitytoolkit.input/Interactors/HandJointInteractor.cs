@@ -19,20 +19,15 @@ namespace MixedReality.Toolkit.Input
     public abstract class HandJointInteractor :
         XRDirectInteractor,
         IHandedInteractor,
-        IModeManagedInteractor,
-        ITrackedInteractor
+        IModeManagedInteractor
     {
         #region Serialized Fields
-        [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
+
+        [SerializeField, Tooltip("Holds a reference to the TrackedPoseDriver associated with this interactor, if it exists.")]
         private TrackedPoseDriver trackedPoseDriver = null;
 
-        /// <summary>
-        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
-        /// </summary>
-        protected internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
-
         [SerializeField]
-        [Tooltip("The root management GameObject that interactor belongs to. T")]
+        [Tooltip("The root management GameObject that interactor belongs to.")]
         private GameObject modeManagedRoot = null;
 
         /// <summary>
@@ -47,6 +42,7 @@ namespace MixedReality.Toolkit.Input
             get => modeManagedRoot;
             set => modeManagedRoot = value;
         }
+
         #endregion Serialized Fields
 
         #region HandJointInteractor
@@ -59,11 +55,6 @@ namespace MixedReality.Toolkit.Input
         protected abstract bool TryGetInteractionPoint(out Pose pose);
 
         #endregion HandJointInteractor
-
-        #region ITrackedInteractor
-        /// <inheritdoc />
-        public GameObject TrackedParent => trackedPoseDriver == null ? null : trackedPoseDriver.gameObject;
-        #endregion ITrackedInteractor
 
         #region IHandedInteractor
 
@@ -119,8 +110,8 @@ namespace MixedReality.Toolkit.Input
             new ProfilerMarker("[MRTK] HandJointInteractor.ProcessInteractor");
 
         /// <summary>
-        /// Unity's <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.XRInteractionManager.html">XRInteractionManager</see> 
-        /// or containing <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractionGroup.html">IXRInteractionGroup</see> 
+        /// Unity's <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.XRInteractionManager.html">XRInteractionManager</see>
+        /// or containing <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractionGroup.html">IXRInteractionGroup</see>
         /// calls this method to update the Interactor before interaction events occur. See Unity's documentation for more information.
         /// </summary>
         /// <param name="updatePhase">The update phase this is called during.</param>
@@ -146,8 +137,7 @@ namespace MixedReality.Toolkit.Input
                     else
                     {
                         // If we don't have a joint pose, reset to whatever our parent `TrackedPoseDriver` pose is.
-                        transform.localPosition = Vector3.zero;
-                        transform.localRotation = Quaternion.identity;
+                        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                     }
 
                     // Ensure that the attachTransform tightly follows the interactor's transform
@@ -155,9 +145,11 @@ namespace MixedReality.Toolkit.Input
                 }
             }
         }
+
         #endregion XRBaseInputInteractor
 
         #region IModeManagedInteractor
+
         /// <inheritdoc/>
         [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
         public GameObject GetModeManagedController()
@@ -173,16 +165,18 @@ namespace MixedReality.Toolkit.Input
 
             return ModeManagedRoot;
         }
+
         #endregion IModeManagedInteractor
 
         #region Unity Event Functions
+
         /// <inheritdoc/>
         protected override void Start()
         {
             base.Start();
 
             // Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
-            if (trackedPoseDriver == null) 
+            if (trackedPoseDriver == null)
             {
                 trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
             }
@@ -193,6 +187,7 @@ namespace MixedReality.Toolkit.Input
                 modeManagedRoot = trackedPoseDriver.gameObject;
             }
         }
+
         #endregion Unity Event Functions
     }
 }

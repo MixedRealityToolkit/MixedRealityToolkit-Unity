@@ -22,18 +22,17 @@ namespace MixedReality.Toolkit.Input
         XRBaseInputInteractor,
         IPokeInteractor,
         IHandedInteractor,
-        IModeManagedInteractor,
-        ITrackedInteractor
+        IModeManagedInteractor
     {
         #region PokeInteractor
 
-        [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
+        [SerializeField, Tooltip("Holds a reference to the TrackedPoseDriver associated with this interactor, if it exists.")]
         private TrackedPoseDriver trackedPoseDriver = null;
 
         /// <summary>
-        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// Holds a reference to the <see cref="UnityEngine.InputSystem.XR.TrackedPoseDriver"/> associated with this interactor, if it exists.
         /// </summary>
-        protected internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+        internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         [SerializeField]
         [Tooltip("The root management GameObject that interactor belongs to.")]
@@ -213,16 +212,13 @@ namespace MixedReality.Toolkit.Input
                     return base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || pokePointTracked);
                 }
 #pragma warning restore CS0618 // Type or member is obsolete
-                else
+                // If the interactor does not have a TrackedPoseDriver component then we cannot determine if it is hover active
+                else if (trackedPoseDriver == null) 
                 {
-                    // If the interactor does not have a <see cref="TrackedPoseDriver"> component then we cannot determine if it is hover active
-                    if (TrackedPoseDriver == null) 
-                    {
-                        return false;
-                    }
-
-                    return base.isHoverActive && (TrackedPoseDriver.GetInputTrackingState().HasPositionAndRotation() || pokePointTracked);
+                    return false;
                 }
+
+                return base.isHoverActive && (trackedPoseDriver.GetInputTrackingState().HasPositionAndRotation() || pokePointTracked);
             }
         }
 
@@ -319,11 +315,6 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
-
-        #region ITrackedInteractor
-        /// <inheritdoc />
-        public GameObject TrackedParent => trackedPoseDriver == null ? null : trackedPoseDriver.gameObject;
-        #endregion ITrackedInteractor
 
         #region IModeManagedInteractor
         /// <inheritdoc/>

@@ -22,18 +22,17 @@ namespace MixedReality.Toolkit.Input
         XRBaseInputInteractor,
         IGazePinchInteractor,
         IHandedInteractor,
-        IModeManagedInteractor,
-        ITrackedInteractor
+        IModeManagedInteractor
     {
         #region GazePinchInteractor
 
-        [SerializeField, Tooltip("Holds a reference to the <see cref=\"TrackedPoseDriver\"/> associated to this interactor if it exists.")]
+        [SerializeField, Tooltip("Holds a reference to the TrackedPoseDriver associated with this interactor, if it exists.")]
         private TrackedPoseDriver trackedPoseDriver = null;
 
         /// <summary>
-        /// Holds a reference to the <see cref="TrackedPoseDriver"/> associated to this interactor if it exists.
+        /// Holds a reference to the <see cref="UnityEngine.InputSystem.XR.TrackedPoseDriver"/> associated with this interactor, if it exists.
         /// </summary>
-        protected internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+        internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
 
         [SerializeField]
         [Tooltip("The root management GameObject that interactor belongs to.")]
@@ -561,11 +560,6 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
-
-        #region ITrackedInteractor
-        /// <inheritdoc />
-        public GameObject TrackedParent => trackedPoseDriver == null ? null : trackedPoseDriver.gameObject;
-        #endregion ITrackedInteractor
 
         #region IModeManagedInteractor
         /// <inheritdoc/>
