@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Added support for Unity's com.unity.cloud.gltfast and com.unity.cloud.ktx packages when loading controller models. [PR #631](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/631)
 * Added toggle for frame rate independent smoothing in camera simulation. [PR #1011](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1011)
 
+## Changed
+
+* Updated tests to follow existing MRTK test patterns. [PR #1046](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1046)
+
 ### Fixed
 
 * Fixed controller model fallback visualization becoming stuck visible when hands became tracked after initialization. [PR #984](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/984)
