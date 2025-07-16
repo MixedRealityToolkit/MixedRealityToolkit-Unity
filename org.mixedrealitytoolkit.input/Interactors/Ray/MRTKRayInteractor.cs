@@ -27,10 +27,12 @@ namespace MixedReality.Toolkit.Input
     public class MRTKRayInteractor :
         XRRayInteractor,
         IRayInteractor,
-        IVariableSelectInteractor,
+        IXRSelectInteractor,
+        IXRHoverInteractor,
         IModeManagedInteractor,
 #pragma warning disable CS0618 // Type or member is obsolete
-        IHandedInteractor
+        IHandedInteractor,
+        IVariableSelectInteractor
 #pragma warning restore CS0618 // Type or member is obsolete
     {
         #region MRTKRayInteractor
