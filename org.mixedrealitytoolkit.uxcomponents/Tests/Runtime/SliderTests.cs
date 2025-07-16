@@ -4,27 +4,24 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
+using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input;
 using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
+using System.Collections;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.TestTools;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
-    using Core.Tests;
-    using Input;
-    using System;
-    using System.Collections;
-    using UnityEditor;
-    using UnityEngine;
-    using UnityEngine.TestTools;
-    using Object = UnityEngine.Object;
-
     public class SliderTests : BaseRuntimeInputTests
     {
-        private const string TouchSliderPrefabPath =
-            "Packages/org.mixedrealitytoolkit.uxcore/Tests/Runtime/Prefabs/TouchSliderTest.prefab";
-
-        private const string GrabSliderPrefabPath =
-            "Packages/org.mixedrealitytoolkit.uxcore/Tests/Runtime/Prefabs/GrabSliderTest.prefab";
+        // Slider/CanvasSlider.prefab
+        private const string DefaultSliderPrefabGuid = "f64620d502cdf0f429efa27703913cb7";
+        private static readonly string DefaultSliderPrefabPath = AssetDatabase.GUIDToAssetPath(DefaultSliderPrefabGuid);
 
         private const int HandMovementFrames = 10;
 
@@ -41,7 +38,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         {
             InputTestUtilities.InitializeCameraToOriginAndForward();
 
-            var testPrefab = InstantiateSlider(TouchSliderPrefabPath);
+            var testPrefab = InstantiateSlider(DefaultSliderPrefabPath);
             testPrefab.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0, 0, 1));
 
             var slider = testPrefab.GetComponentInChildren<Slider>();
@@ -64,10 +61,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         {
             InputTestUtilities.InitializeCameraToOriginAndForward();
 
-            var testPrefab = InstantiateSlider(GrabSliderPrefabPath);
+            var testPrefab = InstantiateSlider(DefaultSliderPrefabPath);
             testPrefab.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0, 0, 1));
 
             var slider = testPrefab.GetComponentInChildren<Slider>();
+            slider.IsTouchable = false;
             slider.MinValue = testCase.MinValue;
             slider.MaxValue = testCase.MaxValue;
             slider.Value = ((testCase.MaxValue - testCase.MinValue) / 2) + testCase.MinValue;
@@ -91,7 +89,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         {
             InputTestUtilities.InitializeCameraToOriginAndForward();
 
-            var testPrefab = InstantiateSlider(TouchSliderPrefabPath);
+            var testPrefab = InstantiateSlider(DefaultSliderPrefabPath);
             testPrefab.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0, 0, 1));
 
             var slider = testPrefab.GetComponentInChildren<Slider>();
@@ -114,10 +112,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         {
             InputTestUtilities.InitializeCameraToOriginAndForward();
 
-            var testPrefab = InstantiateSlider(GrabSliderPrefabPath);
+            var testPrefab = InstantiateSlider(DefaultSliderPrefabPath);
             testPrefab.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0, 0, 1));
 
             var slider = testPrefab.GetComponentInChildren<Slider>();
+            slider.IsTouchable = false;
             slider.MinValue = testCase.MinValue;
             slider.MaxValue = testCase.MaxValue;
             slider.Value = ((testCase.MaxValue - testCase.MinValue) / 2) + testCase.MinValue;
@@ -137,29 +136,36 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Object.Destroy(testPrefab);
         }
 
-        public struct TestCase
+        public readonly struct TestCase
         {
-            public float MinValue;
-            public float MaxValue;
-            public float Expected;
+            public float MinValue { get; }
+            public float MaxValue { get; }
+            public float Expected { get; }
+
+            public TestCase(float minValue, float maxValue, float expected)
+            {
+                MinValue = minValue;
+                MaxValue = maxValue;
+                Expected = expected;
+            }
         }
 
         private static IEnumerable MoveRightTestCases()
         {
-            yield return new TestCase { MinValue = 0, MaxValue = 1, Expected = 0.7f };
-            yield return new TestCase { MinValue = 0, MaxValue = 10, Expected = 7 };
-            yield return new TestCase { MinValue = 0, MaxValue = 0.1f, Expected = 0.07f };
-            yield return new TestCase { MinValue = -1, MaxValue = 1, Expected = 0.4f };
-            yield return new TestCase { MinValue = -1, MaxValue = 0, Expected = -0.3f };
+            yield return new TestCase(minValue: 0, maxValue: 1, expected: 0.7f);
+            yield return new TestCase(minValue: 0, maxValue: 10, expected: 7);
+            yield return new TestCase(minValue: 0, maxValue: 0.1f, expected: 0.07f);
+            yield return new TestCase(minValue: -1, maxValue: 1, expected: 0.4f);
+            yield return new TestCase(minValue: -1, maxValue: 0, expected: -0.3f);
         }
 
         private static IEnumerable MoveLeftTestCases()
         {
-            yield return new TestCase { MinValue = 0, MaxValue = 1, Expected = 0.3f };
-            yield return new TestCase { MinValue = 0, MaxValue = 10, Expected = 3 };
-            yield return new TestCase { MinValue = 0, MaxValue = 0.1f, Expected = 0.03f };
-            yield return new TestCase { MinValue = -1, MaxValue = 1, Expected = -0.4f };
-            yield return new TestCase { MinValue = -1, MaxValue = 0, Expected = -0.7f };
+            yield return new TestCase(minValue: 0, maxValue: 1, expected: 0.3f);
+            yield return new TestCase(minValue: 0, maxValue: 10, expected: 3);
+            yield return new TestCase(minValue: 0, maxValue: 0.1f, expected: 0.03f);
+            yield return new TestCase(minValue: -1, maxValue: 1, expected: -0.4f);
+            yield return new TestCase(minValue: -1, maxValue: 0, expected: -0.7f);
         }
 
         private IEnumerator ShowHand()
@@ -171,10 +177,17 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
         private GameObject InstantiateSlider(string prefabPath)
         {
-
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-            GameObject obj = GameObject.Instantiate(prefab);
-            return obj;
+            GameObject canvas = new GameObject("SliderParent", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
+            canvas.transform.localScale = Vector3.one * 0.001f;
+            (canvas.transform as RectTransform).sizeDelta = Vector2.one * 200;
+            GameObject slider = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath));
+            slider.transform.SetParent(canvas.transform, worldPositionStays: false);
+            slider.transform.position = Vector3.zero;
+            if (slider.transform is RectTransform rectTransform)
+            {
+                rectTransform.sizeDelta = new Vector2(200f, rectTransform.sizeDelta.y);
+            }
+            return canvas;
         }
     }
 }
