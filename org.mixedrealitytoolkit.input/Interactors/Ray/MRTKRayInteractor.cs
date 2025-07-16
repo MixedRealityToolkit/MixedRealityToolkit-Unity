@@ -27,9 +27,11 @@ namespace MixedReality.Toolkit.Input
     public class MRTKRayInteractor :
         XRRayInteractor,
         IRayInteractor,
-        IHandedInteractor,
         IVariableSelectInteractor,
-        IModeManagedInteractor
+        IModeManagedInteractor,
+#pragma warning disable CS0618 // Type or member is obsolete
+        IHandedInteractor
+#pragma warning restore CS0618 // Type or member is obsolete
     {
         #region MRTKRayInteractor
 
@@ -140,22 +142,18 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
+        [Obsolete("Use handedness from IXRInteractor instead.")]
         Handedness IHandedInteractor.Handedness
         {
             get
             {
-#pragma warning disable CS0618 // Type or member is obsolete
-#pragma warning disable CS0612 // Type or member is obsolete
-                if (forceDeprecatedInput)
+                if (forceDeprecatedInput &&
+                    xrController is ArticulatedHandController handController)
                 {
-                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                    return handController.HandNode.ToHandedness();
                 }
-#pragma warning restore CS0612
-#pragma warning restore CS0618
-                else
-                {
-                    return handedness.ToHandedness();
-                }
+
+                return handedness.ToHandedness();
             }
         }
 
@@ -178,10 +176,8 @@ namespace MixedReality.Toolkit.Input
                 {
                     return selectInput.ReadValue();
                 }
-                else
-                {
-                    Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
-                }
+
+                Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
                 return 0;
             }
         }
@@ -258,14 +254,12 @@ namespace MixedReality.Toolkit.Input
                         bool isPalmFacingAway = false;
 
 #pragma warning disable CS0618 // Type or member is obsolete
-#pragma warning disable CS0612 // Type or member is obsolete
                         if (forceDeprecatedInput &&
                             xrController is ArticulatedHandController handController &&
                             (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true))
                         {
-                                hoverActive &= isPalmFacingAway;
+                            hoverActive &= isPalmFacingAway;
                         }
-#pragma warning restore CS0612
 #pragma warning restore CS0618
                         // Attempt palm facing away check if the interactor is associated with a hand.
                         else if (handedness != InteractorHandedness.None &&
@@ -339,31 +333,27 @@ namespace MixedReality.Toolkit.Input
         #endregion XRBaseInteractor
 
         #region IModeManagedInteractor
+
         /// <inheritdoc/>
         [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
         public GameObject GetModeManagedController()
         {
             // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
             // interaction mode manager is used instead.
-#pragma warning disable CS0618 // Type or member is obsolete 
-            if (forceDeprecatedInput)
-            {
-                return null;
-            }
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            return ModeManagedRoot;
+            return forceDeprecatedInput ? null : ModeManagedRoot;
         }
+
         #endregion IModeManagedInteractor
 
         #region Unity Event Functions
+
         /// <inheritdoc/>
         protected override void Start()
         {
             base.Start();
 
             // Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
-            if (trackedPoseDriver == null) 
+            if (trackedPoseDriver == null)
             {
                 trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
             }
@@ -406,6 +396,7 @@ namespace MixedReality.Toolkit.Input
                 modeManagedRoot = trackedPoseDriver.gameObject;
             }
         }
+
         #endregion Unity Event Functions
     }
 }

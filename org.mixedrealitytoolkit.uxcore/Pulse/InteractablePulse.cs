@@ -4,6 +4,7 @@
 using Microsoft.MixedReality.GraphicsTools;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX
 {
@@ -50,10 +51,7 @@ namespace MixedReality.Toolkit.UX
 
         private void OnSelectEntered(SelectEnterEventArgs args)
         {
-            if (args.interactorObject is IHandedInteractor handedInteractor)
-            {
-                pulse.Pulse(handedInteractor.GetAttachTransform(Interactable).position, handedInteractor.Handedness == Handedness.Left);
-            }
+            pulse.Pulse(args.interactorObject.GetAttachTransform(Interactable).position, args.interactorObject.handedness == InteractorHandedness.Left);
         }
     }
 }

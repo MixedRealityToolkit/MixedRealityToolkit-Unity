@@ -21,8 +21,10 @@ namespace MixedReality.Toolkit.Input
     public class GazePinchInteractor :
         XRBaseInputInteractor,
         IGazePinchInteractor,
-        IHandedInteractor,
-        IModeManagedInteractor
+        IModeManagedInteractor,
+#pragma warning disable CS0618 // Type or member is obsolete
+        IHandedInteractor
+#pragma warning restore CS0618 // Type or member is obsolete
     {
         #region GazePinchInteractor
 
@@ -68,7 +70,7 @@ namespace MixedReality.Toolkit.Input
         /// represents whether the hand is in a pinching pose,
         /// within the FOV set by the aggregator config.
         /// </summary>
-        protected bool PinchReady { get => pinchReady; }
+        protected bool PinchReady => pinchReady;
 
         /// <summary>
         /// The world-space pose of the hand pinching point.
@@ -194,22 +196,17 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
+        [Obsolete("Use handedness from IXRInteractor instead.")]
         Handedness IHandedInteractor.Handedness
         {
             get
             {
-#pragma warning disable CS0618 // Type or member is obsolete
                 if (forceDeprecatedInput)
                 {
-#pragma warning disable CS0612 // Type or member is obsolete
                     return handController.HandNode.ToHandedness();
-#pragma warning restore CS0612 // Type or member is obsolete
                 }
-#pragma warning restore CS0618 // Type or member is obsolete
-                else
-                {
-                    return handedness.ToHandedness();
-                }
+
+                return handedness.ToHandedness();
             }
         }
 
@@ -225,9 +222,7 @@ namespace MixedReality.Toolkit.Input
 #pragma warning disable CS0618 // Type or member is obsolete
                 if (forceDeprecatedInput)
                 {
-#pragma warning disable CS0612 // Type or member is obsolete
                     return handController.selectInteractionState.value;
-#pragma warning restore CS0612 // Type or member is obsolete
                 }
 #pragma warning restore CS0618 // Type or member is obsolete
                 else if (selectInput != null)
@@ -326,11 +321,11 @@ namespace MixedReality.Toolkit.Input
 
         /// <summary>
         /// Given the specified interactable, this computes and applies the relevant
-        /// position and rotation to the attach transform. 
+        /// position and rotation to the attach transform.
         /// </summary>
         /// <remarks>
-        /// If there is currently an active selection, the attach transform is computed 
-        /// as an offset from selected object, where the offset vector is a function of 
+        /// If there is currently an active selection, the attach transform is computed
+        /// as an offset from selected object, where the offset vector is a function of
         /// the centroid between all currently participating <see cref="GazePinchInteractor"/>
         /// objects. This models ray-like manipulations, but with virtual attach offsets
         /// from object, modeled from the relationship between each participating hand.
@@ -344,8 +339,7 @@ namespace MixedReality.Toolkit.Input
             if (!AimPoseSource.TryGetPose(out Pose aimPose)) { return; }
 
             // Separate vars for fused position/rotation setting.
-            Quaternion rotationToApply = attachTransform.rotation;
-            Vector3 positionToApply = attachTransform.position;
+            attachTransform.GetPositionAndRotation(out Vector3 positionToApply, out Quaternion rotationToApply);
 
             // Compute the ratio from the current hand-body distance to the distance
             // we recorded on selection. Used to linearly scale the attach transform's
@@ -484,7 +478,7 @@ namespace MixedReality.Toolkit.Input
             interactorLocalAttachPoint = Quaternion.Inverse(noRollRay) * (virtualAttachTransform - aimPose.position);
 
             // Record the distance from the controller to the body of the user, to use as reference for subsequent
-            // distance measurements. 
+            // distance measurements.
             bodyDistanceOnSelect = PoseUtilities.GetDistanceToBody(aimPose);
         }
 
@@ -562,24 +556,20 @@ namespace MixedReality.Toolkit.Input
         #endregion XRBaseInteractor
 
         #region IModeManagedInteractor
+
         /// <inheritdoc/>
         [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
         public GameObject GetModeManagedController()
         {
             // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
             // interaction mode manager is used instead.
-#pragma warning disable CS0618 // Type or member is obsolete 
-            if (forceDeprecatedInput)
-            {
-                return null;
-            }
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            return ModeManagedRoot;
+            return forceDeprecatedInput ? null : ModeManagedRoot;
         }
+
         #endregion IModeManagedInteractor
 
         #region Private Methods
+
         /// <summary>
         /// Updates the pinch state of the GazePinchInteractor.
         /// If handedness is not set then it defaults to right hand.
@@ -613,6 +603,7 @@ namespace MixedReality.Toolkit.Input
                 pinchReady = isPinchReady;
             }
         }
+
         #endregion Private Methods
     }
 }

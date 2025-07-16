@@ -21,8 +21,10 @@ namespace MixedReality.Toolkit.Input
     public class PokeInteractor :
         XRBaseInputInteractor,
         IPokeInteractor,
-        IHandedInteractor,
-        IModeManagedInteractor
+        IModeManagedInteractor,
+#pragma warning disable CS0618 // Type or member is obsolete
+        IHandedInteractor
+#pragma warning restore CS0618 // Type or member is obsolete
     {
         #region PokeInteractor
 
@@ -80,7 +82,6 @@ namespace MixedReality.Toolkit.Input
             HandJointPose jointPose = default;
 
 #pragma warning disable CS0618 // Type or member is obsolete
-#pragma warning disable CS0612 // Type or member is obsolete
             if (forceDeprecatedInput &&
                 xrController is ArticulatedHandController handController &&
                 (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
@@ -88,15 +89,12 @@ namespace MixedReality.Toolkit.Input
                 radius = jointPose.Radius;
                 return true;
             }
-#pragma warning disable CS0612 // Type or member is obsolete
 #pragma warning restore CS0618 // Type or member is obsolete
-            else
+            else if (handedness != InteractorHandedness.None &&
+                (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handedness.ToXRNode(), out jointPose) ?? false))
             {
-                if (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handedness.ToXRNode(), out jointPose) ?? false)
-                {
-                    radius = jointPose.Radius;
-                    return true;
-                }
+                radius = jointPose.Radius;
+                return true;
             }
 
             radius = default;
@@ -108,20 +106,18 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
+        [Obsolete("Use handedness from IXRInteractor instead.")]
         Handedness IHandedInteractor.Handedness
         {
             get
             {
-#pragma warning disable CS0618 // Type or member is obsolete
-                if (forceDeprecatedInput)
+                if (forceDeprecatedInput &&
+                    xrController is ArticulatedHandController handController)
                 {
-                    return (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+                    return handController.HandNode.ToHandedness();
                 }
-#pragma warning restore CS0618 // Type or member is obsolete
-                else
-                {
-                    return handedness.ToHandedness();
-                }
+
+                return handedness.ToHandedness();
             }
         }
 
@@ -153,7 +149,7 @@ namespace MixedReality.Toolkit.Input
             base.Start();
 
             // Try to get the <see cref="TrackedPoseDriver"> component from the parent if it hasn't been set yet
-            if (trackedPoseDriver == null) 
+            if (trackedPoseDriver == null)
             {
                 trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
             }
@@ -213,7 +209,7 @@ namespace MixedReality.Toolkit.Input
                 }
 #pragma warning restore CS0618 // Type or member is obsolete
                 // If the interactor does not have a TrackedPoseDriver component then we cannot determine if it is hover active
-                else if (trackedPoseDriver == null) 
+                else if (trackedPoseDriver == null)
                 {
                     return false;
                 }
@@ -317,21 +313,16 @@ namespace MixedReality.Toolkit.Input
         #endregion XRBaseInteractor
 
         #region IModeManagedInteractor
+
         /// <inheritdoc/>
         [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
         public GameObject GetModeManagedController()
         {
             // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
             // interaction mode manager is used instead.
-#pragma warning disable CS0618 // Type or member is obsolete 
-            if (forceDeprecatedInput)
-            {
-                return null;
-            }
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            return ModeManagedRoot;
+            return forceDeprecatedInput ? null : ModeManagedRoot;
         }
+
         #endregion IModeManagedInteractor
     }
 }

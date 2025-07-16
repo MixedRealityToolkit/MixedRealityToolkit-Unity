@@ -26,18 +26,12 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Gets the <see cref="XRNode"/> representing the specified <see cref="InteractorHandedness"/>. If the <see cref="InteractorHandedness"/>
         /// </summary>
-        public static XRNode ToXRNode(this InteractorHandedness hand, XRNode defaultValue = XRNode.RightHand)
+        public static XRNode ToXRNode(this InteractorHandedness hand, XRNode defaultValue = XRNode.RightHand) => hand switch
         {
-            switch (hand)
-            {
-                case InteractorHandedness.Left:
-                    return XRNode.LeftHand;
-                case InteractorHandedness.Right:
-                    return XRNode.RightHand;
-                default:
-                    return defaultValue;
-            }
-        }
+            InteractorHandedness.Left => XRNode.LeftHand,
+            InteractorHandedness.Right => XRNode.RightHand,
+            _ => defaultValue,
+        };
 
         /// <summary>
         /// Converts the <see cref="InteractorHandedness"/> to <see cref="Handedness"/>. If the <see cref="InteractorHandedness"/>
@@ -46,17 +40,11 @@ namespace MixedReality.Toolkit
         /// <param name="hand">The <see cref="InteractorHandedness"/> value for
         /// which the <see cref="Handedness"/> is requested.</param>
         /// <returns><see cref="Handedness"/> representing the specified <see cref="InteractorHandedness"/>.</returns>
-        public static Handedness ToHandedness(this InteractorHandedness hand)
+        public static Handedness ToHandedness(this InteractorHandedness hand) => hand switch
         {
-            switch (hand)
-            {
-                case InteractorHandedness.Left:
-                    return Handedness.Left;
-                case InteractorHandedness.Right:
-                    return Handedness.Right;
-                default:
-                    return Handedness.None;
-            }
-        }
+            InteractorHandedness.Left => Handedness.Left,
+            InteractorHandedness.Right => Handedness.Right,
+            _ => Handedness.None,
+        };
     }
 }
