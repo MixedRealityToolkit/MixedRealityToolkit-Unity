@@ -272,9 +272,13 @@ namespace MixedReality.Toolkit
             {
                 float selectionProgress = 0.0f;
 
-                foreach (var interactor in interactorsHovering)
+                foreach (IXRHoverInteractor interactor in interactorsHovering)
                 {
-                    if (interactor is IVariableSelectInteractor variableSelectInteractor)
+                    if (interactor is IXRInteractionStrengthInteractor iInteractionStrengthInteractor)
+                    {
+                        selectionProgress = Mathf.Max(selectionProgress, iInteractionStrengthInteractor.largestInteractionStrength.Value);
+                    }
+                    else if (interactor is IVariableSelectInteractor variableSelectInteractor)
                     {
                         selectionProgress = Mathf.Max(selectionProgress, variableSelectInteractor.SelectProgress);
                     }
