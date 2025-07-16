@@ -201,8 +201,7 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
-                if (forceDeprecatedInput &&
-                    xrController is ArticulatedHandController handController)
+                if (forceDeprecatedInput)
                 {
                     return handController.HandNode.ToHandedness();
                 }
