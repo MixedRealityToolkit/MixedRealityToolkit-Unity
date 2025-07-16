@@ -18,6 +18,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
 
+### Removed
+
+* Removed HandNode property and field from HandModel, as it was largely unused. [PR #1045](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1045)
+
 ### Deprecated
 
 * Deprecated IHandedInteractor across the interactor implementations, as its info is now queryable directly from IXRInteractor's handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
