@@ -435,10 +435,7 @@ namespace MixedReality.Toolkit.Input.Simulation
                 // simulatedControllerState.primary2DAxis = controls.Primary2DAxis;
                 // simulatedControllerState.secondary2DAxis = controls.Secondary2DAxis;
 
-                // Note: if trigger button is activated, the joint synthesizer will instantly pinch, without smoothing.
-                // If smoothed pinch is desired, use controls.TriggerAxis.
                 simulatedControllerState.WithButton(ControllerButton.TriggerButton, controls.TriggerButton);
-
                 simulatedControllerState.WithButton(ControllerButton.GripButton, controls.GripButton);
 
                 // todo: "soon"

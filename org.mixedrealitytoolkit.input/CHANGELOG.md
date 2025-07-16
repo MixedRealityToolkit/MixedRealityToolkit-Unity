@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 * Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
+* Split out mappings for "airtap" and "grab", as well as mapping other bespoke interaction profile actions (like those provided by the Hand Interaction Profile). [PR #1040](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1040)
 
 ### Removed
 
