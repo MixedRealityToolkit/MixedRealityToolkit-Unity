@@ -7,14 +7,14 @@ using UnityEngine.Scripting;
 
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_WSA
 using UnityEngine.Windows.Speech;
-#endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
+#endif // UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_WSA
 
 namespace MixedReality.Toolkit.Speech.Windows
 {
     /// <summary>
     /// A Unity subsystem that extends <see cref="MixedReality.Toolkit.Subsystems.DictationSubsystem">DictationSubsystem</see>
     /// so to expose the dictation services available on Windows platforms. This subsystem is enabled for Windows Standalone and
-    /// Universal Windows Applications. 
+    /// Universal Windows Applications.
     /// </summary>
     /// <remarks>
     /// This subsystem can be configured using the <see cref="MixedReality.Toolkit.Speech.Windows.WindowsDictationSubsystemConfig">WindowsDictationSubsystemConfig</see> Unity asset.
@@ -35,10 +35,14 @@ namespace MixedReality.Toolkit.Speech.Windows
             // Fetch subsystem metadata from the attribute.
             var cinfo = XRSubsystemHelpers.ConstructCinfo<WindowsDictationSubsystem, DictationSubsystemCinfo>();
 
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_WSA
             if (!Register(cinfo))
             {
                 Debug.LogError($"Failed to register the {cinfo.Name} subsystem.");
             }
+#else
+            Debug.Log($"Skipping registration of the {cinfo.Name} subsystem due to running on an unsupported platform.");
+#endif
         }
 
         /// <summary>

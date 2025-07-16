@@ -24,6 +24,11 @@ namespace MixedReality.Toolkit.UX.Experimental
         private TMP_InputField field;
 
         /// <summary>
+        /// Tracks the currently active trigger.
+        /// </summary>        
+        private static TMPInputFieldNonNativeKeyboardTrigger activeTrigger;
+
+        /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
         /// </summary>
         private void Awake()
@@ -65,6 +70,14 @@ namespace MixedReality.Toolkit.UX.Experimental
         public void PresentKeyboard()
         {
             NonNativeKeyboard keyboard = NonNativeKeyboard.Instance;
+
+            // Prevents simultaneous editing of multiple input fields.
+            if (activeTrigger != null && activeTrigger != this)
+            {
+                keyboard.Close();
+            }
+            activeTrigger = this;
+            
             keyboard.Open();
             keyboard.OnClose?.AddListener(OnKeyboardClose);
             keyboard.OnTextUpdate?.AddListener(UpdateText);
@@ -77,6 +90,11 @@ namespace MixedReality.Toolkit.UX.Experimental
 
         private void OnKeyboardClose(string _)
         {
+            if (activeTrigger == this)
+            {
+                activeTrigger = null;
+            }
+
             RemoveListeners();
         }
 
