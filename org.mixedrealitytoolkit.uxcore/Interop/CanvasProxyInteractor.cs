@@ -112,7 +112,7 @@ namespace MixedReality.Toolkit.UX
                 }
             }
         }
-        
+
         /// <inheritdoc />
         public override void GetValidTargets(List<IXRInteractable> targets)
         {
@@ -151,7 +151,7 @@ namespace MixedReality.Toolkit.UX
         public override bool isHoverActive => base.isHoverActive && !isCancellingInteraction;
 
         /// <inheritdoc />
-        [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in the next major release. Use ModeManagedRoot instead.")]
         public GameObject GetModeManagedController() => ModeManagedRoot;
     }
 }

@@ -19,7 +19,7 @@ namespace MixedReality.Toolkit.Input
     /// state will have no position and no rotation data. In this case, the controller may want to fallback to head pose.
     /// </remarks>
     [AddComponentMenu("MRTK/Input/XR Controller (Action-based with Fallbacks)")]
-    [Obsolete("Deprecated, please use MixedReality.Toolkit.Input.TrackedPoseDriverWithFallback")]
+    [Obsolete("ActionBasedControllerWithFallbacks has been deprecated in version 4.0.0. Please use MixedReality.Toolkit.Input.TrackedPoseDriverWithFallback")]
     public class ActionBasedControllerWithFallbacks : ActionBasedController
     {
         #region Fallback actions values

@@ -16,7 +16,7 @@ namespace MixedReality.Toolkit
         /// Returns the GameObject that this interactor belongs to. This GameObject is governed by the
         /// interaction mode manager and is assigned an interaction mode. This GameObject represents the 'controller' that this interactor belongs to.
         /// </summary>
-        [Obsolete("This function is obsolete and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in the next major release. Use ModeManagedRoot instead.")]
         public GameObject GetModeManagedController();
 
         /// <summary>

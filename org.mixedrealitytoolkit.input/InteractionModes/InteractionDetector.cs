@@ -110,11 +110,11 @@ namespace MixedReality.Toolkit.Input
         [Tooltip("List of GameObjects which represent the interactor groups that this interaction mode detector has jurisdiction over. Interaction modes will be set on all specified groups.")]
         private List<GameObject> interactorGroups;
 
-        /// <inheritdoc /> 
-        [Obsolete("This function is obsolete and will be removed in a future version. Please use GetInteractorGroups instead.")]
+        /// <inheritdoc />
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in a future version. Please use GetInteractorGroups instead.")]
         public List<GameObject> GetControllers() => GetInteractorGroups();
 
-        /// <inheritdoc /> 
+        /// <inheritdoc />
         public List<GameObject> GetInteractorGroups() => interactorGroups;
 
         /// <inheritdoc />

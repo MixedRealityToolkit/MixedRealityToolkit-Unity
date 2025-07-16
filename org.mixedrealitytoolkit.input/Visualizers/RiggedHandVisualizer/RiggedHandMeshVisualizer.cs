@@ -93,7 +93,7 @@ namespace MixedReality.Toolkit.Input
         private List<XRDisplaySubsystem> displaySubsystems = new List<XRDisplaySubsystem>();
 
         // The XRController that is used to determine the pinch strength (i.e., select value!)
-        [Obsolete("This field is obsolete and will be removed in a future version. Use the SelectInput property instead.")]
+        [Obsolete("This field has been deprecated in version 4.0.0 and will be removed in a future version. Use the SelectInput property instead.")]
         private XRBaseController controller;
 
         // The actual, physical, rigged joints that drive the skinned mesh.

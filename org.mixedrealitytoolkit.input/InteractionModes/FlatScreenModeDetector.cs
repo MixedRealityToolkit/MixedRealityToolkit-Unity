@@ -4,9 +4,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 using UnityEngine.Serialization;
-using UnityEngine.XR;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -23,7 +21,7 @@ namespace MixedReality.Toolkit.Input
 
         public InteractionMode ModeOnDetection => flatScreenInteractionMode;
 
-        [Obsolete("Deprecated, please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
+        [Obsolete("This field has been deprecated in version 4.0.0. Please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
         protected ControllerLookup controllerLookup = null;
 
         protected TrackedPoseDriverLookup trackedPoseDriverLookup = null;
@@ -40,22 +38,22 @@ namespace MixedReality.Toolkit.Input
             trackedPoseDriverLookup = ComponentCache<TrackedPoseDriverLookup>.FindFirstActiveInstance();
         }
 
-        /// <inheritdoc /> 
-        [Obsolete("This function is obsolete and will be removed in a future version. Please use GetInteractorGroups instead.")]
+        /// <inheritdoc />
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in a future version. Please use GetInteractorGroups instead.")]
         public List<GameObject> GetControllers() => GetInteractorGroups();
 
-        /// <inheritdoc /> 
+        /// <inheritdoc />
         public List<GameObject> GetInteractorGroups() => interactorGroups;
 
         public bool IsModeDetected()
         {
             // Flat screen mode is only active if the Left and Right Hands aren't being tracked
-            #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
             if (controllerLookup != null)
             {
                 return !controllerLookup.LeftHandController.currentControllerState.inputTrackingState.HasPositionAndRotation() && !controllerLookup.RightHandController.currentControllerState.inputTrackingState.HasPositionAndRotation();
             }
-            #pragma warning restore CS0618
+#pragma warning restore CS0618
             else if (trackedPoseDriverLookup != null)
             {
                 return !trackedPoseDriverLookup.LeftHandTrackedPoseDriver.GetInputTrackingState().HasPositionAndRotation() &&
