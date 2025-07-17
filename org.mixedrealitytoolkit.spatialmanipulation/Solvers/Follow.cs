@@ -469,7 +469,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 Vector3 toTarget = currentPosition - refPosition;
                 float currentDistance = toTarget.magnitude;
-                if (currentDistance <= 0f)
+                if (currentDistance <= Mathf.Epsilon)
                 {
                     // No need to clamp
                     return false;
