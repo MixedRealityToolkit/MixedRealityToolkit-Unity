@@ -246,7 +246,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Wait for solvers double click prevention timeout
             yield return new WaitForSeconds(0.5f + 0.1f);
 
-            // Must call StopPlacement for following tests to not fail because rig keept reference to the TapToPlace
+            // Must call StopPlacement for following tests to not fail because rig kept reference to the TapToPlace
             solver.StopPlacement();
 
             yield return RuntimeTestUtilities.WaitForUpdates(1);
