@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-// Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
-#pragma warning disable CS1591
-
+using MixedReality.Toolkit.Input;
 using System;
 using System.IO;
 using System.Linq;
@@ -18,7 +16,7 @@ namespace MixedReality.Toolkit.Examples.Build
     /// </summary>
     public static class BuildApp
     {
-        private static string[] scenes = 
+        private static string[] scenes =
         {
             "Assets/Scenes/BoundsControlExamples.unity",
             "Assets/Scenes/CanvasExample.unity",
@@ -151,6 +149,10 @@ namespace MixedReality.Toolkit.Examples.Build
                     case "-buildOutput":
                         buildPath = arguments[++i];
                         break;
+                    case "-debug":
+                        // Add hand joints to hand visualization for debugging purposes
+                        PatchDebugHands();
+                        break;
                 }
             }
         }
@@ -160,6 +162,107 @@ namespace MixedReality.Toolkit.Examples.Build
             return (from scene in sceneList.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                     select scene.Trim()).ToArray();
         }
+
+        #region Hand Debug Patching
+
+        private const string LeftHandVisualizerGuid = "2b468cc4fe6d2b44ebc53b958b38b91a";
+        private const string RightHandVisualizerGuid = "da93d751ddc0f64468dfc02f18d02d00";
+        private const string HandJointMaterialGuid = "f115122e8379c044faecfec013fda057";
+
+        [MenuItem("Mixed Reality/MRTK3/Examples/Patch debug hand visualization...")]
+        private static void PatchDebugHands() => PatchHands(true);
+
+        [MenuItem("Mixed Reality/MRTK3/Examples/Patch debug hand visualization...", true)]
+        private static bool ValidatePatchDebugHands() => !AreHandsPatched();
+
+        [MenuItem("Mixed Reality/MRTK3/Examples/Unpatch debug hand visualization...")]
+        private static void UnpatchDebugHands() => PatchHands(false);
+
+        [MenuItem("Mixed Reality/MRTK3/Examples/Unpatch debug hand visualization...", true)]
+        private static bool ValidateUnpatchDebugHands() => AreHandsPatched();
+
+        /// <summary>
+        /// Checks both hand prefabs for a <see cref="HandJointVisualizer"/>.
+        /// </summary>
+        /// <returns>Whether the left and right hands both have <see cref="HandJointVisualizer"/> scripts.</returns>
+        private static bool AreHandsPatched()
+        {
+            bool isPatched = true;
+
+            string rightHandPath = AssetDatabase.GUIDToAssetPath(RightHandVisualizerGuid);
+            {
+                GameObject rightHandVisualizer = PrefabUtility.LoadPrefabContents(rightHandPath);
+                if (rightHandVisualizer != null)
+                {
+                    isPatched &= rightHandVisualizer.TryGetComponent<HandJointVisualizer>(out _);
+                }
+                PrefabUtility.UnloadPrefabContents(rightHandVisualizer);
+            }
+
+            string leftHandPath = AssetDatabase.GUIDToAssetPath(LeftHandVisualizerGuid);
+            {
+                GameObject leftHandVisualizer = PrefabUtility.LoadPrefabContents(leftHandPath);
+                if (leftHandVisualizer != null)
+                {
+                    isPatched &= leftHandVisualizer.TryGetComponent<HandJointVisualizer>(out _);
+                }
+                PrefabUtility.UnloadPrefabContents(leftHandVisualizer);
+            }
+
+            return isPatched;
+        }
+
+        /// <summary>
+        /// Updates both the left and right hand prefabs with <see cref="HandJointVisualizer"/> scripts.
+        /// </summary>
+        /// <param name="addDebug">If <see langword="true"/>, <see cref="HandJointVisualizer"/> will be added. If <see langword="false"/>, it'll be removed.</param>
+        private static void PatchHands(bool addDebug)
+        {
+            string rightHandPath = AssetDatabase.GUIDToAssetPath(RightHandVisualizerGuid);
+            {
+                GameObject rightHandVisualizer = PrefabUtility.LoadPrefabContents(rightHandPath);
+                if (rightHandVisualizer != null)
+                {
+                    if (addDebug)
+                    {
+                        HandJointVisualizer visualizer = rightHandVisualizer.EnsureComponent<HandJointVisualizer>();
+                        visualizer.HandNode = UnityEngine.XR.XRNode.RightHand;
+                        visualizer.JointMaterial = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(HandJointMaterialGuid));
+                        visualizer.JointMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+                    }
+                    else if (rightHandVisualizer.TryGetComponent(out HandJointVisualizer handJointVisualizer))
+                    {
+                        UnityEngine.Object.DestroyImmediate(handJointVisualizer);
+                    }
+                    PrefabUtility.SaveAsPrefabAsset(rightHandVisualizer, rightHandPath);
+                }
+                PrefabUtility.UnloadPrefabContents(rightHandVisualizer);
+            }
+
+            string leftHandPath = AssetDatabase.GUIDToAssetPath(LeftHandVisualizerGuid);
+            {
+                GameObject leftHandVisualizer = PrefabUtility.LoadPrefabContents(leftHandPath);
+                if (leftHandVisualizer != null)
+                {
+                    if (addDebug)
+                    {
+                        HandJointVisualizer visualizer = leftHandVisualizer.EnsureComponent<HandJointVisualizer>();
+                        visualizer.HandNode = UnityEngine.XR.XRNode.LeftHand;
+                        visualizer.JointMaterial = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(HandJointMaterialGuid));
+                        visualizer.JointMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+                    }
+#if UNITY_6000_0_OR_NEWER
+                    else
+                    {
+                        PrefabUtility.RemoveUnusedOverrides(new[] { leftHandVisualizer }, UnityEditor.InteractionMode.UserAction);
+                    }
+#endif
+                    PrefabUtility.SaveAsPrefabAsset(leftHandVisualizer, leftHandPath);
+                }
+                PrefabUtility.UnloadPrefabContents(leftHandVisualizer);
+            }
+        }
+
+        #endregion Hand Debug Patching
     }
 }
-#pragma warning restore CS1591

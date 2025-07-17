@@ -1,10 +1,11 @@
-name: Code Validation (MRTK3)
+name: Code Validation
 
 on:
   push:
-    branches: ["mrtk3"]
+    branches:
+      - main
+      - 'feature/*'
   pull_request:
-    branches: ["mrtk3"]
 
 jobs:
   validation:

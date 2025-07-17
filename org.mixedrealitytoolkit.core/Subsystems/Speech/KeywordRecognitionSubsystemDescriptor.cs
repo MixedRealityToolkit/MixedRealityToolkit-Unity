@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using System;
-using UnityEngine.SubsystemsImplementation;
 
 namespace MixedReality.Toolkit.Subsystems
 {
@@ -60,15 +59,15 @@ namespace MixedReality.Toolkit.Subsystems
         /// </returns>
         internal static KeywordRecognitionSubsystemDescriptor Create(KeywordRecognitionSubsystemCinfo cinfo)
         {
-           // Validates cinfo.
-           if (!XRSubsystemHelpers.CheckTypes<KeywordRecognitionSubsystem, KeywordRecognitionSubsystem.Provider>(cinfo.Name,
-                                                                                                               cinfo.SubsystemTypeOverride,
-                                                                                                               cinfo.ProviderType))
-           {
-               throw new ArgumentException("Could not create KeywordRecognitionSubsystemDescriptor.");
-           }
+            // Validates cinfo.
+            if (!XRSubsystemHelpers.CheckTypes<KeywordRecognitionSubsystem, KeywordRecognitionSubsystem.Provider>(cinfo.Name,
+                                                                                                                  cinfo.SubsystemTypeOverride,
+                                                                                                                  cinfo.ProviderType))
+            {
+                throw new ArgumentException("Could not create KeywordRecognitionSubsystemDescriptor.");
+            }
 
-           return new KeywordRecognitionSubsystemDescriptor(cinfo);
+            return new KeywordRecognitionSubsystemDescriptor(cinfo);
         }
     }
 }

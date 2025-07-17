@@ -86,15 +86,8 @@ namespace MixedReality.Toolkit.Input
                 // If we still don't have an aggregator, then don't update selects.
                 if (XRSubsystemHelpers.HandsAggregator == null) { return; }
 
-                bool gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(
-                    handNode,
-                    out bool isPinchReady,
-                    out bool isPinching,
-                    out float pinchAmount
-                );
-
                 // If we got pinch data, write it into our select interaction state.
-                if (gotPinchData)
+                if (XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(handNode, out bool isPinchReady, out _, out float pinchAmount))
                 {
                     // Workaround for missing select actions on devices without interaction profiles
                     // for hands, such as Varjo and Quest. Should be removed once we have universal

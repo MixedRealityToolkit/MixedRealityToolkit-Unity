@@ -2,7 +2,11 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.3.0-development] - 2024-06-24
+## Unreleased
+
+## Changed
+
+* Updated tests to follow existing MRTK test patterns. [PR #1046](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1046)
 
 ### Added
 
@@ -10,9 +14,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
-* Fixed broken project validation help link, for item 'MRTK3 profile may need to be assigned for the Standalone build target' (Issue #882) [PR#886 (https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/886)]
+* Fixed broken project validation help link, for item 'MRTK3 profile may need to be assigned for the Standalone build target' (Issue #882) [PR #886](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/886)
+* Fixed the "Is Interactable" convenience alias on StatefulInteractableEditor to allow multi-object editing in the Inspector to update all values. (Issue #573) [PR #943](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/943)
+* Augment SerializableDictionary to allow temporary duplicates in Editor to prevent serialization errors. [PR #961](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/961)
+* Fix an issue with the "Init Controllers" type lookup within InteractionModeManager.InitializeControllers() to find XRBaseControllers instead of XRControllers. [PR #961](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/961)
 
-## [3.2.2-development] - 2024-06-13
+## [3.2.2] - 2024-09-18
 
 ### Fixed
 
