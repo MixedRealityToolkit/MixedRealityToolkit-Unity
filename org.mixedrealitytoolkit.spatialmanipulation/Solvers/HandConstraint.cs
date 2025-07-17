@@ -676,8 +676,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Returns the XRNode that matches the desired handedness.
         /// </summary>
-        /// <param name="handedness">The handedness of the returned controller</param>
-        /// <returns>The IMixedRealityController for the desired handedness, or null if none are present.</returns>
+        /// <param name="handedness">The handedness of the returned controller node.</param>
+        /// <returns>The <see cref="XRNode"/> for the desired handedness, or null if none are present.</returns>
         protected XRNode? GetControllerNode(Handedness handedness)
         {
             return !SolverHandler.IsValidHandedness(handedness) ? null : handedness.ToXRNode();
