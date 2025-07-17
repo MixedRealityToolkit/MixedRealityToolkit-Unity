@@ -127,30 +127,37 @@ namespace MixedReality.Toolkit.UX
         private float lastSoundPlayTime;
         #endregion
 
-        /// <summary>
-        /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
-        /// </summary> 
+        private void Awake()
+        {
+            slider = GetComponent<Slider>();
+        }
+
         private void Start()
         {
             // Ensure that we have a valid audio source to work with.
             if (audioSource == null)
             {
-                audioSource = gameObject.GetComponent<AudioSource>();
-                if (audioSource == null)
-                {
-                    audioSource = gameObject.AddComponent<AudioSource>();
-                }
+                audioSource = gameObject.EnsureComponent<AudioSource>();
             }
 
-            slider = GetComponent<Slider>();
             if (alignWithStepSlider && slider.UseSliderStepDivisions)
             {
                 tickEvery = 1.0f / slider.SliderStepDivisions;
             }
+        }
 
+        private void OnEnable()
+        {
             slider.firstSelectEntered.AddListener(OnInteractionStarted);
             slider.lastSelectExited.AddListener(OnInteractionEnded);
             slider.OnValueUpdated.AddListener(OnValueUpdated);
+        }
+
+        private void OnDisable()
+        {
+            slider.firstSelectEntered.RemoveListener(OnInteractionStarted);
+            slider.lastSelectExited.RemoveListener(OnInteractionEnded);
+            slider.OnValueUpdated.RemoveListener(OnValueUpdated);
         }
 
         private const float NeutralPitchShift = 1f;

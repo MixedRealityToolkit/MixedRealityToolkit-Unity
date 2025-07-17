@@ -7,6 +7,7 @@
 using MixedReality.Toolkit.Input.Simulation;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -16,7 +17,7 @@ using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
-    public class InputTestUtilities
+    public static class InputTestUtilities
     {
         private const string MRTKRigPrefabGuid = "4d7e2f87fefe0ba468719b15288b46e7";
         private static readonly string MRTKRigPrefabPath = AssetDatabase.GUIDToAssetPath(MRTKRigPrefabGuid);
@@ -297,6 +298,7 @@ namespace MixedReality.Toolkit.Input.Tests
                 );
                 float pinchAmount = Mathf.Lerp(startPinch, isPinching ? 1 : 0, t);
 
+                controls.TriggerButton = pinchAmount >= InputSystem.settings.defaultButtonPressPoint;
                 controls.TriggerAxis = pinchAmount;
                 switch (anchorPoint)
                 {

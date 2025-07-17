@@ -71,7 +71,7 @@ namespace MixedReality.Toolkit.Input
         public void InitializeControllers()
         {
             controllerMapping.Clear();
-            foreach (XRController xrController in FindObjectUtility.FindObjectsByType<XRController>())
+            foreach (XRBaseController xrController in FindObjectUtility.FindObjectsByType<XRBaseController>())
             {
                 if (!controllerMapping.ContainsKey(xrController.gameObject))
                 {

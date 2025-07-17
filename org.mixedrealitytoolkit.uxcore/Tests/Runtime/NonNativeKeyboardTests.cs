@@ -4,10 +4,10 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using System.Collections;
 using MixedReality.Toolkit.Input.Tests;
 using MixedReality.Toolkit.UX.Experimental;
 using NUnit.Framework;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -26,9 +26,9 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         /// Initialize the non-native keyboard tests by creating a game object with a <see cref="NonNativeKeyboard"/> component,
         /// and then opening this component.
         /// </summary>
-        [SetUp]
-        public void Init()
+        public override IEnumerator Setup()
         {
+            yield return base.Setup();
             GameObject obj = new GameObject("Keyboard");
             obj.AddComponent<Canvas>();
             obj.SetActive(false);
@@ -39,10 +39,13 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         /// <summary>
         /// Clean-up the non-native keyboard tests by destroying the game object with the <see cref="NonNativeKeyboard"/> component.
         /// </summary>
-        [TearDown]
-        public void Teardown()
+        public override IEnumerator TearDown()
         {
             Object.Destroy(keyboard);
+            // Wait for a frame to give Unity a change to actually destroy the object
+            yield return null;
+            Assert.IsTrue(keyboard == null);
+            yield return base.TearDown();
         }
 
         /// <summary>
@@ -57,7 +60,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             StatefulInteractable interactable = keyQ.gameObject.GetComponentInChildren<StatefulInteractable>();
             interactable.OnClicked.Invoke();
 
-            Assert.AreEqual(keyboard.Text.Substring(0,1), "q", "Pressing key changes InputField text.");
+            Assert.AreEqual(keyboard.Text.Substring(0, 1), "q", "Pressing key changes InputField text.");
 
             yield return null;
         }
@@ -207,7 +210,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             keyObj.SetActive(false);
             keyObj.AddComponent<Button>();
 
-            if(statefulInteractable)
+            if (statefulInteractable)
             {
                 keyObj.AddComponent<StatefulInteractable>();
             }

@@ -733,7 +733,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         {
             if (SymbolKeysSection != null)
             {
-                SymbolKeysSection.gameObject.SetActive(true);
+                SymbolKeysSection.SetActive(true);
             }
         } 
 
@@ -760,7 +760,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             }
             if (SymbolKeysSection != null)
             {
-                SymbolKeysSection.gameObject.SetActive(false);
+                SymbolKeysSection.SetActive(false);
             }
         }
 

@@ -203,7 +203,8 @@ namespace MixedReality.Toolkit.Input.Simulation
                     rotationDelta,
                     CameraSettings.IsMovementSmoothed,
                     CameraSettings.MoveSpeed,
-                    CameraSettings.RotationSensitivity);
+                    CameraSettings.RotationSensitivity,
+                    CameraSettings.IsFrameRateIndependent);
             }
         }
 
@@ -312,11 +313,6 @@ namespace MixedReality.Toolkit.Input.Simulation
             get => rightControllerSettings;
             set => rightControllerSettings = value;
         }
-
-        // Should we pass the trigger button straight through to the device?
-        // This will not smooth the trigger press; typically, we should
-        // modulate the trigger axis control ourselves for smooth pinch/unpinch.
-        private bool shouldUseTriggerButton = false;
 
         // TODO: Drive from inspector/simulator options.
         private float triggerSmoothTime = 0.1f;
@@ -555,14 +551,7 @@ namespace MixedReality.Toolkit.Input.Simulation
 #endif // LATER
 
                     // Buttons available to hands and controllers
-                    // Should we pass the trigger button straight through to the device?
-                    // This will not smooth the trigger press; typically, we should
-                    // modulate the trigger axis control ourselves for smooth pinch/unpinch,
-                    // and this is false.
-                    if (shouldUseTriggerButton)
-                    {
-                        controls.TriggerButton = ctrlSettings.TriggerButton.action.IsPressed();
-                    }
+                    controls.TriggerButton = controls.TriggerAxis >= InputSystem.settings.defaultButtonPressPoint;
                     controls.GripButton = ctrlSettings.GripButton.action.IsPressed();
 
                     if (ctrlSettings.SimulationMode == ControllerSimulationMode.MotionController)

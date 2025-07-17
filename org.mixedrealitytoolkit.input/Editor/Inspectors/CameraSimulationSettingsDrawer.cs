@@ -18,6 +18,7 @@ namespace MixedReality.Toolkit.Input.Simulation.Editor
 
         private readonly GUIContent moveSpeedContent = new GUIContent("Speed");
         private readonly GUIContent moveSmoothingContent = new GUIContent("Smoothed");
+        private readonly GUIContent frameRateIndependentContent = new GUIContent("Frame Rate Independent");
         private readonly GUIContent moveDepthContent = new GUIContent("Depth");
         private readonly GUIContent moveHorizontalContent = new GUIContent("Horizontal");
         private readonly GUIContent moveVerticalContent = new GUIContent("Vertical");
@@ -78,6 +79,7 @@ namespace MixedReality.Toolkit.Input.Simulation.Editor
 
             SerializedProperty moveSpeed = property.FindPropertyRelative("moveSpeed");
             SerializedProperty moveSmoothing = property.FindPropertyRelative("isMovementSmoothed");
+            SerializedProperty frameRateIndependent = property.FindPropertyRelative("isFrameRateIndependent");
             SerializedProperty moveDepth = property.FindPropertyRelative("moveDepth");
             SerializedProperty moveHorizontal = property.FindPropertyRelative("moveHorizontal");
             SerializedProperty moveVertical = property.FindPropertyRelative("moveVertical");
@@ -97,6 +99,13 @@ namespace MixedReality.Toolkit.Input.Simulation.Editor
                     ++rowMultiplier,
                     PropertyDrawerUtilities.Height),
                 moveSpeed, moveSpeedContent);
+            EditorGUI.PropertyField(
+                PropertyDrawerUtilities.GetPosition(
+                    position,
+                    PropertyDrawerUtilities.VerticalSpacing,
+                    ++rowMultiplier,
+                    PropertyDrawerUtilities.Height),
+                frameRateIndependent, frameRateIndependentContent);
             EditorGUI.PropertyField(
                 PropertyDrawerUtilities.GetPosition(
                     position,

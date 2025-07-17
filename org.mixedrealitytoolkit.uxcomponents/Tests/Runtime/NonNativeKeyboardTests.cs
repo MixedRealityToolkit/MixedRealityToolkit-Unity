@@ -9,7 +9,6 @@ using MixedReality.Toolkit.Input.Tests;
 using MixedReality.Toolkit.UX.Experimental;
 using NUnit.Framework;
 using System.Collections;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -19,104 +18,106 @@ using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
-	/// <summary>
-	/// Tests for the Canvas Non-Native keyboard prefab. 
-	/// </summary>
-	public class NonNativeKeyboardTests : BaseRuntimeInputTests
-	{
-		// Keyboard/NonNativeKeyboard.prefab
-		private const string NonNativeKeyboardGuid = "74b589d1efab94a4cb70e4b5c22783f8";
-		private static readonly string NonNativeKeyboardPath = AssetDatabase.GUIDToAssetPath(NonNativeKeyboardGuid);
+    /// <summary>
+    /// Tests for the Canvas Non-Native keyboard prefab. 
+    /// </summary>
+    public class NonNativeKeyboardTests : BaseRuntimeInputTests
+    {
+        // Keyboard/NonNativeKeyboard.prefab
+        private const string NonNativeKeyboardGuid = "74b589d1efab94a4cb70e4b5c22783f8";
+        private static readonly string NonNativeKeyboardPath = AssetDatabase.GUIDToAssetPath(NonNativeKeyboardGuid);
 
-		private NonNativeKeyboard testKeyboard = null;
-		private KeyboardPreview keyboardPreview = null;
+        private NonNativeKeyboard testKeyboard = null;
+        private KeyboardPreview keyboardPreview = null;
 
-		[SetUp]
-		public void Init()
-		{
-			testKeyboard = InstantiatePrefab(NonNativeKeyboardPath).GetComponent<NonNativeKeyboard>();
+        public override IEnumerator Setup()
+        {
+            yield return base.Setup();
+            testKeyboard = InstantiatePrefab(NonNativeKeyboardPath).GetComponent<NonNativeKeyboard>();
             testKeyboard.transform.position = InputTestUtilities.InFrontOfUser(distanceFromHead: 2.0f);
             keyboardPreview = testKeyboard.Preview;
             testKeyboard.Open();
-		}
+        }
 
-		[TearDown]
-		public void Teardown()
-		{
-			Object.Destroy(testKeyboard);
-			// Wait for a frame to give Unity a change to actually destroy the object
-		}
+        public override IEnumerator TearDown()
+        {
+            Object.Destroy(testKeyboard);
+            // Wait for a frame to give Unity a change to actually destroy the object
+            yield return null;
+            Assert.IsTrue(testKeyboard == null);
+            yield return base.TearDown();
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonNativeKeyboardInstantiate()
-		{
-			Assert.IsNotNull(testKeyboard, "NonNativeKeyboard component exists on prefab");
-			yield return null;
-		}
+        [UnityTest]
+        public IEnumerator TestNonNativeKeyboardInstantiate()
+        {
+            Assert.IsNotNull(testKeyboard, "NonNativeKeyboard component exists on prefab");
+            yield return null;
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeValueKey()
-		{
+        [UnityTest]
+        public IEnumerator TestNonnativeValueKey()
+        {
             yield return TypeString("q");
-			Assert.AreEqual("q", keyboardPreview.Text, "q", "Pressing key did not change text.");
-		}
+            Assert.AreEqual("q", keyboardPreview.Text, "q", "Pressing key did not change text.");
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeValueKeyShift()
-		{
-			NonNativeValueKey fKey = FindValueKey('f');
-			Assert.IsNotNull(fKey, "Unable to find the 'f' key.");
+        [UnityTest]
+        public IEnumerator TestNonnativeValueKeyShift()
+        {
+            NonNativeValueKey fKey = FindValueKey('f');
+            Assert.IsNotNull(fKey, "Unable to find the 'f' key.");
 
-			TMP_Text textMeshProText = fKey.gameObject.GetComponentInChildren<TMP_Text>();
-			Assert.AreEqual(fKey.CurrentValue, "f", "Current value is set correctly");
-			Assert.AreEqual(textMeshProText.text, "f", "TMP text is set correctly");
+            TMP_Text textMeshProText = fKey.gameObject.GetComponentInChildren<TMP_Text>();
+            Assert.AreEqual(fKey.CurrentValue, "f", "Current value is set correctly");
+            Assert.AreEqual(textMeshProText.text, "f", "TMP text is set correctly");
 
             yield return TypeFunctionKey(NonNativeFunctionKey.Function.Shift);
-			Assert.AreEqual(fKey.CurrentValue, "F", "Current value shifts correctly");
-			Assert.AreEqual(textMeshProText.text, "F", "TMP text shifts correctly");
+            Assert.AreEqual(fKey.CurrentValue, "F", "Current value shifts correctly");
+            Assert.AreEqual(textMeshProText.text, "F", "TMP text shifts correctly");
 
             yield return TypeFunctionKey(NonNativeFunctionKey.Function.Shift);
             Assert.AreEqual(fKey.CurrentValue, "f", "Current value is un-shifts correctly");
-			Assert.AreEqual(textMeshProText.text, "f", "TMP text un-shifts correctly");
-		}
+            Assert.AreEqual(textMeshProText.text, "f", "TMP text un-shifts correctly");
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeShiftFunctionKey()
-		{
+        [UnityTest]
+        public IEnumerator TestNonnativeShiftFunctionKey()
+        {
             yield return TypeString("m");
-			Assert.AreEqual("m", keyboardPreview.Text, "Value should be lower case to start with.");
+            Assert.AreEqual("m", keyboardPreview.Text, "Value should be lower case to start with.");
             yield return TypeString("M");
-			Assert.AreEqual("mM", keyboardPreview.Text, "Value should be upper case immediately after clicking shift key.");
+            Assert.AreEqual("mM", keyboardPreview.Text, "Value should be upper case immediately after clicking shift key.");
             yield return TypeString("m");
             Assert.AreEqual("mMm", keyboardPreview.Text, "Value should be lower case after shift key was consumed.");
-		}
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeSpaceFunctionKey()
+        [UnityTest]
+        public IEnumerator TestNonnativeSpaceFunctionKey()
         {
             yield return TypeString("a");
             yield return TypeFunctionKey(NonNativeFunctionKey.Function.Space);
             yield return TypeString("b");
 
-			Assert.AreEqual(keyboardPreview.Text, "a b", "The Space function key works.");
-			yield return null;
-		}
+            Assert.AreEqual(keyboardPreview.Text, "a b", "The Space function key works.");
+            yield return null;
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeEnterFunctionKey()
-		{
-			testKeyboard.SubmitOnEnter = false;
+        [UnityTest]
+        public IEnumerator TestNonnativeEnterFunctionKey()
+        {
+            testKeyboard.SubmitOnEnter = false;
 
             yield return TypeString("a");
             yield return TypeFunctionKey(NonNativeFunctionKey.Function.Enter);
             yield return TypeString("b");
 
-			Assert.AreEqual(keyboardPreview.Text, "a\nb", "The Enter function key works.");
-			yield return null;
-		}
+            Assert.AreEqual(keyboardPreview.Text, "a\nb", "The Enter function key works.");
+            yield return null;
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeTabFunctionKey()
+        [UnityTest]
+        public IEnumerator TestNonnativeTabFunctionKey()
         {
             yield return TypeString("a");
             yield return TypeFunctionKey(NonNativeFunctionKey.Function.Symbol);
@@ -125,13 +126,13 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return TypeString("b");
 
             Assert.AreEqual(keyboardPreview.Text, "a\tb", "The Tab function key works.");
-			yield return null;
-		}
+            yield return null;
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeAlphaSymbolFunctionKeys()
-		{
-			GameObject alphaKeysSection = testKeyboard.AlphaKeysSection;
+        [UnityTest]
+        public IEnumerator TestNonnativeAlphaSymbolFunctionKeys()
+        {
+            GameObject alphaKeysSection = testKeyboard.AlphaKeysSection;
             GameObject defaultBottomSection = testKeyboard.DefaultBottomKeysSection;
             GameObject symbolKeysSection = testKeyboard.SymbolKeysSection;
             GameObject emailSection = testKeyboard.EmailBottomKeysSection;
@@ -154,86 +155,86 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.IsFalse(emailSection.activeInHierarchy, "Email keys should be hidden.");
 
             yield return null;
-		}
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativePreviousNextFunctionKeys()
-		{
+        [UnityTest]
+        public IEnumerator TestNonnativePreviousNextFunctionKeys()
+        {
             yield return TypeString("ac");
             yield return TypeFunctionKey(NonNativeFunctionKey.Function.Previous);
             yield return TypeString("b");
 
-			Assert.AreEqual("abc", keyboardPreview.Text, "The Previous function failed to work.");
+            Assert.AreEqual("abc", keyboardPreview.Text, "The Previous function failed to work.");
 
 
             yield return TypeString("a");
             yield return TypeFunctionKey(NonNativeFunctionKey.Function.Next);
             yield return TypeString("a");
 
-			Assert.AreEqual("abaca", keyboardPreview.Text, "The Next function failed to work");
-		}
+            Assert.AreEqual("abaca", keyboardPreview.Text, "The Next function failed to work");
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeCloseFunctionKey()
-		{
-			NonNativeFunctionKey closeKey = FindFunctionKey(NonNativeFunctionKey.Function.Close);
-			testKeyboard.ProcessFunctionKeyPress(closeKey);
+        [UnityTest]
+        public IEnumerator TestNonnativeCloseFunctionKey()
+        {
+            NonNativeFunctionKey closeKey = FindFunctionKey(NonNativeFunctionKey.Function.Close);
+            testKeyboard.ProcessFunctionKeyPress(closeKey);
 
-			Assert.AreEqual(keyboardPreview.Text, "", "The input field is cleared.");
-			Assert.IsTrue(!testKeyboard.gameObject.activeInHierarchy, "The keyboard is inactive.");
-			yield return null;
-		}
+            Assert.AreEqual(keyboardPreview.Text, "", "The input field is cleared.");
+            Assert.IsTrue(!testKeyboard.gameObject.activeInHierarchy, "The keyboard is inactive.");
+            yield return null;
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeBackspaceFunctionKey()
+        [UnityTest]
+        public IEnumerator TestNonnativeBackspaceFunctionKey()
         {
             yield return TypeString("a");
             yield return TypeFunctionKey(NonNativeFunctionKey.Function.Backspace);
             yield return TypeString("b");
 
-			Assert.AreEqual(keyboardPreview.Text, "b", "The Tab function key works.");
-			testKeyboard.Open();
-			yield return null;
-		}
+            Assert.AreEqual(keyboardPreview.Text, "b", "The Tab function key works.");
+            testKeyboard.Open();
+            yield return null;
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeKeyboardSubmitOnEnter()
-		{
-			testKeyboard.SubmitOnEnter = true;
-			NonNativeFunctionKey enterKey = FindFunctionKey(NonNativeFunctionKey.Function.Enter);
-			testKeyboard.ProcessFunctionKeyPress(enterKey);
+        [UnityTest]
+        public IEnumerator TestNonnativeKeyboardSubmitOnEnter()
+        {
+            testKeyboard.SubmitOnEnter = true;
+            NonNativeFunctionKey enterKey = FindFunctionKey(NonNativeFunctionKey.Function.Enter);
+            testKeyboard.ProcessFunctionKeyPress(enterKey);
 
-			Assert.AreEqual(keyboardPreview.Text, "", "The input field is cleared.");
-			Assert.IsTrue(!testKeyboard.gameObject.activeInHierarchy, "The keyboard is inactive.");
-			yield return null;
-		}
+            Assert.AreEqual(keyboardPreview.Text, "", "The input field is cleared.");
+            Assert.IsTrue(!testKeyboard.gameObject.activeInHierarchy, "The keyboard is inactive.");
+            yield return null;
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeKeyboardCloseOnInactivity()
-		{
-			testKeyboard.CloseOnInactivity = true;
-			testKeyboard.CloseOnInactivityTime = .01f;
+        [UnityTest]
+        public IEnumerator TestNonnativeKeyboardCloseOnInactivity()
+        {
+            testKeyboard.CloseOnInactivity = true;
+            testKeyboard.CloseOnInactivityTime = .01f;
 
             yield return TypeString("a");
             yield return new WaitForSeconds(0.05f);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             Assert.AreEqual(keyboardPreview.Text, "", "The input field is cleared.");
-			Assert.IsTrue(!testKeyboard.gameObject.activeInHierarchy, "The keyboard is inactive.");
-		}
+            Assert.IsTrue(!testKeyboard.gameObject.activeInHierarchy, "The keyboard is inactive.");
+        }
 
-		[UnityTest]
-		public IEnumerator TestNonnativeValueKeyPressKeyWithHand()
-		{
-			TestHand hand = new TestHand(Handedness.Right);
-			Vector3 initialHandPosition = InputTestUtilities.InFrontOfUser(new Vector3(0.05f, -0.05f, 0.3f)); // orient hand so far interaction ray will hit button
-			yield return hand.Show(initialHandPosition);
+        [UnityTest]
+        public IEnumerator TestNonnativeValueKeyPressKeyWithHand()
+        {
+            TestHand hand = new TestHand(Handedness.Right);
+            Vector3 initialHandPosition = InputTestUtilities.InFrontOfUser(new Vector3(0.05f, -0.05f, 0.3f)); // orient hand so far interaction ray will hit button
+            yield return hand.Show(initialHandPosition);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             string text = "hello";
             yield return TypeStringWithHand(hand, text);
             Assert.AreEqual(text, keyboardPreview.Text, "Hand entered string did not work correctly.");
-		}
+        }
 
         [UnityTest]
         public IEnumerator TestKeyboardPreviewWithLeftToRightPreviewText()
@@ -258,7 +259,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return TypeString(testString1);
             Assert.AreEqual(testString1, keyboardPreview.PreviewText.text, "Label text did not update.");
 
-            var newLabelPosition1  = keyboardPreview.PreviewText.rectTransform.localPosition;
+            var newLabelPosition1 = keyboardPreview.PreviewText.rectTransform.localPosition;
             Assert.IsTrue(newLabelPosition1 == startLabelPosition, "Label transform should not have moved, as nothing should have scrolled off.");
 
             var newCursorPosition1 = keyboardPreview.PreviewCaret.localPosition;
@@ -428,41 +429,41 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
         private IEnumerator TypeFunctionKey(NonNativeFunctionKey.Function value)
         {
-            var key = FindFunctionKey(value);
-            Assert.IsNotNull(key, $"Could not find function key '{value.ToString()}'");
+            NonNativeFunctionKey key = FindFunctionKey(value);
+            Assert.IsNotNull(key, $"Could not find function key '{value}'");
             key.GetComponent<Button>().onClick.Invoke();
             yield return RuntimeTestUtilities.WaitForUpdates();
         }
 
-		private NonNativeValueKey FindValueKey(char value)
-		{
-			NonNativeValueKey[] keys = testKeyboard.gameObject.GetComponentsInChildren<NonNativeValueKey>(true);
-			foreach (NonNativeValueKey key in keys)
-			{
-				if (key.isActiveAndEnabled &&
+        private NonNativeValueKey FindValueKey(char value)
+        {
+            NonNativeValueKey[] keys = testKeyboard.gameObject.GetComponentsInChildren<NonNativeValueKey>(true);
+            foreach (NonNativeValueKey key in keys)
+            {
+                if (key.isActiveAndEnabled &&
                     !string.IsNullOrEmpty(key.CurrentValue) &&
                     char.ToUpperInvariant(key.CurrentValue[0]) == char.ToUpperInvariant(value)) return key;
-			}
-			return null;
-		}
+            }
+            return null;
+        }
 
-		private NonNativeFunctionKey FindFunctionKey(NonNativeFunctionKey.Function function)
-		{
-			NonNativeFunctionKey[] keys = testKeyboard.gameObject.GetComponentsInChildren<NonNativeFunctionKey>(true);
-			foreach (NonNativeFunctionKey key in keys)
-			{
-				if (key.isActiveAndEnabled && key.KeyFunction == function) return key;
-			}
-			return null;
-		}
+        private NonNativeFunctionKey FindFunctionKey(NonNativeFunctionKey.Function function)
+        {
+            NonNativeFunctionKey[] keys = testKeyboard.gameObject.GetComponentsInChildren<NonNativeFunctionKey>(true);
+            foreach (NonNativeFunctionKey key in keys)
+            {
+                if (key.isActiveAndEnabled && key.KeyFunction == function) return key;
+            }
+            return null;
+        }
 
-		private GameObject InstantiatePrefab(string prefabPath)
-		{
-			Object pressableButtonPrefab = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(Object));
-			GameObject testGO = Object.Instantiate(pressableButtonPrefab) as GameObject;
+        private GameObject InstantiatePrefab(string prefabPath)
+        {
+            Object pressableButtonPrefab = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(Object));
+            GameObject testGO = Object.Instantiate(pressableButtonPrefab) as GameObject;
 
-			return testGO;
-		}
-	}
+            return testGO;
+        }
+    }
 }
 #pragma warning restore CS1591

@@ -158,7 +158,7 @@ namespace MixedReality.Toolkit.UX
         {
             if (index < 0 || Toggles.Count <= index || Toggles == null || !isActiveAndEnabled)
             {
-                Debug.LogWarning("Index out of range of ToggleCollection: " + index);
+                Debug.LogWarning("Index out of range of ToggleCollection: " + index, this);
                 return;
             }
 

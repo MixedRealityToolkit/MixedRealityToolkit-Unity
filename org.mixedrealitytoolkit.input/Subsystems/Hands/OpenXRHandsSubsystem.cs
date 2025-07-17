@@ -22,12 +22,15 @@ namespace MixedReality.Toolkit.Input
     [Preserve]
     [MRTKSubsystem(
         Name = "org.mixedrealitytoolkit.openxrhands",
-        DisplayName = "Subsystem for OpenXR Hands API",
+        DisplayName = "Mixed Reality OpenXR Plugin Hands",
         Author = "Mixed Reality Toolkit Contributors",
         ProviderType = typeof(HandsProvider<OpenXRHandContainer>),
         SubsystemTypeOverride = typeof(OpenXRHandsSubsystem),
         ConfigType = typeof(BaseSubsystemConfig))]
 #endif // MROPENXR_PRESENT
+#if UNITY_ANDROID
+    [System.Obsolete("Hand tracking on Android with the Mixed Reality OpenXR Plugin has been deprecated. Please use " + nameof(UnityHandsSubsystem) + " instead.")]
+#endif
     public class OpenXRHandsSubsystem : HandsSubsystem
     {
 #if MROPENXR_PRESENT && (UNITY_EDITOR_WIN || UNITY_WSA || UNITY_STANDALONE_WIN || UNITY_ANDROID)

@@ -196,7 +196,7 @@ namespace MixedReality.Toolkit.Examples
         }
 
         /// <summary>
-        /// Enables zoom operations using hand based interators.
+        /// Enables zoom operations using hand based interactors.
         /// </summary>
         public void EnableHandZoom()
         {
@@ -204,7 +204,7 @@ namespace MixedReality.Toolkit.Examples
         }
 
         /// <summary>
-        /// Disables zoom operations using hand based interators.
+        /// Disables zoom operations using hand based interactors.
         /// </summary>
         public void DisableHandZoom()
         {

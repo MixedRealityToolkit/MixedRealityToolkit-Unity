@@ -59,15 +59,15 @@ namespace MixedReality.Toolkit.Subsystems
         /// </returns>
         internal static DictationSubsystemDescriptor Create(DictationSubsystemCinfo cinfo)
         {
-           // Validates cinfo.
-           if (!XRSubsystemHelpers.CheckTypes<DictationSubsystem, DictationSubsystem.Provider>(cinfo.Name,
-                                                                                                               cinfo.SubsystemTypeOverride,
-                                                                                                               cinfo.ProviderType))
-           {
-               throw new ArgumentException("Could not create DictationSubsystemDescriptor.");
-           }
+            // Validates cinfo.
+            if (!XRSubsystemHelpers.CheckTypes<DictationSubsystem, DictationSubsystem.Provider>(cinfo.Name,
+                                                                                                                cinfo.SubsystemTypeOverride,
+                                                                                                                cinfo.ProviderType))
+            {
+                throw new ArgumentException("Could not create DictationSubsystemDescriptor.");
+            }
 
-           return new DictationSubsystemDescriptor(cinfo);
+            return new DictationSubsystemDescriptor(cinfo);
         }
     }
 }

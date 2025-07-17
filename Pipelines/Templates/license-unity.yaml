@@ -1,0 +1,27 @@
+# Copyright (c) Mixed Reality Toolkit Contributors
+# Licensed under the BSD 3-Clause
+
+steps:
+- pwsh: |
+    $ConfigContent = @"
+    {
+        "licensingServiceBaseUrl": "http://10.0.0.4:33592",
+        "enableEntitlementLicensing": true,
+        "clientConnectTimeoutSec": 35,
+        "clientHandshakeTimeoutSec": 35,
+        "clientResolveEntitlementsTimeoutSec": 35,
+        "clientUpdateLicenseTimeoutSec": 35
+    }
+    "@
+
+    $ConfigPath = "C:\ProgramData\Unity\config\services-config.json"
+
+    # Ensure the directory exists
+    $Directory = Split-Path -Path $ConfigPath -Parent
+    If (!(Test-Path -Path $Directory)) {
+        New-Item -ItemType Directory -Path $Directory
+    }
+
+    # Create the config file
+    Set-Content -Path $ConfigPath -Value $ConfigContent
+  displayName: Create Unity license config file

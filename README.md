@@ -1,6 +1,6 @@
 # Mixed Reality Toolkit for Unity
 
-![Mixed Reality Toolkit](https://user-images.githubusercontent.com/13754172/122838732-89ea3400-d2ab-11eb-8c79-32dd84944989.png)
+![Mixed Reality Toolkit](./Images/MRTK_Unity_header.png)
 
 ![MRTK3 Banner](./Images/MRTK3_banner.png)
 
@@ -83,3 +83,5 @@ For more information on how to contribute Mixed Reality Toolkit for Unity Projec
 ## Governance
 
 For information on how the Mixed Reality Toolkit for Unity Project is governed, please read [GOVERNANCE.md](./GOVERNANCE.md).
+
+All projects under the Mixed Reality Toolkit organization are governed by the Steering Committee. The Steering Committee is responsible for all technical oversight, project approval and oversight, policy oversight, and trademark management for the Organization. To learn more about the Steering Committee, visit this link: https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CHARTER.md
