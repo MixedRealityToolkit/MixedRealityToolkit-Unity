@@ -32,10 +32,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// How long does the interactor remain selecting the interactable after recognizing a voice command?
         /// </summary>
-        public float VoiceCommandTriggerTime
-        {
-            get => voiceCommandTriggerTime;
-        }
+        public float VoiceCommandTriggerTime => voiceCommandTriggerTime;
 
         private Dictionary<string, List<StatefulInteractable>> keywordDictionary = new Dictionary<string, List<StatefulInteractable>>();
         private List<(StatefulInteractable, float)> selectedInteractables = new List<(StatefulInteractable, float)>();
@@ -75,8 +72,8 @@ namespace MixedReality.Toolkit.Input
                     }
                     else
                     {
-                        Debug.LogError("Failed to retrieve a running KeywordRecognitionSubsystem while registering an interactable. " +
-                            "Please make sure the subsystem is correctly set up or disable this speech interactor.");
+                        Debug.LogWarning("Failed to retrieve a running KeywordRecognitionSubsystem while registering an interactable. " +
+                            "Please make sure the subsystem is correctly set up for this platform or disable this speech interactor if it's unused.");
                     }
                 }
             }

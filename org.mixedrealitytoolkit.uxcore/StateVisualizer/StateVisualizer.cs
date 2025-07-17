@@ -41,7 +41,7 @@ namespace MixedReality.Toolkit.UX
         /// the value is submitted.
         /// </remarks>
         [Serializable]
-        internal class State
+        protected internal class State
         {
             [SerializeReference]
             [Tooltip("The list of effects to apply.")]
@@ -87,7 +87,7 @@ namespace MixedReality.Toolkit.UX
         /// The collection of feedback states that this <see cref="StateVisualizer"/> operates on.
         /// </summary>
         [SerializeField]
-        internal SerializableDictionary<string, State> stateContainers = new SerializableDictionary<string, State>();
+        protected internal SerializableDictionary<string, State> stateContainers = new SerializableDictionary<string, State>();
 
         // Default states that are written at validation + startup.
         private readonly Dictionary<string, State> defaultStates = new Dictionary<string, State>()
@@ -301,7 +301,11 @@ namespace MixedReality.Toolkit.UX
             }
 
             // If we're asleep, quit early.
-            if (!animator.enabled) { return; }
+            if (!animator.enabled) 
+            {
+                enabled = false;
+                return; 
+            }
 
             // Returns true if all effects are done playing.
             if (EvaluateEffects())
@@ -418,7 +422,7 @@ namespace MixedReality.Toolkit.UX
         /// <returns>
         /// <see langword="true"/> if the parameter was changed this frame, <see langword="false"/> if it remained constant.
         /// </returns>
-        internal bool UpdateStateValue(string stateName, float newValue)
+        protected internal bool UpdateStateValue(string stateName, float newValue)
         {
             if (stateContainers.TryGetValue(stateName, out var state))
             {

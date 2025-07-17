@@ -63,21 +63,9 @@ try {
         Write-Host -ForegroundColor Green "======================================="  
         Write-Host -ForegroundColor Green "Updating package to release package"
         Write-Host -ForegroundColor Green "======================================="
-
-        $inlineVersion = Select-String '^.*"version":\s*"(?<sem>[0-9]\.[0-9]\.[0-9])(-(?<label>[a-zA-Z]+)(\.(?<experiment>[a-zA-Z]+\.\d+))?(\.(?<revision>\d(\.\d+)*))?)?' -InputObject (Get-Content -Path $_)
-        $version = $inlineVersion.Matches[0].Groups['sem'].Value
-        $releaseLabel = $inlineVersion.Matches[0].Groups['label'].Value
-        $experimentLabel = $inlineVersion.Matches[0].Groups['experiment'].Value
-        $revision = $inlineVersion.Matches[0].Groups['revision'].Value
-
-        Write-Host "Package name: $packageName" 
-        Write-Host "Old version: $version" 
-        Write-Host "Old release label: $releaseLabel" 
-        Write-Host "Old experiment label: $experimentLabel" 
-        Write-Host "Old revision: $revision" 
         
-        # Update package versions
-        . $PSScriptRoot\update-versions.ps1 -PackagesRoot $packagePath -ExperimentLabel $experimentLabel -ReleasePackages $ReleasePackages
+        # Update package versions for release
+        . $PSScriptRoot\update-versions.ps1 -PackagesRoot $packagePath 
     }
 
     # Repackage the package directories

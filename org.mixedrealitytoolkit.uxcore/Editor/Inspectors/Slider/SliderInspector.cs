@@ -11,6 +11,7 @@ namespace MixedReality.Toolkit.Editor
     /// A custom Unity editor for the <see cref="Slider"/> class.
     /// </summary>
     [CustomEditor(typeof(Slider), true)]
+    [CanEditMultipleObjects]
     public class SliderInspector : StatefulInteractableEditor
     {
         private static GUIStyle labelStyle;

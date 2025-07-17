@@ -9,7 +9,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
-    /// A specilized version of Unity's ActionBasedController that will fallback to other Input System actions for
+    /// A specialized version of Unity's ActionBasedController that will fallback to other Input System actions for
     /// position and rotation data when ActionBasedController's default track state has no position or rotation data. 
     /// </summary>
     /// <remarks>
