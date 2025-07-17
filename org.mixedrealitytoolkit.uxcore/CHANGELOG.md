@@ -4,6 +4,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+
+* Added automatic update for the `See It Say It Label` when the `SpeechRecognitionKeyword` of a `StatefulInteractable` has changed. Added ability to change the pattern, from inspector or code. [PR #792](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/792)
+* When Unity Localization package is installed, a `LocalizedString` is used as pattern. [PR #792](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/792)
+
 ### Changed
 
 * StateVisualizer: Modified access modifiers of State, stateContainers and UpdateStateValue to protected internal to allow adding states through subclassing. [PR #926](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/926)
