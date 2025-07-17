@@ -32,7 +32,7 @@ namespace MixedReality.Toolkit.UX
         /// The <see cref="PressableButton"/> present on the same GameObject.
         /// </summary>
         private PressableButton pressableButton;
-        
+
         /// <summary>
         /// The <see cref="TMP_Text"/> used to display the label present in child.
         /// </summary>
@@ -57,11 +57,11 @@ namespace MixedReality.Toolkit.UX
         private LocalizedString localizedPattern;
 #else
         [SerializeField]
-        [Tooltip("The patern for the see-it say-it label using string.Format()")]
+        [Tooltip("The pattern for the see-it say-it label using string.Format()")]
         private string pattern = "Say '{0}'";
 
         /// <summary>
-        /// The patern for the see-it say-it label using string.Format()
+        /// The pattern for the see-it say-it label using string.Format()
         /// </summary>
         public string Pattern
         {
@@ -90,8 +90,8 @@ namespace MixedReality.Toolkit.UX
             set => positionControl = value;
         }
 
-        private float canvasOffset = -10f;
-        private float nonCanvasOffset = -.004f;
+        private const float CanvasOffset = -10f;
+        private const float NonCanvasOffset = -0.004f;
 
         protected virtual void Awake()
         {
@@ -144,12 +144,12 @@ namespace MixedReality.Toolkit.UX
 
                         if (labelTransform != null && canvasTransform != null)
                         {
-                            labelTransform.anchoredPosition3D = new Vector3(canvasTransform.rect.width / 2f, canvasTransform.rect.height / 2f + (controlRectTransform.rect.height / 2f * -1) + canvasOffset, canvasOffset);
+                            labelTransform.anchoredPosition3D = new Vector3(canvasTransform.rect.width / 2f, canvasTransform.rect.height / 2f + (controlRectTransform.rect.height / 2f * -1) + CanvasOffset, CanvasOffset);
                         }
                     }
                     else
                     {
-                        SeeItSayItLabel.transform.localPosition = new Vector3(PositionControl.localPosition.x, (PositionControl.lossyScale.y / 2f * -1) + nonCanvasOffset, PositionControl.localPosition.z + nonCanvasOffset);
+                        SeeItSayItLabel.transform.localPosition = new Vector3(PositionControl.localPosition.x, (PositionControl.lossyScale.y / 2f * -1) + NonCanvasOffset, PositionControl.localPosition.z + NonCanvasOffset);
                     }
                 }
 
@@ -177,7 +177,7 @@ namespace MixedReality.Toolkit.UX
 #endif
             }
 #endif
-            }
+        }
 
         protected virtual void UpdateLabel(string keyword)
         {
@@ -200,9 +200,11 @@ namespace MixedReality.Toolkit.UX
 #endif
         }
 
+#if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT && UNITY_LOCALIZATION_PRESENT
         protected virtual void OnLocalizedPatternChanged(string value)
         {
             UpdateLabel(pressableButton.SpeechRecognitionKeyword);
         }
+#endif
     }
 }
