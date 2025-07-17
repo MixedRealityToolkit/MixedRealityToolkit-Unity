@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using MixedReality.Toolkit.Subsystems;
 using System;
 using Unity.Profiling;
 using UnityEngine;
@@ -308,7 +307,7 @@ namespace MixedReality.Toolkit.Input.Simulation
                         CameraRelativePose.position + smoothedMoveDelta + jitter,
 
                         // If we not have been told to face the camera, apply the rotation delta.
-                        rotationMode == ControllerRotationMode.UserControl ? 
+                        rotationMode == ControllerRotationMode.UserControl ?
                             CameraRelativePose.rotation * rotationDelta :
                             CameraRelativePose.rotation
                     );
@@ -436,10 +435,7 @@ namespace MixedReality.Toolkit.Input.Simulation
                 // simulatedControllerState.primary2DAxis = controls.Primary2DAxis;
                 // simulatedControllerState.secondary2DAxis = controls.Secondary2DAxis;
 
-                // Note: if trigger button is activated, the joint synthesizer will instantly pinch, without smoothing.
-                // If smoothed pinch is desired, use controls.TriggerAxis.
                 simulatedControllerState.WithButton(ControllerButton.TriggerButton, controls.TriggerButton);
-
                 simulatedControllerState.WithButton(ControllerButton.GripButton, controls.GripButton);
 
                 // todo: "soon"
@@ -563,7 +559,7 @@ namespace MixedReality.Toolkit.Input.Simulation
                         -palmPose.Up,
                         Camera.main.transform,
                         Handedness);
-                    
+
                     // Transform world ray back into local pose.
                     Pose localRayPose = PlayspaceUtilities.InverseTransformPose(
                         new Pose(

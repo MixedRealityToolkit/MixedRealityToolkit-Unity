@@ -1,11 +1,13 @@
 {
   "name": "org.mixedrealitytoolkit.standardassets",
-  "version": "3.0.0-development",
+  "version": "3.2.0-development",
   "description": "Common assets used by the MRTK packages, including common fonts, materials, and models. Relies on the Graphics Tools collection of shaders.",
   "displayName": "MRTK Standard Assets",
   "msftFeatureCategory": "MRTK3",
   "unity": "2021.3",
-  "author": "Microsoft",
+  "unityRelease": "26f1",
+  "documentationUrl": "https://www.mixedrealitytoolkit.org",
+  "author": "Mixed Reality Toolkit Contributors",
   "license": "BSD 3-Clause",
   "repository": {
     "type": "git",

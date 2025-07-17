@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using MixedReality.Toolkit.Input;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace MixedReality.Toolkit.UX
     /// to obtain a selection progress value or a local displacement, respectively, to implement a visual layer.
     /// </remarks>
     [AddComponentMenu("MRTK/UX/Pressable Button")]
-    public class PressableButton : StatefulInteractable
+    public class PressableButton : StatefulInteractable, IXRProximityInteractable
     {
         [SerializeField]
         [FormerlySerializedAs("smoothSelectedness")]
@@ -39,7 +40,7 @@ namespace MixedReality.Toolkit.UX
             /// The world coordinate space system should be used.
             /// </summary>
             World,
-            
+
             /// <summary>
             /// The button's local coordinate space system should be used.
             /// </summary>
@@ -142,11 +143,17 @@ namespace MixedReality.Toolkit.UX
         public bool RejectZRollOff { get => rejectZRollOff; set => rejectZRollOff = value; }
 
         /// <summary>
-        ///  Speed for extending the moving button visuals when selected by a non-touch source.
+        /// Speed for extending the moving button visuals when selected by a non-touch source.
         /// </summary>
         [SerializeField]
         [Tooltip("Speed for extending the moving button visuals when selected by a non-touch source.")]
         private float extendSpeed = 0.5f;
+
+        /// <summary>
+        /// Is this object in proximity of an active Interactor?
+        /// </summary>
+        [field: SerializeField, Tooltip("Is this object in proximity of an active Interactor?")]
+        public TimedFlag IsProximityHovered { get; private set; } = new TimedFlag();
 
         #region Private Members
 
@@ -175,6 +182,11 @@ namespace MixedReality.Toolkit.UX
         private float WorldToLocalScale => transform.InverseTransformVector(transform.forward).magnitude;
 
         /// <summary>
+        /// Holds the detectors that trigger proximity.
+        /// </summary>
+        private HashSet<NearInteractionModeDetector> activeDetectors = new HashSet<NearInteractionModeDetector>();
+
+        /// <summary>
         /// If the <see cref="GetSelectionProgress"/> value is smoothed to within this threshold of 0 or 1, the <see cref="GetSelectionProgress"/> will snap to 0 or 1.
         /// </summary>
         private const float selectionProgressEpsilon = 0.00001f;
@@ -185,13 +197,13 @@ namespace MixedReality.Toolkit.UX
         public override float GetSelectionProgress() => selectionProgress;
 
         /// <inheritdoc />
-        protected override bool CanClickOnFirstSelectEntered(SelectEnterEventArgs args)
+        internal protected override bool CanClickOnFirstSelectEntered(SelectEnterEventArgs args)
         {
             return base.CanClickOnFirstSelectEntered(args) && !IsRolledOff();
         }
 
         /// <inheritdoc />
-        protected override bool CanClickOnLastSelectExited(SelectExitEventArgs args)
+        internal protected override bool CanClickOnLastSelectExited(SelectExitEventArgs args)
         {
             return base.CanClickOnLastSelectExited(args) && !IsRolledOff();
         }
@@ -463,6 +475,8 @@ namespace MixedReality.Toolkit.UX
 
                 validPokeInteractors.Add(pokeInteractor);
             }
+
+            UpdateProximityHovered();
         }
 
         /// <inheritdoc />
@@ -475,6 +489,8 @@ namespace MixedReality.Toolkit.UX
                 // Remove from our valid poke hash set if it was registered there.
                 validPokeInteractors.Remove(pokeInteractor);
             }
+
+            UpdateProximityHovered();
         }
 
         #endregion XRI events
@@ -621,6 +637,33 @@ namespace MixedReality.Toolkit.UX
             {
                 return -1;
             }
+        }
+
+        /// <inheritdoc />
+        public void OnProximityEntered(ProximityEnteredEventArgs proximityEnteredEventArgs)
+        {
+            if (activeDetectors.Add(proximityEnteredEventArgs.NearInteractionModeDetector))
+            {
+                UpdateProximityHovered();
+            }
+        }
+
+        /// <inheritdoc />
+        public void OnProximityExited(ProximityExitedEventArgs proximityExitedEventArgs)
+        {
+            if (activeDetectors.Remove(proximityExitedEventArgs.NearInteractionModeDetector) &&
+                activeDetectors.Count == 0)
+            {
+                UpdateProximityHovered();
+            }
+        }
+
+        /// <summary>
+        /// Updates the IsProximityHovered flag based on the whether it is hovered or has active interaction.
+        /// </summary>
+        private void UpdateProximityHovered()
+        {
+            IsProximityHovered.Active = isHovered || (activeDetectors.Count > 0);
         }
 
         #endregion Private Methods

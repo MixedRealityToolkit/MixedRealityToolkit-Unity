@@ -1,76 +1,103 @@
 # Copyright (c) Mixed Reality Toolkit Contributors
 # Licensed under the BSD 3-Clause
 
-# RC build producing release candidate packages.
+name: '$(date:yyMM).$(date:dd)$(rev:rr)-MixedRealityToolkit-RC'
+
+
+schedules:
+- cron: "0 4 1,15 * *"
+  displayName: Run At 04:00 on the 1st and 15th of each month
+  # run even when there are no code changes
+  always: true
+  branches:
+    include:
+    - main
+    
+trigger: none
+pr: none
 
 variables:
   - template: Config/settings.yaml
   - name: Version.Revision
-    value: $[counter(variables['MRTKVersion'], 1)]
+    value: $[counter(variables['ProjectVersion'], 1)]
   - name: Version.DateCode
     value: $[format('{0:yyMMdd}', pipeline.startTime)]
   - name: Version.DateCodeRevision
     value: $[counter(format('{0:yyMMdd}', pipeline.startTime), 0)]
 
+
 resources:
   repositories:
-    - repository: PipelineTools
-      type: git
-      endpoint: ToolsAccess
-      name: tools.internal
-      ref: 78ecf591964ecf511b4c7a0cd84d98ce11e8be16
-    - repository: DocToolUnityProject
-      type: git
-      endpoint: ToolsAccess
-      name: lib.doctools
-      ref: 26723e6afa6d2adb44a734bd6ce0bc2bd90638b5
+  - repository: 1ESPipelineTemplates
+    type: git
+    name: 1ESPipelineTemplates/1ESPipelineTemplates
+    ref: refs/tags/release
 
-trigger: none # only manual runs
+  - repository: DocToolUnityProject
+    type: git
+    endpoint: ToolsAccess
+    name: lib.doctools
+    ref: 26723e6afa6d2adb44a734bd6ce0bc2bd90638b5
 
-jobs:
-  - job: UnityValidation
-    pool: Unity_2021.3.21f1_Pool
-    steps:
-      - checkout: self
+extends:
+  template: v1/1ES.Official.PipelineTemplate.yml@1ESPipelineTemplates
+  parameters:
+    pool:
+      name: Unity_2021.3.21f1_Pool
+    sdl:
+      sourceRepositoriesToScan:
+        exclude:
+        - repository: PipelineTools
+        - repository: DocToolUnityProject
 
-      - checkout: PipelineTools
+      tsa:
+        enabled: true
+        config:
+          codebaseName: $(tsaCodeBasename)
+          instanceUrl: $(tsaAdoOrg)
+          projectName: $(tsaAdoProject)
+          areaPath: $(tsaAreaPath)
+          interationPath: $(tsaIterationPath)
+          notificationAliases: $(tsaNotificationAliases)
 
-      - pwsh: Write-Host "##vso[build.updatebuildnumber]$(MRTKVersion)-$(ReleaseTagPrefix)$(MRTKReleaseTag).$(Version.DateCode).$(Version.DateCodeRevision)"
-        displayName: Set Build Number
+      binskim:
+        break: false
+        scanOutputDirectoryOnly: true
+    stages:
+    - stage: 'Build'
+      jobs:
+      - job: UnityValidation
+        timeoutInMinutes: 120
+        steps:
+        - checkout: self
+        - checkout: DocToolUnityProject
 
-      - task: ComponentGovernanceComponentDetection@0
-        inputs:
-          scanType: Register
-          alertWarningLevel: Medium
-          failOnAlert: true
 
-      - template: Templates/unity.yaml
-        parameters:
-          Platform: Standalone
+        - pwsh: Install-Module PowerShellGet -Force
+          displayName: Update PowerShellGet
 
-      - template: Templates/unity.yaml
-        parameters:
-          Platform: UWP
+        - pwsh: Install-Module UnitySetup -Scope CurrentUser -Force -AllowPrerelease -RequiredVersion 5.6.161-develop
+          displayName: Install unitysetup.powershell
 
-      - template: Templates/unity.yaml
-        parameters:
-          Platform: Android
+        - template: /Pipelines/Templates/1ES/unity.yaml@self
+          parameters:
+            Platform: Standalone
 
-      - template: Templates/upm.yaml
-        parameters:
-          buildNumber: $(Version.Revision)
-          previewTag: $(MRTKReleaseTag)
-          publishToFeed: true
+        - template: /Pipelines/Templates/1ES/unity.yaml@self
+          parameters:
+            Platform: UWP
 
-  - job: DocsBinariesGeneration
-    pool: Unity_2021.3.21f1_Pool
-    steps:
-      - checkout: self
+        - template: /Pipelines/Templates/1ES/unity.yaml@self
+          parameters:
+            Platform: Android
 
-      - checkout: PipelineTools
+        - template: /Pipelines/Templates/1ES/upm.yaml@self
+          parameters:
+            prereleaseTag: $(ReleaseTagPrefix)
+            buildNumber: $(Version.Revision)
+            publishToFeed: true
 
-      - checkout: DocToolUnityProject
+        - template: /Pipelines/Templates/1ES/docs.yaml@self             
+      
 
-      - template: Templates/license-unity.yaml@PipelineTools
-
-      - template: Templates/docs.yaml
+                  

@@ -10,6 +10,7 @@ using UnityEditor;
 namespace MixedReality.Toolkit.Data.Editor
 {
     [CustomEditor(typeof(DataKeyPathMapperGODictionary.ViewToDataKeypathMap))]
+    [CanEditMultipleObjects]
     public class DataKeyPathMapperInspector : UnityEditor.Editor
     {
         private SerializedProperty viewKeypathToDataKeypathMapper;

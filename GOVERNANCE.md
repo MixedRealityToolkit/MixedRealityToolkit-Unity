@@ -1,12 +1,14 @@
 # Governance Policy
 
-This document provides the governance policy for the Mixed Reality Toolkit for Unity Project. Maintainers agree to this policy and to abide by all Project polices, including the [code of conduct](../org-docs/CODE-OF-CONDUCT.md), [trademark policy](../org-docs/TRADEMARKS.md), and [antitrust policy](../org-docs/ANTITRUST.md) by adding their name to the [maintainers.md file](./MAINTAINERS.md).
+This document provides the governance policy for the Mixed Reality Toolkit for Unity Project. Maintainers agree to this policy and to abide by all Project polices, including the [code of conduct](../org-docs/CODE-OF-CONDUCT.md), [trademark policy](../org-docs/TRADEMARKS.md), and [antitrust policy](../org-docs/ANTITRUST.md) by adding their name to the [MAINTAINERS.md](./MAINTAINERS.md) file.
+
+All projects under the Mixed Reality Toolkit organization are governed by the Steering Committee. The Steering Committee is responsible for all technical oversight, project approval and oversight, policy oversight, and trademark management for the Organization. To learn more about the Steering Committee, visit this link: https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CHARTER.md
 
 ## 1. Roles
 
 This project may include the following roles. Additional roles may be adopted and documented by the Project.
 
-**1.1. Maintainers**. Maintainers are responsible for organizing activities around developing, maintaining, and updating the Project. Maintainers are also responsible for determining consensus. This Project may add or remove Maintainers with the approval of the current Maintainers. Maintainers must be part of an Affiliated Organization as listed in the [steering-committee.md](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/STEERING-COMMITTEE.md) organization file.
+**1.1. Maintainers**. Maintainers are responsible for organizing activities around developing, maintaining, and updating the Project. Maintainers are also responsible for determining consensus. This Project may add or remove Maintainers with the approval of the current Maintainers. Approved Maintainers and their Affiliated Organization must be listed in the [MAINTAINERS.md](./MAINTAINERS.md) file.
 
 **1.2. Contributors**. Contributors are those that have made contributions to the Project.
 

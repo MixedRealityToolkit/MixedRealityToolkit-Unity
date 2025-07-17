@@ -7,13 +7,16 @@
 using MixedReality.Toolkit.Core.Tests;
 using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
+using Object = UnityEngine.Object;
 using SpaceMode = MixedReality.Toolkit.UX.PressableButton.SpaceMode;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
@@ -784,6 +787,194 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         }
 
         */
+
+        /// <summary>
+        /// Tests if changing the button speech recognition settings is possible.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator ChangeSpeechSettings([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+
+            PressableButton button = testButton.GetComponent<PressableButton>();
+            Assert.IsNotNull(button);
+
+            // check default speech recognition keyword value
+            Assert.AreEqual("select", button.SpeechRecognitionKeyword);
+            Assert.IsTrue(button.AllowSelectByVoice);
+            Assert.IsTrue(button.VoiceRequiresFocus);
+
+            button.SpeechRecognitionKeyword = "An other speech";
+            button.AllowSelectByVoice = false;
+            button.VoiceRequiresFocus = false;
+
+            Assert.IsTrue(button.enabled);
+            Assert.AreEqual("An other speech", button.SpeechRecognitionKeyword);
+            Assert.IsFalse(button.AllowSelectByVoice);
+            Assert.IsFalse(button.VoiceRequiresFocus);
+
+            yield return null;
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a chance to actually destroy the object
+            yield return null;
+        }
+
+        /// <summary>
+        /// Tests if changing the button speech recognition settings doesn't trigger warning nor event OnClicked when the button is disabled.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator ChangeSpeechSettingsDisabled([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+
+            PressableButton button = testButton.GetComponent<PressableButton>();
+            Assert.IsNotNull(button);
+            button.OnClicked.AddListener(() => { throw new System.Exception("OnClicked shouldn't have been triggered!"); });
+
+            yield return null; // wait for the button to register at an InteractionManager
+
+            button.enabled = false;
+            button.SpeechRecognitionKeyword = "An other speech";
+            button.AllowSelectByVoice = false;
+
+            Assert.IsFalse(button.enabled);
+            Assert.AreEqual("An other speech", button.SpeechRecognitionKeyword);
+            Assert.IsFalse(button.AllowSelectByVoice);
+            LogAssert.NoUnexpectedReceived(); // assert that XRI has not triggered a warning
+
+            yield return PressAndReleaseButtonWithHand(testButton.transform.position + Vector3.forward * 0.1f); // assert that OnClicked wasn't called
+
+            yield return null;
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a chance to actually destroy the object
+            yield return null;
+        }
+
+        /// <summary>
+        /// Test the PressableButton script has the activeDetectors hashset.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonHasActiveDetectorsWithInteractorHashset()
+        {
+            FieldInfo[] fieldInfos;
+            Type pressableButtonType = typeof(PressableButton);
+
+            fieldInfos = pressableButtonType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            var result = fieldInfos.Where(fieldInfo => fieldInfo.Name.Equals("activeDetectors")).ToArray();
+
+            Assert.AreEqual(1, result.Length);
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Tests PressableButton has IsProximityHovered property
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonHasIsProximityHoveredProperty([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+            yield return null;
+
+            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
+            Assert.IsNotNull(buttonComponent.IsProximityHovered);
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// Tests PressableButton IsProximityHovered property is of type TimedFlag
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestPressableButtonIsProximityHoveredPropertyIsOfTypeTimedFlag([ValueSource(nameof(PressableButtonsTestPrefabPaths))] string prefabFilename)
+        {
+            // instantiate scene and button
+            GameObject testButton = InstantiateDefaultPressableButton(prefabFilename);
+            yield return null;
+
+            PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
+            Assert.AreEqual(typeof(TimedFlag), buttonComponent.IsProximityHovered.GetType());
+
+            Object.Destroy(testButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// In MRTK3 Issue 643 Experimental SimpleEmptyButton didn't have a SeeItSayItLabel component and it should have one
+        /// and the associated GameObject shouldn't be null.
+        /// This test is to confirm that this has not regressed.
+        /// https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/643
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestSimpleEmptyButtonHasSeeItSayItLabelComponentAndReferencedGameObjectIsNotNull()
+        {
+            // instantiate scene and button
+            string SimpleEmptyButtonPath = AssetDatabase.GUIDToAssetPath("7ed78718e86d3cc469e6abbecb4a8508");
+            GameObject testSimpleEmptyButton = InstantiateDefaultPressableButton(SimpleEmptyButtonPath);
+            yield return null;
+
+            SeeItSayItLabelEnabler[] seeItSayitLabelEnablerComponents = testSimpleEmptyButton.GetComponents<SeeItSayItLabelEnabler>();
+            Assert.AreEqual(1, seeItSayitLabelEnablerComponents.Length); // Check it has the component
+
+            GameObject seeItSayItLabelGameObject = null;
+            foreach (Transform child in testSimpleEmptyButton.transform)
+            {
+                if (child.name.Equals("SeeItSayItLabel-Canvas"))
+                {
+                    seeItSayItLabelGameObject = child.gameObject;
+                }
+            }
+            Assert.IsNotNull(seeItSayItLabelGameObject); // Check the referenced GameObject is not null
+
+            Object.Destroy(testSimpleEmptyButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+
+            yield return null;
+        }
+
+        /// <summary>
+        /// In MRTK3 Issue 643 Experimental SimpleActionButton didn't have a SeeItSayItLabel component and it should have one
+        /// and the associated GameObject shouldn't be null.
+        /// This test is to confirm that this has not regressed.
+        /// https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/643
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestSimpleActionButtonHasSeeItSayItLabelComponentAndReferencedGameObjectIsNotNull()
+        {
+            // instantiate scene and button
+            string SimpleActionButtonPath = AssetDatabase.GUIDToAssetPath("a2b07dcaa4b2f8e4fa68b319f1477f4c");
+            GameObject testSimpleActionButton = InstantiateDefaultPressableButton(SimpleActionButtonPath);
+            yield return null;
+
+            SeeItSayItLabelEnabler[] seeItSayitLabelEnablerComponents = testSimpleActionButton.GetComponents<SeeItSayItLabelEnabler>();
+            Assert.AreEqual(1, seeItSayitLabelEnablerComponents.Length); // Check it has the component
+
+            GameObject seeItSayItLabelGameObject = null;
+            foreach (Transform child in testSimpleActionButton.transform)
+            {
+                if (child.name.Equals("SeeItSayItLabel-Canvas"))
+                {
+                    seeItSayItLabelGameObject = child.gameObject;
+                }
+            }
+            Assert.IsNotNull(seeItSayItLabelGameObject); // Check the referenced GameObject is not null
+
+            Object.Destroy(testSimpleActionButton);
+            // Wait for a frame to give Unity a change to actually destroy the object
+
+            yield return null;
+        }
+
         #endregion Tests
 
         #region Private methods

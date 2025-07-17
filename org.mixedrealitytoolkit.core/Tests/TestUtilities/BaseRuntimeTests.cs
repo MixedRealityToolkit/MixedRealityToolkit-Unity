@@ -20,7 +20,7 @@ namespace MixedReality.Toolkit.Core.Tests
         /// Get the target framerate at which tests should run at.
         /// </summary>
         /// <remarks>
-        /// This is used so frame timings to be consistent across various machine types. Thus ensure consistent test behavios.
+        /// This is used so frame timings to be consistent across various machine types. Thus ensure consistent test behaviors.
         /// </remarks>
         protected virtual int TargetFrameRate { get; } = 60;
 

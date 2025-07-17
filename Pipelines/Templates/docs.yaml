@@ -10,6 +10,18 @@ parameters:
   outputDirectory: $(Build.ArtifactStagingDirectory)/docs
 
 steps:
+
+- template: license-unity.yaml
+
+- task: PowerShell@2
+  displayName: 'Update package versions'
+  inputs:
+    pwsh: true
+    targetType: filePath
+    filePath: ${{ parameters.mrtkProjectRoot }}/Pipelines/Scripts/update-versions.ps1
+    arguments: >
+      -PackagesRoot: ${{ parameters.mrtkProjectRoot }}
+
 - task: PowerShell@2
   displayName: "Generate DocTool Unity asset package"
   inputs:

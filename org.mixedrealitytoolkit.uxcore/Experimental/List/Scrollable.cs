@@ -229,8 +229,7 @@ namespace MixedReality.Toolkit.UX.Experimental
         /// </remarks>
         private void OnValidate()
         {
-            var eventRouter = GetComponent<InteractableEventRouter>();
-            if (eventRouter != null)
+            if (TryGetComponent(out InteractableEventRouter eventRouter))
             {
                 eventRouter.AddEventRoute<BubbleChildHoverEvents>();
                 eventRouter.AddEventRoute<BubbleChildSelectEvents>();
@@ -238,14 +237,13 @@ namespace MixedReality.Toolkit.UX.Experimental
 
             if (colliders.Count == 0)
             {
-                var collider = GetComponent<Collider>();
-                if (collider == null)
+                if (TryGetComponent(out Collider collider))
                 {
-                    Debug.LogWarning($"The Scrollable, {name}, does not have its colliders configured. This may result in child interactors being inaccessible by interaction managers. Configure this Scrollable component's colliders to avoid failures.");
+                    colliders.Add(collider);
                 }
                 else
                 {
-                    colliders.Add(collider);
+                    Debug.LogWarning($"The Scrollable, {name}, does not have its colliders configured. This may result in child interactors being inaccessible by interaction managers. Configure this Scrollable component's colliders to avoid failures.");
                 }
             }
 

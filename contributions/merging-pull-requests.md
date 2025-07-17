@@ -22,6 +22,8 @@ If any of these criteria are not met, the pull request can not be merged.
 
 ## Additional considerations
 
+Pull requests should be kept as small as possible. If a change requires a large amount of code, it should be split into smaller requests that are easier to review. When in doubt, please contact the [maintainers group](../MAINTAINERS.md) *before* opening a large pull request. They can often assist in refactoring the change into smaller pieces that facilite effective code reviews. 
+
 The pull request author should also consider adding the following before a PR is merged:
 
 * References to Project issues that is being fixed or implemented.

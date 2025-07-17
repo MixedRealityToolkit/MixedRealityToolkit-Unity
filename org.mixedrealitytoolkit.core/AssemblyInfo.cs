@@ -4,10 +4,11 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyProduct("Microsoft® Mixed Reality Toolkit Core Definitions")]
+[assembly: AssemblyProduct("Mixed Reality Toolkit Core Definitions")]
 [assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.Input")]
+[assembly: InternalsVisibleTo("MixedReality.Toolkit.UXCore")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.
 // https://docs.microsoft.com/troubleshoot/visualstudio/general/assembly-version-assembly-file-version

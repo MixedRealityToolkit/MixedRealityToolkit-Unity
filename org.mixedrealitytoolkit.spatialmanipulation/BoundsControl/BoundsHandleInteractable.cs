@@ -1,8 +1,10 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.XR.CoreUtils;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -11,7 +13,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
     /// Scale handles subclass this to implement custom occlusion + reorientation logic.
     /// </summary>
     [AddComponentMenu("MRTK/Spatial Manipulation/Bounds Handle Interactable")]
-    public class BoundsHandleInteractable : StatefulInteractable, ISnapInteractable
+    public class BoundsHandleInteractable : StatefulInteractable, ISnapInteractable, ISerializationCallbackReceiver
     {
         private BoundsControl boundsControlRoot;
 
@@ -34,14 +36,63 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
+        #region Bounds Handle Scaling
+
         [SerializeField]
-        [Tooltip("Should the handle maintain its global size, even as the object changes size?")]
+        [Tooltip("How should the handle scale be maintained?")]
+        private ScaleMaintainType scaleMaintainType = ScaleMaintainType.GlobalSize;
+
+        // Properties applicable for advanced scale maintenance
+        private float targetParentScale = 1f;
+
+        [SerializeField]
+        [Tooltip("Target lossy scale for the handle. Set value only applicable if ScaleAdjustType is Advanced.")]
+        private float targetLossyScale = 2f;
+
+        [SerializeField]
+        [Tooltip("Minimum lossy scale for the handle. Only applicable if ScaleAdjustType is Advanced.")]
+        private float minLossyScale = 1f;
+
+        [SerializeField]
+        [Tooltip("Maximum lossy scale for the handle. Only applicable if ScaleAdjustType is Advanced.")]
+        private float maxLossyScale = 4f;
+
+        #region Handling Obsolete Properties
+
+        // A temporary variable used to migrate instances of BoundsHandleInteractable to use the scaleMaintainType property
+        // instead of the serialized field maintainGlobalSize.
+        // TODO: Remove this after some time to ensure users have successfully migrated.
+        [SerializeField, HideInInspector]
+        private bool migratedSuccessfully = false;
+
+        [SerializeField, HideInInspector]
         private bool maintainGlobalSize = true;
 
         /// <summary>
         /// Should the handle maintain its global size, even as the object changes size?
         /// </summary>
-        public bool MaintainGlobalSize { get => maintainGlobalSize; set => maintainGlobalSize = value;}
+        [Obsolete("Use ScaleMaintainType instead.")]
+        public bool MaintainGlobalSize
+        {
+            get => scaleMaintainType == ScaleMaintainType.GlobalSize;
+            set => scaleMaintainType = value ? ScaleMaintainType.GlobalSize : ScaleMaintainType.FixedScale;
+        }
+
+        public void OnBeforeSerialize() { }
+
+        public void OnAfterDeserialize()
+        {
+            // Only update the scaleMaintainType if it hasn't been set and the old property was not migrated yet
+            if (!migratedSuccessfully && scaleMaintainType == ScaleMaintainType.GlobalSize)
+            {
+                scaleMaintainType = maintainGlobalSize ? ScaleMaintainType.GlobalSize : ScaleMaintainType.FixedScale;
+                migratedSuccessfully = true;
+            }
+        }
+
+        #endregion Handling Obsolete Properties
+
+        #endregion Bounds Handle Scaling
 
         #region ISnapInteractable
 
@@ -88,8 +139,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private bool wasOccludedLastFrame = false;
 
-        private float initialParentScale;
-
         /// <inheritdoc/>
         protected override void Awake()
         {
@@ -99,7 +148,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
             DisableInteractorType(typeof(IPokeInteractor));
 
             handleRenderer = GetComponentInChildren<MeshRenderer>();
-            HideOnStartup();
         }
 
         /// <summary>
@@ -107,9 +155,13 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         public void Start()
         {
-            // Record initial values at Start(), so that we
-            // capture the bounds sizing, etc.
-            initialParentScale = MaxComponent(transform.parent.lossyScale);
+            if (scaleMaintainType != ScaleMaintainType.Advanced)
+            {
+                // Record initial values at Start(), so that we
+                // capture the bounds sizing, etc.
+                targetParentScale = transform.parent.lossyScale.MaxComponent();
+                targetLossyScale = transform.localScale.MaxComponent();
+            }
         }
 
         /// <summary>
@@ -128,37 +180,103 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 colliders[0].enabled = !IsOccluded;
             }
 
-            // Maintain the aspect ratio/proportion of the handles, globally.
+            // Maintain the aspect ratio/proportion of the handles based on scaleMaintainType.
+            UpdateLocalScale();
+        }
+
+        protected virtual void UpdateLocalScale()
+        {
             transform.localScale = Vector3.one;
-            transform.localScale = new Vector3(1.0f / transform.lossyScale.x,
-                                               1.0f / transform.lossyScale.y,
-                                               1.0f / transform.lossyScale.z);
-            
-            // If we don't want to maintain the overall *size*, we scale
-            // by the maximum component of the box so that the handles grow/shrink
-            // with the overall box manipulation.
-            if (!maintainGlobalSize)
+
+            switch (scaleMaintainType)
             {
-                transform.localScale = transform.localScale * (MaxComponent(transform.parent.lossyScale) / initialParentScale);
+                case ScaleMaintainType.GlobalSize:
+                    transform.localScale = GetLocalScale(targetLossyScale);
+                    break;
+
+                case ScaleMaintainType.FixedScale:
+                    transform.localScale = GetLocalScale(targetLossyScale);
+
+                    // If we don't want to maintain the overall *size*, we scale
+                    // by the maximum component of the box so that the handles grow/shrink
+                    // with the overall box manipulation.
+                    if (targetParentScale != 0)
+                    {
+                        transform.localScale = transform.localScale * (transform.parent.lossyScale.MaxComponent() / targetParentScale);
+                    }
+                    break;
+
+                case ScaleMaintainType.Advanced:
+                    // Find the local scale that would result in the target lossy
+                    // scale (the desired scale if the parent scale is 1)
+                    Vector3 targetScale = GetLocalScale(targetLossyScale);
+                    Vector3 minScale = GetLocalScale(minLossyScale);
+                    Vector3 maxScale = GetLocalScale(maxLossyScale);
+
+                    // We scale by the maximum component of the box so that 
+                    // the handles grow/shrink with the overall box manipulation.
+                    transform.localScale = targetScale * (transform.parent.lossyScale.MaxComponent() / targetParentScale);
+
+                    // If this scale is greater than our desired lossy scale then clamp it to the max lossy scale
+                    if (transform.lossyScale.MaxComponent() > maxLossyScale)
+                    {
+                        transform.localScale = maxScale;
+                    }
+                    // If this scale is less than our desired lossy scale then clamp it to the min lossy scale
+                    else if (transform.lossyScale.MinComponent() < minLossyScale)
+                    {
+                        transform.localScale = minScale;
+                    }
+                    break;
+
+                default:
+                    break;
             }
         }
 
-        private float MaxComponent(Vector3 v)
-        {
-            return Mathf.Max(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
-        }
+        // Returns the local scale this transform needs to have in order to have the desired lossy scale
+        protected Vector3 GetLocalScale(float lossyScale) => new(
+            transform.lossyScale.x == 0 ? transform.localScale.x : (lossyScale / transform.lossyScale.x),
+            transform.lossyScale.y == 0 ? transform.localScale.y : (lossyScale / transform.lossyScale.y),
+            transform.lossyScale.z == 0 ? transform.localScale.z : (lossyScale / transform.lossyScale.z)
+            );
+
 
         /// <summary>
         /// Occludes the handle so it is not initially visible when it should start disabled.
         /// </summary>
+        [Obsolete("Force hiding is no longer supported. Use IsOccluded instead.")]
         public void HideOnStartup()
         {
             if (handleRenderer != null)
             {
                 handleRenderer.enabled = false;
             }
-            colliders[0].enabled = false;
+            if (colliders.Count > 0 && colliders[0] != null)
+            {
+                colliders[0].enabled = false;
+            }
             wasOccludedLastFrame = true;
+        }
+
+        /// <summary>
+        /// Sets <see cref="IsOccluded"/> to true, and forces handling of occlusion immediately.
+        /// </summary>
+        internal void ForceOcclusion()
+        {
+            if (!wasOccludedLastFrame)
+            {
+                IsOccluded = true;
+                wasOccludedLastFrame = true;
+                if (handleRenderer != null)
+                {
+                    handleRenderer.enabled = false;
+                }
+                if (colliders.Count > 0 && colliders[0] != null)
+                {
+                    colliders[0].enabled = false;
+                }
+            }
         }
 
         /// <inheritdoc />
