@@ -231,19 +231,34 @@ namespace MixedReality.Toolkit.Input
         {
             using (UpdatePinchSelectionPerfMarker.Auto())
             {
-                float pinchAmount;
+                bool hasPinchData = false;
+                float pinchAmount = 0;
+                float pinchProgress = 0;
 
-                // This section accounts for "select value" being bound while "select" is polyfilled.
-                // We can use the data from the bound action to synthesize better than the hand joint logic will.
-                if (!m_isSelectValuePolyfilled && !m_isTrackingStatePolyfilled)
-                {
-                    pinchAmount = ReadValue();
-                }
                 // Workaround for missing select actions on devices without interaction profiles
                 // for hands, such as Varjo and Quest. Should be removed once we have universal
                 // hand interaction profile(s) across vendors.
-                else if (XRSubsystemHelpers.HandsAggregator == null
-                    || !XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(handNode, out _, out _, out pinchAmount))
+                if (XRSubsystemHelpers.HandsAggregator != null
+                    && XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(handNode, out _, out _, out pinchProgress))
+                {
+                    hasPinchData |= true;
+                }
+
+                // This section accounts for one of "select" and "select value" being bound while the other is polyfilled.
+                // We can use the data from the bound action to synthesize the other better than the hand joint logic will.
+                if (!m_isSelectPolyfilled && !m_isTrackingStatePolyfilled)
+                {
+                    // If we successfully read hand joint data, we should use that instead of clamping to 0 or 1
+                    pinchAmount = pinchProgress > 0 ? pinchProgress : ReadIsPerformed() ? 1 : 0;
+                    hasPinchData |= true;
+                }
+                else if (!m_isSelectValuePolyfilled && !m_isTrackingStatePolyfilled)
+                {
+                    pinchAmount = ReadValue();
+                    hasPinchData |= true;
+                }
+
+                if (!hasPinchData)
                 {
                     // If we didn't get pinch data, reset the fallback state.
                     m_fallbackState = default;
