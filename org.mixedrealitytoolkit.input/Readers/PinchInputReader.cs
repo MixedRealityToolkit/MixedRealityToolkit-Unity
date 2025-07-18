@@ -231,53 +231,34 @@ namespace MixedReality.Toolkit.Input
         {
             using (UpdatePinchSelectionPerfMarker.Auto())
             {
-                // This section accounts for one of "select" and "select value" being bound while the other is polyfilled.
-                // We can use the data from the bound action to synthesize the other better than the hand joint logic will.
-                if (!m_isSelectPolyfilled && !m_isTrackingStatePolyfilled)
+                float pinchAmount;
+
+                // This section accounts for "select value" being bound while "select" is polyfilled.
+                // We can use the data from the bound action to synthesize better than the hand joint logic will.
+                if (!m_isSelectValuePolyfilled && !m_isTrackingStatePolyfilled)
                 {
-                    m_fallbackState.value = ReadIsPerformed() ? 1 : 0;
-                    return;
+                    pinchAmount = ReadValue();
                 }
-                else if (!m_isSelectValuePolyfilled && !m_isTrackingStatePolyfilled)
-                {
-                    bool isPinched = ReadValue() >= (m_fallbackState.isPerformed ? 0.9f : 1.0f);
-
-                    m_fallbackState.wasPerformedThisFrame = isPinched && !m_fallbackState.isPerformed;
-                    m_fallbackState.wasCompletedThisFrame = !isPinched && m_fallbackState.isPerformed;
-                    m_fallbackState.isPerformed = isPinched;
-                    return;
-                }
-
-                // If we still don't have an aggregator, then don't update selects.
-                if (XRSubsystemHelpers.HandsAggregator == null)
-                {
-                    return;
-                }
-
-                // If we got pinch data, write it into our select interaction state.
-                if (XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(
-                    handNode,
-                    out _,
-                    out _,
-                    out float pinchAmount))
-                {
-                    // Workaround for missing select actions on devices without interaction profiles
-                    // for hands, such as Varjo and Quest. Should be removed once we have universal
-                    // hand interaction profile(s) across vendors.
-
-                    // Debounce the polyfill pinch action value.
-                    bool isPinched = pinchAmount >= (m_fallbackState.isPerformed ? 0.9f : 1.0f);
-
-                    m_fallbackState.wasPerformedThisFrame = isPinched && !m_fallbackState.isPerformed;
-                    m_fallbackState.wasCompletedThisFrame = !isPinched && m_fallbackState.isPerformed;
-                    m_fallbackState.isPerformed = isPinched;
-                    m_fallbackState.value = pinchAmount;
-                }
-                else
+                // Workaround for missing select actions on devices without interaction profiles
+                // for hands, such as Varjo and Quest. Should be removed once we have universal
+                // hand interaction profile(s) across vendors.
+                else if (XRSubsystemHelpers.HandsAggregator == null
+                    || !XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(handNode, out _, out _, out pinchAmount))
                 {
                     // If we didn't get pinch data, reset the fallback state.
                     m_fallbackState = default;
-                }  
+                    return;
+                }
+
+                const float PinchDeactivateThreshold = 0.9f;
+                const float PinchActivateThreshold = 1.0f;
+
+                // Debounce the polyfill pinch action value.
+                bool isPinched = pinchAmount >= (m_fallbackState.isPerformed ? PinchDeactivateThreshold : PinchActivateThreshold);
+                m_fallbackState.wasPerformedThisFrame = isPinched && !m_fallbackState.isPerformed;
+                m_fallbackState.wasCompletedThisFrame = !isPinched && m_fallbackState.isPerformed;
+                m_fallbackState.isPerformed = isPinched;
+                m_fallbackState.value = pinchAmount;
             }
         }
 
