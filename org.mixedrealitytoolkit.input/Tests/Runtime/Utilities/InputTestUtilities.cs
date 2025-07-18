@@ -10,7 +10,6 @@ using System.Collections;
 using System.Collections.Concurrent;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit;
 
 using Object = UnityEngine.Object;
 
@@ -22,7 +21,7 @@ using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
-    public class InputTestUtilities
+    public static class InputTestUtilities
     {
         private const string MRTKRigPrefabGuid = "4d7e2f87fefe0ba468719b15288b46e7";
         private static readonly string MRTKRigPrefabPath = AssetDatabase.GUIDToAssetPath(MRTKRigPrefabGuid);
@@ -59,7 +58,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// to ensure that tests will run quickly in general, and can be set to true manually in specific
         /// test cases using the example below.
         /// </summary>
-        /// <example> 
+        /// <example>
         /// <code>
         ///     [UnityTest]
         ///     public IEnumerator YourTestCase()
@@ -221,7 +220,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         /// <remarks>
         /// This will create two <see cref="SimulatedController"/> object, a <see cref="SimulatedHMD"/>
-        /// object, and the associated <see cref="ControllerControls"/> objects. 
+        /// object, and the associated <see cref="ControllerControls"/> objects.
         /// </remarks>
         /// <param name="rayHalfLife">
         /// Optional value for ray smoothing halflife, handy for suppressing smoothing during automated tests.
@@ -300,7 +299,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This moves the hand from <paramref name="startPosition"/> to <paramref name="endPosition"/>, rotates the hand from 
+        /// This moves the hand from <paramref name="startPosition"/> to <paramref name="endPosition"/>, rotates the hand from
         /// <paramref name="startRotation"/> to <paramref name="endRotation"/>, and smooths the handshape
         /// based on the provided <paramref name="handshapeId"/> over the number of steps provided by <paramref name="numSteps"/>.
         /// </para>
@@ -411,7 +410,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This rotates the hand to <paramref name="newRotation"/>, and smooths the handshape based on the provided 
+        /// This rotates the hand to <paramref name="newRotation"/>, and smooths the handshape based on the provided
         /// <paramref name="handshapeId"/> over the number of steps provided by <paramref name="numSteps"/>.
         /// </para>
         /// <para>
@@ -453,7 +452,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This smooths the handshape based on the provided/ <paramref name="handshapeId"/> over the number of 
+        /// This smooths the handshape based on the provided/ <paramref name="handshapeId"/> over the number of
         /// steps provided by <paramref name="numSteps"/>.
         /// </para>
         /// <para>
@@ -711,7 +710,7 @@ namespace MixedReality.Toolkit.Input.Tests
             /// Force the use of a rig that does not use the deprecated XRI controller components, but still utilizes
             /// all the custom MRTK interactors.
             /// </summary>
-            Version2 = 2, 
+            Version2 = 2,
         }
 
         /// <summary>
@@ -831,6 +830,7 @@ namespace MixedReality.Toolkit.Input.Tests
                 );
                 float pinchAmount = Mathf.Lerp(startingPinchAmount, isPinching ? 1 : 0, t);
 
+                request.controls.TriggerButton = pinchAmount >= InputSystem.settings.defaultButtonPressPoint;
                 request.controls.TriggerAxis = pinchAmount;
                 switch (request.anchorPoint)
                 {

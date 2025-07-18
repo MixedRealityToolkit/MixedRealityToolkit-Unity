@@ -30,21 +30,24 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         bool firstPressableButtonClicked;
         Vector2 startScrollPosition;
 
-        [SetUp]
-        public void Init()
+        public override IEnumerator Setup()
         {
+            yield return base.Setup();
             firstPressableButtonClicked = false;
             startScrollPosition = Vector2.zero;
             hand = new TestHand(Handedness.Right);
         }
 
-        [TearDown]
-        public void Teardown()
+        public override IEnumerator TearDown()
         {
             if (scrollObject != null)
             {
                 Object.Destroy(scrollObject);
+                // Wait for a frame to give Unity a change to actually destroy the object
+                yield return null;
+                Assert.IsTrue(scrollObject == null);
             }
+            yield return base.TearDown();
         }
 
         [UnityTest]
@@ -311,7 +314,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
         private IEnumerator ShowHand()
         {
-            Vector3 initialHandPosition = InputTestUtilities.InFrontOfUser(new Vector3(0.05f, -0.05f, 0.3f)); 
+            Vector3 initialHandPosition = InputTestUtilities.InFrontOfUser(new Vector3(0.05f, -0.05f, 0.3f));
             yield return hand.Show(initialHandPosition);
             yield return RuntimeTestUtilities.WaitForUpdates();
         }
@@ -326,7 +329,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
         private void SetEnableOnPressableButtons(GameObject container, bool enable)
         {
-           if (container != null)
+            if (container != null)
             {
                 PressableButton[] pressableButtons = container.GetComponentsInChildren<PressableButton>();
                 foreach (PressableButton pressableButton in pressableButtons)
