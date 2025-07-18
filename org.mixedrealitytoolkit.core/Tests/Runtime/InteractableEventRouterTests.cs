@@ -64,7 +64,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         {
             if (level0 != null)
             {
-                Destroy(level0);
+                Object.Destroy(level0);
             }
 
             interactorObject = null;
