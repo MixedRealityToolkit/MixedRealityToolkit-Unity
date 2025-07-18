@@ -366,7 +366,8 @@ namespace MixedReality.Toolkit.UX
 
             var handDelta = Vector3.Dot(SliderTrackDirection.normalized, interactorDelta);
 
-            float normalizedValue = Mathf.Clamp(StartSliderValue + handDelta / SliderTrackDirection.magnitude, 0f, 1.0f);
+            var normalizedStartValue = (StartSliderValue - MinValue) / (MaxValue - MinValue);
+            float normalizedValue = Mathf.Clamp(normalizedStartValue + handDelta / SliderTrackDirection.magnitude, 0f, 1.0f);
 
             var unsnappedValue = normalizedValue * (MaxValue - MinValue) + MinValue;
             Value = useSliderStepDivisions ? SnapSliderToStepPositions(unsnappedValue) : unsnappedValue;
@@ -382,12 +383,12 @@ namespace MixedReality.Toolkit.UX
             base.OnSelectEntered(args);
 
             // Snap to position by setting the startPosition
-            // to the slider start, and start value to zero.
+            // to the slider start, and start value to MinValue.
             // However, don't snap when using grabs.
             if (snapToPosition && !(args.interactorObject is IGrabInteractor))
             {
                 StartInteractionPoint = SliderStart.position;
-                StartSliderValue = 0.0f;
+                StartSliderValue = MinValue;
             }
             else
             {

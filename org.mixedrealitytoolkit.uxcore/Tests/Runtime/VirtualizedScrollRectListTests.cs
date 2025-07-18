@@ -4,11 +4,11 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using System.Collections;
-using System.Linq;
 using MixedReality.Toolkit.Input.Tests;
 using MixedReality.Toolkit.UX.Experimental;
 using NUnit.Framework;
+using System.Collections;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -57,13 +57,16 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             go.transform.name = wordSet2[i % wordSet2.Length];
         }
 
-        [TearDown]
-        public void Teardown()
+        public override IEnumerator TearDown()
         {
             if (virtualizedScrollRectList != null)
             {
                 Object.Destroy(virtualizedScrollRectList);
+                // Wait for a frame to give Unity a change to actually destroy the object
+                yield return null;
+                Assert.IsTrue(virtualizedScrollRectList == null);
             }
+            yield return base.TearDown();
         }
 
         [UnityTest]

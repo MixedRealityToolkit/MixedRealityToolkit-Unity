@@ -462,19 +462,26 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// local xz and yz planes. If these angles fall within the leashing bounds, then we don't have
         /// to modify refForward. Otherwise, we apply a correction rotation to bring it within bounds.
         /// </summary>
+        /// <returns>Whether <paramref name="refForward"/> was clamped or not.</returns>
         private bool AngularClamp(Vector3 refPosition, Quaternion refRotation, Vector3 currentPosition, ref Vector3 refForward)
         {
             using (AngularClampPerfMarker.Auto())
             {
                 Vector3 toTarget = currentPosition - refPosition;
                 float currentDistance = toTarget.magnitude;
-                if (currentDistance <= 0)
+                if (currentDistance <= Mathf.Epsilon)
                 {
                     // No need to clamp
                     return false;
                 }
 
                 toTarget.Normalize();
+
+                if (toTarget == Vector3.zero)
+                {
+                    // No need to clamp
+                    return false;
+                }
 
                 // Start off with a rotation towards the target. If it's within leashing bounds, we can leave it alone.
                 Quaternion rotation = Quaternion.LookRotation(toTarget, Vector3.up);
