@@ -96,7 +96,7 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
-        /// Changes the hand's pose to the given handshape.  Does not animate the hand between the current pose and new pose.
+        /// Changes the hand's pose to the given handshape. Does not animate the hand between the current pose and new pose.
         /// </summary>
         /// <param name="newHandshapeId">The new hand pose.</param>
         /// <param name="numSteps">The new hand pose.</param>
@@ -112,7 +112,7 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
-        /// Combined sequence of pinching and unpinching
+        /// Combined sequence of pinching and unpinching.
         /// </summary>
         public override IEnumerator Click()
         {
