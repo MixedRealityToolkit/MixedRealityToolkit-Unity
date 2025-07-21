@@ -19,9 +19,9 @@ namespace MixedReality.Toolkit.UX
     /// <remarks>
     /// A "see-it say-it" label is used for accessibility and voice input. The label displays the keyword
     /// that can be spoken to active or click the associated <see cref="PressableButton"/>.
-    /// 
+    ///
     /// This class will only enable a "see-it say-it" label if the application has included the MRTK input
-    /// package, and has an active <see cref="SpeechInteractor"/> object when this component's 
+    /// package, and has an active <see cref="SpeechInteractor"/> object when this component's
     /// <see cref="Start"/> method is invoked.
     /// </remarks>
     [RequireComponent(typeof(PressableButton))]
@@ -118,7 +118,7 @@ namespace MixedReality.Toolkit.UX
                 labelText = SeeItSayItLabel.GetComponentInChildren<TMP_Text>(true);
                 pressableButton.OnSpeechRecognitionKeywordChanged.AddListener(UpdateLabel);
 
-                // Children must be disabled so that they are not initially visible 
+                // Children must be disabled so that they are not initially visible
                 foreach (Transform child in SeeItSayItLabel.transform)
                 {
                     child.gameObject.SetActive(false);
@@ -139,7 +139,7 @@ namespace MixedReality.Toolkit.UX
                         // The parent RectTransform used to center the label
                         RectTransform canvasTransform = SeeItSayItLabel.GetComponent<RectTransform>();
 
-                        // The child RectTransform used to set the final position of the label 
+                        // The child RectTransform used to set the final position of the label
                         RectTransform labelTransform = SeeItSayItLabel.transform.GetChild(0).gameObject.GetComponent<RectTransform>();
 
                         if (labelTransform != null && canvasTransform != null)
@@ -182,7 +182,7 @@ namespace MixedReality.Toolkit.UX
         protected virtual void UpdateLabel(string keyword)
         {
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
-            if (!string.IsNullOrEmpty(keyword) && labelText != null)
+            if (!string.IsNullOrWhiteSpace(keyword) && labelText != null)
             {
 #if UNITY_LOCALIZATION_PRESENT
                 if (!localizedPattern.IsEmpty)
