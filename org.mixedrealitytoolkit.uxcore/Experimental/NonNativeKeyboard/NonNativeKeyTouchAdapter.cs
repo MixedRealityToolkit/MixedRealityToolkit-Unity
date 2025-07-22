@@ -10,7 +10,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace MixedReality.Toolkit.UX.Experimental
 {
     /// <summary>
-    /// Adds touch interaction to a button on the non-native keyboard
+    /// Adds touch interaction to a button on the non-native keyboard.
     /// </summary>
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(Button))]
@@ -111,9 +111,9 @@ namespace MixedReality.Toolkit.UX.Experimental
             SetColorOnHoverPoke(hoverArgs.interactorObject, button.colors.highlightedColor);
         }
 
-        private void SetColorOnHoverPoke(IXRHoverInteractor interaction, Color color)
+        private void SetColorOnHoverPoke(IXRHoverInteractor interactor, Color color)
         {
-            if (interaction is PokeInteractor)
+            if (interactor is PokeInteractor)
             {
                 image.color = color;
             }
