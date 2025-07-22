@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Prevent simultaneous editing of multiple input fields when using Non-Native Keyboard. [PR #942](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/942)
 * Don't try to start a coroutine in VirtualizedScrollRectList when the GameObject is inactive. [PR #972](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/972)
 * Fix SliderSounds playing sound even when disabled. [PR #1007](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1007)
+* Fix for sliders with min-max values outside range \[0-1\] when slider is configured for grab interaction (IsTouchable = false) [Issue 944](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/944)
 
 ## [3.2.2] - 2024-09-18
 
