@@ -62,7 +62,7 @@ namespace MixedReality.Toolkit.Examples.Demos
         /// </summary>
         private IEnumerator Sequence()
         {
-            // Keep cycling through test until scene is exitted.
+            // Keep cycling through test until scene is exited.
             while (true)
             {
                 var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);

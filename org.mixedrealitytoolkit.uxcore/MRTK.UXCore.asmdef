@@ -6,6 +6,7 @@
         "MixedReality.Toolkit.Data",
         "Microsoft.MixedReality.GraphicsTools",
         "Unity.InputSystem",
+        "Unity.Localization",
         "Unity.TextMeshPro",
         "Unity.XR.Interaction.Toolkit",
         "Unity.XR.CoreUtils",
@@ -39,6 +40,11 @@
             "name": "org.mixedrealitytoolkit.windowsspeech",
             "expression": "",
             "define": "MRTK_SPEECH_PRESENT"
+        },
+        {
+            "name": "com.unity.localization",
+            "expression": "",
+            "define": "UNITY_LOCALIZATION_PRESENT"
         }
     ],
     "noEngineReferences": false

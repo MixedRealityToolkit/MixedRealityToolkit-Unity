@@ -48,8 +48,7 @@ namespace MixedReality.Toolkit
         /// </remarks>
         public static T EnsureComponent<T>(this GameObject gameObject) where T : Component
         {
-            T foundComponent = gameObject.GetComponent<T>();
-            return foundComponent == null ? gameObject.AddComponent<T>() : foundComponent;
+            return gameObject.TryGetComponent(out T foundComponent) ? foundComponent : gameObject.AddComponent<T>();
         }
 
         /// <summary>
@@ -63,8 +62,7 @@ namespace MixedReality.Toolkit
         /// <returns>The component that was retrieved or created.</returns>
         public static Component EnsureComponent(this GameObject gameObject, Type component)
         {
-            var foundComponent = gameObject.GetComponent(component);
-            return foundComponent == null ? gameObject.AddComponent(component) : foundComponent;
+            return gameObject.TryGetComponent(component, out Component foundComponent) ? foundComponent : gameObject.AddComponent(component);
         }
     }
 }

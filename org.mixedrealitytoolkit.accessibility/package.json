@@ -1,7 +1,7 @@
 {
   "name": "org.mixedrealitytoolkit.accessibility",
-  "version": "1.0.1-development",
-  "description": "*** Please note ***\nThe MRTK3 accessibility features are in early preview and may not contain all planned features. Early preview releases also may undergo significant, breaking architectural changes before release.\n\nFeatures and subsystem to enable accessibility in mixed reality experiences.",
+  "version": "1.0.3-development.pre.20",
+  "description": "Features and subsystem to enable accessibility in MR experiences.\n\nThis is in early preview and may undergo significant, breaking changes before release.",
   "displayName": "MRTK Accessibility Early Preview",
   "msftFeatureCategory": "MRTK3",
   "author": "Mixed Reality Toolkit Contributors",

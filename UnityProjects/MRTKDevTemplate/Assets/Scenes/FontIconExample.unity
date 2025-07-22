@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 75
   textMeshProComponent: {fileID: 397431527}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 139
   textMeshProComponent: {fileID: 436601593}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -644,7 +644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 95
   textMeshProComponent: {fileID: 451336402}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 40
   textMeshProComponent: {fileID: 462787336}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -1022,7 +1022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 26
   textMeshProComponent: {fileID: 519813721}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -1211,7 +1211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 120
   textMeshProComponent: {fileID: 568669089}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -1400,7 +1400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 20
   textMeshProComponent: {fileID: 569884313}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -1589,7 +1589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 67
   textMeshProComponent: {fileID: 643607488}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -1778,7 +1778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 99
   textMeshProComponent: {fileID: 761576419}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -1967,7 +1967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 118
   textMeshProComponent: {fileID: 889463129}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -2156,7 +2156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 111
   textMeshProComponent: {fileID: 927873292}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -2557,6 +2557,7 @@ MonoBehaviour:
   hostTransform: {fileID: 1236496965}
   allowedManipulations: 7
   allowedInteractionTypes: -2147483641
+  rigidbodyMovementType: 0
   applyTorque: 1
   springForceSoftness: 0.1
   springTorqueSoftness: 0.1
@@ -2579,8 +2580,7 @@ MonoBehaviour:
     moveLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.MoveLogic, MixedReality.Toolkit.SpatialManipulation
     rotateLogicType:
-      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic,
-        MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic, MixedReality.Toolkit.SpatialManipulation
     scaleLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.ScaleLogic, MixedReality.Toolkit.SpatialManipulation
 --- !u!114 &958324216
@@ -3225,7 +3225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 53
   textMeshProComponent: {fileID: 1466081446}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -3414,7 +3414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 113
   textMeshProComponent: {fileID: 1479984120}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -3603,7 +3603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 76
   textMeshProComponent: {fileID: 1512144009}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -3886,7 +3886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 115
   textMeshProComponent: {fileID: 1554844215}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -4075,7 +4075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 132
   textMeshProComponent: {fileID: 1708633249}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -4264,7 +4264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 17
   textMeshProComponent: {fileID: 1740750095}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -4458,7 +4458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 8
   textMeshProComponent: {fileID: 1765249068}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -4647,7 +4647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 122
   textMeshProComponent: {fileID: 1815594337}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -4836,7 +4836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 130
   textMeshProComponent: {fileID: 1819856485}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -5025,7 +5025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 94
   textMeshProComponent: {fileID: 1824689521}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -5214,7 +5214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 37
   textMeshProComponent: {fileID: 1858332721}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -5520,7 +5520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 133
   textMeshProComponent: {fileID: 1965644065}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -5709,7 +5709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 51
   textMeshProComponent: {fileID: 2092557359}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}
@@ -5940,7 +5940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
+  fontIcons: {fileID: 11400000, guid: 98fec9bd136c93c44ba1f6f1bd5f38b5, type: 2}
   currentIconName: Icon 92
   textMeshProComponent: {fileID: 2142930622}
   iconFontAsset: {fileID: 11400000, guid: 8a921d5b694150349b142ca0e18d0e97, type: 2}

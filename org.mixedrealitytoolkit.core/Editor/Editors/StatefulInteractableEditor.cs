@@ -13,6 +13,7 @@ namespace MixedReality.Toolkit.Editor
     [CanEditMultipleObjects]
     public class StatefulInteractableEditor : BaseInteractableEditor
     {
+        private SerializedProperty IsInteractable;
         private SerializedProperty IsToggled;
         private SerializedProperty IsToggledStateActive;
         private SerializedProperty SelectThreshold;
@@ -22,6 +23,7 @@ namespace MixedReality.Toolkit.Editor
         private SerializedProperty allowSelectByVoice;
         private SerializedProperty SelectRequiresHover;
         private SerializedProperty speechRecognitionKeyword;
+        private SerializedProperty OnSpeechRecognitionKeywordChanged;
         private SerializedProperty VoiceRequiresFocus;
         private SerializedProperty UseGazeDwell;
         private SerializedProperty GazeDwellTime;
@@ -33,6 +35,7 @@ namespace MixedReality.Toolkit.Editor
         private SerializedProperty OnEnabled;
         private SerializedProperty OnDisabled;
         private static bool advancedFoldout = false;
+        private static bool speechRecognitionKeywordEventFoldout = false;
         private static bool enabledEventsFoldout = false;
 
         /// <summary>
@@ -41,6 +44,9 @@ namespace MixedReality.Toolkit.Editor
         protected override void OnEnable()
         {
             base.OnEnable();
+
+            // IsInteractable is a convenience alias for the built-in StatefulInteractable.enabled property.
+            IsInteractable = serializedObject.FindProperty("m_Enabled");
 
             IsToggled = SetUpAutoProperty(nameof(IsToggled));
             IsToggledStateActive = IsToggled.FindPropertyRelative("active");
@@ -53,6 +59,7 @@ namespace MixedReality.Toolkit.Editor
 
             allowSelectByVoice = SetUpProperty(nameof(allowSelectByVoice));
             speechRecognitionKeyword = SetUpProperty(nameof(speechRecognitionKeyword));
+            OnSpeechRecognitionKeywordChanged = SetUpAutoProperty(nameof(OnSpeechRecognitionKeywordChanged));
             VoiceRequiresFocus = SetUpAutoProperty(nameof(VoiceRequiresFocus));
 
             SelectRequiresHover = SetUpAutoProperty(nameof(SelectRequiresHover));
@@ -91,12 +98,9 @@ namespace MixedReality.Toolkit.Editor
 
             StatefulInteractable interactable = target as StatefulInteractable;
 
-            bool interactableActive = EditorGUILayout.Toggle(new GUIContent("Is Interactable", "Convenience alias for StatefulInteractable.enabled"), interactable.enabled);
-
-            if (interactableActive != (target as StatefulInteractable).enabled)
+            if (IsInteractable != null)
             {
-                Undo.RecordObject(target, string.Concat("Set Interactable ", target.name));
-                interactable.enabled = interactableActive;
+                EditorGUILayout.PropertyField(IsInteractable, new GUIContent("Is Interactable", "Convenience alias for StatefulInteractable.enable"));
             }
 
             // Only show toggle settings if the subclass hasn't told us not to.
@@ -165,8 +169,13 @@ namespace MixedReality.Toolkit.Editor
                     {
                         using (new EditorGUI.IndentLevelScope())
                         {
-                            EditorGUILayout.PropertyField(speechRecognitionKeyword);
                             EditorGUILayout.PropertyField(VoiceRequiresFocus);
+                            EditorGUILayout.PropertyField(speechRecognitionKeyword);
+                            speechRecognitionKeywordEventFoldout = EditorGUILayout.Foldout(speechRecognitionKeywordEventFoldout, EditorGUIUtility.TrTempContent("Speech Recognition Keyword event"), true);
+                            if (speechRecognitionKeywordEventFoldout)
+                            {
+                                EditorGUILayout.PropertyField(OnSpeechRecognitionKeywordChanged);
+                            }
                         }
                     }
 

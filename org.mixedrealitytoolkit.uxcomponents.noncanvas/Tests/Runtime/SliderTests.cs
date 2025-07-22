@@ -19,9 +19,9 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
     public class SliderTests : BaseRuntimeInputTests
     {
         // UXComponents/Sliders/Prefabs/NonCanvasSliderBase.prefab
-        private const string defaultSliderPrefabGuid = "5cf5d5d5cc7fe184a93c388dbab66bb9";
-        private static readonly string defaultSliderPrefabPath = AssetDatabase.GUIDToAssetPath(defaultSliderPrefabGuid);
-        private const float sliderValueDelta = 0.02f;
+        private const string DefaultSliderPrefabGuid = "5cf5d5d5cc7fe184a93c388dbab66bb9";
+        private static readonly string DefaultSliderPrefabPath = AssetDatabase.GUIDToAssetPath(DefaultSliderPrefabGuid);
+        private const float SliderValueDelta = 0.02f;
 
         public override IEnumerator Setup()
         {
@@ -57,10 +57,10 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             // This should not throw exception
             AssembleSlider(InputTestUtilities.InFrontOfUser(Vector3.forward), Vector3.zero, out GameObject sliderObject, out Slider slider, out _);
 
-            Assert.AreEqual(0.5f, slider.Value, sliderValueDelta, "Slider should have value 0.5 at start");
+            Assert.AreEqual(0.5f, slider.Value, SliderValueDelta, "Slider should have value 0.5 at start");
             yield return DirectPinchAndMoveSlider(slider, 1.0f);
             // Allow some leeway due to grab positions shifting on open
-            Assert.AreEqual(1.0f, slider.Value, sliderValueDelta, "Slider should have value 1.0 after being manipulated at start");
+            Assert.AreEqual(1.0f, slider.Value, SliderValueDelta, "Slider should have value 1.0 after being manipulated at start");
 
             //// clean up
             Object.Destroy(sliderObject);
@@ -75,10 +75,10 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             slider.SnapToPosition = false;
             slider.IsTouchable = false;
 
-            Assert.AreEqual(0.5f, slider.Value, sliderValueDelta, "Slider should have value 0.5 at start");
+            Assert.AreEqual(0.5f, slider.Value, SliderValueDelta, "Slider should have value 0.5 at start");
             yield return DirectPinchAndMoveSlider(slider, 1.0f);
             // Allow some leeway due to grab positions shifting on open
-            Assert.AreEqual(1.0f, slider.Value, sliderValueDelta, "Slider should have value 1.0 after being manipulated at start");
+            Assert.AreEqual(1.0f, slider.Value, SliderValueDelta, "Slider should have value 1.0 after being manipulated at start");
 
             // clean up
             Object.Destroy(sliderObject);
@@ -435,7 +435,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             // Test that the slider still works and no errors are thrown
             yield return RuntimeTestUtilities.WaitForUpdates();
-            Assert.AreEqual(0.5f, slider.Value, sliderValueDelta, "Slider should have value 0.5 at start");
+            Assert.AreEqual(0.5f, slider.Value, SliderValueDelta, "Slider should have value 0.5 at start");
 
             // clean up
             Object.Destroy(sliderObject);
@@ -669,7 +669,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         private void InstantiateDefaultSliderPrefab(Vector3 position, Vector3 rotation, out GameObject sliderObject, out Slider slider, out SliderVisuals sliderVisuals)
         {
             // Load interactable prefab
-            Object sliderPrefab = AssetDatabase.LoadAssetAtPath(defaultSliderPrefabPath, typeof(Object));
+            Object sliderPrefab = AssetDatabase.LoadAssetAtPath(DefaultSliderPrefabPath, typeof(Object));
             sliderObject = Object.Instantiate(sliderPrefab) as GameObject;
             slider = sliderObject.GetComponent<Slider>();
             sliderVisuals = sliderObject.GetComponent<SliderVisuals>();

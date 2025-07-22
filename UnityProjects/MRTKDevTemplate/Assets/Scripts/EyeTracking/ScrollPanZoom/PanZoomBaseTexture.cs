@@ -78,7 +78,7 @@ namespace MixedReality.Toolkit.Examples
         /// </summary>
         /// <param name="uvCursorPosition">Normalized cursor position in the hit box. Center is assumed to be at (-0.5, 0.5).</param>        
         /// <param name="maxSpeed">The maximum speed that can be returned by this function.</param>
-        /// <param name="minDistanceFromCenterForAutoPan">The minium distances from the center at which to start panning.</param>
+        /// <param name="minDistanceFromCenterForAutoPan">The minimum distances from the center at which to start panning.</param>
         protected override float ComputePanSpeed(float uvCursorPosition, float maxSpeed, float minDistanceFromCenterForAutoPan)
         {
             // UV space from [0,1] -> Center: [-0.5, 0.5]
