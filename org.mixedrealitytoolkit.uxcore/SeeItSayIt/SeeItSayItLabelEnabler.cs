@@ -55,13 +55,14 @@ namespace MixedReality.Toolkit.UX
         [SerializeField]
         [Tooltip("The LocalizedString that define the label pattern. Use a smart string with one argument that will be replaced by the button's speech recognition keyword (e.g: \"Say '{0}'\").")]
         private LocalizedString localizedPattern;
-#else
+#endif
+
         [SerializeField]
-        [Tooltip("The pattern for the see-it say-it label using string.Format()")]
+        [Tooltip("The pattern for the see-it say-it label using string.Format() when localization isn't used.")]
         private string pattern = "Say '{0}'";
 
         /// <summary>
-        /// The pattern for the see-it say-it label using string.Format()
+        /// The pattern for the see-it say-it label using string.Format() when localization isn't used.
         /// </summary>
         public string Pattern
         {
@@ -75,7 +76,6 @@ namespace MixedReality.Toolkit.UX
                 }
             }
         }
-#endif
 
         [SerializeField]
         [Tooltip("The Transform that the label will be dynamically positioned off of. Empty by default. If positioning a Canvas label, this must be a RectTransform.")]
@@ -188,14 +188,10 @@ namespace MixedReality.Toolkit.UX
                 if (!localizedPattern.IsEmpty)
                 {
                     labelText.text = localizedPattern.GetLocalizedString(keyword);
+                    return;
                 }
-                else
-                {
-                    labelText.text = $"Say '{keyword}'";
-                }
-#else
-                labelText.text = string.Format(pattern, keyword);
 #endif
+                labelText.text = string.Format(pattern, keyword);
             }
 #endif
         }
