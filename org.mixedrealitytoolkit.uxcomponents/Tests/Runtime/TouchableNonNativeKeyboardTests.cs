@@ -69,6 +69,9 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             // The keyboard needs a bit of time to initialize
             yield return RuntimeTestUtilities.WaitForUpdates(40);
             yield return rightHand.Move(Vector3.forward * handDelta, 5);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.Move(Vector3.back * handDelta, 5);
+            yield return RuntimeTestUtilities.WaitForUpdates();
             Assert.AreEqual("j", keyboardPreview.Text, "Pressing key did not change text.");
         }
 
