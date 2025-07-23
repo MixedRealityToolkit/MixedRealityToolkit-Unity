@@ -14,7 +14,6 @@ namespace MixedReality.Toolkit.UX.Experimental
     /// </summary>
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(Button))]
-    [RequireComponent(typeof(Graphic))]
     public class NonNativeKeyTouchAdapter : MonoBehaviour
     {
         private const float ColliderMargin = 30.0f;
@@ -25,14 +24,12 @@ namespace MixedReality.Toolkit.UX.Experimental
         private const float AnimationMovementDelta = 20.0f;
 
         private StatefulInteractable interactable;
-        private Graphic image;
         private float lastClickTime;
         private bool isInitialized;
         private Vector3 defaultPosition;
         private Vector3 animatedPosition;
         private BoxCollider buttonCollider;
         private Vector3 buttonColliderDefaultCenter;
-        private Color defaultImageColor;
         private Button button;
 
         /// <summary>
@@ -78,8 +75,6 @@ namespace MixedReality.Toolkit.UX.Experimental
                 (-size.y - ColliderMargin) / 2.0f, ColliderZDelta);
             buttonCollider.center = buttonColliderDefaultCenter;
 
-            image = GetComponent<Graphic>();
-            defaultImageColor = image.color;
             button = GetComponent<Button>();
             button.interactable = false;
 
@@ -108,14 +103,9 @@ namespace MixedReality.Toolkit.UX.Experimental
 
         private void OnHoverStart(HoverEnterEventArgs hoverArgs)
         {
-            SetColorOnHoverPoke(hoverArgs.interactorObject, button.colors.highlightedColor);
-        }
-
-        private void SetColorOnHoverPoke(IXRHoverInteractor interactor, Color color)
-        {
-            if (interactor is PokeInteractor)
+            if (hoverArgs.interactorObject is PokeInteractor)
             {
-                image.color = color;
+                button.targetGraphic.CrossFadeColor(button.colors.pressedColor, button.colors.fadeDuration, true, true);
             }
         }
 
@@ -135,9 +125,9 @@ namespace MixedReality.Toolkit.UX.Experimental
                 buttonCollider.center = buttonColliderDefaultCenter - (newPos - defaultPosition);
                 yield return null;
             }
-            if (interactable.HoveringPokeInteractors.Count == 0 && image.color != defaultImageColor)
+            if (interactable.HoveringPokeInteractors.Count == 0)
             {
-                image.color = defaultImageColor;
+                button.targetGraphic.CrossFadeColor(button.colors.normalColor, button.colors.fadeDuration, true, true);
             }
         }
 
