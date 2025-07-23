@@ -103,6 +103,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             }
 
             button.onClick.Invoke();
+            lastClickTime = Time.time;
             StartCoroutine(MoveButton(defaultPosition, animatedPosition));
         }
 

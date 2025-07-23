@@ -75,6 +75,59 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.AreEqual("j", keyboardPreview.Text, "Pressing key did not change text.");
         }
 
+        [UnityTest]
+        public IEnumerator TestTouchKeyInQuickSuccession()
+        {
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Right, Input.Simulation.ControllerAnchorPoint.IndexFinger);
+
+            Vector3 initialHandPosition = InputTestUtilities.InFrontOfUser(0.3f) + Vector3.up * 0.02f + Vector3.right * 0.01f;
+            var handDelta = initialKeyboardPosition.z - initialHandPosition.z;
+            var rightHand = new TestHand(Handedness.Right);
+            yield return rightHand.Show(initialHandPosition);
+            // The keyboard needs a bit of time to initialize
+            yield return RuntimeTestUtilities.WaitForUpdates(40);
+            yield return rightHand.Move(Vector3.forward * handDelta, 2);
+            yield return RuntimeTestUtilities.WaitForUpdates(5);
+            yield return rightHand.Move(Vector3.back * handDelta, 2);
+            yield return RuntimeTestUtilities.WaitForUpdates(5);
+            Assert.AreEqual("j", keyboardPreview.Text, "Pressing key did not change text.");
+
+            yield return rightHand.Move(Vector3.forward * handDelta, 2);
+            yield return RuntimeTestUtilities.WaitForUpdates(5);
+            yield return rightHand.Move(Vector3.back * handDelta, 2);
+            yield return RuntimeTestUtilities.WaitForUpdates(5);
+            Assert.AreEqual("j", keyboardPreview.Text, "Pressing key in quick succession should not have changed text.");
+
+            // Give the keyboard a second for its ReClickDelayTime to pass
+            yield return new WaitForSeconds(1);
+            yield return rightHand.Move(Vector3.forward * handDelta, 2);
+            yield return RuntimeTestUtilities.WaitForUpdates(5);
+            yield return rightHand.Move(Vector3.back * handDelta, 2);
+            yield return RuntimeTestUtilities.WaitForUpdates(5);
+            Assert.AreEqual("jj", keyboardPreview.Text, "Pressing key did not change text.");
+        }
+
+        [UnityTest]
+        public IEnumerator TestTouchKeyOnSymbolLayout()
+        {
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Right, Input.Simulation.ControllerAnchorPoint.IndexFinger);
+
+            testKeyboard.Open(NonNativeKeyboard.LayoutType.Symbol);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Vector3 initialHandPosition = InputTestUtilities.InFrontOfUser(0.3f) + Vector3.up * 0.02f + Vector3.right * 0.01f;
+            var handDelta = initialKeyboardPosition.z - initialHandPosition.z;
+            var rightHand = new TestHand(Handedness.Right);
+            yield return rightHand.Show(initialHandPosition);
+            // The keyboard needs a bit of time to initialize
+            yield return RuntimeTestUtilities.WaitForUpdates(40);
+            yield return rightHand.Move(Vector3.forward * handDelta, 5);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.Move(Vector3.back * handDelta, 5);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.AreEqual("+", keyboardPreview.Text, "Pressing key did not change text.");
+        }
+
         private GameObject InstantiatePrefab(string prefabPath)
         {
             Object pressableButtonPrefab = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(Object));
