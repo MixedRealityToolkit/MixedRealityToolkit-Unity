@@ -56,6 +56,16 @@ namespace MixedReality.Toolkit.UX.Experimental
             Initialize();
         }
 
+        /// <summary>
+        /// See <see cref="MonoBehaviour"/>.
+        /// </summary>
+        protected void OnDestroy()
+        {
+            interactable.hoverEntered.RemoveListener(OnHoverStart);
+            interactable.firstSelectEntered.RemoveListener(OnSelectStart);
+            interactable.lastSelectExited.RemoveListener(OnSelectEnd);
+        }
+
         private void Initialize()
         {
             if (isInitialized)
@@ -81,7 +91,7 @@ namespace MixedReality.Toolkit.UX.Experimental
             interactable = gameObject.EnsureComponent<StatefulInteractable>();
             interactable.firstSelectEntered.AddListener(OnSelectStart);
             interactable.lastSelectExited.AddListener(OnSelectEnd);
-            interactable.firstHoverEntered.AddListener(OnHoverStart);
+            interactable.hoverEntered.AddListener(OnHoverStart);
         }
 
         private void OnSelectStart(SelectEnterEventArgs selectArgs)
@@ -129,13 +139,6 @@ namespace MixedReality.Toolkit.UX.Experimental
             {
                 button.targetGraphic.CrossFadeColor(button.colors.normalColor, button.colors.fadeDuration, true, true);
             }
-        }
-
-        private void OnDestroy()
-        {
-            interactable.hoverEntered.RemoveListener(OnHoverStart);
-            interactable.firstSelectEntered.RemoveListener(OnSelectStart);
-            interactable.lastSelectExited.RemoveListener(OnSelectEnd);
         }
     }
 }
