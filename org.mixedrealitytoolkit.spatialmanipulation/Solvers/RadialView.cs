@@ -159,22 +159,22 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         [SerializeField]
-        [Tooltip("If true, the element will position itself at the center of the view when it becomes enabled," +
+        [Tooltip("If true, the element will position itself in front of the target transform when it becomes enabled," +
             " maintaining a distance equal to the average of its MinDistance and MaxDistance.")]
-        private bool initializeToViewCenter = false;
+        private bool initializeToTargetForward = false;
 
         /// <summary>
-        /// If true, the element will position itself at the center of the view when it becomes enabled,
+        /// If true, the element will position itself in front of the target transform when it becomes enabled,
         /// maintaining a distance equal to the average of its MinDistance and MaxDistance.
         /// </summary>
         /// <remarks>
         /// This prevents the object from rapidly approaching the viewer and
         /// ensures it appears upright. Only has effect when the solver becomes enabled.
         /// </remarks>
-        public bool InitializeToViewCenter
+        public bool InitializeToTargetForward
         {
-            get => initializeToViewCenter;
-            set => initializeToViewCenter = value;
+            get => initializeToTargetForward;
+            set => initializeToTargetForward = value;
         }
 
         /// <summary>
@@ -208,11 +208,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             base.OnEnable();
 
-            if (initializeToViewCenter)
+            if (initializeToTargetForward && SolverHandler.TransformTarget != null)
             {
                 float distance = (MinDistance + MaxDistance) / 2.0f;
-                WorkingPosition = Camera.main.transform.position +
-                                  Camera.main.transform.forward.normalized * distance;
+                WorkingPosition = SolverHandler.TransformTarget.position +
+                                  SolverHandler.TransformTarget.forward.normalized * distance;
             }
         }
 

@@ -148,7 +148,7 @@ MonoBehaviour:
   useFixedVerticalPosition: 0
   fixedVerticalPosition: -0.4
   orientToReferenceDirection: 0
-  initializeToViewCenter: 1
+  initializeToTargetForward: 1
 --- !u!114 &6914410306487292552
 MonoBehaviour:
   m_ObjectHideFlags: 0
