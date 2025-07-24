@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 * Added different types of maintaining scale for bounds handles. [PR #976](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/976)
+* Added InitializeToTargetForward field/property to RadialView to position a GameObject in front of its target (like at the center of the view) when it becomes enabled. [PR #655](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/655)
 
 ### Fixed
 
