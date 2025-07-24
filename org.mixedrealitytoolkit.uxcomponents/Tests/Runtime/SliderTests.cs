@@ -27,9 +27,9 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
         private TestHand hand;
 
-        [SetUp]
-        public void SetUp()
+        public override IEnumerator Setup()
         {
+            yield return base.Setup();
             hand = new TestHand(Handedness.Right);
         }
 
@@ -37,9 +37,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         public IEnumerator TouchSlider_MoveRight_ValueIncreasesCorrectly([ValueSource(nameof(MoveRightTestCases))] TestCase testCase)
         {
             InputTestUtilities.InitializeCameraToOriginAndForward();
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Left, Input.Simulation.ControllerAnchorPoint.IndexFinger);
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Right, Input.Simulation.ControllerAnchorPoint.IndexFinger);
 
             var testPrefab = InstantiateSlider(DefaultSliderPrefabPath);
-            testPrefab.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0, 0, 1));
+            testPrefab.transform.position = InputTestUtilities.InFrontOfUser(Vector3.forward);
 
             var slider = testPrefab.GetComponentInChildren<Slider>();
             slider.MinValue = testCase.MinValue;
@@ -47,9 +49,9 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             slider.Value = ((testCase.MaxValue - testCase.MinValue) / 2) + testCase.MinValue;
 
             yield return ShowHand();
-            yield return hand.MoveTo(testPrefab.transform.position - new Vector3(0, 0, 0.00f), HandMovementFrames);
+            yield return hand.MoveTo(slider.HandleTransform.position, HandMovementFrames);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            yield return hand.MoveTo(testPrefab.transform.position - new Vector3(-0.04f, 0f, 0.00f), HandMovementFrames);
+            yield return hand.MoveTo(slider.HandleTransform.position - new Vector3(-0.04f, 0, 0), HandMovementFrames);
             yield return RuntimeTestUtilities.WaitForUpdates();
             Assert.That(slider.Value, Is.EqualTo(testCase.Expected).Within(0.00001f));
 
@@ -60,9 +62,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         public IEnumerator GrabSlider_MoveRight_ValueIncreasesCorrectly([ValueSource(nameof(MoveRightTestCases))] TestCase testCase)
         {
             InputTestUtilities.InitializeCameraToOriginAndForward();
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Left, Input.Simulation.ControllerAnchorPoint.Grab);
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Right, Input.Simulation.ControllerAnchorPoint.Grab);
 
             var testPrefab = InstantiateSlider(DefaultSliderPrefabPath);
-            testPrefab.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0, 0, 1));
+            testPrefab.transform.position = InputTestUtilities.InFrontOfUser(Vector3.forward);
 
             var slider = testPrefab.GetComponentInChildren<Slider>();
             slider.IsTouchable = false;
@@ -71,11 +75,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             slider.Value = ((testCase.MaxValue - testCase.MinValue) / 2) + testCase.MinValue;
 
             yield return ShowHand();
-            yield return hand.MoveTo(testPrefab.transform.position - new Vector3(0, 0, 0.00f), HandMovementFrames);
+            yield return hand.MoveTo(slider.HandleTransform.position, HandMovementFrames);
             yield return RuntimeTestUtilities.WaitForUpdates();
             yield return hand.SetHandshape(HandshapeTypes.HandshapeId.Grab);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            yield return hand.MoveTo(testPrefab.transform.position - new Vector3(-0.04f, 0f, 0.00f), HandMovementFrames);
+            yield return hand.MoveTo(slider.HandleTransform.position - new Vector3(-0.04f, 0, 0), HandMovementFrames);
             yield return RuntimeTestUtilities.WaitForUpdates();
             yield return hand.SetHandshape(HandshapeTypes.HandshapeId.Open);
             yield return RuntimeTestUtilities.WaitForUpdates();
@@ -84,13 +88,16 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             Object.Destroy(testPrefab);
         }
+
         [UnityTest]
         public IEnumerator TouchSlider_MoveLeft_ValueIncreasesCorrectly([ValueSource(nameof(MoveLeftTestCases))] TestCase testCase)
         {
             InputTestUtilities.InitializeCameraToOriginAndForward();
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Left, Input.Simulation.ControllerAnchorPoint.IndexFinger);
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Right, Input.Simulation.ControllerAnchorPoint.IndexFinger);
 
             var testPrefab = InstantiateSlider(DefaultSliderPrefabPath);
-            testPrefab.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0, 0, 1));
+            testPrefab.transform.position = InputTestUtilities.InFrontOfUser(Vector3.forward);
 
             var slider = testPrefab.GetComponentInChildren<Slider>();
             slider.MinValue = testCase.MinValue;
@@ -98,9 +105,9 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             slider.Value = ((testCase.MaxValue - testCase.MinValue) / 2) + testCase.MinValue;
 
             yield return ShowHand();
-            yield return hand.MoveTo(testPrefab.transform.position - new Vector3(0, 0, 0.00f), HandMovementFrames);
+            yield return hand.MoveTo(slider.HandleTransform.position, HandMovementFrames);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            yield return hand.MoveTo(testPrefab.transform.position + new Vector3(-0.04f, 0f, 0.00f), HandMovementFrames);
+            yield return hand.MoveTo(slider.HandleTransform.position + new Vector3(-0.04f, 0, 0), HandMovementFrames);
             yield return RuntimeTestUtilities.WaitForUpdates();
             Assert.That(slider.Value, Is.EqualTo(testCase.Expected).Within(0.00001f));
 
@@ -111,9 +118,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         public IEnumerator GrabSlider_MoveLeft_ValueIncreasesCorrectly([ValueSource(nameof(MoveLeftTestCases))] TestCase testCase)
         {
             InputTestUtilities.InitializeCameraToOriginAndForward();
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Left, Input.Simulation.ControllerAnchorPoint.Grab);
+            InputTestUtilities.SetHandAnchorPoint(Handedness.Right, Input.Simulation.ControllerAnchorPoint.Grab);
 
             var testPrefab = InstantiateSlider(DefaultSliderPrefabPath);
-            testPrefab.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0, 0, 1));
+            testPrefab.transform.position = InputTestUtilities.InFrontOfUser(Vector3.forward);
 
             var slider = testPrefab.GetComponentInChildren<Slider>();
             slider.IsTouchable = false;
@@ -122,11 +131,11 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             slider.Value = ((testCase.MaxValue - testCase.MinValue) / 2) + testCase.MinValue;
 
             yield return ShowHand();
-            yield return hand.MoveTo(testPrefab.transform.position - new Vector3(0, 0, 0.00f), HandMovementFrames);
+            yield return hand.MoveTo(slider.HandleTransform.position, HandMovementFrames);
             yield return RuntimeTestUtilities.WaitForUpdates();
             yield return hand.SetHandshape(HandshapeTypes.HandshapeId.Grab);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            yield return hand.MoveTo(testPrefab.transform.position + new Vector3(-0.04f, 0f, 0.00f), HandMovementFrames);
+            yield return hand.MoveTo(slider.HandleTransform.position + new Vector3(-0.04f, 0, 0), HandMovementFrames);
             yield return RuntimeTestUtilities.WaitForUpdates();
             yield return hand.SetHandshape(HandshapeTypes.HandshapeId.Open);
             yield return RuntimeTestUtilities.WaitForUpdates();
