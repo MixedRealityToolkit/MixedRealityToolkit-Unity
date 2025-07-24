@@ -1,6 +1,6 @@
 {
   "name": "org.mixedrealitytoolkit.tools",
-  "version": "3.0.4-development",
+  "version": "3.0.5-development",
   "description": "A collection of tools, utilities, and wizards that can be used to create and analyze components for use with MRTK3.",
   "displayName": "MRTK Tools",
   "msftFeatureCategory": "MRTK3",
@@ -17,6 +17,6 @@
   "unityRelease": "26f1",
   "documentationUrl": "https://www.mixedrealitytoolkit.org",
   "dependencies": {
-    "org.mixedrealitytoolkit.core": "3.0.0"
+    "org.mixedrealitytoolkit.core": "3.3.0"
   }
 }
