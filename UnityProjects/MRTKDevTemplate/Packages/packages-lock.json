@@ -442,7 +442,6 @@
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.microsoft.mrtk.tts.windows": "1.0.4",
         "org.mixedrealitytoolkit.core": "3.2.2"
       }
     },
