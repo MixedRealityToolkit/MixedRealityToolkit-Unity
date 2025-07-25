@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 
 * Reduced package description to support for UPM package publishing in the Unity Asset Store.
-* Updated dependencies to match Unity Asset Store packages.
+* Updated dependencies to match Unity Asset Store packages. [PR #1054](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1054)
   * com.microsoft.mrtk.graphicstools.unity 0.8.0
   * org.mixedrealitytoolkit.core 3.2.2
 
