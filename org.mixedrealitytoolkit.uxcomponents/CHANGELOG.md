@@ -11,6 +11,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 
 * Changed PressableButton_Custom_Cylinder using Default-Material to MRTK_Standard_White instead. [PR #740](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/740)
+* Updated dependencies to match Unity Asset Store packages. [PR #1054](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1054)
+  * com.microsoft.mrtk.graphicstools.unity 0.8.0
+  * org.mixedrealitytoolkit.standardassets 3.2.1
 
 ## [3.3.0] - 2024-06-13
 

@@ -1,6 +1,6 @@
 {
   "name": "org.mixedrealitytoolkit.extendedassets",
-  "version": "3.0.3-development",
+  "version": "3.0.4-development",
   "description": "This package offers additional assets helpful for example scenes or rapid prototyping. These assets are in addition to the more commonly-used assets located in StandardAssets.",
   "displayName": "MRTK Extended Assets",
   "msftFeatureCategory": "MRTK3",
@@ -17,6 +17,6 @@
   "unityRelease": "26f1",
   "documentationUrl": "https://www.mixedrealitytoolkit.org",
   "dependencies": {
-    "org.mixedrealitytoolkit.standardassets": "3.1.0"
+    "org.mixedrealitytoolkit.standardassets": "3.2.1"
   }
 }
