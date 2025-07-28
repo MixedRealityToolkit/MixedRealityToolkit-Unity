@@ -4,9 +4,9 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using System.Collections;
 using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -22,9 +22,9 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         /// <summary>
         /// Initialize the keyboard tests by creating a game object with a <see cref="KeyboardPreview"/> component.
         /// </summary>
-        [SetUp]
-        public void Init()
+        public override IEnumerator Setup()
         {
+            yield return base.Setup();
             GameObject obj = new GameObject("KeyboardPreview");
             obj.AddComponent<Canvas>();
             obj.SetActive(false);
@@ -34,10 +34,13 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         /// <summary>
         /// Clean-up the keyboard tests by destroying the game object with the <see cref="KeyboardPreview"/> component.
         /// </summary>
-        [TearDown]
-        public void Teardown()
+        public override IEnumerator TearDown()
         {
             Object.Destroy(keyboardPreview);
+            // Wait for a frame to give Unity a change to actually destroy the object
+            yield return null;
+            Assert.IsTrue(keyboardPreview == null);
+            yield return base.TearDown();
         }
 
         /// <summary>
