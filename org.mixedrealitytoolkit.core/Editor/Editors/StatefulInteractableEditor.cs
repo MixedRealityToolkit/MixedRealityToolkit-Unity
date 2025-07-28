@@ -23,6 +23,7 @@ namespace MixedReality.Toolkit.Editor
         private SerializedProperty allowSelectByVoice;
         private SerializedProperty SelectRequiresHover;
         private SerializedProperty speechRecognitionKeyword;
+        private SerializedProperty OnSpeechRecognitionKeywordChanged;
         private SerializedProperty VoiceRequiresFocus;
         private SerializedProperty UseGazeDwell;
         private SerializedProperty GazeDwellTime;
@@ -34,6 +35,7 @@ namespace MixedReality.Toolkit.Editor
         private SerializedProperty OnEnabled;
         private SerializedProperty OnDisabled;
         private static bool advancedFoldout = false;
+        private static bool speechRecognitionKeywordEventFoldout = false;
         private static bool enabledEventsFoldout = false;
 
         /// <summary>
@@ -57,6 +59,7 @@ namespace MixedReality.Toolkit.Editor
 
             allowSelectByVoice = SetUpProperty(nameof(allowSelectByVoice));
             speechRecognitionKeyword = SetUpProperty(nameof(speechRecognitionKeyword));
+            OnSpeechRecognitionKeywordChanged = SetUpAutoProperty(nameof(OnSpeechRecognitionKeywordChanged));
             VoiceRequiresFocus = SetUpAutoProperty(nameof(VoiceRequiresFocus));
 
             SelectRequiresHover = SetUpAutoProperty(nameof(SelectRequiresHover));
@@ -166,8 +169,13 @@ namespace MixedReality.Toolkit.Editor
                     {
                         using (new EditorGUI.IndentLevelScope())
                         {
-                            EditorGUILayout.PropertyField(speechRecognitionKeyword);
                             EditorGUILayout.PropertyField(VoiceRequiresFocus);
+                            EditorGUILayout.PropertyField(speechRecognitionKeyword);
+                            speechRecognitionKeywordEventFoldout = EditorGUILayout.Foldout(speechRecognitionKeywordEventFoldout, EditorGUIUtility.TrTempContent("Speech Recognition Keyword event"), true);
+                            if (speechRecognitionKeywordEventFoldout)
+                            {
+                                EditorGUILayout.PropertyField(OnSpeechRecognitionKeywordChanged);
+                            }
                         }
                     }
 
