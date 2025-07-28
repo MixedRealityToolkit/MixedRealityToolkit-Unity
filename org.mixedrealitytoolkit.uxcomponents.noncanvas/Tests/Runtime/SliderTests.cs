@@ -11,7 +11,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 
