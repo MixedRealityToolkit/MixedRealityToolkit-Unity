@@ -5,8 +5,8 @@
 #pragma warning disable CS1591
 
 using MixedReality.Toolkit.Core.Tests;
-using MixedReality.Toolkit.Input.Tests;
 using MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine;

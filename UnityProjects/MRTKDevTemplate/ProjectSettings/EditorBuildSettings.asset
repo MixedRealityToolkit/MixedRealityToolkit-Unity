@@ -120,7 +120,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Experimental/ScrollingExample.unity
     guid: 77e21ebc978cbc84f9ebe061742ae42d
   - enabled: 1
-    path: Assets/Scenes/SeeItSayIt Example.unity
+    path: Assets/Scenes/SeeItSayItExample.unity
     guid: cb7d2aaea1c5a4d469a6408ee9ddc5fc
   - enabled: 1
     path: Assets/Scenes/SlateDrawingExample.unity

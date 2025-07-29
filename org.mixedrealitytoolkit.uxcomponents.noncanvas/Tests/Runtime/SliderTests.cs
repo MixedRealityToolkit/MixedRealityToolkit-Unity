@@ -11,6 +11,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 
@@ -38,7 +39,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
         [UnityTest]
         public IEnumerator TestAddInteractableAtRuntime()
         {
-
             // This should not throw exception
             AssembleSlider(InputTestUtilities.InFrontOfUser(Vector3.forward), Vector3.zero, out GameObject sliderObject, out Slider slider, out SliderVisuals sliderVisuals);
             yield return DirectPinchAndMoveSlider(slider, 1.0f);
@@ -470,105 +470,104 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return null;
         }
 
-        // Disabled as we adopt Unity's multi-selection implementation
-        // /// <summary>
-        // /// Tests that the slider will only use the first valid grab interactor, and reject others.
-        // /// </summary>
-        // [UnityTest]
-        // public IEnumerator TestMultipleGrabBehavior()
-        // {
-        //     // This should not throw exception
-        //     AssembleSlider(Vector3.forward, Vector3.zero, out GameObject sliderObject, out Slider slider, out SliderVisuals sliderVisuals);
+        /// <summary>
+        /// Tests that the slider will only use the first valid grab interactor, and reject others.
+        /// </summary>
+        [UnityTest, Ignore("Disabled as we adopt Unity's multi-selection implementation.")]
+        public IEnumerator TestMultipleGrabBehavior()
+        {
+            // This should not throw exception
+            AssembleSlider(Vector3.forward, Vector3.zero, out GameObject sliderObject, out Slider slider, out SliderVisuals sliderVisuals);
 
-        //     Debug.Assert(slider.Value == 0.5, "Slider should have value 0.5 at start");
+            Debug.Assert(slider.Value == 0.5, "Slider should have value 0.5 at start");
 
-        //     // Single mode needed to reject incoming interactors once we are already selected.
-        //     Debug.Assert(slider.selectMode == InteractableSelectMode.Single, "Slider should be in single select mode");
+            // Single mode needed to reject incoming interactors once we are already selected.
+            Debug.Assert(slider.selectMode == InteractableSelectMode.Single, "Slider should be in single select mode");
 
-        //     var rightHand = new TestHand(Handedness.Right);
-        //     Vector3 initialPos = sliderVisuals.Handle.position;
-        //     yield return rightHand.Show(initialPos);
-        //     yield return rightHand.SetGesture(GestureId.Pinch);
+            var rightHand = new TestHand(Handedness.Right);
+            Vector3 initialPos = sliderVisuals.Handle.position;
+            yield return rightHand.Show(initialPos);
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
 
-        //     yield return RuntimeTestUtilities.WaitForUpdates();
-        //     Debug.Assert(slider.isSelected == true, "Slider was not originally selected");
-        //     Debug.Assert(slider.IsGrabSelected == true, "Slider should specifically be grab selected");
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Debug.Assert(slider.isSelected == true, "Slider was not originally selected");
+            Debug.Assert(slider.IsGrabSelected == true, "Slider should specifically be grab selected");
 
-        //     var leftHand = new TestHand(Handedness.Left);
-        //     yield return leftHand.Show(initialPos);
-        //     yield return leftHand.SetGesture(GestureId.Pinch);
+            var leftHand = new TestHand(Handedness.Left);
+            yield return leftHand.Show(initialPos);
+            yield return leftHand.SetHandshape(HandshapeId.Pinch);
 
-        //     yield return RuntimeTestUtilities.WaitForUpdates();
-        //     Debug.Assert(slider.interactorsSelecting.Count == 1, "Single mode should enforce single selection");
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Debug.Assert(slider.interactorsSelecting.Count == 1, "Single mode should enforce single selection");
 
-        //     // Now we move the right hand to the left, but the slider should not move.
-        //     yield return rightHand.MoveTo(new Vector3(-0.1f, 0, 1.0f));
+            // Now we move the right hand to the left, but the slider should not move.
+            yield return rightHand.MoveTo(new Vector3(-0.1f, 0, 1.0f));
 
-        //     yield return RuntimeTestUtilities.WaitForUpdates();
-        //     Debug.Assert(Mathf.Abs(slider.Value - 0.5f) < 0.01f, "Slider should not have moved");
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Debug.Assert(Mathf.Abs(slider.Value - 0.5f) < 0.01f, "Slider should not have moved");
 
-        //     // Now we move the left (new) hand to the right, and the slider should now move.
-        //     yield return leftHand.MoveTo(new Vector3(0.1f, 0, 1.0f));
+            // Now we move the left (new) hand to the right, and the slider should now move.
+            yield return leftHand.MoveTo(new Vector3(0.1f, 0, 1.0f));
 
-        //     yield return RuntimeTestUtilities.WaitForUpdates();
-        //     Assert.That(slider.Value, Is.GreaterThan(0.5), "Slider didn't move after moving new grab");
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.That(slider.Value, Is.GreaterThan(0.5), "Slider didn't move after moving new grab");
 
-        //     // clean up
-        //     Object.Destroy(sliderObject);
-        // }
+            // clean up
+            Object.Destroy(sliderObject);
+        }
 
-        // /// <summary>
-        // /// Tests that the slider will only use the first valid GazePinch interactor, and reject others.
-        // /// </summary>
-        // [UnityTest]
-        // public IEnumerator TestMultipleGazePinchBehavior()
-        // {
-        //     // This should not throw exception
-        //     AssembleSlider(Vector3.forward, Vector3.zero, out GameObject sliderObject, out Slider slider, out _);
+        /// <summary>
+        /// Tests that the slider will only use the first valid GazePinch interactor, and reject others.
+        /// </summary>
+        [UnityTest, Ignore("Disabled as we adopt Unity's multi-selection implementation.")]
+        public IEnumerator TestMultipleGazePinchBehavior()
+        {
+            // This should not throw exception
+            AssembleSlider(Vector3.forward, Vector3.zero, out GameObject sliderObject, out Slider slider, out _);
 
-        //     Debug.Assert(slider.Value == 0.5, "Slider should have value 0.5 at start");
+            Debug.Assert(slider.Value == 0.5, "Slider should have value 0.5 at start");
 
-        //     // Single mode needed to reject incoming interactors once we are already selected.
-        //     Debug.Assert(slider.selectMode == InteractableSelectMode.Single, "Slider should be in single select mode");
+            // Single mode needed to reject incoming interactors once we are already selected.
+            Debug.Assert(slider.selectMode == InteractableSelectMode.Single, "Slider should be in single select mode");
 
-        //     var rightHand = new TestHand(Handedness.Right);
-        //     Vector3 initialPos = new Vector3(0.0f, 0, 0.5f);
-        //     yield return rightHand.Show(initialPos);
+            var rightHand = new TestHand(Handedness.Right);
+            Vector3 initialPos = new Vector3(0.0f, 0, 0.5f);
+            yield return rightHand.Show(initialPos);
 
-        //     // Use more frames for better gaze-pinch reliability
-        //     yield return rightHand.SetGesture(GestureId.Pinch, 10);
+            // Use more frames for better gaze-pinch reliability
+            yield return rightHand.SetHandshape(HandshapeId.Pinch, 10);
 
-        //     yield return RuntimeTestUtilities.WaitForUpdates();
-        //     Debug.Assert(slider.isSelected == true, "Slider was not originally selected");
-        //     Debug.Assert(slider.IsGazePinchSelected == true, "Slider should specifically be gaze-pinch selected");
-        //     Debug.Assert(slider.interactorsSelecting.Count == 1, "Only one interactor should be selecting so far.");
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Debug.Assert(slider.isSelected == true, "Slider was not originally selected");
+            Debug.Assert(slider.IsGazePinchSelected == true, "Slider should specifically be gaze-pinch selected");
+            Debug.Assert(slider.interactorsSelecting.Count == 1, "Only one interactor should be selecting so far.");
 
-        //     float initialSliderValue = slider.Value;
+            float initialSliderValue = slider.Value;
 
-        //     var leftHand = new TestHand(Handedness.Left);
-        //     yield return leftHand.Show(initialPos);
+            var leftHand = new TestHand(Handedness.Left);
+            yield return leftHand.Show(initialPos);
 
-        //     // Use more frames for better gaze-pinch reliability
-        //     yield return leftHand.SetGesture(GestureId.Pinch, 10);
+            // Use more frames for better gaze-pinch reliability
+            yield return leftHand.SetHandshape(HandshapeId.Pinch, 10);
 
-        //     yield return RuntimeTestUtilities.WaitForUpdates();
-        //     Debug.Assert(slider.interactorsSelecting.Count == 1, "Single mode should not allow multiple interactors to select");
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Debug.Assert(slider.interactorsSelecting.Count == 1, "Single mode should not allow multiple interactors to select");
 
-        //     // Now we move the right (original) hand to the left, but the slider should not move.
-        //     yield return rightHand.MoveTo(new Vector3(-0.1f, 0, 1.0f));
+            // Now we move the right (original) hand to the left, but the slider should not move.
+            yield return rightHand.MoveTo(new Vector3(-0.1f, 0, 1.0f));
 
-        //     yield return RuntimeTestUtilities.WaitForUpdates();
-        //     Debug.Assert(Mathf.Abs(slider.Value - initialSliderValue) < 0.01f, "Slider should have detached from the first interactor");
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Debug.Assert(Mathf.Abs(slider.Value - initialSliderValue) < 0.01f, "Slider should have detached from the first interactor");
 
-        //     // Now we move the left (new) hand to the right, and the slider should now move.
-        //     yield return leftHand.MoveTo(new Vector3(0.1f, 0, 1.0f));
+            // Now we move the left (new) hand to the right, and the slider should now move.
+            yield return leftHand.MoveTo(new Vector3(0.1f, 0, 1.0f));
 
-        //     yield return RuntimeTestUtilities.WaitForUpdates();
-        //     Assert.That(slider.Value, Is.GreaterThan(initialSliderValue), "Slider didn't move after moving the new interactor");
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.That(slider.Value, Is.GreaterThan(initialSliderValue), "Slider didn't move after moving the new interactor");
 
-        //     // clean up
-        //     Object.Destroy(sliderObject);
-        // }
+            // clean up
+            Object.Destroy(sliderObject);
+        }
 
         #endregion Tests
 
@@ -579,7 +578,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             InputTestUtilities.SetHandAnchorPoint(Handedness.Left, Input.Simulation.ControllerAnchorPoint.Grab);
             InputTestUtilities.SetHandAnchorPoint(Handedness.Right, Input.Simulation.ControllerAnchorPoint.Grab);
 
-            Debug.Log($"moving hand to value {toSliderValue}");
+            Debug.Log($"Moving hand to value {toSliderValue}");
             var rightHand = new TestHand(Handedness.Right);
             Vector3 initialPos = InputTestUtilities.InFrontOfUser(new Vector3(0.05f, 0, 1.0f));
             yield return rightHand.Show(initialPos);
@@ -593,7 +592,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return rightHand.SetHandshape(HandshapeId.Pinch, 30);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            if (!(toSliderValue >= 0 && toSliderValue <= 1))
+            if (toSliderValue < 0 || toSliderValue > 1)
             {
                 throw new System.ArgumentException("toSliderValue must be between 0 and 1");
             }
