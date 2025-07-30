@@ -4,12 +4,13 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using MixedReality.Toolkit.Core.Tests;
 using MixedReality.Toolkit.Input.Simulation;
 using NUnit.Framework;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -20,6 +21,7 @@ namespace MixedReality.Toolkit.Input.Tests
     /// <summary>
     /// Tests to ensure the proper behavior of the interaction mode manager.
     /// </summary>
+    [Obsolete("This has been replaced by InteractionModeManagerTestsForControllerlessRig.")]
     public class InteractionModeManagerTests : BaseRuntimeInputTests
     {
         /// <summary>
@@ -28,7 +30,6 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         protected override InputTestUtilities.RigVersion RigVersion => InputTestUtilities.RigVersion.Version1;
 
-#pragma warning disable CS0618 // Adding this pragma because all these tests depend on deprecated XRBaseController
         /// <summary>
         /// Tests that the proximity detector detects when to change the controllers interaction mode and properly toggles the associated interactors.
         /// Also checks that the proximity detector doesn't trigger hovers on other objects
@@ -57,7 +58,7 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsFalse(cube.GetComponent<StatefulInteractable>().isHovered,
                           "Interactable was hovered when it shouldn't have been. Was the radius of any of the interactors changed, or is a proximity detector firing hovers?");
 
-            Assert.IsTrue(AnyProximityDetectorsTriggered(),
+            Assert.IsTrue(InteractionModeManagerTestsForControllerlessRig.AnyProximityDetectorsTriggered(),
                            "The proximity detector should have detected the cube. Was the detector's radius changed, or is it broken?");
 
             InteractionMode currentMode = rightHandController.GetComponentInChildren<ProximityDetector>().ModeOnDetection;
@@ -201,22 +202,6 @@ namespace MixedReality.Toolkit.Input.Tests
                     Assert.AreEqual(activeInteractorTypes.Contains(interactorType), interactor.enabled);
                 }
             }
-        }
-#pragma warning restore CS0618 // Type or member is obsolete
-
-        // Returns true if and only if any of the ProximityDetectors in the scene are currently triggered.
-        public static bool AnyProximityDetectorsTriggered()
-        {
-            ProximityDetector[] detectors = FindObjectUtility.FindObjectsByType<ProximityDetector>();
-            foreach (var detector in detectors)
-            {
-                if (detector.IsModeDetected())
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }

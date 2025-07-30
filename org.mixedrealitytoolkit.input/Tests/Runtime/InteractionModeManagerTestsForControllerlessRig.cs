@@ -4,19 +4,18 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using MixedReality.Toolkit.Core.Tests;
 using MixedReality.Toolkit.Input.Simulation;
 using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
-using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -64,7 +63,7 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsFalse(cube.GetComponent<StatefulInteractable>().isHovered,
                           "Interactable was hovered when it shouldn't have been. Was the radius of any of the interactors changed, or is a proximity detector firing hovers?");
 
-            Assert.IsTrue(InteractionModeManagerTests.AnyProximityDetectorsTriggered(),
+            Assert.IsTrue(AnyProximityDetectorsTriggered(),
                            "The proximity detector should have detected the cube. Was the detector's radius changed, or is it broken?");
 
             InteractionMode currentMode = rightHandTrackedPoseDriver.transform.parent.GetComponentInChildren<ProximityDetector>().ModeOnDetection;
@@ -222,6 +221,21 @@ namespace MixedReality.Toolkit.Input.Tests
                     Assert.AreEqual(activeInteractorTypes.Contains(interactorType), interactor.enabled);
                 }
             }
+        }
+
+        // Returns true if and only if any of the ProximityDetectors in the scene are currently triggered.
+        internal static bool AnyProximityDetectorsTriggered()
+        {
+            ProximityDetector[] detectors = Object.FindObjectsByType<ProximityDetector>(FindObjectsSortMode.InstanceID);
+            foreach (var detector in detectors)
+            {
+                if (detector.IsModeDetected())
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

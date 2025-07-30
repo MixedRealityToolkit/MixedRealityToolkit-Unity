@@ -60,7 +60,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void OnValidate()
         {
-            if (FindObjectUtility.FindObjectsByType<TrackedPoseDriverLookup>(false, false).Length > 1)
+            if (FindObjectsByType<TrackedPoseDriverLookup>(FindObjectsSortMode.None).Length > 1)
             {
                 Debug.LogWarning("Found more than one instance of the ControllerLookup class in the hierarchy. There should only be one");
             }
