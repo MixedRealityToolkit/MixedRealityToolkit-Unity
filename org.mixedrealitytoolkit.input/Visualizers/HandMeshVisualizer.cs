@@ -78,7 +78,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         /// <seealso cref="XRInputButtonReader.EnableDirectActionIfModeUsed"/>
         /// <seealso cref="XRInputButtonReader.DisableDirectActionIfModeUsed"/>
-        protected List<XRInputButtonReader> buttonReaders { get; } = new List<XRInputButtonReader>();
+        private readonly List<XRInputButtonReader> buttonReaders = new List<XRInputButtonReader>();
 
         /// <summary>
         /// Whether this visualizer currently has a loaded and visible hand mesh or not.
