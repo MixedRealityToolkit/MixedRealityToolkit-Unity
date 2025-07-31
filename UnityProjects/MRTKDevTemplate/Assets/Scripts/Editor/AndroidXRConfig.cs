@@ -25,7 +25,7 @@ namespace MixedReality.Toolkit.Examples.Demos.Editor
             }
 
             Debug.Log("Adding com.unity.xr.androidxr-openxr and com.google.xr.extensions...");
-            request = Client.AddAndRemove(new[] { "com.unity.xr.androidxr-openxr", "https://github.com/android/android-xr-unity-package.git#v1.0.0" });
+            request = Client.AddAndRemove(new[] { "com.unity.xr.androidxr-openxr", "https://github.com/android/android-xr-unity-package.git" });
             EditorApplication.update += Progress;
         }
 
