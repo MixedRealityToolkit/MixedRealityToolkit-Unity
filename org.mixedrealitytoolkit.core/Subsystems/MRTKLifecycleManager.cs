@@ -27,7 +27,7 @@ namespace MixedReality.Toolkit.Subsystems
         /// <summary>
         /// The list of <see cref="IMRTKManagedSubsystem"/> objects being managed by this class.
         /// </summary>
-        protected  List<IMRTKManagedSubsystem> ManagedSubsystems
+        protected List<IMRTKManagedSubsystem> ManagedSubsystems
         {
             get => managedSubsystems;
             set => managedSubsystems = value;
@@ -180,6 +180,7 @@ namespace MixedReality.Toolkit.Subsystems
             }
         }
 
+#if !UNITY_EDITOR
         /// <summary>
         /// Sent to all GameObjects when the player gets or loses focus.
         /// </summary>
@@ -203,6 +204,7 @@ namespace MixedReality.Toolkit.Subsystems
                 }
             }
         }
+#endif // !UNITY_EDITOR
 
         #endregion MonoBehaviour
 
