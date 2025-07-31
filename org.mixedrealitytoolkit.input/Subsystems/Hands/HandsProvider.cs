@@ -60,6 +60,15 @@ namespace MixedReality.Toolkit.Input
         public override bool TryGetEntireHand(XRNode handNode, out IReadOnlyList<HandJointPose> jointPoses)
         {
             Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand, "Non-hand XRNode used in TryGetEntireHand query.");
+
+#if !UNITY_EDITOR
+            if (!Application.isFocused)
+            {
+                jointPoses = Array.Empty<HandJointPose>();
+                return false;
+            }
+#endif // !UNITY_EDITOR
+
             return hands[handNode].TryGetEntireHand(out jointPoses);
         }
 
@@ -67,6 +76,15 @@ namespace MixedReality.Toolkit.Input
         public override bool TryGetJoint(TrackedHandJoint joint, XRNode handNode, out HandJointPose jointPose)
         {
             Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand, "Non-hand XRNode used in TryGetJoint query.");
+
+#if !UNITY_EDITOR
+            if (!Application.isFocused)
+            {
+                jointPose = default;
+                return false;
+            }
+#endif // !UNITY_EDITOR
+
             return hands[handNode].TryGetJoint(joint, out jointPose);
         }
 
