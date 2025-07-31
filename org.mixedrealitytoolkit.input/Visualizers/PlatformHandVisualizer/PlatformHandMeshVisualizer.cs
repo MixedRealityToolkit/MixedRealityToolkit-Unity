@@ -50,6 +50,9 @@ namespace MixedReality.Toolkit.Input
 #if UNITY_OPENXR_PRESENT
             if (UnityEngine.XR.OpenXR.OpenXRRuntime.IsExtensionEnabled("XR_ANDROID_hand_mesh"))
             {
+                // If we already found our subsystem, just return
+                if (meshSubsystem != null && meshSubsystem.running) { return; }
+
                 List<XRMeshSubsystem> meshSubsystems = new List<XRMeshSubsystem>();
                 SubsystemManager.GetSubsystems(meshSubsystems);
                 foreach (XRMeshSubsystem subsystem in meshSubsystems)
