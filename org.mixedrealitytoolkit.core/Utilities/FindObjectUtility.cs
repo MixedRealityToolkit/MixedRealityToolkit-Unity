@@ -15,9 +15,6 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Returns the first object matching the specified type.
         /// </summary>
-        /// <remarks>
-        /// If Unity >= 2021.3.18, calls FindFirstObjectByType. Otherwise calls FindObjectOfType.
-        /// </remarks>
         /// <param name="includeInactive">If true, inactive objects will be included in the search. False by default.</param>
         public static T FindFirstObjectByType<T>(bool includeInactive = false) where T : Component
         {
@@ -27,9 +24,6 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Returns an object matching the specified type.
         /// </summary>
-        /// <remarks>
-        /// If Unity >= 2021.3.18, calls FindAnyObjectByType. Otherwise calls FindObjectOfType.
-        /// </remarks>
         /// <param name="includeInactive">If true, inactive objects will be included in the search. False by default.</param>
         public static T FindAnyObjectByType<T>(bool includeInactive = false) where T : Component
         {
@@ -39,9 +33,6 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Returns all objects matching the specified type.
         /// </summary>
-        /// <remarks>
-        /// If Unity >= 2021.3.18, calls FindObjectsByType. Otherwise calls FindObjectsOfType.
-        /// </remarks>
         /// <param name="includeInactive">If true, inactive objects will be included in the search. False by default.</param>
         /// <param name="sort">If false, results will not sorted by InstanceID. True by default.</param>
         public static T[] FindObjectsByType<T>(bool includeInactive = false, bool sort = true) where T : Component
@@ -52,9 +43,6 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Returns all objects matching the specified type.
         /// </summary>
-        /// <remarks>
-        /// If Unity >= 2021.3.18, calls FindObjectsByType. Otherwise calls FindObjectsOfType.
-        /// </remarks>
         /// <param name="includeInactive">If true, inactive objects will be included in the search. False by default.</param>
         /// <param name="sort">If false, results will not sorted by InstanceID. True by default.</param>
         /// <param name="type">The type to search for.</param>
