@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -19,6 +20,18 @@ namespace MixedReality.Toolkit.Input
         /// Provides an event based on the current XrSession becoming focused or not.
         /// </summary>
         public static UnityEvent<bool> OnXrSessionFocus { get; } = new UnityEvent<bool>();
+
+        /// <summary>
+        /// Whether the current XrSession has focus or not.
+        /// </summary>
+        public static bool HasFocus =>
+#if UNITY_EDITOR
+            true;
+#elif SNAPDRAGON_SPACES_PRESENT
+            lastSessionState == 5;
+#else
+            Application.isFocused;
+#endif
 
         /// <summary>
         /// We want to ensure we're focused for input, as some runtimes continue reporting "tracked" while pose updates are paused.
@@ -43,15 +56,25 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
-#if USING_SNAPDRAGON_SPACES_SDK
+#if SNAPDRAGON_SPACES_PRESENT
+        private static readonly List<Qualcomm.Snapdragon.Spaces.SpacesOpenXRFeature> featureList = new();
+        private static int lastSessionState = -1;
         private Qualcomm.Snapdragon.Spaces.SpacesOpenXRFeature spacesOpenXRFeature = null;
-        private int lastSessionState = -1;
 
         private void Update()
         {
             if (spacesOpenXRFeature == null)
             {
-                spacesOpenXRFeature = UnityEngine.XR.OpenXR.OpenXRSettings.Instance.GetFeature<Qualcomm.Snapdragon.Spaces.SpacesOpenXRFeature>();
+                int count = UnityEngine.XR.OpenXR.OpenXRSettings.Instance.GetFeatures(featureList);
+                for (int i = 0; i < count; i++)
+                {
+                    Qualcomm.Snapdragon.Spaces.SpacesOpenXRFeature feature = featureList[i];
+                    if (feature != null && feature.enabled)
+                    {
+                        spacesOpenXRFeature = feature;
+                        break;
+                    }
+                }
             }
 
             // XrSessionState maps better to this behavior than OnApplicationFocus but isn't
