@@ -118,14 +118,20 @@ namespace MixedReality.Toolkit.Input
                     || meshInfo.ChangeState == MeshChangeState.Updated)
                 {
                     meshSubsystem.GenerateMeshAsync(meshInfo.MeshId, meshFilter.mesh,
-                        null, MeshVertexAttributes.Normals, result => { });
+                        null, MeshVertexAttributes.Normals, result =>
+                        {
+                            if (result.Status == MeshGenerationStatus.Success)
+                            {
+                                transform.SetWorldPose(PlayspaceUtilities.TransformPose(new Pose(result.Position, result.Rotation)));
+                                transform.localScale = result.Scale;
 
-                    handRenderer.enabled = true;
-
-                    // This hand mesh is provided pre-translated from the world origin,
-                    // so we want to ensure the mesh is "centered" at the world origin
-                    PlayspaceUtilities.XROrigin.CameraFloorOffsetObject.transform.GetPositionAndRotation(out Vector3 position, out Quaternion rotation);
-                    transform.SetPositionAndRotation(position, rotation);
+                                handRenderer.enabled = true;
+                            }
+                            else if (result.Status != MeshGenerationStatus.GenerationAlreadyInProgress)
+                            {
+                                handRenderer.enabled = false;
+                            }
+                        }, MeshGenerationOptions.ConsumeTransform);
                 }
             }
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
