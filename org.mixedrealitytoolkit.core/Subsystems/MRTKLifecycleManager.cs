@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace MixedReality.Toolkit.Subsystems
 {
@@ -19,9 +18,6 @@ namespace MixedReality.Toolkit.Subsystems
         MonoBehaviour,
         IDisposable
     {
-        [SerializeField, Tooltip("A set of input actions to enable/disable according to the app's focus state.")]
-        private InputActionReference[] inputActionReferences;
-
         private List<IMRTKManagedSubsystem> managedSubsystems = new List<IMRTKManagedSubsystem>();
 
         /// <summary>
@@ -115,7 +111,7 @@ namespace MixedReality.Toolkit.Subsystems
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
-        /// </summary> 
+        /// </summary>
         private void OnEnable()
         {
             using (OnEnableProfilerMarker.Auto())
@@ -179,32 +175,6 @@ namespace MixedReality.Toolkit.Subsystems
                 }
             }
         }
-
-#if !UNITY_EDITOR
-        /// <summary>
-        /// Sent to all GameObjects when the player gets or loses focus.
-        /// </summary>
-        /// <param name="focus"><see langword="true"/> if the GameObjects have focus, else <see langword="false"/>.</param>
-        protected void OnApplicationFocus(bool focus)
-        {
-            // We want to ensure we're focused for input, as some runtimes continue reporting "tracked" while pose updates are paused.
-            // This is allowed, per-spec, as a "should": "Runtimes should make input actions inactive while the application is unfocused,
-            // and applications should react to an inactive input action by skipping rendering of that action's input avatar
-            // (depictions of hands or other tracked objects controlled by the user)."
-
-            foreach (InputActionReference reference in inputActionReferences)
-            {
-                if (focus)
-                {
-                    reference.action.Enable();
-                }
-                else
-                {
-                    reference.action.Disable();
-                }
-            }
-        }
-#endif // !UNITY_EDITOR
 
         #endregion MonoBehaviour
 

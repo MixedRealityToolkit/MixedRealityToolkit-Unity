@@ -5,6 +5,7 @@
         "glTFast",
         "Microsoft.MixedReality.OpenXR",
         "MixedReality.Toolkit.Core",
+        "Snapdragon.Spaces.Runtime",
         "Unity.InputSystem",
         "Unity.XR.CoreUtils",
         "Unity.XR.Hands",
