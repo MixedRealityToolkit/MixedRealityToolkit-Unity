@@ -61,13 +61,11 @@ namespace MixedReality.Toolkit.Input
         {
             Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand, "Non-hand XRNode used in TryGetEntireHand query.");
 
-#if !UNITY_EDITOR
-            if (!Application.isFocused)
+            if (!MRTKInputFocusManager.HasFocus)
             {
                 jointPoses = Array.Empty<HandJointPose>();
                 return false;
             }
-#endif // !UNITY_EDITOR
 
             return hands[handNode].TryGetEntireHand(out jointPoses);
         }
@@ -77,13 +75,11 @@ namespace MixedReality.Toolkit.Input
         {
             Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand, "Non-hand XRNode used in TryGetJoint query.");
 
-#if !UNITY_EDITOR
-            if (!Application.isFocused)
+            if (!MRTKInputFocusManager.HasFocus)
             {
                 jointPose = default;
                 return false;
             }
-#endif // !UNITY_EDITOR
 
             return hands[handNode].TryGetJoint(joint, out jointPose);
         }
