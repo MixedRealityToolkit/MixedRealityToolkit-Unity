@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
-using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
 
 namespace MixedReality.Toolkit.Input
@@ -94,14 +93,20 @@ namespace MixedReality.Toolkit.Input
                     selectInputVisualizer.SelectInput = selectInput;
                 }
             }
+
+            MRTKInputFocusManager.OnXrSessionFocus.AddListener(OnXrSessionFocus);
         }
 
-#if !UNITY_EDITOR
+        /// <summary>
+        /// See <see cref="MonoBehaviour"/>.
+        /// </summary>
+        private void OnDestroy() => MRTKInputFocusManager.OnXrSessionFocus.RemoveListener(OnXrSessionFocus);
+
         /// <summary>
         /// Sent to all GameObjects when the player gets or loses focus.
         /// </summary>
         /// <param name="focus"><see langword="true"/> if the GameObjects have focus, else <see langword="false"/>.</param>
-        protected void OnApplicationFocus(bool focus)
+        private void OnXrSessionFocus(bool focus)
         {
             // We want to ensure we're focused for input visualization, as some runtimes continue reporting "tracked" while pose updates are paused.
             // This is allowed, per-spec, as a "should": "Runtimes should make input actions inactive while the application is unfocused,
@@ -113,6 +118,5 @@ namespace MixedReality.Toolkit.Input
                 modelParent.gameObject.SetActive(focus);
             }
         }
-#endif // !UNITY_EDITOR
     }
 }
