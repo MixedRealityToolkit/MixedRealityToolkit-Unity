@@ -50,6 +50,11 @@
             "name": "com.unity.xr.openxr",
             "expression": "",
             "define": "UNITY_OPENXR_PRESENT"
+        },
+        {
+            "name": "com.qualcomm.snapdragon.spaces",
+            "expression": "",
+            "define": "SNAPDRAGON_SPACES_PRESENT"
         }
     ],
     "noEngineReferences": false
