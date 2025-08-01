@@ -5,22 +5,21 @@
 #pragma warning disable CS1591
 
 using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input.Simulation;
+using MixedReality.Toolkit.Subsystems;
 using NUnit.Framework;
+using System;
 using System.Collections;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
-using MixedReality.Toolkit.Input.Simulation;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
-using MixedReality.Toolkit.Subsystems;
-
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
-using System;
-using System.Linq;
-using System.Reflection;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -641,7 +640,7 @@ namespace MixedReality.Toolkit.Input.Tests
         // Returns true if and only if any of the ProximityDetectors in the scene are currently triggered.
         public static bool AnyProximityDetectorsTriggered()
         {
-            ProximityDetector[] detectors = FindObjectUtility.FindObjectsByType<ProximityDetector>();
+            ProximityDetector[] detectors = UnityEngine.Object.FindObjectsByType<ProximityDetector>(FindObjectsSortMode.InstanceID);
             foreach (var detector in detectors)
             {
                 if (detector.IsModeDetected())

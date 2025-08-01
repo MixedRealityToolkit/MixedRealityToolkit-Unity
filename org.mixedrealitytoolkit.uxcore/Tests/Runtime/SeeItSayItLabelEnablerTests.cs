@@ -4,11 +4,11 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using System.Collections;
-using System.Text.RegularExpressions;
 using MixedReality.Toolkit.Input;
 using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
+using System.Collections;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -33,7 +33,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
             else
             {
-                SpeechInteractor interactor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
+                SpeechInteractor interactor = Object.FindAnyObjectByType<SpeechInteractor>(FindObjectsInactive.Include);
                 interactor.gameObject.SetActive(true);
                 yield return null;
 
@@ -70,7 +70,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
             else
             {
-                SpeechInteractor interactor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
+                SpeechInteractor interactor = Object.FindAnyObjectByType<SpeechInteractor>(FindObjectsInactive.Include);
                 interactor.gameObject.SetActive(true);
                 yield return null;
 
@@ -128,7 +128,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
             else
             {
-                SpeechInteractor interactor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
+                SpeechInteractor interactor = Object.FindAnyObjectByType<SpeechInteractor>(FindObjectsInactive.Include);
                 interactor.gameObject.SetActive(true);
                 yield return null;
 
@@ -162,7 +162,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
             else
             {
-                SpeechInteractor interactor = FindObjectUtility.FindAnyObjectByType<SpeechInteractor>(true);
+                SpeechInteractor interactor = Object.FindAnyObjectByType<SpeechInteractor>(FindObjectsInactive.Include);
                 interactor.gameObject.SetActive(true);
                 yield return null;
 

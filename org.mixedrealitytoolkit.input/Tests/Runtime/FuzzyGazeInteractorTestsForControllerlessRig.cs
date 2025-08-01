@@ -39,10 +39,10 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator EyeGazeWorksAsExpectedTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
-            FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindFirstObjectByType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindFirstObjectByType<FuzzyGazeInteractor>();
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
-            // Instantiate two foregound cubes and one background cube for testing
+            // Instantiate two foreground cubes and one background cube for testing
             GameObject cube1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube1.GetComponent<MeshRenderer>().material.color = Color.red;
             cube1.AddComponent<StatefulInteractable>();
@@ -102,10 +102,10 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator BasicFuzzyGazeTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
-            FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindAnyObjectByType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindAnyObjectByType<FuzzyGazeInteractor>();
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
-            // Instantiate two foregound cubes and one background cube for testing
+            // Instantiate two foreground cubes and one background cube for testing
             GameObject cube1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube1.AddComponent<StatefulInteractable>();
             cube1.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0.07f, 0.2f, 1));
@@ -182,13 +182,13 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator FuzzyGazePrecisionTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene and configure it for the test
-            FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindFirstObjectByType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindFirstObjectByType<FuzzyGazeInteractor>();
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
             fuzzyGazeInteractor.precision = 0;
             fuzzyGazeInteractor.performAdditionalRaycast = false;
 
             yield return RuntimeTestUtilities.WaitForUpdates();
-            // Instantiate one foregound cubes and one background cube for testing
+            // Instantiate one foreground cubes and one background cube for testing
             GameObject foregroundCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             foregroundCube.AddComponent<StatefulInteractable>();
             foregroundCube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0.241f, 0, 2));
@@ -244,10 +244,10 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator GazeFallbackWhenEyeGazeLosesTrackingTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
-            FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindFirstObjectByType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindFirstObjectByType<FuzzyGazeInteractor>();
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
-            // Instantiate two foregound cubes and one background cube for testing
+            // Instantiate two foreground cubes and one background cube for testing
             GameObject cube1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube1.GetComponent<MeshRenderer>().material.color = Color.red;
             cube1.AddComponent<StatefulInteractable>();
@@ -317,10 +317,10 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator GazeFallbackWhenEyeGazeIsDisabledTest()
         {
             // Confirm a FuzzyGazeInteractor is active in the scene
-            FuzzyGazeInteractor fuzzyGazeInteractor = FindObjectUtility.FindFirstObjectByType<FuzzyGazeInteractor>();
+            FuzzyGazeInteractor fuzzyGazeInteractor = Object.FindFirstObjectByType<FuzzyGazeInteractor>();
             Assert.IsNotNull(fuzzyGazeInteractor, "There is no active FuzzyGazeInteractor found in the scene.");
 
-            // Instantiate two foregound cubes and one background cube for testing
+            // Instantiate two foreground cubes and one background cube for testing
             GameObject cube1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube1.GetComponent<MeshRenderer>().material.color = Color.red;
             cube1.AddComponent<StatefulInteractable>();
