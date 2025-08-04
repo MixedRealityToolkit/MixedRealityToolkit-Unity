@@ -203,7 +203,7 @@ namespace MixedReality.Toolkit.Input
         /// <remarks>
         /// For backwards compatibility, this method will also attempt to get the selection amount from a
         /// legacy XRI controller if the input reader is not set.
-        /// </remaks>
+        /// </remarks>
         private bool TryGetSelectionValue(out float value)
         {
             if (selectInput != null && selectInput.TryReadValue(out value))
