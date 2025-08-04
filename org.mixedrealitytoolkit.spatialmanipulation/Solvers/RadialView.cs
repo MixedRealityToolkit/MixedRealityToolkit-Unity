@@ -146,16 +146,35 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         [SerializeField]
-        [Tooltip("If true, element will orient to ReferenceDirection, otherwise it will orient to ref position.")]
+        [Tooltip("If true, the element will orient to ReferenceDirection, otherwise it will orient to ref position.")]
         private bool orientToReferenceDirection = false;
 
         /// <summary>
-        /// If true, element will orient to ReferenceDirection, otherwise it will orient to ref position.
+        /// If true, the element will orient to ReferenceDirection, otherwise it will orient to ref position.
         /// </summary>
         public bool OrientToReferenceDirection
         {
             get => orientToReferenceDirection;
             set => orientToReferenceDirection = value;
+        }
+
+        [SerializeField]
+        [Tooltip("If true, the element will position itself in front of the target transform when it becomes enabled," +
+            " maintaining a distance equal to the average of its MinDistance and MaxDistance.")]
+        private bool initializeToTargetForward = false;
+
+        /// <summary>
+        /// If true, the element will position itself in front of the target transform when it becomes enabled,
+        /// maintaining a distance equal to the average of its MinDistance and MaxDistance.
+        /// </summary>
+        /// <remarks>
+        /// This prevents the object from rapidly approaching the viewer and
+        /// ensures it appears upright. Only has effect when the solver becomes enabled.
+        /// </remarks>
+        public bool InitializeToTargetForward
+        {
+            get => initializeToTargetForward;
+            set => initializeToTargetForward = value;
         }
 
         /// <summary>
@@ -184,10 +203,23 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private Vector3 ReferencePoint => SolverHandler.TransformTarget != null ? SolverHandler.TransformTarget.position : Vector3.zero;
 
+        /// <inheritdoc/>
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            if (initializeToTargetForward && SolverHandler.TransformTarget != null)
+            {
+                float distance = (MinDistance + MaxDistance) / 2.0f;
+                WorkingPosition = SolverHandler.TransformTarget.position +
+                                  SolverHandler.TransformTarget.forward.normalized * distance;
+            }
+        }
+
         private static readonly ProfilerMarker SolverUpdatePerfMarker =
             new ProfilerMarker("[MRTK] RadialView.SolverUpdate");
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override void SolverUpdate()
         {
             using (SolverUpdatePerfMarker.Auto())

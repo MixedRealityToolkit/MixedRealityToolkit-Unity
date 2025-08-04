@@ -381,8 +381,8 @@
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "org.mixedrealitytoolkit.core": "3.1.0",
-        "org.mixedrealitytoolkit.uxcore": "3.0.0",
+        "org.mixedrealitytoolkit.core": "3.2.0",
+        "org.mixedrealitytoolkit.uxcore": "3.3.0",
         "com.unity.inputsystem": "1.6.1",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
@@ -409,8 +409,8 @@
       "source": "local",
       "dependencies": {
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-        "org.mixedrealitytoolkit.uxcore": "3.2.0",
-        "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0",
+        "org.mixedrealitytoolkit.uxcore": "3.3.0",
+        "org.mixedrealitytoolkit.spatialmanipulation": "3.4.0",
         "org.mixedrealitytoolkit.standardassets": "3.1.0",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
@@ -431,7 +431,7 @@
       "source": "local",
       "dependencies": {
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-        "org.mixedrealitytoolkit.core": "3.2.0",
+        "org.mixedrealitytoolkit.core": "3.3.0",
         "com.unity.inputsystem": "1.6.1",
         "com.unity.textmeshpro": "3.0.6",
         "com.unity.xr.interaction.toolkit": "2.3.0"
