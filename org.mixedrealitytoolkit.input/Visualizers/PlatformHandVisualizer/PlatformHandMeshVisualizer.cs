@@ -52,11 +52,12 @@ namespace MixedReality.Toolkit.Input
             base.OnEnable();
 
             handRenderer.enabled = false;
-            propertyBlock ??= new MaterialPropertyBlock();
 
-            // If we already found our subsystem, don't search again
-            if (handSubsystem != null && handSubsystem.running)
+            // Use propertyBlock as an indicator that this is our first time through OnEnable
+            if (propertyBlock == null)
             {
+                propertyBlock = new MaterialPropertyBlock();
+
                 updateSuccessFlags = HandNode == XRNode.LeftHand ?
                     XRHandSubsystem.UpdateSuccessFlags.LeftHandJoints | XRHandSubsystem.UpdateSuccessFlags.LeftHandRootPose :
                     XRHandSubsystem.UpdateSuccessFlags.RightHandJoints | XRHandSubsystem.UpdateSuccessFlags.RightHandRootPose;
@@ -64,9 +65,10 @@ namespace MixedReality.Toolkit.Input
                 // Since the hand mesh is likely to change every frame, we
                 // "optimize mesh for frequent updates" by marking it dynamic
                 meshFilter.mesh.MarkDynamic();
-
-                return;
             }
+
+            // If we already found our subsystem, just return
+            if (handSubsystem != null && handSubsystem.running) { return; }
 
             List<XRHandSubsystem> subsystems = XRSubsystemHelpers.GetAllSubsystems<XRHandSubsystem>();
             foreach (XRHandSubsystem subsystem in subsystems)
@@ -75,15 +77,6 @@ namespace MixedReality.Toolkit.Input
                 {
                     Debug.Log($"Using {provider.handMeshDataSupplier.GetType()} for hand visualization.");
                     handSubsystem = subsystem;
-
-                    updateSuccessFlags = HandNode == XRNode.LeftHand ?
-                        XRHandSubsystem.UpdateSuccessFlags.LeftHandJoints | XRHandSubsystem.UpdateSuccessFlags.LeftHandRootPose :
-                        XRHandSubsystem.UpdateSuccessFlags.RightHandJoints | XRHandSubsystem.UpdateSuccessFlags.RightHandRootPose;
-
-                    // Since the hand mesh is likely to change every frame, we
-                    // "optimize mesh for frequent updates" by marking it dynamic
-                    meshFilter.mesh.MarkDynamic();
-
                     return;
                 }
             }
@@ -93,10 +86,6 @@ namespace MixedReality.Toolkit.Input
             {
                 Debug.Log($"Using XR_MSFT_hand_tracking_mesh for {HandNode} visualization.");
                 handMeshTracker = HandNode == XRNode.LeftHand ? HandMeshTracker.Left : HandMeshTracker.Right;
-
-                // Since the hand mesh is likely to change every frame, we
-                // "optimize mesh for frequent updates" by marking it dynamic
-                meshFilter.mesh.MarkDynamic();
 
                 if (neutralPoseMesh == null)
                 {
