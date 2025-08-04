@@ -654,7 +654,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </remarks>
         public static void DisableGazeInteractor()
         {
-            FindObjectUtility.FindAnyObjectByType<GazeInteractor>().gameObject.SetActive(false);
+            Object.FindAnyObjectByType<GazeInteractor>().gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -665,7 +665,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </remarks>
         public static void EnableGazeInteractor()
         {
-            FindObjectUtility.FindAnyObjectByType<GazeInteractor>().gameObject.SetActive(true);
+            Object.FindAnyObjectByType<GazeInteractor>().gameObject.SetActive(true);
         }
 
         /// <summary>

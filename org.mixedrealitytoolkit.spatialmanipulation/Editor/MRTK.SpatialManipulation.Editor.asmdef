@@ -4,8 +4,6 @@
     "references": [
         "MixedReality.Toolkit.Core",
         "MixedReality.Toolkit.Core.Editor",
-        "MixedReality.Toolkit.Input",
-        "MixedReality.Toolkit.Input.Editor",
         "MixedReality.Toolkit.SpatialManipulation",
         "Unity.XR.Interaction.Toolkit",
         "Unity.XR.Interaction.Toolkit.Editor"

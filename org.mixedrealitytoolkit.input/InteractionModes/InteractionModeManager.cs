@@ -73,7 +73,7 @@ namespace MixedReality.Toolkit.Input
         [Obsolete("This method has been deprecated in version 4.0.0. Please use InitializeInteractorGroups instead.")]
         public void InitializeControllers()
         {
-            foreach (XRBaseController xrController in FindObjectUtility.FindObjectsByType<XRBaseController>())
+            foreach (XRBaseController xrController in FindObjectsByType<XRBaseController>(FindObjectsSortMode.InstanceID))
             {
                 if (!interactorGroupMappings.ContainsKey(xrController.gameObject))
                 {
@@ -94,7 +94,7 @@ namespace MixedReality.Toolkit.Input
         {
             interactorGroupMappings.Clear();
 
-            foreach (XRBaseInteractor xrInteractor in FindObjectUtility.FindObjectsByType<XRBaseInteractor>())
+            foreach (XRBaseInteractor xrInteractor in FindObjectsByType<XRBaseInteractor>(FindObjectsSortMode.InstanceID))
             {
                 if (xrInteractor is IModeManagedInteractor modeManagedInteractor &&
                     modeManagedInteractor.ModeManagedRoot != null)
@@ -157,7 +157,7 @@ namespace MixedReality.Toolkit.Input
             // PERFORMANCE FIXME: This is not great for performance. Find better way to register detectors?
             // We would query interactors and then add all interactors that happen to be a detector, but
             // detectors may not necessarily be interactors.
-            foreach (IInteractionModeDetector detector in FindObjectUtility.FindObjectsByType<MonoBehaviour>().OfType<IInteractionModeDetector>())
+            foreach (IInteractionModeDetector detector in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.InstanceID).OfType<IInteractionModeDetector>())
             {
                 interactionModeDectectors.Add(detector);
             }

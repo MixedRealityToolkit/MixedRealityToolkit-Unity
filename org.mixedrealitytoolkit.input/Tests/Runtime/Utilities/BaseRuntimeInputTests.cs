@@ -5,13 +5,12 @@
 #pragma warning disable CS1591
 
 using MixedReality.Toolkit.Core.Tests;
-using System;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Inputs.Interactions;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Composites;
-using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Interactions;
 using static MixedReality.Toolkit.Input.Tests.InputTestUtilities;
 
 namespace MixedReality.Toolkit.Input.Tests
@@ -39,7 +38,7 @@ namespace MixedReality.Toolkit.Input.Tests
             {
                 if (cachedInteractionManager == null)
                 {
-                    cachedInteractionManager = FindObjectUtility.FindAnyObjectByType<XRInteractionManager>();
+                    cachedInteractionManager = Object.FindAnyObjectByType<XRInteractionManager>();
                 }
                 return cachedInteractionManager;
             }

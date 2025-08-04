@@ -4,13 +4,13 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
+using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input;
+using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-using MixedReality.Toolkit.Input;
-using System.Collections;
-using MixedReality.Toolkit.Input.Tests;
-using MixedReality.Toolkit.Core.Tests;
 
 namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 {
@@ -50,7 +50,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = Handedness.Both;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<TrackedPoseDriverLookup>();
+            var lookup = Object.FindAnyObjectByType<TrackedPoseDriverLookup>();
             var leftInteractor = lookup.LeftHandTrackedPoseDriver.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandTrackedPoseDriver.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -136,7 +136,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = Handedness.Both;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<TrackedPoseDriverLookup>();
+            var lookup = Object.FindAnyObjectByType<TrackedPoseDriverLookup>();
             var leftInteractor = lookup.LeftHandTrackedPoseDriver.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandTrackedPoseDriver.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;

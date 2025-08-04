@@ -222,8 +222,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     return;
                 }
 
-                XRNode? prevTrackedNode = trackedNode;
-
                 if (SolverHandler.CurrentTrackedHandedness != Handedness.None)
                 {
                     trackedNode = GetControllerNode(SolverHandler.CurrentTrackedHandedness);
@@ -678,12 +676,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Returns the XRNode that matches the desired handedness.
         /// </summary>
-        /// <param name="handedness">The handedness of the returned controller</param>
-        /// <returns>The IMixedRealityController for the desired handedness, or null if none are present.</returns>
+        /// <param name="handedness">The handedness of the returned controller node.</param>
+        /// <returns>The <see cref="XRNode"/> for the desired handedness, or null if none are present.</returns>
         protected XRNode? GetControllerNode(Handedness handedness)
         {
-            if (!SolverHandler.IsValidHandedness(handedness)) { return null; }
-            return (handedness == Handedness.Left) ? XRNode.LeftHand : XRNode.RightHand;
+            return !SolverHandler.IsValidHandedness(handedness) ? null : handedness.ToXRNode();
         }
 
         #region MonoBehaviour Implementation
