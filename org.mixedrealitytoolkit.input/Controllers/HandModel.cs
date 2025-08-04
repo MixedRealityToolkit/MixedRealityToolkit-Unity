@@ -94,13 +94,13 @@ namespace MixedReality.Toolkit.Input
                 }
             }
 
-            MRTKInputFocusManager.OnXrSessionFocus.AddListener(OnXrSessionFocus);
+            MRTKInputFocusManager.XrSessionHasFocus.SubscribeAndUpdate(OnXrSessionFocus);
         }
 
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
         /// </summary>
-        private void OnDestroy() => MRTKInputFocusManager.OnXrSessionFocus.RemoveListener(OnXrSessionFocus);
+        private void OnDestroy() => MRTKInputFocusManager.XrSessionHasFocus.Unsubscribe(OnXrSessionFocus);
 
         /// <summary>
         /// Sent to all GameObjects when the player gets or loses focus.

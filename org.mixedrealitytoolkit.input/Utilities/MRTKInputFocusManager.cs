@@ -2,8 +2,8 @@
 // Licensed under the BSD 3-Clause
 
 using System.Collections.Generic;
+using Unity.XR.CoreUtils.Bindings.Variables;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace MixedReality.Toolkit.Input
@@ -17,20 +17,11 @@ namespace MixedReality.Toolkit.Input
         private InputActionReference[] inputActionReferences;
 
         /// <summary>
-        /// Provides an event based on the current XrSession becoming focused or not.
-        /// </summary>
-        public static UnityEvent<bool> OnXrSessionFocus { get; } = new UnityEvent<bool>();
-
-        /// <summary>
-        /// Whether the current XrSession has focus or not.
+        /// Whether the current XrSession has focus or not, stored as a bindable variable that can be subscribed to for value changes.
         /// </summary>
         /// <remarks>Always <see langword="true"/> in the editor.</remarks>
-        public static bool HasFocus => Application.isEditor ||
-#if SNAPDRAGON_SPACES_PRESENT
-            lastSessionState == 5;
-#else
-            Application.isFocused;
-#endif
+        public static IReadOnlyBindableVariable<bool> XrSessionHasFocus => xrSessionHasFocus;
+        private static readonly BindableVariable<bool> xrSessionHasFocus = new(Application.isEditor);
 
         /// <summary>
         /// We want to ensure we're focused for input, as some runtimes continue reporting "tracked" while pose updates are paused.
@@ -40,7 +31,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void OnFocusChange(bool focus)
         {
-            OnXrSessionFocus?.Invoke(focus);
+            xrSessionHasFocus.Value = focus;
 
             foreach (InputActionReference reference in inputActionReferences)
             {
