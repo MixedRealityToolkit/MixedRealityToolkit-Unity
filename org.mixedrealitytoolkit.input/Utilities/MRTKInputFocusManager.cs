@@ -24,10 +24,9 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Whether the current XrSession has focus or not.
         /// </summary>
-        public static bool HasFocus =>
-#if UNITY_EDITOR
-            true;
-#elif SNAPDRAGON_SPACES_PRESENT
+        /// <remarks>Always <see langword="true"/> in the editor.</remarks>
+        public static bool HasFocus => Application.isEditor ||
+#if SNAPDRAGON_SPACES_PRESENT
             lastSessionState == 5;
 #else
             Application.isFocused;
