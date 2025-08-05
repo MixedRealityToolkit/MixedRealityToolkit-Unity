@@ -48,6 +48,7 @@ namespace MixedReality.Toolkit.Input
         internal bool IsPolyfillDevicePose { get; private set; }
 
         #region Serialized Fields
+
         [Header("Hand Pose Driver Settings")]
 
         [SerializeField, Tooltip("The XRNode associated with this Hand Controller. Expected to be XRNode.LeftHand or XRNode.RightHand.")]
@@ -58,9 +59,11 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         /// <remarks>Expected to be XRNode.LeftHand or XRNode.RightHand.</remarks>
         public XRNode HandNode => handNode;
+
         #endregion Serialized Fields
 
         #region TrackedPoseDriver Overrides
+
         /// <inheritdoc />
         protected override void PerformUpdate()
         {
@@ -91,7 +94,7 @@ namespace MixedReality.Toolkit.Input
                 (rotationInput.action == null || !rotationInput.action.HasAnyControls() || rotationInput.action.activeControl == null);
 
             // We will also check the tracking state here to account for a bound action but untracked interaction profile.
-            if ((missingPositionController || missingRotationController || IsTrackingNone()) &&
+            if ((missingPositionController || missingRotationController || (IsTrackingNone() && Application.isFocused)) &&
                 TryGetPolyfillDevicePose(out Pose devicePose))
             {
                 m_trackingState = InputTrackingState.Position | InputTrackingState.Rotation;
@@ -103,9 +106,11 @@ namespace MixedReality.Toolkit.Input
                 IsPolyfillDevicePose = false;
             }
         }
+
         #endregion TrackedPoseDriver Overrides
 
         #region Private Functions
+
         /// <summary>
         /// Check the tracking state here to account for a bound but untracked interaction profile.
         /// This could show up on runtimes where a controller is disconnected, hand tracking spins up,
@@ -278,6 +283,7 @@ namespace MixedReality.Toolkit.Input
                 m_trackingState = InputTrackingState.None;
             }
         }
+
         #endregion Private Functions
     }
 }
