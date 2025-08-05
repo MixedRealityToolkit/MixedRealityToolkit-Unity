@@ -119,39 +119,43 @@ namespace MixedReality.Toolkit.Input
                     allocator = Unity.Collections.Allocator.Temp,
                 };
 
-                Debug.Log($"Success?? {HandNode} | {Time.frameCount} | {handSubsystem.updateSuccessFlags} | {updateSuccessFlags} | {(handSubsystem.updateSuccessFlags & updateSuccessFlags) != 0}");
                 if ((handSubsystem.updateSuccessFlags & updateSuccessFlags) != 0
                     && (lastUpdatedFrame == Time.frameCount || handSubsystem.TryGetMeshData(out result, ref queryParams)))
                 {
                     lastUpdatedFrame = Time.frameCount;
                     XRHandMeshData handMeshData = HandNode == XRNode.LeftHand ? result.leftHand : result.rightHand;
                     handRenderer.enabled = true;
+                    Mesh mesh = meshFilter.mesh;
 
-                    if (handMeshData.positions.IsCreated && handMeshData.indices.IsCreated)
+                    if (handMeshData.positions.Length > 0 && handMeshData.indices.Length > 0)
                     {
-                        meshFilter.mesh.SetVertices(handMeshData.positions);
+                        mesh.SetVertices(handMeshData.positions);
                         Unity.Collections.NativeArray<int> indices = handMeshData.indices;
                         // This API appears to return CCW triangles, but Unity expects CW triangles
                         for (int i = 0; i < indices.Length; i += 3)
                         {
                             (indices[i + 1], indices[i + 2]) = (indices[i + 2], indices[i + 1]);
                         }
-                        meshFilter.mesh.SetIndices(indices, MeshTopology.Triangles, 0);
-                        meshFilter.mesh.RecalculateBounds();
+                        mesh.SetIndices(indices, MeshTopology.Triangles, 0);
+                        mesh.RecalculateBounds();
                     }
 
-                    if (handMeshData.uvs.IsCreated)
+                    if (handMeshData.uvs.IsCreated && handMeshData.uvs.Length == mesh.vertexCount)
                     {
-                        meshFilter.mesh.SetUVs(0, handMeshData.uvs);
-                    }
-
-                    if (handMeshData.normals.IsCreated)
-                    {
-                        meshFilter.mesh.SetNormals(handMeshData.normals);
+                        mesh.SetUVs(0, handMeshData.uvs);
                     }
                     else
                     {
-                        meshFilter.mesh.RecalculateNormals();
+                        mesh.uv = null;
+                    }
+
+                    if (handMeshData.normals.IsCreated && handMeshData.normals.Length == mesh.vertexCount)
+                    {
+                        mesh.SetNormals(handMeshData.normals);
+                    }
+                    else
+                    {
+                        mesh.RecalculateNormals();
                     }
 
                     if (handMeshData.TryGetRootPose(out Pose rootPose))
