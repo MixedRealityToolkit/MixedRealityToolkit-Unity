@@ -1,6 +1,6 @@
 {
   "name": "org.mixedrealitytoolkit.standardassets",
-  "version": "3.2.0-development",
+  "version": "3.2.1-development",
   "description": "Common assets used by the MRTK packages, including common fonts, materials, and models. Relies on the Graphics Tools collection of shaders.",
   "displayName": "MRTK Standard Assets",
   "msftFeatureCategory": "MRTK3",
@@ -17,6 +17,6 @@
     "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
   },
   "dependencies": {
-    "com.microsoft.mrtk.graphicstools.unity": "0.5.12"
+    "com.microsoft.mrtk.graphicstools.unity": "0.8.0"
   }
 }

@@ -1,12 +1,15 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using MixedReality.Toolkit.Input;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
+
+#if MRTK_INPUT_PRESENT
+using MixedReality.Toolkit.Input;
+#endif
 
 namespace MixedReality.Toolkit.UX
 {
@@ -19,7 +22,11 @@ namespace MixedReality.Toolkit.UX
     /// to obtain a selection progress value or a local displacement, respectively, to implement a visual layer.
     /// </remarks>
     [AddComponentMenu("MRTK/UX/Pressable Button")]
-    public class PressableButton : StatefulInteractable, IXRProximityInteractable
+    public class PressableButton : StatefulInteractable
+#if MRTK_INPUT_PRESENT
+        , IXRProximityInteractable
+#endif
+
     {
         [SerializeField]
         [FormerlySerializedAs("smoothSelectedness")]
@@ -181,10 +188,12 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         private float WorldToLocalScale => transform.InverseTransformVector(transform.forward).magnitude;
 
+#if MRTK_INPUT_PRESENT
         /// <summary>
         /// Holds the detectors that trigger proximity.
         /// </summary>
         private HashSet<NearInteractionModeDetector> activeDetectors = new HashSet<NearInteractionModeDetector>();
+#endif
 
         /// <summary>
         /// If the <see cref="GetSelectionProgress"/> value is smoothed to within this threshold of 0 or 1, the <see cref="GetSelectionProgress"/> will snap to 0 or 1.
@@ -603,7 +612,6 @@ namespace MixedReality.Toolkit.UX
                 {
                     return true;
                 }
-
             }
 
             return false;
@@ -639,6 +647,7 @@ namespace MixedReality.Toolkit.UX
             }
         }
 
+#if MRTK_INPUT_PRESENT
         /// <inheritdoc />
         public void OnProximityEntered(ProximityEnteredEventArgs proximityEnteredEventArgs)
         {
@@ -657,13 +666,18 @@ namespace MixedReality.Toolkit.UX
                 UpdateProximityHovered();
             }
         }
+#endif
 
         /// <summary>
         /// Updates the IsProximityHovered flag based on the whether it is hovered or has active interaction.
         /// </summary>
         private void UpdateProximityHovered()
         {
-            IsProximityHovered.Active = isHovered || (activeDetectors.Count > 0);
+            IsProximityHovered.Active = isHovered
+#if MRTK_INPUT_PRESENT
+                || (activeDetectors.Count > 0)
+#endif
+                ;
         }
 
         #endregion Private Methods
