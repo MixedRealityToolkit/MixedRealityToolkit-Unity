@@ -158,8 +158,9 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
 
     # Update the CHANGELOG.md file with the new version and release date
     Write-Output "Patching CHANGELOG.md version to [$version$tag] - $year-$month-$day"
+    $escapedVersion = [regex]::Escape($version)
     Get-ChildItem -Path $packagePath/CHANGELOG.md -Recurse | ForEach-Object {
-        (Get-Content -Path $_ -Raw) -Replace "## (\[$version(-[a-zA-Z0-9.]+)?\] - \b\d{4}\b-\b(0[1-9]|1[0-2])\b-\b(0[1-9]|[12][0-9]|3[01])\b|Unreleased)", "## [$version$tag] - $year-$month-$day" | Set-Content -Path $_ -NoNewline
+        (Get-Content -Path $_ -Raw) -Replace "## (\[$escapedVersion(-[a-zA-Z0-9.]+)?\] - \b\d{4}\b-\b(0[1-9]|1[0-2])\b-\b(0[1-9]|[12][0-9]|3[01])\b|Unreleased)", "## [$version$tag] - $year-$month-$day" | Set-Content -Path $_ -NoNewline
     }
 }
 
