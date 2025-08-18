@@ -922,6 +922,56 @@ namespace MixedReality.Toolkit.SpatialManipulation
                                 constraintTranslate.Position;
                         }
                     }
+                    else if (currentHandle.HandleType == HandleType.Translation2D)
+                    {
+                        Vector3 translateVectorOnPlane = Vector3.ProjectOnPlane(currentGrabPoint - initialGrabPoint, currentHandle.transform.forward);
+
+                        var goal = initialTransformOnGrabStart.Position + translateVectorOnPlane;
+                        MixedRealityTransform constraintTranslate = MixedRealityTransform.NewTranslate(goal);
+                        if (EnableConstraints && constraintsManager != null)
+                        {
+                            constraintsManager.ApplyTranslationConstraints(ref constraintTranslate, true, currentHandle.IsGrabSelected);
+                        }
+
+                        // TODO: Elastics integration (soon!)
+
+                        // if (elasticsManager != null)
+                        // {
+                        //     transformUpdated = elasticsManager.ApplyTargetTransform(constraintTranslate, TransformFlags.Move);
+                        // }
+
+                        if (!transformUpdated.IsMaskSet(TransformFlags.Move))
+                        {
+                            Target.transform.position = smoothingActive ?
+                                Smoothing.SmoothTo(Target.transform.position, constraintTranslate.Position, translateLerpTime, Time.deltaTime) :
+                                constraintTranslate.Position;
+                        }
+                    }
+                    else if (currentHandle.HandleType == HandleType.Translation3D)
+                    {
+                        Vector3 translateVector = currentGrabPoint - initialGrabPoint;
+
+                        var goal = initialTransformOnGrabStart.Position + translateVector;
+                        MixedRealityTransform constraintTranslate = MixedRealityTransform.NewTranslate(goal);
+                        if (EnableConstraints && constraintsManager != null)
+                        {
+                            constraintsManager.ApplyTranslationConstraints(ref constraintTranslate, true, currentHandle.IsGrabSelected);
+                        }
+
+                        // TODO: Elastics integration (soon!)
+
+                        // if (elasticsManager != null)
+                        // {
+                        //     transformUpdated = elasticsManager.ApplyTargetTransform(constraintTranslate, TransformFlags.Move);
+                        // }
+
+                        if (!transformUpdated.IsMaskSet(TransformFlags.Move))
+                        {
+                            Target.transform.position = smoothingActive ?
+                                Smoothing.SmoothTo(Target.transform.position, constraintTranslate.Position, translateLerpTime, Time.deltaTime) :
+                                constraintTranslate.Position;
+                        }
+                    }
                 }
             }
         }
