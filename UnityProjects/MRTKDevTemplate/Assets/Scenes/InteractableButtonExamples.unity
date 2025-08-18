@@ -5650,8 +5650,8 @@ PrefabInstance:
         selection.
 
 
-        The virtual GetSelectionProgress() method can be overridden to
-        support more kinds of variable selection, like volumetric press. By default,
+        The virtual GetSelectionProgress() method can be overridden
+        to support more kinds of variable selection, like volumetric press. By default,
         StatefulInteractables will receive the variable selection amount from all
         participating IVariableSelectInteractors.'
       objectReference: {fileID: 0}
@@ -5771,6 +5771,10 @@ PrefabInstance:
       propertyPath: m_text
       value: StatefulInteractable.cs
       objectReference: {fileID: 0}
+    - target: {fileID: 7859784472259920099, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
+      propertyPath: hostTransform
+      value: 
+      objectReference: {fileID: 404605804}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
 --- !u!224 &624189883 stripped
@@ -16024,6 +16028,10 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 7859784472259920099, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
+      propertyPath: hostTransform
+      value: 
+      objectReference: {fileID: 951032951}
     - target: {fileID: 9182356717869552287, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -63.3
@@ -21095,6 +21103,10 @@ PrefabInstance:
 
         BasicPressableButtonVisuals.cs'
       objectReference: {fileID: 0}
+    - target: {fileID: 7859784472259920099, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
+      propertyPath: hostTransform
+      value: 
+      objectReference: {fileID: 2073290934}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
 --- !u!224 &1088515469 stripped
@@ -27002,6 +27014,10 @@ PrefabInstance:
 
         PressableButtonVisuals.cs'
       objectReference: {fileID: 0}
+    - target: {fileID: 7859784472259920099, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
+      propertyPath: hostTransform
+      value: 
+      objectReference: {fileID: 1878298178}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8c3ea3c1046f8b4bbd682c2b7a0e4fe, type: 3}
 --- !u!224 &1702487267 stripped
