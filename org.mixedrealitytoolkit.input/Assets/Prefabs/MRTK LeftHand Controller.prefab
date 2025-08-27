@@ -198,6 +198,7 @@ MonoBehaviour:
   m_AutoDeselect: 0
   m_TimeToAutoDeselect: 3
   m_EnableUIInteraction: 1
+  m_BlockInteractionsWithScreenSpaceUI: 0
   m_BlockUIOnInteractableSelection: 1
   m_ManipulateAttachTransform: 0
   m_UseForceGrab: 0
@@ -690,6 +691,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1948193616346090106}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &317859718934353354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4926630461381577642}
+  - component: {fileID: 2393634401634928266}
+  m_Layer: 0
+  m_Name: PinchInputReader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4926630461381577642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317859718934353354}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2497193556380645624}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2393634401634928266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317859718934353354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63844496262f1724ba77344d77fbf000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handNode: 4
+  selectAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Select
+      m_Type: 1
+      m_ExpectedControlType: 
+      m_Id: ff1c01c3-260e-48d6-8691-2b8a494333a9
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 4911936264890632658, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  selectActionValue:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Select Value
+      m_Type: 0
+      m_ExpectedControlType: Axis
+      m_Id: 98e439e1-c087-42a6-bf66-ebe8e973e5bf
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -4241056287068600476, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  trackedPoseDriver: {fileID: 3281803018082669919}
 --- !u!1 &761938320343190485
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,7 +853,7 @@ MonoBehaviour:
       m_Flags: 0
     m_InputActionReferencePerformed: {fileID: -6131295136447488360, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
     m_InputActionReferenceValue: {fileID: -294446728694031702, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
-    m_ObjectReferenceObject: {fileID: 5536072158143193164}
+    m_ObjectReferenceObject: {fileID: 2393634401634928266}
     m_ManualPerformed: 0
     m_ManualValue: 0
     m_ManualQueuePerformed: 0
@@ -2014,6 +2085,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1980541278490804707}
+  - {fileID: 4926630461381577642}
   - {fileID: 6709287148685916850}
   m_Father: {fileID: 1948193615953854875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
