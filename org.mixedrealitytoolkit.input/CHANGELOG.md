@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Added toggle for frame rate independent smoothing in camera simulation. [PR #1011](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1011)
 * Added implementation for the synthesized TriggerButton, accounting for animation smoothing. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
 * Added a "squeeze" alias for the grip states, to account for broader input action mapping support. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
+* Added partial polyfill logic for one of "select" and "select value" being mapped while the other isn't, instead of fully polyfilling based on hand joint data when either is missing. [PR #1041](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1041)
 
 ### Fixed
 
