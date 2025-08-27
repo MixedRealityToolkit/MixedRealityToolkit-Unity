@@ -162,6 +162,8 @@ namespace MixedReality.Toolkit.Input
                     {
                         transform.SetWorldPose(PlayspaceUtilities.TransformPose(rootPose));
                     }
+                    UpdateHandMaterial();
+                    return;
                 }
             }
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
@@ -183,19 +185,13 @@ namespace MixedReality.Toolkit.Input
                 }
 
                 transform.SetWorldPose(PlayspaceUtilities.TransformPose(pose));
-            }
-#endif
-            else
-            {
-                // Hide the hand and abort if we shouldn't be
-                // showing the hand, for whatever reason.
-                // (Missing joint data, no subsystem, additive
-                // display, etc!)
-                handRenderer.enabled = false;
+                UpdateHandMaterial();
                 return;
             }
+#endif
 
-            UpdateHandMaterial();
+            // Hide the hand if we weren't able to obtain a valid mesh
+            handRenderer.enabled = false;
         }
 
         protected override bool ShouldRenderHand()
