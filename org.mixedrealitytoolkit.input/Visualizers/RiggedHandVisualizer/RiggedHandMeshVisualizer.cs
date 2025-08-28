@@ -2,13 +2,10 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.Subsystems;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -22,33 +19,8 @@ namespace MixedReality.Toolkit.Input
     /// can be more distracting than it's worth. However, for opaque platforms, this is a great solution.
     /// </remarks>
     [AddComponentMenu("MRTK/Input/Visualizers/Rigged Hand Mesh Visualizer")]
-    public class RiggedHandMeshVisualizer : MonoBehaviour, ISelectInputVisualizer
+    public class RiggedHandMeshVisualizer : HandMeshVisualizer
     {
-        [SerializeField]
-        [Tooltip("The XRNode on which this hand is located.")]
-        private XRNode handNode = XRNode.LeftHand;
-
-        /// <summary> The XRNode on which this hand is located. </summary>
-        public XRNode HandNode { get => handNode; set => handNode = value; }
-
-        [SerializeField]
-        [Tooltip("When true, this visualizer will render rigged hands even on XR devices " +
-                 "with transparent displays. When false, the rigged hands will only render " +
-                 "on devices with opaque displays.")]
-        private bool showHandsOnTransparentDisplays;
-
-        /// <summary>
-        /// When true, this visualizer will render rigged hands even on XR devices with transparent displays.
-        /// When false, the rigged hands will only render on devices with opaque displays.
-        /// Usually, it's recommended not to show hand visualization on transparent displays as it can
-        /// distract from the user's real hands, and cause a "double image" effect that can be disconcerting.
-        /// </summary>
-        public bool ShowHandsOnTransparentDisplays
-        {
-            get => showHandsOnTransparentDisplays;
-            set => showHandsOnTransparentDisplays = value;
-        }
-
         [SerializeField]
         [Tooltip("The transform of the wrist joint.")]
         private Transform wrist;
@@ -58,43 +30,18 @@ namespace MixedReality.Toolkit.Input
         private SkinnedMeshRenderer handRenderer = null;
 
         [SerializeField]
-        [Tooltip("Name of the shader property used to drive pinch-amount-based visual effects. " +
-                 "Generally, maps to something like a glow or an outline color!")]
-        private string pinchAmountMaterialProperty = "_PinchAmount";
+        [Tooltip("The primary visualizer. Rigged hand will not render if the primary is rendering.")]
+        private HandMeshVisualizer primaryMeshVisualizer = null;
 
-        [SerializeField]
-        [Tooltip("The input reader used when pinch selecting an interactable.")]
-        XRInputButtonReader selectInput = new XRInputButtonReader("Select");
-
-        #region ISelectInputVisualizer implementation
-
-        /// <summary>
-        /// Input reader used when pinch selecting an interactable.
-        /// </summary>
-        public XRInputButtonReader SelectInput
-        {
-            get => selectInput;
-            set => SetInputProperty(ref selectInput, value);
-        }
-
-        #endregion ISelectInputVisualizer implementation
+        /// <inheritdoc/>
+        protected override Renderer HandRenderer => handRenderer;
 
         // Automatically calculated over time, based on the accumulated error
         // between the user's actual joint locations and the armature's bones/joints.
         private float handScale = 1.0f;
 
-        // The property block used to modify the pinch amount property on the material
-        private MaterialPropertyBlock propertyBlock = null;
-
-        // Caching local references 
+        // Caching local references
         private HandsAggregatorSubsystem handsSubsystem;
-
-        // Scratch list for checking for the presence of display subsystems.
-        private List<XRDisplaySubsystem> displaySubsystems = new List<XRDisplaySubsystem>();
-
-        // The XRController that is used to determine the pinch strength (i.e., select value!)
-        [Obsolete("This field has been deprecated in version 4.0.0 and will be removed in a future version. Use the SelectInput property instead.")]
-        private XRBaseController controller;
 
         // The actual, physical, rigged joints that drive the skinned mesh.
         // Otherwise referred to as "armature". Must be in OpenXR order.
@@ -105,20 +52,11 @@ namespace MixedReality.Toolkit.Input
         private const string endJointName = "end";
 
         /// <summary>
-        /// The list of button input readers used by this interactor. This interactor will automatically enable or disable direct actions
-        /// if that mode is used during <see cref="OnEnable"/> and <see cref="OnDisable"/>.
-        /// </summary>
-        /// <seealso cref="XRInputButtonReader.EnableDirectActionIfModeUsed"/>
-        /// <seealso cref="XRInputButtonReader.DisableDirectActionIfModeUsed"/>
-        protected List<XRInputButtonReader> buttonReaders { get; } = new List<XRInputButtonReader>();
-
-        /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
         /// </summary>
-        protected virtual void Awake()
+        protected override void Awake()
         {
-            propertyBlock = new MaterialPropertyBlock();
-            buttonReaders.Add(selectInput);
+            base.Awake();
 
             if (handRenderer == null)
             {
@@ -160,18 +98,10 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
-        /// <summary>
-        /// A Unity event function that is called when the script component has been enabled.
-        /// </summary>
-        protected void OnEnable()
+        /// <inheritdoc/>
+        protected override void OnEnable()
         {
-            buttonReaders.ForEach(reader => reader?.EnableDirectActionIfModeUsed());
-
-            // Ensure hand is not visible until we can update position first time.
-            handRenderer.enabled = false;
-
-            Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand,
-                         $"HandVisualizer has an invalid XRNode ({handNode})!");
+            base.OnEnable();
 
             handsSubsystem = XRSubsystemHelpers.GetFirstRunningSubsystem<HandsAggregatorSubsystem>();
 
@@ -179,17 +109,6 @@ namespace MixedReality.Toolkit.Input
             {
                 StartCoroutine(EnableWhenSubsystemAvailable());
             }
-        }
-
-        /// <summary>
-        /// A Unity event function that is called when the script component has been disabled.
-        /// </summary>
-        protected void OnDisable()
-        {
-            buttonReaders.ForEach(reader => reader?.DisableDirectActionIfModeUsed());
-
-            // Disable the rigged hand renderer when this component is disabled
-            handRenderer.enabled = false;
         }
 
         /// <summary>
@@ -204,11 +123,11 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
         /// </summary>
-        private void Update()
+        protected void Update()
         {
             // Query all joints in the hand.
             if (!ShouldRenderHand() ||
-                !handsSubsystem.TryGetEntireHand(handNode, out IReadOnlyList<HandJointPose> joints))
+                !handsSubsystem.TryGetEntireHand(HandNode, out IReadOnlyList<HandJointPose> joints))
             {
                 // Hide the hand and abort if we shouldn't be
                 // showing the hand, for whatever reason.
@@ -293,47 +212,10 @@ namespace MixedReality.Toolkit.Input
             // Apply.
             handScale += -error * errorGainFactor;
             handScale = Mathf.Clamp(handScale, minScale, maxScale);
-            transform.localScale = new Vector3(handNode == XRNode.LeftHand ? -handScale : handScale, handScale, handScale);
+            transform.localScale = new Vector3(HandNode == XRNode.LeftHand ? -handScale : handScale, handScale, handScale);
 
             // Update the hand material based on selectedness value
             UpdateHandMaterial();
-        }
-
-        /// <summary>
-        /// Helper method for setting an input property.
-        /// </summary>
-        /// <param name="property">The <see langword="ref"/> to the field.</param>
-        /// <param name="value">The new value being set.</param>
-        /// <remarks>
-        /// If the application is playing, this method will also enable or disable directly embedded input actions
-        /// serialized by the input if that mode is used. It will also add or remove the input from the list of button inputs
-        /// to automatically manage enabling and disabling direct actions with this behavior.
-        /// </remarks>
-        /// <seealso cref="buttonReaders"/>
-        protected void SetInputProperty(ref XRInputButtonReader property, XRInputButtonReader value)
-        {
-            if (value == null)
-            {
-                Debug.LogError("Setting XRInputButtonReader property to null is disallowed and has therefore been ignored.");
-                return;
-            }
-
-            if (Application.isPlaying && property != null)
-            {
-                buttonReaders?.Remove(property);
-                property.DisableDirectActionIfModeUsed();
-            }
-
-            property = value;
-
-            if (Application.isPlaying)
-            {
-                buttonReaders?.Add(property);
-                if (isActiveAndEnabled)
-                {
-                    property.EnableDirectActionIfModeUsed();
-                }
-            }
         }
 
         // Computes the error between the rig's joint position and
@@ -346,78 +228,15 @@ namespace MixedReality.Toolkit.Input
             return Vector3.Dot((armatureJointPosition - userJointPosition), fingerVector);
         }
 
-        private bool ShouldRenderHand()
+        protected override bool ShouldRenderHand()
         {
             // If we're missing anything, don't render the hand.
-            if (handsSubsystem == null || wrist == null || handRenderer == null)
-            {
-                return false;
-            }
-
-            if (displaySubsystems.Count == 0)
-            {
-                SubsystemManager.GetSubsystems(displaySubsystems);
-            }
-
-            // Are we running on an XR display and it happens to be transparent?
-            // Probably shouldn't be showing rigged hands! (Users can
-            // specify showHandsOnTransparentDisplays if they disagree.)
-            if (displaySubsystems.Count > 0 &&
-                displaySubsystems[0].running &&
-                !displaySubsystems[0].displayOpaque &&
-                !showHandsOnTransparentDisplays)
-            {
-                return false;
-            }
-
-            // All checks out!
-            return true;
-        }
-
-        private void UpdateHandMaterial()
-        {
-            if (handRenderer == null)
-            {
-                return;
-            }
-
-            // Update the hand material
-            float pinchAmount = TryGetSelectionValue(out float selectionValue) ? Mathf.Pow(selectionValue, 2.0f) : 0;
-            handRenderer.GetPropertyBlock(propertyBlock);
-            propertyBlock.SetFloat(pinchAmountMaterialProperty, pinchAmount);
-            handRenderer.SetPropertyBlock(propertyBlock);
-        }
-
-        /// <summary>
-        /// Try to obtain the tracked devices selection value from the provided input reader.
-        /// </summary>
-        /// <remarks>
-        /// For backwards compatibility, this method will also attempt to get the selection amount from a
-        /// legacy XRI controller if the input reader is not set.
-        /// </remaks> 
-        private bool TryGetSelectionValue(out float value)
-        {
-            if (selectInput != null && selectInput.TryReadValue(out value))
-            {
-                return true;
-            }
-
-            bool success = false;
-            value = 0.0f;
-
-#pragma warning disable CS0618 // XRBaseController is obsolete
-            if (controller == null)
-            {
-                controller = GetComponentInParent<XRBaseController>();
-            }
-            if (controller != null)
-            {
-                value = controller.selectInteractionState.value;
-                success = true;
-            }
-#pragma warning restore CS0618 // XRBaseController is obsolete
-
-            return success;
+            // Also don't render if the preferred visualizer is rendering.
+            return handsSubsystem != null
+                && wrist != null
+                && handRenderer != null
+                && (primaryMeshVisualizer == null || !primaryMeshVisualizer.IsRendering)
+                && base.ShouldRenderHand();
         }
     }
 }
