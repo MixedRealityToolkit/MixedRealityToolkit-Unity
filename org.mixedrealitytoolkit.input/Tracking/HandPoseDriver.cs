@@ -33,6 +33,7 @@ namespace MixedReality.Toolkit.Input
         private bool m_firstUpdate = true;
         private InputAction m_boundTrackingAction = null;
         private InputTrackingState m_trackingState = InputTrackingState.None;
+        private const InputTrackingState m_polyfillTrackingState = InputTrackingState.Position | InputTrackingState.Rotation;
 
         /// <summary>
         /// Expose the tracking state for the hand pose driver, to allow <see cref="TrackedPoseDriverExtensions"/> to query it.
@@ -40,7 +41,7 @@ namespace MixedReality.Toolkit.Input
         /// <remarks>
         /// Avoid exposing this publicly as this <see cref="HandPoseDriver"/> is a workaround solution to support hand tracking on devices without interaction profiles.
         /// </remarks>
-        internal InputTrackingState CachedTrackingState => m_trackingState;
+        internal InputTrackingState CachedTrackingState => IsPolyfillDevicePose ? m_polyfillTrackingState : m_trackingState;
 
         /// <summary>
         /// Get if the last pose set was from a polyfill device pose. That is, if the last pose originated from the <see cref="XRSubsystemHelpers.HandsAggregator "/>.
@@ -94,10 +95,9 @@ namespace MixedReality.Toolkit.Input
                 (rotationInput.action == null || !rotationInput.action.HasAnyControls() || rotationInput.action.activeControl == null);
 
             // We will also check the tracking state here to account for a bound action but untracked interaction profile.
-            if ((missingPositionController || missingRotationController || (IsTrackingNone() && Application.isFocused)) &&
+            if ((missingPositionController || missingRotationController || IsTrackingNone()) &&
                 TryGetPolyfillDevicePose(out Pose devicePose))
             {
-                m_trackingState = InputTrackingState.Position | InputTrackingState.Rotation;
                 IsPolyfillDevicePose = true;
                 ForceSetLocalTransform(devicePose.position, devicePose.rotation);
             }
