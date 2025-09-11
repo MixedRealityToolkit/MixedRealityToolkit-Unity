@@ -36,9 +36,24 @@
             "define": "GLTFAST_PRESENT"
         },
         {
+            "name": "com.unity.cloud.gltfast",
+            "expression": "6.11",
+            "define": "GLTFAST_6_11_OR_NEWER"
+        },
+        {
             "name": "com.atteneder.gltfast",
             "expression": "",
             "define": "GLTFAST_PRESENT"
+        },
+        {
+            "name": "com.atteneder.gltfast",
+            "expression": "6.11",
+            "define": "GLTFAST_6_11_OR_NEWER"
+        },
+        {
+            "name": "com.atteneder.gltfast",
+            "expression": "5",
+            "define": "GLTFAST_5_0_OR_NEWER"
         },
         {
             "name": "com.unity.xr.management",
