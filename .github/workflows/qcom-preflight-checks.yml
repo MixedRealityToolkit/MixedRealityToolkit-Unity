@@ -1,0 +1,24 @@
+name: Qualcomm Preflight Checks
+on:
+  pull_request_target:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+ contents: read
+ security-events: write
+
+jobs:
+  qcom-preflight-checks:
+    uses: qualcomm/qcom-reusable-workflows/.github/workflows/qcom-preflight-checks-reusable-workflow.yml@v1.1.4
+    with:
+        # ✅ Preflight Checkers
+        repolinter: true                   # default: true
+        semgrep: true                      # default: true
+        copyright-license-detector: true   # default: true
+        pr-check-emails: true              # default: true
+        dependency-review: true            # default: true
+    secrets:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
