@@ -68,7 +68,11 @@ namespace MixedReality.Toolkit.Input
             }
 
             // If we already found our subsystem, just return
-            if (handSubsystem != null && handSubsystem.running) { return; }
+            if (handSubsystem != null && handSubsystem.running)
+            {
+                handSubsystem.updatedHands += OnHandsUpdated;
+                return;
+            }
 
             List<XRHandSubsystem> subsystems = XRSubsystemHelpers.GetAllSubsystems<XRHandSubsystem>();
             foreach (XRHandSubsystem subsystem in subsystems)
@@ -77,6 +81,7 @@ namespace MixedReality.Toolkit.Input
                 {
                     Debug.Log($"Using {provider.handMeshDataSupplier.GetType()} for hand visualization.");
                     handSubsystem = subsystem;
+                    handSubsystem.updatedHands += OnHandsUpdated;
                     return;
                 }
             }
@@ -100,6 +105,16 @@ namespace MixedReality.Toolkit.Input
             enabled = false;
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            if (handSubsystem != null)
+            {
+                handSubsystem.updatedHands -= OnHandsUpdated;
+            }
+        }
+
         protected void Update()
         {
             if (!ShouldRenderHand())
@@ -112,57 +127,10 @@ namespace MixedReality.Toolkit.Input
                 return;
             }
 
+            // This path is handled in the OnHandsUpdated event handler
             if (handSubsystem != null && handSubsystem.running)
             {
-                XRHandMeshDataQueryParams queryParams = new()
-                {
-                    allocator = Unity.Collections.Allocator.Temp,
-                };
-
-                if ((handSubsystem.updateSuccessFlags & updateSuccessFlags) != 0
-                    && (lastUpdatedFrame == Time.frameCount || handSubsystem.TryGetMeshData(out result, ref queryParams)))
-                {
-                    lastUpdatedFrame = Time.frameCount;
-                    XRHandMeshData handMeshData = HandNode == XRNode.LeftHand ? result.leftHand : result.rightHand;
-                    handRenderer.enabled = true;
-                    Mesh mesh = meshFilter.mesh;
-
-                    if (handMeshData.positions.Length > 0 && handMeshData.indices.Length > 0)
-                    {
-                        mesh.SetVertices(handMeshData.positions);
-                        Unity.Collections.NativeArray<int> indices = handMeshData.indices;
-                        // This API appears to return CCW triangles, but Unity expects CW triangles
-                        for (int i = 0; i < indices.Length; i += 3)
-                        {
-                            (indices[i + 1], indices[i + 2]) = (indices[i + 2], indices[i + 1]);
-                        }
-                        mesh.SetIndices(indices, MeshTopology.Triangles, 0);
-                        mesh.RecalculateBounds();
-                    }
-
-                    if (handMeshData.uvs.IsCreated && handMeshData.uvs.Length == mesh.vertexCount)
-                    {
-                        mesh.SetUVs(0, handMeshData.uvs);
-                    }
-                    else
-                    {
-                        mesh.uv = null;
-                    }
-
-                    if (handMeshData.normals.IsCreated && handMeshData.normals.Length == mesh.vertexCount)
-                    {
-                        mesh.SetNormals(handMeshData.normals);
-                    }
-                    else
-                    {
-                        mesh.RecalculateNormals();
-                    }
-
-                    if (handMeshData.TryGetRootPose(out Pose rootPose))
-                    {
-                        transform.SetWorldPose(PlayspaceUtilities.TransformPose(rootPose));
-                    }
-                }
+                return;
             }
 #if MROPENXR_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_ANDROID)
             else if (handMeshTracker != null
@@ -183,19 +151,79 @@ namespace MixedReality.Toolkit.Input
                 }
 
                 transform.SetWorldPose(PlayspaceUtilities.TransformPose(pose));
+                UpdateHandMaterial();
+                return;
             }
 #endif
-            else
+
+            // Hide the hand if we weren't able to obtain a valid mesh
+            handRenderer.enabled = false;
+        }
+
+        private void OnHandsUpdated(XRHandSubsystem subsystem, XRHandSubsystem.UpdateSuccessFlags successFlags, XRHandSubsystem.UpdateType updateType)
+        {
+            // Only update visualization on OnBeforeRender for the most accurate data
+            if (updateType == XRHandSubsystem.UpdateType.Dynamic) { return; }
+
+            XRHandMeshDataQueryParams queryParams = new()
             {
-                // Hide the hand and abort if we shouldn't be
-                // showing the hand, for whatever reason.
-                // (Missing joint data, no subsystem, additive
-                // display, etc!)
-                handRenderer.enabled = false;
+                allocator = Unity.Collections.Allocator.Temp,
+            };
+
+            if (lastUpdatedFrame != Time.frameCount && !subsystem.TryGetMeshData(out result, ref queryParams))
+            {
                 return;
             }
 
-            UpdateHandMaterial();
+            if ((successFlags & updateSuccessFlags) != 0)
+            {
+                lastUpdatedFrame = Time.frameCount;
+                XRHandMeshData handMeshData = HandNode == XRNode.LeftHand ? result.leftHand : result.rightHand;
+                handRenderer.enabled = true;
+                Mesh mesh = meshFilter.mesh;
+
+                if (handMeshData.positions.Length > 0 && handMeshData.indices.Length > 0)
+                {
+                    mesh.SetVertices(handMeshData.positions);
+                    Unity.Collections.NativeArray<int> indices = handMeshData.indices;
+                    // This API appears to return CCW triangles, but Unity expects CW triangles
+                    for (int i = 0; i < indices.Length; i += 3)
+                    {
+                        (indices[i + 1], indices[i + 2]) = (indices[i + 2], indices[i + 1]);
+                    }
+                    mesh.SetIndices(indices, MeshTopology.Triangles, 0);
+                    mesh.RecalculateBounds();
+                }
+
+                if (handMeshData.uvs.IsCreated && handMeshData.uvs.Length == mesh.vertexCount)
+                {
+                    mesh.SetUVs(0, handMeshData.uvs);
+                }
+                else
+                {
+                    mesh.uv = null;
+                }
+
+                if (handMeshData.normals.IsCreated && handMeshData.normals.Length == mesh.vertexCount)
+                {
+                    mesh.SetNormals(handMeshData.normals);
+                }
+                else
+                {
+                    mesh.RecalculateNormals();
+                }
+
+                if (handMeshData.TryGetRootPose(out Pose rootPose))
+                {
+                    transform.SetWorldPose(PlayspaceUtilities.TransformPose(rootPose));
+                }
+
+                UpdateHandMaterial();
+                return;
+            }
+
+            // Hide the hand if we weren't able to obtain a valid mesh
+            handRenderer.enabled = false;
         }
 
         protected override bool ShouldRenderHand()
