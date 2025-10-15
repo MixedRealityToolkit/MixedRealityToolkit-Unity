@@ -24,7 +24,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         [UnityTest]
         public IEnumerator HandConstraintEventsOneHanded()
         {
-            // Disable gaze interactions for this unit test;
+            // Disable gaze interactions for this unit test
             InputTestUtilities.DisableGazeInteractor();
 
             // Set up GameObject with a SolverHandler
