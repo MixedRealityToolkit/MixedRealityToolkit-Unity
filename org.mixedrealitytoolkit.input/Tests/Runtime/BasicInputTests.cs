@@ -169,17 +169,23 @@ namespace MixedReality.Toolkit.Input.Tests
                 firstCubeInteractable.TriggerOnRelease = (i % 2) == 0;
 
                 Assert.IsFalse(firstCubeInteractable.IsGrabHovered,
+                               "StatefulInteractable was already GrabHovered.");
+                Assert.IsFalse(firstCubeInteractable.isHovered,
                                "StatefulInteractable was already hovered.");
 
                 yield return rightHand.MoveTo(cube.transform.position);
                 yield return RuntimeTestUtilities.WaitForUpdates();
                 Assert.IsTrue(firstCubeInteractable.IsGrabHovered,
+                              "StatefulInteractable did not get GrabHovered.");
+                Assert.IsTrue(firstCubeInteractable.isHovered,
                               "StatefulInteractable did not get hovered.");
 
                 yield return rightHand.SetHandshape(HandshapeId.Pinch);
                 yield return RuntimeTestUtilities.WaitForUpdates();
                 Assert.IsTrue(firstCubeInteractable.IsGrabSelected,
                               "StatefulInteractable did not get GrabSelected.");
+                Assert.IsTrue(firstCubeInteractable.isSelected,
+                              "StatefulInteractable did not get selected.");
 
                 if (shouldTestToggle)
                 {
@@ -218,17 +224,23 @@ namespace MixedReality.Toolkit.Input.Tests
                 yield return RuntimeTestUtilities.WaitForUpdates();
 
                 Assert.IsFalse(secondCubeInteractable.IsGrabHovered,
+                               "StatefulInteractable was already GrabHovered.");
+                Assert.IsFalse(secondCubeInteractable.isHovered,
                                "StatefulInteractable was already hovered.");
 
                 yield return rightHand.MoveTo(secondCubeInteractable.transform.position);
                 yield return RuntimeTestUtilities.WaitForUpdates();
                 Assert.IsTrue(secondCubeInteractable.IsGrabHovered,
+                              "StatefulInteractable did not get GrabHovered.");
+                Assert.IsTrue(secondCubeInteractable.isHovered,
                               "StatefulInteractable did not get hovered.");
 
                 yield return rightHand.SetHandshape(HandshapeId.Pinch);
                 yield return RuntimeTestUtilities.WaitForUpdates();
                 Assert.IsTrue(secondCubeInteractable.IsGrabSelected,
                               "StatefulInteractable did not get GrabSelected.");
+                Assert.IsTrue(secondCubeInteractable.isSelected,
+                              "StatefulInteractable did not get selected.");
 
                 if (shouldTestToggle)
                 {
