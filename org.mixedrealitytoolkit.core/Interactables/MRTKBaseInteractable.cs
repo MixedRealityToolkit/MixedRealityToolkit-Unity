@@ -17,7 +17,7 @@ namespace MixedReality.Toolkit
     {
         #region Gaze
 
-        readonly List<IGazeInteractor> hoveringGazeInteractors = new List<IGazeInteractor>();
+        private readonly List<IGazeInteractor> hoveringGazeInteractors = new List<IGazeInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGazeInteractor"/> components currently gazing this object.
@@ -28,14 +28,14 @@ namespace MixedReality.Toolkit
 
         #region GazePinch
 
-        readonly List<IGazePinchInteractor> hoveringGazePinchInteractors = new List<IGazePinchInteractor>();
+        private readonly List<IGazePinchInteractor> hoveringGazePinchInteractors = new List<IGazePinchInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGazePinchInteractor"/> components currently hovering this object.
         /// </summary>
         public List<IGazePinchInteractor> HoveringGazePinchInteractors => hoveringGazePinchInteractors;
 
-        readonly List<IGazePinchInteractor> selectingGazePinchInteractors = new List<IGazePinchInteractor>();
+        private readonly List<IGazePinchInteractor> selectingGazePinchInteractors = new List<IGazePinchInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGazePinchInteractor"/> components currently selecting this object.
@@ -46,7 +46,7 @@ namespace MixedReality.Toolkit
 
         #region Poke
 
-        readonly List<IPokeInteractor> hoveringPokeInteractors = new List<IPokeInteractor>();
+        private readonly List<IPokeInteractor> hoveringPokeInteractors = new List<IPokeInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IPokeInteractor"/> components currently hovering this object.
@@ -57,14 +57,14 @@ namespace MixedReality.Toolkit
 
         #region Grab
 
-        readonly List<IGrabInteractor> hoveringGrabInteractors = new List<IGrabInteractor>();
+        private readonly List<IGrabInteractor> hoveringGrabInteractors = new List<IGrabInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGrabInteractor"/> components currently hovering this object.
         /// </summary>]
         public List<IGrabInteractor> HoveringGrabInteractors => hoveringGrabInteractors;
 
-        readonly List<IGrabInteractor> selectingGrabInteractors = new List<IGrabInteractor>();
+        private readonly List<IGrabInteractor> selectingGrabInteractors = new List<IGrabInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGrabInteractor"/> components currently selecting this object.
@@ -75,7 +75,7 @@ namespace MixedReality.Toolkit
 
         #region Ray
 
-        readonly List<IRayInteractor> hoveringRayInteractors = new List<IRayInteractor>();
+        private readonly List<IRayInteractor> hoveringRayInteractors = new List<IRayInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IRayInteractor"/> components currently hovering this object.
@@ -199,7 +199,7 @@ namespace MixedReality.Toolkit
             }
         }
         /// <summary>
-        /// Removes the specified type to the set of interactors which cannot select this interactable
+        /// Removes the specified type from the set of interactors which cannot select this interactable
         /// </summary>
         public void EnableInteractorType(SystemInterfaceType type)
         {
