@@ -183,13 +183,13 @@ namespace MixedReality.Toolkit.Input.Tests
 
                 if (shouldTestToggle)
                 {
-                    if (secondCubeInteractable.TriggerOnRelease)
+                    if (firstCubeInteractable.TriggerOnRelease)
                     {
-                        Assert.IsFalse(secondCubeInteractable.IsToggled, "StatefulInteractable toggled on press, when it was set to be toggled on release.");
+                        Assert.IsFalse(firstCubeInteractable.IsToggled, "StatefulInteractable toggled on press, when it was set to be toggled on release.");
                     }
                     else
                     {
-                        Assert.IsFalse(secondCubeInteractable.IsToggled, "StatefulInteractable didn't toggled on press, when it was set to be toggled on press.");
+                        Assert.IsFalse(firstCubeInteractable.IsToggled, "StatefulInteractable didn't toggled on press, when it was set to be toggled on press.");
                     }
                 }
 
