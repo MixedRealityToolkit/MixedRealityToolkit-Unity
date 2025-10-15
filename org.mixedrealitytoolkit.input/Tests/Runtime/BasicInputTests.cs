@@ -5,19 +5,15 @@
 #pragma warning disable CS1591
 
 using MixedReality.Toolkit.Core.Tests;
+using MixedReality.Toolkit.Input.Simulation;
+using MixedReality.Toolkit.Subsystems;
 using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
-using MixedReality.Toolkit.Input;
-using MixedReality.Toolkit.Input.Simulation;
-using MixedReality.Toolkit;
-using MixedReality.Toolkit.Subsystems;
-
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 
 namespace MixedReality.Toolkit.Input.Tests
@@ -31,7 +27,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Ensure the simulated input devices are registered and present.
         /// </summary>
         [UnityTest]
-        public IEnumerator InputDeviceSmoketest()
+        public IEnumerator InputDeviceSmokeTest()
         {
             foreach (var device in InputSystem.devices)
             {
@@ -45,9 +41,10 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Ensure the simulated input devices bind to the controllers on the rig.
         /// </summary>
         [UnityTest]
-        public IEnumerator InputBindingSmoketest()
+        public IEnumerator InputBindingSmokeTest()
         {
-            var controllers = new[] {
+            XRBaseController[] controllers =
+            {
                 CachedLookup.LeftHandController,
                 CachedLookup.RightHandController,
                 CachedLookup.GazeController
@@ -69,7 +66,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// Ensure the simulated input device actually makes the rig's controllers move/actuate.
         /// </summary>
         [UnityTest]
-        public IEnumerator HandMovingSmoketest()
+        public IEnumerator HandMovingSmokeTest()
         {
             var controller = CachedLookup.RightHandController as ActionBasedController;
 
@@ -107,7 +104,7 @@ namespace MixedReality.Toolkit.Input.Tests
             Vector3 cubePos = InputTestUtilities.InFrontOfUser();
             cube.transform.position = cubePos;
             cube.transform.localScale = Vector3.one * 1.0f;
-            
+
             var testHand = new TestHand(Handedness.Right);
             InputTestUtilities.SetHandAnchorPoint(Handedness.Right, ControllerAnchorPoint.Grab);
 
@@ -136,31 +133,27 @@ namespace MixedReality.Toolkit.Input.Tests
         public IEnumerator StatefulInteractableSmokeTest()
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.AddComponent<StatefulInteractable>();
+            StatefulInteractable firstCubeInteractable = cube.AddComponent<StatefulInteractable>();
             cube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0.2f, 0.2f, 0.5f));
             cube.transform.localScale = Vector3.one * 0.1f;
 
             // For this test, we won't use poke selection.
-            cube.GetComponent<StatefulInteractable>().DisableInteractorType(typeof(PokeInteractor));
+            firstCubeInteractable.DisableInteractorType(typeof(PokeInteractor));
 
             GameObject cube2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube2.AddComponent<StatefulInteractable>();
+            StatefulInteractable secondCubeInteractable = cube2.AddComponent<StatefulInteractable>();
             cube2.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(-0.2f, -0.2f, 0.5f));
             cube2.transform.localScale = Vector3.one * 0.1f;
 
             // For this test, we won't use poke selection.
-            cube2.GetComponent<StatefulInteractable>().DisableInteractorType(typeof(PokeInteractor));
+            secondCubeInteractable.DisableInteractorType(typeof(PokeInteractor));
 
             var rightHand = new TestHand(Handedness.Right);
 
             yield return rightHand.Show(InputTestUtilities.InFrontOfUser(0.5f));
-
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             bool shouldTestToggle = false;
-
-            StatefulInteractable firstCubeInteractable = cube.GetComponent<StatefulInteractable>();
-            StatefulInteractable secondCubeInteractable = cube2.GetComponent<StatefulInteractable>();
 
             for (int i = 0; i < 5; i++)
             {
@@ -303,7 +296,7 @@ namespace MixedReality.Toolkit.Input.Tests
 
             yield return rightHand.SetHandshape(HandshapeId.Open);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            
+
             Assert.IsFalse(interactable.isSelected);
             Assert.IsFalse(interactable.IsGazePinchSelected);
             Assert.IsTrue(interactable.isHovered);
@@ -388,7 +381,7 @@ namespace MixedReality.Toolkit.Input.Tests
 
             didFireEvent = false;
             interactable.ForceSetToggled(true, fireEvents: false);
-            
+
             Assert.IsTrue(interactable.IsToggled, "Interactable didn't get toggled.");
             Assert.IsFalse(didFireEvent, "ForceSetToggled(true, fireEvents:false) should NOT have fired the event.");
 
@@ -493,7 +486,7 @@ namespace MixedReality.Toolkit.Input.Tests
 
             // Move hand far away.
             yield return rightHand.MoveTo(new Vector3(2, 2, 2));
-            yield return RuntimeTestUtilities.WaitForUpdates(frameCount:240);
+            yield return RuntimeTestUtilities.WaitForUpdates(frameCount: 240);
 
             Assert.IsFalse(AnyProximityDetectorsTriggered(), "Prox detectors should no longer be triggered.");
 
