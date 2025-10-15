@@ -76,7 +76,7 @@ namespace MixedReality.Toolkit.Input.Tests
             XRBaseController rightHandController = CachedLookup.RightHandController;
             Assert.IsTrue(rightHandController != null, "No controllers found for right hand.");
 
-            // Moving the hand to a position where it's far ray is hovering over the cube
+            // Moving the hand to a position where its far ray is hovering over the cube
             yield return rightHand.AimAt(cube.transform.position);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
@@ -127,7 +127,7 @@ namespace MixedReality.Toolkit.Input.Tests
             InputTestUtilities.SetHandAnchorPoint(Handedness.Right, ControllerAnchorPoint.Grab);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            // Moving the hand to a position where it's far ray is hovering over the cube
+            // Moving the hand to a position where its far ray is hovering over the cube
             yield return rightHand.AimAt(cube.transform.position);
             yield return RuntimeTestUtilities.WaitForUpdates();
             InteractionMode farRayMode = rightHandController.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>().ModeOnHover;
@@ -165,7 +165,7 @@ namespace MixedReality.Toolkit.Input.Tests
 
             ValidateInteractionModeActive(rightHandController, nearMode);
 
-            // Moving the hand to a position where it's far ray is hovering over the cube
+            // Moving the hand to a position where its far ray is hovering over the cube
             yield return rightHand.MoveTo(cube.transform.position + new Vector3(0.02f, -0.1f, -0.8f));
             yield return RuntimeTestUtilities.WaitForUpdates(frameCount:120);
 
@@ -180,7 +180,7 @@ namespace MixedReality.Toolkit.Input.Tests
         private void ValidateInteractionModeActive(XRBaseController controller, InteractionMode currentMode)
         {
             // We construct the list of managed interactor types manually because we don't want to expose the internal controller mapping implementation to even internal use, since
-            // we don't want any other class to be able to modify those collections without going through the Mode Manager or it's in-editor inspector.
+            // we don't want any other class to be able to modify those collections without going through the Mode Manager or its in-editor inspector.
             HashSet<System.Type> managedInteractorTypes = new HashSet<System.Type>(InteractionModeManager.Instance.PrioritizedInteractionModes.SelectMany(x => x.AssociatedTypes));
             HashSet<System.Type> activeInteractorTypes = InteractionModeManager.Instance.PrioritizedInteractionModes.Find(x => x.ModeName == currentMode.Name).AssociatedTypes;
 
