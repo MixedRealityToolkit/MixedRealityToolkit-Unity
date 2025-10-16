@@ -313,6 +313,7 @@ namespace MixedReality.Toolkit.Input.Tests
         [UnityTest]
         public IEnumerator TestStatefulInteractableSelectMode(
             [Values(InteractableSelectMode.Single, InteractableSelectMode.Multiple)] InteractableSelectMode selectMode,
+            [Values(true, false)] bool triggerOnRelease,
             [Values(true, false)] bool releaseInSelectOrder)
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -323,17 +324,28 @@ namespace MixedReality.Toolkit.Input.Tests
             bool isSelected = false;
             bool selectEntered = false;
             bool selectExited = false;
+            int clickCount = 0;
+
+            void ResetState()
+            {
+                selectEntered = false;
+                selectExited = false;
+                clickCount = 0;
+            }
 
             // For this test, we won't use poke or grab selection
             interactable.DisableInteractorType(typeof(PokeInteractor));
             interactable.DisableInteractorType(typeof(GrabInteractor));
             interactable.selectMode = selectMode;
+            interactable.TriggerOnRelease = triggerOnRelease;
 
-            interactable.firstSelectEntered.AddListener((SelectEnterEventArgs) => { isSelected = true; });
-            interactable.lastSelectExited.AddListener((SelectEnterEventArgs) => { isSelected = false; });
+            interactable.firstSelectEntered.AddListener((_) => isSelected = true);
+            interactable.lastSelectExited.AddListener((_) => isSelected = false);
 
-            interactable.selectEntered.AddListener((SelectEnterEventArgs) => { selectEntered = true; });
-            interactable.selectExited.AddListener((SelectEnterEventArgs) => { selectExited = true; });
+            interactable.selectEntered.AddListener((_) => selectEntered = true);
+            interactable.selectExited.AddListener((_) => selectExited = true);
+
+            interactable.OnClicked.AddListener(() => clickCount++);
 
             // Introduce the first hand
             var rightHand = new TestHand(Handedness.Right);
@@ -380,9 +392,10 @@ namespace MixedReality.Toolkit.Input.Tests
                           "StatefulInteractable should have had a select enter.");
             Assert.IsFalse(selectExited,
                            "StatefulInteractable should not have had a select exit.");
+            Assert.AreEqual(triggerOnRelease ? 0 : 1, clickCount);
 
             // Reset to continue testing
-            selectEntered = false;
+            ResetState();
 
             // Release the first hand to deselect the cube
             yield return rightHand.SetHandshape(HandshapeId.Open);
@@ -399,9 +412,10 @@ namespace MixedReality.Toolkit.Input.Tests
                            "StatefulInteractable should not have had a select enter.");
             Assert.IsTrue(selectExited,
                           "StatefulInteractable should have had a select exit.");
+            Assert.AreEqual(triggerOnRelease ? 1 : 0, clickCount);
 
             // Reset to continue testing
-            selectExited = false;
+            ResetState();
 
             // Introduce the second hand
             var leftHand = new TestHand(Handedness.Left);
@@ -443,9 +457,10 @@ namespace MixedReality.Toolkit.Input.Tests
                           "StatefulInteractable should have had a select enter.");
             Assert.IsFalse(selectExited,
                            "StatefulInteractable should not have had a select exit.");
+            Assert.AreEqual(triggerOnRelease ? 0 : 1, clickCount);
 
             // Reset to continue testing
-            selectEntered = false;
+            ResetState();
 
             // Pinch the second hand to select the cube
             yield return leftHand.SetHandshape(HandshapeId.Pinch);
@@ -459,9 +474,6 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsTrue(selectEntered,
                           "StatefulInteractable should have had a select enter.");
 
-            // Reset to continue testing
-            selectEntered = false;
-
             // Both hands are pinching, so we check the select state based on the mode
             switch (selectMode)
             {
@@ -470,19 +482,22 @@ namespace MixedReality.Toolkit.Input.Tests
                                   "StatefulInteractable should only have 1 selecting interactor.");
                     Assert.IsTrue(selectExited,
                                   "StatefulInteractable should have had a select exit.");
-                    // Reset to continue testing
-                    selectExited = false;
+                    Assert.AreEqual(1, clickCount);
                     break;
                 case InteractableSelectMode.Multiple:
                     Assert.IsTrue(interactable.interactorsSelecting.Count == 2,
                                   "StatefulInteractable should have 2 selecting interactors.");
                     Assert.IsFalse(selectExited,
                                    "StatefulInteractable should not have had a select exit.");
+                    Assert.AreEqual(0, clickCount);
                     break;
                 default:
                     Assert.Fail($"Unhandled {nameof(InteractableSelectMode)}={selectMode}");
                     break;
             }
+
+            // Reset to continue testing
+            ResetState();
 
             TestHand firstReleasedHand;
             TestHand secondReleasedHand;
@@ -519,8 +534,7 @@ namespace MixedReality.Toolkit.Input.Tests
                                "StatefulInteractable should not be selected.");
                 Assert.IsTrue(selectExited,
                                "StatefulInteractable should have had a select exit.");
-                // Reset to continue testing
-                selectExited = false;
+                Assert.AreEqual(triggerOnRelease ? 1 : 0, clickCount);
             }
             // The first hand was no longer selecting in Single mode
             // If we're releasing in the same order we selected,
@@ -535,13 +549,12 @@ namespace MixedReality.Toolkit.Input.Tests
                               "StatefulInteractable should only have 1 selecting interactor.");
                 Assert.IsTrue(isSelected,
                               "StatefulInteractable should be selected.");
+                Assert.AreEqual(0, clickCount);
 
                 if (selectMode == InteractableSelectMode.Multiple)
                 {
                     Assert.IsTrue(selectExited,
                                   "StatefulInteractable should have had a select exit.");
-                    // Reset to continue testing
-                    selectExited = false;
                 }
                 else
                 {
@@ -550,6 +563,9 @@ namespace MixedReality.Toolkit.Input.Tests
                                    "StatefulInteractable should not have had a select exit.");
                 }
             }
+
+            // Reset to continue testing
+            ResetState();
 
             // Release the last hand to deselect the cube
             yield return secondReleasedHand.SetHandshape(HandshapeId.Open);
@@ -574,9 +590,11 @@ namespace MixedReality.Toolkit.Input.Tests
             {
                 Assert.IsTrue(selectExited,
                               "StatefulInteractable should have had a select exit.");
-                // Reset to continue testing
-                selectExited = false;
+                Assert.AreEqual(triggerOnRelease ? 1 : 0, clickCount);
             }
+
+            // Reset to continue testing
+            ResetState();
 
             yield return RuntimeTestUtilities.WaitForUpdates();
         }
