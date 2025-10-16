@@ -310,6 +310,277 @@ namespace MixedReality.Toolkit.Input.Tests
             Assert.IsTrue(interactable.IsGazePinchHovered);
         }
 
+        [UnityTest]
+        public IEnumerator TestStatefulInteractableSelectMode(
+            [Values(InteractableSelectMode.Single, InteractableSelectMode.Multiple)] InteractableSelectMode selectMode,
+            [Values(true, false)] bool releaseInSelectOrder)
+        {
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            StatefulInteractable interactable = cube.AddComponent<StatefulInteractable>();
+            cube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0.2f, 0.2f, 0.5f));
+            cube.transform.localScale = Vector3.one * 0.1f;
+
+            bool isSelected = false;
+            bool selectEntered = false;
+            bool selectExited = false;
+
+            // For this test, we won't use poke or grab selection
+            interactable.DisableInteractorType(typeof(PokeInteractor));
+            interactable.DisableInteractorType(typeof(GrabInteractor));
+            interactable.selectMode = selectMode;
+
+            interactable.firstSelectEntered.AddListener((SelectEnterEventArgs) => { isSelected = true; });
+            interactable.lastSelectExited.AddListener((SelectEnterEventArgs) => { isSelected = false; });
+
+            interactable.selectEntered.AddListener((SelectEnterEventArgs) => { selectEntered = true; });
+            interactable.selectExited.AddListener((SelectEnterEventArgs) => { selectExited = true; });
+
+            // Introduce the first hand
+            var rightHand = new TestHand(Handedness.Right);
+            yield return rightHand.Show(InputTestUtilities.InFrontOfUser(0.4f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.IsFalse(interactable.IsRayHovered,
+                           "StatefulInteractable was already RayHovered.");
+            Assert.IsFalse(interactable.isHovered,
+                           "StatefulInteractable was already hovered.");
+
+            // Aim the first hand to hover the cube
+            yield return rightHand.AimAt(cube.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.IsTrue(interactable.IsRayHovered,
+                          "StatefulInteractable did not get RayHovered.");
+            Assert.IsTrue(interactable.isHovered,
+                          "StatefulInteractable did not get hovered.");
+
+            Assert.IsTrue(interactable.HoveringRayInteractors.Count == 1,
+                          "StatefulInteractable should only have 1 hovering RayInteractor.");
+            Assert.IsTrue(interactable.interactorsHovering.Count == 1,
+                          "StatefulInteractable should only have 1 hovering interactor.");
+
+            Assert.IsFalse(isSelected,
+                          "StatefulInteractable should not be selected.");
+            Assert.IsFalse(selectEntered,
+                          "StatefulInteractable should not have had a select enter.");
+            Assert.IsFalse(selectExited,
+                          "StatefulInteractable should not have had a select exit.");
+
+            // Pinch the first hand to select the cube
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.IsTrue(interactable.IsRaySelected,
+                          "StatefulInteractable did not get RaySelected.");
+            Assert.IsTrue(interactable.isSelected,
+                          "StatefulInteractable did not get selected.");
+            Assert.IsTrue(interactable.interactorsSelecting.Count == 1,
+                          "StatefulInteractable should only have 1 selecting interactor.");
+            Assert.IsTrue(isSelected,
+                          "StatefulInteractable did not get selected.");
+            Assert.IsTrue(selectEntered,
+                          "StatefulInteractable should have had a select enter.");
+            Assert.IsFalse(selectExited,
+                           "StatefulInteractable should not have had a select exit.");
+
+            // Reset to continue testing
+            selectEntered = false;
+
+            // Release the first hand to deselect the cube
+            yield return rightHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.IsFalse(interactable.IsRaySelected,
+                           "StatefulInteractable did not get de-RaySelected.");
+            Assert.IsFalse(interactable.isSelected,
+                           "StatefulInteractable did not get deselected.");
+            Assert.IsTrue(interactable.interactorsSelecting.Count == 0,
+                          "StatefulInteractable should not have any selecting interactors.");
+            Assert.IsFalse(isSelected,
+                           "StatefulInteractable should not be selected.");
+            Assert.IsFalse(selectEntered,
+                           "StatefulInteractable should not have had a select enter.");
+            Assert.IsTrue(selectExited,
+                          "StatefulInteractable should have had a select exit.");
+
+            // Reset to continue testing
+            selectExited = false;
+
+            // Introduce the second hand
+            var leftHand = new TestHand(Handedness.Left);
+            yield return leftHand.Show(InputTestUtilities.InFrontOfUser(0.4f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Aim the second hand to hover the cube
+            yield return leftHand.AimAt(cube.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.IsTrue(interactable.IsRayHovered,
+                          "StatefulInteractable did not stay RayHovered.");
+            Assert.IsTrue(interactable.isHovered,
+                          "StatefulInteractable did not stay hovered.");
+
+            Assert.IsTrue(interactable.HoveringRayInteractors.Count == 2,
+                          "StatefulInteractable should have 2 hovering RayInteractors.");
+            Assert.IsTrue(interactable.interactorsHovering.Count == 2,
+                          "StatefulInteractable should have 2 hovering interactors.");
+
+            Assert.IsFalse(isSelected,
+                           "StatefulInteractable should not be selected.");
+            Assert.IsFalse(selectEntered,
+                           "StatefulInteractable should not have had a select enter.");
+            Assert.IsFalse(selectExited,
+                           "StatefulInteractable should not have had a select exit.");
+
+            // Pinch the first hand to select the cube
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.IsTrue(interactable.IsRaySelected,
+                          "StatefulInteractable did not get RaySelected.");
+            Assert.IsTrue(interactable.isSelected,
+                          "StatefulInteractable did not get selected.");
+            Assert.IsTrue(interactable.interactorsSelecting.Count == 1,
+                          "StatefulInteractable should only have 1 selecting interactor.");
+            Assert.IsTrue(isSelected,
+                          "StatefulInteractable did not get selected.");
+            Assert.IsTrue(selectEntered,
+                          "StatefulInteractable should have had a select enter.");
+            Assert.IsFalse(selectExited,
+                           "StatefulInteractable should not have had a select exit.");
+
+            // Reset to continue testing
+            selectEntered = false;
+
+            // Pinch the second hand to select the cube
+            yield return leftHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.IsTrue(interactable.IsRaySelected,
+                          "StatefulInteractable did not stay RaySelected.");
+            Assert.IsTrue(interactable.isSelected,
+                          "StatefulInteractable did not stay selected.");
+            Assert.IsTrue(isSelected,
+                          "StatefulInteractable did not stay selected.");
+            Assert.IsTrue(selectEntered,
+                          "StatefulInteractable should have had a select enter.");
+
+            // Reset to continue testing
+            selectEntered = false;
+
+            // Both hands are pinching, so we check the select state based on the mode
+            switch (selectMode)
+            {
+                case InteractableSelectMode.Single:
+                    Assert.IsTrue(interactable.interactorsSelecting.Count == 1,
+                                  "StatefulInteractable should only have 1 selecting interactor.");
+                    Assert.IsTrue(selectExited,
+                                  "StatefulInteractable should have had a select exit.");
+                    // Reset to continue testing
+                    selectExited = false;
+                    break;
+                case InteractableSelectMode.Multiple:
+                    Assert.IsTrue(interactable.interactorsSelecting.Count == 2,
+                                  "StatefulInteractable should have 2 selecting interactors.");
+                    Assert.IsFalse(selectExited,
+                                   "StatefulInteractable should not have had a select exit.");
+                    break;
+                default:
+                    Assert.Fail($"Unhandled {nameof(InteractableSelectMode)}={selectMode}");
+                    break;
+            }
+
+            TestHand firstReleasedHand;
+            TestHand secondReleasedHand;
+            if (releaseInSelectOrder)
+            {
+                firstReleasedHand = rightHand;
+                secondReleasedHand = leftHand;
+            }
+            else
+            {
+                firstReleasedHand = leftHand;
+                secondReleasedHand = rightHand;
+            }
+
+            // Release a hand to deselect the cube
+            yield return firstReleasedHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.IsFalse(selectEntered,
+                           "StatefulInteractable should not have had a select enter.");
+
+            // The first hand was no longer selecting in Single mode
+            // If we're releasing in the reverse order we selected,
+            // releasing the second pinch should release the select fully
+            if (!releaseInSelectOrder && selectMode == InteractableSelectMode.Single)
+            {
+                Assert.IsFalse(interactable.IsRaySelected,
+                               "StatefulInteractable did not get de-RaySelected.");
+                Assert.IsFalse(interactable.isSelected,
+                               "StatefulInteractable did not get deselected.");
+                Assert.IsTrue(interactable.interactorsSelecting.Count == 0,
+                               "StatefulInteractable should not have any selecting interactors.");
+                Assert.IsFalse(isSelected,
+                               "StatefulInteractable should not be selected.");
+                Assert.IsTrue(selectExited,
+                               "StatefulInteractable should have had a select exit.");
+                // Reset to continue testing
+                selectExited = false;
+            }
+            // The first hand was no longer selecting in Single mode
+            // If we're releasing in the same order we selected,
+            // we should still be selected regardless of the mode
+            else
+            {
+                Assert.IsTrue(interactable.IsRaySelected,
+                              "StatefulInteractable did not stay RaySelected.");
+                Assert.IsTrue(interactable.isSelected,
+                              "StatefulInteractable did not stay selected.");
+                Assert.IsTrue(interactable.interactorsSelecting.Count == 1,
+                              "StatefulInteractable should only have 1 selecting interactor.");
+                Assert.IsTrue(isSelected,
+                              "StatefulInteractable should be selected.");
+
+                if (selectMode == InteractableSelectMode.Multiple)
+                {
+                    Assert.IsTrue(selectExited,
+                                  "StatefulInteractable should have had a select exit.");
+                    // Reset to continue testing
+                    selectExited = false;
+                }
+                else
+                {
+                    // This select exit happened when the second hand pinched, releasing the first
+                    Assert.IsFalse(selectExited,
+                                   "StatefulInteractable should not have had a select exit.");
+                }
+            }
+
+            // Release the last hand to deselect the cube
+            yield return secondReleasedHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.IsFalse(interactable.IsRaySelected,
+                           "StatefulInteractable did not get de-RaySelected.");
+            Assert.IsFalse(interactable.isSelected,
+                           "StatefulInteractable did not get deselected.");
+            Assert.IsTrue(interactable.interactorsSelecting.Count == 0,
+                           "StatefulInteractable should not have any selecting interactors.");
+            Assert.IsFalse(isSelected,
+                           "StatefulInteractable should not be selected.");
+            Assert.IsFalse(selectEntered,
+                           "StatefulInteractable should not have had a select enter.");
+
+            if (!releaseInSelectOrder && selectMode == InteractableSelectMode.Single)
+            {
+                Assert.IsFalse(selectExited,
+                               "StatefulInteractable should not have had a select exit.");
+            }
+            else
+            {
+                Assert.IsTrue(selectExited,
+                              "StatefulInteractable should have had a select exit.");
+                // Reset to continue testing
+                selectExited = false;
+            }
+
+            yield return RuntimeTestUtilities.WaitForUpdates();
+        }
+
         /// <summary>
         /// A dummy interactor used to test basic selection/toggle logic.
         /// </summary>
