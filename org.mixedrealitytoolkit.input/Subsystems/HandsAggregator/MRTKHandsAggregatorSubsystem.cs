@@ -259,7 +259,7 @@ namespace MixedReality.Toolkit.Input
                 gotData &= TryGetJoint(TrackedHandJoint.IndexTip, handNode, out HandJointPose indexPose);
                 gotData &= TryGetJoint(TrackedHandJoint.Palm, handNode, out HandJointPose palmPose);
 
-                HandJointPose pinchPointPose = handNode == XRNode.LeftHand ? leftPinchPose : rightPinchPose;
+                ref HandJointPose pinchPointPose = ref (handNode == XRNode.LeftHand ? ref leftPinchPose : ref rightPinchPose);
 
                 // Stabilize the pinch pose by a weighted average between the thumb and index.
                 // A true average (50% thumb, 50% index) is too unstable for precise manipulation.
