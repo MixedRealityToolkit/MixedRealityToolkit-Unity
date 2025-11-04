@@ -17,7 +17,7 @@
   "unityRelease": "26f1",
   "documentationUrl": "https://www.mixedrealitytoolkit.org",
   "dependencies": {
-    "com.microsoft.mrtk.tts.windows": "1.0.1",
-    "org.mixedrealitytoolkit.core": "3.0.0"
+    "com.microsoft.mrtk.tts.windows": "1.0.4",
+    "org.mixedrealitytoolkit.core": "3.2.2"
   }
 }
