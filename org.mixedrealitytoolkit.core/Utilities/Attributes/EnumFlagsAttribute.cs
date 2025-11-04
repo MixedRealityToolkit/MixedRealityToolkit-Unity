@@ -14,6 +14,7 @@ namespace MixedReality.Toolkit
     /// From https://answers.unity.com/questions/486694/default-editor-enum-as-flags-.html
     /// </remarks>
     [AttributeUsage(AttributeTargets.Field)]
+    [Obsolete("Use Unity.XR.CoreUtils.GUI.FlagsPropertyAttribute instead.")]
     public sealed class EnumFlagsAttribute : PropertyAttribute
     {
         /// <summary>
