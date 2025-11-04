@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Profiling;
+using Unity.XR.CoreUtils.GUI;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -135,8 +136,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
-        [SerializeField]
-        [EnumFlags]
+        [SerializeField, FlagsProperty]
         [Tooltip("What kinds of manipulation should be allowed?")]
         private TransformFlags allowedManipulations = TransformFlags.Move | TransformFlags.Rotate | TransformFlags.Scale;
 
@@ -288,8 +288,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => rotationAnchorFar = value;
         }
 
-        [SerializeField]
-        [EnumFlags]
+        [SerializeField, FlagsProperty]
         [Tooltip("Rigid body behavior of the dragged object when releasing it.")]
         private ReleaseBehaviorType releaseBehavior = ReleaseBehaviorType.KeepVelocity | ReleaseBehaviorType.KeepAngularVelocity;
 

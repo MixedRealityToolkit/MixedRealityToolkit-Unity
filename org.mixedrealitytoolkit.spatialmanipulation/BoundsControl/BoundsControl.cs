@@ -1,15 +1,12 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using Unity.Profiling;
+using Unity.XR.CoreUtils.GUI;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using static MixedReality.Toolkit.SpatialManipulation.ObjectManipulator;
-using System;
-
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
@@ -262,8 +259,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => enabledHandles = value;
         }
 
-        [EnumFlags]
-        [SerializeField]
+        [SerializeField, FlagsProperty]
         [Tooltip("Specifies whether the rotate handles will rotate the object around its origin, or the center of its calculated bounds.")]
         private RotateAnchorType rotateAnchor = RotateAnchorType.BoundsCenter;
 
@@ -282,8 +278,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
-        [EnumFlags]
-        [SerializeField]
+        [SerializeField, FlagsProperty]
         [Tooltip("Specifies whether the scale handles will rotate the object around their opposing corner, or the center of its calculated bounds.")]
         private ScaleAnchorType scaleAnchor = ScaleAnchorType.OppositeCorner;
 
