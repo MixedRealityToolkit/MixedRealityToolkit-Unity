@@ -1,7 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
+using Unity.XR.CoreUtils.GUI;
 using UnityEngine;
 
 namespace MixedReality.Toolkit.SpatialManipulation
@@ -17,8 +17,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
     {
         #region Properties
 
-        [SerializeField]
-        [EnumFlags]
+        [SerializeField, FlagsProperty]
         [Tooltip("What type of manipulation this constraint applies to. Defaults to One Handed and Two Handed.")]
         private ManipulationHandFlags handType = ManipulationHandFlags.OneHanded | ManipulationHandFlags.TwoHanded;
 
@@ -31,8 +30,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => handType = value;
         }
 
-        [SerializeField]
-        [EnumFlags]
+        [SerializeField, FlagsProperty]
         [Tooltip("What type of manipulation this constraint applies to. Defaults to Near and Far.")]
         private ManipulationProximityFlags proximityType = ManipulationProximityFlags.Near | ManipulationProximityFlags.Far;
 
