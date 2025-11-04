@@ -105,8 +105,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
-        [SerializeField]
-        [DrawIf("overrideBounds")]
+        [SerializeField, DrawIf("overrideBounds")]
         [Tooltip("The bounds will be calculated from this object and this object only, instead of the entire hierarchy.")]
         private Transform boundsOverride;
 
@@ -196,8 +195,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => toggleHandlesOnClick = value;
         }
 
-        [SerializeField]
-        [DrawIf("toggleHandlesOnClick")]
+        [SerializeField, DrawIf("toggleHandlesOnClick")]
         [Tooltip("During a selection of the associated interactable, if the interactable is dragged/moved a smaller distance than this value, the handles will be activated/deactivated.")]
         private float dragToggleThreshold = 0.02f;
 
@@ -331,8 +329,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => smoothingActive = value;
         }
 
-        [SerializeField]
-        [DrawIf("smoothingActive")]
+        [SerializeField, DrawIf("smoothingActive")]
         [Tooltip("Enter amount representing amount of smoothing to apply to the rotation. Smoothing of 0 means no smoothing. Max value means no change to value.")]
         private float rotateLerpTime = 0.00001f;
 
@@ -345,8 +342,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => rotateLerpTime = value;
         }
 
-        [SerializeField]
-        [DrawIf("smoothingActive")]
+        [SerializeField, DrawIf("smoothingActive")]
         [Tooltip("Enter amount representing amount of smoothing to apply to the scale. Smoothing of 0 means no smoothing. Max value means no change to value.")]
         private float scaleLerpTime = 0.00001f;
 
@@ -359,8 +355,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => scaleLerpTime = value;
         }
 
-        [SerializeField]
-        [DrawIf("smoothingActive")]
+        [SerializeField, DrawIf("smoothingActive")]
         [Tooltip("Enter amount representing amount of smoothing to apply to the translation. " +
             "Smoothing of 0 means no smoothing. Max value means no change to value.")]
         private float translateLerpTime = 0.00001f;
@@ -390,8 +385,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => enableConstraints = value;
         }
 
-        [SerializeField]
-        [DrawIf("enableConstraints")]
+        [SerializeField, DrawIf("enableConstraints")]
         [Tooltip("Constraint manager slot to enable constraints when manipulating the object.")]
         private ConstraintManager constraintsManager;
         /// <summary>
@@ -434,7 +428,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [Header("Events")]
 
         [SerializeField]
-        SelectEnterEvent manipulationStarted = new SelectEnterEvent();
+        private SelectEnterEvent manipulationStarted = new SelectEnterEvent();
 
         /// <summary>
         /// Fired when manipulation on a handle begins.
@@ -446,7 +440,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         [SerializeField]
-        SelectExitEvent manipulationEnded = new SelectExitEvent();
+        private SelectExitEvent manipulationEnded = new SelectExitEvent();
 
         /// <summary>
         /// Fired when manipulation on a handle ends.
