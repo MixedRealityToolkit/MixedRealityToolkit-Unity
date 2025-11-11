@@ -1,4 +1,3 @@
-
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
@@ -23,19 +22,16 @@ namespace MixedReality.Toolkit.Editor
         private const string AvailableIconsFoldoutKey = "MixedRealityToolkit.FontIconSet.ShowAvailableIcons";
         private const string SelectedIconsFoldoutKey = "MixedRealityToolkit.FontIconSet.ShowSelectedIcons";
 
-        private const string defaultShaderName = "TextMeshPro/Distance Field SSD"; // Only used for presentation in inspector, not at runtime.
-        private const int glyphDrawSize = 75;
-        private const int buttonWidth = 75;
-        private const int buttonHeight = 90;
-        private const int maxButtonsPerColumn = 6;
+        private const string DefaultShaderName = "TextMeshPro/Distance Field SSD"; // Only used for presentation in inspector, not at runtime.
+        private const int GlyphDrawSize = 75;
+        private const int ButtonDimension = 75;
+        private const int MaxButtonsPerColumn = 6;
 
-        private static Material fontRenderMaterial;
-
-        private const string noIconFontMessage = "No icon font asset selected. Icon fonts will be unavailable.";
-        private const string downloadIconFontMessage = "For instructions on how to install the HoloLens icon font asset, click the button below.";
-        private const string hololensIconFontUrl = "https://docs.microsoft.com/windows/mixed-reality/mrtk-unity/features/ux-building-blocks/button";
-        private const string mdl2IconFontName = "holomdl2";
-        private const string textMeshProMenuItem = "Window/TextMeshPro/Font Asset Creator";
+        private const string NoIconFontMessage = "No icon font asset selected. Icon fonts will be unavailable.";
+        private const string DownloadIconFontMessage = "For instructions on how to install the HoloLens icon font asset, click the button below.";
+        private const string HoloLensIconFontUrl = "https://docs.microsoft.com/windows/mixed-reality/mrtk-unity/features/ux-building-blocks/button";
+        private const string MDL2IconFontName = "holomdl2";
+        private const string TextMeshProMenuItem = "Window/TextMeshPro/Font Asset Creator";
 
         private SerializedProperty iconFontAssetProp = null;
 
@@ -88,14 +84,14 @@ namespace MixedReality.Toolkit.Editor
 
                 if (iconFontAssetProp.objectReferenceValue == null)
                 {
-                    EditorGUILayout.HelpBox(noIconFontMessage, MessageType.Warning);
-                    if (!CheckIfHololensIconFontExists())
+                    EditorGUILayout.HelpBox(NoIconFontMessage, MessageType.Warning);
+                    if (!CheckIfHoloLensIconFontExists())
                     {
-                        EditorGUILayout.HelpBox(downloadIconFontMessage, MessageType.Info);
+                        EditorGUILayout.HelpBox(DownloadIconFontMessage, MessageType.Info);
                         if (GUILayout.Button("View Font Asset Icons Documentation"))
                         {
-                            EditorApplication.ExecuteMenuItem(textMeshProMenuItem);
-                            Application.OpenURL(hololensIconFontUrl);
+                            EditorApplication.ExecuteMenuItem(TextMeshProMenuItem);
+                            Application.OpenURL(HoloLensIconFontUrl);
                         }
                     }
                 }
@@ -123,7 +119,7 @@ namespace MixedReality.Toolkit.Editor
                                 Selection.activeObject = fontAsset;
                             }
 
-                            DrawFontGlyphsGrid(fontAsset, fontIconSet, maxButtonsPerColumn);
+                            DrawFontGlyphsGrid(fontAsset, fontIconSet, MaxButtonsPerColumn);
                         }
 
                         EditorGUILayout.Space();
@@ -144,13 +140,13 @@ namespace MixedReality.Toolkit.Editor
                                 {
                                     using (new EditorGUILayout.HorizontalScope())
                                     {
-                                        if (GUILayout.Button(" ", GUILayout.MinHeight(buttonHeight), GUILayout.MaxHeight(buttonHeight), GUILayout.MaxWidth(buttonWidth)))
+                                        if (GUILayout.Button(" ", GUILayout.Height(ButtonDimension), GUILayout.MaxWidth(ButtonDimension)))
                                         {
                                             iconToRemove = iconEntry.Name;
                                         }
                                         Rect textureRect = GUILayoutUtility.GetLastRect();
-                                        textureRect.width = glyphDrawSize;
-                                        textureRect.height = glyphDrawSize;
+                                        textureRect.width = GlyphDrawSize;
+                                        textureRect.height = GlyphDrawSize;
                                         EditorDrawTMPGlyph(textureRect, iconEntry.UnicodeValue, fontAsset);
 
                                         string currentName = iconEntry.Name;
@@ -195,14 +191,13 @@ namespace MixedReality.Toolkit.Editor
         [Obsolete("This method has been removed.")]
         public void DrawFontGlyphsGrid(FontIconSet fontIconSet, int maxButtonsPerColumn)
         {
-            TMP_FontAsset fontAsset = fontIconSet.IconFontAsset;
-            DrawFontGlyphsGrid(fontAsset, fontIconSet, maxButtonsPerColumn);
+            DrawFontGlyphsGrid(fontIconSet.IconFontAsset, fontIconSet, maxButtonsPerColumn);
         }
 
         /// <summary>
         /// Draw a grid of buttons than can be clicked to select a glyph from a set up glyphs.
         /// </summary>
-        /// <param name="fontAsset"></param>
+        /// <param name="fontAsset">The font asset containing the glyphs.</param>
         /// <param name="fontIconSet">The set of font glyphs to draw.</param>
         /// <param name="maxButtonsPerColumn">The number of buttons per column.</param>
         private void DrawFontGlyphsGrid(TMP_FontAsset fontAsset, FontIconSet fontIconSet, int maxButtonsPerColumn)
@@ -217,25 +212,23 @@ namespace MixedReality.Toolkit.Editor
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
                 }
+
                 if (GUILayout.Button(" ",
-                    GUILayout.MinHeight(buttonHeight),
-                    GUILayout.MaxHeight(buttonHeight),
-                    GUILayout.MaxWidth(buttonWidth)))
+                    GUILayout.Height(ButtonDimension),
+                    GUILayout.MaxWidth(ButtonDimension)))
                 {
                     AddIcon(fontIconSet, fontAsset.characterTable[i].unicode);
                     EditorUtility.SetDirty(target);
                 }
+
                 Rect textureRect = GUILayoutUtility.GetLastRect();
-                textureRect.width = glyphDrawSize;
-                textureRect.height = glyphDrawSize;
+                textureRect.width = GlyphDrawSize;
+                textureRect.height = GlyphDrawSize;
                 EditorDrawTMPGlyph(textureRect, fontAsset, fontAsset.characterTable[i]);
+
                 column++;
             }
-
-            if (column > 0)
-            {
-                EditorGUILayout.EndHorizontal();
-            }
+            EditorGUILayout.EndHorizontal();
         }
 
         private bool AddIcon(FontIconSet fontIconSet, uint unicodeValue)
@@ -285,11 +278,11 @@ namespace MixedReality.Toolkit.Editor
             }
         }
 
-        private bool CheckIfHololensIconFontExists()
+        private bool CheckIfHoloLensIconFontExists()
         {
             foreach (string guid in AssetDatabase.FindAssets($"t:{typeof(UnityEngine.Font).Name}"))
             {
-                if (AssetDatabase.GUIDToAssetPath(guid).Contains(mdl2IconFontName))
+                if (AssetDatabase.GUIDToAssetPath(guid).Contains(MDL2IconFontName))
                 {
                     return true;
                 }
@@ -317,7 +310,7 @@ namespace MixedReality.Toolkit.Editor
             {
                 try
                 {
-                    float iconSizeMultiplier = 0.625f;
+                    const float IconSizeMultiplier = 0.625f;
 
                     // Get a reference to the Glyph Table
                     int glyphIndex = (int)character.glyphIndex;
@@ -335,20 +328,12 @@ namespace MixedReality.Toolkit.Editor
                         {
                             if (fontRenderMaterial == null)
                             {
-                                fontRenderMaterial = new Material(Shader.Find(defaultShaderName));
+                                fontRenderMaterial = new Material(Shader.Find(DefaultShaderName));
                             }
 
                             Material glyphMaterial = fontRenderMaterial;
                             glyphMaterial.mainTexture = atlasTexture;
-
-                            if (selected)
-                            {
-                                glyphMaterial.SetColor("_Color", Color.green);
-                            }
-                            else
-                            {
-                                glyphMaterial.SetColor("_Color", Color.white);
-                            }
+                            glyphMaterial.SetColor("_Color", selected ? Color.green : Color.white);
 
                             int glyphOriginX = glyph.glyphRect.x;
                             int glyphOriginY = glyph.glyphRect.y;
@@ -356,13 +341,13 @@ namespace MixedReality.Toolkit.Editor
                             int glyphHeight = glyph.glyphRect.height;
 
                             float normalizedHeight = fontAsset.faceInfo.ascentLine - fontAsset.faceInfo.descentLine;
-                            float scale = Mathf.Min(glyphRect.width, glyphRect.height) / normalizedHeight * iconSizeMultiplier;
+                            float scale = Mathf.Min(glyphRect.width, glyphRect.height) / normalizedHeight * IconSizeMultiplier;
 
                             // Compute the normalized texture coordinates
                             Rect texCoords = new Rect((float)glyphOriginX / atlasTexture.width, (float)glyphOriginY / atlasTexture.height, (float)glyphWidth / atlasTexture.width, (float)glyphHeight / atlasTexture.height);
 
-                            glyphWidth = (int)Mathf.Min(glyphDrawSize, glyphWidth * scale);
-                            glyphHeight = (int)Mathf.Min(glyphDrawSize, glyphHeight * scale);
+                            glyphWidth = (int)Mathf.Min(GlyphDrawSize, glyphWidth * scale);
+                            glyphHeight = (int)Mathf.Min(GlyphDrawSize, glyphHeight * scale);
 
                             glyphRect.x += (glyphRect.width - glyphWidth) / 2;
                             glyphRect.y += (glyphRect.height - glyphHeight) / 2;
