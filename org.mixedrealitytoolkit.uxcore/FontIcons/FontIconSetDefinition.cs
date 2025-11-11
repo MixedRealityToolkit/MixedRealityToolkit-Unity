@@ -12,6 +12,9 @@ namespace MixedReality.Toolkit.UX
         [SerializeField]
         private string[] iconNames;
 
-        public string[] IconNames => iconNames;
+        /// <summary>
+        /// The list of icon names defined by this asset.
+        /// </summary>
+        public IReadOnlyList<string> IconNames => iconNames;
     }
 }
