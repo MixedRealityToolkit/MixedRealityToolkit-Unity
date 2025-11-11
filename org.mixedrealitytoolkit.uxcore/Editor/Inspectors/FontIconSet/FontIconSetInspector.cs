@@ -333,7 +333,7 @@ namespace MixedReality.Toolkit.Editor
 
                             Material glyphMaterial = fontRenderMaterial;
                             glyphMaterial.mainTexture = atlasTexture;
-                            glyphMaterial.SetColor("_Color", selected ? Color.green : Color.white);
+                            glyphMaterial.SetColor("_FaceColor", selected ? Color.green : Color.white);
 
                             int glyphOriginX = glyph.glyphRect.x;
                             int glyphOriginY = glyph.glyphRect.y;
