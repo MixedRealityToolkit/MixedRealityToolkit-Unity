@@ -30,8 +30,8 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public SerializableDictionary<string, uint> GlyphIconsByName => glyphIconsByName;
 
-        [Tooltip("Any TextMeshPro Font Asset that contains the desired icons as glyphs that map to Unicode character values.")]
         [SerializeField]
+        [Tooltip("Any TextMeshPro Font Asset that contains the desired icons as glyphs that map to Unicode character values.")]
         private TMP_FontAsset iconFontAsset = null;
 
         /// <summary>
@@ -39,14 +39,23 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public TMP_FontAsset IconFontAsset => iconFontAsset;
 
-        [Tooltip("Optional material to use for rendering glyphs in editor.")]
         [SerializeField]
+        [Tooltip("Optional material to use for rendering glyphs in editor.")]
         private Material optionalEditorMaterial;
 
         /// <summary>
         /// Optional material to use for rendering glyphs in editor.
         /// </summary>
         public Material OptionalEditorMaterial => optionalEditorMaterial;
+
+        [SerializeField]
+        [Tooltip("Optional definition to provide consistent icon names.")]
+        private FontIconSetDefinition fontIconSetDefinition;
+
+        /// <summary>
+        /// Optional definition to provide consistent icon names.
+        /// </summary>
+        public FontIconSetDefinition FontIconSetDefinition => fontIconSetDefinition;
 
         /// <summary>
         /// Try to get a glyph icon's unicode value by name.

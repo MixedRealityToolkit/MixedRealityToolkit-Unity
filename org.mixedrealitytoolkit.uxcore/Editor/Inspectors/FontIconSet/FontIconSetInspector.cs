@@ -34,6 +34,7 @@ namespace MixedReality.Toolkit.Editor
         private const string TextMeshProMenuItem = "Window/TextMeshPro/Font Asset Creator";
 
         private SerializedProperty iconFontAssetProp = null;
+        private SerializedProperty fontIconSetDefinition = null;
 
         private class IconEntry
         {
@@ -56,6 +57,7 @@ namespace MixedReality.Toolkit.Editor
         {
             FontIconSet fontIconSet = (FontIconSet)target;
             iconFontAssetProp = serializedObject.FindProperty("iconFontAsset");
+            fontIconSetDefinition = serializedObject.FindProperty("fontIconSetDefinition");
 
             // Make a list out of dictionary to avoid changing order while editing names
             foreach (KeyValuePair<string, uint> kv in fontIconSet.GlyphIconsByName)
@@ -79,6 +81,7 @@ namespace MixedReality.Toolkit.Editor
             if (showGlyphIconFoldout)
             {
                 EditorGUILayout.PropertyField(iconFontAssetProp);
+                EditorGUILayout.PropertyField(fontIconSetDefinition);
 
                 if (iconFontAssetProp.objectReferenceValue == null)
                 {
@@ -129,6 +132,11 @@ namespace MixedReality.Toolkit.Editor
                         if (fontIconSet.GlyphIconsByName.Count > 0)
                         {
                             EditorGUILayout.HelpBox("These icons will appear in the button config helper inspector. Click an icon to remove it from this list.", MessageType.Info);
+
+                            if (fontIconSetDefinition.objectReferenceValue == null)
+                            {
+                                EditorGUILayout.HelpBox("It's recommended to use a Font Icon Set Definition to ensure consistent icon names across icon sets.", MessageType.Warning);
+                            }
 
                             int column = 0;
                             string iconToRemove = null;
