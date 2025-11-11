@@ -65,7 +65,6 @@ namespace MixedReality.Toolkit.UX
         /// <returns><see langword="true"/> if icon name found, otherwise <see langword="false"/>.</returns>
         public bool TryGetGlyphIcon(string iconName, out uint unicodeValue)
         {
-            unicodeValue = 0;
             return glyphIconsByName.TryGetValue(iconName, out unicodeValue);
         }
 
@@ -77,15 +76,7 @@ namespace MixedReality.Toolkit.UX
         /// <returns>Whether it was able to add this icon.</returns>
         public bool AddIcon(string name, uint unicodeValue)
         {
-            if (glyphIconsByName.ContainsValue(unicodeValue))
-            {
-                return false;
-            }
-            else
-            {
-                glyphIconsByName[name] = unicodeValue;
-                return true;
-            }
+            return !glyphIconsByName.ContainsValue(unicodeValue) && glyphIconsByName.TryAdd(name, unicodeValue);
         }
 
         /// <summary>
@@ -95,15 +86,7 @@ namespace MixedReality.Toolkit.UX
         /// <returns>Whether it was able to find the name and remove it.</returns>
         public bool RemoveIcon(string iconName)
         {
-            if (glyphIconsByName.ContainsKey(iconName))
-            {
-                glyphIconsByName.Remove(iconName);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return glyphIconsByName.Remove(iconName);
         }
 
         /// <summary>
@@ -118,16 +101,7 @@ namespace MixedReality.Toolkit.UX
         /// <returns><see langword="true"/> if it was able to find and update the name.</returns>
         public bool UpdateIconName(string oldName, string newName)
         {
-            if (glyphIconsByName.ContainsKey(oldName) && !glyphIconsByName.ContainsKey(newName))
-            {
-                glyphIconsByName[newName] = glyphIconsByName[oldName];
-                glyphIconsByName.Remove(oldName);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return glyphIconsByName.TryGetValue(oldName, out uint unicodeValue) && glyphIconsByName.TryAdd(newName, unicodeValue) && glyphIconsByName.Remove(oldName);
         }
 
         /// <summary>
