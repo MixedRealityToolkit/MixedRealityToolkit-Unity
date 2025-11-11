@@ -35,8 +35,12 @@ namespace MixedReality.Toolkit.Editor
 
         private SerializedProperty iconFontAssetProp = null;
         private SerializedProperty fontIconSetDefinitionProp = null;
+        private bool anyInvalidName = false;
 
         private SortedList<uint, string> iconEntries = new SortedList<uint, string>();
+        private List<string> validNames = new List<string>();
+        private List<string> availableNames = new List<string>();
+        private string[] availableNamesArray = Array.Empty<string>();
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
@@ -88,6 +92,7 @@ namespace MixedReality.Toolkit.Editor
                 {
                     FontIconSet fontIconSet = target as FontIconSet;
                     TMP_FontAsset fontAsset = iconFontAssetProp.objectReferenceValue as TMP_FontAsset;
+                    FontIconSetDefinition setDefinition = fontIconSetDefinitionProp.objectReferenceValue as FontIconSetDefinition;
 
                     showAvailableIcons = EditorGUILayout.Foldout(showAvailableIcons, "Available Icons", true);
                     if (showAvailableIcons)
@@ -125,6 +130,29 @@ namespace MixedReality.Toolkit.Editor
                             {
                                 EditorGUILayout.HelpBox("It's recommended to use a Font Icon Set Definition to ensure consistent icon names across icon sets.", MessageType.Warning);
                             }
+                            else
+                            {
+                                if (anyInvalidName)
+                                {
+                                    EditorGUILayout.HelpBox("Icon names highlighted yellow are not present in the selected Font Icon Set Definition and should be updated.", MessageType.Warning);
+                                    anyInvalidName = false;
+                                }
+
+                                validNames.Clear();
+                                availableNames.Clear();
+                                // Reserve space for the current icon's name
+                                availableNames.Add(string.Empty);
+                                foreach (string name in setDefinition.IconNames)
+                                {
+                                    validNames.Add(name);
+                                    if (!iconEntries.ContainsValue(name))
+                                    {
+                                        availableNames.Add(name);
+                                    }
+                                }
+
+                                availableNamesArray = availableNames.ToArray();
+                            }
 
                             int column = 0;
                             string iconToRemove = null;
@@ -153,11 +181,37 @@ namespace MixedReality.Toolkit.Editor
                                 textureRect.height = GlyphDrawSize;
                                 EditorDrawTMPGlyph(textureRect, iconEntry.Key, fontAsset);
 
-                                string currentName = EditorGUILayout.TextField(iconEntry.Value);
-                                if (currentName != iconEntry.Value)
+                                if (fontIconSetDefinitionProp.objectReferenceValue != null)
                                 {
-                                    iconToRename = currentName;
-                                    iconToRemove = iconEntry.Value;
+                                    // Place the current icon's name in the array
+                                    availableNamesArray[0] = iconEntry.Value;
+
+                                    using (var check = new EditorGUI.ChangeCheckScope())
+                                    {
+                                        // If the currently selected name isn't in our icon set map names, highlight the popup
+                                        Color oldColor = GUI.backgroundColor;
+                                        if (!validNames.Contains(iconEntry.Value))
+                                        {
+                                            GUI.backgroundColor = Color.yellow;
+                                            anyInvalidName = true;
+                                        }
+                                        int selected = EditorGUILayout.Popup(string.Empty, 0, availableNamesArray, GUILayout.MaxWidth(ButtonDimension));
+                                        if (check.changed)
+                                        {
+                                            iconToRename = availableNamesArray[selected];
+                                            iconToRemove = iconEntry.Value;
+                                        }
+                                        GUI.backgroundColor = oldColor;
+                                    }
+                                }
+                                else
+                                {
+                                    string currentName = EditorGUILayout.TextField(iconEntry.Value);
+                                    if (currentName != iconEntry.Value)
+                                    {
+                                        iconToRename = currentName;
+                                        iconToRemove = iconEntry.Value;
+                                    }
                                 }
                                 EditorGUILayout.EndVertical();
 
