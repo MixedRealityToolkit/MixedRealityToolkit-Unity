@@ -130,38 +130,46 @@ namespace MixedReality.Toolkit.Editor
                         {
                             EditorGUILayout.HelpBox("These icons will appear in the button config helper inspector. Click an icon to remove it from this list.", MessageType.Info);
 
-                            using (new EditorGUILayout.VerticalScope())
+                            int column = 0;
+                            string iconToRemove = null;
+                            EditorGUILayout.BeginHorizontal();
+                            foreach (IconEntry iconEntry in iconEntries)
                             {
-                                string iconToRemove = null;
-                                foreach (IconEntry iconEntry in iconEntries)
+                                if (column >= MaxButtonsPerColumn)
                                 {
-                                    using (new EditorGUILayout.HorizontalScope())
-                                    {
-                                        if (GUILayout.Button(" ", GUILayout.Height(ButtonDimension), GUILayout.MaxWidth(ButtonDimension)))
-                                        {
-                                            iconToRemove = iconEntry.Name;
-                                        }
-                                        Rect textureRect = GUILayoutUtility.GetLastRect();
-                                        textureRect.width = GlyphDrawSize;
-                                        textureRect.height = GlyphDrawSize;
-                                        EditorDrawTMPGlyph(textureRect, iconEntry.UnicodeValue, fontAsset);
-
-                                        string currentName = iconEntry.Name;
-                                        currentName = EditorGUILayout.TextField(currentName);
-                                        if (currentName != iconEntry.Name)
-                                        {
-                                            UpdateIconName(fontIconSet, iconEntry.Name, currentName);
-                                        }
-                                        EditorGUILayout.Space();
-                                    }
-
-                                    EditorGUILayout.Space();
+                                    column = 0;
+                                    EditorGUILayout.EndHorizontal();
+                                    EditorGUILayout.BeginHorizontal();
                                 }
 
-                                if (iconToRemove != null)
+                                EditorGUILayout.BeginVertical(GUILayout.Width(ButtonDimension));
+
+                                if (GUILayout.Button(" ",
+                                    GUILayout.Height(ButtonDimension),
+                                    GUILayout.MaxWidth(ButtonDimension)))
                                 {
-                                    RemoveIcon(fontIconSet, iconToRemove);
+                                    iconToRemove = iconEntry.Name;
                                 }
+
+                                Rect textureRect = GUILayoutUtility.GetLastRect();
+                                textureRect.width = GlyphDrawSize;
+                                textureRect.height = GlyphDrawSize;
+                                EditorDrawTMPGlyph(textureRect, iconEntry.UnicodeValue, fontAsset);
+
+                                string currentName = EditorGUILayout.TextField(iconEntry.Name);
+                                if (currentName != iconEntry.Name)
+                                {
+                                    UpdateIconName(fontIconSet, iconEntry.Name, currentName);
+                                }
+                                EditorGUILayout.EndVertical();
+
+                                column++;
+                            }
+                            EditorGUILayout.EndHorizontal();
+
+                            if (iconToRemove != null)
+                            {
+                                RemoveIcon(fontIconSet, iconToRemove);
                             }
                         }
                         else
