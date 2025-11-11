@@ -14,12 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glyphIconsByName:
     entries:
-    - key: Icon 137
-      value: 63518
     - key: Icon 136
       value: 63357
-    - key: Icon 135
-      value: 63323
     - key: Icon 134
       value: 63252
     - key: Icon 133
@@ -210,10 +206,6 @@ MonoBehaviour:
       value: 61810
     - key: Icon 40
       value: 61801
-    - key: Icon 39
-      value: 61788
-    - key: Icon 38
-      value: 61769
     - key: Icon 37
       value: 61760
     - key: Icon 36
@@ -230,8 +222,6 @@ MonoBehaviour:
       value: 61717
     - key: Icon 30
       value: 61709
-    - key: Icon 29
-      value: 61706
     - key: Icon 28
       value: 60390
     - key: Icon 27
@@ -276,8 +266,6 @@ MonoBehaviour:
       value: 59508
     - key: Icon 7
       value: 59476
-    - key: Icon 6
-      value: 59461
     - key: Icon 2
       value: 59416
     - key: Icon 3
@@ -298,5 +286,18 @@ MonoBehaviour:
       value: 63703
     - key: Icon 142
       value: 63742
+    - key: Thumb Down
+      value: 63518
+    - key: Stop Circle
+      value: 63323
+    - key: Add
+      value: 61706
+    - key: Arrow Down
+      value: 61769
+    - key: Arrow Left
+      value: 61788
+    - key: Call
+      value: 59461
   iconFontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   optionalEditorMaterial: {fileID: 0}
+  fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}
