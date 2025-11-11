@@ -213,18 +213,21 @@ namespace MixedReality.Toolkit.Editor
                     EditorGUILayout.BeginHorizontal();
                 }
 
-                if (GUILayout.Button(" ",
-                    GUILayout.Height(ButtonDimension),
-                    GUILayout.MaxWidth(ButtonDimension)))
+                using (new EditorGUI.DisabledGroupScope(fontIconSet.GlyphIconsByName.ContainsValue(fontAsset.characterTable[i].unicode)))
                 {
-                    AddIcon(fontIconSet, fontAsset.characterTable[i].unicode);
-                    EditorUtility.SetDirty(target);
-                }
+                    if (GUILayout.Button(" ",
+                        GUILayout.Height(ButtonDimension),
+                        GUILayout.MaxWidth(ButtonDimension)))
+                    {
+                        AddIcon(fontIconSet, fontAsset.characterTable[i].unicode);
+                        EditorUtility.SetDirty(target);
+                    }
 
-                Rect textureRect = GUILayoutUtility.GetLastRect();
-                textureRect.width = GlyphDrawSize;
-                textureRect.height = GlyphDrawSize;
-                EditorDrawTMPGlyph(textureRect, fontAsset, fontAsset.characterTable[i]);
+                    Rect textureRect = GUILayoutUtility.GetLastRect();
+                    textureRect.width = GlyphDrawSize;
+                    textureRect.height = GlyphDrawSize;
+                    EditorDrawTMPGlyph(textureRect, fontAsset, fontAsset.characterTable[i]);
+                }
 
                 column++;
             }
