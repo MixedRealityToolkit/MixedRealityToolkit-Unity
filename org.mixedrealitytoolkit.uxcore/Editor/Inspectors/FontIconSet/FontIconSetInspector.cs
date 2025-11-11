@@ -73,8 +73,6 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
-            FontIconSet fontIconSet = (FontIconSet)target;
-
             bool showGlyphIconFoldout = SessionState.GetBool(ShowGlyphIconsFoldoutKey, false);
             bool showAvailableIcons = SessionState.GetBool(AvailableIconsFoldoutKey, true);
             bool showSelectedIcons = SessionState.GetBool(SelectedIconsFoldoutKey, true);
@@ -103,6 +101,7 @@ namespace MixedReality.Toolkit.Editor
                 }
                 else
                 {
+                    FontIconSet fontIconSet = (FontIconSet)target;
                     TMP_FontAsset fontAsset = (TMP_FontAsset)iconFontAssetProp.objectReferenceValue;
 
                     showAvailableIcons = EditorGUILayout.BeginFoldoutHeaderGroup(showAvailableIcons, "Available Icons");
@@ -113,7 +112,7 @@ namespace MixedReality.Toolkit.Editor
                             EditorGUILayout.HelpBox("No icons are available in this font. The font may be configured incorrectly.", MessageType.Warning);
                             if (GUILayout.Button("Open Font Editor"))
                             {
-                                Selection.activeObject = fontIconSet.IconFontAsset;
+                                Selection.activeObject = fontAsset;
                             }
                         }
                         else
@@ -121,16 +120,16 @@ namespace MixedReality.Toolkit.Editor
                             EditorGUILayout.HelpBox("Click an icon to add it to your selected icons.", MessageType.Info);
                             if (GUILayout.Button("Open Font Editor"))
                             {
-                                Selection.activeObject = fontIconSet.IconFontAsset;
+                                Selection.activeObject = fontAsset;
                             }
 
-                            DrawFontGlyphsGrid(fontIconSet, maxButtonsPerColumn);
+                            DrawFontGlyphsGrid(fontAsset, fontIconSet, maxButtonsPerColumn);
                         }
 
                         EditorGUILayout.Space();
                     }
-
                     EditorGUILayout.EndFoldoutHeaderGroup();
+
                     showSelectedIcons = EditorGUILayout.BeginFoldoutHeaderGroup(showSelectedIcons, "Selected Icons");
                     if (showSelectedIcons)
                     {
@@ -177,7 +176,6 @@ namespace MixedReality.Toolkit.Editor
                             EditorGUILayout.HelpBox("No icons added yet. Click available icons to add.", MessageType.Info);
                         }
                     }
-
                     EditorGUILayout.EndFoldoutHeaderGroup();
                 }
             }
@@ -194,9 +192,21 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         /// <param name="fontIconSet">The set of font glyphs to draw.</param>
         /// <param name="maxButtonsPerColumn">The number of buttons per column.</param>
+        [Obsolete("This method has been removed.")]
         public void DrawFontGlyphsGrid(FontIconSet fontIconSet, int maxButtonsPerColumn)
         {
             TMP_FontAsset fontAsset = fontIconSet.IconFontAsset;
+            DrawFontGlyphsGrid(fontAsset, fontIconSet, maxButtonsPerColumn);
+        }
+
+        /// <summary>
+        /// Draw a grid of buttons than can be clicked to select a glyph from a set up glyphs.
+        /// </summary>
+        /// <param name="fontAsset"></param>
+        /// <param name="fontIconSet">The set of font glyphs to draw.</param>
+        /// <param name="maxButtonsPerColumn">The number of buttons per column.</param>
+        private void DrawFontGlyphsGrid(TMP_FontAsset fontAsset, FontIconSet fontIconSet, int maxButtonsPerColumn)
+        {
             int column = 0;
             EditorGUILayout.BeginHorizontal();
             for (int i = 0; i < fontAsset.characterTable.Count; i++)
