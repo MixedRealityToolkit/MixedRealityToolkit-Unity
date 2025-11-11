@@ -36,19 +36,7 @@ namespace MixedReality.Toolkit.Editor
         private SerializedProperty iconFontAssetProp = null;
         private SerializedProperty fontIconSetDefinitionProp = null;
 
-        private class IconEntry
-        {
-            public string Name;
-            public uint UnicodeValue;
-
-            public IconEntry(string name, uint unicodeValue)
-            {
-                Name = name;
-                UnicodeValue = unicodeValue;
-            }
-        }
-
-        private List<IconEntry> iconEntries = new List<IconEntry>();
+        private SortedList<uint, string> iconEntries = new SortedList<uint, string>();
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
@@ -62,7 +50,7 @@ namespace MixedReality.Toolkit.Editor
             // Make a list out of dictionary to avoid changing order while editing names
             foreach (KeyValuePair<string, uint> kv in fontIconSet.GlyphIconsByName)
             {
-                iconEntries.Add(new IconEntry(kv.Key, kv.Value));
+                iconEntries.Add(kv.Value, kv.Key);
             }
         }
 
@@ -98,8 +86,8 @@ namespace MixedReality.Toolkit.Editor
                 }
                 else
                 {
-                    FontIconSet fontIconSet = (FontIconSet)target;
-                    TMP_FontAsset fontAsset = (TMP_FontAsset)iconFontAssetProp.objectReferenceValue;
+                    FontIconSet fontIconSet = target as FontIconSet;
+                    TMP_FontAsset fontAsset = iconFontAssetProp.objectReferenceValue as TMP_FontAsset;
 
                     showAvailableIcons = EditorGUILayout.Foldout(showAvailableIcons, "Available Icons", true);
                     if (showAvailableIcons)
@@ -140,8 +128,9 @@ namespace MixedReality.Toolkit.Editor
 
                             int column = 0;
                             string iconToRemove = null;
+                            string iconToRename = null;
                             EditorGUILayout.BeginHorizontal();
-                            foreach (IconEntry iconEntry in iconEntries)
+                            foreach (KeyValuePair<uint, string> iconEntry in iconEntries)
                             {
                                 if (column >= MaxButtonsPerColumn)
                                 {
@@ -156,18 +145,19 @@ namespace MixedReality.Toolkit.Editor
                                     GUILayout.Height(ButtonDimension),
                                     GUILayout.MaxWidth(ButtonDimension)))
                                 {
-                                    iconToRemove = iconEntry.Name;
+                                    iconToRemove = iconEntry.Value;
                                 }
 
                                 Rect textureRect = GUILayoutUtility.GetLastRect();
                                 textureRect.width = GlyphDrawSize;
                                 textureRect.height = GlyphDrawSize;
-                                EditorDrawTMPGlyph(textureRect, iconEntry.UnicodeValue, fontAsset);
+                                EditorDrawTMPGlyph(textureRect, iconEntry.Key, fontAsset);
 
-                                string currentName = EditorGUILayout.TextField(iconEntry.Name);
-                                if (currentName != iconEntry.Name)
+                                string currentName = EditorGUILayout.TextField(iconEntry.Value);
+                                if (currentName != iconEntry.Value)
                                 {
-                                    UpdateIconName(fontIconSet, iconEntry.Name, currentName);
+                                    iconToRename = currentName;
+                                    iconToRemove = iconEntry.Value;
                                 }
                                 EditorGUILayout.EndVertical();
 
@@ -175,7 +165,11 @@ namespace MixedReality.Toolkit.Editor
                             }
                             EditorGUILayout.EndHorizontal();
 
-                            if (iconToRemove != null)
+                            if (iconToRename != null)
+                            {
+                                UpdateIconName(fontIconSet, iconToRemove, iconToRename);
+                            }
+                            else if (iconToRemove != null)
                             {
                                 RemoveIcon(fontIconSet, iconToRemove);
                             }
@@ -248,51 +242,39 @@ namespace MixedReality.Toolkit.Editor
 
         private bool AddIcon(FontIconSet fontIconSet, uint unicodeValue)
         {
-            string name = "Icon " + (iconEntries.Count + 1);
+            string name = $"Icon {unicodeValue}";
             if (fontIconSet.AddIcon(name, unicodeValue))
             {
-                iconEntries.Add(new IconEntry(name, unicodeValue));
+                iconEntries.Add(unicodeValue, name);
                 EditorUtility.SetDirty(fontIconSet);
+                return true;
             }
-            return true;
+            return false;
         }
 
         private bool RemoveIcon(FontIconSet fontIconSet, string iconName)
         {
-            bool removed = fontIconSet.RemoveIcon(iconName);
-            if (removed && FindIconIndexByName(iconName, out int index))
+            if (fontIconSet.TryGetGlyphIcon(iconName, out uint unicodeValue) && fontIconSet.RemoveIcon(iconName))
             {
-                iconEntries.RemoveAt(index);
+                iconEntries.Remove(unicodeValue);
                 EditorUtility.SetDirty(fontIconSet);
+                return true;
             }
-            return removed;
-        }
-
-        private bool FindIconIndexByName(string iconName, out int outIndex)
-        {
-            for (outIndex = 0; outIndex < iconEntries.Count; outIndex++)
-            {
-                if (iconEntries[outIndex].Name == iconName)
-                {
-                    return true;
-                }
-            }
-            outIndex = -1;
             return false;
         }
 
         private void UpdateIconName(FontIconSet fontIconSet, string oldName, string newName)
         {
-            if (fontIconSet.UpdateIconName(oldName, newName) && FindIconIndexByName(oldName, out int index))
+            if (fontIconSet.UpdateIconName(oldName, newName) && fontIconSet.TryGetGlyphIcon(newName, out uint unicodeValue))
             {
-                iconEntries[index].Name = newName;
+                iconEntries[unicodeValue] = newName;
                 EditorUtility.SetDirty(fontIconSet);
             }
         }
 
         private bool CheckIfHoloLensIconFontExists()
         {
-            foreach (string guid in AssetDatabase.FindAssets($"t:{typeof(UnityEngine.Font).Name}"))
+            foreach (string guid in AssetDatabase.FindAssets($"t:{nameof(Font)}"))
             {
                 if (AssetDatabase.GUIDToAssetPath(guid).Contains(MDL2IconFontName))
                 {
