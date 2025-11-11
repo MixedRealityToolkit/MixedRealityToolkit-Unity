@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073dfa6d3114b214d8a2d2954d572301, type: 3}
+  m_Name: MRTKFontIconSetDefinition
+  m_EditorClassIdentifier: 
+  iconNames:
+  - Wifi
+  - Bluetooth
+  - Brightness
+  - Airplane
+  - Settings
+  - People
+  - Pin
+  - Bookmark
+  - Stop Circle
+  - Add Favorite
+  - Favorite
+  - Send
+  - Search
+  - Save
+  - Record Circle
+  - Question Mark
+  - Block
+  - Print
+  - Power Button
+  - Play Circle
+  - Play
+  - Unpin
+  - Devices
+  - Phone
+  - Person
+  - Home
+  - Zoom
+  - Calendar
+  - Camera
+  - Paste
+  - Phone
+  - Add
+  - Mail
+  - Mute
+  - Mic Off
+  - Copy
+  - Visibility On
+  - Visibility Off
+  - Link
+  - Attach
+  - Lightbulb
+  - Movie
+  - Thumb Up
+  - Thumb Down
+  - Thumb Down
+  - Videocam
+  - Location On
+  - Location Off
+  - Mic
+  - Undo
+  - Apps
+  - Tag
+  - Arrow Left
+  - Arrow Right
+  - Arrow Up
+  - Arrow Down
+  - Refresh
+  - Menu
+  - More Vertical
+  - More Horizontal
+  - Delete
+  - Chevron Left
+  - Chevron Right
+  - Chevron Up
+  - Chevron Down
+  - Lock
+  - Unlock
+  - Repeat
+  - Cast
+  - Clipboard
+  - Erase
+  - History
+  - Notifications
+  - Notifications Off
+  - List
+  - Call
+  - Call End
+  - Check
+  - Edit
+  - Folder
+  - Alarm Off
