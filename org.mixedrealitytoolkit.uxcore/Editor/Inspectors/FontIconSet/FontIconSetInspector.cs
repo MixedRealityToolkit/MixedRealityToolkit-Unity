@@ -75,7 +75,7 @@ namespace MixedReality.Toolkit.Editor
 
             serializedObject.Update();
 
-            showGlyphIconFoldout = EditorGUILayout.Foldout(showGlyphIconFoldout, "Font Icons");
+            showGlyphIconFoldout = EditorGUILayout.Foldout(showGlyphIconFoldout, "Font Icons", true);
             if (showGlyphIconFoldout)
             {
                 EditorGUILayout.PropertyField(iconFontAssetProp);
@@ -98,7 +98,7 @@ namespace MixedReality.Toolkit.Editor
                     FontIconSet fontIconSet = (FontIconSet)target;
                     TMP_FontAsset fontAsset = (TMP_FontAsset)iconFontAssetProp.objectReferenceValue;
 
-                    showAvailableIcons = EditorGUILayout.Foldout(showAvailableIcons, "Available Icons");
+                    showAvailableIcons = EditorGUILayout.Foldout(showAvailableIcons, "Available Icons", true);
                     if (showAvailableIcons)
                     {
                         if (fontAsset.characterTable.Count == 0)
@@ -123,7 +123,7 @@ namespace MixedReality.Toolkit.Editor
                         EditorGUILayout.Space();
                     }
 
-                    showSelectedIcons = EditorGUILayout.Foldout(showSelectedIcons, "Selected Icons");
+                    showSelectedIcons = EditorGUILayout.Foldout(showSelectedIcons, "Selected Icons", true);
                     if (showSelectedIcons)
                     {
                         if (fontIconSet.GlyphIconsByName.Count > 0)
