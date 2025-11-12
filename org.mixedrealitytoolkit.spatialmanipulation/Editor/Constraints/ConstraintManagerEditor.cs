@@ -5,6 +5,7 @@ using MixedReality.Toolkit.Editor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -106,12 +107,10 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    string constraintName = constraint.GetType().Name;
                     EditorGUILayout.LabelField($"Priority {constraint.ExecutionPriority}: {constraint.GetType().Name}");
                     if (GUILayout.Button("Go to component"))
                     {
-                        Highlighter.Highlight("Inspector", $"{ObjectNames.NicifyVariableName(constraintName)}");
-                        GUIUtility.ExitGUI();
+                        HighlightConstraint(constraint.GetType());
                     }
                 }
             }
@@ -148,9 +147,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                 }
                 else if (buttonAction == EntryAction.Highlight)
                 {
-                    string constraintName = constraintProperty.objectReferenceValue.GetType().Name;
-                    Highlighter.Highlight("Inspector", $"{ObjectNames.NicifyVariableName(constraintName)}");
-                    GUIUtility.ExitGUI();
+                    HighlightConstraint(constraintProperty.objectReferenceValue.GetType());
                 }
             }
 
@@ -211,6 +208,23 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                     }
                 }
             }
+        }
+
+        private void HighlightConstraint(Type type)
+        {
+            string highlightName;
+            AddComponentMenu addComponentMenu = type.GetCustomAttribute<AddComponentMenu>();
+            if (addComponentMenu != null)
+            {
+                // Parse the "nice" name as the last item from the add component menu
+                highlightName = addComponentMenu.componentMenu.Replace('\\', '/').Split('/')[^1];
+            }
+            else
+            {
+                highlightName = $"{ObjectNames.NicifyVariableName(type.Name)} (Script)";
+            }
+            Highlighter.Highlight("Inspector", highlightName);
+            GUIUtility.ExitGUI();
         }
 
         /// <summary>
@@ -306,7 +320,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
         /// <param name="managerRef">Serialized property of the constraint manager component link - needs to be type of ConstraintManager.</param>
         /// <param name="isExpanded">Flag for indicating if the constraint foldout was previously collapsed or expanded.</param>
         /// <returns>Current state of expanded or collapsed constraint foldout. Returns true if expanded / contents visible.</returns>
-        static public bool DrawConstraintManagerFoldout(GameObject gameObject, SerializedProperty managerEnabled, SerializedProperty managerRef, bool isExpanded)
+        public static bool DrawConstraintManagerFoldout(GameObject gameObject, SerializedProperty managerEnabled, SerializedProperty managerRef, bool isExpanded)
         {
             isExpanded = EditorGUILayout.Foldout(isExpanded, "Constraints", true);
 
