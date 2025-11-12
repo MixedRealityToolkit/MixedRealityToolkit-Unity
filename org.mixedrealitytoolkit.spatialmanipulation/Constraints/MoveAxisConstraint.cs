@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using Unity.XR.CoreUtils.GUI;
 using UnityEngine;
 
 namespace MixedReality.Toolkit.SpatialManipulation
@@ -17,8 +18,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
     {
         #region Properties
 
-        [SerializeField]
-        [EnumFlags]
+        [SerializeField, FlagsProperty]
         [Tooltip("Constrain movement along an axis")]
         private AxisFlags constraintOnMovement = 0;
 
