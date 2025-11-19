@@ -13,6 +13,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
     /// MRTK's constraint system might be redesigned in the near future. When
     /// this occurs, the old constraint components will be deprecated.
     /// </remarks>
+    [AddComponentMenu("MRTK/Spatial Manipulation/Move Axis Constraint")]
     public class MoveAxisConstraint : TransformConstraint
     {
         #region Properties

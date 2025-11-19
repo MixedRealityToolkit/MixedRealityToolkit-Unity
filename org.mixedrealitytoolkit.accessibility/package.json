@@ -17,8 +17,8 @@
   "unityRelease": "26f1",
   "documentationUrl": "https://www.mixedrealitytoolkit.org",
   "dependencies": {
-    "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-    "org.mixedrealitytoolkit.core": "3.0.0",
+    "com.microsoft.mrtk.graphicstools.unity": "0.8.0",
+    "org.mixedrealitytoolkit.core": "3.2.2",
     "com.unity.textmeshpro": "3.0.6"
   },
   "msftTestDependencies": {

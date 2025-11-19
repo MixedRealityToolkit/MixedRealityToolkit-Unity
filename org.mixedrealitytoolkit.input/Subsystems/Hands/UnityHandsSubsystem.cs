@@ -48,7 +48,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         public UnityHandsSubsystem()
         {
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
             if (!Permission.HasUserAuthorizedPermission(HandTrackingPermission))
             {
                 PermissionCallbacks callbacks = new();
@@ -84,7 +84,7 @@ namespace MixedReality.Toolkit.Input
             {
                 Debug.Log($"{HandTrackingPermission} newly granted for MRTK.");
             }
-#endif // UNITY_ANDROID
+#endif // UNITY_ANDROID && !UNITY_EDITOR
         }
 
         private class UnityHandContainer : HandDataContainer
