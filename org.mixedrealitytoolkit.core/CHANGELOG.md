@@ -2,7 +2,7 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.3.0] - 2025-11-12
+## Unreleased
 
 ### Added
 
@@ -46,7 +46,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * ControllerLookup marked as Obsolete.
 
-## Unreleased 3.x
+## [3.3.0] - 2025-11-12
 
 ### Changed
 

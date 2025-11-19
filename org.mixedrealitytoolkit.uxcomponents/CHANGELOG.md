@@ -2,6 +2,18 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
+
+## [4.0.0-development.pre.1] - 2024-07-09
+
+### Changed
+
+* Updated package com.unity.xr.interaction.toolkit to 3.0.4
+
 ## [3.4.0] - 2025-11-12
 
 ### Added
@@ -14,16 +26,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Updated dependencies to match Unity Asset Store packages. [PR #1054](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1054)
   * com.microsoft.mrtk.graphicstools.unity 0.8.0
   * org.mixedrealitytoolkit.standardassets 3.2.1
-
-### Changed
-
-* Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
-
-## [4.0.0-development.pre.1] - 2024-07-09
-
-### Changed
-
-* Updated package com.unity.xr.interaction.toolkit to 3.0.4
 
 ## [3.3.0] - 2024-06-13
 

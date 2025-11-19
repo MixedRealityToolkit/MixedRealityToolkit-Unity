@@ -2,7 +2,7 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [3.4.0] - 2025-11-12
+## Unreleased
 
 ### Changed
 
@@ -23,7 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Updated package com.unity.xr.interaction.toolkit to 3.0.4
 
-## Unreleased
+## [3.4.0] - 2025-11-12
 
 ### Added
 
