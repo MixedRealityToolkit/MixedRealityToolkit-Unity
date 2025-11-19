@@ -8,12 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Added a project validation rule to ensure the Unity XR Hands subsystem is enabled in the OpenXR settings when the corresponding MRTK subsystem is enabled. [PR #973](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/973)
 * Added support for Unity's com.unity.cloud.gltfast and com.unity.cloud.ktx packages when loading controller models. [PR #631](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/631)
+* Added hand tracking permission for AndroidXR. [PR #982](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/982)
 * Added toggle for frame rate independent smoothing in camera simulation. [PR #1011](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1011)
 * Added implementation for the synthesized TriggerButton, accounting for animation smoothing. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
 * Added a "squeeze" alias for the grip states, to account for broader input action mapping support. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
 
 ### Changed
 
+* Updated hands subsystem names for clarity. [PR #995](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/995)
+* Remapped the synthetic hands config to read the float "select value" action instead of the bool "select" action, since it's read as a float. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
 * Updated tests to follow existing MRTK test patterns. [PR #1046](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1046)
 
 ### Fixed
@@ -25,7 +28,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-* Remapped the synthetic hands config to read the float "select value" action instead of the bool "select" action, since it's read as a float. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
 
 ## [3.2.2] - 2024-09-18
 
