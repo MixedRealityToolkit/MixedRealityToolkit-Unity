@@ -1,6 +1,6 @@
 ---
 title: Packages
-description: Mixed Reality Toolkit 3 for developers - Package overview.
+description: Mixed Reality Toolkit 3 for developers - Package overview
 ---
 
 # Using MRTK3 packages
@@ -15,7 +15,7 @@ The following diagram illustrates the relationship between MRTK packages and som
 
 ![MRTK3 Package Graph](../images/MRTK3_Packages.png)
 
-> [!NOTE]
+{: .note }
 > When importing packages using the Mixed Reality Feature Tool, dependency management is automatically performed.
 
 The following table describes the Mixed Reality Toolkit package dependencies.
@@ -43,7 +43,7 @@ The following table describes the Mixed Reality Toolkit package dependencies.
 
 Some MRTK packages contain tests used to validate the included components. In some cases, these tests require additional MRTK packages not asserted as dependencies.
 
-> [!NOTE]
+{: .note }
 > When importing packages into Unity, test assemblies aren't compiled by default. To enable compilation of tests, please use the `testables` element of the project's `manifest.json` file.
 
 In order to place minimal overhead on applications importing the Mixed Reality Toolkit, dependencies are asserted only for runtime requirements. The following table describes the additional packages required to enable compiling and running the included test assemblies.
@@ -57,8 +57,8 @@ In order to place minimal overhead on applications importing the Mixed Reality T
 | MRTK Environment | org.mixedrealitytoolkit.environment | |
 | MRTK Extended Assets | org.mixedrealitytoolkit.extendedassets | |
 | MRTK Input | org.mixedrealitytoolkit.input |  |
-| MRTK Spatial Manipulation | org.mixedrealitytoolkit.spatialmanipulation | <ul> <li> org.mixedrealitytoolkit.input </li> </ul> |
+| MRTK Spatial Manipulation | org.mixedrealitytoolkit.spatialmanipulation | * org.mixedrealitytoolkit.input |
 | MRTK Standard Assets | org.mixedrealitytoolkit.standardassets | |
-| MRTK UX Components | org.mixedrealitytoolkit.uxcomponents | <ul> <li> org.mixedrealitytoolkit.input </li> </ul> |
-| MRTK UX Core | org.mixedrealitytoolkit.uxcore | <ul> <li> org.mixedrealitytoolkit.input </li> </ul> |
+| MRTK UX Components | org.mixedrealitytoolkit.uxcomponents | * org.mixedrealitytoolkit.input |
+| MRTK UX Core | org.mixedrealitytoolkit.uxcore | * org.mixedrealitytoolkit.input |
 | MRTK Windows Speech | org.mixedrealitytoolkit.windowsspeech | |

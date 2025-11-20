@@ -1,3 +1,8 @@
+---
+title: MRTK Windows Speech
+parent: Packages
+---
+
 # MRTK Windows Speech
 
 Speech subsystem implementation for native Windows speech APIs enables native Windows text-to-speech and speech recognition features, producing events to drive XRI interactions using speech.

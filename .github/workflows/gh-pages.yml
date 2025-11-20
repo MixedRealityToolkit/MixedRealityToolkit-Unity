@@ -38,14 +38,7 @@ jobs:
       - name: Copy READMEs
         shell: pwsh
         run: |
-          Copy-Item -Path "../org.mixedrealitytoolkit.audio/README.md" -Destination "./org.mixedrealitytoolkit.audio.README.md"
-          Copy-Item -Path "../org.mixedrealitytoolkit.input/README.md" -Destination "./org.mixedrealitytoolkit.input.README.md"
-          Copy-Item -Path "../org.mixedrealitytoolkit.spatialmanipulation/README.md" -Destination "./org.mixedrealitytoolkit.spatialmanipulation.README.md"
-          Copy-Item -Path "../org.mixedrealitytoolkit.standardassets/README.md" -Destination "./org.mixedrealitytoolkit.standardassets.README.md"
-          Copy-Item -Path "../org.mixedrealitytoolkit.tools/README.md" -Destination "./org.mixedrealitytoolkit.tools.README.md"
-          Copy-Item -Path "../org.mixedrealitytoolkit.uxcomponents/README.md" -Destination "./org.mixedrealitytoolkit.uxcomponents.README.md"
-          Copy-Item -Path "../org.mixedrealitytoolkit.uxcomponents.noncanvas/README.md" -Destination "./org.mixedrealitytoolkit.uxcomponents.noncanvas.README.md"
-          Copy-Item -Path "../org.mixedrealitytoolkit.core/README.md" -Destination "./org.mixedrealitytoolkit.core.README.md"
+          ${{ github.workspace }}/Pipelines/Scripts/prepare-pages.ps1 -ProjectRoot ${{ github.workspace }}
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
