@@ -33,7 +33,9 @@ parent: Packages
 
 
 "@
-    Add-Content -Path "./$packageName.md" -Value (Get-Content -Path (Join-Path $packagePath "README.md"))
+    $readmeContent = (Get-Content -Path (Join-Path $packagePath "README.md"))
+    $readmeContent = $readmeContent -replace "> \[!(\w+)\]", { "{: .$("$($_.Groups[1])".ToLower()) }" } # Convert GitHub admonitions to just-the-docs syntax
+    Add-Content -Path "./$packageName.md" -Value $readmeContent
 
     # Create CHANGELOG, add front matter, and copy content
     New-Item -Path "./$packageName.CHANGELOG.md" -Value @"
