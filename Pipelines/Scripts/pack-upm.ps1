@@ -49,7 +49,7 @@ try {
     # Update package versions
     . $PSScriptRoot\update-versions.ps1 -PackagesRoot $ProjectRoot -PrereleaseTag $PrereleaseTag -Revision $Revision -BuildNumber $BuildNumber
 
-    # Loop through package directories and copy documentation
+    # Loop through package directories, copy documentation, and package
     Get-ChildItem -Path $ProjectRoot/*/package.json | ForEach-Object {
         $packageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*" -Path $_ | Select-Object -First 1
 
@@ -73,27 +73,14 @@ try {
         else {
             Copy-Item -Path "$ProjectRoot/Pipelines/UPM/Documentation~" -Destination $docFolder -Recurse
         }
-    }
-
-    # Package the package directories
-    Get-ChildItem -Path $ProjectRoot/*/package.json | ForEach-Object {
-        $currentPackageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*" -Path $_ | Select-Object -First 1
-
-        if (-not $currentPackageName) {
-            return # this is not an MRTK package, so skip
-        }
 
         Write-Host ""
         Write-Host -ForegroundColor Green "======================================="
         Write-Host -ForegroundColor Green "Packing Package"
         Write-Host -ForegroundColor Green "======================================="
-        Write-Host "Package name: $currentPackageName"
+        Write-Host "Package name: $packageName"
 
-        $currentPackageName = $currentPackageName.Matches[0].Value
         $packageFriendlyName = (Select-String -Pattern "`"displayName`": `"(.+)`"" -Path $_ | Select-Object -First 1).Matches.Groups[1].Value
-
-        $packagePath = $_.Directory
-        $docFolder = "$packagePath/Documentation~"
 
         # build the package
         npm pack $packagePath
