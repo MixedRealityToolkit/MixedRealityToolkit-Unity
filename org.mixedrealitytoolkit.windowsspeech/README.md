@@ -30,7 +30,3 @@ Ensure the relevant script(s) is active by confirming MRTK XR Rig -> MRTK Speech
 ### 5. Running the scene on device/in editor
 
 The project should be ready to run on device or in editor. Note the interactables (e.g. buttons) need to be set up to accept voice command in order for the speech subsystem to work with them. Please see the inspector of interactables and SpeechInteractor (MRTK XR Rig -> MRTK Speech) for more adjustable settings.
-
-## Latest changelog
-
-[Changelog](./CHANGELOG.md)

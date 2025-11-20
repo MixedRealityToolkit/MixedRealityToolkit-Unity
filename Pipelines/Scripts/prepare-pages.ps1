@@ -25,4 +25,8 @@ Get-ChildItem -Path (Join-Path $ProjectRoot "*" "package.json") | ForEach-Object
 
     Copy-Item -Path (Join-Path $packagePath "README.md") -Destination "./$packageName.md"
     Copy-Item -Path (Join-Path $packagePath "CHANGELOG.md") -Destination "./$packageName.CHANGELOG.md"
+    Add-Content -Path "./$packageName.md" -Value "
+## Latest changelog
+
+[Changelog](./$packageName.CHANGELOG.md)"
 }
