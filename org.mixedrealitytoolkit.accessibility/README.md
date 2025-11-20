@@ -1,3 +1,7 @@
+---
+title: MRTK Accessibility
+---
+
 # MRTK Accessibility
 
 Features and subsystem to enable accessibility in MR experiences.

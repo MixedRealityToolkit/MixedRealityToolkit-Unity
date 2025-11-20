@@ -1,8 +1,11 @@
-title: Just the Docs Template
-description: A starter template for a Jeykll site using the Just the Docs theme!
+title: Mixed Reality Toolkit
+description: MRTK3 is the third generation of the Mixed Reality Toolkit for Unity.
 theme: just-the-docs
+color_scheme: dark
 
-url: https://just-the-docs.github.io
+url: https://mixedrealitytoolkit.github.io/MixedRealityToolkit-Unity/
+# logo: "/assets/images/just-the-docs.png"
+
 
 aux_links:
   Template Repository: https://github.com/just-the-docs/just-the-docs-template
