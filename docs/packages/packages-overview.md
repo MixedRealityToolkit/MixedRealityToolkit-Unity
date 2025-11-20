@@ -1,5 +1,5 @@
 ---
-title: Package overview
+title: Packages
 description: Mixed Reality Toolkit 3 for developers - Package overview.
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: MRTK Diagnostics
+parent: Packages
 ---
 
 # MRTK Diagnostics
