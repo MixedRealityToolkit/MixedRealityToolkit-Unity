@@ -1,0 +1,16 @@
+title: Mixed Reality Toolkit
+description: MRTK3 is the third generation of the Mixed Reality Toolkit for Unity.
+theme: just-the-docs
+color_scheme: dark
+
+url: https://mixedrealitytoolkit.github.io/MixedRealityToolkit-Unity/
+# logo: "/assets/images/just-the-docs.png"
+
+defaults:
+  - scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "default"
+
+aux_links:
+  Template Repository: https://github.com/just-the-docs/just-the-docs-template
