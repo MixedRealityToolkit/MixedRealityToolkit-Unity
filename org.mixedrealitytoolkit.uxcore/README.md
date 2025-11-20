@@ -1,5 +1,6 @@
 ---
 title: MRTK UX Core
+parent: Packages
 ---
 
 # MRTK UX Core Scripts

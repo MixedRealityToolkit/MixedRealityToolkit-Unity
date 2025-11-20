@@ -12,5 +12,23 @@ defaults:
     values:
       layout: "default"
 
+callouts_level: quiet # or loud
+callouts:
+  note:
+    title: ℹ️ Note
+    color: blue
+  tip:
+    title: 💡 Tip
+    color: green
+  important:
+    title: ❕Important
+    color: purple
+  warning:
+    title: ⚠️ Warning
+    color: yellow
+  caution:
+    title: 🛑 Caution
+    color: red
+
 aux_links:
   Template Repository: https://github.com/just-the-docs/just-the-docs-template

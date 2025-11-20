@@ -1,5 +1,6 @@
 ---
 title: MRTK UX Components (Non-Canvas)
+parent: Packages
 ---
 
 # MRTK UX Components (Non-Canvas)
