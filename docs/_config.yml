@@ -12,7 +12,7 @@ defaults:
     values:
       layout: "default"
 
-callouts_level: quiet # or loud
+callouts_level: loud
 callouts:
   note:
     title: ℹ️ Note
