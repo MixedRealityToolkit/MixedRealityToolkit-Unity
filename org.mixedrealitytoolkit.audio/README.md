@@ -1,8 +1,3 @@
----
-title: MRTK Audio Effects
-parent: Packages
----
-
 # MRTK Audio Effects
 
 Features to enhance audio in XR experiences.

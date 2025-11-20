@@ -1,8 +1,3 @@
----
-title: MRTK Accessibility
-parent: Experimental
----
-
 # MRTK Accessibility
 
 Features and subsystem to enable accessibility in MR experiences.
