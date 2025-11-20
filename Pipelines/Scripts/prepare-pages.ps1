@@ -11,6 +11,21 @@ param(
 )
 
 $ProjectRoot = Resolve-Path -Path $ProjectRoot
+$docs = Join-Path $ProjectRoot "docs"
+
+# Copy root README images to docs
+Copy-Item -Path (Join-Path $ProjectRoot "images" "*") -Destination (Join-Path $docs "images") -Recurse
+
+$indexDestination = Join-Path $docs "index.md"
+# Create home page, add front matter, and copy content
+New-Item -Path $indexDestination -Value @"
+---
+title: Home
+---
+
+
+"@
+Add-Content -Path $indexDestination -Value (Get-Content -Path (Join-Path $ProjectRoot "README.md"))
 
 # Loop through package directories and copy documentation
 Get-ChildItem -Path (Join-Path $ProjectRoot "*" "package.json") | ForEach-Object {
@@ -25,7 +40,8 @@ Get-ChildItem -Path (Join-Path $ProjectRoot "*" "package.json") | ForEach-Object
     $packagePath = $_.Directory
 
     # Create README, add front matter, and copy content
-    New-Item -Path "./$packageName.md" -Value @"
+    $packageReadmeDestination = Join-Path $docs "$packageName.md"
+    New-Item -Path $packageReadmeDestination -Value @"
 ---
 title: $packageFriendlyName
 parent: Packages
@@ -35,10 +51,11 @@ parent: Packages
 "@
     $readmeContent = (Get-Content -Path (Join-Path $packagePath "README.md"))
     $readmeContent = $readmeContent -replace "> \[!(\w+)\]", { "{: .$("$($_.Groups[1])".ToLower()) }" } # Convert GitHub admonitions to just-the-docs syntax
-    Add-Content -Path "./$packageName.md" -Value $readmeContent
+    Add-Content -Path $packageReadmeDestination -Value $readmeContent
 
     # Create CHANGELOG, add front matter, and copy content
-    New-Item -Path "./$packageName.CHANGELOG.md" -Value @"
+    $packageChangelogDestination = Join-Path $docs "$packageName.CHANGELOG.md"
+    New-Item -Path $packageChangelogDestination -Value @"
 ---
 title: Changelog
 parent: $packageFriendlyName
@@ -46,5 +63,5 @@ parent: $packageFriendlyName
 
 
 "@
-    Add-Content -Path "./$packageName.CHANGELOG.md" -Value (Get-Content -Path (Join-Path $packagePath "CHANGELOG.md"))
+    Add-Content -Path $packageChangelogDestination -Value (Get-Content -Path (Join-Path $packagePath "CHANGELOG.md"))
 }
