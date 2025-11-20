@@ -1,6 +1,6 @@
-# Mixed Reality Toolkit Speech Package
+# MRTK Windows Speech
 
-Author: Max Wang (wangmax)
+Speech subsystem implementation for native Windows speech APIs enables native Windows text-to-speech and speech recognition features, producing events to drive XRI interactions using speech.
 
 ## How to use
 
@@ -12,7 +12,7 @@ Go to Project Settings -> Mixed Reality Toolkit -> Available MRTK Subsystems and
 
 ### 2. Configure the profile correctly (for certain subsystems)
 
-For certain subsystems, a profile is required in order for it to perform normally. First check if the Configuration slot is empty. If so create a new profile by Assets -> Create -> MRTK -> Subsystems -> [name of your subsystem] Config and then drag the created config onto the slot. After making sure the config slot is populated, change the settings for your specific project.
+For certain subsystems, a profile is required in order for it to perform normally. First check if the Configuration slot is empty. If so create a new profile by Assets -> Create -> MRTK -> Subsystems -> \[name of your subsystem\] Config and then drag the created config onto the slot. After making sure the config slot is populated, change the settings for your specific project.
 
 ### 3. Ensure the MRTK Speech GameObject is active
 
@@ -25,3 +25,7 @@ Ensure the relevant script(s) is active by confirming MRTK XR Rig -> MRTK Speech
 ### 5. Running the scene on device/in editor
 
 The project should be ready to run on device or in editor. Note the interactables (e.g. buttons) need to be set up to accept voice command in order for the speech subsystem to work with them. Please see the inspector of interactables and SpeechInteractor (MRTK XR Rig -> MRTK Speech) for more adjustable settings.
+
+## Latest changelog
+
+[Changelog](./CHANGELOG.md)
