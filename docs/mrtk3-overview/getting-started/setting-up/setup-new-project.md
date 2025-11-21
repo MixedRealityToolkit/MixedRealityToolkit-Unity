@@ -1,7 +1,7 @@
 ---
 title: Setting up a new project with MRTK3
-description: Setting up a new project with MRTK3
 parent: Getting started with MRTK3
+nav_order: 3
 ---
 
 # Starting from a new project
