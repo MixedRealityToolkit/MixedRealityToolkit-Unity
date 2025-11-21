@@ -1,8 +1,8 @@
 # Mixed Reality Toolkit for Unity
 
-![Mixed Reality Toolkit](./Images/MRTK_Unity_header.png)
+![Mixed Reality Toolkit](./images/MRTK_Unity_header.png)
 
-![MRTK3 Banner](./Images/MRTK3_banner.png)
+![MRTK3 Banner](./images/MRTK3_banner.png)
 
 **MRTK3** is the third generation of the Mixed Reality Toolkit for Unity. It's an open source project designed to accelerate cross-platform mixed reality development in Unity. MRTK3 is built on top of [Unity's XR Interaction Toolkit (XRI)](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.1/manual/index.html) and OpenXR. This new generation of MRTK is intended to be faster, cleaner, and more modular, with an easier cross-platform development workflow enabled by OpenXR and the Unity Input System.
 
@@ -87,7 +87,7 @@ As a result of this change, there is not a unified MRTK3 product version.
 
 To help identify specific packages and their versions, MRTK3 provides an about dialog that lists the relevant packages included in the project. To access this dialog, select `Mixed Reality` > `MRTK3` > `About MRTK` from the Unity Editor menu.
 
-![About MRTK Panel](Images/AboutMRTK.png)
+![About MRTK Panel](images/AboutMRTK.png)
 
 ## Contributing
 
