@@ -28,6 +28,13 @@ nav_order: 1
 "@
 Add-Content -Path $indexDestination -Value (Get-Content -Path (Join-Path $ProjectRoot "README.md"))
 
+# Convert GitHub admonitions to just-the-docs syntax for in-place docs files
+# We leave them checked-in so they render correctly in the GitHub repo, but we convert them for Pages
+Get-ChildItem -Path (Join-Path $docs "*" "*.md") -Recurse | ForEach-Object {
+    $fileContent = Get-Content -Path $_
+    Set-Content -Path $_ -Value ($fileContent -replace "> \[!(\w+)\]", { "{: .$("$($_.Groups[1])".ToLower()) }" })
+}
+
 # Loop through package directories and copy documentation
 Get-ChildItem -Path (Join-Path $ProjectRoot "*" "package.json") | ForEach-Object {
     $packageName = Select-String -Pattern "org\.mixedrealitytoolkit\.\w+(\.\w+)*" -Path $_ | Select-Object -First 1
@@ -53,9 +60,9 @@ parent: Packages
 
 
 "@
-    $readmeContent = (Get-Content -Path (Join-Path $packagePath "README.md"))
-    $readmeContent = $readmeContent -replace "> \[!(\w+)\]", { "{: .$("$($_.Groups[1])".ToLower()) }" } # Convert GitHub admonitions to just-the-docs syntax
-    Add-Content -Path $packageReadmeDestination -Value $readmeContent
+    $readmeContent = Get-Content -Path (Join-Path $packagePath "README.md")
+    # Convert GitHub admonitions to just-the-docs syntax
+    Add-Content -Path $packageReadmeDestination -Value ($readmeContent -replace "> \[!(\w+)\]", { "{: .$("$($_.Groups[1])".ToLower()) }" })
 
     # Create CHANGELOG, add front matter, and copy content
     $packageChangelogDestination = Join-Path $packageDocsPath "CHANGELOG.md"
@@ -87,6 +94,8 @@ parent: $packageFriendlyName
 
 
 "@
-        Add-Content -Path $fileDestination -Value (Get-Content -Path $_)
+        $fileContent = Get-Content -Path $_
+        # Convert GitHub admonitions to just-the-docs syntax
+        Add-Content -Path $fileDestination -Value ($fileContent -replace "> \[!(\w+)\]", { "{: .$("$($_.Groups[1])".ToLower()) }" })
     }
 }
