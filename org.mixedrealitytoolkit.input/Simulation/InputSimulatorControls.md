@@ -1,4 +1,4 @@
-# Mixed Reality Toolkit Input Simulator Default Controls
+# MRTK Input Simulator default controls
 
 ## Camera
 
@@ -23,7 +23,7 @@
 
 ## Eye Gaze
 
-> ![NOTE]
+> [!NOTE]
 > To better match the behavior of hardware that provides eye tracking support, when enabled, simulated eye gaze is always tracked.
 
 ### Look
