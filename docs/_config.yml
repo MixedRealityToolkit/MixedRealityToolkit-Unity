@@ -14,19 +14,20 @@ defaults:
 
 callouts_level: loud
 callouts:
-  highlight:
-    color: yellow
-  important:
-    title: Important
-    color: blue
-  new:
-    title: New
-    color: green
   note:
-    title: Note
+    title: ℹ️ Note
+    color: blue
+  tip:
+    title: 💡 Tip
+    color: green
+  important:
+    title: ❕Important
     color: purple
   warning:
-    title: Warning
+    title: ⚠️ Warning
+    color: yellow
+  caution:
+    title: 🛑 Caution
     color: red
 
 aux_links:
