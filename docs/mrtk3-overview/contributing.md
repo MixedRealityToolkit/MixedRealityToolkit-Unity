@@ -1,6 +1,6 @@
 ---
 title: Contributing to MRTK3
-description: Overview of how to contribute to the MRTK3 open source project.
+nav_order: 6
 ---
 
 # Contributing to MRTK3

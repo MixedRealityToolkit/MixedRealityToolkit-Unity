@@ -1,7 +1,7 @@
 ---
 title: Subsystems
-description: Mixed Reality Toolkit 3 for developers - Subsystems.
 parent: Architecture overview
+nav_order: 3
 ---
 
 # Subsystems — MRTK3
