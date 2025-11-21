@@ -58,7 +58,7 @@ try {
         }
 
         $packageName = $packageName.Matches[0].Value
-        $packagePath = $_.Directory
+        $packagePath = $_.DirectoryName
         $docFolder = "$packagePath/Documentation~"
 
         Write-Host ""

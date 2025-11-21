@@ -57,7 +57,7 @@ try {
         }
 
         $packageName = $packageName.Matches[0].Value
-        $packagePath = $_.Directory
+        $packagePath = $_.DirectoryName
 
         Write-Host ""
         Write-Host -ForegroundColor Green "======================================="  
@@ -85,7 +85,7 @@ try {
         $currentPackageName = $currentPackageName.Matches[0].Value
         $packageFriendlyName = (Select-String -Pattern "`"displayName`": `"(.+)`"" -Path $_ | Select-Object -First 1).Matches.Groups[1].Value
 
-        $packagePath = $_.Directory
+        $packagePath = $_.DirectoryName
 
         Write-Output "Packing $packageFriendlyName to $OutputDirectory"
         npm pack $packagePath -pack-destination $OutputDirectory
