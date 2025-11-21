@@ -38,12 +38,13 @@ Get-ChildItem -Path (Join-Path $ProjectRoot "*" "package.json") | ForEach-Object
 
     $packageName = $packageName.Matches[0].Value
     $packageFriendlyName = (Select-String -Pattern "`"displayName`": `"(.+)`"" -Path $_ | Select-Object -First 1).Matches.Groups[1].Value
-    $packagePath = $_.Directory
+    $packagePath = $_.DirectoryName
+    $packageDocsPath = Join-Path $docs $packageName
 
-    New-Item -Path (Join-Path $docs $packageName) -ItemType Directory
+    New-Item -Path $packageDocsPath -ItemType Directory
 
     # Create README, add front matter, and copy content
-    $packageReadmeDestination = Join-Path $docs $packageName "index.md"
+    $packageReadmeDestination = Join-Path $packageDocsPath "index.md"
     New-Item -Path $packageReadmeDestination -ItemType File -Value @"
 ---
 title: $packageFriendlyName
@@ -57,7 +58,7 @@ parent: Packages
     Add-Content -Path $packageReadmeDestination -Value $readmeContent
 
     # Create CHANGELOG, add front matter, and copy content
-    $packageChangelogDestination = Join-Path $docs $packageName "CHANGELOG.md"
+    $packageChangelogDestination = Join-Path $packageDocsPath "CHANGELOG.md"
     New-Item -Path $packageChangelogDestination -ItemType File -Value @"
 ---
 title: Changelog
@@ -67,4 +68,25 @@ parent: $packageFriendlyName
 
 "@
     Add-Content -Path $packageChangelogDestination -Value (Get-Content -Path (Join-Path $packagePath "CHANGELOG.md"))
+
+    Get-ChildItem -Path (Get-ChildItem -Path $packagePath -Directory) -Recurse -File -Include "*.md" | ForEach-Object {
+        if ($_.BaseName -in @("LICENSE", "CHANGELOG")) {
+            return # skip specific files that we don't need to publish through this path
+        }
+
+        # Create file, add front matter, and copy content
+        $fileFolder = Join-Path $packageDocsPath ($_.DirectoryName | Split-Path -Leaf)
+        New-Item -Path $fileFolder -ItemType Directory
+        $fileDestination = Join-Path $fileFolder $_.Name
+        $fileTitle = Select-String -Pattern "# (.+)" -Path $_ | Select-Object -First 1
+        New-Item -Path $fileDestination -ItemType File -Value @"
+---
+title: $($fileTitle.Matches ? $fileTitle.Matches[0].Groups[1] : $_.BaseName)
+parent: $packageFriendlyName
+---
+
+
+"@
+        Add-Content -Path $fileDestination -Value (Get-Content -Path $_)
+    }
 }
