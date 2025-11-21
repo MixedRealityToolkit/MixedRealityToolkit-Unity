@@ -1,3 +1,8 @@
+---
+title: Packages
+nav_order: 4
+---
+
 # Using MRTK3 packages
 
 Microsoft MRTK3 is distributed as a set of packages that are imported into Unity using the Mixed Reality Feature Tool for Unity and the Unity Package Manager (UPM). These packages enable developers to customize the MRTK within their projects.
@@ -52,8 +57,8 @@ In order to place minimal overhead on applications importing the Mixed Reality T
 | MRTK Environment | org.mixedrealitytoolkit.environment | |
 | MRTK Extended Assets | org.mixedrealitytoolkit.extendedassets | |
 | MRTK Input | org.mixedrealitytoolkit.input |  |
-| MRTK Spatial Manipulation | org.mixedrealitytoolkit.spatialmanipulation | <ul> <li> org.mixedrealitytoolkit.input </li> </ul> |
+| MRTK Spatial Manipulation | org.mixedrealitytoolkit.spatialmanipulation | org.mixedrealitytoolkit.input |
 | MRTK Standard Assets | org.mixedrealitytoolkit.standardassets | |
-| MRTK UX Components | org.mixedrealitytoolkit.uxcomponents | <ul> <li> org.mixedrealitytoolkit.input </li> </ul> |
-| MRTK UX Core | org.mixedrealitytoolkit.uxcore | <ul> <li> org.mixedrealitytoolkit.input </li> </ul> |
+| MRTK UX Components | org.mixedrealitytoolkit.uxcomponents | org.mixedrealitytoolkit.input |
+| MRTK UX Core | org.mixedrealitytoolkit.uxcore | org.mixedrealitytoolkit.input |
 | MRTK Windows Speech | org.mixedrealitytoolkit.windowsspeech | |

@@ -1,7 +1,7 @@
 ---
-title: Starting from a Template Project
-description: Setting up your first MRTK3 project
+title: Starting from a template project
 parent: Getting started with MRTK3
+nav_order: 2
 ---
 
 # Starting from the MRTK3 template project

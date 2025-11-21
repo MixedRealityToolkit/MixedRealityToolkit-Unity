@@ -1,6 +1,6 @@
 ---
 title: Architecture overview
-description: Mixed Reality Toolkit 3 for developers - Architecture overview.
+nav_order: 5
 ---
 
 # Architecture overview — MRTK3
@@ -37,9 +37,3 @@ Conceptually, Unity's Input System will also feel familiar to users of the MRTK2
 ### XR Interaction Toolkit
 
 XRI provides a foundation of interactors and interactables. MRTK builds upon this with its own set of [interactors](interactors.md) and [interactables](interactables.md), allowing for additional features like articulated hand tracking, gaze, and pinch.
-
-## See also
-
-- [Subsystems](subsystems.md)
-- [Interactors](interactors.md)
-- [Interactables](interactables.md)

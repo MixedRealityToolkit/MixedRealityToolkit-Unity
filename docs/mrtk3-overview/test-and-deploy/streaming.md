@@ -1,7 +1,7 @@
 ---
 title: Iteration and debugging
-description: Iteration and debugging
-parent: Test and Experience Overview
+parent: Test and experience overview
+nav_order: 1
 ---
 
 # Streaming your application to a device

@@ -21,6 +21,7 @@ $indexDestination = Join-Path $docs "index.md"
 New-Item -Path $indexDestination -Value @"
 ---
 title: Home
+nav_order: 1
 ---
 
 

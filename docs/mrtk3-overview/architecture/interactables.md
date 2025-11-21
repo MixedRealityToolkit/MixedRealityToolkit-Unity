@@ -1,7 +1,7 @@
 ---
 title: Interactables
-description: Mixed Reality Toolkit 3 for developers - Interactables.
 parent: Architecture overview
+nav_order: 2
 ---
 
 # Interactables — MRTK3

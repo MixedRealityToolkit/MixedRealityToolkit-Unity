@@ -1,7 +1,7 @@
 ---
-title: Setting up the Development Environment
-description: Setting up the Development Environment
+title: Setting up the development environment
 parent: Getting started with MRTK3
+nav_order: 1
 ---
 
 # Setting up your development environment

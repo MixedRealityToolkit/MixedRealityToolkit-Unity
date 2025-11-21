@@ -1,6 +1,6 @@
 ---
 title: Known issues
-description: Mixed Reality Toolkit 3 known issues.
+nav_order: 7
 ---
 
 # Known issues — MRTK3

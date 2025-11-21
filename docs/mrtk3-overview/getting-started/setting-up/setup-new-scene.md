@@ -1,7 +1,7 @@
 ---
 title: Creating a new scene with MRTK3
-description: Creating a new scene with MRTK3
 parent: Getting started with MRTK3
+nav_order: 4
 ---
 
 # Creating a new scene with MRTK3

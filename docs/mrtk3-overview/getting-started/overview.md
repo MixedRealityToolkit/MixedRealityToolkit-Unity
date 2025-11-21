@@ -1,6 +1,6 @@
 ---
 title: Getting started with MRTK3
-description: Overview of how to get started with MRTK3
+nav_order: 2
 ---
 
 # Getting started with MRTK3

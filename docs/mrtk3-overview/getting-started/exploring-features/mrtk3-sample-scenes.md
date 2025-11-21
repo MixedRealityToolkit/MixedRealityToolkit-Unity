@@ -1,7 +1,7 @@
 ---
 title: Exploring MRTK3 sample scenes
-description: Using and creating scenes in MRTK3
 parent: Getting started with MRTK3
+nav_order: 1
 ---
 
 # Exploring MRTK3 sample scenes

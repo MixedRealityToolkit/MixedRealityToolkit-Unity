@@ -1,9 +1,9 @@
 ---
-title: Test and Experience Overview
-description: Overview of how to test and experience your application on a device.
+title: Test and experience overview
+nav_order: 3
 ---
 
-# Testing and experiencing overview
+# Test and experience overview
 
 Now that you have a Unity project with MRTK3, there are several means to test and experience your application.
 
@@ -21,7 +21,7 @@ Compiling and deploying your app can take a significant amount of time, so we re
 
 The following guides will walk you through building and running your application on a device.
 
-- [HoloLens2](hololens2-deployment.md)
+- [HoloLens 2](hololens2-deployment.md)
 - [Quest Devices](quest-deployment.md)
 
 If you've deployed a build to your target device of choice, you can debug the build as it runs on device with [Managed debugging](https://learn.microsoft.com/windows/mixed-reality/develop/unity/managed-debugging-with-unity-il2cpp).

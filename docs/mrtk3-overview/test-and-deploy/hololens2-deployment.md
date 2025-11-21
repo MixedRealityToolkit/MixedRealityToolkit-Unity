@@ -1,7 +1,7 @@
 ---
 title: Deploy an MRTK3 project to HoloLens 2
-description: Mixed Reality Toolkit 3 for developers - HoloLens 2 deployment.
-parent: Test and Experience Overview
+parent: Test and experience overview
+nav_order: 2
 ---
 
 # Deploy an MRTK3 project to HoloLens 2
