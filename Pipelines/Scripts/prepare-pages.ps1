@@ -39,9 +39,11 @@ Get-ChildItem -Path (Join-Path $ProjectRoot "*" "package.json") | ForEach-Object
     $packageFriendlyName = (Select-String -Pattern "`"displayName`": `"(.+)`"" -Path $_ | Select-Object -First 1).Matches.Groups[1].Value
     $packagePath = $_.Directory
 
+    New-Item -Path (Join-Path $docs $packageName) -ItemType Directory
+
     # Create README, add front matter, and copy content
-    $packageReadmeDestination = Join-Path $docs "$packageName.md"
-    New-Item -Path $packageReadmeDestination -Value @"
+    $packageReadmeDestination = Join-Path $docs $packageName "index.md"
+    New-Item -Path $packageReadmeDestination -ItemType File -Value @"
 ---
 title: $packageFriendlyName
 parent: Packages
@@ -54,8 +56,8 @@ parent: Packages
     Add-Content -Path $packageReadmeDestination -Value $readmeContent
 
     # Create CHANGELOG, add front matter, and copy content
-    $packageChangelogDestination = Join-Path $docs "$packageName.CHANGELOG.md"
-    New-Item -Path $packageChangelogDestination -Value @"
+    $packageChangelogDestination = Join-Path $docs $packageName "CHANGELOG.md"
+    New-Item -Path $packageChangelogDestination -ItemType File -Value @"
 ---
 title: Changelog
 parent: $packageFriendlyName
