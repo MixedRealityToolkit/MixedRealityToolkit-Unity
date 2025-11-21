@@ -1,7 +1,7 @@
 ---
 title: Interactor architecture
-description: Mixed Reality Toolkit 3 for developers - Interactor architecture.
 parent: Architecture overview
+nav_order: 1
 ---
 
 # Interactor Architecture — MRTK3

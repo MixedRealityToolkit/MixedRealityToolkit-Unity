@@ -1,6 +1,6 @@
 ---
 title: API reference
-description: MRTK3 API reference
+nav_order: 8
 ---
 
 # API reference — MRTK3
