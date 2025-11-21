@@ -4,7 +4,8 @@ Speech subsystem implementation for native Windows speech APIs enables native Wi
 
 ## How to use
 
-Note: this guide provides steps to enable speech subsystem in a new MRTK project (with other basic non-speech related setup in place). If you are using our sample project you may notice some steps have been performed for you.
+> [!NOTE]
+> This guide provides steps to enable speech subsystem in a new MRTK project (with other basic non-speech related setup in place). If you are using our sample project you may notice some steps have been performed for you.
 
 ### 1. Enable the speech subsystem
 

@@ -1,6 +1,7 @@
-﻿# Data Binding Framework
+﻿# Data binding framework
 
-**NOTE: This framework is still under development and APIs may change. Also see Known Limitations section below for more information.**
+> [!WARNING]
+> This framework is experimental, and APIs may change. Also see the [Known Limitations](#known-limitations-and-missing-features) section below for more information.
 
 Welcome to the data binding framework of MRTK. This framework is designed to make it easy to create
 visual elements that can be populated dynamically at runtime with data being provided from an external
@@ -80,7 +81,7 @@ that have registered to receive change notifications.
 
 ### Data Source Provider
 
-A simple interface that has a single method to retrieve a data source. This is designed to allow a MonoBehavior scripting component to be auto-discovered in the game object hierarchy by data consumer components, but without the need to implement a data source directly on the game object itself.  This is useful when an existing MonoBehaviour must derive from another class and multiple inheritance prevents deriving from DataSourceGOBase. It also allows more code to have no Unity dependencies.
+A simple interface that has a single method to retrieve a data source. This is designed to allow a MonoBehavior scripting component to be auto-discovered in the game object hierarchy by data consumer components, but without the need to implement a data source directly on the game object itself. This is useful when an existing MonoBehaviour must derive from another class and multiple inheritance prevents deriving from DataSourceGOBase. It also allows more code to have no Unity dependencies.
 
 ### Key Path (string)
 
@@ -97,12 +98,12 @@ which are the two most prevalent means of transferring information from back*end
 
 Example key paths:
 
-* temperature
-* contacts[10].firstName
-* contacts
-* contacts[10].addresses[3].city
-* [10].title
-* kingdom.animal.mammal.aardvark.diet.foodtypes.termites
+* `temperature`
+* `contacts[10].firstName`
+* `contacts`
+* `contacts[10].addresses[3].city`
+* `[10].title`
+* `kingdom.animal.mammal.aardvark.diet.foodtypes.termites`
 
 Given that a key path is an arbitrary string with no required taxonomy, the actual
 data specifiers could be any method of describing what data to retrieve. XML's XPath is an
@@ -123,7 +124,7 @@ not matter where in a larger data set hierarchy it actually exists. The most cri
 use of this ability is to describe the data of a single entry in a list without worrying about which
 entry in that list the current instance is referencing.
 
-Since a "fully resolved" Key path is always generated and consumed by a DataSource and should never (or at least rarely) be modified by a DataConsumer or other external component, it can have any structure that makes sense to the DataSource.  For example, if a prefab to show a list entry for a photo and it's title, date taken and other attributes, the local key path in the prefab might look like this:
+Since a "fully resolved" Key path is always generated and consumed by a DataSource and should never (or at least rarely) be modified by a DataConsumer or other external component, it can have any structure that makes sense to the DataSource. For example, if a prefab to show a list entry for a photo and it's title, date taken and other attributes, the local key path in the prefab might look like this:
 
 * "photo_url"
 * "title"
@@ -175,23 +176,23 @@ list of products, photos, or contacts.
 This is accomplished by assigning an item placer to the collection data consumer. This item placer is the logic tha knows how to request list items, accept prefabs
 that have been populated with variable data, and then present them to the user, typically by inserting them into a list managed by a ux layout component for lists.
 
-# Theming
+## Theming
 
-Theming uses all of the plumbing of data sources and data consumers.  It is possible to theme any hierarchy of GameObjects whether they are static or are dynamically data bound to other data sources.  This allows for both data binding and theming to be applied in combination. It is even possible to theme the data coming from another data source.
+Theming uses all of the plumbing of data sources and data consumers. It is possible to theme any hierarchy of GameObjects whether they are static or are dynamically data bound to other data sources. This allows for both data binding and theming to be applied in combination. It is even possible to theme the data coming from another data source.
 
 ## Theming UXComponents
 
-The standard UXComponents controls provided in the UXComponents package are all configured to support theming.  It is turned OFF by default, but is easy to enable.
+The standard UXComponents controls provided in the UXComponents package are all configured to support theming. It is turned OFF by default, but is easy to enable.
 
 Each control, typically on the topmost GameObject of the root prefab, has a script called UXBindingConfigurator. This script, if enabled, will pull in the needed data binding scripts to turn on theming. Make sure to import the Data Binding and Theming package as well.
 
-**Note on TextMeshPro StyleSheets**: It is not currently possible to use StyleSheets to style the TextMeshPro *Normal* style.  Any other style that is included in TextMeshPro's *Default Style Sheet* can be used. The examples use *Body* to work around this limitation.
+**Note on TextMeshPro StyleSheets**: It is not currently possible to use StyleSheets to style the TextMeshPro *Normal* style. Any other style that is included in TextMeshPro's *Default Style Sheet* can be used. The examples use *Body* to work around this limitation.
 
 ## Data Consumer Theming
 
 Theming is accomplished by Data Consumers, particularly ones that inherit from DataConsumerThemeBase\<T\>, DataConsumerTextStyle and custom DataConsumer classes that any developer can implement to enhance the theming support.
 
-The DataConsumerThemeBase\<T\> base class provides logic to use an integer or key datum from a primary data source to then look up the desired final value from a secondary theme database. This is accomplished by mapping the input data to a theme keypath, and then using that theme keypath to retrieve the final value. This allows for any element to be both data bound and themed at the same time.  As an example, imagine a status field in a database with statuses of New, Started, and Done represented by values 0, 1 and 2.  Each of these can be represented by a Sprite icon.  For data binding, a value from 0 to 2 is used to lookup the desired sprite.  With theming and data binding, the theme profile points to the correct list of 3 sprites in the theme profile and then the value from 0 to 2 is used to select the correct sprite from that list.  This allows the styling of these icons to differ per theme.
+The DataConsumerThemeBase\<T\> base class provides logic to use an integer or key datum from a primary data source to then look up the desired final value from a secondary theme database. This is accomplished by mapping the input data to a theme keypath, and then using that theme keypath to retrieve the final value. This allows for any element to be both data bound and themed at the same time. As an example, imagine a status field in a database with statuses of New, Started, and Done represented by values 0, 1 and 2. Each of these can be represented by a Sprite icon. For data binding, a value from 0 to 2 is used to lookup the desired sprite. With theming and data binding, the theme profile points to the correct list of 3 sprites in the theme profile and then the value from 0 to 2 is used to select the correct sprite from that list. This allows the styling of these icons to differ per theme.
 
 When both runtime theming and dynamic data binding are used together, a DataConsumerThemeHelper class can be specified in any DataConsumerThemeBase derived class to notify when a theme has changed.
 
@@ -249,7 +250,7 @@ An example for retrieving a themed status icon from a database containing a nume
 
 ### TextMeshPro StyleSheets
 
-Theming is able to activate TMPro stylesheets.  "TMP Settings" ScriptableObject dictates where stylesheets are expected to be in the Resources.  It's the "Default Font Asset => Path" property.
+Theming is able to activate TMPro stylesheets. "TMP Settings" ScriptableObject dictates where stylesheets are expected to be in the Resources. It's the "Default Font Asset => Path" property.
 
 Make sure to place any app specific StyleSheets in the same sub-path off of Resources. If you wish to organize them differently, make sure to update "TMP Settings" to match.
 
@@ -257,7 +258,7 @@ Make sure to place any app specific StyleSheets in the same sub-path off of Reso
 
 If you are developing new UX controls, it is relatively easy to make them themable. To the extent that the control uses Materials, Sprites, and other assets already in use by other UX controls, it is generally a matter of naming the various game objects in a discoverable way.
 
-It's possible to inherit from the MRTK_UXCore_ThemeProfile and add more themable fields, or point your controls to your own ScriptableObject.  There is nothing magical about the ones provided other than the organization of the ScriptableObject will determine the keypaths need to access individual data items, via C# Reflection.
+It's possible to inherit from the MRTK_UXCore_ThemeProfile and add more themable fields, or point your controls to your own ScriptableObject. There is nothing magical about the ones provided other than the organization of the ScriptableObject will determine the keypaths need to access individual data items, via C# Reflection.
 
 By adding a BindingConfigurator.cs script to the top level of the new control, you can then specify your own serialized BindingProfile ScriptableObject to provide the necessary GameObject name to KeyPath mappings needed to associate your themable elements with the data provided in the theme profile. This script will automatically add any needed DataConsumerXXX components at runtime to support the theming you wish to use.
 
@@ -270,7 +271,7 @@ By adding a BindingConfigurator.cs script to the top level of the new control, y
 
 ### Sample Scene
 
-For a first step, take a close look at the "Data Binding Test" scene that demonstrates a variety of variable data scenarios.  Simply load the scene and play. A few things to notice:
+For a first step, take a close look at the "Data Binding Test" scene that demonstrates a variety of variable data scenarios. Simply load the scene and play. A few things to notice:
 
 * The Text Input field of TextMeshPro components contain variables that look like this: {{ firstName }}
 * Game objects for sprites and text have some form of Data Consumer component that manages receiving data and updating views.
@@ -289,7 +290,7 @@ Create an empty game object and rename it to "Data Binding". Add a DataSourceJso
 
 In the inspector, change the Url to: <https://www.boredapi.com/api/activity>
 
-Add a UI -> Text - TextMeshPro object to the Data Binding game object.  It will add a canvas and then a "Text (TMP)" object.
+Add a UI -> Text - TextMeshPro object to the Data Binding game object. It will add a canvas and then a "Text (TMP)" object.
 
 Select the Text (TMP) object, and in the inspector change the Text Input to:
 
@@ -297,13 +298,13 @@ Select the Text (TMP) object, and in the inspector change the Text Input to:
 
 Select the canvas object and add a Data Consumer Text component to it.
 
-Run the project.  Every 15 seconds, a different activity will be shown.
+Run the project. Every 15 seconds, a different activity will be shown.
 
 Congratulations. You've created your first Data Binding project with MRTK!
 
 ### Writing a new Data Source
 
-A data source provides data to one or more data consumers.  It's data can be anything: algorithmically generated, in RAM, on disk, or fetched from a central database.
+A data source provides data to one or more data consumers. It's data can be anything: algorithmically generated, in RAM, on disk, or fetched from a central database.
 
 All Data sources must provide the IDataSource interface. Some of the basic functionality is offered in a base class called DataSourceBase. You most likely want to derive from this class to add the specific data management functionality specific to your need.
 
@@ -317,15 +318,15 @@ A data consumer gets notifications when data has changed and then updates some a
 
 All data consumers must provide the IDataConsumer interface. Some of the basic functionality is offered in a base class called DataConsumerGOBase, where GO stands for GameObject.
 
-The majority of the work of a data consumer is to accept new data and then prepare it for presentation.  This may be as simple as selecting the right prefab, or it could mean fetching more data from a cloud service such as a content management system.
+The majority of the work of a data consumer is to accept new data and then prepare it for presentation. This may be as simple as selecting the right prefab, or it could mean fetching more data from a cloud service such as a content management system.
 
 ### Writing a data collection item placer
 
 A data collection item placer is responsible for managing which parts of a collection are currently visible and how to present that visible collection, whether the collection is a small static list, or a giant million record database.
 
-All item placers must provide the IDataCollectionItemPlacer interface.  Some of the basic functionality is offered in a base class called DataCollectionItemPlacerGOBase.  All item placers should derive from this class.
+All item placers must provide the IDataCollectionItemPlacer interface. Some of the basic functionality is offered in a base class called DataCollectionItemPlacerGOBase. All item placers should derive from this class.
 
-# Known Limitations and Missing Features
+## Known Limitations and Missing Features
 
 * Need to verify proper cleanup of resources in all use cases, particularly lists.
 * Dynamic changes to list data completely refreshes entire list instead of incrementally updating.
