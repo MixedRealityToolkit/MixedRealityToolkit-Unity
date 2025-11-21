@@ -1,3 +1,9 @@
+---
+title: MRTK3 tutorials
+description: Resources for our MRTK3 tutorials
+parent: Getting started with MRTK3
+---
+
 # Exploring MRTK3 tutorials
 
 Several tutorials have been created to help developers learn about MRTK3's various features and capabilities.

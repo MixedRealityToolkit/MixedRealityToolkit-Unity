@@ -1,3 +1,9 @@
+---
+title: Setting up the Development Environment
+description: Setting up the Development Environment
+parent: Getting started with MRTK3
+---
+
 # Setting up your development environment
 
 Before setting up a Unity Project with MRTK3, make sure you have the following prerequisites.

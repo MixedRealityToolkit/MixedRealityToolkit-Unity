@@ -1,3 +1,8 @@
+---
+title: Contributing to MRTK3
+description: Overview of how to contribute to the MRTK3 open source project.
+---
+
 # Contributing to MRTK3
 
 MRTK3 is an open-source project under the MIT license. Community contributions are welcome and appreciated, both for new features and bug fixes.

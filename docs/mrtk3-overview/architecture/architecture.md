@@ -1,3 +1,8 @@
+---
+title: Architecture overview
+description: Mixed Reality Toolkit 3 for developers - Architecture overview.
+---
+
 # Architecture overview — MRTK3
 
 ![Architecture MRTK3](../images/MRTK_v3_Architecture.png)
