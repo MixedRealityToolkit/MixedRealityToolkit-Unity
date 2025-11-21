@@ -1,3 +1,9 @@
+---
+title: Deploy an MRTK3 project to a Quest device
+description: Mixed Reality Toolkit 3 for developers - Quest deployment.
+parent: Test and Experience Overview
+---
+
 # Deploy an MRTK3 project to a Quest device
 
 This page describes how to deploy your Unity Project with MRTK3 onto a Quest device.

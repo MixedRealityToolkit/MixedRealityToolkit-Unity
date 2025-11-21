@@ -1,3 +1,9 @@
+---
+title: Interactor architecture
+description: Mixed Reality Toolkit 3 for developers - Interactor architecture.
+parent: Architecture overview
+---
+
 # Interactor Architecture — MRTK3
 
 MRTK builds upon the set of interactors offered by Unity's XR Interaction Toolkit. Mixed reality features like articulated hand tracking, gaze, and pinch require more elaborate interactors than the set provided with XRI by default. MRTK defines new interactor interfaces, categorized generally by the input modality, and corresponding implementations.
