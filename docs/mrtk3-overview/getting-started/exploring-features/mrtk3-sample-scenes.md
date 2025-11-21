@@ -1,3 +1,9 @@
+---
+title: Exploring MRTK3 sample scenes
+description: Using and creating scenes in MRTK3
+parent: Getting started with MRTK3
+---
+
 # Exploring MRTK3 sample scenes
 
 Unlike MRTK2, MRTK3 isn't distributed as a Unity project. Instead, MRTK3 consists of a loosely coupled collection of individual UPM packages distributed through the [Mixed Reality Feature Tool](https://learn.microsoft.com/windows/mixed-reality/develop/unity/welcome-to-mr-feature-tool), as well as through our official GitHub repository.

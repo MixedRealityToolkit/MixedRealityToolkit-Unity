@@ -1,3 +1,9 @@
+---
+title: Deploy an MRTK3 project to HoloLens 2
+description: Mixed Reality Toolkit 3 for developers - HoloLens 2 deployment.
+parent: Test and Experience Overview
+---
+
 # Deploy an MRTK3 project to HoloLens 2
 
 This page describes how to deploy your Unity Project with MRTK3 onto a HoloLens 2.

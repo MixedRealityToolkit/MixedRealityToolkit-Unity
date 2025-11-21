@@ -1,3 +1,9 @@
+---
+title: Interactables
+description: Mixed Reality Toolkit 3 for developers - Interactables.
+parent: Architecture overview
+---
+
 # Interactables — MRTK3
 
 MRTK builds on the `XRBaseInteractable` provided by Unity's XR Interaction Toolkit. The existing interactable behavior and API is fully supported in MRTK, and all of our custom interactables obey the existing XRI interactable API.

@@ -1,3 +1,9 @@
+---
+title: Creating a new scene with MRTK3
+description: Creating a new scene with MRTK3
+parent: Getting started with MRTK3
+---
+
 # Creating a new scene with MRTK3
 
 The following will walk through through creating a AR/VR ready scene using MRTK3.

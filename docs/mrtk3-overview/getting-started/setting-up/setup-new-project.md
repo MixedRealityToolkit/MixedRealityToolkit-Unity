@@ -1,3 +1,9 @@
+---
+title: Setting up a new project with MRTK3
+description: Setting up a new project with MRTK3
+parent: Getting started with MRTK3
+---
+
 # Starting from a new project
 
 Since MRTK3 is a collection of loosely coupled packages, consuming MRTK3 is done differently than the way you consume MRTK 2.x. We don't ship MRTK as a Unity project, so you have to manually add MRTK3 packages to your project in order to consume them.
