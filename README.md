@@ -92,10 +92,10 @@ To help identify specific packages and their versions, MRTK3 provides an about d
 
 This project welcomes contributions, suggestions, and feedback. All contributions, suggestions, and feedback you submitted are accepted under the [Project's license](./LICENSE.md). You represent that if you do not own copyright in the code that you have the authority to submit it under the [Project's license](./LICENSE.md). All feedback, suggestions, or contributions are not confidential.
 
-For more information on how to contribute Mixed Reality Toolkit for Unity Project, please read [CONTRIBUTING.md](./CONTRIBUTING.md).
+For more information on how to contribute Mixed Reality Toolkit for Unity Project, please read the [contributing guidelines](./CONTRIBUTING.md).
 
 ## Governance
 
-For information on how the Mixed Reality Toolkit for Unity Project is governed, please read [GOVERNANCE.md](./GOVERNANCE.md).
+For information on how the Mixed Reality Toolkit for Unity Project is governed, please read the [Governance document](./GOVERNANCE.md).
 
 All projects under the Mixed Reality Toolkit organization are governed by the Steering Committee. The Steering Committee is responsible for all technical oversight, project approval and oversight, policy oversight, and trademark management for the Organization. To learn more about the Steering Committee, visit this link: <https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CHARTER.md>

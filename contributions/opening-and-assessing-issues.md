@@ -33,7 +33,7 @@ In some cases, an issue may not be a valid discussion topic, bug, or feature req
 
 ### Project appeals
 
-Project appeals are discussed in section 2.2 of the [GOVERNANCE.md](../GOVERNANCE.md) file. These issues can only be triaged by the Project Maintainers, and should be labeled with "Type: Appeal".
+Project appeals are discussed in section 2.2 of the [Governance document](../GOVERNANCE.md). These issues can only be triaged by the Project Maintainers, and should be labeled with "Type: Appeal".
 
 ## Continue assessment
 
@@ -107,7 +107,7 @@ If a particular organization must resolve the issue and it’s unclear what Cont
 
 GitHub [milestones](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/about-milestones) should be used sparingly. Only assign a milestone if the milestone has a clear dependency on the issue.
 
-Before a new milestone can be created in the repository, the new milestone must be approved by the project Maintainers, following the decision making rules in the [GOVERNANCE.md](../GOVERNANCE.md) file.
+Before a new milestone can be created in the repository, the new milestone must be approved by the project Maintainers, following the decision making rules in the [Governance document](../GOVERNANCE.md).
 
 ## GitHub project assignments
 

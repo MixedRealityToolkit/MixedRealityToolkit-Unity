@@ -7,6 +7,13 @@ url: https://mixedrealitytoolkit.github.io/MixedRealityToolkit-Unity/
 logo: "/images/MRTK_Logo_White.png"
 favicon_ico: "/images/IconMRTKLogo.png"
 
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+include: [ 'CONTRIBUTING.md', 'LICENSE.md', '**/CHANGELOG.md' ,'GOVERNANCE.md']
+
 defaults:
   - scope:
       path: "" # an empty string here means all files in the project

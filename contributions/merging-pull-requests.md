@@ -48,4 +48,4 @@ A change is considered breaking if it contains incompatible API or behavior chan
 
 ### Unblocking a pull request
 
-Only project Maintainers can unblock a pull request, and remove the "Merge: Blocked" label. To unblock a pull request, Maintainers follow the decision making rules in the [GOVERNANCE.md](../GOVERNANCE.md) file.
+Only project Maintainers can unblock a pull request, and remove the "Merge: Blocked" label. To unblock a pull request, Maintainers follow the decision making rules in the [Governance document](../GOVERNANCE.md).

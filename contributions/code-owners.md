@@ -22,7 +22,7 @@ Any project [Maintainer](../CONTRIBUTING.md#maintainers) can approve additions t
 
 ## Removal of a code owner
 
-To remove code owner, follow the appeal process in section 2.2 of the [GOVERNANCE.md](../GOVERNANCE.md#2-decisions) file.
+To remove a code owner, follow the appeal process in section 2.2 of the [Governance document](../GOVERNANCE.md#2-decisions).
 
 ## Project maintainers
 
