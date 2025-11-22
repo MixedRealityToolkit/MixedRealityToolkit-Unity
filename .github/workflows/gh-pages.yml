@@ -1,15 +1,15 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Docs site to Pages
+name: Deploy docs to GitHub Pages
 
 on:
   push:
     branches: ["add-gh-pages"]
-    paths: ["docs/**","**/README.md","**/CHANGELOG.md","Pipelines/Scripts/prepare-pages.ps1"]
+    paths:
+      [
+        "docs/**",
+        "**/README.md",
+        "**/CHANGELOG.md",
+        "Pipelines/Scripts/prepare-pages.ps1",
+      ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -20,10 +20,11 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   # Build job
@@ -35,17 +36,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Copy READMEs
+      - name: Copy documentation files
         shell: pwsh
-        run: |
-          ${{ github.workspace }}/Pipelines/Scripts/prepare-pages.ps1 -ProjectRoot ${{ github.workspace }}
+        run: ${{ github.workspace }}/Pipelines/Scripts/prepare-pages.ps1 -ProjectRoot ${{ github.workspace }}
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+        # https://github.com/ruby/setup-ruby/releases/tag/v1.207.0
+        uses: ruby/setup-ruby@4a9ddd6f338a97768b8006bf671dfbad383215f4
         with:
-          ruby-version: '3.3' # Not needed with a .ruby-version file
+          ruby-version: "3.3" # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           cache-version: 0 # Increment this number if you need to re-download cached gems
-          working-directory: '${{ github.workspace }}/docs'
+          working-directory: "${{ github.workspace }}/docs"
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
@@ -56,9 +57,10 @@ jobs:
           JEKYLL_ENV: production
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: docs/_site/
+
   # Deployment job
   deploy:
     environment:
