@@ -24,9 +24,9 @@ MRTK3 is designed to be used by developers of new and existing Unity projects. F
 
 ## Centralized project authority
 
-MRTK3 is governed by a [steering committee](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CHARTER.md). This committee is comprised of members from multiple companies with a vested interest in the success of MRTK. Decisions are made per the documented [governance](../GOVERNANCE.md).
+MRTK3 is governed by a [steering committee](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CHARTER.md). This committee is comprised of members from multiple companies with a vested interest in the success of MRTK. Decisions are made per the [Governance document](../GOVERNANCE.md).
 
-Being an open source project does not mean that everyone has the ability to approve or reject changes. The [maintainers group](../MAINTAINERS.md) has the responsibility for determining if a change is appropriate and meets the project guidelines and standards. This is not to imply that the MRTK3 project does not wish to receive code review feedback from non-maintainers, we openly encourage feedback and will take it under advisement when making approval decisions. 
+Being an open source project does not mean that everyone has the ability to approve or reject changes. The [maintainers group](../MAINTAINERS.md) has the responsibility for determining if a change is appropriate and meets the project guidelines and standards. This is not to imply that the MRTK3 project does not wish to receive code review feedback from non-maintainers, we openly encourage feedback and will take it under advisement when making approval decisions.
 
 ## Get community feedback on large decisions
 

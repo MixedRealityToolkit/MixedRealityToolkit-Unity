@@ -21,9 +21,9 @@ Copy-Item -Path (Join-Path $ProjectRoot "images" "*") -Destination $images -Recu
 Copy-Item -Path (Join-Path $ProjectRoot "org.mixedrealitytoolkit.standardassets" "Textures" "Logos" "MRTK_Logo_White.png") -Destination $images -Force
 Copy-Item -Path (Join-Path $ProjectRoot "org.mixedrealitytoolkit.standardassets" "Textures" "Logos" "IconMRTKLogo.png") -Destination $images -Force
 
-$indexDestination = Join-Path $docs "index.md"
-# Create home page, add front matter, and copy content
-New-Item -Path $indexDestination -ItemType File -Force -Value @"
+$destination = Join-Path $docs "index.md"
+# Create page, add front matter, and copy content
+New-Item -Path $destination -ItemType File -Force -Value @"
 ---
 title: Home
 nav_order: 1
@@ -31,13 +31,61 @@ nav_order: 1
 
 
 "@
-Add-Content -Path $indexDestination -Value (Get-Content -Path (Join-Path $ProjectRoot "README.md"))
+Add-Content -Path $destination -Value (Get-Content -Path (Join-Path $ProjectRoot "README.md"))
+
+$destination = Join-Path $docs "CONTRIBUTING.md"
+# Create page, add front matter, and copy content
+New-Item -Path $destination -ItemType File -Force -Value @"
+---
+title: Contributing
+parent: Home
+---
+
+
+"@
+Add-Content -Path $destination -Value (Get-Content -Path (Join-Path $ProjectRoot "CONTRIBUTING.md"))
+
+$destination = Join-Path $docs "LICENSE.md"
+# Create page, add front matter, and copy content
+New-Item -Path $destination -ItemType File -Force -Value @"
+---
+title: License
+parent: Home
+---
+
+
+"@
+Add-Content -Path $destination -Value (Get-Content -Path (Join-Path $ProjectRoot "LICENSE.md"))
+
+$destination = Join-Path $docs "MAINTAINERS.md"
+# Create page, add front matter, and copy content
+New-Item -Path $destination -ItemType File -Force -Value @"
+---
+title: Maintainers
+parent: Home
+---
+
+
+"@
+Add-Content -Path $destination -Value (Get-Content -Path (Join-Path $ProjectRoot "MAINTAINERS.md"))
+
+$destination = Join-Path $docs "GOVERNANCE.md"
+# Create page, add front matter, and copy content
+New-Item -Path $destination -ItemType File -Force -Value @"
+---
+title: Governance
+parent: Home
+---
+
+
+"@
+Add-Content -Path $destination -Value (Get-Content -Path (Join-Path $ProjectRoot "GOVERNANCE.md"))
 
 # Convert GitHub admonitions to just-the-docs syntax for in-place docs files
 # We leave them checked-in so they render correctly in the GitHub repo, but we convert them for Pages
 Get-ChildItem -Path (Join-Path $docs "*" "*.md") -Recurse | ForEach-Object {
     $fileContent = Get-Content -Path $_
-    Set-Content -Path $_ -Value ($fileContent -replace "> \[!(\w+)\]", { "{: .$("$($_.Groups[1])".ToLower()) }" })
+    Set-Content -Path $_ -Value ($fileContent -replace "> \[!(\w+)\]", { "{: .$("$($_.Groups[1])".ToLower()) }" } -replace "/docs/", "/")
 }
 
 # Loop through package directories and copy documentation
