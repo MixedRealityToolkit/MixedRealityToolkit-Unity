@@ -82,7 +82,8 @@ parent: $packageFriendlyName
         }
 
         # Create file, add front matter, and copy content
-        $fileFolder = Join-Path $packageDocsPath ($_.DirectoryName | Split-Path -Leaf)
+        # Remove the ~ from the Documentation~ folder name
+        $fileFolder = (Join-Path $packageDocsPath ($_.DirectoryName | Split-Path -Leaf)).Replace('~', '')
         New-Item -Path $fileFolder -ItemType Directory
         $fileDestination = Join-Path $fileFolder $_.Name
         $fileTitle = Select-String -Pattern "# (.+)" -Path $_ | Select-Object -First 1
