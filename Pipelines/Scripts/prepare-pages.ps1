@@ -14,7 +14,7 @@ $ProjectRoot = Resolve-Path -Path $ProjectRoot
 $docs = Join-Path $ProjectRoot "docs"
 
 # Copy root README images to docs
-Copy-Item -Path (Join-Path $ProjectRoot "images" "*") -Destination (Join-Path $docs "images") -Recurse
+Copy-Item -Path (Join-Path $ProjectRoot "images" "*") -Destination (Join-Path $docs "images") -Recurse -Force
 
 $indexDestination = Join-Path $docs "index.md"
 # Create home page, add front matter, and copy content
