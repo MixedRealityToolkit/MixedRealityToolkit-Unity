@@ -12,13 +12,15 @@ param(
 
 $ProjectRoot = Resolve-Path -Path $ProjectRoot
 $docs = Join-Path $ProjectRoot "docs"
+$images = Join-Path $docs "images"
 
+New-Item -Path $images -ItemType Directory -Force
 # Copy root README images to docs
-Copy-Item -Path (Join-Path $ProjectRoot "images" "*") -Destination (Join-Path $docs "images") -Recurse
+Copy-Item -Path (Join-Path $ProjectRoot "images" "*") -Destination $images -Recurse -Force
 
 $indexDestination = Join-Path $docs "index.md"
 # Create home page, add front matter, and copy content
-New-Item -Path $indexDestination -Value @"
+New-Item -Path $indexDestination -ItemType File -Force -Value @"
 ---
 title: Home
 nav_order: 1
@@ -42,17 +44,21 @@ Get-ChildItem -Path (Join-Path $ProjectRoot "*" "package.json") | ForEach-Object
     if (-not $packageName) {
         return # this is not an MRTK package, so skip
     }
+    
+    if ($packageName.Matches[0].Value -eq "org.mixedrealitytoolkit.data") {
+        return # this is a deprecated package, so skip
+    }
 
     $packageName = $packageName.Matches[0].Value
     $packageFriendlyName = (Select-String -Pattern "`"displayName`": `"(.+)`"" -Path $_ | Select-Object -First 1).Matches.Groups[1].Value
     $packagePath = $_.DirectoryName
     $packageDocsPath = Join-Path $docs $packageName
 
-    New-Item -Path $packageDocsPath -ItemType Directory
+    New-Item -Path $packageDocsPath -ItemType Directory -Force
 
     # Create README, add front matter, and copy content
     $packageReadmeDestination = Join-Path $packageDocsPath "index.md"
-    New-Item -Path $packageReadmeDestination -ItemType File -Value @"
+    New-Item -Path $packageReadmeDestination -ItemType File -Force -Value @"
 ---
 title: $packageFriendlyName
 parent: Packages
@@ -66,7 +72,7 @@ parent: Packages
 
     # Create CHANGELOG, add front matter, and copy content
     $packageChangelogDestination = Join-Path $packageDocsPath "CHANGELOG.md"
-    New-Item -Path $packageChangelogDestination -ItemType File -Value @"
+    New-Item -Path $packageChangelogDestination -ItemType File -Force -Value @"
 ---
 title: Changelog
 parent: $packageFriendlyName
@@ -84,10 +90,10 @@ parent: $packageFriendlyName
         # Create file, add front matter, and copy content
         # Remove the ~ from the Documentation~ folder name
         $fileFolder = (Join-Path $packageDocsPath ($_.DirectoryName | Split-Path -Leaf)).Replace('~', '')
-        New-Item -Path $fileFolder -ItemType Directory
+        New-Item -Path $fileFolder -ItemType Directory -Force
         $fileDestination = Join-Path $fileFolder $_.Name
         $fileTitle = Select-String -Pattern "# (.+)" -Path $_ | Select-Object -First 1
-        New-Item -Path $fileDestination -ItemType File -Value @"
+        New-Item -Path $fileDestination -ItemType File -Force -Value @"
 ---
 title: $($fileTitle.Matches ? $fileTitle.Matches[0].Groups[1] : $_.BaseName)
 parent: $packageFriendlyName
