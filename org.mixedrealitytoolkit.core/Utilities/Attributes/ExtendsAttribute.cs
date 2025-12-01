@@ -30,7 +30,8 @@ namespace MixedReality.Toolkit
         public override bool IsConstraintSatisfied(Type type)
         {
             return base.IsConstraintSatisfied(type) &&
-                   BaseType.IsAssignableFrom(type) &&
+                   (BaseType.IsAssignableFrom(type) ||
+                   (AllowGenericTypeDefinition && type.BaseType != null && type.BaseType.IsGenericType && BaseType.Equals(type.BaseType.GetGenericTypeDefinition()))) &&
                    type != BaseType;
         }
     }

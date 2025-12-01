@@ -30,12 +30,7 @@ namespace MixedReality.Toolkit
         /// <inheritdoc />
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            if (!ShouldShow(property))
-            {
-                return 0f;
-            }
-
-            return base.GetPropertyHeight(property, label);
+            return ShouldShow(property) ? base.GetPropertyHeight(property, label) : 0f;
         }
 
         private bool ShouldShow(SerializedProperty property)
@@ -43,9 +38,7 @@ namespace MixedReality.Toolkit
             DrawIfAttribute drawIf = attribute as DrawIfAttribute;
             if (drawIf == null) { return true; }
 
-            string path = drawIf.ComparedPropertyName;
-
-            SerializedProperty propertyToCheck = property.serializedObject.FindProperty(path);
+            SerializedProperty propertyToCheck = property.serializedObject.FindProperty(drawIf.ComparedPropertyName);
             if (propertyToCheck == null)
             {
                 Debug.LogError($"DrawIfAttribute couldn't find the SerializedProperty to compare against! (property name: {drawIf.ComparedPropertyName})");
