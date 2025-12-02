@@ -25,5 +25,5 @@ If your target platform is a Quest device, your Unity installation needs to incl
 
 After setting up the development environment, there are few options for creating a Unity Project with MRTK3.
 
-- [Starting from a Template Project](setup-template.md): This guide walks you through cloning a template project, which is pre-configured to consume all MRTK3 packages. This template project is set up with  Unity project settings for running your application on a device.
-- [Starting from a New Project](setup-new-project.md): This guide walks you through adding vital MRTK3 packages to a new Unity project. The guide also helps you set up the Unity project settings for running your application on a device.
+- [Starting from a Template Project](./setup-template.md): This guide walks you through cloning a template project, which is pre-configured to consume all MRTK3 packages. This template project is set up with  Unity project settings for running your application on a device.
+- [Starting from a New Project](./setup-new-project.md): This guide walks you through adding vital MRTK3 packages to a new Unity project. The guide also helps you set up the Unity project settings for running your application on a device.

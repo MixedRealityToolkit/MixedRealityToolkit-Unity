@@ -55,10 +55,12 @@ Once imported, MRTK3 requires a profile to be set for the standalone target plat
 1. Navigate to **Edit > Project Settings**.
 1. Under **Project Settings**, navigate to **MRTK3** and then switch to the standalone tab. Note that the profile is initially unspecified.
 1. Populate the field with the default MRTK profile that ships with the core package. You can type in the keyword "MRTKprofile" in the search bar of the project window; make sure you search in `All`. Alternatively, you can find the profile under `Packages/org.mixedrealitytoolkit.core/Configuration/Default Profiles/MRTKProfile.asset`.
-   > [!NOTE]
-   > Not all of the MRTK subsystems are shown in the screenshot below. The MRTK subsystems that you see may be different depending on the MRTK3 packages you've added to your project.
 
-   ![assign the default MRTK profile](../../images/mrtk-profile.png)
+    > [!NOTE]
+    > Not all of the MRTK subsystems are shown in the screenshot below. The MRTK subsystems that you see may be different depending on the MRTK3 packages you've added to your project.
+
+    ![assign the default MRTK profile](../../images/mrtk-profile.png)
+
 1. Switch to the tabs of other build target(s) you want to use (for example, UWP, Android) and check to see if the profile is assigned. If not, repeat the previous step on the current tab.
 
 ### 5. Configure OpenXR-related settings
@@ -105,7 +107,7 @@ Once imported, MRTK3 requires some configuration on OpenXR if you're targeting a
 
 ### 6. Congratulations, the project setup is now finished
 
-Proceed to [creating a new MRTK3 scene](../setting-up/setup-new-scene.md).
+Proceed to [creating a new MRTK3 scene](./setup-new-scene.md).
 
 ## Next steps
 

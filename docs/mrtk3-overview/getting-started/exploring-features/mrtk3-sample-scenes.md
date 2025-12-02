@@ -1,7 +1,7 @@
 ---
 title: Exploring MRTK3 sample scenes
 parent: Getting started with MRTK3
-nav_order: 1
+nav_order: 5
 ---
 
 # Exploring MRTK3 sample scenes

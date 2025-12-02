@@ -7,7 +7,7 @@ nav_order: 6
 
 MRTK3 is an open-source project under the MIT license. Community contributions are welcome and appreciated, both for new features and bug fixes.
 
-Contributing to MRTK3 is easy. We recommend using the `MRTKDevTemplate` Unity project as a convenient development testbed, as it already includes all the MRTK3 packages as local on-disk dependencies. [For more information, see the documentation on the MRTKDevTemplate project for more details on sample scenes and local on-disk dependencies.](getting-started/exploring-features/mrtk3-sample-scenes.md)
+Contributing to MRTK3 is easy. We recommend using the `MRTKDevTemplate` Unity project as a convenient development testbed, as it already includes all the MRTK3 packages as local on-disk dependencies. [For more information, see the documentation on the MRTKDevTemplate project for more details on sample scenes and local on-disk dependencies.](./getting-started/exploring-features/mrtk3-sample-scenes.md)
 
 ## Contribution guide
 
