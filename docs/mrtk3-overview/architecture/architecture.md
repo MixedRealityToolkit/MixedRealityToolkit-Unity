@@ -3,7 +3,7 @@ title: Architecture overview
 nav_order: 5
 ---
 
-# Architecture overview — MRTK3
+# Architecture overview
 
 ![Architecture MRTK3](../images/MRTK_v3_Architecture.png)
 
