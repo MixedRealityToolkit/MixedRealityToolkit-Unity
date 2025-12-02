@@ -53,7 +53,6 @@ The following components are considered to be in early preview.
 | Name | Package | Changelog |
 |------|---------|-----------|
 | Accessibility | [org.mixedrealitytoolkit.accessibility](./org.mixedrealitytoolkit.accessibility) | [Changelog](./org.mixedrealitytoolkit.accessibility/CHANGELOG.md) |
-| Data Binding and Theming | [org.mixedrealitytoolkit.data](./org.mixedrealitytoolkit.data) | [Changelog](./org.mixedrealitytoolkit.data/CHANGELOG.md) |
 
 It is important to note that the packages may not contain the complete feature set that is planned to be released or they may undergo major, breaking architectural changes before release.
 
@@ -71,9 +70,9 @@ MRTK3 requires Unity 2021.3.21 or higher. In addition, you need the [Mixed Reali
 
 | Platform | Supported Devices |
 |----------|-------------------|
-| OpenXR devices | Microsoft HoloLens 2 <br> Magic Leap 2 <br> Meta Quest 1/2 <br> Windows Mixed Reality (experimental) <br> SteamVR (experimental) <br> Oculus Rift on OpenXR (experimental) <br> Varjo XR-3 (experimental) <br> **If your OpenXR device already works with MRTK3, let us know!**
-| Windows | Traditional flat-screen desktop (experimental)
-| And more coming soon! |
+| OpenXR devices | Microsoft HoloLens 2 <br> Magic Leap 2 <br> Meta Quest 1/2 <br> Windows Mixed Reality (experimental) <br> SteamVR (experimental) <br> Oculus Rift on OpenXR (experimental) <br> Varjo XR-3 (experimental) <br> **If your OpenXR device already works with MRTK3, let us know!** |
+| Windows | Traditional flat-screen desktop (experimental) |
+| And more coming soon! | |
 
 ## Versioning
 
