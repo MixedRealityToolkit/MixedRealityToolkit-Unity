@@ -2,22 +2,22 @@
 
 This project is an open source project under the BSD 3-Clause license. Community contributions are welcome and appreciated, both for new features and bug fixes.
 
-Contributing to this project is easy. We recommend using the `MRTKDevTemplate` Unity project as a convenient development testbed, as it already includes all of the Project packages as local on-disk dependencies. See [Exploring MRTK3 sample scenes](https://learn.microsoft.com/windows/mixed-reality/mrtk-unity/mrtk3-overview/getting-started/exploring-features/mrtk3-sample-scenes) for more information on how to use this Unity project.
+Contributing to this project is easy. We recommend using the `MRTKDevTemplate` Unity project as a convenient development testbed, as it already includes all of the Project packages as local on-disk dependencies. See [Exploring MRTK3 sample scenes](../docs/mrtk3-overview/getting-started/exploring-features/mrtk3-sample-scenes.md) for more information on how to use this Unity project.
 
 ## Contribution guide
 
 1. Fork the Project repository to your GitHub account.
 
-2. Clone your forked Project repository by following our guide on [starting from a template project](https://learn.microsoft.com/windows/mixed-reality/mrtk-unity/mrtk3-overview/getting-started/setting-up/setup-new-project) Ensure you have the required tooling, especially the correct Unity version. To ensure you are on the right branch, clone using the command:
+2. Clone your forked Project repository by following our guide on [starting from a template project](../docs/mrtk3-overview/getting-started/setting-up/setup-new-project.md) Ensure you have the required tooling, especially the correct Unity version. To ensure you are on the right branch, clone using the command:
 
     ``
-    git clone --branch main YOUR_GIT_URL
+git clone --branch main YOUR_GIT_URL
     ``
 
 3. Create a new branch for your changes or fixes.
 
     ``
-    git checkout -b foobar_fix
+git checkout -b foobar_fix
     ``
 
 4. Open the `MRTKDevTemplate` template project located in `UnityProjects/MRTKDevTemplate`. You can add the project to your Unity Hub for easy access.
