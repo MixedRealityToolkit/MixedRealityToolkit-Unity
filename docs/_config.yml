@@ -4,7 +4,8 @@ theme: just-the-docs
 color_scheme: dark
 
 url: https://mixedrealitytoolkit.github.io/MixedRealityToolkit-Unity/
-# logo: "/assets/images/just-the-docs.png"
+logo: "/images/MRTK_Logo_White.png"
+favicon_ico: "/images/IconMRTKLogo.png"
 
 defaults:
   - scope:
@@ -29,6 +30,3 @@ callouts:
   caution:
     title: 🛑 Caution
     color: red
-
-aux_links:
-  Template Repository: https://github.com/just-the-docs/just-the-docs-template
