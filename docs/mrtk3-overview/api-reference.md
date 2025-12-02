@@ -3,7 +3,7 @@ title: API reference
 nav_order: 8
 ---
 
-# API reference — MRTK3
+# API reference
 
 MRTK3 is now shipping as [a set of individually versioned packages](index.md#versioning). As a result, each MRTK3 package ships its API reference individually. Please find the links to the API references for MRTK3 packages below:
 

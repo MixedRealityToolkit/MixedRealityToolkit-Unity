@@ -4,7 +4,7 @@ parent: Architecture overview
 nav_order: 2
 ---
 
-# Interactables — MRTK3
+# Interactables
 
 MRTK builds on the `XRBaseInteractable` provided by Unity's XR Interaction Toolkit. The existing interactable behavior and API is fully supported in MRTK, and all of our custom interactables obey the existing XRI interactable API.
 
