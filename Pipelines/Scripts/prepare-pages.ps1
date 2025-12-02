@@ -18,6 +18,9 @@ New-Item -Path $images -ItemType Directory -Force
 # Copy root README images to docs
 Copy-Item -Path (Join-Path $ProjectRoot "images" "*") -Destination $images -Recurse -Force
 
+Copy-Item -Path (Join-Path $ProjectRoot "org.mixedrealitytoolkit.standardassets" "Textures" "Logos" "MRTK_Logo_White.png") -Destination $images -Force
+Copy-Item -Path (Join-Path $ProjectRoot "org.mixedrealitytoolkit.standardassets" "Textures" "Logos" "IconMRTKLogo.png") -Destination $images -Force
+
 $indexDestination = Join-Path $docs "index.md"
 # Create home page, add front matter, and copy content
 New-Item -Path $indexDestination -ItemType File -Force -Value @"
