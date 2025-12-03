@@ -1,4 +1,4 @@
-# Opening and Assessing Issues
+# Opening and assessing issues
 
 All Contributors can open issues using the templates available for a [bug](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/new?assignees=&labels=Bug&template=bug-report.md&title=), [document issue](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/new?assignees=&labels=Documentation&template=documentation-issue.md&title=), [feature request](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues/new?assignees=&labels=Documentation&template=documentation-issue.md&title=), and [security vulnerability](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/security/advisories/new). Consider the following when opening a new Project issue:
 
@@ -11,7 +11,7 @@ All Contributors can open issues using the templates available for a [bug](https
 
 ## The role
 
-Contributors with the **triage** role can assist with issue assessment. 
+Contributors with the **triage** role can assist with issue assessment.
 
 ## Assessing issues
 

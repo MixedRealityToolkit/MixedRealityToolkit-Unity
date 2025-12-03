@@ -1,4 +1,4 @@
-# Code Contributions
+# Code contributions
 
 This project is an open source project under the BSD 3-Clause license. Community contributions are welcome and appreciated, both for new features and bug fixes.
 
