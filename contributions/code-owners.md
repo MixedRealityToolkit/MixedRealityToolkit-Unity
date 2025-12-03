@@ -1,4 +1,4 @@
-# Code Owners
+# Code owners
 
 Code owners are Contributors that a maintain particular parts of the Project, and are defined in [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) file.
 

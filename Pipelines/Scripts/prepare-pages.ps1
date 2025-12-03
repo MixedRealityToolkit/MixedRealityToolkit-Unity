@@ -38,12 +38,30 @@ $destination = Join-Path $docs "CONTRIBUTING.md"
 New-Item -Path $destination -ItemType File -Force -Value @"
 ---
 title: Contributing
-parent: Home
+nav_order: 6
 ---
 
 
 "@
 Add-Content -Path $destination -Value (Get-Content -Path (Join-Path $ProjectRoot "CONTRIBUTING.md"))
+
+$fileFolder = Join-Path $docs "contributions"
+New-Item -Path $fileFolder -ItemType Directory -Force
+
+Get-ChildItem -Path (Join-Path $ProjectRoot "contributions") -File | ForEach-Object {
+    # Create file, add front matter, and copy content
+    $destination = Join-Path $fileFolder $_.Name
+    $fileTitle = Select-String -Pattern "# (.+)" -Path $_ | Select-Object -First 1
+    New-Item -Path $destination -ItemType File -Force -Value @"
+---
+title: $($fileTitle.Matches ? $fileTitle.Matches[0].Groups[1] : $_.BaseName)
+parent: Contributing
+---
+
+
+"@
+    Add-Content -Path $destination -Value (Get-Content -Path $_)
+}
 
 $destination = Join-Path $docs "LICENSE.md"
 # Create page, add front matter, and copy content

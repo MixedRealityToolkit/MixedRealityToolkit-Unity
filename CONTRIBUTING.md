@@ -6,11 +6,11 @@ This project welcomes contributions, suggestions, and feedback. All contribution
 
 Contributors must abide by the Mixed Reality Toolkit Organization's [code of conduct](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CODE-OF-CONDUCT.md), [trademark policy](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/TRADEMARKS.md), and observe the following procedures:
 
-* [Project Tenets](./contributions/project-tenets.md)
-* [Code Contributions](./contributions/code-contributions.md)
-* [Opening and Assessing Issues](./contributions/opening-and-assessing-issues.md)
-* [Approving Pull Requests](./contributions/merging-pull-requests.md)
-* [Versioning and Releases](./contributions/versioning-and-releases.md)
+* [Project tenets](./contributions/project-tenets.md)
+* [Code contributions](./contributions/code-contributions.md)
+* [Opening and assessing issues](./contributions/opening-and-assessing-issues.md)
+* [Approving pull requests](./contributions/merging-pull-requests.md)
+* [Versioning and releases](./contributions/versioning-and-releases.md)
 
 ### GitHub roles
 

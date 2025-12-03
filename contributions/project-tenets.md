@@ -1,4 +1,4 @@
-# MRTK3 Tenets
+# Project tenets
 
 The following are the guiding principles by which the MRTK3 project abides. This is a living document and the list may be modified over time.
 

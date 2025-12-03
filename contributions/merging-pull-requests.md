@@ -1,4 +1,4 @@
-# Approving Pull Requests
+# Approving pull requests
 
 All merges into the `main` branch must be done through a pull request process to ensure changes are reviewed and approved by code owners.
 
