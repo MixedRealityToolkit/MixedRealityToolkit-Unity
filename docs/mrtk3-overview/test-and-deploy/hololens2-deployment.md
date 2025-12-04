@@ -16,7 +16,7 @@ This page describes how to deploy your Unity Project with MRTK3 onto a HoloLens 
 1. Add MRTK to your project and ensure your [project settings](../getting-started/setting-up/setup-new-project.md#5-configure-openxr-related-settings) are configured correctly to use the OpenXR pipeline and MRTK's feature set. **These features are required to deploy your project onto your HoloLens**.
 
     > [!NOTE]
-    > If starting from our [template project](../getting-started/setting-up/setup-template.md), these project settings should already be configured for you.
+    > If starting from the [template project](../getting-started/setting-up/setup-template.md), these project settings should already be configured for you.
 
 1. Navigate to **File > Build Settings**.
 
@@ -38,7 +38,7 @@ This page describes how to deploy your Unity Project with MRTK3 onto a HoloLens 
     [![UWP XR Plug-in Management window](../images/uwp-xr-plug-in-management.png)](../images/uwp-xr-plug-in-management.png)
 
     > [!NOTE]
-    > A yellow warning icon may appear after checking the **OpenXR** option. Click that icon to open the **OpenXR Project Validation** tool. Click **Fix all** and ignore the interaction profile issue that can't be auto-fixed. The profiles will be added in the step below.
+    > A yellow warning icon may appear after checking the **OpenXR** option. Click that icon to open the **OpenXR Project Validation** tool. Click **Fix All** and ignore the interaction profile issue that can't be auto-fixed. The profiles will be added in the step below.
 
 1. Under **Project Settings**, navigate to **XR Plug-in Management > OpenXR > Interaction Profiles** and ensure the following profiles are listed based on the MRTK features you'd like to use:
 

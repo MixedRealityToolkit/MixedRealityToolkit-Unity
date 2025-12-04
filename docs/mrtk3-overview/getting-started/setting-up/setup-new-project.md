@@ -67,8 +67,9 @@ Once imported, MRTK3 requires a profile to be set for the standalone target plat
 
 Once imported, MRTK3 requires some configuration on OpenXR if you're targeting a specific XR device. Refer to the instructions on the following pages for platform-specific guidance.
 
-- [Deploy to a Quest device](../../test-and-deploy/quest-deployment.md#deployment-prerequisites)
-- [Deploy to HoloLens 2](../../test-and-deploy/hololens2-deployment.md#deployment-prerequisites)
+- [Deploy to an Android XR device](../../test-and-deploy/android-xr-deployment.md)
+- [Deploy to a Quest device](../../test-and-deploy/quest-deployment.md)
+- [Deploy to HoloLens 2](../../test-and-deploy/hololens2-deployment.md)
 
 ### 6. Congratulations, the project setup is now finished
 
