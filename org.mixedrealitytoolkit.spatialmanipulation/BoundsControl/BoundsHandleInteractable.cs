@@ -13,7 +13,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
     /// Scale handles subclass this to implement custom occlusion + reorientation logic.
     /// </summary>
     [AddComponentMenu("MRTK/Spatial Manipulation/Bounds Handle Interactable")]
-    public class BoundsHandleInteractable : StatefulInteractable, ISnapInteractable
+    public class BoundsHandleInteractable : StatefulInteractable, ISnapInteractable, ISerializationCallbackReceiver
     {
         private BoundsControl boundsControlRoot;
 
@@ -56,6 +56,41 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Maximum lossy scale for the handle. Only applicable if ScaleAdjustType is Advanced.")]
         private float maxLossyScale = 4f;
+
+        #region Handling Obsolete Properties
+
+        // A temporary variable used to migrate instances of BoundsHandleInteractable to use the scaleMaintainType property
+        // instead of the serialized field maintainGlobalSize.
+        // TODO: Remove this after some time to ensure users have successfully migrated.
+        [SerializeField, HideInInspector]
+        private bool migratedSuccessfully = false;
+
+        [SerializeField, HideInInspector]
+        private bool maintainGlobalSize = true;
+
+        /// <summary>
+        /// Should the handle maintain its global size, even as the object changes size?
+        /// </summary>
+        [Obsolete("This property has been deprecated in version 3.4.0. Use ScaleMaintainType instead.")]
+        public bool MaintainGlobalSize
+        {
+            get => scaleMaintainType == ScaleMaintainType.GlobalSize;
+            set => scaleMaintainType = value ? ScaleMaintainType.GlobalSize : ScaleMaintainType.FixedScale;
+        }
+
+        public void OnBeforeSerialize() { }
+
+        public void OnAfterDeserialize()
+        {
+            // Only update the scaleMaintainType if it hasn't been set and the old property was not migrated yet
+            if (!migratedSuccessfully && scaleMaintainType == ScaleMaintainType.GlobalSize)
+            {
+                scaleMaintainType = maintainGlobalSize ? ScaleMaintainType.GlobalSize : ScaleMaintainType.FixedScale;
+                migratedSuccessfully = true;
+            }
+        }
+
+        #endregion Handling Obsolete Properties
 
         #endregion Bounds Handle Scaling
 
