@@ -11,9 +11,11 @@ Before setting up a Unity Project with MRTK3, make sure you have the following s
 | Software | Version | Notes |
 | --- | --- | --- |
 | Unity | 2022.3 LTS or newer | Recommend using an LTS release <br> See [Additional tools](#additional-tools) below for recommended modules |
-| [Mixed Reality Feature Tool for Unity](https://aka.ms/mrfeaturetool) | | Used to acquire MRTK3 packages |
 
 ## Additional tools
+
+> [!WARNING]
+> Older versions of MRTK3 can be found on the [Mixed Reality Feature Tool for Unity](./mixed-reality-feature-tool.md). The feed that backs the tool and the publishing infrastructure around it have been decommissioned, and new versions will not be published here.
 
 ### Android
 
