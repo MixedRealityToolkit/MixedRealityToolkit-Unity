@@ -1,6 +1,8 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using UnityEngine;
+
 namespace MixedReality.Toolkit.SpatialManipulation
 {
     /// <summary>
@@ -10,6 +12,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
     /// MRTK's constraint system might be redesigned in the near future. When
     /// this occurs, the old constraint components will be deprecated.
     /// </remarks>
+    [AddComponentMenu("MRTK/Spatial Manipulation/Fixed Rotation to World Constraint")]
     public class FixedRotationToWorldConstraint : TransformConstraint
     {
         #region Properties
