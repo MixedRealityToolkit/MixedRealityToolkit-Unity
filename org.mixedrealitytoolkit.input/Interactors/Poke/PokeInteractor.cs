@@ -106,7 +106,7 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
-        [Obsolete("Use handedness from IXRInteractor instead.")]
+        [Obsolete("Use " + nameof(handedness) + " instead.")]
         Handedness IHandedInteractor.Handedness
         {
             get
