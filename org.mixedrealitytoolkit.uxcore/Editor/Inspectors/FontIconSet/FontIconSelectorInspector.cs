@@ -12,8 +12,8 @@ namespace MixedReality.Toolkit.Editor
     [CanEditMultipleObjects]
     class FontIconSelectorInspector : UnityEditor.Editor
     {
-        private const string noFontIconsMessage = "No IconFontSet profile selected. No icons available.";
-        private const string emptyFontIconSetMessage = "The selected IconFontSet profile has no icons defined. Please edit the IconFontSet.";
+        private const string noFontIconsMessage = "No FontIconSet profile selected. No icons available.";
+        private const string emptyFontIconSetMessage = "The selected FontIconSet profile has no icons defined. Please edit the FontIconSet.";
 
         private SerializedProperty fontIconsProp = null;
         private SerializedProperty currentIconNameProp = null;
@@ -39,6 +39,8 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
+            serializedObject.Update();
+
             if (!initializedStyle)
             {
                 currentButtonStyle = new GUIStyle(GUI.skin.button);

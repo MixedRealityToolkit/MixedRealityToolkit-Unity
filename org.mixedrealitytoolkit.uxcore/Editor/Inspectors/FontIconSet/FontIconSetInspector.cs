@@ -37,7 +37,7 @@ namespace MixedReality.Toolkit.Editor
         private SerializedProperty fontIconSetDefinitionProp = null;
         private bool anyInvalidName = false;
 
-        private SortedList<uint, string> iconEntries = new SortedList<uint, string>();
+        private List<KeyValuePair<uint, string>> iconEntries = new List<KeyValuePair<uint, string>>();
         private List<string> validNames = new List<string>();
         private List<string> availableNames = new List<string>();
         private string[] availableNamesArray = Array.Empty<string>();
@@ -51,11 +51,56 @@ namespace MixedReality.Toolkit.Editor
             iconFontAssetProp = serializedObject.FindProperty("iconFontAsset");
             fontIconSetDefinitionProp = serializedObject.FindProperty("fontIconSetDefinition");
 
-            // Make a list out of dictionary to avoid changing order while editing names
+            // Listen for undo/redo events to ensure our local iconEntries cache stays in sync
+            Undo.undoRedoPerformed += UpdateIconEntries;
+            UpdateIconEntries();
+        }
+
+        private void OnDisable()
+        {
+            Undo.undoRedoPerformed -= UpdateIconEntries;
+        }
+
+        private void UpdateIconEntries()
+        {
+            FontIconSet fontIconSet = target as FontIconSet;
+            if (fontIconSet == null) { return; }
+
+            iconEntries.Clear();
+
+            if (iconEntries.Capacity < fontIconSet.GlyphIconsByName.Count)
+            {
+                iconEntries.Capacity = fontIconSet.GlyphIconsByName.Count;
+            }
+
             foreach (KeyValuePair<string, uint> kv in fontIconSet.GlyphIconsByName)
             {
-                iconEntries.Add(kv.Value, kv.Key);
+                iconEntries.Add(new KeyValuePair<uint, string>(kv.Value, kv.Key));
             }
+            iconEntries.Sort((a, b) => a.Key.CompareTo(b.Key));
+
+            validNames.Clear();
+            availableNames.Clear();
+            availableNames.Add(string.Empty);
+
+            if (fontIconSetDefinitionProp != null)
+            {
+                FontIconSetDefinition setDefinition = fontIconSetDefinitionProp.objectReferenceValue as FontIconSetDefinition;
+                if (setDefinition != null && setDefinition.IconNames != null)
+                {
+                    foreach (string name in setDefinition.IconNames)
+                    {
+                        validNames.Add(name);
+                        if (!fontIconSet.GlyphIconsByName.ContainsKey(name))
+                        {
+                            availableNames.Add(name);
+                        }
+                    }
+                }
+            }
+            availableNamesArray = availableNames.ToArray();
+
+            Repaint();
         }
 
         /// <summary>
@@ -73,7 +118,13 @@ namespace MixedReality.Toolkit.Editor
             if (showGlyphIconFoldout)
             {
                 EditorGUILayout.PropertyField(iconFontAssetProp);
+                EditorGUI.BeginChangeCheck();
                 EditorGUILayout.PropertyField(fontIconSetDefinitionProp);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    serializedObject.ApplyModifiedProperties();
+                    UpdateIconEntries();
+                }
 
                 if (iconFontAssetProp.objectReferenceValue == null)
                 {
@@ -138,20 +189,11 @@ namespace MixedReality.Toolkit.Editor
                                     anyInvalidName = false;
                                 }
 
-                                validNames.Clear();
-                                availableNames.Clear();
-                                // Reserve space for the current icon's name
-                                availableNames.Add(string.Empty);
-                                foreach (string name in setDefinition.IconNames)
+                                // Catch edge cases where the external asset size changes while this inspector is still focused
+                                if (setDefinition.IconNames != null && validNames.Count != setDefinition.IconNames.Count)
                                 {
-                                    validNames.Add(name);
-                                    if (!iconEntries.ContainsValue(name))
-                                    {
-                                        availableNames.Add(name);
-                                    }
+                                    UpdateIconEntries();
                                 }
-
-                                availableNamesArray = availableNames.ToArray();
                             }
 
                             int column = 0;
@@ -297,9 +339,11 @@ namespace MixedReality.Toolkit.Editor
         private bool AddIcon(FontIconSet fontIconSet, uint unicodeValue)
         {
             string name = $"Icon {unicodeValue}";
+
+            Undo.RecordObject(fontIconSet, "Add Icon");
             if (fontIconSet.AddIcon(name, unicodeValue))
             {
-                iconEntries.Add(unicodeValue, name);
+                UpdateIconEntries();
                 EditorUtility.SetDirty(fontIconSet);
                 return true;
             }
@@ -308,20 +352,25 @@ namespace MixedReality.Toolkit.Editor
 
         private bool RemoveIcon(FontIconSet fontIconSet, string iconName)
         {
-            if (fontIconSet.TryGetGlyphIcon(iconName, out uint unicodeValue) && fontIconSet.RemoveIcon(iconName))
+            if (fontIconSet.TryGetGlyphIcon(iconName, out uint unicodeValue))
             {
-                iconEntries.Remove(unicodeValue);
-                EditorUtility.SetDirty(fontIconSet);
-                return true;
+                Undo.RecordObject(fontIconSet, "Remove Icon");
+                if (fontIconSet.RemoveIcon(iconName))
+                {
+                    UpdateIconEntries();
+                    EditorUtility.SetDirty(fontIconSet);
+                    return true;
+                }
             }
             return false;
         }
 
         private void UpdateIconName(FontIconSet fontIconSet, string oldName, string newName)
         {
-            if (fontIconSet.UpdateIconName(oldName, newName) && fontIconSet.TryGetGlyphIcon(newName, out uint unicodeValue))
+            Undo.RecordObject(fontIconSet, "Rename Icon");
+            if (fontIconSet.UpdateIconName(oldName, newName))
             {
-                iconEntries[unicodeValue] = newName;
+                UpdateIconEntries();
                 EditorUtility.SetDirty(fontIconSet);
             }
         }

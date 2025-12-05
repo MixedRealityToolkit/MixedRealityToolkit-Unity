@@ -104,8 +104,6 @@ MonoBehaviour:
       value: 60390
     - key: Icon 26
       value: 60227
-    - key: Icon 25
-      value: 59977
     - key: Icon 24
       value: 59846
     - key: Icon 23
@@ -148,8 +146,6 @@ MonoBehaviour:
       value: 62982
     - key: Play Circle
       value: 62984
-    - key: Brightness
-      value: 59456
     - key: Unpin
       value: 62980
     - key: Pin
@@ -196,16 +192,12 @@ MonoBehaviour:
       value: 59512
     - key: Movie
       value: 62810
-    - key: Thumb Up
-      value: 63518
     - key: Location On
       value: 62713
     - key: Refresh
       value: 61758
     - key: Location Off
       value: 59523
-    - key: Thumb Down
-      value: 63520
     - key: Videocam
       value: 63565
     - key: Undo
@@ -296,6 +288,16 @@ MonoBehaviour:
       value: 62318
     - key: Cut
       value: 62267
+    - key: Icon 62700
+      value: 62700
+    - key: Thumb Down
+      value: 63518
+    - key: Thumb Up
+      value: 63520
+    - key: Brightness
+      value: 59456
+    - key: Save As
+      value: 59977
   iconFontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   optionalEditorMaterial: {fileID: 0}
   fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}

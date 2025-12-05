@@ -76,7 +76,19 @@ namespace MixedReality.Toolkit.UX
         /// <returns>Whether it was able to add this icon.</returns>
         public bool AddIcon(string name, uint unicodeValue)
         {
-            return !glyphIconsByName.ContainsValue(unicodeValue) && glyphIconsByName.TryAdd(name, unicodeValue);
+            if (glyphIconsByName.ContainsValue(unicodeValue))
+            {
+                Debug.LogWarning($"[{nameof(FontIconSet)}] Failed to add icon '{name}'. An icon with the unicode value '{unicodeValue}' already exists in '{this.name}'.", this);
+                return false;
+            }
+
+            if (!glyphIconsByName.TryAdd(name, unicodeValue))
+            {
+                Debug.LogWarning($"[{nameof(FontIconSet)}] Failed to add icon '{name}'. An icon with that name already exists in '{this.name}'.", this);
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -111,22 +123,12 @@ namespace MixedReality.Toolkit.UX
         /// <returns>The binary unicode value.</returns>
         public static uint ConvertHexStringToUnicode(string charString)
         {
-            uint unicode = 0;
-
             if (string.IsNullOrEmpty(charString))
                 return 0;
 
-            for (int i = 0; i < charString.Length; i++)
-            {
-                unicode = charString[i];
-                // Handle surrogate pairs
-                if (i < charString.Length - 1 && char.IsHighSurrogate((char)unicode) && char.IsLowSurrogate(charString[i + 1]))
-                {
-                    unicode = (uint)char.ConvertToUtf32(charString[i], charString[i + 1]);
-                    i += 1;
-                }
-            }
-            return unicode;
+            // Retrieve the 32-bit unicode codepoint for the first character in the string,
+            // automatically handling surrogate pairs if the character is outside the BMP.
+            return (uint)char.ConvertToUtf32(charString, 0);
         }
 
         /// <summary>
@@ -139,8 +141,7 @@ namespace MixedReality.Toolkit.UX
         /// <returns>The string version of the unicode value in the form of '\uFFFF', where FFFF is replaced with the associated hexadecimal value.</returns>
         public static string ConvertUnicodeToHexString(uint unicode)
         {
-            byte[] bytes = System.BitConverter.GetBytes(unicode);
-            return Encoding.Unicode.GetString(bytes);
+            return char.ConvertFromUtf32((int)unicode);
         }
     }
 }
