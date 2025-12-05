@@ -5,6 +5,7 @@ using MixedReality.Toolkit.Editor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
         private ConstraintManager constraintManager;
 
         private const string autoMsg = "Constraint manager is currently set to auto mode. In auto mode all" +
-            " constraints attached to this gameobject will automatically be processed by this manager.";
+            " constraints attached to this GameObject will automatically be processed by this manager.";
         private const string manualMsg = "Constraint manager is currently set to manual mode. In manual mode" +
             " only constraints that are linked in the below component list will be processed by this manager.";
 
@@ -75,7 +76,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                         return EntryAction.Highlight;
                     }
 
-                    if (InspectorUIUtility.FlexButton(new GUIContent("Remove Entry", "Remove constraint from constraint manager but keep constraint component attached to the gameobject.")))
+                    if (InspectorUIUtility.FlexButton(new GUIContent("Remove Entry", "Remove constraint from constraint manager but keep constraint component attached to the GameObject.")))
                     {
                         return EntryAction.Detach;
                     }
@@ -86,8 +87,8 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
         private void AddNewConstraint(Type t)
         {
-            var constraint = constraintManager.gameObject.AddComponent((Type)t);
-            AttachConstraint((TransformConstraint)constraint);
+            TransformConstraint constraint = constraintManager.gameObject.AddComponent(t) as TransformConstraint;
+            AttachConstraint(constraint);
         }
 
         private void AttachConstraint(TransformConstraint constraint)
@@ -101,23 +102,21 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
         private void RenderAutoConstraintMenu()
         {
             // component list
-            var constraints = constraintManager.gameObject.GetComponents<TransformConstraint>();
-            foreach (var constraint in constraints)
+            TransformConstraint[] constraints = constraintManager.gameObject.GetComponents<TransformConstraint>();
+            foreach (TransformConstraint constraint in constraints)
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    string constraintName = constraint.GetType().Name;
-                    EditorGUILayout.LabelField($"Priority {(constraint as TransformConstraint).ExecutionPriority}: {constraint.GetType().Name}");
+                    EditorGUILayout.LabelField($"Priority {constraint.ExecutionPriority}: {constraint.GetType().Name}");
                     if (GUILayout.Button("Go to component"))
                     {
-                        Highlighter.Highlight("Inspector", $"{ObjectNames.NicifyVariableName(constraintName)}");
-                        EditorGUIUtility.ExitGUI();
+                        HighlightConstraint(constraint.GetType());
                     }
                 }
             }
 
             // add button
-            if (EditorGUILayout.DropdownButton(new GUIContent("Add Constraint to GameObject", "Add a constraint to the gameobject that will be picked up by the constraint manager auto mode."), FocusType.Keyboard))
+            if (EditorGUILayout.DropdownButton(new GUIContent("Add Constraint to GameObject", "Add a constraint to the GameObject that will be picked up by the constraint manager auto mode."), FocusType.Keyboard))
             {
                 // create the menu and add items to it
                 GenericMenu menu = new GenericMenu();
@@ -129,8 +128,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
                 foreach (var derivedType in types)
                 {
-                    menu.AddItem(new GUIContent(derivedType.Name), false, t =>
-                     constraintManager.gameObject.AddComponent((Type)t), derivedType);
+                    menu.AddItem(new GUIContent(derivedType.Name), false, t => constraintManager.gameObject.AddComponent((Type)t), derivedType);
                 }
 
                 menu.ShowAsContext();
@@ -142,16 +140,14 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
             for (int i = 0; i < selectedConstraints.arraySize; i++)
             {
                 SerializedProperty constraintProperty = selectedConstraints.GetArrayElementAtIndex(i);
-                var buttonAction = RenderManualConstraintItem(constraintProperty, true);
+                EntryAction buttonAction = RenderManualConstraintItem(constraintProperty, true);
                 if (buttonAction == EntryAction.Detach)
                 {
                     indicesToRemove.Add(i);
                 }
                 else if (buttonAction == EntryAction.Highlight)
                 {
-                    string constraintName = constraintProperty.objectReferenceValue.GetType().Name;
-                    Highlighter.Highlight("Inspector", $"{ObjectNames.NicifyVariableName(constraintName)}");
-                    EditorGUIUtility.ExitGUI();
+                    HighlightConstraint(constraintProperty.objectReferenceValue.GetType());
                 }
             }
 
@@ -159,7 +155,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    if (EditorGUILayout.DropdownButton(new GUIContent("Add Entry", "Attach an already existing component from this gameobject to the constraint manager selection."), FocusType.Keyboard))
+                    if (EditorGUILayout.DropdownButton(new GUIContent("Add Entry", "Attach an already existing component from this GameObject to the constraint manager selection."), FocusType.Keyboard))
                     {
                         // create the menu and add items to it
                         GenericMenu menu = new GenericMenu();
@@ -175,8 +171,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                             {
                                 hasEntries = true;
                                 string constraintName = constraint.GetType().Name;
-                                menu.AddItem(new GUIContent(constraintName), false, t =>
-                                 AttachConstraint((TransformConstraint)t), constraint);
+                                menu.AddItem(new GUIContent(constraintName), false, t => AttachConstraint((TransformConstraint)t), constraint);
                             }
                         }
 
@@ -194,7 +189,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                         menu.ShowAsContext();
                     }
 
-                    if (EditorGUILayout.DropdownButton(new GUIContent("Add New Constraint", "Add a constraint to the gameobject and attach to this constraint manager selection."), FocusType.Keyboard))
+                    if (EditorGUILayout.DropdownButton(new GUIContent("Add New Constraint", "Add a constraint to the GameObject and attach to this constraint manager selection."), FocusType.Keyboard))
                     {
                         // create the menu and add items to it
                         GenericMenu menu = new GenericMenu();
@@ -206,14 +201,30 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
                         foreach (var derivedType in types)
                         {
-                            menu.AddItem(new GUIContent(derivedType.Name), false, t =>
-                             AddNewConstraint((Type)t), derivedType);
+                            menu.AddItem(new GUIContent(derivedType.Name), false, t => AddNewConstraint((Type)t), derivedType);
                         }
 
                         menu.ShowAsContext();
                     }
                 }
             }
+        }
+
+        private void HighlightConstraint(Type type)
+        {
+            string highlightName;
+            AddComponentMenu addComponentMenu = type.GetCustomAttribute<AddComponentMenu>();
+            if (addComponentMenu != null)
+            {
+                // Parse the "nice" name as the last item from the add component menu
+                highlightName = addComponentMenu.componentMenu.Replace('\\', '/').Split('/')[^1];
+            }
+            else
+            {
+                highlightName = $"{ObjectNames.NicifyVariableName(type.Name)} (Script)";
+            }
+            Highlighter.Highlight("Inspector", highlightName);
+            GUIUtility.ExitGUI();
         }
 
         /// <summary>
@@ -233,8 +244,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                 {
                     EditorGUILayout.Space();
 
-                    EditorGUILayout.HelpBox(autoConstraintSelection.boolValue == true ? autoMsg : manualMsg
-                        , UnityEditor.MessageType.Info);
+                    EditorGUILayout.HelpBox(autoConstraintSelection.boolValue == true ? autoMsg : manualMsg, MessageType.Info);
                     EditorGUILayout.Space();
 
                     int tab = autoConstraintSelection.boolValue == true ? 0 : 1;
@@ -276,7 +286,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                     // we render the instance id of this component so our highlighting function can distinguish between 
                     // the different instances of constraint manager - highlighting in the inspector is currently 
                     // only available for string search which causes problems with multiple components of the same type 
-                    // attached to the same gameobject.
+                    // attached to the same GameObject.
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("ComponentId: " + constraintManager.GetInstanceID(), EditorStyles.miniLabel);
 
@@ -302,7 +312,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
         }
 
         /// <summary>
-        /// Util method for drawing a consistent constraints section.
+        /// Utility method for drawing a consistent constraints section.
         /// Use this method in a component inspector for linking to a constraint manager. 
         /// </summary>
         /// <param name="gameObject">Game object the constraint manager is attached to.</param>
@@ -310,7 +320,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
         /// <param name="managerRef">Serialized property of the constraint manager component link - needs to be type of ConstraintManager.</param>
         /// <param name="isExpanded">Flag for indicating if the constraint foldout was previously collapsed or expanded.</param>
         /// <returns>Current state of expanded or collapsed constraint foldout. Returns true if expanded / contents visible.</returns>
-        static public bool DrawConstraintManagerFoldout(GameObject gameObject, SerializedProperty managerEnabled, SerializedProperty managerRef, bool isExpanded)
+        public static bool DrawConstraintManagerFoldout(GameObject gameObject, SerializedProperty managerEnabled, SerializedProperty managerRef, bool isExpanded)
         {
             isExpanded = EditorGUILayout.Foldout(isExpanded, "Constraints", true);
 
@@ -340,7 +350,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
 
                     // popups will only show unique elements
                     // in case of auto selection we don't care which one we're selecting as the behavior will be the same.
-                    // in case of manual selection users might want to differentiate which constraintmanager they are referring to.
+                    // in case of manual selection users might want to differentiate which ConstraintManager they are referring to.
                     if (manager.AutoConstraintSelection == true)
                     {
                         options[i] = manager.GetType().Name + " (auto)";
@@ -361,7 +371,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                     {
                         EditorGUIUtility.PingObject(selectedConstraintManager);
                         Highlighter.Highlight("Inspector", $"ComponentId: {selectedConstraintManager.GetInstanceID()}");
-                        EditorGUIUtility.ExitGUI();
+                        GUIUtility.ExitGUI();
                     }
                 }
 

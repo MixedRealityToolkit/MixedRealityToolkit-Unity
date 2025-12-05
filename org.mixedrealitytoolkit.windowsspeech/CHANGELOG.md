@@ -2,11 +2,17 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [3.0.4] - 2025-11-12
 
 ### Changed
 
 * Subsystems no longer register themselves on non-Windows platforms.
+
+### Fixed
+
+* Updated dependencies to match Unity Asset Store packages. [PR #1054](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1054)
+  * com.microsoft.mrtk.tts.windows 1.0.4
+  * org.mixedrealitytoolkit.core 3.2.2
 
 ## [3.0.3] - 2024-04-17
 

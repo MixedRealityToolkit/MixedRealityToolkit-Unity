@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using System.Collections;
-using MixedReality.Toolkit.Input;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -96,7 +95,7 @@ namespace MixedReality.Toolkit.UX.Experimental
 
         private void OnSelectStart(SelectEnterEventArgs selectArgs)
         {
-            if (selectArgs.interactorObject is not PokeInteractor ||
+            if (selectArgs.interactorObject is not IPokeInteractor ||
                 Time.time - lastClickTime < ReClickDelayTime)
             {
                 return;
@@ -114,7 +113,7 @@ namespace MixedReality.Toolkit.UX.Experimental
 
         private void OnHoverStart(HoverEnterEventArgs hoverArgs)
         {
-            if (hoverArgs.interactorObject is PokeInteractor)
+            if (hoverArgs.interactorObject is IPokeInteractor)
             {
                 button.targetGraphic.CrossFadeColor(button.colors.pressedColor, button.colors.fadeDuration, true, true);
             }

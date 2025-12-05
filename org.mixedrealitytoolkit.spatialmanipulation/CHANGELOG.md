@@ -23,7 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Updated package com.unity.xr.interaction.toolkit to 3.0.4
 
-## Unreleased
+## [3.4.0] - 2025-11-12
 
 ### Added
 
@@ -37,6 +37,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * ConstantViewSize solver now retains the initial scale and aspect ratio [PR #719](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/719)
 * Fixed Follow solver frequently logging "Look Rotation Viewing Vector Is Zero" [PR #895](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/895)
 * Fixed issues with HandConstraint hand tracking events not being fired (OnFirstHandDetected/OnHandActivate/OnLastHandLost/OnHandDeactivate) when SolverHandler TrackedHand is set to Right or Left (not Both) [PR #956](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/956)
+* Updated dependencies to match Unity Asset Store packages. [PR #1054](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1054)
+  * org.mixedrealitytoolkit.core 3.2.2
+* Fixed `Constraint Manager` not properly highlighting custom constraints via the "Go to component" button. [PR #1078](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1078)
 
 ## [3.3.0] - 2024-04-30
 
