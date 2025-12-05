@@ -13,7 +13,7 @@ This page describes how to deploy your Unity Project with MRTK3 onto an Android 
 
 ## Deployment Prerequisites
 
-1. Add MRTK to your project and ensure your [project settings](../getting-started/setting-up/setup-new-project.md#5-configure-openxr-related-settings) are configured correctly to use the OpenXR pipeline and MRTK's feature set. **These features are required to deploy your project onto your Android XR device**.
+1. Add MRTK to your project and ensure your [project settings](../getting-started/setting-up/setup-new-project.md#configure-openxr-related-settings) are configured correctly to use the OpenXR pipeline and MRTK's feature set. **These features are required to deploy your project onto your Android XR device**.
 
     > [!NOTE]
     > If starting from the [template project](../getting-started/setting-up/setup-template.md), these project settings should already be configured for you.

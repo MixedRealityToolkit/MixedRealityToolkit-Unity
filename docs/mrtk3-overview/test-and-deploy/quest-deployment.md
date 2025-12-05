@@ -19,7 +19,7 @@ These steps are based around OpenXR as your runtime (i.e. XR plugin provider) as
 
 1. Ensure that [developer mode](https://developer.oculus.com/documentation/native/android/mobile-device-setup/#enable-developer-mode) is enabled on your device (you may need to [join a developer team](https://developers.meta.com/horizon/documentation/native/android/mobile-device-setup/#joining-or-creating-a-team) first). Installing the Oculus ADB Drivers is optional.
 
-1. Add MRTK to your project and ensure that your [project settings](../getting-started/setting-up/setup-new-project.md#5-configure-openxr-related-settings) are configured correctly to use the OpenXR pipeline and MRTK's feature set. **These features are required to deploy your project onto your Quest device**.
+1. Add MRTK to your project and ensure that your [project settings](../getting-started/setting-up/setup-new-project.md#configure-openxr-related-settings) are configured correctly to use the OpenXR pipeline and MRTK's feature set. **These features are required to deploy your project onto your Quest device**.
 
     > [!NOTE]
     > If starting from the [template project](../getting-started/setting-up/setup-template.md), these project settings should already be configured for you.
