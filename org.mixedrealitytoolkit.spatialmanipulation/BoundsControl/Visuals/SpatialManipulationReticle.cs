@@ -12,6 +12,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
     /// A reticle used to visualize spatial manipulation capabilities when hovering over a bounding box handle.
     /// The reticle is oriented in relation to the bounding box, to indicate the direction for rotation or scaling.
     /// </summary>
+    [AddComponentMenu("MRTK/Spatial Manipulation/Spatial Manipulation Reticle")]
     public class SpatialManipulationReticle : MonoBehaviour, IReticleVisual
     {
         /// <summary>
@@ -113,7 +114,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     }
                 default: break;
             }
-            
+
             // Cache the world rotation 
             worldRotationCache = transform.rotation;
         }
