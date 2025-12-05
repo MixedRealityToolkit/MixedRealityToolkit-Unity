@@ -24,8 +24,8 @@ namespace MixedReality.Toolkit.Examples.Demos.Editor
                 return;
             }
 
-            Debug.Log("Adding com.unity.xr.androidxr-openxr and com.google.xr.extensions...");
-            request = Client.AddAndRemove(new[] { "com.unity.xr.androidxr-openxr", "https://github.com/android/android-xr-unity-package.git" });
+            Debug.Log("Adding the Unity OpenXR Android XR package...");
+            request = Client.AddAndRemove(new[] { "com.unity.xr.androidxr-openxr" });
             EditorApplication.update += Progress;
         }
 
@@ -33,7 +33,7 @@ namespace MixedReality.Toolkit.Examples.Demos.Editor
         {
             if (request.IsCompleted)
             {
-                Debug.Log($"Package install request complete ({request.Status})");
+                Debug.Log($"Package install request complete ({request.Status}).");
                 EditorApplication.update -= Progress;
                 request = null;
             }
