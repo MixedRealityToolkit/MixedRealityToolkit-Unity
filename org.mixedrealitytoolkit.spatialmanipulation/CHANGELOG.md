@@ -2,7 +2,7 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## Unreleased
+## [3.4.0] - 2025-11-12
 
 ### Added
 
@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Fixed issues with HandConstraint hand tracking events not being fired (OnFirstHandDetected/OnHandActivate/OnLastHandLost/OnHandDeactivate) when SolverHandler TrackedHand is set to Right or Left (not Both) [PR #956](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/956)
 * Updated dependencies to match Unity Asset Store packages. [PR #1054](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1054)
   * org.mixedrealitytoolkit.core 3.2.2
+* Fixed `Constraint Manager` not properly highlighting custom constraints via the "Go to component" button. [PR #1078](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1078)
 
 ## [3.3.0] - 2024-04-30
 
