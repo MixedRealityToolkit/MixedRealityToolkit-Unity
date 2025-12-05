@@ -6,7 +6,7 @@ nav_order: 5
 
 # Exploring MRTK3 sample scenes
 
-Unlike MRTK2, MRTK3 isn't distributed as a Unity project. Instead, MRTK3 consists of a loosely coupled collection of individual UPM packages distributed through the [Mixed Reality Feature Tool](https://learn.microsoft.com/windows/mixed-reality/develop/unity/welcome-to-mr-feature-tool), as well as through our official GitHub repository.
+Unlike MRTK2, MRTK3 isn't distributed as a Unity project. Instead, MRTK3 consists of a loosely coupled collection of individual UPM packages distributed through our official GitHub repository.
 
 As a result, we no longer ship our sample scenes inside the MRTK library/package itself. Instead, we maintain the `UnityProjects` folder at the top level of the [GitHub repository](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity), which contains any Unity projects we want to ship. Currently, this folder includes the `MRTKDevTemplate` project, which contains all of our example scenes and is configured to align with our recommended best settings.
 
