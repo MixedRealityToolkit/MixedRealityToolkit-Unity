@@ -2,7 +2,7 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## Unreleased
+## [4.0.0-pre.2] - 2025-12-05
 
 ### Added
 
@@ -23,7 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Deprecated IHandedInteractor, as its info is now queryable directly from IXRInteractor's handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
 * Deprecated FindObjectUtility, as it was a backwards-compatibility layer for pre-2021.3.18. Since our min version is now 2022.3, we can just call the API directly. [PR #1058](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1058)
 
-## [4.0.0-development.pre.1] - 2024-07-09
+## [4.0.0-pre.1] - 2024-07-09
 
 ### Added
 

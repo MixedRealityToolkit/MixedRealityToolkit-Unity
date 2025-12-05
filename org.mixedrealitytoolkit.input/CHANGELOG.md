@@ -2,7 +2,7 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## Unreleased
+## [4.0.0-pre.2] - 2025-12-05
 
 ### Changed
 
@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Removed HandNode property and field from HandModel, as it was largely unused. [PR #1045](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1045)
 
-## [4.0.0-development.pre.1] - 2024-07-16
+## [4.0.0-pre.1] - 2024-07-16
 
 ### Added
 
