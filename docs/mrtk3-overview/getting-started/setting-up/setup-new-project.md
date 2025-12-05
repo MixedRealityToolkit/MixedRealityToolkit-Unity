@@ -22,6 +22,8 @@ For MRTK3 packages, we recommend checking for the [latest release on the GitHub 
 
 ![GitHub release assets](../../images/github-release.png)
 
+We recommend the following packages to help you get started quickly:
+
 - org.mixedrealitytoolkit.core
 - org.mixedrealitytoolkit.uxcore
 - org.mixedrealitytoolkit.standardassets
@@ -29,9 +31,15 @@ For MRTK3 packages, we recommend checking for the [latest release on the GitHub 
 - org.mixedrealitytoolkit.uxcomponents
 - org.mixedrealitytoolkit.input
 
-We'll also need the latest Mixed Reality Graphics Tools package from [its GitHub repo](https://github.com/microsoft/MixedReality-GraphicsTools-Unity/releases), also under **Assets**.
+We'll also need the latest Mixed Reality Graphics Tools package from [its GitHub repo](https://github.com/microsoft/MixedReality-GraphicsTools-Unity/releases), also under **Assets**:
+
+![MRGT GitHub release assets](../../images/github-release-mrgt.png)
 
 - com.microsoft.mrtk.graphicstools.unity
+
+Copy these files somewhere into your project folder. We recommend a subfolder under **Packages**.
+
+![MRTK Packages folder](../../images/mrtk-packages-folder.png)
 
 Using UPM's ability to [import local tarball files](https://docs.unity3d.com/6000.0/Documentation/Manual/upm-ui-tarball.html), we'll import the above packages in the following order, to correctly resolve dependencies:
 
