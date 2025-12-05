@@ -70,7 +70,7 @@ Get-ChildItem -Path $PackagesRoot -Filter "package.json" -Recurse | ForEach-Obje
     $version = $jsonContent.version
 
     # Get the package path
-    $packagePath = $_.Directory
+    $packagePath = $_.DirectoryName
 
     Write-Host ""
     Write-Host -ForegroundColor Green "======================================="
