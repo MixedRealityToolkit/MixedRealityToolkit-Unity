@@ -12,34 +12,39 @@ You're not expected to consume every MRTK package. See [which features are usefu
 
 ## Setting up a new Unity project with MRTK3
 
-### 1. Create a new Unity project
+### Create a new Unity project
 
 Create a new Unity project with Unity 2021.3.21f1 or newer. Close the Unity project before proceeding to the next step.
 
-### 2. Import required dependencies and MRTK3 packages with Mixed Reality Feature Tool
+### Import required dependencies and MRTK3 packages with Mixed Reality Feature Tool
 
-There are a handful of packages that MRTK3 uses that aren't part of this toolkit. To obtain these packages, use the [`Mixed Reality Feature Tool`](https://learn.microsoft.com/windows/mixed-reality/develop/unity/welcome-to-mr-feature-tool) and select the latest versions of the following in the **Discover Features** step.
+There are a handful of packages that MRTK3 uses that aren't part of this toolkit. To obtain these packages, use the [Mixed Reality Feature Tool](https://learn.microsoft.com/windows/mixed-reality/develop/unity/welcome-to-mr-feature-tool) and select the latest versions of the following in the **Discover Features** step.
+
+To run on **HoloLens 2** or to visualize controller models on a **Quest device**, an additional package is required:
 
 - **Platform Support → Mixed Reality OpenXR Plugin**
+
+To spatialize audio in your scene, an additional package is required:
+
 - **Spatial Audio → Microsoft Spatializer** (Optional)
 
-For MRTK3 packages, we highly recommend the following two packages to help you get started quickly:
+For MRTK3 packages, we recommend the following two packages to help you get started quickly:
 
 - **MRTK3 → MRTK Input** (Required for this setup)
 - **MRTK3 → MRTK UX Components**
 
 These two packages, along with their dependencies (automatically added by the Feature Tool), will enable you to explore most of our UX offerings and create projects ready to be deployed to various XR devices. You can always come back to the Feature Tool and add more packages to your project later.
 
-Be sure to select the `org.mixedrealitytoolkit.*` packages, and not the deprecated packages. The `com.microsoft.mrtk.*` packages have been deprecated, and are no longer supported.
+Be sure to select the `org.mixedrealitytoolkit.*` packages, and not the deprecated packages. The `com.microsoft.mrtk.*` packages have been deprecated and are no longer supported.
 
 ![Selecting the default MRTK3 packages in Microsoft's Mixed Reality Feature Tool](../../images/mrtk3-featuretool-setup-packages.png)
 
 > [!NOTE]
 > For more information on MRTK3 packages, see the [package overview page](../../packages/packages-overview.md).
 
-When you're finished selecting packages, click **Get features**, and then follow the instructions in the Mixed Reality Feature Tool to import the selected packages into your Unity project.
+When you're finished selecting packages, click **Get Features**, and then follow the instructions in the Mixed Reality Feature Tool to import the selected packages into your Unity project.
 
-### 3. Open the Unity project
+### Open the Unity project
 
 Open the Unity project and wait for Unity to finish importing the newly added packages. There may be two pop-up messages in this process:
 
@@ -48,7 +53,7 @@ Open the Unity project and wait for Unity to finish importing the newly added pa
 
 Unity might restart a few times during this process; wait for it to finish before proceeding.
 
-### 4. Configure MRTK profile after import
+### Configure MRTK profile after import
 
 Once imported, MRTK3 requires a profile to be set for the standalone target platform and each additional target platform.
 
@@ -63,7 +68,7 @@ Once imported, MRTK3 requires a profile to be set for the standalone target plat
 
 1. Switch to the tabs of other build target(s) you want to use (for example, UWP, Android) and check to see if the profile is assigned. If not, repeat the previous step on the current tab.
 
-### 5. Configure OpenXR-related settings
+### Configure OpenXR-related settings
 
 Once imported, MRTK3 requires some configuration on OpenXR if you're targeting a specific XR device. Refer to the instructions on the following pages for platform-specific guidance.
 
@@ -71,10 +76,6 @@ Once imported, MRTK3 requires some configuration on OpenXR if you're targeting a
 - [Deploy to a Quest device](../../test-and-deploy/quest-deployment.md)
 - [Deploy to HoloLens 2](../../test-and-deploy/hololens2-deployment.md)
 
-### 6. Congratulations, the project setup is now finished
-
-Proceed to [creating a new MRTK3 scene](./setup-new-scene.md).
-
 ## Next steps
 
-Once you've finished setting up your Unity project, learn how to [experience your application on a device](../../test-and-deploy/overview.md)
+Once you've finished setting up your Unity project, proceed to [creating a new MRTK3 scene](./setup-new-scene.md).
