@@ -16,9 +16,41 @@ You're not expected to consume every MRTK package. See [which features are usefu
 
 Create a new Unity project with Unity 2021.3.21f1 or newer. Close the Unity project before proceeding to the next step.
 
-### Import required dependencies and MRTK3 packages with Mixed Reality Feature Tool
+### Import MRTK3 packages
 
-There are a handful of packages that MRTK3 uses that aren't part of this toolkit. To obtain these packages, use the [Mixed Reality Feature Tool](https://learn.microsoft.com/windows/mixed-reality/develop/unity/welcome-to-mr-feature-tool) and select the latest versions of the following in the **Discover Features** step.
+For MRTK3 packages, we recommend checking for the [latest release on the GitHub repo](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/releases). The package tarballs can be found under the changelogs, under **Assets**:
+
+![GitHub release assets](../../images/github-release.png)
+
+- org.mixedrealitytoolkit.core
+- org.mixedrealitytoolkit.uxcore
+- org.mixedrealitytoolkit.standardassets
+- org.mixedrealitytoolkit.spatialmanipulation
+- org.mixedrealitytoolkit.uxcomponents
+- org.mixedrealitytoolkit.input
+
+We'll also need the latest Mixed Reality Graphics Tools package from [its GitHub repo](https://github.com/microsoft/MixedReality-GraphicsTools-Unity/releases), also under **Assets**.
+
+- com.microsoft.mrtk.graphicstools.unity
+
+Using UPM's ability to [import local tarball files](https://docs.unity3d.com/6000.0/Documentation/Manual/upm-ui-tarball.html), we'll import the above packages in the following order, to correctly resolve dependencies:
+
+- com.microsoft.mrtk.graphicstools.unity
+- org.mixedrealitytoolkit.core
+- org.mixedrealitytoolkit.uxcore
+- org.mixedrealitytoolkit.standardassets
+- org.mixedrealitytoolkit.spatialmanipulation
+- org.mixedrealitytoolkit.uxcomponents
+- org.mixedrealitytoolkit.input
+
+These packages, along with their Unity dependencies, will enable you to explore most of our UX offerings and create projects ready to be deployed to various XR devices. You can always come back and add more packages to your project later.
+
+> [!NOTE]
+> For more information on MRTK3 packages, see the [package overview page](../../packages/packages-overview.md).
+
+#### Additional dependencies
+
+There are a handful of optional packages that MRTK3 uses that aren't part of this toolkit. To obtain these packages, use the [Mixed Reality Feature Tool](./mixed-reality-feature-tool.md) and select the latest versions of the following in the **Discover Features** step.
 
 To run on **HoloLens 2** or to visualize controller models on a **Quest device**, an additional package is required:
 
@@ -27,22 +59,6 @@ To run on **HoloLens 2** or to visualize controller models on a **Quest device**
 To spatialize audio in your scene, an additional package is required:
 
 - **Spatial Audio → Microsoft Spatializer** (Optional)
-
-For MRTK3 packages, we recommend the following two packages to help you get started quickly:
-
-- **MRTK3 → MRTK Input** (Required for this setup)
-- **MRTK3 → MRTK UX Components**
-
-These two packages, along with their dependencies (automatically added by the Feature Tool), will enable you to explore most of our UX offerings and create projects ready to be deployed to various XR devices. You can always come back to the Feature Tool and add more packages to your project later.
-
-Be sure to select the `org.mixedrealitytoolkit.*` packages, and not the deprecated packages. The `com.microsoft.mrtk.*` packages have been deprecated and are no longer supported.
-
-![Selecting the default MRTK3 packages in Microsoft's Mixed Reality Feature Tool](../../images/mrtk3-featuretool-setup-packages.png)
-
-> [!NOTE]
-> For more information on MRTK3 packages, see the [package overview page](../../packages/packages-overview.md).
-
-When you're finished selecting packages, click **Get Features**, and then follow the instructions in the Mixed Reality Feature Tool to import the selected packages into your Unity project.
 
 ### Open the Unity project
 
