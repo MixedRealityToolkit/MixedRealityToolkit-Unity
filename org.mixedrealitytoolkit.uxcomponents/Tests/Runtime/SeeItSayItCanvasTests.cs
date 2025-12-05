@@ -86,6 +86,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return hand.Show(Vector3.one);
             yield return RuntimeTestUtilities.WaitForUpdates();
             yield return hand.MoveTo(testButton.transform.position);
+
             // Label show animation takes 1.0 seconds.  Wait for it to finish.
             yield return new WaitForSecondsRealtime(1.25f);
             Assert.IsTrue(labelChild?.activeInHierarchy == true, $"The label is enabled when the button is hovered.");

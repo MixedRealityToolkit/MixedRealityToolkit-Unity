@@ -71,7 +71,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Should the handle maintain its global size, even as the object changes size?
         /// </summary>
-        [Obsolete("Use ScaleMaintainType instead.")]
+        [Obsolete("This property has been deprecated in version 3.4.0. Use ScaleMaintainType instead.")]
         public bool MaintainGlobalSize
         {
             get => scaleMaintainType == ScaleMaintainType.GlobalSize;
@@ -241,23 +241,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
             transform.lossyScale.z == 0 ? transform.localScale.z : (lossyScale / transform.lossyScale.z)
             );
 
-
-        /// <summary>
-        /// Occludes the handle so it is not initially visible when it should start disabled.
-        /// </summary>
-        [Obsolete("Force hiding is no longer supported. Use IsOccluded instead.")]
-        public void HideOnStartup()
-        {
-            if (handleRenderer != null)
-            {
-                handleRenderer.enabled = false;
-            }
-            if (colliders.Count > 0 && colliders[0] != null)
-            {
-                colliders[0].enabled = false;
-            }
-            wasOccludedLastFrame = true;
-        }
 
         /// <summary>
         /// Sets <see cref="IsOccluded"/> to true, and forces handling of occlusion immediately.

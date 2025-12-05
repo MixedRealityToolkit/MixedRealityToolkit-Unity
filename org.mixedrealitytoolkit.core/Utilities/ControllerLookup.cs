@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -12,6 +13,7 @@ namespace MixedReality.Toolkit
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("MRTK/Core/Controller Lookup")]
+    [Obsolete("ControllerLookup has been deprecated in version 4.0.0. Please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
     public class ControllerLookup : MonoBehaviour
     {
         // Gaze
@@ -61,7 +63,7 @@ namespace MixedReality.Toolkit
         /// </summary>
         private void OnValidate()
         {
-            if (FindObjectUtility.FindObjectsByType<ControllerLookup>(false, false).Length > 1)
+            if (FindObjectsByType<ControllerLookup>(FindObjectsSortMode.None).Length > 1)
             {
                 Debug.LogWarning("Found more than one instance of the ControllerLookup class in the hierarchy. There should only be one");
             }

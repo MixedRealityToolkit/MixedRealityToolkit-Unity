@@ -1,10 +1,15 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using PokePath = MixedReality.Toolkit.IPokeInteractor.PokePath;
 
 namespace MixedReality.Toolkit.Input
@@ -14,11 +19,39 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [AddComponentMenu("MRTK/Input/Poke Interactor")]
     public class PokeInteractor :
-        XRBaseControllerInteractor,
+        XRBaseInputInteractor,
         IPokeInteractor,
+        IModeManagedInteractor,
+#pragma warning disable CS0618 // Type or member is obsolete
         IHandedInteractor
+#pragma warning restore CS0618 // Type or member is obsolete
     {
         #region PokeInteractor
+
+        [SerializeField, Tooltip("Holds a reference to the TrackedPoseDriver associated with this interactor, if it exists.")]
+        private TrackedPoseDriver trackedPoseDriver = null;
+
+        /// <summary>
+        /// Holds a reference to the <see cref="UnityEngine.InputSystem.XR.TrackedPoseDriver"/> associated with this interactor, if it exists.
+        /// </summary>
+        internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+
+        [SerializeField]
+        [Tooltip("The root management GameObject that interactor belongs to.")]
+        private GameObject modeManagedRoot = null;
+
+        /// <summary>
+        /// Returns the GameObject that this interactor belongs to. This GameObject is governed by the
+        /// interaction mode manager and is assigned an interaction mode. This GameObject represents the group that this interactor belongs to.
+        /// </summary>
+        /// <remarks>
+        /// This will default to the GameObject that this attached to a parent <see cref="TrackedPoseDriver"/>.
+        /// </remarks>
+        public GameObject ModeManagedRoot
+        {
+            get => modeManagedRoot;
+            set => modeManagedRoot = value;
+        }
 
         [SerializeReference]
         [InterfaceSelector(true)]
@@ -47,8 +80,18 @@ namespace MixedReality.Toolkit.Input
         protected virtual bool TryGetPokeRadius(out float radius)
         {
             HandJointPose jointPose = default;
-            if (xrController is ArticulatedHandController handController
-                && (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            if (forceDeprecatedInput &&
+                xrController is ArticulatedHandController handController &&
+                (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
+            {
+                radius = jointPose.Radius;
+                return true;
+            }
+#pragma warning restore CS0618 // Type or member is obsolete
+            else if (handedness != InteractorHandedness.None &&
+                (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handedness.ToXRNode(), out jointPose) ?? false))
             {
                 radius = jointPose.Radius;
                 return true;
@@ -63,7 +106,20 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
-        Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+        [Obsolete("Use handedness from IXRInteractor instead.")]
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+                if (forceDeprecatedInput &&
+                    xrController is ArticulatedHandController handController)
+                {
+                    return handController.HandNode.ToHandedness();
+                }
+
+                return handedness.ToHandedness();
+            }
+        }
 
         #endregion IHandedInteractor
 
@@ -86,6 +142,24 @@ namespace MixedReality.Toolkit.Input
         #endregion IPokeInteractor
 
         #region MonoBehaviour
+
+        /// <inheritdoc/>
+        protected override void Start()
+        {
+            base.Start();
+
+            // Try to get the <see cref="TrackedPoseDriver"> component from the parent if it hasn't been set yet
+            if (trackedPoseDriver == null)
+            {
+                trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+
+            // If mode managed root is not defined, default to the tracked pose driver's game object
+            if (modeManagedRoot == null && trackedPoseDriver != null)
+            {
+                modeManagedRoot = trackedPoseDriver.gameObject;
+            }
+        }
 
         /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
@@ -126,7 +200,22 @@ namespace MixedReality.Toolkit.Input
         public override bool isHoverActive
         {
             // Only be available for hovering if the joint or controller is tracked.
-            get => base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || pokePointTracked);
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+                    return base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || pokePointTracked);
+                }
+#pragma warning restore CS0618 // Type or member is obsolete
+                // If the interactor does not have a TrackedPoseDriver component then we cannot determine if it is hover active
+                else if (trackedPoseDriver == null)
+                {
+                    return false;
+                }
+
+                return base.isHoverActive && (trackedPoseDriver.GetInputTrackingState().HasPositionAndRotation() || pokePointTracked);
+            }
         }
 
         /// <inheritdoc/>
@@ -222,5 +311,18 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
+
+        #region IModeManagedInteractor
+
+        /// <inheritdoc/>
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        public GameObject GetModeManagedController()
+        {
+            // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
+            // interaction mode manager is used instead.
+            return forceDeprecatedInput ? null : ModeManagedRoot;
+        }
+
+        #endregion IModeManagedInteractor
     }
 }

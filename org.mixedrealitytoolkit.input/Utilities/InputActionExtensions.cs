@@ -13,6 +13,11 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Checks if any active controls match this InputAction's bindings.
         /// </summary>
+        /// <remarks>
+        /// We need to consider the fact that the action can be bound to a control, but the control may not be active even
+        /// if the tracking state is valid. So we need to check if there's an active control before using the action.
+        /// If there is no active control, MRTK will need to provide a fallback or known failure state.
+        /// </remarks>
         /// <returns><see langword="true"/> if <paramref name="action"/> is non-null and there are any number of controls matching its bindings.</returns>
         public static bool HasAnyControls(this InputAction action)
         {

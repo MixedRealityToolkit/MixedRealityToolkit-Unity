@@ -49,17 +49,6 @@ namespace MixedReality.Toolkit
         }
 
         /// <summary>
-        /// Get all running subsystems of type T.
-        /// </summary>
-        /// <param name="runningSubsystems">The list to fill with all running subsystems of the specified type.</param>
-        [Obsolete("GetAllRunningSubsystems now internally caches for you; this separate NonAlloc method is no longer necessary.")]
-        public static void GetAllRunningSubsystemsNonAlloc<T>(List<T> runningSubsystems) where T : ISubsystem
-        {
-            SubsystemManager.GetSubsystems(runningSubsystems);
-            runningSubsystems.RemoveAll(subsystem => !subsystem.running);
-        }
-
-        /// <summary>
         /// Get all running subsystems of type T. Note, this is internally cached, so
         /// the list is only valid immediately after invocation.
         /// </summary>

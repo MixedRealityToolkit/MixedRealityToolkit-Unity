@@ -49,7 +49,11 @@ namespace MixedReality.Toolkit.Examples.Demos
                 // Reset any velocity from falling or moving when re-spawning to original location
                 if (rigidBody != null)
                 {
+#if UNITY_6000_0_OR_NEWER
+                    rigidBody.linearVelocity = Vector3.zero;
+#else
                     rigidBody.velocity = Vector3.zero;
+#endif
                     rigidBody.angularVelocity = Vector3.zero;
                 }
 

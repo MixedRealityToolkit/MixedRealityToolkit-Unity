@@ -2,11 +2,11 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Examples
 {
     using SpatialManipulation;
-    using UnityEngine.XR.Interaction.Toolkit;
 
     /// <summary>
     /// Manager class for the solver examples scene.

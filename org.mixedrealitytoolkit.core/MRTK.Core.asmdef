@@ -4,7 +4,8 @@
     "references": [
         "Unity.XR.CoreUtils",
         "Unity.XR.Interaction.Toolkit",
-        "Unity.XR.Management"
+        "Unity.XR.Management",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -13,12 +14,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [
-        {
-            "name": "Unity",
-            "expression": "2021.3.18",
-            "define": "UNITY_2021_3_18_OR_NEWER"
-        }
-    ],
+    "versionDefines": [],
     "noEngineReferences": false
 }

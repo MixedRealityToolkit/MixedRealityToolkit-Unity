@@ -108,6 +108,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Experimental/NonNativeKeyboard.unity
     guid: 4c87f445819343b4ba89b26fd8661dc4
   - enabled: 1
+    path: Assets/Scenes/ObsoleteHandInteractionExamples.unity
+    guid: ef7e6dc699271434eb9b85e866eadc11
+  - enabled: 1
     path: Assets/Scenes/OutlineExamples.unity
     guid: c53962871a3392542bd7c86d82c89533
   - enabled: 1

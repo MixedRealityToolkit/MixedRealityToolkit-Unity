@@ -75,7 +75,7 @@
                     "name": "Select",
                     "type": "Button",
                     "id": "33754c03-48ec-46ef-9bc6-22ed6bfdd8e8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -90,10 +90,28 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Grab",
+                    "type": "Button",
+                    "id": "c7d16510-84e2-45b3-a141-2c9af094c20e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Grab Value",
+                    "type": "Value",
+                    "id": "a6760394-eb55-45c9-85a9-d8a6e72785cf",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Activate",
                     "type": "Button",
                     "id": "0c0991c5-d329-4afc-8892-1076b440477c",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -102,7 +120,7 @@
                     "name": "UI Press",
                     "type": "Button",
                     "id": "7e1eced7-c774-4fe5-be8f-d8711f646d9e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -205,7 +223,7 @@
                     "path": "<XRController>{LeftHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
                     "action": "UI Press",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -218,6 +236,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Teleport Mode Activate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca36da0f-8a15-4ed7-bc67-3c35b0cd0f87",
+                    "path": "<HandInteraction>{LeftHand}/pointerActivated",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "UI Press",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -282,29 +311,40 @@
                     "path": "<XRController>{LeftHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "5ac22ea5-6bed-4765-9f3f-1a5e962b6e94",
-                    "path": "<XRController>{LeftHand}/trigger",
+                    "id": "9e1cc5d8-6da8-46b5-8c29-dff20eb8df72",
+                    "path": "<HandInteraction>{LeftHand}/pointerActivated",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "d5fdaaac-a11f-4e19-abce-8cfa105191fb",
-                    "path": "<XRController>{LeftHand}/squeezePressed",
+                    "id": "0a429dfd-66df-4438-83f7-3bcb939baa21",
+                    "path": "<HololensHand>{LeftHand}/selectPressed",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa8828f8-df21-4ab4-bb72-62d4a0448bf0",
+                    "path": "<KHRSimpleController>{LeftHand}/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -315,7 +355,7 @@
                     "path": "<XRController>{LeftHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
                     "action": "Activate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -498,22 +538,11 @@
                 },
                 {
                     "name": "",
-                    "id": "870ff66f-f058-4da3-8934-1cbb0a6e5e32",
-                    "path": "<XRController>{LeftHand}/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Generic XR Controller",
-                    "action": "UI Press",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "edd7e96d-d752-446b-aea5-250b155ba1de",
-                    "path": "<XRController>{LeftHand}/squeezePressed",
+                    "path": "<XRController>{LeftHand}/selectButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
                     "action": "UI Press",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -524,7 +553,29 @@
                     "path": "<XRController>{LeftHand}/trigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4f4d3966-bfa3-4b07-95b6-731952f22ad6",
+                    "path": "<HandInteraction>{LeftHand}/pointerActivateValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47a1b661-5b1f-437d-b2ec-21d45256e698",
+                    "path": "<HololensHand>{LeftHand}/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
                     "action": "Select Value",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -548,6 +599,83 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Tracking State",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5fdaaac-a11f-4e19-abce-8cfa105191fb",
+                    "path": "<XRController>{LeftHand}/squeezeClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a56bf4f5-ecf2-470b-a1a1-65aee1f02745",
+                    "path": "<HandInteraction>{LeftHand}/pinchTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20f0afb8-5c15-4882-81ac-317319ba4a92",
+                    "path": "<KHRSimpleController>{LeftHand}/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5267303-b82c-4790-a4d0-3068d904e908",
+                    "path": "<MRTKSimulatedController>{LeftHand}/triggerButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "088cece3-47b8-4235-8748-ae126d30e43c",
+                    "path": "<XRController>{LeftHand}/squeeze",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3a3091b-479c-4682-84d9-42dbc87b1da6",
+                    "path": "<HandInteraction>{LeftHand}/pinchValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ed61d5e-4df4-4e9b-98fb-67bf7f574362",
+                    "path": "<MRTKSimulatedController>{LeftHand}/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab Value",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -579,7 +707,7 @@
                     "name": "Select",
                     "type": "Button",
                     "id": "ac96c10b-c955-4a46-8e67-bf16bc069b53",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -594,10 +722,28 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Grab",
+                    "type": "Button",
+                    "id": "9a726c4a-7102-472b-a889-7d5f0339259a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Grab Value",
+                    "type": "Value",
+                    "id": "2e2922ec-157b-4a68-adba-26dedf3f6ef9",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Activate",
                     "type": "Button",
                     "id": "41976d89-60de-4deb-bff9-16b4af96b290",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -606,7 +752,7 @@
                     "name": "UI Press",
                     "type": "Button",
                     "id": "65174b45-c2ee-4f90-93bb-fb4084eaaab3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -709,7 +855,7 @@
                     "path": "<XRController>{RightHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
                     "action": "Activate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -793,11 +939,11 @@
                 },
                 {
                     "name": "",
-                    "id": "f80623c7-da67-458c-8e7a-88f221dd3135",
-                    "path": "<XRController>{RightHand}/trigger",
+                    "id": "7453fec3-e8b1-4d6e-b996-489a239a60f0",
+                    "path": "<HandInteraction>{RightHand}/pointerActivated",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
                     "action": "UI Press",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -805,7 +951,7 @@
                 {
                     "name": "",
                     "id": "bd8c8773-adc4-42fc-b7e9-13989b701b5e",
-                    "path": "<XRController>{RightHand}/squeezePressed",
+                    "path": "<XRController>{RightHand}/selectButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
@@ -984,7 +1130,7 @@
                     "path": "<XRController>{RightHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -992,21 +1138,32 @@
                 {
                     "name": "",
                     "id": "bfac43db-cf33-4047-8f11-8a83fa190307",
-                    "path": "<XRController>{RightHand}/trigger",
+                    "path": "<HandInteraction>{RightHand}/pointerActivated",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "ba2028ef-694c-4794-81d8-dded39d9f63c",
-                    "path": "<XRController>{RightHand}/squeezePressed",
+                    "id": "c1acd281-b0c0-4c9a-abbc-51e0b1bfa598",
+                    "path": "<HololensHand>{RightHand}/selectPressed",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5411f456-57b3-4c65-aed0-13eadd8bf27a",
+                    "path": "<KHRSimpleController>{RightHand}/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1017,7 +1174,29 @@
                     "path": "<XRController>{RightHand}/trigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f382697-c77a-4b17-a060-4b059b7dbc5d",
+                    "path": "<HandInteraction>{RightHand}/pointerActivateValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "baba96a2-4c77-43d8-980f-a30ff13161b0",
+                    "path": "<HololensHand>{RightHand}/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
                     "action": "Select Value",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1041,6 +1220,83 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Tracking State",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba2028ef-694c-4794-81d8-dded39d9f63c",
+                    "path": "<XRController>{RightHand}/squeezeClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db2bda4e-1489-488a-b3ae-c39bd831ab70",
+                    "path": "<HandInteraction>{RightHand}/pinchTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5766ef2-4a4c-40e1-810e-66493e4bd514",
+                    "path": "<KHRSimpleController>{RightHand}/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17b45c76-025e-4350-82b6-7f8411a38106",
+                    "path": "<MRTKSimulatedController>{RightHand}/triggerButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22582dee-b12b-46a7-92bf-f56cf7a4833a",
+                    "path": "<XRController>{RightHand}/squeeze",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe8eaadd-e088-4021-bc6f-848e427c19ce",
+                    "path": "<HandInteraction>{RightHand}/pinchValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Grab Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d5094c6-88ab-4ea4-8d99-0919fefacea8",
+                    "path": "<MRTKSimulatedController>{RightHand}/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grab Value",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
