@@ -66,6 +66,7 @@ namespace MixedReality.Toolkit.UX
             {
                 textMeshProComponent = GetComponent<TMP_Text>();
             }
+            TryMigrate();
             SetIcon(currentIconName);
         }
 
@@ -74,6 +75,7 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         private void OnValidate()
         {
+            //TryMigrate();
             SetIcon(currentIconName);
         }
 
@@ -95,27 +97,50 @@ namespace MixedReality.Toolkit.UX
             }
         }
 
-        void ISerializationCallbackReceiver.OnBeforeSerialize() { }
-
-        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        private void TryMigrate()
         {
+            uint unicodeValue1 = FontIconSet.ConvertHexStringToUnicode(textMeshProComponent.text);
+            Debug.Log($"============================================={unicodeValue1} | {migratedSuccessfully} | {currentIconName}");
+
             if (!migratedSuccessfully && fontIcons != null && fontIcons.FontIconSetDefinition != null && textMeshProComponent != null)
             {
                 uint unicodeValue = FontIconSet.ConvertHexStringToUnicode(textMeshProComponent.text);
+
+                if (currentIconName == "Icon 4")
+                {
+                    Debug.Log($"============================================={unicodeValue}");
+                }
+
                 foreach (KeyValuePair<string, uint> kv in fontIcons.GlyphIconsByName)
                 {
+
+
                     if (kv.Value == unicodeValue)
                     {
                         if (currentIconName != kv.Key)
                         {
                             Debug.Log($"[{nameof(FontIconSelector)}] Successfully migrated icon: \"{currentIconName}\" to \"{kv.Key}\"", this);
-                            currentIconName = kv.Key;
+                            CurrentIconName = kv.Key;
                             migratedSuccessfully = true;
+                        }
+                        else
+                        {
+                            Debug.Log($"[{nameof(FontIconSelector)}] Tried to migrate icon: \"{unicodeValue}\" | \"{currentIconName}\"", this);
                         }
                         break;
                     }
                 }
             }
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+            TryMigrate();
+        }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            TryMigrate();
         }
     }
 }

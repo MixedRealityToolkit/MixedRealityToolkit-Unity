@@ -39,6 +39,8 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
+            serializedObject.Update();
+
             if (!initializedStyle)
             {
                 currentButtonStyle = new GUIStyle(GUI.skin.button);
@@ -55,6 +57,9 @@ namespace MixedReality.Toolkit.Editor
             EditorGUILayout.Space();
 
             EditorGUILayout.PropertyField(tmProProp);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("migratedSuccessfully"));
             EditorGUILayout.Space();
 
             if (fontIconsProp.objectReferenceValue == null)
