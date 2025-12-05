@@ -2,14 +2,14 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## Unreleased
+## [4.0.0-pre.2] - 2025-12-05
 
 ### Changed
 
 * Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
 * Updated InteractablePulse to work across all IXRInteractor implementations, instead of just MRTK-specific IHandedInteractor implementations. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
 
-## [4.0.0-development.pre.1] - 2024-07-09
+## [4.0.0-pre.1] - 2024-07-09
 
 ### Changed
 
