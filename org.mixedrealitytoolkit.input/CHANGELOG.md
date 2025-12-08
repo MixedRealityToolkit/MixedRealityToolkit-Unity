@@ -2,6 +2,16 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Updated `MRTKLineVisual` and `RingReticle` to work across all `IXRInteractionStrengthInteractor` implementations, instead of just MRTK-specific `IVariableSelectInteractor` implementations. [PR #1085](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1085)
+
+### Deprecated
+
+* Deprecated `IVariableSelectInteractor` across the interactor implementations, as its info is duplicative with `IXRInteractionStrengthInteractor`. [PR #1085](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1085)
+
 ## [4.0.0-pre.2] - 2025-12-05
 
 ### Changed
@@ -11,7 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Deprecated
 
-* Deprecated IHandedInteractor across the interactor implementations, as its info is now queryable directly from IXRInteractor's handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
+* Deprecated `IHandedInteractor` across the interactor implementations, as its info is now queryable directly from `IXRInteractor`'s `handedness` property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
 
 ### Removed
 
