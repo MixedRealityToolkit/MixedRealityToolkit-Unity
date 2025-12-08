@@ -9,13 +9,13 @@ namespace MixedReality.Toolkit
     /// <summary>
     /// An interface that all interactors with the concept of handedness implement.
     /// </summary>
-    [Obsolete("Use " + nameof(IXRInteractor) + " instead.")]
+    [Obsolete(nameof(IHandedInteractor) + " has been deprecated in version 4.0.0. Use " + nameof(IXRInteractor) + " instead.")]
     public interface IHandedInteractor : IXRInteractor
     {
         /// <summary>
         /// Returns the Handedness of this interactor.
         /// </summary>
-        [Obsolete("Use " + nameof(handedness) + " instead.")]
+        [Obsolete("This property has been deprecated in version 4.0.0. Use " + nameof(handedness) + " instead.")]
         public Handedness Handedness { get; }
     }
 }
