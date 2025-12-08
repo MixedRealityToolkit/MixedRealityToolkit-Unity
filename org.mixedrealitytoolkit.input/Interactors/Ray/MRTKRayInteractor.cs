@@ -142,7 +142,7 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
-        [Obsolete("Use " + nameof(handedness) + " instead.")]
+        [Obsolete("This property has been deprecated in version 4.0.0. Use " + nameof(IXRInteractor.handedness) + " instead.")]
         Handedness IHandedInteractor.Handedness => forceDeprecatedInput &&
                     xrController is ArticulatedHandController handController
                     ? handController.HandNode.ToHandedness()
@@ -153,7 +153,7 @@ namespace MixedReality.Toolkit.Input
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
-        [Obsolete("Use " + nameof(IXRInteractionStrengthInteractor.GetInteractionStrength) + " or " + nameof(IXRInteractionStrengthInteractor.largestInteractionStrength) + " instead.")]
+        [Obsolete("This property has been deprecated in version 4.0.0. Use " + nameof(IXRInteractionStrengthInteractor.GetInteractionStrength) + " or " + nameof(IXRInteractionStrengthInteractor.largestInteractionStrength) + " instead.")]
         float IVariableSelectInteractor.SelectProgress
         {
             get
