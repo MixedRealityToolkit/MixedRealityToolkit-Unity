@@ -100,10 +100,16 @@ namespace MixedReality.Toolkit.Input
         {
             if (displaySelectionProgress)
             {
-                if (args.Interactor is IVariableSelectInteractor variableSelectInteractor)
+                if (args.Interactor is IXRInteractionStrengthInteractor interactionStrengthInteractor)
+                {
+                    UpdateReticleProgressVisual(interactionStrengthInteractor.largestInteractionStrength.Value);
+                }
+#pragma warning disable CS0618 // Type or member is obsolete
+                else if (args.Interactor is IVariableSelectInteractor variableSelectInteractor)
                 {
                     UpdateReticleProgressVisual(variableSelectInteractor.SelectProgress);
                 }
+#pragma warning restore CS0618 // Type or member is obsolete
                 else if (args.Interactor is IXRSelectInteractor selectInteractor)
                 {
                     UpdateReticleProgressVisual(selectInteractor.isSelectActive ? 1 : 0);

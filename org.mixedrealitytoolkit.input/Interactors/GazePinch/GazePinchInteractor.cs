@@ -197,43 +197,29 @@ namespace MixedReality.Toolkit.Input
 
         /// <inheritdoc />
         [Obsolete("Use " + nameof(handedness) + " instead.")]
-        Handedness IHandedInteractor.Handedness
-        {
-            get
-            {
-                if (forceDeprecatedInput)
-                {
-                    return handController.HandNode.ToHandedness();
-                }
-
-                return handedness.ToHandedness();
-            }
-        }
+        Handedness IHandedInteractor.Handedness => forceDeprecatedInput ? handController.HandNode.ToHandedness() : handedness.ToHandedness();
 
         #endregion IHandedInteractor
 
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
-        public float SelectProgress
+        [Obsolete("Use " + nameof(IXRInteractionStrengthInteractor.GetInteractionStrength) + " or " + nameof(IXRInteractionStrengthInteractor.largestInteractionStrength) + " instead.")]
+        float IVariableSelectInteractor.SelectProgress
         {
             get
             {
-#pragma warning disable CS0618 // Type or member is obsolete
                 if (forceDeprecatedInput)
                 {
                     return handController.selectInteractionState.value;
                 }
-#pragma warning restore CS0618 // Type or member is obsolete
                 else if (selectInput != null)
                 {
                     return selectInput.ReadValue();
                 }
-                else
-                {
-                    Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
-                }
-                return 0.0f;
+
+                Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
+                return 0;
             }
         }
 
@@ -286,7 +272,7 @@ namespace MixedReality.Toolkit.Input
             // If we are hovering something and also have gone past the sticky hover threshold,
             // we should *only* consider the current hover target, regardless of what the
             // gaze is currently actually looking at. (Sticky hover, ADO#1941)
-            if (hasHover && SelectProgress > stickyHoverThreshold)
+            if (hasHover && largestInteractionStrength.Value > stickyHoverThreshold)
             {
                 targets.Add(interactablesHovered[0]);
             }
@@ -404,7 +390,7 @@ namespace MixedReality.Toolkit.Input
             // If so, should we be allowed to initiate a new hover on it?
             // This prevents us from "rolling off" one target and immediately
             // semi-pressing another.
-            bool canHoverNew = !isNew || SelectProgress < relaxationThreshold;
+            bool canHoverNew = !isNew || largestInteractionStrength.Value < relaxationThreshold;
 
             return base.CanHover(interactable) && stickySelect && ready && canHoverNew;
         }
