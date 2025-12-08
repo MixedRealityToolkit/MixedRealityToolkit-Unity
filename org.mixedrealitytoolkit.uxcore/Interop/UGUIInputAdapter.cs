@@ -3,6 +3,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils.GUI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -38,8 +39,7 @@ namespace MixedReality.Toolkit.UX
             }
         }
 
-        [SerializeField]
-        [EnumFlags]
+        [SerializeField, FlagsProperty]
         [Tooltip("Which axes should be used for manipulation instead of navigation?")]
         private AxisFlags movableAxes = 0;
 
@@ -109,9 +109,9 @@ namespace MixedReality.Toolkit.UX
         /// A Unity Editor only event function that is called when the script is loaded or a value changes in the Unity Inspector.
         /// </summary>
         protected override void OnValidate()
-        {   
+        {
             base.OnValidate();
-            
+
             // Validate that no transition type is set. You shouldn't be using this
             // for any sort of UI visuals; use a StatefulInteractable and a 
             // StateVisualizer instead, even for UI.
@@ -416,7 +416,7 @@ namespace MixedReality.Toolkit.UX
                 }
             }
         }
-        
+
         /// <summary>
         /// Called when the Unity UGUI element is selected.
         /// </summary>
