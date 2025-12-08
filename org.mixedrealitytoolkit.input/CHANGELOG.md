@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [4.0.0-pre.2] - 2025-12-05
 
+### Added
+
+* Added partial polyfill logic for one of "select" and "select value" being mapped while the other isn't, instead of fully polyfilling based on hand joint data when either is missing. [PR #1041](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1041)
+
 ### Changed
 
 * Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
