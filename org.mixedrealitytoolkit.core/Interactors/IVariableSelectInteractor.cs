@@ -10,7 +10,7 @@ namespace MixedReality.Toolkit
     /// An interface that all interactors which offer
     /// variable selection must implement.
     /// </summary>
-    [Obsolete]
+    [Obsolete("Use " + nameof(IXRInteractionStrengthInteractor) + " instead.")]
     public interface IVariableSelectInteractor : IXRSelectInteractor, IXRHoverInteractor
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace MixedReality.Toolkit
         /// For gaze-pinch interactors, this is the pinch progress.
         /// For motion controllers, this is the analog trigger press amount.
         /// </remarks>
-        [Obsolete]
+        [Obsolete("Use " + nameof(IXRInteractionStrengthInteractor.GetInteractionStrength) + " or " + nameof(IXRInteractionStrengthInteractor.largestInteractionStrength) + " instead.")]
         float SelectProgress { get; }
     }
 }

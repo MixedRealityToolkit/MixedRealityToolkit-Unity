@@ -263,8 +263,8 @@ namespace MixedReality.Toolkit
         /// <remarks>
         /// Derived classes should override this method to specify custom selection math.
         /// The default implementation allows for variable selection from 
-        /// <see cref="IVariableSelectInteractor"/> objects, calculated using
-        /// <see cref="IVariableSelectInteractor.SelectProgress"/>.
+        /// <see cref="IXRInteractionStrengthInteractor"/> objects, calculated using
+        /// <see cref="IXRInteractionStrengthInteractable.GetInteractionStrength(IXRInteractable)"/>.
         /// </remarks>
         public virtual float GetSelectionProgress()
         {
@@ -274,22 +274,30 @@ namespace MixedReality.Toolkit
 
                 foreach (IXRHoverInteractor interactor in interactorsHovering)
                 {
-                    if (interactor is IXRInteractionStrengthInteractor iInteractionStrengthInteractor)
+                    if (interactor is IXRInteractionStrengthInteractor interactionStrengthInteractor)
                     {
-                        selectionProgress = Mathf.Max(selectionProgress, iInteractionStrengthInteractor.largestInteractionStrength.Value);
+                        selectionProgress = Mathf.Max(selectionProgress, GetInteractionStrength(interactor));
                     }
+#pragma warning disable CS0618 // Type or member is obsolete
                     else if (interactor is IVariableSelectInteractor variableSelectInteractor)
                     {
                         selectionProgress = Mathf.Max(selectionProgress, variableSelectInteractor.SelectProgress);
                     }
+#pragma warning restore CS0618 // Type or member is obsolete
                 }
 
-                foreach (var interactor in interactorsSelecting)
+                foreach (IXRSelectInteractor interactor in interactorsSelecting)
                 {
-                    if (interactor is IVariableSelectInteractor variableSelectInteractor)
+                    if (interactor is IXRInteractionStrengthInteractor interactionStrengthInteractor)
+                    {
+                        selectionProgress = Mathf.Max(selectionProgress, GetInteractionStrength(interactor));
+                    }
+#pragma warning disable CS0618 // Type or member is obsolete
+                    else if (interactor is IVariableSelectInteractor variableSelectInteractor)
                     {
                         selectionProgress = Mathf.Max(selectionProgress, variableSelectInteractor.SelectProgress);
                     }
+#pragma warning restore CS0618 // Type or member is obsolete
                     else
                     {
                         selectionProgress = 1.0f;
