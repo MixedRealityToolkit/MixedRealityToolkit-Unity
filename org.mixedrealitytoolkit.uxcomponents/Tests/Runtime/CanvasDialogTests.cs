@@ -6,14 +6,14 @@
 
 using System.Collections;
 using System.Threading.Tasks;
-using MixedReality.Toolkit.Core.Tests;
 using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
@@ -236,7 +236,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
             
             // We have to query by the impl here.
-            object[] dialogs = FindObjectUtility.FindObjectsByType(typeof(Dialog), true);
+            Dialog[] dialogs = Object.FindObjectsByType<Dialog>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID);
             Assert.AreEqual(1, dialogs.Length, "There should be only one pooled dialog in the scene.");
         }
 
@@ -262,7 +262,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             }
             
             // We have to query by the impl here.
-            object[] dialogs = FindObjectUtility.FindObjectsByType(typeof(Dialog), true);
+            Dialog[] dialogs = Object.FindObjectsByType<Dialog>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID);
             Assert.AreEqual(5, dialogs.Length, "There should have been 5 total dialogs used.");
             
         }

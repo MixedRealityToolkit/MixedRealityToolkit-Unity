@@ -9,7 +9,8 @@
         "MixedReality.Toolkit.SpatialManipulation",
         "UnityEditor.TestRunner",
         "UnityEngine.TestRunner",
-        "Unity.XR.Interaction.Toolkit"
+        "Unity.XR.Interaction.Toolkit",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

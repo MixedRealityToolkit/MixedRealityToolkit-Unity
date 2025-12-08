@@ -2,6 +2,87 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [4.0.0-pre.2] - 2025-12-05
+
+### Changed
+
+* Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
+* Split out mappings for "airtap" and "grab", as well as mapping other bespoke interaction profile actions (like those provided by the Hand Interaction Profile). [PR #1040](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1040)
+
+### Deprecated
+
+* Deprecated IHandedInteractor across the interactor implementations, as its info is now queryable directly from IXRInteractor's handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
+
+### Removed
+
+* Removed HandNode property and field from HandModel, as it was largely unused. [PR #1045](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1045)
+
+## [4.0.0-pre.1] - 2024-07-16
+
+### Added
+
+* SpatialMouseInputTestsForControllerlessRig Unity-tests.
+* BasicInputTestsForControllerlessRig Unity-tests.
+* Ported BasicInputTests so that they also test the new controllerless prefabs.
+* Ported FuzzyGazeInteractorTests so that they also test the new controllerless prefabs.
+* MRTKRayInteractorVisualsTestsForControllerlessRig Unity-tests.
+* InteractionModeManagerTestsForControllerlessRig Unity-tests.
+* FuzzyGazeInteractorTestsForControllerlessRig Unity-tests.
+* TrackedPoseDriverLookup as the XRI3+ equivalent of ControllerLookup.
+* TrackedPoseDriverWithFallback as the XRI3+ equivalent of ActionBasedControllerWithFallbacks.
+* Controllerless version of MRTK XR Rig prefab.
+* Controllerless version of MRTK LeftHand Controller prefab.
+* Controllerless version of MRTK RightHand Controller prefab.
+* Controllerless version of MRTK Gaze Controller prefab.
+* Controllerless version of MRTK Interaction Manager prefab.
+* Added ModeManagerdRoot field to interactors to hold a reference to parent GameObject.
+
+### Changed
+
+* Updated package com.unity.xr.interaction.toolkit to 3.0.4
+* Updated BaseRuntimeInputTests logic to handle both deprecated XRController and new controllerless actions.
+* Updated GazePinchInteractor logic to handle both deprecated XRController and new controllerless actions.
+* Updated PokeInteractor logic to handle both deprecated XRController and new controllerless actions.
+* Updated MRTKRayInteractor logic to handle both deprecated XRController and new controllerless actions.
+* Updated FlatScreenModeDetector logic to handle both deprecated XRController and new controllerless actions.
+* Updated ObjectManipulator so to not rely on obsolete XRI controllers.
+* Moved the Gaze Interactor TrackedPoseDriver to parent GameObject so that all controller prefabs have the same structure.
+* Moved HandModel script from Experimental\XRI3 to Controllers\
+* Renamed MRTK XR Rig prefab as Obsolete MRTK XR Rig.
+* Renamed MRTK LeftHand Controller prefab as Obsolete MRTK LeftHand Controller.
+* Renamed MRTK RightHand Controller prefab as Obsolete MRTK RightHand Controller.
+* Renamed MRTK Gaze Controller prefab as Obsolete MRTK Gaze Controller.
+* Renamed MRTK Interaction Manager prefab as Obsolete MRTK Interaction Manager.
+* Added ITrackedInteractor interface to GazePinchInteractor class.
+* Added ITrackedInteractor interface to HandJointInteractor class.
+* Added ITrackedInteractor interface to PokeInteractor class.
+* Added ITrackedInteractor interface to MRTKRayInteractor class.
+* Updated new controllerless rig to use HandPoseDrive and PinchInputReader to support devices without a Hand Interaction profile.
+
+### Deprecated
+
+* ActionBasedControllerWithFallbacks marked as Obsolete.
+* ArticulatedHandController marked as Obsolete.
+
+### Removed
+
+* Removed obsolete ArticulatedHandController.HandsAggregatorSubsystem field.
+* Removed obsolete MRTKRayInteractor.HandsAggregatorSubsystem field.
+* Removed obsolete ControllerSimulationSettings.InputActionReference field.
+* Removed obsolete SyntheticsHandsSubsystem::GetNeutralPose method.
+* Removed obsolete SyntheticsHandsSubsystem::SetNeutralPose method.
+* Removed obsolete SyntheticsHandsSubsystem::GetSelectionPose method.
+* Removed obsolete SyntheticsHandsSubsystem::SetSelectionPose method.
+* Removed obsolete SyntheticsHandsSubsystem::GetNeutralPose method.
+* Removed obsolete SyntheticsHandsSubsystem::SetNeutralPose method.
+* Removed obsolete FollowJoint.migratedSuccessfully field.
+* Removed obsolete FollowJoint.hand field.
+* Removed obsolete FollowJoint.Joint field.
+* Removed obsolete FollowJoint::OnAfterDeserialize method.
+* Removed obsolete HandBasedPoseSource.HandsAggregator field.
+* Removed obsolete ControllerVisualizer.HandsAggregator field.
+* Removed no longer needed Experimental\XRI3 folder
+
 ## [3.3.0] - 2025-11-12
 
 ### Added
@@ -14,6 +95,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+* Remapped the synthetic hands config to read the float "select value" action instead of the bool "select" action, since it's read as a float. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
 * Updated tests to follow existing MRTK test patterns. [PR #1046](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1046)
 
 ### Fixed
@@ -22,10 +104,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Updated dependencies to match Unity Asset Store packages. [PR #1054](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1054)
   * com.microsoft.mrtk.graphicstools.unity 0.8.0
   * org.mixedrealitytoolkit.core 3.2.2
-
-### Changed
-
-* Remapped the synthetic hands config to read the float "select value" action instead of the bool "select" action, since it's read as a float. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
 
 ## [3.2.2] - 2024-09-18
 

@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityPhysics = UnityEngine.Physics;
 
 namespace MixedReality.Toolkit.SpatialManipulation
@@ -268,8 +270,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
         // Used to obtain list of known interactors
         private XRInteractionManager interactionManager;
 
-        // Used to cache a known set of interactor
+        // Used to cache a known set of interactors
         private List<IXRInteractor> interactorsCache;
+
+        // Used to cache a known set of input interactor select button readers, and used to query their performed actions.
+        private List<XRInputButtonReader> interactorSelectButtonReaders;
 
         #region MonoBehaviour Implementation
 
@@ -427,10 +432,15 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             using (SolverUpdatePerfMarker.Auto())
             {
+                // Stop placement if a select action is performed this frame
+                if (InteractorSelectPerformedThisFrame())
+                {
+                    StopPlacement();
+                }
                 // Make sure the Transform target is not null, added for the case where auto start is true 
                 // and the tracked target type is the controller ray, if the hand is not in the frame we cannot
                 // calculate the position of the object
-                if (SolverHandler.TransformTarget != null)
+                else if (SolverHandler.TransformTarget != null)
                 {
                     PerformRaycast();
                     SetPosition();
@@ -529,6 +539,27 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         /// <summary>
+        /// Get if an interactor's select button was performed this frame.
+        /// </summary>
+        private bool InteractorSelectPerformedThisFrame()
+        {
+            if (interactorSelectButtonReaders == null || interactorSelectButtonReaders.Count == 0)
+            {
+                return false;
+            }
+
+            foreach (XRInputButtonReader reader in interactorSelectButtonReaders)
+            {
+                if (reader.ReadWasPerformedThisFrame())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Registers the input action which performs placement.
         /// </summary>
         private void RegisterPlacementAction()
@@ -550,19 +581,36 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 interactorsCache = new List<IXRInteractor>();
             }
 
+            if (interactorSelectButtonReaders == null)
+            {
+                interactorSelectButtonReaders = new List<XRInputButtonReader>();
+            }
+
             // Try registering for the controller's "action" so object selection isn't required for placement.
             // If no controller, then fallback to using object selections for placement.
             interactionManager.GetRegisteredInteractors(interactorsCache);
             foreach (IXRInteractor interactor in interactorsCache)
             {
-                if (interactor is XRBaseControllerInteractor controllerInteractor &&
+#pragma warning disable CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
+                if (interactor is XRBaseInputInteractor controllerInteractor &&
+                    controllerInteractor.forceDeprecatedInput &&
                     controllerInteractor.xrController is ActionBasedController actionController)
                 {
                     actionController.selectAction.action.performed += StopPlacementViaPerformedAction;
                 }
-                else if (interactor is IXRSelectInteractor selectInteractor)
+#pragma warning restore CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
+                else
                 {
-                    selectInteractor.selectEntered.AddListener(StopPlacementViaSelect);
+                    if (interactor is XRBaseInputInteractor inputInteractor &&
+                        inputInteractor.selectInput != null)
+                    {
+                        interactorSelectButtonReaders.Add(inputInteractor.selectInput);
+                    }
+
+                    if (interactor is IXRSelectInteractor selectInteractor)
+                    {
+                        selectInteractor.selectEntered.AddListener(StopPlacementViaSelect);
+                    }
                 }
             }
         }
@@ -576,17 +624,21 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 foreach (IXRInteractor interactor in interactorsCache)
                 {
-                    if (interactor is XRBaseControllerInteractor controllerInteractor &&
+#pragma warning disable CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
+                    if (interactor is XRBaseInputInteractor controllerInteractor &&
+                        controllerInteractor.forceDeprecatedInput &&
                         controllerInteractor.xrController is ActionBasedController actionController)
                     {
                         actionController.selectAction.action.performed -= StopPlacementViaPerformedAction;
                     }
+#pragma warning restore CS0618 // ActionBasedController and XRBaseInputInteractor.forceDeprecatedInput are obsolete
                     else if (interactor is IXRSelectInteractor selectInteractor)
                     {
                         selectInteractor.selectEntered.RemoveListener(StopPlacementViaSelect);
                     }
                 }
                 interactorsCache.Clear();
+                interactorSelectButtonReaders.Clear();
             }
         }
 

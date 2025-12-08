@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
-using UnityEngine;
 using UnityEngine.XR;
 
 namespace MixedReality.Toolkit
@@ -19,57 +17,12 @@ namespace MixedReality.Toolkit
         /// If Left, returns Right, if Right, returns Left otherwise returns None.
         /// Otherwise, returns None
         /// </remarks>
-        public static Handedness GetOppositeHandedness(this Handedness current)
+        public static Handedness GetOppositeHandedness(this Handedness current) => current switch
         {
-            if (current == Handedness.Left)
-            {
-                return Handedness.Right;
-            }
-            else if (current == Handedness.Right)
-            {
-                return Handedness.Left;
-            }
-            else
-            {
-                return Handedness.None;
-            }
-        }
-
-        /// <summary>
-        /// Checks whether or not the current <see cref="Handedness"/> value is <see cref="Handedness.Right"/>.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> if the <see cref="Handedness"/> value being checked is <see cref="Handedness.Right"/>, otherwise <see langword="false"/>.
-        /// </returns>
-        [Obsolete("Use flags instead (e.g. Handedness.Right | Handedness.Left)")]
-        public static bool IsRight(this Handedness current)
-        {
-            return current == Handedness.Right;
-        }
-
-        /// <summary>
-        /// Checks whether or not the current <see cref="Handedness"/> value is <see cref="Handedness.Left"/>.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> if the <see cref="Handedness"/> value being checked is <see cref="Handedness.Left"/>, otherwise <see langword="false"/>.
-        /// </returns>
-        [Obsolete("Use flags instead (e.g. Handedness.Right | Handedness.Left)")]
-        public static bool IsLeft(this Handedness current)
-        {
-            return current == Handedness.Left;
-        }
-
-        /// <summary>
-        /// Checks whether or not the current <see cref="Handedness"/> value is <see cref="Handedness.None"/>.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> if the <see cref="Handedness"/> value being checked is <see cref="Handedness.None"/>, otherwise <see langword="false"/>.
-        /// </returns>
-        [Obsolete("Use flags instead (e.g. Handedness.Right | Handedness.Left)")]
-        public static bool IsNone(this Handedness current)
-        {
-            return current == Handedness.None;
-        }
+            Handedness.Left => Handedness.Right,
+            Handedness.Right => Handedness.Left,
+            _ => Handedness.None
+        };
 
         /// <summary>
         /// Checks whether or not the current <see cref="Handedness"/> value matches the specified value.
@@ -91,11 +44,11 @@ namespace MixedReality.Toolkit
         /// <returns>
         /// <see cref="XRNode"/> representing the specified <see cref="Handedness"/>, or <see langword="null"/>.
         /// </returns>
-        public static XRNode? ToXRNode(this Handedness hand)
+        public static XRNode? ToXRNode(this Handedness hand) => hand switch
         {
-            if (hand == Handedness.Left) { return XRNode.LeftHand; }
-            if (hand == Handedness.Right) { return XRNode.RightHand; }
-            return null;
-        }
+            Handedness.Left => XRNode.LeftHand,
+            Handedness.Right => XRNode.RightHand,
+            _ => null
+        };
     }
 }
