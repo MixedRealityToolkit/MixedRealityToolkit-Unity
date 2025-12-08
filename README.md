@@ -48,10 +48,9 @@ MRTK3 requires Unity 2021.3.21 or higher. In addition, you need the [Mixed Reali
 
 In previous versions of MRTK (HoloToolkit and MRTK v2), all packages were released as a complete set, marked with the same version number (ex: 2.8.0). Starting with MRTK3 GA, each package will be individually versioned, following the [Semantic Versioning 2.0.0 specification](https://semver.org/spec/v2.0.0.html). (As a result, the '3' in MRTK3 is not a version number!)
 
-
 Individual versioning will enable faster servicing while providing improved developer understanding of the magnitude of changes and reducing the number of packages needing to be updated to acquire the desired fix(es).
 
-For example, if a non-breaking new feature is added to the UX core package, which contains the logic for user interface behavior the minor version number will increase (from 3.0.x to 3.1.0). Since the change is non-breaking, the UX components package, which depends upon UX core, is not required to be updated. 
+For example, if a non-breaking new feature is added to the UX core package, which contains the logic for user interface behavior the minor version number will increase (from 3.0.x to 3.1.0). Since the change is non-breaking, the UX components package, which depends upon UX core, is not required to be updated.
 
 As a result of this change, there is not a unified MRTK3 product version.
 
@@ -89,14 +88,14 @@ MRTK3 has been upgraded to use [Unity's XR Interaction Toolkit 3+](https://docs.
   * The new controllers and rig retake the original names of the obsolete controllers.
 * New controllers structure have been modified so that all of them have the same structure.
 * The deprecated XRI2 XRController component has been removed from the controllers and its input actions have been moved to their interactors.
-    * The new controllers now have a Tracked Pose Driver components that holds references to the device's position, rotation, and tracking state input actions.
+  * The new controllers now have a Tracked Pose Driver components that holds references to the device's position, rotation, and tracking state input actions.
 * Interactors now have a Tracked Pose Driver field that holds a reference to the Tracked Pose Driver component of the parent controller.
 * Interactors now have a Mode Managed Root that holds a reference to the parent controller GameObject.
 * Added new unity-tests for the new XRI3 functionality + components.
 * Updated several unity-tests.
 * Updated several scripts so that they work with both obsolete XRI2 and new XRI3 prefabs.
 * Updated all scenes to use the new XRI3 rig + controllers.
-    * Made a copy of the old HandInteractionExamples scene and renamed as ObsoleteHandInteractionExample, this scene still consumes the old rig + controllers.
+  * Made a copy of the old HandInteractionExamples scene and renamed as ObsoleteHandInteractionExample, this scene still consumes the old rig + controllers.
 
 A more detailed explanation of the changes can be found in [XRI2TOXRI3MIGRATIONGUIDE.md](./XRI2TOXRI3MIGRATIONGUIDE.md).  The guide can also help others as a path for migrating their own solutions or MRTK3 forks from XRI2 to XRI3.
 
@@ -104,4 +103,4 @@ A more detailed explanation of the changes can be found in [XRI2TOXRI3MIGRATIONG
 
 For information on how the Mixed Reality Toolkit for Unity Project is governed, please read [GOVERNANCE.md](./GOVERNANCE.md).
 
-All projects under the Mixed Reality Toolkit organization are governed by the Steering Committee. The Steering Committee is responsible for all technical oversight, project approval and oversight, policy oversight, and trademark management for the Organization. To learn more about the Steering Committee, visit this link: https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CHARTER.md
+All projects under the Mixed Reality Toolkit organization are governed by the Steering Committee. The Steering Committee is responsible for all technical oversight, project approval and oversight, policy oversight, and trademark management for the Organization. To learn more about the Steering Committee, visit this link: <https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CHARTER.md>
