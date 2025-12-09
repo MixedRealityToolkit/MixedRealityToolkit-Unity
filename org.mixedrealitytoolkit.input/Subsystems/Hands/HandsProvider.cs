@@ -61,7 +61,7 @@ namespace MixedReality.Toolkit.Input
         {
             Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand, "Non-hand XRNode used in TryGetEntireHand query.");
 
-            if (!MRTKInputFocusManager.XrSessionHasFocus.Value)
+            if (!MRTKFocusFeature.XrSessionFocused.Value)
             {
                 jointPoses = Array.Empty<HandJointPose>();
                 return false;
@@ -75,7 +75,7 @@ namespace MixedReality.Toolkit.Input
         {
             Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand, "Non-hand XRNode used in TryGetJoint query.");
 
-            if (!MRTKInputFocusManager.XrSessionHasFocus.Value)
+            if (!MRTKFocusFeature.XrSessionFocused.Value)
             {
                 jointPose = default;
                 return false;

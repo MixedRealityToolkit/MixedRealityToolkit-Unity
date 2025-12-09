@@ -5,7 +5,6 @@
         "glTFast",
         "Microsoft.MixedReality.OpenXR",
         "MixedReality.Toolkit.Core",
-        "Snapdragon.Spaces.Runtime",
         "Unity.InputSystem",
         "Unity.XR.CoreUtils",
         "Unity.XR.Hands",
@@ -70,11 +69,6 @@
             "name": "com.unity.xr.openxr",
             "expression": "",
             "define": "UNITY_OPENXR_PRESENT"
-        },
-        {
-            "name": "com.qualcomm.snapdragon.spaces",
-            "expression": "",
-            "define": "SNAPDRAGON_SPACES_PRESENT"
         }
     ],
     "noEngineReferences": false

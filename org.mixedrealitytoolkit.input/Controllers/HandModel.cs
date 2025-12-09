@@ -94,18 +94,18 @@ namespace MixedReality.Toolkit.Input
                 }
             }
 
-            MRTKInputFocusManager.XrSessionHasFocus.SubscribeAndUpdate(OnXrSessionFocus);
+            MRTKFocusFeature.XrSessionFocused.SubscribeAndUpdate(OnXrSessionFocus);
         }
 
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
         /// </summary>
-        private void OnDestroy() => MRTKInputFocusManager.XrSessionHasFocus.Unsubscribe(OnXrSessionFocus);
+        private void OnDestroy() => MRTKFocusFeature.XrSessionFocused.Unsubscribe(OnXrSessionFocus);
 
         /// <summary>
-        /// Sent to all GameObjects when the player gets or loses focus.
+        /// Sent when the XrSession gains or loses focus.
         /// </summary>
-        /// <param name="focus"><see langword="true"/> if the GameObjects have focus, else <see langword="false"/>.</param>
+        /// <param name="focus"><see langword="true"/> if the XrSession has focus, else <see langword="false"/>.</param>
         private void OnXrSessionFocus(bool focus)
         {
             // We want to ensure we're focused for input visualization, as some runtimes continue reporting "tracked" while pose updates are paused.
