@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Added
+
+* Added support for XR_MSFT_hand_tracking_mesh and XR_ANDROID_hand_mesh on compatible runtimes. [PR #993](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/993)
+
 ## [4.0.0-pre.2] - 2025-12-05
 
 ### Changed
