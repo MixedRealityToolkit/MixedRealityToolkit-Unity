@@ -1,4 +1,3 @@
-
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
@@ -13,12 +12,6 @@ namespace MixedReality.Toolkit.Editor
     [CanEditMultipleObjects]
     class FontIconSelectorInspector : UnityEditor.Editor
     {
-
-        private const string defaultShaderName = "TextMeshPro/Distance Field SSD";
-        private float fontTileSize = 32;
-
-        private static Material fontRenderMaterial;
-
         private const string noFontIconsMessage = "No IconFontSet profile selected. No icons available.";
         private const string emptyFontIconSetMessage = "The selected IconFontSet profile has no icons defined. Please edit the IconFontSet.";
 
@@ -29,6 +22,7 @@ namespace MixedReality.Toolkit.Editor
         private GUIStyle currentButtonStyle;
 
         private bool initializedStyle = false;
+        private float fontTileSize = 32;
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
@@ -38,7 +32,6 @@ namespace MixedReality.Toolkit.Editor
             fontIconsProp = serializedObject.FindProperty("fontIcons");
             currentIconNameProp = serializedObject.FindProperty("currentIconName");
             tmProProp = serializedObject.FindProperty("textMeshProComponent");
-            
         }
 
         /// <summary>
@@ -90,7 +83,6 @@ namespace MixedReality.Toolkit.Editor
         }
 
         private int numColumns = 4;
-
         private Vector2 scrollAmount;
 
         public void DrawIconGrid(FontIconSelector fontIconSelector, float tileSize)
@@ -101,45 +93,42 @@ namespace MixedReality.Toolkit.Editor
 
             scrollAmount = EditorGUILayout.BeginScrollView(scrollAmount, GUILayout.MaxHeight(128), GUILayout.MinHeight(64));
             EditorGUILayout.BeginHorizontal();
-            
+
             foreach (string iconName in fontIconSet.GlyphIconsByName.Keys)
             {
                 uint unicodeValue = fontIconSet.GlyphIconsByName[iconName];
-                bool selected = (iconName == fontIconSelector.CurrentIconName);
+
                 if (column >= numColumns)
                 {
                     column = 0;
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
                 }
+
                 if (GUILayout.Button(" ",
-                    GUILayout.MinHeight(tileSize),
-                    GUILayout.MaxHeight(tileSize),
-                    GUILayout.MinWidth(tileSize),
-                    GUILayout.MaxWidth(tileSize)))
+                    GUILayout.Height(tileSize),
+                    GUILayout.Width(tileSize)))
                 {
-                    Undo.RecordObjects(new UnityEngine.Object[]{fontIconSelector, fontIconSelector.TextMeshProComponent}, "Changed icon");
+                    Undo.RecordObjects(new Object[] { fontIconSelector, fontIconSelector.TextMeshProComponent }, "Changed icon");
                     fontIconSelector.CurrentIconName = iconName;
                     PrefabUtility.RecordPrefabInstancePropertyModifications(fontIconSelector);
                     PrefabUtility.RecordPrefabInstancePropertyModifications(fontIconSelector.TextMeshProComponent);
                 }
+
                 Rect textureRect = GUILayoutUtility.GetLastRect();
                 if (textureRect.yMin + 8 < scrollAmount.y || textureRect.yMax - 8 > scrollAmount.y + 128)
                 {
                     unicodeValue = 0;
                 }
-
                 textureRect.width = tileSize;
                 textureRect.height = tileSize;
-                FontIconSetInspector.EditorDrawTMPGlyph(textureRect, unicodeValue, fontAsset, selected);
+                FontIconSetInspector.EditorDrawTMPGlyph(textureRect, unicodeValue, fontAsset, iconName == fontIconSelector.CurrentIconName);
+
                 column++;
             }
 
-            if (column > 0)
-            {
-                EditorGUILayout.EndHorizontal();
-            }
-            
+            EditorGUILayout.EndHorizontal();
+
             if (Event.current.type == EventType.Repaint)
             {
                 float editorWindowWidth = GUILayoutUtility.GetLastRect().width;
