@@ -363,6 +363,26 @@ MonoBehaviour:
   company: Unity
   priority: 0
   required: 0
+--- !u!114 &-5000202051992085229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30587bb28b5390644ae70f801841a073, type: 3}
+  m_Name: MRTKFocusFeature Android
+  m_EditorClassIdentifier: 
+  m_enabled: 1
+  nameUi: MRTK3 Session Focus
+  version: 4.0.0
+  featureIdInternal: org.mixedreality.toolkit.input.focus
+  openxrExtensionStrings: 
+  company: Mixed Reality Toolkit Contributors
+  priority: 0
+  required: 0
 --- !u!114 &-4989097037534641705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,6 +414,7 @@ MonoBehaviour:
   - {fileID: -5492763381520605560}
   - {fileID: 720212866400260749}
   - {fileID: -2783824018031006640}
+  - {fileID: -4614918767838866102}
   - {fileID: 4334429337943452973}
   - {fileID: -5448262054166454653}
   - {fileID: -9173909432611776730}
@@ -427,6 +448,26 @@ MonoBehaviour:
   featureIdInternal: com.unity.openxr.feature.input.hpreverb
   openxrExtensionStrings: XR_EXT_hp_mixed_reality_controller
   company: Unity
+  priority: 0
+  required: 0
+--- !u!114 &-4614918767838866102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30587bb28b5390644ae70f801841a073, type: 3}
+  m_Name: MRTKFocusFeature Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 1
+  nameUi: MRTK3 Session Focus
+  version: 4.0.0
+  featureIdInternal: org.mixedreality.toolkit.input.focus
+  openxrExtensionStrings: 
+  company: Mixed Reality Toolkit Contributors
   priority: 0
   required: 0
 --- !u!114 &-3765664599707111037
@@ -536,6 +577,7 @@ MonoBehaviour:
   - {fileID: -7229825001273466666}
   - {fileID: 4508051287823359615}
   - {fileID: 2835676197965704550}
+  - {fileID: -5000202051992085229}
   - {fileID: -7431403579802858517}
   - {fileID: -3273436338079595365}
   - {fileID: 8773911662759437579}
@@ -649,6 +691,26 @@ MonoBehaviour:
   featureIdInternal: com.unity.openxr.feature.extension.performance_settings
   openxrExtensionStrings: XR_EXT_performance_settings
   company: Unity
+  priority: 0
+  required: 0
+--- !u!114 &-1685409458817180080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30587bb28b5390644ae70f801841a073, type: 3}
+  m_Name: MRTKFocusFeature Metro
+  m_EditorClassIdentifier: 
+  m_enabled: 1
+  nameUi: MRTK3 Session Focus
+  version: 4.0.0
+  featureIdInternal: org.mixedreality.toolkit.input.focus
+  openxrExtensionStrings: 
+  company: Mixed Reality Toolkit Contributors
   priority: 0
   required: 0
 --- !u!114 &-1310172892294911860
@@ -934,6 +996,7 @@ MonoBehaviour:
   - {fileID: 8785654261743502636}
   - {fileID: 2622006578924267534}
   - {fileID: -6733472631637007722}
+  - {fileID: -1685409458817180080}
   - {fileID: 4575689165844638740}
   - {fileID: 6698335440458243644}
   - {fileID: -2219742231848666541}

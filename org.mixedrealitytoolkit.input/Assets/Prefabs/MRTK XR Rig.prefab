@@ -325,6 +325,7 @@ GameObject:
   - component: {fileID: 2351505567455720332}
   - component: {fileID: 4160709927669568829}
   - component: {fileID: 6400715630075217958}
+  - component: {fileID: 1798554929582623642}
   m_Layer: 0
   m_Name: MRTK XR Rig
   m_TagString: Untagged
@@ -375,6 +376,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a107350295baaf4489642caa92f05de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1798554929582623642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2351505567455720334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 671b97df530b06e46893c4189b3ceab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputActionReferences:
