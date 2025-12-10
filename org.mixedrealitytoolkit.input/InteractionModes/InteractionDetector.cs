@@ -108,11 +108,11 @@ namespace MixedReality.Toolkit.Input
 
             if (interactor is XRRayInteractor rayInteractor)
             {
-                isDetected |= rayInteractor.TryGetUIModel(out TrackedDeviceModel model) && ((model.currentRaycast.isValid && detectHover) || (model.select && detectSelect));
+                isDetected |= rayInteractor.TryGetUIModel(out TrackedDeviceModel model) && model.currentRaycast.isValid && (detectHover || (model.select && detectSelect));
             }
             else if (interactor is NearFarInteractor nearFarInteractor)
             {
-                isDetected |= nearFarInteractor.TryGetUIModel(out TrackedDeviceModel model) && ((model.currentRaycast.isValid && detectHover) || (model.select && detectSelect));
+                isDetected |= nearFarInteractor.TryGetUIModel(out TrackedDeviceModel model) && model.currentRaycast.isValid && (detectHover || (model.select && detectSelect));
             }
 
             return isDetected;
