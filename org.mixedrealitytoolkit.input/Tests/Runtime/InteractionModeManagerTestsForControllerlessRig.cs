@@ -91,30 +91,42 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
 
             TrackedPoseDriver rightHandTrackedPoseDriver = CachedTrackedPoseDriverLookup.RightHandTrackedPoseDriver;
-            InteractionDetector rightHandInteractionDetector = rightHandTrackedPoseDriver.transform.parent.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>();
+            Assert.IsTrue(rightHandTrackedPoseDriver != null, "No tracked pose driver found for right hand.");
 
             // Moving the hand to a position where it's far ray is hovering over the cube
             yield return rightHand.AimAt(cube.transform.position);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            InteractionMode currentMode = rightHandInteractionDetector.ModeOnHover;
-            Assert.AreEqual(currentMode, rightHandInteractionDetector.ModeOnDetection);
-            ValidateInteractionModeActive(rightHandTrackedPoseDriver, currentMode);
+            InteractionDetector interactionDetector = rightHandTrackedPoseDriver.transform.parent.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>();
 
+            InteractionMode expectedMode = interactionDetector.ModeOnHover;
+            Assert.AreEqual(expectedMode, interactionDetector.ModeOnDetection);
+            ValidateInteractionModeActive(rightHandTrackedPoseDriver, expectedMode);
+
+            // Select the cube and check that we're in the correct mode
             yield return rightHand.SetHandshape(HandshapeTypes.HandshapeId.Grab);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            currentMode = rightHandInteractionDetector.ModeOnSelect;
-            Assert.AreEqual(currentMode, rightHandInteractionDetector.ModeOnDetection);
-            ValidateInteractionModeActive(rightHandTrackedPoseDriver, currentMode);
+            expectedMode = interactionDetector.ModeOnSelect;
+            Assert.AreEqual(expectedMode, interactionDetector.ModeOnDetection);
+            ValidateInteractionModeActive(rightHandTrackedPoseDriver, expectedMode);
 
-            // move the hand far away and validate that we are in the default mode
+            // Release the selection and move the hand far away and validate that we are in the default mode
             yield return rightHand.SetHandshape(HandshapeTypes.HandshapeId.Open);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            yield return rightHand.MoveTo(cube.transform.position + new Vector3(3.0f,0,0));
+            yield return rightHand.MoveTo(cube.transform.position + new Vector3(3.0f, 0, 0));
             yield return RuntimeTestUtilities.WaitForUpdates();
+            expectedMode = InteractionModeManager.Instance.DefaultMode;
+            ValidateInteractionModeActive(rightHandTrackedPoseDriver, expectedMode);
 
-            currentMode = InteractionModeManager.Instance.DefaultMode;
-            ValidateInteractionModeActive(rightHandTrackedPoseDriver, currentMode);
+            // Put the hand into a grab state and validate that we are in the default mode, since we're not selecting an object
+            yield return rightHand.SetHandshape(HandshapeTypes.HandshapeId.Grab);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            ValidateInteractionModeActive(rightHandTrackedPoseDriver, expectedMode);
+
+            // Release the grab state and validate that we are in the default mode
+            yield return rightHand.SetHandshape(HandshapeTypes.HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            ValidateInteractionModeActive(rightHandTrackedPoseDriver, expectedMode);
         }
 
         /// <summary>
