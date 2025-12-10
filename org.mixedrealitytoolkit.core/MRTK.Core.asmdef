@@ -4,8 +4,7 @@
     "references": [
         "Unity.XR.CoreUtils",
         "Unity.XR.Interaction.Toolkit",
-        "Unity.XR.Management",
-        "Unity.InputSystem"
+        "Unity.XR.Management"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
