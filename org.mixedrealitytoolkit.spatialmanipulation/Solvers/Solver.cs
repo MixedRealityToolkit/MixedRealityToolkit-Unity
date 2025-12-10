@@ -21,7 +21,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private static ControllerLookup controllerLookup;
 
         /// <summary>
-        /// Get the <see cref="Toolkit.ControllerLookup">ControllerLookup</see> that will be used all application <see cref="Solver"/> objects.
+        /// Get the <see cref="Toolkit.ControllerLookup"/> that will be used all application <see cref="Solver"/> objects.
         /// </summary>
         [Obsolete("This property has been deprecated in version 4.0.0. Please use MixedReality.Toolkit.Input.TrackedPoseDriverLookup instead.")]
         protected static ControllerLookup ControllerLookup => controllerLookup;
@@ -29,7 +29,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private static TrackedPoseDriverLookup trackedPoseDriverLookup;
 
         /// <summary>
-        /// Get the <see cref="Toolkit.TrackedPoseDriverLookup">TrackedPoseDriverLookup</see> that will be used by all application <see cref="Solver"/> objects.
+        /// Get the <see cref="Toolkit.TrackedPoseDriverLookup"/> that will be used by all application <see cref="Solver"/> objects.
         /// </summary>
         protected static TrackedPoseDriverLookup TrackedPoseDriverLookup => trackedPoseDriverLookup;
 
@@ -272,7 +272,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             // Find the controller lookup class in the hierarchy. Solvers that require access to the
             // left, right or gaze controllers will use the references stored in this class.
-            #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
             if (controllerLookup == null)
             {
                 controllerLookup = ComponentCache<ControllerLookup>.FindFirstActiveInstance();
@@ -284,7 +284,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 trackedPoseDriverLookup = ComponentCache<TrackedPoseDriverLookup>.FindFirstActiveInstance();
             }
-            #pragma warning restore CS0618
+#pragma warning restore CS0618
         }
 
         #endregion MonoBehaviour Implementation
@@ -370,8 +370,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             if (smoothing)
             {
-                Vector3 pos = transform.position;
-                Quaternion rot = transform.rotation;
+                transform.GetPositionAndRotation(out Vector3 pos, out Quaternion rot);
                 Vector3 scale = transform.localScale;
 
                 pos = SmoothTo(pos, GoalPosition, SolverHandler.DeltaTime, moveLerpTime);

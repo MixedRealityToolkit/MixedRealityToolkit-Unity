@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace MixedReality.Toolkit.Subsystems
 {
@@ -19,9 +18,6 @@ namespace MixedReality.Toolkit.Subsystems
         MonoBehaviour,
         IDisposable
     {
-        [SerializeField, Tooltip("A set of input actions to enable/disable according to the app's focus state.")]
-        private InputActionReference[] inputActionReferences;
-
         private List<IMRTKManagedSubsystem> managedSubsystems = new List<IMRTKManagedSubsystem>();
 
         /// <summary>
@@ -191,17 +187,7 @@ namespace MixedReality.Toolkit.Subsystems
             // and applications should react to an inactive input action by skipping rendering of that action's input avatar
             // (depictions of hands or other tracked objects controlled by the user)."
 
-            foreach (InputActionReference reference in inputActionReferences)
-            {
-                if (focus)
-                {
-                    reference.action.Enable();
-                }
-                else
-                {
-                    reference.action.Disable();
-                }
-            }
+
         }
 
         #endregion MonoBehaviour
