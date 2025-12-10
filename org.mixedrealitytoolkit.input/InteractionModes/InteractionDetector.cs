@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -85,24 +86,7 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <inheritdoc />
-        public InteractionMode ModeOnDetection => GetDetectedMode();
-
-        /// <summary>
-        /// Determines which mode should be set.
-        /// </summary>
-        /// <returns>The detected mode.</returns>
-        private InteractionMode GetDetectedMode()
-        {
-            if (interactor.hasSelection)
-            {
-                return modeOnSelect;
-            }
-            else
-            {
-                return modeOnHover;
-            }
-
-        }
+        public InteractionMode ModeOnDetection => interactor.hasSelection ? modeOnSelect : modeOnHover;
 
         [SerializeField]
         [FormerlySerializedAs("Controllers")]
@@ -122,10 +106,13 @@ namespace MixedReality.Toolkit.Input
         {
             bool isDetected = (interactor.hasHover && detectHover) || (interactor.hasSelection && detectSelect);
 
-            // Remove if/when XRI sets hasHover/Selection when their ray interactor is hovering/selecting legacy UI.
-            if (interactor is MRTKRayInteractor rayInteractor)
+            if (interactor is XRRayInteractor rayInteractor)
             {
-                isDetected |= (rayInteractor.HasUIHover && detectHover) || (rayInteractor.HasUISelection && detectSelect);
+                isDetected |= rayInteractor.TryGetUIModel(out TrackedDeviceModel model) && ((model.currentRaycast.isValid && detectHover) || (model.select && detectSelect));
+            }
+            else if (interactor is NearFarInteractor nearFarInteractor)
+            {
+                isDetected |= nearFarInteractor.TryGetUIModel(out TrackedDeviceModel model) && ((model.currentRaycast.isValid && detectHover) || (model.select && detectSelect));
             }
 
             return isDetected;
