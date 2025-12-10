@@ -1,19 +1,20 @@
 {
-  "name": "MixedReality.Toolkit.SpatialManipulation",
-  "rootNamespace": "MixedReality.Toolkit.SpatialManipulation",
-  "references": [
-    "MixedReality.Toolkit.Core",
-    "Unity.InputSystem",
-    "Unity.XR.CoreUtils",
-    "Unity.XR.Interaction.Toolkit"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "MixedReality.Toolkit.SpatialManipulation",
+    "rootNamespace": "MixedReality.Toolkit.SpatialManipulation",
+    "references": [
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Input",
+        "Unity.InputSystem",
+        "Unity.XR.CoreUtils",
+        "Unity.XR.Interaction.Toolkit"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
