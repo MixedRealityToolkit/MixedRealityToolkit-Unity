@@ -2,6 +2,16 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Updated `InteractionDetector` to work across all `XRRayInteractor` and `NearFarInteractor` implementations, instead of just MRTK-specific `MRTKRayInteractor` implementations. [PR #1090](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1090)
+
+### Deprecated
+
+* Deprecated `HasUIHover` and `HasUISelection` from `MRTKRayInteractor` in favor of querying the underlying `TrackedDeviceModel` directly instead. [PR #1090](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1090)
+
 ## [4.0.0-pre.2] - 2025-12-05
 
 ### Changed
