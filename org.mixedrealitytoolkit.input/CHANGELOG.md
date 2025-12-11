@@ -11,11 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Deprecated
 
-* Deprecated IHandedInteractor across the interactor implementations, as its info is now queryable directly from IXRInteractor's handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
+* Deprecated `IHandedInteractor` across the interactor implementations, as its info is now queryable directly from `IXRInteractor`'s handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
 
 ### Removed
 
-* Removed HandNode property and field from HandModel, as it was largely unused. [PR #1045](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1045)
+* Removed HandNode property and field from `HandModel`, as it was largely unused. [PR #1045](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1045)
+* Removed `ITrackedInteractor` across the interactor implementations, as it was supporting an unused codepath and there are better ways to get this data (like querying the attach transform). [PR #1044](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1044).
 
 ## [4.0.0-pre.1] - 2024-07-16
 
@@ -53,10 +54,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Renamed MRTK RightHand Controller prefab as Obsolete MRTK RightHand Controller.
 * Renamed MRTK Gaze Controller prefab as Obsolete MRTK Gaze Controller.
 * Renamed MRTK Interaction Manager prefab as Obsolete MRTK Interaction Manager.
-* Added ITrackedInteractor interface to GazePinchInteractor class.
-* Added ITrackedInteractor interface to HandJointInteractor class.
-* Added ITrackedInteractor interface to PokeInteractor class.
-* Added ITrackedInteractor interface to MRTKRayInteractor class.
+* Added `ITrackedInteractor` to `GazePinchInteractor`, `HandJointInteractor`, `PokeInteractor`, and `MRTKRayInteractor`. [PR #822](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/822)
 * Updated new controllerless rig to use HandPoseDrive and PinchInputReader to support devices without a Hand Interaction profile.
 
 ### Deprecated
