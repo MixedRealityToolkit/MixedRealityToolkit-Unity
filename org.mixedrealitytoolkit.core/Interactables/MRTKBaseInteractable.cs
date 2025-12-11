@@ -93,7 +93,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object selected by a gaze-pinch interactor?
         /// </summary>
-        public TimedFlag IsGazePinchSelected { get => isGazePinchSelected; }
+        public TimedFlag IsGazePinchSelected => isGazePinchSelected;
 
         [SerializeField]
         [Tooltip("Is this object selected by a non-gaze ray interactor?")]
@@ -102,7 +102,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object selected by a non-gaze ray interactor?
         /// </summary>
-        public TimedFlag IsRaySelected { get => isRaySelected; }
+        public TimedFlag IsRaySelected => isRaySelected;
 
         [SerializeField]
         [Tooltip("Is this object selected by a poke interactor?")]
@@ -111,7 +111,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object selected by a poke interactor?
         /// </summary>
-        public TimedFlag IsPokeSelected { get => isPokeSelected; }
+        public TimedFlag IsPokeSelected => isPokeSelected;
 
         [SerializeField]
         [Tooltip("Is this object selected by a grab interactor?")]
@@ -120,7 +120,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object selected by a grab interactor?
         /// </summary>
-        public TimedFlag IsGrabSelected { get => isGrabSelected; }
+        public TimedFlag IsGrabSelected => isGrabSelected;
 
         [SerializeField]
         [Tooltip("Is this object hovered by any gaze interactor?")]
@@ -129,7 +129,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object hovered by any gaze interactor?
         /// </summary>
-        public TimedFlag IsGazeHovered { get => isGazeHovered; }
+        public TimedFlag IsGazeHovered => isGazeHovered;
 
         [SerializeField]
         [Tooltip("Is this object hovered by a gaze-pinch interactor?")]
@@ -138,7 +138,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object hovered by a gaze-pinch interactor?
         /// </summary>
-        public TimedFlag IsGazePinchHovered { get => isGazePinchHovered; }
+        public TimedFlag IsGazePinchHovered => isGazePinchHovered;
 
         [SerializeField]
         [Tooltip("Is this object hovered by a non-gaze ray interactor?")]
@@ -147,7 +147,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object hovered by a non-gaze ray interactor?
         /// </summary>
-        public TimedFlag IsRayHovered { get => isRayHovered; }
+        public TimedFlag IsRayHovered => isRayHovered;
 
         [SerializeField]
         [Tooltip("Is this object hovered by a grab interactor?")]
@@ -156,7 +156,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object hovered by a grab interactor?
         /// </summary>
-        public TimedFlag IsGrabHovered { get => isGrabHovered; }
+        public TimedFlag IsGrabHovered => isGrabHovered;
 
         [SerializeField]
         [Tooltip("Is this object hovered by a near touch/poke interactor?")]
@@ -166,12 +166,12 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object hovered by a near touch/poke interactor?
         /// </summary>
-        public TimedFlag IsPokeHovered { get => isPokeHovered; }
+        public TimedFlag IsPokeHovered => isPokeHovered;
 
         /// <summary>
         /// Is this object hovered by any interactor other than passive targeting interactors?
         /// </summary>
-        public TimedFlag IsActiveHovered { get => isActiveHovered; }
+        public TimedFlag IsActiveHovered => isActiveHovered;
 
         [SerializeField]
         [Tooltip("Is this object hovered by any interactor other than only passive targeting interactors?")]
