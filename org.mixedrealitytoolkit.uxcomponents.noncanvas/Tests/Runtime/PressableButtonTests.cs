@@ -77,7 +77,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             PressableButton buttonComponent = testButton.GetComponent<PressableButton>();
 
-            // We don't get inheritdoc summaries here for some reason?
             var selectedness = buttonComponent.GetSelectionProgress();
 
             Assert.IsTrue(selectedness == 0.0f, "The button prefabs should start with 0 selectedness");

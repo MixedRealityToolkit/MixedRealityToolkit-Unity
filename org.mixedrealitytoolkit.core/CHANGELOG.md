@@ -2,12 +2,22 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Updated `StatefulInteractable` to work across all `IXRInteractionStrengthInteractor` implementations, instead of just MRTK-specific `IVariableSelectInteractor` implementations. [PR #1085](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1085)
+
+### Deprecated
+
+* Deprecated `IVariableSelectInteractor`, as its info is duplicative with `IXRInteractionStrengthInteractor`. [PR #1085](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1085)
+
 ## [4.0.0-pre.2] - 2025-12-05
 
 ### Added
 
 * Added input action focus handling to disable controller/hand tracked state when the application goes out of focus. [PR #1039](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1039)
-* Added ToInteractorHandedness extension for XRNode. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
+* Added `ToInteractorHandedness` extension for `XRNode`. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
 
 ### Changed
 
@@ -16,18 +26,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Removed
 
-* Removed ITrackedInteractor, as it was supporting an unused codepath and there are better ways to get this data (like querying the attach transform). [PR #1044](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1044)
+* Removed `ITrackedInteractor`, as it was supporting an unused codepath and there are better ways to get this data (like querying the attach transform). [PR #1044](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1044)
 
 ### Deprecated
 
-* Deprecated IHandedInteractor, as its info is now queryable directly from IXRInteractor's handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
-* Deprecated FindObjectUtility, as it was a backwards-compatibility layer for pre-2021.3.18. Since our min version is now 2022.3, we can just call the API directly. [PR #1058](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1058)
+* Deprecated `IHandedInteractor`, as its info is now queryable directly from `IXRInteractor`'s `handedness` property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
+* Deprecated `FindObjectUtility`, as it was a backwards-compatibility layer for pre-2021.3.18. Since our min version is now 2022.3, we can just call the API directly. [PR #1058](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1058)
 
 ## [4.0.0-pre.1] - 2024-07-09
 
 ### Added
 
-* Added ITrackedInteractor to represent interactor with parent pose backed by a tracked input device.
+* Added `ITrackedInteractor` to represent interactor with parent pose backed by a tracked input device.
 
 ### Changed
 
