@@ -57,7 +57,7 @@ namespace MixedReality.Toolkit.Input
         /// the hand model prefab when implementing <see cref="ISelectInputVisualizer"/>.
         /// </summary>
         public XRInputButtonReader SelectInput => selectInput;
-        
+
         #endregion Associated hand select values
 
         /// <summary>
@@ -73,9 +73,13 @@ namespace MixedReality.Toolkit.Input
                 Debug.Assert(selectInput != null, $"The Select Input reader for {name} is not set and will not be used with the instantiated hand model.");
 
                 // Set the select input reader for the model if it implements ISelectInputVisualizer
-                if (selectInput != null && model != null && model.TryGetComponent(out ISelectInputVisualizer selectInputVisualizer))
+                if (selectInput != null && model != null)
                 {
-                    selectInputVisualizer.SelectInput = selectInput;
+                    ISelectInputVisualizer[] selectInputVisualizers = model.GetComponentsInChildren<ISelectInputVisualizer>();
+                    foreach (ISelectInputVisualizer selectInputVisualizer in selectInputVisualizers)
+                    {
+                        selectInputVisualizer.SelectInput = selectInput;
+                    }
                 }
             }
         }
