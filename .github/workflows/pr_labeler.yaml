@@ -11,7 +11,7 @@ jobs:
   label-pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v8
         with:
           script: |
             if (context.payload.pull_request.base.ref == 'feature/XRI3')
