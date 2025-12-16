@@ -28,13 +28,13 @@ namespace MixedReality.Toolkit.Input.Editor
             InteractionModeManager interactionModeManager = (InteractionModeManager)target;
 
             // Raise lots of errors if the interaction mode manager is configured incorrectly
-            var duplicateControllerMappings = GetDuplicateControllerMappings();
-            if (duplicateControllerMappings.Count > 0)
+            var duplicateInteractorGroupMappings = GetDuplicateInteractorGroupMappings();
+            if (duplicateInteractorGroupMappings.Count > 0)
             {
-                var duplicatedNameString = interactionModeManager.CompileDuplicatedNames(duplicateControllerMappings);
+                var duplicatedNameString = interactionModeManager.CompileDuplicatedNames(duplicateInteractorGroupMappings);
 
-                InspectorUIUtility.DrawError($"Duplicate controller mapping keys detected in the interaction mode manager on {interactionModeManager.gameObject.name}. " +
-                                    $"Please check the following controller mappings: {duplicatedNameString}");
+                InspectorUIUtility.DrawError($"Duplicate interactor group mapping keys detected in the interaction mode manager on {interactionModeManager.gameObject.name}. " +
+                                    $"Please check the following interactor group mappings: {duplicatedNameString}");
 
                 GUI.color = InspectorUIUtility.ErrorColor;
             }
@@ -57,7 +57,7 @@ namespace MixedReality.Toolkit.Input.Editor
             if (GUILayout.Button(InitControllers))
             {
                 Undo.RecordObject(target, InitControllers);
-                interactionModeManager.InitializeControllers();
+                interactionModeManager.InitializeInteractorGroups();
                 PrefabUtility.RecordPrefabInstancePropertyModifications(target);
             }
 
@@ -71,12 +71,12 @@ namespace MixedReality.Toolkit.Input.Editor
             serializedObject.ApplyModifiedProperties();
         }
 
-        private HashSet<string> GetDuplicateControllerMappings()
+        private HashSet<string> GetDuplicateInteractorGroupMappings()
         {
             HashSet<string> duplicatedNames = new HashSet<string>();
 
-            SerializedProperty controllerMapping = serializedObject.FindProperty("controllerMapping");
-            SerializedProperty entries = controllerMapping?.FindPropertyRelative("entries");
+            SerializedProperty interactorGroupMappings = serializedObject.FindProperty("interactorGroupMappings");
+            SerializedProperty entries = interactorGroupMappings?.FindPropertyRelative("entries");
 
             if (entries != null && entries.arraySize > 0)
             {

@@ -36,15 +36,6 @@ namespace MixedReality.Toolkit
         }
         
         /// <summary>
-        /// Get the reference transform for the playspace.
-        /// </summary>
-        /// <remarks>
-        /// This property is obsolete, instead use the transform on Unity's <see cref="XROrigin.CameraFloorOffsetObject"/>.
-        /// </remarks>
-        [ObsoleteAttribute("For transforming poses into world space, use XROrigin.CameraFloorOffsetObject.transform.")]
-        public static Transform ReferenceTransform => XROrigin.CameraFloorOffsetObject.transform;
-
-        /// <summary>
         /// Transforms a <see cref="Pose"/> from OpenXR scene-origin-space to Unity world-space.
         /// Uses the XROrigin's CameraFloorOffsetObject transform.
         /// </summary>

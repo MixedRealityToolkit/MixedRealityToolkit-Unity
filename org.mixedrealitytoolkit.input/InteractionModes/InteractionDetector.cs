@@ -1,10 +1,11 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -105,11 +106,16 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeField]
         [FormerlySerializedAs("Controllers")]
-        [Tooltip("List of GameObjects which represent the 'controllers' that this interaction mode detector has jurisdiction over. Interaction modes will be set on all specified controllers.")]
-        private List<GameObject> controllers;
+        [FormerlySerializedAs("controllers")]
+        [Tooltip("List of GameObjects which represent the interactor groups that this interaction mode detector has jurisdiction over. Interaction modes will be set on all specified groups.")]
+        private List<GameObject> interactorGroups;
 
         /// <inheritdoc />
-        public List<GameObject> GetControllers() => controllers;
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in a future version. Please use GetInteractorGroups instead.")]
+        public List<GameObject> GetControllers() => GetInteractorGroups();
+
+        /// <inheritdoc />
+        public List<GameObject> GetInteractorGroups() => interactorGroups;
 
         /// <inheritdoc />
         public bool IsModeDetected()

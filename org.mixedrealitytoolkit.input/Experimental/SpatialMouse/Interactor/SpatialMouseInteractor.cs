@@ -1,14 +1,13 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using MixedReality.Toolkit.Subsystems;
 using System.Collections.Generic;
-using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit;
+
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
-using UnityEngine.XR.Interaction.Toolkit.UI;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input.Experimental
 {
@@ -174,7 +173,7 @@ namespace MixedReality.Toolkit.Input.Experimental
             timeSinceLastMouseEvent = 0;
         }
 
-        #region XRBaseControllerInteractor
+        #region XRBaseInputInteractor
 
         /// <inheritdoc />
         public override bool CanHover(IXRHoverInteractable interactable)

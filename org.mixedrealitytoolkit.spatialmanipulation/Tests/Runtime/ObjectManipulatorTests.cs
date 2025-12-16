@@ -13,9 +13,10 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
-using MovementType = UnityEngine.XR.Interaction.Toolkit.XRBaseInteractable.MovementType;
+using MovementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType;
 using MixedReality.Toolkit.Input;
 
 namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
@@ -982,7 +983,11 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return hand.Move(Vector3.forward * 3f);
             yield return RuntimeTestUtilities.WaitForFixedUpdates();
 
+#if UNITY_6000_0_OR_NEWER
+            Assert.AreNotEqual(Vector3.zero, backgroundRigidbody.linearVelocity);
+#else
             Assert.AreNotEqual(Vector3.zero, backgroundRigidbody.velocity);
+#endif
             Assert.AreEqual(1, collisionListener.CollisionCount);
         }
 

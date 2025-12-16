@@ -1,9 +1,14 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -14,24 +19,58 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     [AddComponentMenu("MRTK/Input/Gaze Pinch Interactor")]
     public class GazePinchInteractor :
-        XRBaseControllerInteractor,
+        XRBaseInputInteractor,
         IGazePinchInteractor,
+        IModeManagedInteractor,
+#pragma warning disable CS0618 // Type or member is obsolete
         IHandedInteractor
+#pragma warning restore CS0618 // Type or member is obsolete
     {
         #region GazePinchInteractor
+
+        [SerializeField, Tooltip("Holds a reference to the TrackedPoseDriver associated with this interactor, if it exists.")]
+        private TrackedPoseDriver trackedPoseDriver = null;
+
+        /// <summary>
+        /// Holds a reference to the <see cref="UnityEngine.InputSystem.XR.TrackedPoseDriver"/> associated with this interactor, if it exists.
+        /// </summary>
+        internal TrackedPoseDriver TrackedPoseDriver => trackedPoseDriver;
+
+        [SerializeField]
+        [Tooltip("The root management GameObject that interactor belongs to.")]
+        private GameObject modeManagedRoot = null;
+
+        /// <summary>
+        /// Returns the GameObject that this interactor belongs to. This GameObject is governed by the
+        /// interaction mode manager and is assigned an interaction mode. This GameObject represents the group that this interactor belongs to.
+        /// </summary>
+        /// <remarks>
+        /// This will default to the GameObject that this attached to a parent <see cref="TrackedPoseDriver"/>.
+        /// </remarks>
+        public GameObject ModeManagedRoot
+        {
+            get => modeManagedRoot;
+            set => modeManagedRoot = value;
+        }
 
         [Header("Gaze Pinch interactor settings")]
 
         [SerializeField]
         [Tooltip("The hand controller used to get the selection progress values")]
+        [Obsolete("This field has been deprecated in version 4.0.0. Please use this.TrackedPoseDriver instead.")]
         private ArticulatedHandController handController;
+
+        /// <summary>
+        /// Indicates whether the pinch interactor has completed the pinch gesture.
+        /// </summary>
+        private bool pinchReady = false;
 
         /// <summary>
         /// Is the hand ready to select? Typically, this
         /// represents whether the hand is in a pinching pose,
         /// within the FOV set by the aggregator config.
         /// </summary>
-        protected bool PinchReady => handController.PinchSelectReady;
+        protected bool PinchReady => pinchReady;
 
         /// <summary>
         /// The world-space pose of the hand pinching point.
@@ -60,22 +99,22 @@ namespace MixedReality.Toolkit.Input
 
         [SerializeReference]
         [InterfaceSelector(true)]
-        [Tooltip("The pose source representing the pose this interactor uses for aiming and positioning. Follows the 'pointer pose'")]
+        [Tooltip("The pose source representing the pose this interactor uses for aiming and positioning. Follows the 'pointer pose'.")]
         private IPoseSource aimPoseSource;
 
         /// <summary>
-        /// The pose source representing the ray this interactor uses for aiming and positioning.
+        /// The pose source representing the pose this interactor uses for aiming and positioning. Follows the 'pointer pose'.
         /// </summary>
         protected IPoseSource AimPoseSource { get => aimPoseSource; set => aimPoseSource = value; }
 
         [SerializeField]
-        [Tooltip("The interactor we're using to query potential gaze pinch targets")]
-        private XRBaseControllerInteractor dependentInteractor;
+        [Tooltip("The interactor we're using to query potential gaze pinch targets.")]
+        private XRBaseInputInteractor dependentInteractor;
 
         /// <summary>
-        /// The pose source representing the ray this interactor uses for aiming and positioning.
+        /// The interactor we're using to query potential gaze pinch targets.
         /// </summary>
-        protected XRBaseControllerInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
+        protected internal XRBaseInputInteractor DependentInteractor { get => dependentInteractor; set => dependentInteractor = value; }
 
         [SerializeField]
         [Range(0, 1)]
@@ -126,29 +165,101 @@ namespace MixedReality.Toolkit.Input
         private Vector3 interactorLocalAttachPoint;
 
         /// <summary>
-        /// Used to check if the parent controller is tracked or not
+        /// Used to check if the parent controller is tracked or not.
         /// Hopefully this becomes part of the base Unity XRI API.
         /// </summary>
-        private bool IsTracked => xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+        private bool IsTracked
+        {
+            get
+            {
+#pragma warning disable CS0618
+                if (forceDeprecatedInput)
+                {
+                    return xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+                }
+#pragma warning restore CS0618
+                else
+                {
+                    if (TrackedPoseDriver == null) // If the interactor does not have a TrackedPoseDriver associated to it then it is not tracked
+                    {
+                        return false;
+                    }
+
+                    // If this interactor has a TrackedPoseDriver then use it to check if this interactor is tracked
+                    return TrackedPoseDriver.GetInputTrackingState().HasPositionAndRotation();
+                }
+            }
+        }
 
         #endregion GazePinchInteractor
 
         #region IHandedInteractor
 
         /// <inheritdoc />
-        Handedness IHandedInteractor.Handedness => handController.HandNode.ToHandedness();
+        [Obsolete("Use handedness from IXRInteractor instead.")]
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+                if (forceDeprecatedInput)
+                {
+                    return handController.HandNode.ToHandedness();
+                }
+
+                return handedness.ToHandedness();
+            }
+        }
 
         #endregion IHandedInteractor
 
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
-        public float SelectProgress => handController.selectInteractionState.value;
+        public float SelectProgress
+        {
+            get
+            {
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (forceDeprecatedInput)
+                {
+                    return handController.selectInteractionState.value;
+                }
+#pragma warning restore CS0618 // Type or member is obsolete
+                else if (selectInput != null)
+                {
+                    return selectInput.ReadValue();
+                }
+                else
+                {
+                    Debug.LogWarning($"Unable to determine SelectProgress of {name} because there is no Select Input Configuration set for this interactor.");
+                }
+                return 0.0f;
+            }
+        }
 
         #endregion IVariableSelectInteractor
 
         #region MonoBehaviour
 
+        /// <inheritdoc/>
+        protected override void Start()
+        {
+            base.Start();
+
+            // Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            if (trackedPoseDriver == null)
+            {
+                trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+
+            // If mode managed root is not defined, default to the tracked pose driver's game object
+            if (modeManagedRoot == null && trackedPoseDriver != null)
+            {
+                modeManagedRoot = trackedPoseDriver.gameObject;
+            }
+        }
+
+        /// <inheritdoc/>
         private void OnDrawGizmosSelected()
         {
             if (Application.isPlaying)
@@ -163,7 +274,7 @@ namespace MixedReality.Toolkit.Input
 
         #region XRBaseInteractor
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         /// <remarks>
         /// This indirect interactor harvests the valid targets from the associated
         /// <see cref="dependentInteractor"/>, allowing for gaze-targeting or other
@@ -203,16 +314,18 @@ namespace MixedReality.Toolkit.Input
                     transform.SetPositionAndRotation(aimPose.position, aimPose.rotation);
                 }
                 ComputeAttachTransform(hasSelection ? interactablesSelected[0] : null);
+
+                UpdatePinchState();
             }
         }
 
         /// <summary>
         /// Given the specified interactable, this computes and applies the relevant
-        /// position and rotation to the attach transform. 
+        /// position and rotation to the attach transform.
         /// </summary>
         /// <remarks>
-        /// If there is currently an active selection, the attach transform is computed 
-        /// as an offset from selected object, where the offset vector is a function of 
+        /// If there is currently an active selection, the attach transform is computed
+        /// as an offset from selected object, where the offset vector is a function of
         /// the centroid between all currently participating <see cref="GazePinchInteractor"/>
         /// objects. This models ray-like manipulations, but with virtual attach offsets
         /// from object, modeled from the relationship between each participating hand.
@@ -226,8 +339,7 @@ namespace MixedReality.Toolkit.Input
             if (!AimPoseSource.TryGetPose(out Pose aimPose)) { return; }
 
             // Separate vars for fused position/rotation setting.
-            Quaternion rotationToApply = attachTransform.rotation;
-            Vector3 positionToApply = attachTransform.position;
+            attachTransform.GetPositionAndRotation(out Vector3 positionToApply, out Quaternion rotationToApply);
 
             // Compute the ratio from the current hand-body distance to the distance
             // we recorded on selection. Used to linearly scale the attach transform's
@@ -366,7 +478,7 @@ namespace MixedReality.Toolkit.Input
             interactorLocalAttachPoint = Quaternion.Inverse(noRollRay) * (virtualAttachTransform - aimPose.position);
 
             // Record the distance from the controller to the body of the user, to use as reference for subsequent
-            // distance measurements. 
+            // distance measurements.
             bodyDistanceOnSelect = PoseUtilities.GetDistanceToBody(aimPose);
         }
 
@@ -442,5 +554,56 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
+
+        #region IModeManagedInteractor
+
+        /// <inheritdoc/>
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        public GameObject GetModeManagedController()
+        {
+            // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
+            // interaction mode manager is used instead.
+            return forceDeprecatedInput ? null : ModeManagedRoot;
+        }
+
+        #endregion IModeManagedInteractor
+
+        #region Private Methods
+
+        /// <summary>
+        /// Updates the pinch state of the GazePinchInteractor.
+        /// If handedness is not set then it defaults to right hand.
+        /// If the pinch data is not available for the set hand then the other hand is tried.
+        /// </summary>
+        private void UpdatePinchState()
+        {
+            if (logicalSelectState == null)
+            {
+                Debug.LogWarning("GazePinchInteractor is missing logicalSelectState, pinch state won't update.");
+                return;
+            }
+
+            if (XRSubsystemHelpers.HandsAggregator == null)
+            {
+                Debug.LogWarning("XRSubsystemHelpers.HandsAggregator is null, pinch state won't update.");
+                return;
+            }
+
+            var xrNode = handedness.ToXRNode();
+            bool gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xrNode,
+                out bool isPinchReady, out bool isPinching, out float pinchAmount);
+            if (!gotPinchData) // Try the other hand if the set hand does not have pinch data.
+            {
+                gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xrNode == XRNode.LeftHand ? XRNode.RightHand : XRNode.LeftHand,
+                    out isPinchReady, out isPinching, out pinchAmount);
+            }
+
+            if (gotPinchData)
+            {
+                pinchReady = isPinchReady;
+            }
+        }
+
+        #endregion Private Methods
     }
 }
