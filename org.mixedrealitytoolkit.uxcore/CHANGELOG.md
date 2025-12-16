@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+* Fixed "leaked managed shell" issue in `UGUIInputAdapter`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
 * Fixed "Attribute 'SerializeField' is not valid on this declaration type. It is only valid on 'field' declarations" error on `DialogButton` in Unity 6.3. [PR #1108](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1108)
 
 ## [3.3.0] - 2025-11-12
