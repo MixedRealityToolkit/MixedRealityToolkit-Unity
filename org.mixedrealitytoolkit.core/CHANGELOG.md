@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Removed
+
+* Removed input action focus handling from `MRTKLifecycleManager` and moved to the Input package. [PR #1057](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1057)
+
 ## [4.0.0-pre.2] - 2025-12-05
 
 ### Added

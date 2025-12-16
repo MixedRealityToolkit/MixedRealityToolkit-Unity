@@ -27,29 +27,40 @@ namespace MixedReality.Toolkit.Input.Editor
         {
             foreach (var buildTargetGroup in MRTKProjectValidation.BuildTargetGroups)
             {
-                MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateSpeechInteractorRule(buildTargetGroup) }, buildTargetGroup);
+                MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() {
+                    GenerateSpeechInteractorRule(buildTargetGroup)
+                }, buildTargetGroup);
 
 #if UNITY_OPENXR_PRESENT
                 // Skip the standalone target as the hand subsystem rule for it is already present for all build targets
                 if (buildTargetGroup != BuildTargetGroup.Standalone)
                 {
-                    MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateUnityHandsRule(buildTargetGroup) }, buildTargetGroup);
+                    MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() {
+                        GenerateUnityHandsRule(buildTargetGroup),
+                        GenerateMRTKFocusFeatureRule(buildTargetGroup)
+                    }, buildTargetGroup);
                 }
 #endif
             }
-            MRTKProjectValidation.AddTargetIndependentRules(new List<BuildValidationRule>() { GenerateSkinWeightsRule(), GenerateGLTFastRule(),
+            MRTKProjectValidation.AddTargetIndependentRules(new List<BuildValidationRule>() {
+                GenerateSkinWeightsRule(),
+                GenerateGLTFastRule(),
 #if UNITY_OPENXR_PRESENT
                 GenerateUnityHandsRule(BuildTargetGroup.Standalone),
 #endif
             });
 
             // Only generate the KTX rule for platforms related to Meta
-            MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateKTXRule(),
+            MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() {
+                GenerateKTXRule(),
 #if UNITY_OPENXR_PRESENT
                 GenerateAndroidHandsRule(),
 #endif
             }, BuildTargetGroup.Android);
-            MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() { GenerateKTXRule() }, BuildTargetGroup.Standalone);
+
+            MRTKProjectValidation.AddTargetDependentRules(new List<BuildValidationRule>() {
+                GenerateKTXRule()
+            }, BuildTargetGroup.Standalone);
         }
 
         private static BuildValidationRule GenerateSpeechInteractorRule(BuildTargetGroup buildTargetGroup)
@@ -196,6 +207,43 @@ namespace MixedReality.Toolkit.Input.Editor
                 Error = false
             };
 #pragma warning restore CS0618 // Type or member is obsolete
+        }
+
+        private static BuildValidationRule GenerateMRTKFocusFeatureRule(BuildTargetGroup buildTargetGroup)
+        {
+            return new BuildValidationRule()
+            {
+                Category = "MRTK3",
+                Message = $"For MRTK3 input to work correctly on OpenXR, enable {MRTKFocusFeature.FriendlyName} in the OpenXR Settings.",
+                CheckPredicate = () =>
+                {
+                    OpenXRSettings settings = OpenXRSettings.GetSettingsForBuildTargetGroup(buildTargetGroup);
+                    if (settings == null)
+                    {
+                        return false;
+                    }
+
+                    MRTKFocusFeature focusFeature = settings.GetFeature<MRTKFocusFeature>();
+                    return focusFeature != null && focusFeature.enabled;
+                },
+                FixIt = () =>
+                {
+                    OpenXRSettings settings = OpenXRSettings.GetSettingsForBuildTargetGroup(buildTargetGroup);
+                    if (settings == null)
+                    {
+                        return;
+                    }
+
+                    MRTKFocusFeature focusFeature = settings.GetFeature<MRTKFocusFeature>();
+                    if (focusFeature != null)
+                    {
+                        focusFeature.enabled = true;
+                        EditorUtility.SetDirty(settings);
+                    }
+                },
+                FixItMessage = $"Enable {nameof(MRTKFocusFeature)} in the OpenXR settings.",
+                Error = true
+            };
         }
 #endif
     }

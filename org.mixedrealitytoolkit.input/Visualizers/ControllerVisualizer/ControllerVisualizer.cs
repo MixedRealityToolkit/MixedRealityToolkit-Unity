@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.Input.Simulation;
-using MixedReality.Toolkit.Subsystems;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;

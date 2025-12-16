@@ -125,7 +125,6 @@ namespace MixedReality.Toolkit.Input
         private bool TryGetPolyfillDevicePose(out Pose devicePose)
         {
             bool poseRetrieved = false;
-            Handedness handedness = HandNode.ToHandedness();
 
             // palmPose retrieved in global space.
             if (XRSubsystemHelpers.HandsAggregator != null &&
@@ -135,6 +134,7 @@ namespace MixedReality.Toolkit.Input
                 // our global palm pose back into scene-origin-space.
                 devicePose = PlayspaceUtilities.InverseTransformPose(palmPose.Pose);
 
+                Handedness handedness = HandNode.ToHandedness();
                 switch (handedness)
                 {
                     case Handedness.Left:
