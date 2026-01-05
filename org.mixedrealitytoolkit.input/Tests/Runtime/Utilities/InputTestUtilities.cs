@@ -435,7 +435,7 @@ namespace MixedReality.Toolkit.Input.Tests
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This smooths the handshape based on the provided/ <paramref name="handshapeId"/> over the number of 
+        /// This smooths the handshape based on the provided <paramref name="handshapeId"/> over the number of
         /// steps provided by <paramref name="numSteps"/>.
         /// </para>
         /// <para>
