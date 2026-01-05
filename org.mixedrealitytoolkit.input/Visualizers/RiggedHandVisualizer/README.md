@@ -1,3 +1,5 @@
+# FAQ
+
 ## Why are there three different shaders + materials for the rigged hand?
 
 URP doesn't support multipass shaders, unfortunately! So we have to split the three passes
@@ -15,7 +17,7 @@ render pipelines!
 It's a model that we've had internally for a while (since the early days of MRTK!) It's been
 re-rigged and painted with the correct vertex colors for MRTK3.
 
-## I want hands with a different shader/color/material/model/etc!
+## I want hands with a different shader/color/material/model/etc
 
 Great! You can build your own hand model prefab with your own custom mesh or materials, and
 still use the RiggedHandMeshVisualizer.cs script. The script expects joints/armatures in the

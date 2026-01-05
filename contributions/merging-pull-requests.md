@@ -1,4 +1,4 @@
-# Approving Pull Requests
+# Approving pull requests
 
 All merges into the `main` branch must be done through a pull request process to ensure changes are reviewed and approved by code owners.
 
@@ -22,7 +22,7 @@ If any of these criteria are not met, the pull request can not be merged.
 
 ## Additional considerations
 
-Pull requests should be kept as small as possible. If a change requires a large amount of code, it should be split into smaller requests that are easier to review. When in doubt, please contact the [maintainers group](../MAINTAINERS.md) *before* opening a large pull request. They can often assist in refactoring the change into smaller pieces that facilite effective code reviews. 
+Pull requests should be kept as small as possible. If a change requires a large amount of code, it should be split into smaller requests that are easier to review. When in doubt, please contact the [maintainers group](../MAINTAINERS.md) *before* opening a large pull request. They can often assist in refactoring the change into smaller pieces that facilitate effective code reviews.
 
 The pull request author should also consider adding the following before a PR is merged:
 
@@ -36,7 +36,7 @@ If a merged pull request breaks subsequent builds or automated tests, the author
 
 ## Blocking pull requests
 
-There may be times when a pull request contains changes that need further consideration before approval. Such occurrences include, but not limited to, design and breaking changes.  In such cases, you should block the pull request by adding the "Merge: Blocked" label, and kindly explain your reasoning for blocking. Then notify the Project's Maintainers.
+There may be times when a pull request contains changes that need further consideration before approval. Such occurrences include, but not limited to, design and breaking changes. In such cases, you should block the pull request by adding the "Merge: Blocked" label, and kindly explain your reasoning for blocking. Then notify the Project's Maintainers.
 
 ### Design changes
 
@@ -48,4 +48,4 @@ A change is considered breaking if it contains incompatible API or behavior chan
 
 ### Unblocking a pull request
 
-Only project Maintainers can unblock a pull request, and remove the "Merge: Blocked" label. To unblock a pull request, Maintainers follow the decision making rules in the [GOVERNANCE.md](../GOVERNANCE.md) file.
+Only project Maintainers can unblock a pull request, and remove the "Merge: Blocked" label. To unblock a pull request, Maintainers follow the decision making rules in the [Governance document](../GOVERNANCE.md).

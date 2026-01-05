@@ -6,15 +6,17 @@ This project welcomes contributions, suggestions, and feedback. All contribution
 
 Contributors must abide by the Mixed Reality Toolkit Organization's [code of conduct](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/CODE-OF-CONDUCT.md), [trademark policy](https://github.com/MixedRealityToolkit/MixedRealityToolkit-MVG/blob/main/org-docs/TRADEMARKS.md), and observe the following procedures:
 
-* [Project Tenets](contributions/project-tenets.md)
-* [Code Contributions](contributions/code-contributions.md)
-* [Opening and Assessing Issues](contributions/opening-and-assessing-issues.md)
-* [Approving Pull Requests](contributions/merging-pull-requests.md)
-* [Versioning and Releases](contributions/versioning-and-releases.md)
+* [Project tenets](./contributions/project-tenets.md)
+* [Code contributions](./contributions/code-contributions.md)
+* [Opening and assessing issues](./contributions/opening-and-assessing-issues.md)
+* [Approving pull requests](./contributions/merging-pull-requests.md)
+* [Versioning and releases](./contributions/versioning-and-releases.md)
 
 ### GitHub roles
 
-Project roles are assigned by Maintainers via procedures outlined in the [GOVERNANCE.md](../GOVERNANCE.md) fileContributors may have one for the following roles:
+Project roles are assigned by Maintainers via procedures outlined in the [Governance document](./GOVERNANCE.md).
+
+Contributors may have one for the following roles:
 
 * **Read** Read and clone repositories. Open and comment on issues and pull requests.
 * **Triage** Read permissions plus manage issues and pull requests.
@@ -56,7 +58,7 @@ Maintainers have the **maintain** role, which grants write permissions plus mana
 * Should have participated in multiple code reviews of other PR’s, including those of other Maintainers and Contributors.
 * Should be active on the Project's community forums.
 
-Maintainers are added and removed via procedures outlined in the [GOVERNANCE.md](./GOVERNANCE.md) file.
+Maintainers are added and removed via procedures outlined in the [Governance document](./GOVERNANCE.md).
 
 ---
 Part of MVG-0.1-beta.

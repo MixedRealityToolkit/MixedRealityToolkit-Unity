@@ -1,4 +1,4 @@
-# Versioning and Releases
+# Versioning and releases
 
 ## Semantic versioning
 
