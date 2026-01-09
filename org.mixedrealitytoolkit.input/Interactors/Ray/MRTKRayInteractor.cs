@@ -63,33 +63,14 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Is this ray currently hovering a UnityUI/Canvas element?
         /// </summary>
+        [Obsolete("This property has been deprecated in version 4.0.0. Call " + nameof(TryGetUIModel) + " and use " + nameof(TrackedDeviceModel.currentRaycast.isValid) + " instead.")]
         public bool HasUIHover => TryGetUIModel(out TrackedDeviceModel model) && model.currentRaycast.isValid;
 
         /// <summary>
         /// Is this ray currently selecting a UnityUI/Canvas element?
         /// </summary>
-        public bool HasUISelection
-        {
-            get
-            {
-                bool hasUISelection = HasUIHover;
-#pragma warning disable CS0618 // isUISelectActive is obsolete
-                if (forceDeprecatedInput)
-                {
-                    hasUISelection &= isUISelectActive;
-                }
-#pragma warning restore CS0618 // isUISelectActiver is obsolete
-                else if (uiPressInput != null)
-                {
-                    hasUISelection &= uiPressInput.ReadIsPerformed();
-                }
-                else
-                {
-                    hasUISelection = false;
-                }
-                return hasUISelection;
-            }
-        }
+        [Obsolete("This property has been deprecated in version 4.0.0. Call " + nameof(TryGetUIModel) + " and use " + nameof(TrackedDeviceModel.select) + " instead.")]
+        public bool HasUISelection => TryGetUIModel(out TrackedDeviceModel model) && model.select;
 
         /// <summary>
         /// Used to check if the parent controller is tracked or not
