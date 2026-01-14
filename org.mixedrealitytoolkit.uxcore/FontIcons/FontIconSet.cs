@@ -30,8 +30,8 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public SerializableDictionary<string, uint> GlyphIconsByName => glyphIconsByName;
 
-        [Tooltip("Any TextMeshPro Font Asset that contains the desired icons as glyphs that map to Unicode character values.")]
         [SerializeField]
+        [Tooltip("Any TextMeshPro Font Asset that contains the desired icons as glyphs that map to Unicode character values.")]
         private TMP_FontAsset iconFontAsset = null;
 
         /// <summary>
@@ -39,14 +39,23 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public TMP_FontAsset IconFontAsset => iconFontAsset;
 
-        [Tooltip("Optional material to use for rendering glyphs in editor.")]
         [SerializeField]
+        [Tooltip("Optional material to use for rendering glyphs in editor.")]
         private Material optionalEditorMaterial;
 
         /// <summary>
         /// Optional material to use for rendering glyphs in editor.
         /// </summary>
         public Material OptionalEditorMaterial => optionalEditorMaterial;
+
+        [SerializeField]
+        [Tooltip("Optional definition to provide consistent icon names.")]
+        private FontIconSetDefinition fontIconSetDefinition;
+
+        /// <summary>
+        /// Optional definition to provide consistent icon names.
+        /// </summary>
+        public FontIconSetDefinition FontIconSetDefinition => fontIconSetDefinition;
 
         /// <summary>
         /// Try to get a glyph icon's unicode value by name.
@@ -56,7 +65,6 @@ namespace MixedReality.Toolkit.UX
         /// <returns><see langword="true"/> if icon name found, otherwise <see langword="false"/>.</returns>
         public bool TryGetGlyphIcon(string iconName, out uint unicodeValue)
         {
-            unicodeValue = 0;
             return glyphIconsByName.TryGetValue(iconName, out unicodeValue);
         }
 
@@ -68,15 +76,7 @@ namespace MixedReality.Toolkit.UX
         /// <returns>Whether it was able to add this icon.</returns>
         public bool AddIcon(string name, uint unicodeValue)
         {
-            if (glyphIconsByName.ContainsValue(unicodeValue))
-            {
-                return false;
-            }
-            else
-            {
-                glyphIconsByName[name] = unicodeValue;
-                return true;
-            }
+            return !glyphIconsByName.ContainsValue(unicodeValue) && glyphIconsByName.TryAdd(name, unicodeValue);
         }
 
         /// <summary>
@@ -86,15 +86,7 @@ namespace MixedReality.Toolkit.UX
         /// <returns>Whether it was able to find the name and remove it.</returns>
         public bool RemoveIcon(string iconName)
         {
-            if (glyphIconsByName.ContainsKey(iconName))
-            {
-                glyphIconsByName.Remove(iconName);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return glyphIconsByName.Remove(iconName);
         }
 
         /// <summary>
@@ -109,16 +101,7 @@ namespace MixedReality.Toolkit.UX
         /// <returns><see langword="true"/> if it was able to find and update the name.</returns>
         public bool UpdateIconName(string oldName, string newName)
         {
-            if (glyphIconsByName.ContainsKey(oldName) && !glyphIconsByName.ContainsKey(newName))
-            {
-                glyphIconsByName[newName] = glyphIconsByName[oldName];
-                glyphIconsByName.Remove(oldName);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return glyphIconsByName.TryGetValue(oldName, out uint unicodeValue) && glyphIconsByName.TryAdd(newName, unicodeValue) && glyphIconsByName.Remove(oldName);
         }
 
         /// <summary>
