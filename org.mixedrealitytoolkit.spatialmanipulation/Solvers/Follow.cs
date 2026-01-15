@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using Unity.Profiling;
+using Unity.XR.CoreUtils.GUI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -69,8 +70,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => targetToFace = value;
         }
 
-        [SerializeField]
-        [EnumFlags]
+        [SerializeField, FlagsProperty]
         [Tooltip("Rotation axes used when facing target.")]
         private AxisFlags pivotAxis = AxisFlags.XAxis | AxisFlags.YAxis | AxisFlags.ZAxis;
 

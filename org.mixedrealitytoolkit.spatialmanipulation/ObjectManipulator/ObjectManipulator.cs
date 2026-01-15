@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Profiling;
+using Unity.XR.CoreUtils.GUI;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -69,7 +70,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// This enumeration describing the type of behavior to apply when a
         /// <see cref="ObjectManipulator"/> is released by a controller.
         /// </summary>
-        [System.Flags]
+        [Flags]
         public enum ReleaseBehaviorType
         {
             /// <summary>
@@ -135,8 +136,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
-        [SerializeField]
-        [EnumFlags]
+        [SerializeField, FlagsProperty]
         [Tooltip("What kinds of manipulation should be allowed?")]
         private TransformFlags allowedManipulations = TransformFlags.Move | TransformFlags.Rotate | TransformFlags.Scale;
 
@@ -206,8 +206,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => applyTorque = value;
         }
 
-        [SerializeField]
-        [Range(0.001f, 2.0f)]
+        [SerializeField, Range(0.001f, 2.0f)]
         [Tooltip("The time scale at which a Rigidbody reacts to input movement defined as oscillation period of the dampened spring force.")]
         private float springForceSoftness = 0.1f;
 
@@ -220,8 +219,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => springForceSoftness = value;
         }
 
-        [SerializeField]
-        [Range(0.001f, 2.0f)]
+        [SerializeField, Range(0.001f, 2.0f)]
         [Tooltip("The time scale at which a Rigidbody reacts to input rotation defined as oscillation period of the dampened spring torque.")]
         private float springTorqueSoftness = 0.1f;
 
@@ -234,9 +232,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => springTorqueSoftness = value;
         }
 
-        [SerializeField]
-        [Range(0, 2.0f)]
-        [Tooltip("The damping of the spring force&torque. A value of one corresponds to critical damping, lower values lead to under damping or oscillation.")]
+        [SerializeField, Range(0, 2.0f)]
+        [Tooltip("The damping of the spring force & torque. A value of one corresponds to critical damping, lower values lead to under damping or oscillation.")]
         private float springDamping = 1.0f;
 
         /// <summary>
@@ -248,8 +245,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => springDamping = value;
         }
 
-        [SerializeField]
-        [Range(0, 10000f)]
+        [SerializeField, Range(0, 10000f)]
         [Tooltip("The maximum acceleration applied by the spring force to avoid trembling when pushing a body against a static object.")]
         private float springForceLimit = 100.0f;
 
@@ -288,8 +284,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => rotationAnchorFar = value;
         }
 
-        [SerializeField]
-        [EnumFlags]
+        [SerializeField, FlagsProperty]
         [Tooltip("Rigid body behavior of the dragged object when releasing it.")]
         private ReleaseBehaviorType releaseBehavior = ReleaseBehaviorType.KeepVelocity | ReleaseBehaviorType.KeepAngularVelocity;
 
@@ -325,8 +320,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
-        [FormerlySerializedAs("smoothingActive")]
-        [SerializeField]
+        [SerializeField, FormerlySerializedAs("smoothingActive")]
         [Tooltip("Frame-rate independent smoothing for far interactions. Far smoothing is enabled by default.")]
         private bool smoothingFar = true;
 
@@ -358,8 +352,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => smoothingNear = value;
         }
 
-        [SerializeField]
-        [Range(0, 1)]
+        [SerializeField, Range(0, 1)]
         [Tooltip("Enter amount representing amount of smoothing to apply to the movement. Smoothing of 0 means no smoothing. Max value means no change to value.")]
         private float moveLerpTime = 0.001f;
 
@@ -372,8 +365,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => moveLerpTime = value;
         }
 
-        [SerializeField]
-        [Range(0, 1)]
+        [SerializeField, Range(0, 1)]
         [Tooltip("Enter amount representing amount of smoothing to apply to the rotation. Smoothing of 0 means no smoothing. Max value means no change to value.")]
         private float rotateLerpTime = 0.001f;
 
@@ -386,8 +378,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => rotateLerpTime = value;
         }
 
-        [SerializeField]
-        [Range(0, 1)]
+        [SerializeField, Range(0, 1)]
         [Tooltip("Enter amount representing amount of smoothing to apply to the scale. Smoothing of 0 means no smoothing. Max value means no change to value.")]
         private float scaleLerpTime = 0.001f;
 
