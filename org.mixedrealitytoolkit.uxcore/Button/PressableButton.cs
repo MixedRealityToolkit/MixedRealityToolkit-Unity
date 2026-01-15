@@ -200,7 +200,7 @@ namespace MixedReality.Toolkit.UX
         /// <summary>
         /// If the <see cref="GetSelectionProgress"/> value is smoothed to within this threshold of 0 or 1, the <see cref="GetSelectionProgress"/> will snap to 0 or 1.
         /// </summary>
-        private const float selectionProgressEpsilon = 0.00001f;
+        private const float SelectionProgressEpsilon = 0.00001f;
 
         #endregion Private Members
 
@@ -416,20 +416,34 @@ namespace MixedReality.Toolkit.UX
 
                     foreach (var interactor in interactorsHovering)
                     {
-                        if (interactor is IVariableSelectInteractor variableSelectInteractor)
+                        if (interactor is IXRInteractionStrengthInteractor interactionStrengthInteractor)
+                        {
+                            totalPressProgress = Mathf.Max(totalPressProgress, GetInteractionStrength(interactor));
+                            isVariablySelected = true;
+                        }
+#pragma warning disable CS0618 // Type or member is obsolete
+                        else if (interactor is IVariableSelectInteractor variableSelectInteractor)
                         {
                             totalPressProgress = Mathf.Max(totalPressProgress, variableSelectInteractor.SelectProgress);
                             isVariablySelected = true;
                         }
+#pragma warning restore CS0618 // Type or member is obsolete
                     }
 
                     foreach (var interactor in interactorsSelecting)
                     {
-                        if (interactor is IVariableSelectInteractor variableSelectInteractor)
+                        if (interactor is IXRInteractionStrengthInteractor interactionStrengthInteractor)
+                        {
+                            totalPressProgress = Mathf.Max(totalPressProgress, GetInteractionStrength(interactor));
+                            isVariablySelected = true;
+                        }
+#pragma warning disable CS0618 // Type or member is obsolete
+                        else if (interactor is IVariableSelectInteractor variableSelectInteractor)
                         {
                             totalPressProgress = Mathf.Max(totalPressProgress, variableSelectInteractor.SelectProgress);
                             isVariablySelected = true;
                         }
+#pragma warning restore CS0618 // Type or member is obsolete
                         else if (!(interactor is IPokeInteractor)) // Exclude PokeInteractors because we've already counted them.
                         {
                             totalPressProgress = 1.0f;
@@ -445,12 +459,11 @@ namespace MixedReality.Toolkit.UX
                         selectionProgress = Mathf.Lerp(selectionProgress, totalPressProgress, totalPressProgress == 1 ? extendSpeed : returnSpeed);
 
                         // Snap selectionProgress to ends of range, plus/minus selectionProgressEpsilon.
-                        if (selectionProgress < selectionProgressEpsilon)
+                        if (selectionProgress < SelectionProgressEpsilon)
                         {
                             selectionProgress = 0;
                         }
-
-                        if (selectionProgress > 1 - selectionProgressEpsilon)
+                        else if (selectionProgress > 1 - SelectionProgressEpsilon)
                         {
                             selectionProgress = 1;
                         }
