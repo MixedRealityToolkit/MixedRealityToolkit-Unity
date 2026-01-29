@@ -514,7 +514,7 @@ else {
     # Gets all package.json files one layer down, to determine which folders represent MRTK packages
     # Also checks TestProjects
     Get-ChildItem -Path $Paths | ForEach-Object {
-        $package = $_.Directory
+        $package = $_.DirectoryName
         if (-not $package) {
             $package = $_
         }
