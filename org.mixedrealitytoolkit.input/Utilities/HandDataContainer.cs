@@ -22,7 +22,7 @@ namespace MixedReality.Toolkit.Input
         public bool AlreadyFullQueried { get; protected set; }
 
         /// <summary>
-        /// Will be <see langword="true"/> if the the hand joint query as successful.
+        /// Will be <see langword="true"/> if the hand joint query was successful.
         /// </summary>
         public bool FullQueryValid { get; protected set; }
 
@@ -41,7 +41,7 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Reset the hand data query status
+        /// Reset the hand data query status.
         /// </summary>
         public void Reset()
         {
@@ -49,16 +49,15 @@ namespace MixedReality.Toolkit.Input
             FullQueryValid = false;
         }
 
-
-        /// <summary>   
-        /// Implemented in derived classes.  This method gets all of the joint poses for the hand.
+        /// <summary>
+        /// Implemented in derived classes. This method gets all of the joint poses for the hand.
         /// </summary>
         /// <param name="joints"> The returned list of HandJointPoses</param>
         /// <returns><see langword="true"/> if the query was successful, otherwise <see langword="false"/>.</returns>
         public abstract bool TryGetEntireHand(out IReadOnlyList<HandJointPose> joints);
 
-        /// <summary>   
-        /// Implemented in derived classes.  This method gets the specified joint pose.
+        /// <summary>
+        /// Implemented in derived classes. This method gets the specified joint pose.
         /// </summary>
         /// <param name="joint">The TrackedHandJoint to retrieve the post for.</param>
         /// <param name="pose">The returned HandJointPose.</param>
