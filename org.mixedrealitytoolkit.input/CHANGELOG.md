@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Added `MRTKFocusFeature` to provide XrSession focus info to MRTK components. [PR #1057](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1057)
 * Added input action focus handling to disable controller/hand tracked state when the XrSession goes out of focus. [PR #1057](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1057)
+* Added partial polyfill logic for one of "select" and "select value" being mapped while the other isn't, instead of fully polyfilling based on hand joint data when either is missing. [PR #1041](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1041)
 
 ## [4.0.0-pre.2] - 2025-12-05
 
