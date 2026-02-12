@@ -100,6 +100,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 finalBounds.Encapsulate(root.InverseTransformPoint(totalBoundsCorners[i]));
             }
 
+            totalBoundsCorners.Clear();
+            childTransforms.Clear(); // Avoid keeping reference to Unity objects to avoid "Leaked Memory Shell"
             return finalBounds;
         }
 

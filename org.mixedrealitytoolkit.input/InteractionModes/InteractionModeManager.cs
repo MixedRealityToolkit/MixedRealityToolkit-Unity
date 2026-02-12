@@ -320,6 +320,17 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
+        /// A Unity event function that is called when the script component has been destroyed.
+        /// </summary>
+        private void OnDestroy()
+        {
+            if (InteractionManager != null)
+            {
+                InteractionManager.interactorRegistered -= OnInteractorRegistered;
+            }
+        }
+
+        /// <summary>
         /// A Unity Editor only event function that is called when the script is loaded or a value changes in the Unity Inspector.
         /// </summary>
         private void OnValidate()

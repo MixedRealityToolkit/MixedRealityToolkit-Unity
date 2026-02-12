@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Fix issue where `HandPoseDriver` could get into a state where it temporarily polyfilled, but then was unable to, and then got stuck in a "tracked" state. [PR #1088](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1088)
 
+### Added
+
+* Added `MRTKFocusFeature` to provide XrSession focus info to MRTK components. [PR #1057](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1057)
+* Added input action focus handling to disable controller/hand tracked state when the XrSession goes out of focus. [PR #1057](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1057)
+
 ## [4.0.0-pre.2] - 2025-12-05
 
 ### Changed

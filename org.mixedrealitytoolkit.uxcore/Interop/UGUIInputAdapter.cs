@@ -165,6 +165,19 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <summary>
+        /// A Unity event function that is called when the script component has been destroyed.
+        /// </summary>
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (InteractionManager != null)
+            {
+                InteractionManager.interactorRegistered -= OnInteractorRegistered;
+                InteractionManager.interactorUnregistered -= OnInteractorUnregistered;
+            }
+        }
+
+        /// <summary>
         /// Called when a an <see cref="IXRInteractor"/> is registered with a Unity <see cref="XRInteractionManager"/>.
         /// </summary>
         /// <remarks>
