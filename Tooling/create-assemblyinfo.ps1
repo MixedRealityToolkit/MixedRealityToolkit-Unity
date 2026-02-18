@@ -12,7 +12,7 @@ Get-ChildItem -Path (Join-Path $gitRoot * package.json) | ForEach-Object {
 
     $packageName = $packageName.Matches[0].Value
 
-    $asmdefs = Get-ChildItem $_.Directory *.asmdef -Recurse | Select-Object FullName
+    $asmdefs = Get-ChildItem $_.DirectoryName *.asmdef -Recurse | Select-Object FullName
     foreach ($asmdef in $asmdefs) {
         # The AssemblyInfo.cs file will be added as a sibling of the .asmdef location,
         # so we need to trim off the filename.
