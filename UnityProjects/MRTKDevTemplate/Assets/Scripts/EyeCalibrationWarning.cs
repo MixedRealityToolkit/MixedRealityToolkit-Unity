@@ -1,13 +1,9 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-// Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
-#pragma warning disable CS1591
-
-using UnityEngine;
-using UnityEngine.Events;
 using MixedReality.Toolkit.Input;
 using TMPro;
+using UnityEngine;
 
 namespace MixedReality.Toolkit.Examples
 {
@@ -76,7 +72,7 @@ namespace MixedReality.Toolkit.Examples
             switch (status)
             {
                 case EyeCalibrationStatus.Unsupported:
-                    text.text = "";
+                    text.text = string.Empty;
                     return;
                 case EyeCalibrationStatus.Calibrated:
                     text.text = "Eye Calibration Status: Calibrated.";
@@ -96,4 +92,3 @@ namespace MixedReality.Toolkit.Examples
         }
     }
 }
-#pragma warning restore CS1591
