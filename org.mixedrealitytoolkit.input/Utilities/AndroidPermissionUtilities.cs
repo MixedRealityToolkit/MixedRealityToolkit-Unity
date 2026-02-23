@@ -11,13 +11,13 @@ using UnityEngine.XR.OpenXR;
 
 namespace MixedReality.Toolkit.Input
 {
-    public class AndroidPermissionUtilities : MonoBehaviour
+    internal sealed class AndroidPermissionUtilities : MonoBehaviour
     {
         [SerializeField, Tooltip("A key (OpenXR extension name) value (Android permission string) pairing to request at runtime if the extension is supported and enabled.")]
         private Unity.XR.CoreUtils.Collections.SerializableDictionary<string, string> permissions;
 
 #if UNITY_ANDROID && UNITY_OPENXR_PRESENT && !UNITY_EDITOR
-        protected virtual void Start()
+        private void Start()
         {
             List<string> neededPermissions = new(permissions.Count);
 
