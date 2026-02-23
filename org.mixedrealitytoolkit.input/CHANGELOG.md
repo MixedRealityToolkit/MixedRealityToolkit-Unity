@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Fixed
+
+* Fixed `EyeCalibrationChecker` build issue on UWP when the Mixed Reality OpenXR Plugin wasn't installed. [PR #1106](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1106)
+
 ## [3.3.0] - 2025-11-12
 
 ### Added
