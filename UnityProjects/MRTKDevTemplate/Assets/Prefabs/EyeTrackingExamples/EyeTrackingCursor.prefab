@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4661674953859262253}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7576754869308646869
 MeshFilter:
@@ -98,25 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultDistanceInMeters: 1
   idleStateColor: {r: 0.94482756, g: 0, b: 1, a: 0.5019608}
-  hightlightStateColor: {r: 0.61972624, g: 0.8897059, b: 0, a: 0.5019608}
-  gazeController: {fileID: 0}
-  _gazeTranslationAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Gaze Translation
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 760df33e-b34c-433a-8f53-9c42d6aab08f
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 1a156263-df3f-4690-a968-7702cec4bcc1
-        m_Path: <EyeGaze>/pose/position
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Gaze Translation
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
+  highlightStateColor: {r: 0.61972624, g: 0.8897059, b: 0, a: 0.5019608}
+  gazePoseDriver: {fileID: 0}
+  gazeInteractor: {fileID: 0}
