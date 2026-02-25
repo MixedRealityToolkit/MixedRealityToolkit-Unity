@@ -88,7 +88,10 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return rightHand.AimAt(cube.transform.position);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            InteractionDetector interactionDetector = rightHandController.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>();
+            if (!rightHandController.GetComponentInChildren<MRTKRayInteractor>().TryGetComponent(out InteractionDetector interactionDetector))
+            {
+                Assert.Fail("No interaction detector found on right hand ray interactor. Is the component missing?");
+            }
 
             InteractionMode expectedMode = interactionDetector.ModeOnHover;
             Assert.AreEqual(expectedMode, interactionDetector.ModeOnDetection);
@@ -147,7 +150,10 @@ namespace MixedReality.Toolkit.Input.Tests
             InputTestUtilities.SetHandAnchorPoint(Handedness.Right, ControllerAnchorPoint.Grab);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            InteractionDetector rayInteractionDetector = rightHandController.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>();
+            if (!rightHandController.GetComponentInChildren<MRTKRayInteractor>().TryGetComponent(out InteractionDetector rayInteractionDetector))
+            {
+                Assert.Fail("No interaction detector found on right hand ray interactor. Is the component missing?");
+            }
 
             // Moving the hand to a position where its far ray is hovering over the cube
             yield return rightHand.AimAt(cube.transform.position);
@@ -172,7 +178,10 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return rightHand.SetHandshape(HandshapeTypes.HandshapeId.Grab);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            InteractionDetector grabInteractionDetector = rightHandController.GetComponentInChildren<GrabInteractor>().GetComponent<InteractionDetector>();
+            if (!rightHandController.GetComponentInChildren<GrabInteractor>().TryGetComponent(out InteractionDetector grabInteractionDetector))
+            {
+                Assert.Fail("No interaction detector found on right hand grab interactor. Is the component missing?");
+            }
 
             InteractionMode grabMode = grabInteractionDetector.ModeOnSelect;
             Assert.AreEqual(grabMode, grabInteractionDetector.ModeOnDetection);
