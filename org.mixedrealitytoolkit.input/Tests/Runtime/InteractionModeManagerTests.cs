@@ -10,7 +10,6 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -206,7 +205,11 @@ namespace MixedReality.Toolkit.Input.Tests
         {
             // We construct the list of managed interactor types manually because we don't want to expose the internal controller mapping implementation to even internal use, since
             // we don't want any other class to be able to modify those collections without going through the Mode Manager or its in-editor inspector.
-            HashSet<Type> managedInteractorTypes = new HashSet<System.Type>(InteractionModeManager.Instance.PrioritizedInteractionModes.SelectMany(x => x.AssociatedTypes));
+            HashSet<Type> managedInteractorTypes = new HashSet<Type>();
+            foreach (InteractionModeDefinition interactionMode in InteractionModeManager.Instance.PrioritizedInteractionModes)
+            {
+                managedInteractorTypes.UnionWith(interactionMode.AssociatedTypes);
+            }
             HashSet<Type> activeInteractorTypes = InteractionModeManager.Instance.PrioritizedInteractionModes.Find(x => x.ModeName == currentMode.Name).AssociatedTypes;
 
             // Ensure the prox detector has actually had the desired effect of enabling/disabling interactors.
