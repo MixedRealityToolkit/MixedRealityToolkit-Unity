@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 * Reserialized MRTK XR Rig prefab to remove stale serialized fields. [PR #1110](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1110)
+* Updated tests to follow existing MRTK test patterns. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
 
 ### Fixed
 
