@@ -36,7 +36,7 @@ namespace MixedReality.Toolkit.Subsystems
         /// <summary>
         /// Initializes a new instance of the <see cref="DictationSubsystemDescriptor"/> class.
         /// </summary>
-        /// <param name='cinfo'>The parameters required to initialize the descriptor.</param>
+        /// <param name="cinfo">The parameters required to initialize the descriptor.</param>
         DictationSubsystemDescriptor(DictationSubsystemCinfo cinfo) : base(cinfo)
         {
             IsCloudBased = cinfo.IsCloudBased;
