@@ -173,7 +173,6 @@ namespace MixedReality.Toolkit.Accessibility
                 throw new ArgumentException("Could not create AccessibilitySubsystemDescriptor.");
             }
 
-            Debug.Log("Successfully created new descriptor");
             return new AccessibilitySubsystemDescriptor(cinfo);
         }
     }
