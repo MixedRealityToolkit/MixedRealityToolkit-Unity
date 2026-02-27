@@ -76,7 +76,7 @@ namespace MixedReality.Toolkit
         /// The default <see cref="Color"/> to apply to <see cref="ClearColor"/> if on an opaque XR headset.
         /// </summary>
         public static readonly Color DefaultClearColorOpaque = Color.black;
-        
+
         /// <summary>
         /// The default <see cref="Color"/> to apply to <see cref="ClearColor"/> if on a transparent XR headset.
         /// </summary>
@@ -122,7 +122,7 @@ namespace MixedReality.Toolkit
         /// The default value to apply to <see cref="FarPlaneDistance"/> if on an opaque XR headset.
         /// </summary>
         public static readonly float DefaultFarPlaneDistanceOpaque = 1000f;
-        
+
         /// <summary>
         /// The default value to apply to <see cref="FarPlaneDistance"/> if on a transparent XR headset.
         /// </summary>
@@ -141,18 +141,11 @@ namespace MixedReality.Toolkit
             set => farPlaneDistance = value;
         }
 
-        [SerializeField]
-        [Tooltip("Should the tracking origin be adjusted base on camera type?")]
-        private bool adjustTrackingOrigin = true;
-
         /// <summary>
         /// Should the tracking origin be adjusted based on camera type?
         /// </summary>
-        public bool AdjustTrackingOrigin
-        {
-            get => adjustTrackingOrigin;
-            set => adjustTrackingOrigin = value;
-        }
+        [Obsolete("This functionality has been deprecated by the XR Origin component. This property has never had an effect in MRTK3 and will be removed in a future release.")]
+        public bool AdjustTrackingOrigin { get; set; }
 
         [SerializeField]
         [Tooltip("Should the quality level be adjusted based on camera type?")]
@@ -174,7 +167,7 @@ namespace MixedReality.Toolkit
 
         /// <summary>
         /// The default value to apply to <see cref="QualityLevel"/> if on a transparent XR headset.
-        /// </summary>        
+        /// </summary>
         public static readonly int DefaultQualityLevelTransparent = 0;  // Very Low
 
         [SerializeField]
