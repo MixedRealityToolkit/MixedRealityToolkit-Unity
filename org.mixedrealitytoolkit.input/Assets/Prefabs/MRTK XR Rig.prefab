@@ -220,7 +220,6 @@ MonoBehaviour:
       m_Action: Main Camera - TPD - Rotation
       m_Flags: 0
     m_Flags: 0
-  m_HasMigratedActions: 1
 --- !u!114 &404949538145338360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +237,6 @@ MonoBehaviour:
     clearColor: {r: 0, g: 0, b: 0, a: 0}
     nearPlaneDistance: 0.1
     farPlaneDistance: 1000
-    adjustTrackingOrigin: 1
     adjustQualityLevel: 1
     qualityLevel: 5
   transparentDisplay:
@@ -246,7 +244,6 @@ MonoBehaviour:
     clearColor: {r: 0, g: 0, b: 0, a: 0}
     nearPlaneDistance: 0.1
     farPlaneDistance: 50
-    adjustTrackingOrigin: 1
     adjustQualityLevel: 1
     qualityLevel: 0
 --- !u!1 &2351505566903569413

@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Changed
+
+* Reserialized MRTK XR Rig prefab to remove stale serialized fields. [PR #1110](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1110)
+
 ### Fixed
 
 * Fixed `EyeCalibrationChecker` build issue on UWP when the Mixed Reality OpenXR Plugin wasn't installed. [PR #1106](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1106)
