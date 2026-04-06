@@ -1,10 +1,11 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using global::Unity.XR.CoreUtils;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -12,7 +13,7 @@ namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// Sample for allowing the game object that this script is attached to follow the user's eye gaze
-    /// at a given distance of <see cref="defaultDistanceInMeters"/>. 
+    /// at a given distance of <see cref="defaultDistanceInMeters"/>.
     /// </summary>
     [AddComponentMenu("Scripts/MRTK/Examples/FollowEyeGaze")]
     public class FollowEyeGaze : MonoBehaviour
@@ -26,8 +27,8 @@ namespace MixedReality.Toolkit.Examples
         private Color idleStateColor;
 
         [Tooltip("The highlight color of the GameObject when hovered over another StatefulInteractable.")]
-        [SerializeField]
-        private Color hightlightStateColor;
+        [SerializeField, FormerlySerializedAs("hightlightStateColor")]
+        private Color highlightStateColor;
 
         private Material material;
 
@@ -56,7 +57,7 @@ namespace MixedReality.Toolkit.Examples
 
             targets.Clear();
             gazeInteractor.GetValidTargets(targets);
-            material.color = targets.Count > 0 ? hightlightStateColor : idleStateColor;
+            material.color = targets.Count > 0 ? highlightStateColor : idleStateColor;
 
             if (TryGetGazeTransform(out Transform gazeTransform))
             {
