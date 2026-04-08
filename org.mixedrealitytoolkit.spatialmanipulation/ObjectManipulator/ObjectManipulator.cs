@@ -761,11 +761,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 {
                     if (interactorsSelecting.Count == 0)
                     {
-#if UNITY_6000_0_OR_NEWER
                         ReleaseRigidBody(rigidBody.linearVelocity, rigidBody.angularVelocity);
-#else
-                        ReleaseRigidBody(rigidBody.velocity, rigidBody.angularVelocity);
-#endif
                     }
                     else
                     {
@@ -913,11 +909,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             // when player is moving, we need to anticipate where the targetTransform is going to be one time step from now
             distance -= referenceFrameVelocity * Time.fixedDeltaTime;
 
-#if UNITY_6000_0_OR_NEWER
             var velocity = rigidBody.linearVelocity;
-#else
-            var velocity = rigidBody.velocity;
-#endif
 
             var acceleration = omega * omega * -distance;  // acceleration caused by spring force
 
@@ -946,11 +938,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
             velocity += referenceFrameVelocity;  // change back to global frame of reference
 
-#if UNITY_6000_0_OR_NEWER
             rigidBody.linearVelocity = velocity;
-#else
-            rigidBody.velocity = velocity;
-#endif
 
             if (applyTorque)
             {
@@ -1048,11 +1036,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 {
                     if (releaseBehavior.IsMaskSet(ReleaseBehaviorType.KeepVelocity))
                     {
-#if UNITY_6000_0_OR_NEWER
                         rigidBody.linearVelocity = velocity;
-#else
-                        rigidBody.velocity = velocity;
-#endif
                     }
 
                     if (releaseBehavior.IsMaskSet(ReleaseBehaviorType.KeepAngularVelocity))
