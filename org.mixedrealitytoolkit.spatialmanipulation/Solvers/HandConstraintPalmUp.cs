@@ -134,7 +134,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             new ProfilerMarker("[MRTK] HandConstraintPalmUp.IsValidController");
 
         /// <summary>
-        /// Determines if a hand meets the requirements for use with constraining the 
+        /// Determines if a hand meets the requirements for use with constraining the
         /// tracked object and determines if the palm is currently facing the user.
         /// </summary>
         /// <param name="hand">XRNode representing the hand to validate.</param>
@@ -258,7 +258,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             new ProfilerMarker("[MRTK] HandConstraintPalmUp.IsUserGazeMeetingThresholdRequirements");
 
         /// <summary>
-        /// Checks to see if the user is currently gazing at the activation point; it first attempts to do so 
+        /// Checks to see if the user is currently gazing at the activation point; it first attempts to do so
         /// using eye gaze, and then falls back to head-based gaze if eye gaze isn't available for use.
         /// </summary>
         /// <param name="hand">
@@ -266,7 +266,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </param>
         /// <returns>
         /// <see langword="true"/> if the user's gaze is within the proximity threshold of the activation point (both relative to the
-        /// hand plane), or <see langword="fapse"/>.
+        /// hand plane), or <see langword="false"/>.
         /// </returns>
         private bool IsUserGazeMeetingThresholdRequirements(XRNode hand)
         {
@@ -275,7 +275,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 Ray? gazeRay = null;
                 bool usedEyeGaze = false;
 
-                #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
                 if (ControllerLookup != null)
                 {
                     if (ControllerLookup.GazeController != null &&
@@ -283,8 +283,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
                         (InputTrackingState.Position | InputTrackingState.Rotation)) > 0)
                     {
                         gazeRay = new Ray(
-                                ControllerLookup.GazeController.transform.position,
-                                ControllerLookup.GazeController.transform.forward);
+                            ControllerLookup.GazeController.transform.position,
+                            ControllerLookup.GazeController.transform.forward);
                         usedEyeGaze = true;
                     }
                     else
@@ -294,7 +294,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                             Camera.main.transform.forward);
                     }
                 }
-                #pragma warning restore CS0618
+#pragma warning restore CS0618
                 else if (TrackedPoseDriverLookup != null)
                 {
                     InputTrackingState gazeTrackingStateInput = GetGazeInputTrackingState(TrackedPoseDriverLookup.GazeTrackedPoseDriver);
@@ -315,26 +315,22 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 }
                 else
                 {
-                    Debug.LogWarning("Neither ControllerLookup nor TrackedPoseDriverLookup are set, unable to determine whether user gaze meets threashold requirements or not.");
+                    Debug.LogWarning("Neither ControllerLookup nor TrackedPoseDriverLookup are set, unable to determine whether user gaze meets threshold requirements or not.");
                     return false;
                 }
 
-                if (gazeRay.HasValue)
+                // Define the activation point as a vector between the wrist and pinky knuckle; then cast it against the plane to get a smooth location
+                // If we can generate the hand plane or are able to set an activation point on it, and then are able to raycast against it
+                if (gazeRay.HasValue &&
+                    TryGenerateHandPlaneAndActivationPoint(hand, out Plane handPlane, out Vector3 activationPoint) &&
+                    handPlane.Raycast(gazeRay.Value, out float distanceToHandPlane))
                 {
-                    // Define the activation point as a vector between the wrist and pinky knuckle; then cast it against the plane to get a smooth location
-                    // If we can generate the hand plane or are able to set an activation point on it, and then are able to raycast against it
-                    if (TryGenerateHandPlaneAndActivationPoint(hand, out Plane handPlane, out Vector3 activationPoint) &&
-                        handPlane.Raycast(gazeRay.Value, out float distanceToHandPlane))
-                    {
-                        // Now that we know the dist to the plane, create a vector at that point
-                        Vector3 gazePosOnPlane = gazeRay.Value.origin + gazeRay.Value.direction.normalized * distanceToHandPlane;
-                        Vector3 planePos = handPlane.ClosestPointOnPlane(gazePosOnPlane);
-                        float gazePosDistToActivationPosition = (activationPoint - planePos).sqrMagnitude;
-                        float gazeActivationThreshold = usedEyeGaze ? eyeGazeProximityThreshold : headGazeProximityThreshold;
-                        gazeActivationAlreadyTriggered = (gazePosDistToActivationPosition < gazeActivationThreshold);
-
-                        return gazeActivationAlreadyTriggered;
-                    }
+                    // Now that we know the distance to the plane, create a vector at that point
+                    Vector3 gazePosOnPlane = gazeRay.Value.origin + gazeRay.Value.direction.normalized * distanceToHandPlane;
+                    Vector3 planePos = handPlane.ClosestPointOnPlane(gazePosOnPlane);
+                    float gazePosDistToActivationPosition = (activationPoint - planePos).sqrMagnitude;
+                    float gazeActivationThreshold = usedEyeGaze ? eyeGazeProximityThreshold : headGazeProximityThreshold;
+                    return gazeActivationAlreadyTriggered = gazePosDistToActivationPosition < gazeActivationThreshold;
                 }
 
                 return false;
@@ -342,8 +338,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         /// <summary>
-        /// Coroutine function called by the ObjectManipulator of the attached object whenever the object is done 
-        /// being manipulated by the user. This triggers a coroutine that checks to see whether the object should 
+        /// Coroutine function called by the ObjectManipulator of the attached object whenever the object is done
+        /// being manipulated by the user. This triggers a coroutine that checks to see whether the object should
         /// reattach to the hand.
         /// </summary>
         public void StartWorldLockReattachCheckCoroutine()
@@ -521,7 +517,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         /// <summary>
-        /// Coroutine function that's invoked when the attached object becomes world-locked. It uses the 
+        /// Coroutine function that's invoked when the attached object becomes world-locked. It uses the
         /// logical checks invoked during IsValidController to determine whether the menu should reattach
         /// to the hand or not.
         /// </summary>
@@ -531,19 +527,14 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 XRNode? hand = SolverHandler.CurrentTrackedHandedness.ToXRNode();
 
-                if (hand.HasValue)
+                if (hand.HasValue &&
+                    XRSubsystemHelpers.HandsAggregator != null &&
+                    XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.Palm, hand.Value, out HandJointPose palmPose) &&
+                    IsPalmMeetingThresholdRequirements(hand.Value, palmPose, Vector3.Angle(palmPose.Up, Camera.main.transform.forward)) &&
+                    IsUserGazeMeetingThresholdRequirements(hand.Value))
                 {
-                    if (XRSubsystemHelpers.HandsAggregator != null &&
-                        XRSubsystemHelpers.HandsAggregator.TryGetJoint(TrackedHandJoint.Palm, hand.Value, out HandJointPose palmPose))
-                    {
-                        float palmCameraAngle = Vector3.Angle(palmPose.Up, Camera.main.transform.forward);
-                        if (IsPalmMeetingThresholdRequirements(hand.Value, palmPose, palmCameraAngle) &&
-                            IsUserGazeMeetingThresholdRequirements(hand.Value))
-                        {
-                            gazeActivationAlreadyTriggered = false;
-                            SolverHandler.UpdateSolvers = true;
-                        }
-                    }
+                    gazeActivationAlreadyTriggered = false;
+                    SolverHandler.UpdateSolvers = true;
                 }
 
                 yield return null;
@@ -556,8 +547,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// A Unity event function that is called when the script component has been enabled.
         /// </summary>
         /// <remarks>
-        /// When enabled, ensure that there are no outlying status changes that would prevent HandConstraintPalmUp from 
-        /// properly working (like gazeActivationAlreadyTriggered being set to true previously)
+        /// When enabled, ensure that there are no outlying status changes that would prevent HandConstraintPalmUp from
+        /// properly working (like gazeActivationAlreadyTriggered being set to true previously).
         /// </remarks>
         protected override void OnEnable()
         {
