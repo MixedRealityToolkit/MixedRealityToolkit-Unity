@@ -10,7 +10,7 @@ using UnityEngine;
 namespace MixedReality.Toolkit.Examples.Demos
 {
     /// <summary>
-    /// Helper script to re-spawn objects if they go too far from their original position. 
+    /// Helper script to re-spawn objects if they go too far from their original position.
     /// </summary>
     /// <remarks>
     /// The helper is useful for objects that will fall forever.
@@ -28,7 +28,7 @@ namespace MixedReality.Toolkit.Examples.Demos
 
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
-        /// </summary> 
+        /// </summary>
         private void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
@@ -49,11 +49,7 @@ namespace MixedReality.Toolkit.Examples.Demos
                 // Reset any velocity from falling or moving when re-spawning to original location
                 if (rigidBody != null)
                 {
-#if UNITY_6000_0_OR_NEWER
                     rigidBody.linearVelocity = Vector3.zero;
-#else
-                    rigidBody.velocity = Vector3.zero;
-#endif
                     rigidBody.angularVelocity = Vector3.zero;
                 }
 

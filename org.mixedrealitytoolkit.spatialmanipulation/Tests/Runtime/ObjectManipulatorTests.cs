@@ -745,7 +745,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 
             Assert.IsTrue(cube1.transform.position.CloseEnoughTo(cube1Pos), "Cube1 moved when it shouldn't have!");
             Assert.IsTrue(!cube2.transform.position.CloseEnoughTo(cube2Pos), "Cube2 didn't move when it should have!");
-            
+
             // Cube2 should be facing the user.
             Assert.IsTrue(cube2.transform.forward.CloseEnoughTo(-(cube2.transform.position - Camera.main.transform.position).normalized), "Cube2 didn't stay facing user!");
 
@@ -983,11 +983,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return hand.Move(Vector3.forward * 3f);
             yield return RuntimeTestUtilities.WaitForFixedUpdates();
 
-#if UNITY_6000_0_OR_NEWER
             Assert.AreNotEqual(Vector3.zero, backgroundRigidbody.linearVelocity);
-#else
-            Assert.AreNotEqual(Vector3.zero, backgroundRigidbody.velocity);
-#endif
             Assert.AreEqual(1, collisionListener.CollisionCount);
         }
 
@@ -1184,7 +1180,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         /************** To be added in the future *****************
        /// <summary>
        /// Test validates throw behavior on manipulation handler. Box with disabled gravity should travel a
-       /// certain distance when being released from grab during hand movement. Specifically for near interactions, 
+       /// certain distance when being released from grab during hand movement. Specifically for near interactions,
        /// where we expect the thrown object to match the controllers velocities.
        /// </summary>
        [UnityTest]
@@ -1241,7 +1237,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 
        /// <summary>
        /// Test validates throw behavior on manipulation handler. Box with disabled gravity should travel a
-       /// certain distance when being released from grab during hand movement. Specifically for far interactions, 
+       /// certain distance when being released from grab during hand movement. Specifically for far interactions,
        /// where we expect the thrown object to maintain it's velocities after being thrown
        /// </summary>
        [UnityTest]

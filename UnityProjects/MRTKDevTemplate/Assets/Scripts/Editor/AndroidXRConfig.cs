@@ -1,18 +1,15 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-#if UNITY_6000_0_OR_NEWER
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
-#endif
 
 namespace MixedReality.Toolkit.Examples.Demos.Editor
 {
     internal class AndroidXRConfig
     {
-#if UNITY_6000_0_OR_NEWER
         private static AddAndRemoveRequest request;
 
         [MenuItem("Mixed Reality/MRTK3/Examples/Configure for Android XR...", priority = int.MaxValue)]
@@ -38,6 +35,5 @@ namespace MixedReality.Toolkit.Examples.Demos.Editor
                 request = null;
             }
         }
-#endif
     }
 }
