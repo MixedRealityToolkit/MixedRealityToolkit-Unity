@@ -1,6 +1,6 @@
 {
   "name": "org.mixedrealitytoolkit.uxcomponents",
-  "version": "4.0.0-development.pre.2",
+  "version": "4.0.0-development.pre.3",
   "description": "UX library leveraging RectTransform and Canvas for dynamic layout and presentation. Contains prefabs, visuals, controls, and everything to get started building 3D user interfaces for mixed reality.",
   "displayName": "MRTK UX Components",
   "msftFeatureCategory": "MRTK3",
@@ -13,8 +13,8 @@
   "bugs": {
     "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
   },
-  "unity": "2022.3",
-  "unityRelease": "6f1",
+  "unity": "6000.0",
+  "unityRelease": "66f2",
   "documentationUrl": "https://www.mixedrealitytoolkit.org",
   "dependencies": {
     "com.microsoft.mrtk.graphicstools.unity": "0.8.0",

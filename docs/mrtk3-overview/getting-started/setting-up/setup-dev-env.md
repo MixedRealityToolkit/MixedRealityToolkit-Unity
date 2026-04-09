@@ -10,7 +10,7 @@ Before setting up a Unity Project with MRTK3, make sure you have the following s
 
 | Software | Version | Notes |
 | --- | --- | --- |
-| Unity | 2022.3 LTS or newer | Recommend using an LTS release <br> See [Additional tools](#additional-tools) below for recommended modules |
+| Unity | 6.0 LTS or newer | Recommend using an LTS release <br> See [Additional tools](#additional-tools) below for recommended modules |
 
 ## Additional tools
 

@@ -112,7 +112,7 @@ namespace MixedReality.Toolkit.Examples
         /// Limits the Z position of the GameObject to the specified minimum and maximum.
         /// </summary>
         public Vector2 LocalMinMaxZ = new Vector2(float.NegativeInfinity, float.PositiveInfinity);
-        
+
         [Tooltip("Fired when the GameObject is dropped.")]
         [SerializeField]
         private UnityEvent onDrop = null;
@@ -123,7 +123,7 @@ namespace MixedReality.Toolkit.Examples
 
         private bool
             onlyEyeWarpOnRelease =
-                true; // Only warp the currently grabbed target to the current look at location once the user releases the pinch gesture.        
+                true; // Only warp the currently grabbed target to the current look at location once the user releases the pinch gesture.
 
         private float originalTransparency = -1f;
         private bool originalUseGravity = false;
@@ -366,13 +366,13 @@ namespace MixedReality.Toolkit.Examples
             // Check whether the user is still looking within the proximity of the target
             float distanceBetweenTargetAndCurrHitPos = Angle_ToCurrHitTarget(gameObject);
 
-            // **Note for potential improvement**: It would be better to make this dependent on the target's boundary 
+            // **Note for potential improvement**: It would be better to make this dependent on the target's boundary
             // instead of its center. The way it is implemented right now may cause problems for large-scale targets.
             return distanceBetweenTargetAndCurrHitPos > minLookAwayDistToEnableEyeWarp;
         }
 
         /// <summary>
-        /// Determine whether the user is looking away from the preview. 
+        /// Determine whether the user is looking away from the preview.
         /// </summary>
         private bool IsLookingAwayFromPreview()
         {
@@ -405,7 +405,7 @@ namespace MixedReality.Toolkit.Examples
 
         /// <summary>
         /// Check if the destination is plausible. For example, this means if the target is placeable
-        /// on horizontal surfaces then only show a preview for (more or less) horizontal surfaces. 
+        /// on horizontal surfaces then only show a preview for (more or less) horizontal surfaces.
         /// </summary>
         /// <returns>True if the target can be placed on this surface.</returns>
         private bool IsDestinationPlausible()
@@ -490,13 +490,8 @@ namespace MixedReality.Toolkit.Examples
                     originalUseGravity = rigidbody.useGravity;
                     rigidbody.useGravity = false;
 
-#if UNITY_6000_0_OR_NEWER
                     originalDrag = rigidbody.linearDamping;
                     rigidbody.linearDamping = float.PositiveInfinity;
-#else
-                    originalDrag = rigidbody.drag;
-                    rigidbody.drag = float.PositiveInfinity;
-#endif
                 }
             }
         }
@@ -525,11 +520,7 @@ namespace MixedReality.Toolkit.Examples
                 if (TryGetComponent<Rigidbody>(out var rigidbody))
                 {
                     rigidbody.useGravity = originalUseGravity;
-#if UNITY_6000_0_OR_NEWER
                     rigidbody.linearDamping = originalDrag;
-#else
-                    rigidbody.drag = originalDrag;
-#endif
                 }
 
                 onDrop.Invoke();
