@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+* Ensure consistency on slider tests. [PR #1052](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1052)
 * Updated dependencies to match Unity Asset Store packages. [PR #1054](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1054)
   * org.mixedrealitytoolkit.uxcore 3.3.0
   * org.mixedrealitytoolkit.spatialmanipulation 3.4.0

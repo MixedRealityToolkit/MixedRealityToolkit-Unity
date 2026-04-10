@@ -2,11 +2,11 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [3.0.4] - 2025-11-12
 
 ### Changed
 
-* Subsystems no longer register themselves on non-Windows platforms.
+* Subsystems no longer register themselves on non-Windows platforms. [PR #978](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/978) & [PR #1001](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1001)
 
 ### Fixed
 
