@@ -20,7 +20,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-* Added event `OnSpeechRecognitionKeywordChanged` to allow UI updates when the speech recognition keyword has changed. [PR #792](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/792/)
+* Added event `OnSpeechRecognitionKeywordChanged` to allow UI updates when the speech recognition keyword has changed. [PR #792](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/792)
+* Added support for moving the MRTK.Generated folder around the project's Assets folder structure instead of enforcing a root location. [PR #969](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/969)
 
 ### Fixed
 
