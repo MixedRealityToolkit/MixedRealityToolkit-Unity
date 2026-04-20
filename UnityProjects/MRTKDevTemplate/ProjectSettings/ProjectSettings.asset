@@ -240,7 +240,7 @@ PlayerSettings:
   clonedFromGUID: c0afd0d1d80e3634a9dac47e8a0426ea
   templatePackageId: com.unity.template.3d@5.0.4
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  useCustomMainManifest: 1
+  useCustomMainManifest: 0
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 0
@@ -843,9 +843,9 @@ PlayerSettings:
   metroPackageVersion: 3.0.0.0
   metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: Microsoft
-  metroCertificateIssuer: Microsoft
-  metroCertificateNotAfter: 803769c0d5dfda01
+  metroCertificateSubject: Mixed Reality Toolkit Organization
+  metroCertificateIssuer: Mixed Reality Toolkit Organization
+  metroCertificateNotAfter: 00abfea1861cdd01
   metroApplicationDescription: MRTK3 Sample
   wsaImages: {}
   metroTileShortName: MRTK3
