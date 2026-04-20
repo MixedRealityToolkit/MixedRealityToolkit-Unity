@@ -391,20 +391,19 @@ namespace MixedReality.Toolkit.Input
 
                 // Now handle coloring the line visual
                 // If our interactor is a variable select interactor, change the material property based on select progress
-                IVariableSelectInteractor variableSelectInteractor = rayInteractor as IVariableSelectInteractor;
-                if (variableSelectInteractor != null)
+                if (rayInteractor != null)
                 {
                     lineRenderer.GetPropertyBlock(propertyBlock);
-                    propertyBlock.SetFloat("_Shift_", variableSelectInteractor.SelectProgress);
+                    propertyBlock.SetFloat("_Shift_", rayInteractor.largestInteractionStrength.Value);
                     lineRenderer.SetPropertyBlock(propertyBlock);
                 }
 
                 // If we are hovering over a valid object or are currently selecting one, lerp the color based on selectedness
                 if (rayHasHit || rayInteractor.hasSelection)
                 {
-                    if (variableSelectInteractor != null)
+                    if (rayInteractor != null)
                     {
-                        cachedGradient = ColorUtilities.GradientLerp(ValidColorGradient, SelectActiveColorGradient, variableSelectInteractor.SelectProgress);
+                        cachedGradient = ColorUtilities.GradientLerp(ValidColorGradient, SelectActiveColorGradient, rayInteractor.largestInteractionStrength.Value);
                     }
                     else
                     {

@@ -27,9 +27,9 @@ namespace MixedReality.Toolkit.Input
     public class MRTKRayInteractor :
         XRRayInteractor,
         IRayInteractor,
-        IVariableSelectInteractor,
         IModeManagedInteractor,
 #pragma warning disable CS0618 // Type or member is obsolete
+        IVariableSelectInteractor,
         IHandedInteractor
 #pragma warning restore CS0618 // Type or member is obsolete
     {
@@ -142,36 +142,26 @@ namespace MixedReality.Toolkit.Input
         #region IHandedInteractor
 
         /// <inheritdoc />
-        [Obsolete("Use handedness from IXRInteractor instead.")]
-        Handedness IHandedInteractor.Handedness
-        {
-            get
-            {
-                if (forceDeprecatedInput &&
-                    xrController is ArticulatedHandController handController)
-                {
-                    return handController.HandNode.ToHandedness();
-                }
-
-                return handedness.ToHandedness();
-            }
-        }
+        [Obsolete("This property has been deprecated in version 4.0.0. Use " + nameof(IXRInteractor.handedness) + " instead.")]
+        Handedness IHandedInteractor.Handedness => forceDeprecatedInput &&
+                    xrController is ArticulatedHandController handController
+                    ? handController.HandNode.ToHandedness()
+                    : handedness.ToHandedness();
 
         #endregion IHandedInteractor
 
         #region IVariableSelectInteractor
 
         /// <inheritdoc />
-        public float SelectProgress
+        [Obsolete("This property has been deprecated in version 4.0.0. Use " + nameof(IXRInteractionStrengthInteractor.GetInteractionStrength) + " or " + nameof(IXRInteractionStrengthInteractor.largestInteractionStrength) + " instead.")]
+        float IVariableSelectInteractor.SelectProgress
         {
             get
             {
-#pragma warning disable CS0618 // Type or member is obsolete
                 if (forceDeprecatedInput)
                 {
                     return xrController.selectInteractionState.value;
                 }
-#pragma warning restore CS0618
                 else if (selectInput != null)
                 {
                     return selectInput.ReadValue();
@@ -206,7 +196,7 @@ namespace MixedReality.Toolkit.Input
             // If so, should we be allowed to initiate a new hover on it?
             // This prevents us from "rolling off" one target and immediately
             // semi-pressing another.
-            bool canHoverNew = !isNew || SelectProgress < relaxationThreshold;
+            bool canHoverNew = !isNew || largestInteractionStrength.Value < relaxationThreshold;
 
             return ready && base.CanHover(interactable) && canHoverNew;
         }
@@ -307,7 +297,7 @@ namespace MixedReality.Toolkit.Input
                 if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
                 {
                     // If we've fully relaxed, we can begin hovering/selecting a new target.
-                    if (SelectProgress < relaxationThreshold)
+                    if (largestInteractionStrength.Value < relaxationThreshold)
                     {
                         isRelaxedBeforeSelect = true;
                     }
