@@ -1,6 +1,6 @@
 {
   "name": "org.mixedrealitytoolkit.uxcomponents.noncanvas",
-  "version": "4.0.0-development.pre.2",
+  "version": "4.0.0-development.pre.3",
   "description": "UX component library for 3D UX without Canvas layout. In some cases, non-Canvas UI may offer better performance.",
   "displayName": "MRTK UX Components (Non-Canvas)",
   "msftFeatureCategory": "MRTK3",
@@ -13,8 +13,8 @@
   "bugs": {
     "url": "https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/issues"
   },
-  "unity": "2022.3",
-  "unityRelease": "6f1",
+  "unity": "6000.0",
+  "unityRelease": "66f2",
   "documentationUrl": "https://www.mixedrealitytoolkit.org",
   "dependencies": {
     "org.mixedrealitytoolkit.uxcore": "4.0.0",

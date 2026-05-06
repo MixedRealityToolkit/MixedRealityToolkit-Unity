@@ -32,7 +32,7 @@
 
 ### Long Term Support
 
-* Minimum requirements: OpenXR, Unity 2022.3 LTS, Unity’s XR Interaction Toolkit 3.0.
+* Minimum requirements: OpenXR, Unity 6.0 LTS, Unity’s XR Interaction Toolkit 3.0.
 
 ## Packages
 

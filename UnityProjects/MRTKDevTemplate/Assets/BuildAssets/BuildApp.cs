@@ -251,12 +251,10 @@ namespace MixedReality.Toolkit.Examples.Build
                         visualizer.JointMaterial = AssetDatabase.LoadAssetAtPath<Material>(AssetDatabase.GUIDToAssetPath(HandJointMaterialGuid));
                         visualizer.JointMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
                     }
-#if UNITY_6000_0_OR_NEWER
                     else
                     {
                         PrefabUtility.RemoveUnusedOverrides(new[] { leftHandVisualizer }, UnityEditor.InteractionMode.UserAction);
                     }
-#endif
                     PrefabUtility.SaveAsPrefabAsset(leftHandVisualizer, leftHandPath);
                 }
                 PrefabUtility.UnloadPrefabContents(leftHandVisualizer);
