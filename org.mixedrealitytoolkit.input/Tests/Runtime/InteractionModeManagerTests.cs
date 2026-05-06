@@ -10,7 +10,6 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -68,7 +67,7 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         /// <summary>
-        /// Tests the basic Interaction detector. The controller should enter one mode during hover, another during select, and fall back to the default mode during neither
+        /// Tests the basic Interaction detector. The controller should enter one mode during hover, another during select, and fall back to the default mode during neither.
         /// </summary>
         [UnityTest]
         public IEnumerator InteractionDetectorTest()
@@ -89,28 +88,43 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return rightHand.AimAt(cube.transform.position);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            InteractionMode currentMode = rightHandController.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>().ModeOnHover;
-            Assert.AreEqual(currentMode, rightHandController.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>().ModeOnDetection);
-            ValidateInteractionModeActive(rightHandController, currentMode);
+            if (!rightHandController.GetComponentInChildren<MRTKRayInteractor>().TryGetComponent(out InteractionDetector interactionDetector))
+            {
+                Assert.Fail("No interaction detector found on right hand ray interactor. Is the component missing?");
+            }
 
+            InteractionMode expectedMode = interactionDetector.ModeOnHover;
+            Assert.AreEqual(expectedMode, interactionDetector.ModeOnDetection);
+            ValidateInteractionModeActive(rightHandController, expectedMode);
+
+            // Select the cube and check that we're in the correct mode
             yield return rightHand.SetHandshape(HandshapeTypes.HandshapeId.Grab);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            currentMode = rightHandController.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>().ModeOnSelect;
-            Assert.AreEqual(currentMode, rightHandController.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>().ModeOnDetection);
-            ValidateInteractionModeActive(rightHandController, currentMode);
+            expectedMode = interactionDetector.ModeOnSelect;
+            Assert.AreEqual(expectedMode, interactionDetector.ModeOnDetection);
+            ValidateInteractionModeActive(rightHandController, expectedMode);
 
-            // move the hand far away and validate that we are in the default mode
+            // Release the selection and move the hand far away and validate that we are in the default mode
             yield return rightHand.SetHandshape(HandshapeTypes.HandshapeId.Open);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            yield return rightHand.MoveTo(cube.transform.position + new Vector3(3.0f,0,0));
+            yield return rightHand.MoveTo(cube.transform.position + new Vector3(3.0f, 0, 0));
             yield return RuntimeTestUtilities.WaitForUpdates();
+            expectedMode = InteractionModeManager.Instance.DefaultMode;
+            ValidateInteractionModeActive(rightHandController, expectedMode);
 
-            currentMode = InteractionModeManager.Instance.DefaultMode;
-            ValidateInteractionModeActive(rightHandController, currentMode);
+            // Put the hand into a grab state and validate that we are in the default mode, since we're not selecting an object
+            yield return rightHand.SetHandshape(HandshapeTypes.HandshapeId.Grab);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            ValidateInteractionModeActive(rightHandController, expectedMode);
+
+            // Release the grab state and validate that we are in the default mode
+            yield return rightHand.SetHandshape(HandshapeTypes.HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            ValidateInteractionModeActive(rightHandController, expectedMode);
         }
 
         /// <summary>
-        /// Tests that mode mediation works properly. 
+        /// Tests that mode mediation works properly.
         /// </summary>
         /// <remarks>
         /// The interaction mode with the higher priority should be the valid one which affects the controller.
@@ -136,12 +150,17 @@ namespace MixedReality.Toolkit.Input.Tests
             InputTestUtilities.SetHandAnchorPoint(Handedness.Right, ControllerAnchorPoint.Grab);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            // Moving the hand to a position where it's far ray is hovering over the cube
+            if (!rightHandController.GetComponentInChildren<MRTKRayInteractor>().TryGetComponent(out InteractionDetector rayInteractionDetector))
+            {
+                Assert.Fail("No interaction detector found on right hand ray interactor. Is the component missing?");
+            }
+
+            // Moving the hand to a position where its far ray is hovering over the cube
             yield return rightHand.AimAt(cube.transform.position);
             yield return RuntimeTestUtilities.WaitForUpdates();
-            InteractionMode farRayMode = rightHandController.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>().ModeOnHover;
+            InteractionMode farRayMode = rayInteractionDetector.ModeOnHover;
             yield return RuntimeTestUtilities.WaitForUpdates();
-            Assert.AreEqual(farRayMode, rightHandController.GetComponentInChildren<MRTKRayInteractor>().GetComponent<InteractionDetector>().ModeOnDetection);
+            Assert.AreEqual(farRayMode, rayInteractionDetector.ModeOnDetection);
             ValidateInteractionModeActive(rightHandController, farRayMode);
 
             // Now move the hand in range for the proximity detector
@@ -159,8 +178,13 @@ namespace MixedReality.Toolkit.Input.Tests
             yield return rightHand.SetHandshape(HandshapeTypes.HandshapeId.Grab);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
-            InteractionMode grabMode = rightHandController.GetComponentInChildren<GrabInteractor>().GetComponent<InteractionDetector>().ModeOnSelect;
-            Assert.AreEqual(grabMode, rightHandController.GetComponentInChildren<GrabInteractor>().GetComponent<InteractionDetector>().ModeOnDetection);
+            if (!rightHandController.GetComponentInChildren<GrabInteractor>().TryGetComponent(out InteractionDetector grabInteractionDetector))
+            {
+                Assert.Fail("No interaction detector found on right hand grab interactor. Is the component missing?");
+            }
+
+            InteractionMode grabMode = grabInteractionDetector.ModeOnSelect;
+            Assert.AreEqual(grabMode, grabInteractionDetector.ModeOnDetection);
             yield return RuntimeTestUtilities.WaitForUpdates();
             ValidateInteractionModeActive(rightHandController, grabMode);
             Assert.IsTrue(grabMode.Priority > nearMode.Priority);
@@ -176,7 +200,7 @@ namespace MixedReality.Toolkit.Input.Tests
 
             // Moving the hand to a position where it's far ray is hovering over the cube
             yield return rightHand.MoveTo(cube.transform.position + new Vector3(0.02f, -0.1f, -0.8f));
-            yield return RuntimeTestUtilities.WaitForUpdates(frameCount:120);
+            yield return RuntimeTestUtilities.WaitForUpdates(frameCount: 120);
 
             ValidateInteractionModeActive(rightHandController, farRayMode);
         }
@@ -189,15 +213,18 @@ namespace MixedReality.Toolkit.Input.Tests
         private void ValidateInteractionModeActive(XRBaseController controller, InteractionMode currentMode)
         {
             // We construct the list of managed interactor types manually because we don't want to expose the internal controller mapping implementation to even internal use, since
-            // we don't want any other class to be able to modify those collections without going through the Mode Manager or it's in-editor inspector.
-            HashSet<System.Type> managedInteractorTypes = new HashSet<System.Type>(InteractionModeManager.Instance.PrioritizedInteractionModes.SelectMany(x => x.AssociatedTypes));
-            HashSet<System.Type> activeInteractorTypes = InteractionModeManager.Instance.PrioritizedInteractionModes.Find(x => x.ModeName == currentMode.Name).AssociatedTypes;
+            // we don't want any other class to be able to modify those collections without going through the Mode Manager or its in-editor inspector.
+            HashSet<Type> managedInteractorTypes = new HashSet<Type>();
+            foreach (InteractionModeDefinition interactionMode in InteractionModeManager.Instance.PrioritizedInteractionModes)
+            {
+                managedInteractorTypes.UnionWith(interactionMode.AssociatedTypes);
+            }
+            HashSet<Type> activeInteractorTypes = InteractionModeManager.Instance.PrioritizedInteractionModes.Find(x => x.ModeName == currentMode.Name).AssociatedTypes;
 
             // Ensure the prox detector has actually had the desired effect of enabling/disabling interactors.
-            foreach (System.Type interactorType in managedInteractorTypes)
+            foreach (Type interactorType in managedInteractorTypes)
             {
-                XRBaseInteractor interactor = controller.GetComponentInChildren(interactorType) as XRBaseInputInteractor;
-                if (interactor != null)
+                if (controller.GetComponentInChildren(interactorType) is XRBaseInputInteractor interactor && interactor != null)
                 {
                     Assert.AreEqual(activeInteractorTypes.Contains(interactorType), interactor.enabled);
                 }
