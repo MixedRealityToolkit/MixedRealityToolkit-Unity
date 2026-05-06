@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using System;
-using UnityEngine.SubsystemsImplementation;
 
 namespace MixedReality.Toolkit.Subsystems
 {
@@ -41,7 +40,7 @@ namespace MixedReality.Toolkit.Subsystems
         /// <summary>
         /// Initializes a new instance of the <see cref="HandsSubsystemDescriptor"/> class.
         /// </summary>
-        /// <param name='cinfo'>The parameters required to initialize the descriptor.</param>
+        /// <param name="cinfo">The parameters required to initialize the descriptor.</param>
         HandsSubsystemDescriptor(HandsSubsystemCinfo cinfo) : base(cinfo)
         {
             IsPhysicalData = cinfo.IsPhysicalData;

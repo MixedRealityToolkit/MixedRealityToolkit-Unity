@@ -167,7 +167,7 @@ namespace MixedReality.Toolkit
                 return handsAggregator;
             }
         }
-        
+
         private static IDictationSubsystem dictationSubsystem = null;
 
         /// <summary>
@@ -297,9 +297,9 @@ namespace MixedReality.Toolkit
         /// Validates the descriptor parameters against possible type errors that could arise at runtime.
         /// The base subsystem type and base provider type are passed as generic type params for validation.
         /// </summary>
-        /// <param name='name'>The parameters required to initialize the descriptor.</param>
-        /// <param name='subsystemTypeOverride'>The derived type of the subsystem.</param>
-        /// <param name='providerType'>The derived type of the provider.</param>
+        /// <param name="name">The parameters required to initialize the descriptor.</param>
+        /// <param name="subsystemTypeOverride">The derived type of the subsystem.</param>
+        /// <param name="providerType">The derived type of the provider.</param>
         /// <returns>
         /// <see langword="true"/> if all validation checks pass.
         /// </returns>

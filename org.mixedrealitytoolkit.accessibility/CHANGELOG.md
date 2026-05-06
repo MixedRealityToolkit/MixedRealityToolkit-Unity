@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Updated `AccessibilitySubsystemDescriptor` to use built-in MRTK base classes. [PR #1109](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1109)
+
 ## [1.0.3-development.pre.20] - 2024-04-17
 
 ### Fixed
