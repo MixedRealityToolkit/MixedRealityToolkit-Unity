@@ -1,7 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace MixedReality.Toolkit.UX
     /// Allows the user to select a specific icon for display via a Unity text component.
     /// </summary>
     [AddComponentMenu("MRTK/UX/Font Icon Selector")]
-    public class FontIconSelector : MonoBehaviour
+    public class FontIconSelector : MonoBehaviour, ISerializationCallbackReceiver
     {
         [Tooltip("The FontIconSet that contains the icons available for use.")]
         [SerializeField]
@@ -52,6 +52,11 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public TMP_Text TextMeshProComponent => textMeshProComponent;
 
+        // A temporary variable used to migrate instances of FontIconSelector to use new FontIconSetDefinition names.
+        // TODO: Remove this after some time to ensure users have successfully migrated.
+        [SerializeField, HideInInspector]
+        private bool migratedSuccessfully = false;
+
         /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
         /// </summary>
@@ -61,6 +66,7 @@ namespace MixedReality.Toolkit.UX
             {
                 textMeshProComponent = GetComponent<TMP_Text>();
             }
+            TryMigrate();
             SetIcon(currentIconName);
         }
 
@@ -69,6 +75,7 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         private void OnValidate()
         {
+            //TryMigrate();
             SetIcon(currentIconName);
         }
 
@@ -83,14 +90,57 @@ namespace MixedReality.Toolkit.UX
 
         private void SetIcon(string newIconName)
         {
-            if (fontIcons != null && textMeshProComponent != null)
+            if (fontIcons != null && textMeshProComponent != null && fontIcons.TryGetGlyphIcon(newIconName, out uint unicodeValue))
             {
-                if (fontIcons.TryGetGlyphIcon(newIconName, out uint unicodeValue))
+                currentIconName = newIconName;
+                textMeshProComponent.text = FontIconSet.ConvertUnicodeToHexString(unicodeValue);
+            }
+        }
+
+        private void TryMigrate()
+        {
+            uint unicodeValue1 = FontIconSet.ConvertHexStringToUnicode(textMeshProComponent.text);
+            Debug.Log($"============================================={unicodeValue1} | {migratedSuccessfully} | {currentIconName}");
+
+            if (!migratedSuccessfully && fontIcons != null && fontIcons.FontIconSetDefinition != null && textMeshProComponent != null)
+            {
+                uint unicodeValue = FontIconSet.ConvertHexStringToUnicode(textMeshProComponent.text);
+
+                if (currentIconName == "Icon 4")
                 {
-                    currentIconName = newIconName;
-                    textMeshProComponent.text = FontIconSet.ConvertUnicodeToHexString(unicodeValue);
+                    Debug.Log($"============================================={unicodeValue}");
+                }
+
+                foreach (KeyValuePair<string, uint> kv in fontIcons.GlyphIconsByName)
+                {
+
+
+                    if (kv.Value == unicodeValue)
+                    {
+                        if (currentIconName != kv.Key)
+                        {
+                            Debug.Log($"[{nameof(FontIconSelector)}] Successfully migrated icon: \"{currentIconName}\" to \"{kv.Key}\"", this);
+                            CurrentIconName = kv.Key;
+                            migratedSuccessfully = true;
+                        }
+                        else
+                        {
+                            Debug.Log($"[{nameof(FontIconSelector)}] Tried to migrate icon: \"{unicodeValue}\" | \"{currentIconName}\"", this);
+                        }
+                        break;
+                    }
                 }
             }
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+            TryMigrate();
+        }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            TryMigrate();
         }
     }
 }
