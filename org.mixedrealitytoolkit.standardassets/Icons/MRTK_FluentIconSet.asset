@@ -14,84 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glyphIconsByName:
     entries:
-    - key: Icon 110
-      value: 62822
-    - key: Icon 108
-      value: 62815
     - key: Icon 102
       value: 62700
-    - key: Icon 86
-      value: 62433
-    - key: Icon 83
-      value: 62343
-    - key: Icon 82
-      value: 62329
-    - key: Icon 81
-      value: 62326
     - key: Icon 77
       value: 62298
-    - key: Icon 75
-      value: 62277
-    - key: Icon 74
-      value: 62274
-    - key: Icon 73
-      value: 62269
-    - key: Icon 71
-      value: 62240
-    - key: Icon 70
-      value: 62233
-    - key: Icon 69
-      value: 62229
-    - key: Icon 68
-      value: 62208
-    - key: Icon 67
-      value: 62198
-    - key: Icon 66
-      value: 62194
-    - key: Icon 65
-      value: 62181
-    - key: Icon 64
-      value: 62178
-    - key: Icon 63
-      value: 62174
-    - key: Icon 56
-      value: 62087
-    - key: Icon 54
-      value: 62059
-    - key: Icon 51
-      value: 61972
-    - key: Icon 50
-      value: 61967
-    - key: Icon 48
-      value: 61923
-    - key: Icon 46
-      value: 61877
-    - key: Icon 43
-      value: 61835
-    - key: Icon 40
-      value: 61801
-    - key: Icon 37
-      value: 61760
-    - key: Icon 34
-      value: 61733
-    - key: Icon 33
-      value: 61731
-    - key: Icon 28
-      value: 60390
-    - key: Icon 26
-      value: 60227
-    - key: Icon 24
-      value: 59846
-    - key: Icon 23
-      value: 59532
-    - key: Icon 22
-      value: 59531
-    - key: Icon 19
-      value: 59526
-    - key: Icon 13
-      value: 59519
-    - key: Icon 12
-      value: 59518
     - key: Brightness
       value: 59456
     - key: Calendar
@@ -208,8 +134,6 @@ MonoBehaviour:
       value: 62810
     - key: Menu
       value: 62817
-    - key: People
-      value: 62889
     - key: Person
       value: 62910
     - key: Phone
@@ -298,6 +222,82 @@ MonoBehaviour:
       value: 62831
     - key: Pen Tip
       value: 62632
+    - key: Pan
+      value: 59518
+    - key: Hand Left
+      value: 59519
+    - key: Write Mail
+      value: 59526
+    - key: Music
+      value: 59531
+    - key: Music Mute
+      value: 59532
+    - key: Circle
+      value: 59846
+    - key: Sound
+      value: 60227
+    - key: Add Tab
+      value: 60390
+    - key: Uniform Grid
+      value: 61731
+    - key: Mobile
+      value: 61733
+    - key: Reset
+      value: 61760
+    - key: Move
+      value: 61801
+    - key: Swap Vert
+      value: 61835
+    - key: Tab
+      value: 61877
+    - key: Layout Grid
+      value: 61923
+    - key: Vertical List
+      value: 61967
+    - key: Horizontal List
+      value: 61972
+    - key: Shopping Cart
+      value: 62059
+    - key: Messenger
+      value: 62087
+    - key: Time
+      value: 62174
+    - key: Alarm
+      value: 62178
+    - key: Open In New
+      value: 62194
+    - key: Color Palette
+      value: 62198
+    - key: Message
+      value: 62208
+    - key: Draft
+      value: 62229
+    - key: Exit
+      value: 62233
+    - key: User
+      value: 62240
+    - key: Line Chart
+      value: 62269
+    - key: Bar Chart
+      value: 62274
+    - key: Pie Chart
+      value: 62277
+    - key: Zoom
+      value: 62181
+    - key: Layout 2
+      value: 62326
+    - key: Doc
+      value: 62329
+    - key: Edit Doc
+      value: 62343
+    - key: Smiley
+      value: 62433
+    - key: My Location
+      value: 62815
+    - key: Newspaper
+      value: 62822
+    - key: Group
+      value: 62889
   iconFontAsset: {fileID: 11400000, guid: 9b0d0ee11ff70b04d901a29b519cbaa0, type: 2}
   optionalEditorMaterial: {fileID: 0}
   fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}

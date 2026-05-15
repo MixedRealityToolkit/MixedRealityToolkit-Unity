@@ -246,8 +246,6 @@ MonoBehaviour:
       value: 61760
     - key: Add Tab
       value: 60390
-    - key: Hand Right
-      value: 59519
     - key: Write Mail
       value: 59526
     - key: Uniform Grid
@@ -290,6 +288,16 @@ MonoBehaviour:
       value: 62229
     - key: Pan
       value: 59518
+    - key: Hand Left
+      value: 59519
+    - key: Icon 62298
+      value: 62298
+    - key: Icon 62700
+      value: 62700
+    - key: Delete
+      value: 62285
+    - key: Dialpad
+      value: 62303
   iconFontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   optionalEditorMaterial: {fileID: 0}
   fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}
