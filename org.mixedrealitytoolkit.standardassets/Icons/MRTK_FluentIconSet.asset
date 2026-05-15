@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glyphIconsByName:
     entries:
-    - key: Icon 102
-      value: 62700
-    - key: Icon 77
-      value: 62298
+    - key: Grid View
+      value: 59407
+    - key: Show Chart
+      value: 59416
+    - key: Cached
+      value: 59440
     - key: Brightness
       value: 59456
     - key: Calendar
@@ -34,52 +36,96 @@ MonoBehaviour:
       value: 59512
     - key: Apps
       value: 59517
+    - key: Pan
+      value: 59518
+    - key: Hand Left
+      value: 59519
+    - key: Add Location
+      value: 59521
+    - key: Remove Location
+      value: 59522
     - key: Location Off
       value: 59523
     - key: Lock
       value: 59524
     - key: Unlock
       value: 59525
+    - key: Write Mail
+      value: 59526
     - key: Mic
       value: 59527
     - key: More Horizontal
       value: 59529
+    - key: Music
+      value: 59531
+    - key: Music Mute
+      value: 59532
+    - key: Circle
+      value: 59846
     - key: Save As
       value: 59977
+    - key: Sound
+      value: 60227
     - key: Mute
       value: 60235
+    - key: Add Tab
+      value: 60390
     - key: Add
       value: 61706
+    - key: Add Circle
+      value: 61709
     - key: Notifications
       value: 61717
     - key: Notifications Off
       value: 61721
+    - key: Uniform Grid
+      value: 61731
+    - key: Mobile
+      value: 61733
     - key: List
       value: 61752
     - key: Refresh
       value: 61758
+    - key: Reset
+      value: 61760
     - key: Arrow Down
       value: 61769
     - key: Arrow Left
       value: 61788
+    - key: Move
+      value: 61801
     - key: Repeat
       value: 61810
     - key: Arrow Right
       value: 61826
+    - key: Swap Vert
+      value: 61835
     - key: Arrow Up
       value: 61852
     - key: Attach
       value: 61866
+    - key: Tab
+      value: 61877
     - key: Bluetooth
       value: 61919
+    - key: Layout Grid
+      value: 61923
     - key: Bookmark
       value: 61942
+    - key: Vertical List
+      value: 61967
+    - key: Horizontal List
+      value: 61972
     - key: Call End
       value: 62024
     - key: Camera
       value: 62037
+    - key: Shopping Cart
+      value: 62059
     - key: Cast
       value: 62061
+    - key: Messenger
+      value: 62087
     - key: Check
       value: 62101
     - key: Chevron Down
@@ -92,36 +138,86 @@ MonoBehaviour:
       value: 62135
     - key: Paste
       value: 62166
+    - key: Time
+      value: 62174
+    - key: Alarm
+      value: 62178
+    - key: Zoom
+      value: 62181
+    - key: Open In New
+      value: 62194
+    - key: Color Palette
+      value: 62198
+    - key: Message
+      value: 62208
+    - key: Draft
+      value: 62229
+    - key: Exit
+      value: 62233
+    - key: User
+      value: 62240
     - key: Cut
       value: 62267
+    - key: Line Chart
+      value: 62269
+    - key: Bar Chart
+      value: 62274
+    - key: Pie Chart
+      value: 62277
     - key: Delete
       value: 62285
+    - key: Icon 77
+      value: 62298
     - key: Dialpad
       value: 62303
     - key: Close
       value: 62314
     - key: Cancel
       value: 62318
+    - key: Layout 2
+      value: 62326
+    - key: Doc
+      value: 62329
+    - key: Edit Doc
+      value: 62343
+    - key: Globe
+      value: 62427
     - key: Edit
       value: 62430
+    - key: Smiley
+      value: 62433
     - key: Error
       value: 62450
+    - key: Flag Outline
+      value: 62476
     - key: Folder
       value: 62489
+    - key: Language
+      value: 62555
+    - key: Headphones
+      value: 62578
+    - key: Heart Outline
+      value: 62586
     - key: History
       value: 62591
     - key: Home
       value: 62593
     - key: Photo
       value: 62601
+    - key: Exclamation Point
+      value: 62624
     - key: Info
       value: 62628
+    - key: Pen Tip
+      value: 62632
     - key: Keyboard
       value: 62649
     - key: Lightbulb
       value: 62679
     - key: Link
       value: 62693
+    - key: Icon 102
+      value: 62700
     - key: Location On
       value: 62713
     - key: Mail
@@ -132,8 +228,24 @@ MonoBehaviour:
       value: 62807
     - key: Movie
       value: 62810
+    - key: My Location
+      value: 62815
     - key: Menu
       value: 62817
+    - key: Newspaper
+      value: 62822
+    - key: Sticky Note
+      value: 62828
+    - key: Add Note
+      value: 62831
+    - key: Settings Sliders
+      value: 62856
+    - key: Hierarchy
+      value: 62858
+    - key: Group
+      value: 62889
+    - key: Add Group
+      value: 62893
     - key: Person
       value: 62910
     - key: Phone
@@ -184,120 +296,8 @@ MonoBehaviour:
       value: 63594
     - key: Undo
       value: 63703
-    - key: Grid View
-      value: 59407
-    - key: Show Chart
-      value: 59416
-    - key: Cached
-      value: 59440
-    - key: Add Location
-      value: 59521
-    - key: Remove Location
-      value: 59522
-    - key: Add Circle
-      value: 61709
-    - key: Headphones
-      value: 62578
-    - key: Heart Outline
-      value: 62586
-    - key: Exclamation Point
-      value: 62624
-    - key: Flag Outline
-      value: 62476
-    - key: Globe
-      value: 62427
-    - key: Language
-      value: 62555
-    - key: Sticky Note
-      value: 62828
     - key: Book
       value: 63742
-    - key: Add Group
-      value: 62893
-    - key: Hierarchy
-      value: 62858
-    - key: Settings Sliders
-      value: 62856
-    - key: Add Note
-      value: 62831
-    - key: Pen Tip
-      value: 62632
-    - key: Pan
-      value: 59518
-    - key: Hand Left
-      value: 59519
-    - key: Write Mail
-      value: 59526
-    - key: Music
-      value: 59531
-    - key: Music Mute
-      value: 59532
-    - key: Circle
-      value: 59846
-    - key: Sound
-      value: 60227
-    - key: Add Tab
-      value: 60390
-    - key: Uniform Grid
-      value: 61731
-    - key: Mobile
-      value: 61733
-    - key: Reset
-      value: 61760
-    - key: Move
-      value: 61801
-    - key: Swap Vert
-      value: 61835
-    - key: Tab
-      value: 61877
-    - key: Layout Grid
-      value: 61923
-    - key: Vertical List
-      value: 61967
-    - key: Horizontal List
-      value: 61972
-    - key: Shopping Cart
-      value: 62059
-    - key: Messenger
-      value: 62087
-    - key: Time
-      value: 62174
-    - key: Alarm
-      value: 62178
-    - key: Open In New
-      value: 62194
-    - key: Color Palette
-      value: 62198
-    - key: Message
-      value: 62208
-    - key: Draft
-      value: 62229
-    - key: Exit
-      value: 62233
-    - key: User
-      value: 62240
-    - key: Line Chart
-      value: 62269
-    - key: Bar Chart
-      value: 62274
-    - key: Pie Chart
-      value: 62277
-    - key: Zoom
-      value: 62181
-    - key: Layout 2
-      value: 62326
-    - key: Doc
-      value: 62329
-    - key: Edit Doc
-      value: 62343
-    - key: Smiley
-      value: 62433
-    - key: My Location
-      value: 62815
-    - key: Newspaper
-      value: 62822
-    - key: Group
-      value: 62889
   iconFontAsset: {fileID: 11400000, guid: 9b0d0ee11ff70b04d901a29b519cbaa0, type: 2}
   optionalEditorMaterial: {fileID: 0}
   fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}

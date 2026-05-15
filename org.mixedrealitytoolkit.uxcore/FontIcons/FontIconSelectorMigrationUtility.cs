@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using MixedReality.Toolkit.Input;
 using MixedReality.Toolkit.UX;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -50,6 +49,8 @@ namespace MixedReality.Toolkit.Editor
 
             foreach (EditorBuildSettingsScene buildScene in EditorBuildSettings.scenes)
             {
+                if (!buildScene.enabled || string.IsNullOrEmpty(buildScene.path)) { continue; }
+
                 Scene scene = EditorSceneManager.OpenScene(buildScene.path, OpenSceneMode.Single);
                 bool sceneModified = false;
 

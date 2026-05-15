@@ -2,7 +2,6 @@
 // Licensed under the BSD 3-Clause
 
 using System.Collections.Generic;
-using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -99,6 +98,8 @@ namespace MixedReality.Toolkit.UX
                 return false;
             }
 
+            SortIcons();
+
             return true;
         }
 
@@ -124,9 +125,58 @@ namespace MixedReality.Toolkit.UX
         /// <returns><see langword="true"/> if it was able to find and update the name.</returns>
         public bool UpdateIconName(string oldName, string newName)
         {
-            return glyphIconsByName.TryGetValue(oldName, out uint unicodeValue) && glyphIconsByName.TryAdd(newName, unicodeValue) && glyphIconsByName.Remove(oldName);
+            if (glyphIconsByName.TryGetValue(oldName, out uint unicodeValue) && glyphIconsByName.TryAdd(newName, unicodeValue) && glyphIconsByName.Remove(oldName))
+            {
+                SortIcons();
+                return true;
+            }
+
+            if (!glyphIconsByName.ContainsKey(oldName))
+            {
+                Debug.LogWarning($"[{nameof(FontIconSet)}] Failed to rename icon '{oldName}'. The icon could not be found in '{this.name}'.", this);
+            }
+            else if (glyphIconsByName.ContainsKey(newName))
+            {
+                Debug.LogWarning($"[{nameof(FontIconSet)}] Failed to rename icon '{oldName}' to '{newName}'. An icon with the name '{newName}' already exists in '{this.name}'.", this);
+            }
+
+            return false;
         }
 
+        /// <summary>
+        /// Sorts the icons by their unicode value to ensure deterministic serialization.
+        /// </summary>
+        /// <returns><see langword="true"/> if the dictionary was modified, otherwise <see langword="false"/>.</returns>
+        public bool SortIcons()
+        {
+            bool isSorted = true;
+            uint previousValue = 0;
+            foreach (uint value in glyphIconsByName.Values)
+            {
+                if (value < previousValue)
+                {
+                    isSorted = false;
+                    break;
+                }
+                previousValue = value;
+            }
+
+            if (isSorted)
+            {
+                return false;
+            }
+
+            var sortedEntries = new List<KeyValuePair<string, uint>>(glyphIconsByName);
+            sortedEntries.Sort((a, b) => a.Value.CompareTo(b.Value));
+
+            glyphIconsByName.Clear();
+            foreach (KeyValuePair<string, uint> kv in sortedEntries)
+            {
+                glyphIconsByName.TryAdd(kv.Key, kv.Value);
+            }
+
+            return true;
+        }
         /// <summary>
         /// Converts a unicode string to a uint code (for use with TextMeshPro).
         /// </summary>

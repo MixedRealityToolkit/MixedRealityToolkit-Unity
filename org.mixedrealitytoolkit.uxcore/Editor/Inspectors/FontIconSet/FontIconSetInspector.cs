@@ -48,9 +48,17 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         private void OnEnable()
         {
-            FontIconSet fontIconSet = (FontIconSet)target;
             iconFontAssetProp = serializedObject.FindProperty("iconFontAsset");
             fontIconSetDefinitionProp = serializedObject.FindProperty("fontIconSetDefinition");
+
+            foreach (UnityEngine.Object targetObject in targets)
+            {
+                FontIconSet fontIconSet = targetObject as FontIconSet;
+                if (fontIconSet != null && fontIconSet.SortIcons())
+                {
+                    EditorUtility.SetDirty(fontIconSet);
+                }
+            }
 
             // Listen for undo/redo events to ensure our local iconEntries cache stays in sync
             Undo.undoRedoPerformed += UpdateIconEntries;
@@ -129,6 +137,7 @@ namespace MixedReality.Toolkit.Editor
                 {
                     serializedObject.ApplyModifiedProperties();
                     UpdateIconEntries();
+                    GUIUtility.ExitGUI();
                 }
 
                 if (iconFontAssetProp.objectReferenceValue == null)
@@ -198,6 +207,7 @@ namespace MixedReality.Toolkit.Editor
                                 if (setDefinition.IconNames != null && validNames.Count != setDefinition.IconNames.Count)
                                 {
                                     UpdateIconEntries();
+                                    GUIUtility.ExitGUI();
                                 }
                             }
 
@@ -269,10 +279,12 @@ namespace MixedReality.Toolkit.Editor
                             if (iconToRename != null)
                             {
                                 UpdateIconName(fontIconSet, iconToRemove, iconToRename);
+                                GUIUtility.ExitGUI();
                             }
                             else if (iconToRemove != null)
                             {
                                 RemoveIcon(fontIconSet, iconToRemove);
+                                GUIUtility.ExitGUI();
                             }
                         }
                         else
@@ -310,6 +322,7 @@ namespace MixedReality.Toolkit.Editor
         private void DrawFontGlyphsGrid(TMP_FontAsset fontAsset, FontIconSet fontIconSet, int maxButtonsPerColumn)
         {
             int column = 0;
+            bool iconAdded = false;
             EditorGUILayout.BeginHorizontal();
             for (int i = 0; i < fontAsset.characterTable.Count; i++)
             {
@@ -327,7 +340,7 @@ namespace MixedReality.Toolkit.Editor
                         GUILayout.MaxWidth(ButtonDimension)))
                     {
                         AddIcon(fontIconSet, fontAsset.characterTable[i].unicode);
-                        EditorUtility.SetDirty(target);
+                        iconAdded = true;
                     }
 
                     Rect textureRect = GUILayoutUtility.GetLastRect();
@@ -336,9 +349,19 @@ namespace MixedReality.Toolkit.Editor
                     EditorDrawTMPGlyph(textureRect, fontAsset, fontAsset.characterTable[i]);
                 }
 
+                if (iconAdded)
+                {
+                    break;
+                }
+
                 column++;
             }
             EditorGUILayout.EndHorizontal();
+
+            if (iconAdded)
+            {
+                GUIUtility.ExitGUI();
+            }
         }
 
         private bool AddIcon(FontIconSet fontIconSet, uint unicodeValue)
