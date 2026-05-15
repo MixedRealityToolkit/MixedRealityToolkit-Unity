@@ -14,82 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glyphIconsByName:
     entries:
-    - key: Icon 110
-      value: 62822
-    - key: Icon 108
-      value: 62815
-    - key: Icon 86
-      value: 62433
-    - key: Icon 83
-      value: 62343
-    - key: Icon 82
-      value: 62329
-    - key: Icon 81
-      value: 62326
-    - key: Icon 77
-      value: 62298
-    - key: Icon 75
-      value: 62277
-    - key: Icon 74
-      value: 62274
-    - key: Icon 73
-      value: 62269
-    - key: Icon 71
-      value: 62240
-    - key: Icon 70
-      value: 62233
-    - key: Icon 69
-      value: 62229
-    - key: Icon 68
-      value: 62208
-    - key: Icon 67
-      value: 62198
-    - key: Icon 66
-      value: 62194
-    - key: Icon 65
-      value: 62181
-    - key: Icon 64
-      value: 62178
-    - key: Icon 63
-      value: 62174
-    - key: Icon 56
-      value: 62087
-    - key: Icon 54
-      value: 62059
-    - key: Icon 51
-      value: 61972
-    - key: Icon 50
-      value: 61967
-    - key: Icon 48
-      value: 61923
-    - key: Icon 46
-      value: 61877
-    - key: Icon 43
-      value: 61835
-    - key: Icon 40
-      value: 61801
-    - key: Icon 37
-      value: 61760
-    - key: Icon 34
-      value: 61733
-    - key: Icon 33
-      value: 61731
-    - key: Icon 28
-      value: 60390
-    - key: Icon 26
-      value: 60227
-    - key: Icon 24
-      value: 59846
-    - key: Icon 23
-      value: 59532
-    - key: Icon 22
-      value: 59531
-    - key: Icon 19
-      value: 59526
-    - key: Icon 13
-      value: 59519
-    - key: Icon 12
-      value: 59518
     - key: Add Favorite
       value: 63252
     - key: Favorite
@@ -150,8 +74,6 @@ MonoBehaviour:
       value: 62785
     - key: Lightbulb
       value: 62679
-    - key: People
-      value: 62889
     - key: Visibility Off
       value: 59512
     - key: Movie
@@ -178,8 +100,6 @@ MonoBehaviour:
       value: 62807
     - key: Mail
       value: 62727
-    - key: Delete
-      value: 62285
     - key: Attach
       value: 61866
     - key: Chevron Up
@@ -248,8 +168,6 @@ MonoBehaviour:
       value: 62450
     - key: Photo
       value: 62601
-    - key: Dialpad
-      value: 62303
     - key: Close
       value: 62314
     - key: Cancel
@@ -294,10 +212,84 @@ MonoBehaviour:
       value: 61709
     - key: Book
       value: 63742
+    - key: Group
+      value: 62889
+    - key: Newspaper
+      value: 62822
+    - key: My Location
+      value: 62815
+    - key: Doc
+      value: 62329
+    - key: Zoom
+      value: 62181
+    - key: Move
+      value: 61801
+    - key: Mobile
+      value: 61733
     - key: Save As
       value: 59977
-    - key: Icon 62700
-      value: 62700
+    - key: Music
+      value: 59531
+    - key: Music Mute
+      value: 59532
+    - key: Circle
+      value: 59846
+    - key: Sound
+      value: 60227
+    - key: Vertical List
+      value: 61967
+    - key: Horizontal List
+      value: 61972
+    - key: Swap Vert
+      value: 61835
+    - key: Reset
+      value: 61760
+    - key: Add Tab
+      value: 60390
+    - key: Hand Right
+      value: 59519
+    - key: Write Mail
+      value: 59526
+    - key: Uniform Grid
+      value: 61731
+    - key: Layout Grid
+      value: 61923
+    - key: Tab
+      value: 61877
+    - key: Edit Doc
+      value: 62343
+    - key: Open In New
+      value: 62194
+    - key: Shopping Cart
+      value: 62059
+    - key: Messenger
+      value: 62087
+    - key: Message
+      value: 62208
+    - key: Color Palette
+      value: 62198
+    - key: Alarm
+      value: 62178
+    - key: Exit
+      value: 62233
+    - key: User
+      value: 62240
+    - key: Bar Chart
+      value: 62274
+    - key: Pie Chart
+      value: 62277
+    - key: Line Chart
+      value: 62269
+    - key: Layout 2
+      value: 62326
+    - key: Smiley
+      value: 62433
+    - key: Time
+      value: 62174
+    - key: Draft
+      value: 62229
+    - key: Pan
+      value: 59518
   iconFontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   optionalEditorMaterial: {fileID: 0}
   fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}

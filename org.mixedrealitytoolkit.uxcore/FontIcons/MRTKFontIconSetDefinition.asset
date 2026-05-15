@@ -18,7 +18,7 @@ MonoBehaviour:
   - Brightness
   - Airplane
   - Settings
-  - People
+  - Group
   - Pin
   - Bookmark
   - Stop Circle
@@ -127,3 +127,49 @@ MonoBehaviour:
   - Pushpin
   - Pen Tip
   - Flag Outline
+  - Keep
+  - Remove
+  - Sunny
+  - Report
+  - Graph 1
+  - Tune
+  - Mobile
+  - Newspaper
+  - No Sound
+  - Label
+  - Open In New
+  - Account Tree
+  - Doc
+  - My Location
+  - Write Mail
+  - Hand Left
+  - Hand Right
+  - Add Tab
+  - Sound
+  - Circle
+  - Tab
+  - Reset
+  - Music
+  - Music Mute
+  - Edit Doc
+  - Swap Vert
+  - Horizontal List
+  - Vertical List
+  - Layout Grid
+  - Uniform Grid
+  - Shopping Cart
+  - Messenger
+  - Message
+  - Alarm
+  - Color Palette
+  - Edit
+  - Draft
+  - User
+  - Bar Chart
+  - Pie Chart
+  - Line Chart
+  - Smiley
+  - Display
+  - Layout 2
+  - Time
+  - Exit
