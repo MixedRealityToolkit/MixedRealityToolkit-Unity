@@ -85,7 +85,6 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         private void OnValidate()
         {
-            TryMigrate();
             SetIcon(currentIconName);
         }
 

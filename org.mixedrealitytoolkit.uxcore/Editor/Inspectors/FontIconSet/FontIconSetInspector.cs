@@ -40,6 +40,7 @@ namespace MixedReality.Toolkit.Editor
         private List<KeyValuePair<uint, string>> iconEntries = new List<KeyValuePair<uint, string>>();
         private List<string> validNames = new List<string>();
         private List<string> availableNames = new List<string>();
+        private HashSet<uint> selectedUnicodeValues = new HashSet<uint>();
         private string[] availableNamesArray = Array.Empty<string>();
 
         /// <summary>
@@ -73,9 +74,12 @@ namespace MixedReality.Toolkit.Editor
                 iconEntries.Capacity = fontIconSet.GlyphIconsByName.Count;
             }
 
+            selectedUnicodeValues.Clear();
+
             foreach (KeyValuePair<string, uint> kv in fontIconSet.GlyphIconsByName)
             {
                 iconEntries.Add(new KeyValuePair<uint, string>(kv.Value, kv.Key));
+                selectedUnicodeValues.Add(kv.Value);
             }
             iconEntries.Sort((a, b) => a.Key.CompareTo(b.Key));
 
@@ -315,7 +319,7 @@ namespace MixedReality.Toolkit.Editor
                     EditorGUILayout.BeginHorizontal();
                 }
 
-                using (new EditorGUI.DisabledGroupScope(fontIconSet.GlyphIconsByName.ContainsValue(fontAsset.characterTable[i].unicode)))
+                using (new EditorGUI.DisabledGroupScope(selectedUnicodeValues.Contains(fontAsset.characterTable[i].unicode)))
                 {
                     if (GUILayout.Button(" ",
                         GUILayout.Height(ButtonDimension),

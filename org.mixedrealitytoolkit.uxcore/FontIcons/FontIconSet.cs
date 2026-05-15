@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -28,7 +29,7 @@ namespace MixedReality.Toolkit.UX
         /// <summary>
         /// A mapping between icon names and the unicode value of the glyph it describes.
         /// </summary>
-        public SerializableDictionary<string, uint> GlyphIconsByName => glyphIconsByName;
+        public IReadOnlyDictionary<string, uint> GlyphIconsByName => glyphIconsByName;
 
         [SerializeField]
         [Tooltip("Any TextMeshPro Font Asset that contains the desired icons as glyphs that map to Unicode character values.")]
@@ -66,6 +67,16 @@ namespace MixedReality.Toolkit.UX
         public bool TryGetGlyphIcon(string iconName, out uint unicodeValue)
         {
             return glyphIconsByName.TryGetValue(iconName, out unicodeValue);
+        }
+
+        /// <summary>
+        /// Checks if an icon with the specified unicode value exists in the set.
+        /// </summary>
+        /// <param name="unicodeValue">The unicode value to check.</param>
+        /// <returns><see langword="true"/> if the unicode value exists, otherwise <see langword="false"/>.</returns>
+        public bool ContainsIcon(uint unicodeValue)
+        {
+            return glyphIconsByName.ContainsValue(unicodeValue);
         }
 
         /// <summary>

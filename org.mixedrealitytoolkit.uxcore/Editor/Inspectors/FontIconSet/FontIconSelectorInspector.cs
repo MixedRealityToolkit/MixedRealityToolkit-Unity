@@ -32,6 +32,31 @@ namespace MixedReality.Toolkit.Editor
             fontIconsProp = serializedObject.FindProperty("fontIcons");
             currentIconNameProp = serializedObject.FindProperty("currentIconName");
             tmProProp = serializedObject.FindProperty("textMeshProComponent");
+
+            bool migratedAny = false;
+            foreach (Object targetObject in targets)
+            {
+                FontIconSelector selector = targetObject as FontIconSelector;
+                if (selector != null)
+                {
+                    Undo.RecordObject(selector, "Migrate Font Icon Selector");
+
+                    if (selector.TryMigrate())
+                    {
+                        EditorUtility.SetDirty(selector);
+                        if (PrefabUtility.IsPartOfPrefabInstance(selector))
+                        {
+                            PrefabUtility.RecordPrefabInstancePropertyModifications(selector);
+                        }
+                        migratedAny = true;
+                    }
+                }
+            }
+
+            if (migratedAny)
+            {
+                serializedObject.Update();
+            }
         }
 
         /// <summary>
