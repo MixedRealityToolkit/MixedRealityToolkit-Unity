@@ -102,6 +102,7 @@ namespace MixedReality.Toolkit.Editor
                     }
                 }
             }
+            availableNames.Sort();
             availableNamesArray = availableNames.ToArray();
 
             Repaint();
