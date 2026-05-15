@@ -14,38 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glyphIconsByName:
     entries:
-    - key: Icon 116
-      value: 62893
-    - key: Icon 114
-      value: 62858
-    - key: Icon 113
-      value: 62856
-    - key: Icon 112
-      value: 62831
-    - key: Icon 111
-      value: 62828
     - key: Icon 110
       value: 62822
     - key: Icon 108
       value: 62815
     - key: Icon 102
       value: 62700
-    - key: Icon 98
-      value: 62632
-    - key: Icon 96
-      value: 62624
-    - key: Icon 92
-      value: 62586
-    - key: Icon 91
-      value: 62578
-    - key: Icon 90
-      value: 62555
-    - key: Icon 88
-      value: 62476
     - key: Icon 86
       value: 62433
-    - key: Icon 84
-      value: 62427
     - key: Icon 83
       value: 62343
     - key: Icon 82
@@ -100,8 +76,6 @@ MonoBehaviour:
       value: 61733
     - key: Icon 33
       value: 61731
-    - key: Icon 30
-      value: 61709
     - key: Icon 28
       value: 60390
     - key: Icon 26
@@ -114,22 +88,10 @@ MonoBehaviour:
       value: 59531
     - key: Icon 19
       value: 59526
-    - key: Icon 15
-      value: 59522
-    - key: Icon 14
-      value: 59521
     - key: Icon 13
       value: 59519
     - key: Icon 12
       value: 59518
-    - key: Icon 2
-      value: 59416
-    - key: Icon 3
-      value: 59440
-    - key: Icon 1
-      value: 59407
-    - key: Icon 142
-      value: 63742
     - key: Brightness
       value: 59456
     - key: Calendar
@@ -298,6 +260,44 @@ MonoBehaviour:
       value: 63594
     - key: Undo
       value: 63703
+    - key: Grid View
+      value: 59407
+    - key: Show Chart
+      value: 59416
+    - key: Cached
+      value: 59440
+    - key: Add Location
+      value: 59521
+    - key: Remove Location
+      value: 59522
+    - key: Add Circle
+      value: 61709
+    - key: Headphones
+      value: 62578
+    - key: Heart Outline
+      value: 62586
+    - key: Exclamation Point
+      value: 62624
+    - key: Flag Outline
+      value: 62476
+    - key: Globe
+      value: 62427
+    - key: Language
+      value: 62555
+    - key: Sticky Note
+      value: 62828
+    - key: Book
+      value: 63742
+    - key: Add Group
+      value: 62893
+    - key: Hierarchy
+      value: 62858
+    - key: Settings Sliders
+      value: 62856
+    - key: Add Note
+      value: 62831
+    - key: Pen Tip
+      value: 62632
   iconFontAsset: {fileID: 11400000, guid: 9b0d0ee11ff70b04d901a29b519cbaa0, type: 2}
   optionalEditorMaterial: {fileID: 0}
   fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}

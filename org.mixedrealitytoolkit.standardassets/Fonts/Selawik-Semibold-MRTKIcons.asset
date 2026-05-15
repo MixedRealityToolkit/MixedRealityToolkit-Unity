@@ -14,36 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glyphIconsByName:
     entries:
-    - key: Icon 116
-      value: 62893
-    - key: Icon 114
-      value: 62858
-    - key: Icon 113
-      value: 62856
-    - key: Icon 112
-      value: 62831
-    - key: Icon 111
-      value: 62828
     - key: Icon 110
       value: 62822
     - key: Icon 108
       value: 62815
-    - key: Icon 98
-      value: 62632
-    - key: Icon 96
-      value: 62624
-    - key: Icon 92
-      value: 62586
-    - key: Icon 91
-      value: 62578
-    - key: Icon 90
-      value: 62555
-    - key: Icon 88
-      value: 62476
     - key: Icon 86
       value: 62433
-    - key: Icon 84
-      value: 62427
     - key: Icon 83
       value: 62343
     - key: Icon 82
@@ -98,8 +74,6 @@ MonoBehaviour:
       value: 61733
     - key: Icon 33
       value: 61731
-    - key: Icon 30
-      value: 61709
     - key: Icon 28
       value: 60390
     - key: Icon 26
@@ -112,22 +86,10 @@ MonoBehaviour:
       value: 59531
     - key: Icon 19
       value: 59526
-    - key: Icon 15
-      value: 59522
-    - key: Icon 14
-      value: 59521
     - key: Icon 13
       value: 59519
     - key: Icon 12
       value: 59518
-    - key: Icon 2
-      value: 59416
-    - key: Icon 3
-      value: 59440
-    - key: Icon 1
-      value: 59407
-    - key: Icon 142
-      value: 63742
     - key: Add Favorite
       value: 63252
     - key: Favorite
@@ -146,6 +108,8 @@ MonoBehaviour:
       value: 62982
     - key: Play Circle
       value: 62984
+    - key: Brightness
+      value: 59456
     - key: Unpin
       value: 62980
     - key: Pin
@@ -192,12 +156,16 @@ MonoBehaviour:
       value: 59512
     - key: Movie
       value: 62810
+    - key: Thumb Up
+      value: 63518
     - key: Location On
       value: 62713
     - key: Refresh
       value: 61758
     - key: Location Off
       value: 59523
+    - key: Thumb Down
+      value: 63520
     - key: Videocam
       value: 63565
     - key: Undo
@@ -288,16 +256,48 @@ MonoBehaviour:
       value: 62318
     - key: Cut
       value: 62267
-    - key: Icon 62700
-      value: 62700
-    - key: Thumb Down
-      value: 63518
-    - key: Thumb Up
-      value: 63520
-    - key: Brightness
-      value: 59456
+    - key: Add Group
+      value: 62893
+    - key: Language
+      value: 62555
+    - key: Globe
+      value: 62427
+    - key: Flag Outline
+      value: 62476
+    - key: Heart Outline
+      value: 62586
+    - key: Exclamation Point
+      value: 62624
+    - key: Settings Sliders
+      value: 62856
+    - key: Headphones
+      value: 62578
+    - key: Remove Location
+      value: 59522
+    - key: Add Location
+      value: 59521
+    - key: Cached
+      value: 59440
+    - key: Pen Tip
+      value: 62632
+    - key: Show Chart
+      value: 59416
+    - key: Grid View
+      value: 59407
+    - key: Hierarchy
+      value: 62858
+    - key: Add Note
+      value: 62831
+    - key: Sticky Note
+      value: 62828
+    - key: Add Circle
+      value: 61709
+    - key: Book
+      value: 63742
     - key: Save As
       value: 59977
+    - key: Icon 62700
+      value: 62700
   iconFontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   optionalEditorMaterial: {fileID: 0}
   fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}
