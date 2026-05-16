@@ -35,13 +35,13 @@ namespace MixedReality.Toolkit.Editor
 
         private SerializedProperty iconFontAssetProp = null;
         private SerializedProperty fontIconSetDefinitionProp = null;
-        private bool anyInvalidName = false;
 
         private List<KeyValuePair<uint, string>> iconEntries = new List<KeyValuePair<uint, string>>();
         private List<string> validNames = new List<string>();
         private List<string> availableNames = new List<string>();
         private HashSet<uint> selectedUnicodeValues = new HashSet<uint>();
         private string[] availableNamesArray = Array.Empty<string>();
+        private bool requiresUpdate = false;
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
@@ -61,13 +61,19 @@ namespace MixedReality.Toolkit.Editor
             }
 
             // Listen for undo/redo events to ensure our local iconEntries cache stays in sync
-            Undo.undoRedoPerformed += UpdateIconEntries;
+            Undo.undoRedoPerformed += OnUndoRedo;
             UpdateIconEntries();
         }
 
         private void OnDisable()
         {
-            Undo.undoRedoPerformed -= UpdateIconEntries;
+            Undo.undoRedoPerformed -= OnUndoRedo;
+        }
+
+        private void OnUndoRedo()
+        {
+            requiresUpdate = true;
+            Repaint();
         }
 
         private void UpdateIconEntries()
@@ -93,7 +99,6 @@ namespace MixedReality.Toolkit.Editor
 
             validNames.Clear();
             availableNames.Clear();
-            availableNames.Add(string.Empty);
 
             if (fontIconSetDefinitionProp != null)
             {
@@ -111,6 +116,7 @@ namespace MixedReality.Toolkit.Editor
                 }
             }
             availableNames.Sort();
+            availableNames.Insert(0, string.Empty);
             availableNamesArray = availableNames.ToArray();
 
             Repaint();
@@ -121,6 +127,12 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
+            if (requiresUpdate && Event.current.type == EventType.Layout)
+            {
+                UpdateIconEntries();
+                requiresUpdate = false;
+            }
+
             bool showGlyphIconFoldout = SessionState.GetBool(ShowGlyphIconsFoldoutKey, false);
             bool showAvailableIcons = SessionState.GetBool(AvailableIconsFoldoutKey, true);
             bool showSelectedIcons = SessionState.GetBool(SelectedIconsFoldoutKey, true);
@@ -187,7 +199,7 @@ namespace MixedReality.Toolkit.Editor
                     showSelectedIcons = EditorGUILayout.Foldout(showSelectedIcons, "Selected Icons", true);
                     if (showSelectedIcons)
                     {
-                        if (fontIconSet.GlyphIconsByName.Count > 0)
+                        if (iconEntries.Count > 0)
                         {
                             EditorGUILayout.HelpBox("These icons will appear in the button config helper inspector. Click an icon to remove it from this list.", MessageType.Info);
 
@@ -197,10 +209,19 @@ namespace MixedReality.Toolkit.Editor
                             }
                             else
                             {
-                                if (anyInvalidName)
+                                bool hasInvalidName = false;
+                                foreach (KeyValuePair<uint, string> entry in iconEntries)
+                                {
+                                    if (!validNames.Contains(entry.Value))
+                                    {
+                                        hasInvalidName = true;
+                                        break;
+                                    }
+                                }
+
+                                if (hasInvalidName)
                                 {
                                     EditorGUILayout.HelpBox("Icon names highlighted yellow are not present in the selected Font Icon Set Definition and should be updated.", MessageType.Warning);
-                                    anyInvalidName = false;
                                 }
 
                                 // Catch edge cases where the external asset size changes while this inspector is still focused
@@ -250,7 +271,6 @@ namespace MixedReality.Toolkit.Editor
                                         if (!validNames.Contains(iconEntry.Value))
                                         {
                                             GUI.backgroundColor = Color.yellow;
-                                            anyInvalidName = true;
                                         }
                                         int selected = EditorGUILayout.Popup(string.Empty, 0, availableNamesArray, GUILayout.MaxWidth(ButtonDimension));
                                         if (check.changed)

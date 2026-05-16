@@ -136,10 +136,22 @@ namespace MixedReality.Toolkit.Editor
                     GUILayout.Height(tileSize),
                     GUILayout.Width(tileSize)))
                 {
-                    Undo.RecordObjects(new Object[] { fontIconSelector, fontIconSelector.TextMeshProComponent }, "Changed icon");
+                    if (fontIconSelector.TextMeshProComponent != null)
+                    {
+                        Undo.RecordObjects(new Object[] { fontIconSelector, fontIconSelector.TextMeshProComponent }, "Changed icon");
+                    }
+                    else
+                    {
+                        Undo.RecordObject(fontIconSelector, "Changed icon");
+                    }
+
                     fontIconSelector.CurrentIconName = iconName;
+
                     PrefabUtility.RecordPrefabInstancePropertyModifications(fontIconSelector);
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(fontIconSelector.TextMeshProComponent);
+                    if (fontIconSelector.TextMeshProComponent != null)
+                    {
+                        PrefabUtility.RecordPrefabInstancePropertyModifications(fontIconSelector.TextMeshProComponent);
+                    }
                 }
 
                 Rect textureRect = GUILayoutUtility.GetLastRect();
