@@ -91,24 +91,18 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         private static bool ProcessSelector(FontIconSelector selector)
         {
-            SerializedObject so = new SerializedObject(selector);
-            SerializedProperty migratedProp = so.FindProperty("migratedSuccessfully");
+            Undo.RecordObject(selector, "Migrate Font Icon Selector");
 
-            if (migratedProp != null && !migratedProp.boolValue)
+            if (selector.TryMigrate())
             {
-                Undo.RecordObject(selector, "Migrate Font Icon Selector");
-
-                if (selector.TryMigrate())
+                // Ensure that changes to prefab instances in scenes are explicitly recorded as overrides.
+                if (PrefabUtility.IsPartOfPrefabInstance(selector))
                 {
-                    // Ensure that changes to prefab instances in scenes are explicitly recorded as overrides.
-                    if (PrefabUtility.IsPartOfPrefabInstance(selector))
-                    {
-                        PrefabUtility.RecordPrefabInstancePropertyModifications(selector);
-                    }
-
-                    EditorUtility.SetDirty(selector);
-                    return true;
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(selector);
                 }
+
+                EditorUtility.SetDirty(selector);
+                return true;
             }
 
             return false;

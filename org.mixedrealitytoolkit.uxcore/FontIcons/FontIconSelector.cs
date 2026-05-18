@@ -107,7 +107,7 @@ namespace MixedReality.Toolkit.UX
         /// <returns><see langword="true"/> if a migration was successfully performed or an empty icon state was resolved, otherwise <see langword="false"/>.</returns>
         public bool TryMigrate()
         {
-            if (migratedSuccessfully || fontIcons == null || fontIcons.FontIconSetDefinition == null)
+            if (fontIcons == null || fontIcons.FontIconSetDefinition == null)
             {
                 return false;
             }
@@ -123,6 +123,20 @@ namespace MixedReality.Toolkit.UX
             {
                 // If there's no icon text assigned, there's nothing to migrate.
                 if (textMeshProComponent != null)
+                {
+                    if (!migratedSuccessfully)
+                    {
+                        migratedSuccessfully = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // Check if the current icon name is already in sync with the text component's unicode value.
+            if (fontIcons.TryGetGlyphIcon(currentIconName, out uint expectedUnicode) && expectedUnicode == unicodeValue)
+            {
+                if (!migratedSuccessfully)
                 {
                     migratedSuccessfully = true;
                     return true;
