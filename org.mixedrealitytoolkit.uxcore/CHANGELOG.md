@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+
+* Added the ability to map different icon sets together to have matching names (prerequisite for theming work). [PR #1077](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1077)
+
 ### Changed
 
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
