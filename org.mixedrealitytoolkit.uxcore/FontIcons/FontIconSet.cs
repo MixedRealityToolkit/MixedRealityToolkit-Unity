@@ -65,6 +65,11 @@ namespace MixedReality.Toolkit.UX
         /// <returns><see langword="true"/> if icon name found, otherwise <see langword="false"/>.</returns>
         public bool TryGetGlyphIcon(string iconName, out uint unicodeValue)
         {
+            if (string.IsNullOrEmpty(iconName))
+            {
+                unicodeValue = 0;
+                return false;
+            }
             return glyphIconsByName.TryGetValue(iconName, out unicodeValue);
         }
 
@@ -110,6 +115,10 @@ namespace MixedReality.Toolkit.UX
         /// <returns>Whether it was able to find the name and remove it.</returns>
         public bool RemoveIcon(string iconName)
         {
+            if (string.IsNullOrEmpty(iconName))
+            {
+                return false;
+            }
             return glyphIconsByName.Remove(iconName);
         }
 
@@ -125,6 +134,11 @@ namespace MixedReality.Toolkit.UX
         /// <returns><see langword="true"/> if it was able to find and update the name.</returns>
         public bool UpdateIconName(string oldName, string newName)
         {
+            if (string.IsNullOrEmpty(oldName) || string.IsNullOrEmpty(newName))
+            {
+                return false;
+            }
+
             if (glyphIconsByName.TryGetValue(oldName, out uint unicodeValue) && glyphIconsByName.TryAdd(newName, unicodeValue) && glyphIconsByName.Remove(oldName))
             {
                 SortIcons();

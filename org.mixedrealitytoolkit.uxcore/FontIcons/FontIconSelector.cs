@@ -25,7 +25,7 @@ namespace MixedReality.Toolkit.UX
 
         [Tooltip("The currently selected icon's name, as defined by the FontIconSet.")]
         [SerializeField]
-        private string currentIconName;
+        private string currentIconName = string.Empty;
 
         /// <summary>
         /// The currently selected icon's name, as defined by the <see cref="FontIcons"/>.
