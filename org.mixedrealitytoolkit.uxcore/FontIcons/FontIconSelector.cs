@@ -1,7 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -25,7 +25,7 @@ namespace MixedReality.Toolkit.UX
 
         [Tooltip("The currently selected icon's name, as defined by the FontIconSet.")]
         [SerializeField]
-        private string currentIconName;
+        private string currentIconName = string.Empty;
 
         /// <summary>
         /// The currently selected icon's name, as defined by the <see cref="FontIcons"/>.
@@ -53,6 +53,21 @@ namespace MixedReality.Toolkit.UX
         public TMP_Text TextMeshProComponent => textMeshProComponent;
 
         /// <summary>
+        /// A temporary variable used to migrate instances of FontIconSelector to use new FontIconSetDefinition names.
+        /// </summary>
+        /// <remarks>TODO: Remove this after some time to ensure users have successfully migrated.</remarks>
+        [SerializeField, HideInInspector]
+        private bool migratedSuccessfully = false;
+
+        /// <summary>
+        /// A Unity event function that is called when the script component is added to a GameObject.
+        /// </summary>
+        private void Reset()
+        {
+            textMeshProComponent = GetComponent<TMP_Text>();
+        }
+
+        /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
         /// </summary>
         private void Awake()
@@ -61,6 +76,7 @@ namespace MixedReality.Toolkit.UX
             {
                 textMeshProComponent = GetComponent<TMP_Text>();
             }
+            TryMigrate();
             SetIcon(currentIconName);
         }
 
@@ -72,25 +88,88 @@ namespace MixedReality.Toolkit.UX
             SetIcon(currentIconName);
         }
 
-        [Tooltip("Any TextMeshPro Font Asset that contains the desired icons as glyphs that map to Unicode character values.")]
-        [SerializeField]
-        private TMP_FontAsset iconFontAsset = null;
-
         /// <summary>
-        /// A TextMeshPro Font Asset that contains the desired icons as glyphs that map to Unicode character values.
+        /// Looks up the Unicode value for the specified icon name and applies it to the text component.
         /// </summary>
-        public TMP_FontAsset IconFontAsset => iconFontAsset;
-
+        /// <param name="newIconName">The descriptive name of the icon to set.</param>
         private void SetIcon(string newIconName)
         {
-            if (fontIcons != null && textMeshProComponent != null)
+            if (fontIcons != null && textMeshProComponent != null && fontIcons.TryGetGlyphIcon(newIconName, out uint unicodeValue))
             {
-                if (fontIcons.TryGetGlyphIcon(newIconName, out uint unicodeValue))
+                currentIconName = newIconName;
+                textMeshProComponent.text = FontIconSet.ConvertUnicodeToHexString(unicodeValue);
+            }
+        }
+
+        /// <summary>
+        /// Attempts to migrate the icon selector to use descriptive names.
+        /// </summary>
+        /// <returns><see langword="true"/> if a migration was successfully performed or an empty icon state was resolved, otherwise <see langword="false"/>.</returns>
+        public bool TryMigrate()
+        {
+            if (fontIcons == null || fontIcons.FontIconSetDefinition == null)
+            {
+                return false;
+            }
+
+            uint unicodeValue = 0;
+
+            if (textMeshProComponent != null && !string.IsNullOrEmpty(textMeshProComponent.text))
+            {
+                unicodeValue = FontIconSet.ConvertHexStringToUnicode(textMeshProComponent.text);
+            }
+
+            if (unicodeValue == 0)
+            {
+                // If there's no icon text assigned, there's nothing to migrate.
+                if (textMeshProComponent != null)
                 {
-                    currentIconName = newIconName;
-                    textMeshProComponent.text = FontIconSet.ConvertUnicodeToHexString(unicodeValue);
+                    if (!migratedSuccessfully)
+                    {
+                        migratedSuccessfully = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // Check if the current icon name is already in sync with the text component's unicode value.
+            if (fontIcons.TryGetGlyphIcon(currentIconName, out uint expectedUnicode) && expectedUnicode == unicodeValue)
+            {
+                if (!migratedSuccessfully)
+                {
+                    migratedSuccessfully = true;
+                    return true;
+                }
+                return false;
+            }
+
+            bool foundMatch = false;
+
+            foreach (KeyValuePair<string, uint> kv in fontIcons.GlyphIconsByName)
+            {
+                if (kv.Value == unicodeValue)
+                {
+                    if (currentIconName != kv.Key)
+                    {
+                        Debug.Log($"[{nameof(FontIconSelector)}] Successfully migrated icon: \"{currentIconName}\" to \"{kv.Key}\"", this);
+
+                        // Update the backing field directly to avoid calling the property setter during initialization.
+                        currentIconName = kv.Key;
+                    }
+
+                    migratedSuccessfully = true;
+                    foundMatch = true;
+                    break;
                 }
             }
+
+            if (!foundMatch)
+            {
+                Debug.LogWarning($"[{nameof(FontIconSelector)}] Failed to migrate icon. Unicode value '{unicodeValue}' was not found in FontIconSet '{fontIcons.name}'.", this);
+            }
+
+            return foundMatch;
         }
     }
 }

@@ -1,7 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System.Text;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -28,10 +28,10 @@ namespace MixedReality.Toolkit.UX
         /// <summary>
         /// A mapping between icon names and the unicode value of the glyph it describes.
         /// </summary>
-        public SerializableDictionary<string, uint> GlyphIconsByName => glyphIconsByName;
+        public IReadOnlyDictionary<string, uint> GlyphIconsByName => glyphIconsByName;
 
-        [Tooltip("Any TextMeshPro Font Asset that contains the desired icons as glyphs that map to Unicode character values.")]
         [SerializeField]
+        [Tooltip("Any TextMeshPro Font Asset that contains the desired icons as glyphs that map to Unicode character values.")]
         private TMP_FontAsset iconFontAsset = null;
 
         /// <summary>
@@ -39,14 +39,23 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public TMP_FontAsset IconFontAsset => iconFontAsset;
 
-        [Tooltip("Optional material to use for rendering glyphs in editor.")]
         [SerializeField]
+        [Tooltip("Optional material to use for rendering glyphs in editor.")]
         private Material optionalEditorMaterial;
 
         /// <summary>
         /// Optional material to use for rendering glyphs in editor.
         /// </summary>
         public Material OptionalEditorMaterial => optionalEditorMaterial;
+
+        [SerializeField]
+        [Tooltip("Optional definition to provide consistent icon names.")]
+        private FontIconSetDefinition fontIconSetDefinition;
+
+        /// <summary>
+        /// Optional definition to provide consistent icon names.
+        /// </summary>
+        public FontIconSetDefinition FontIconSetDefinition => fontIconSetDefinition;
 
         /// <summary>
         /// Try to get a glyph icon's unicode value by name.
@@ -56,8 +65,22 @@ namespace MixedReality.Toolkit.UX
         /// <returns><see langword="true"/> if icon name found, otherwise <see langword="false"/>.</returns>
         public bool TryGetGlyphIcon(string iconName, out uint unicodeValue)
         {
-            unicodeValue = 0;
+            if (string.IsNullOrEmpty(iconName))
+            {
+                unicodeValue = 0;
+                return false;
+            }
             return glyphIconsByName.TryGetValue(iconName, out unicodeValue);
+        }
+
+        /// <summary>
+        /// Checks if an icon with the specified unicode value exists in the set.
+        /// </summary>
+        /// <param name="unicodeValue">The unicode value to check.</param>
+        /// <returns><see langword="true"/> if the unicode value exists, otherwise <see langword="false"/>.</returns>
+        public bool ContainsIcon(uint unicodeValue)
+        {
+            return glyphIconsByName.ContainsValue(unicodeValue);
         }
 
         /// <summary>
@@ -70,13 +93,19 @@ namespace MixedReality.Toolkit.UX
         {
             if (glyphIconsByName.ContainsValue(unicodeValue))
             {
+                Debug.LogWarning($"[{nameof(FontIconSet)}] Failed to add icon '{name}'. An icon with the unicode value '{unicodeValue}' already exists in '{this.name}'.", this);
                 return false;
             }
-            else
+
+            if (!glyphIconsByName.TryAdd(name, unicodeValue))
             {
-                glyphIconsByName[name] = unicodeValue;
-                return true;
+                Debug.LogWarning($"[{nameof(FontIconSet)}] Failed to add icon '{name}'. An icon with that name already exists in '{this.name}'.", this);
+                return false;
             }
+
+            SortIcons();
+
+            return true;
         }
 
         /// <summary>
@@ -86,15 +115,11 @@ namespace MixedReality.Toolkit.UX
         /// <returns>Whether it was able to find the name and remove it.</returns>
         public bool RemoveIcon(string iconName)
         {
-            if (glyphIconsByName.ContainsKey(iconName))
-            {
-                glyphIconsByName.Remove(iconName);
-                return true;
-            }
-            else
+            if (string.IsNullOrEmpty(iconName))
             {
                 return false;
             }
+            return glyphIconsByName.Remove(iconName);
         }
 
         /// <summary>
@@ -109,18 +134,63 @@ namespace MixedReality.Toolkit.UX
         /// <returns><see langword="true"/> if it was able to find and update the name.</returns>
         public bool UpdateIconName(string oldName, string newName)
         {
-            if (glyphIconsByName.ContainsKey(oldName) && !glyphIconsByName.ContainsKey(newName))
-            {
-                glyphIconsByName[newName] = glyphIconsByName[oldName];
-                glyphIconsByName.Remove(oldName);
-                return true;
-            }
-            else
+            if (string.IsNullOrEmpty(oldName) || string.IsNullOrEmpty(newName))
             {
                 return false;
             }
+
+            if (glyphIconsByName.TryGetValue(oldName, out uint unicodeValue) && glyphIconsByName.TryAdd(newName, unicodeValue) && glyphIconsByName.Remove(oldName))
+            {
+                SortIcons();
+                return true;
+            }
+
+            if (!glyphIconsByName.ContainsKey(oldName))
+            {
+                Debug.LogWarning($"[{nameof(FontIconSet)}] Failed to rename icon '{oldName}'. The icon could not be found in '{this.name}'.", this);
+            }
+            else if (glyphIconsByName.ContainsKey(newName))
+            {
+                Debug.LogWarning($"[{nameof(FontIconSet)}] Failed to rename icon '{oldName}' to '{newName}'. An icon with the name '{newName}' already exists in '{this.name}'.", this);
+            }
+
+            return false;
         }
 
+        /// <summary>
+        /// Sorts the icons by their unicode value to ensure deterministic serialization.
+        /// </summary>
+        /// <returns><see langword="true"/> if the dictionary was modified, otherwise <see langword="false"/>.</returns>
+        public bool SortIcons()
+        {
+            bool isSorted = true;
+            uint previousValue = 0;
+            foreach (uint value in glyphIconsByName.Values)
+            {
+                if (value < previousValue)
+                {
+                    isSorted = false;
+                    break;
+                }
+                previousValue = value;
+            }
+
+            if (isSorted)
+            {
+                return false;
+            }
+
+            var sortedEntries = new List<KeyValuePair<string, uint>>(glyphIconsByName);
+            sortedEntries.Sort((a, b) => a.Value.CompareTo(b.Value));
+
+            glyphIconsByName.Clear();
+            foreach (KeyValuePair<string, uint> kv in sortedEntries)
+            {
+                glyphIconsByName.TryAdd(kv.Key, kv.Value);
+            }
+
+            return true;
+        }
         /// <summary>
         /// Converts a unicode string to a uint code (for use with TextMeshPro).
         /// </summary>
@@ -128,36 +198,25 @@ namespace MixedReality.Toolkit.UX
         /// <returns>The binary unicode value.</returns>
         public static uint ConvertHexStringToUnicode(string charString)
         {
-            uint unicode = 0;
-
             if (string.IsNullOrEmpty(charString))
                 return 0;
 
-            for (int i = 0; i < charString.Length; i++)
-            {
-                unicode = charString[i];
-                // Handle surrogate pairs
-                if (i < charString.Length - 1 && char.IsHighSurrogate((char)unicode) && char.IsLowSurrogate(charString[i + 1]))
-                {
-                    unicode = (uint)char.ConvertToUtf32(charString[i], charString[i + 1]);
-                    i += 1;
-                }
-            }
-            return unicode;
+            // Retrieve the 32-bit unicode codepoint for the first character in the string,
+            // automatically handling surrogate pairs if the character is outside the BMP.
+            return (uint)char.ConvertToUtf32(charString, 0);
         }
 
         /// <summary>
         /// Converts a unicode value to a string.
         /// </summary>
         /// <remarks>
-        /// This is used to convert unicode values into a strings that can be applied to text fields.
+        /// This is used to convert unicode values into strings that can be applied to text fields.
         /// </remarks>
         /// <param name="unicode">Unicode value to be converted to a hexadecimal string representation.</param>
         /// <returns>The string version of the unicode value in the form of '\uFFFF', where FFFF is replaced with the associated hexadecimal value.</returns>
         public static string ConvertUnicodeToHexString(uint unicode)
         {
-            byte[] bytes = System.BitConverter.GetBytes(unicode);
-            return Encoding.Unicode.GetString(bytes);
+            return char.ConvertFromUtf32((int)unicode);
         }
     }
 }
