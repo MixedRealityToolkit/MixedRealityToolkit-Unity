@@ -196,7 +196,7 @@ namespace MixedReality.Toolkit.UX
         /// Converts a unicode value to a string.
         /// </summary>
         /// <remarks>
-        /// This is used to convert unicode values into a strings that can be applied to text fields.
+        /// This is used to convert unicode values into strings that can be applied to text fields.
         /// </remarks>
         /// <param name="unicode">Unicode value to be converted to a hexadecimal string representation.</param>
         /// <returns>The string version of the unicode value in the form of '\uFFFF', where FFFF is replaced with the associated hexadecimal value.</returns>

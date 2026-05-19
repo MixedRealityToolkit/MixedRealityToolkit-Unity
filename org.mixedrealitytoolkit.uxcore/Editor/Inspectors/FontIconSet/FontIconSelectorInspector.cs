@@ -12,16 +12,15 @@ namespace MixedReality.Toolkit.Editor
     [CanEditMultipleObjects]
     class FontIconSelectorInspector : UnityEditor.Editor
     {
-        private const string noFontIconsMessage = "No FontIconSet profile selected. No icons available.";
-        private const string emptyFontIconSetMessage = "The selected FontIconSet profile has no icons defined. Please edit the FontIconSet.";
+        private const string NoFontIconsMessage = "No FontIconSet profile selected. No icons available.";
+        private const string EmptyFontIconSetMessage = "The selected FontIconSet profile has no icons defined. Please edit the FontIconSet.";
 
         private SerializedProperty fontIconsProp = null;
         private SerializedProperty currentIconNameProp = null;
         private SerializedProperty tmProProp = null;
 
-        private GUIStyle currentButtonStyle;
+        private GUIStyle currentButtonStyle = null;
 
-        private bool initializedStyle = false;
         private float fontTileSize = 32;
 
         /// <summary>
@@ -66,11 +65,7 @@ namespace MixedReality.Toolkit.Editor
         {
             serializedObject.Update();
 
-            if (!initializedStyle)
-            {
-                currentButtonStyle = new GUIStyle(GUI.skin.button);
-                initializedStyle = true;
-            }
+            currentButtonStyle ??= new GUIStyle(GUI.skin.button);
 
             FontIconSelector fontIconSelector = (FontIconSelector)target;
             FontIconSet fontIconSet = fontIconSelector.FontIcons;
@@ -86,11 +81,11 @@ namespace MixedReality.Toolkit.Editor
 
             if (fontIconsProp.objectReferenceValue == null)
             {
-                EditorGUILayout.HelpBox(noFontIconsMessage, MessageType.Warning);
+                EditorGUILayout.HelpBox(NoFontIconsMessage, MessageType.Warning);
             }
             else if (!fontIconSet || fontIconSet.GlyphIconsByName.Count == 0)
             {
-                EditorGUILayout.HelpBox(emptyFontIconSetMessage, MessageType.Warning);
+                EditorGUILayout.HelpBox(EmptyFontIconSetMessage, MessageType.Warning);
             }
             else
             {
