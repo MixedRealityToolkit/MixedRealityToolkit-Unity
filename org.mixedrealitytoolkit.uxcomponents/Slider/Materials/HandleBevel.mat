@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: HandleBevel
   m_Shader: {fileID: 4800000, guid: 29b058829dc4dbf449bc59c038dfa631, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _DECAL_FRONT_ONLY__ON
@@ -20,6 +22,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -57,6 +60,7 @@ Material:
     - _Decal_Enable_: 0
     - _Decal_Front_Only_: 1
     - _DstBlend: 0
+    - _DstBlendAlpha: 1
     - _Edge_Only_: 0
     - _Edge_Power_: 0
     - _Edge_Reflect_: 1
@@ -80,6 +84,8 @@ Material:
     - _Line_Gradient_Blend_: 0
     - _Line_Width_: 1
     - _Mapped_Environment_Enabled_: 0
+    - _Occluded_Intensity_: 1
+    - _Orthographic_Distance_: 400
     - _Power_: 1
     - _Rate_: 0
     - _Reflected_: 1
@@ -87,8 +93,10 @@ Material:
     - _Sharpness_: 0
     - _Shininess_: 10
     - _Sky_Enabled_: 1
+    - _Smooth_Edges_: 0
     - _Specular_: 0
     - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
     - _StencilComparison: 0
     - _StencilOperation: 0
     - _StencilReference: 0
@@ -119,3 +127,4 @@ Material:
     - _Top_Left_: {r: 0.827044, g: 0.83262324, b: 1, a: 1}
     - _Top_Right_: {r: 0.3647059, g: 0.35686275, b: 0.83137256, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
