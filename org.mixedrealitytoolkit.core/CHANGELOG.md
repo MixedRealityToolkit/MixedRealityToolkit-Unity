@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
+* Updated code style in `HandsSubsystemDescriptor`, `MRTKSubsystemDescriptor`, `DictationSubsystemDescriptor`, and `XRSubsystemHelpers`. [PR #1109](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1109)
+
+### Fixed
+
+* Fixed "The type MixedReality.Toolkit.Core MixedReality.Toolkit.Experimental.BubbleChildHoverEvents/TrickleChildHoverEvents/BubbleChildSelectEvents/TrickleChildSelectEvents is being serialized by `[SerializeReference]`, but is missing the `[Serializable]` attribute." on Unity 6.3. [PR #1107](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1107)
+
+## Deprecated
+
+* Deprecated `AdjustTrackingOrigin` on `CameraSettings`. This functionality has been deprecated by the XR Origin component. This property has never had an effect in MRTK3 and will be removed in a future release. [PR #1110](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1110)
 
 ### Removed
 
@@ -68,7 +77,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
-* Fixed broken project validation help link, for item 'MRTK3 profile may need to be assigned for the Standalone build target' (Issue #882) [PR #886](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/886)
 * Fixed the "Is Interactable" convenience alias on StatefulInteractableEditor to allow multi-object editing in the Inspector to update all values. (Issue #573) [PR #943](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/943)
 * Augment SerializableDictionary to allow temporary duplicates in Editor to prevent serialization errors. [PR #961](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/961)
 * Fix an issue with the "Init Controllers" type lookup within InteractionModeManager.InitializeControllers() to find XRBaseControllers instead of XRControllers. [PR #961](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/961)
@@ -77,13 +85,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+* Fixed broken project validation help link, for item 'MRTK3 profile may need to be assigned for the Standalone build target' (Issue #882) [PR #886](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/886)
 * Fixed UPM package validation so that it ignores errors caused when the test runner is not part of the MRTK publisher account. [PR #775](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/775/)
 
 ## [3.2.1] - 2024-04-24
 
 ### Fixed
 
-* Fixed missing [CanEditMultipleObject] attributes as per Bug 573 [PR #698](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/698)
+* Fixed missing `[CanEditMultipleObject]` attributes as per Bug 573 [PR #698](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/698)
 
 ## [3.2.0] - 2024-03-20
 
@@ -92,7 +101,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * StabilizedRay constructor with explicit position and direction half life values. [PR #625](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/625)
 * Added IsProximityHovered property of type TimedFlag to detect when a button starts being hovered or on interactor proximity and when it stops being hovered or on proximity of any interactor. [PR #611](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/611)
 * Adding ProximityHover events (Entered & Exited) to PressableButton class. [PR #611](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/611)
-
 
 ### Fixed
 

@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
 
+### Fixed
+
+* Fixed "leaked managed shell" issue in `UGUIInputAdapter`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
+* Fixed "Attribute 'SerializeField' is not valid on this declaration type. It is only valid on 'field' declarations" error on `DialogButton` in Unity 6.3. [PR #1108](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1108)
+
 ## [4.0.0-pre.2] - 2025-12-05
 
 ### Changed
@@ -41,6 +46,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Added automatic update for the `See It Say It Label` when the `SpeechRecognitionKeyword` of a `StatefulInteractable` has changed. Added ability to change the pattern, from inspector or code. [PR #792](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/792)
 * When Unity Localization package is installed, a `LocalizedString` is used as pattern. [PR #792](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/792)
 * Added touch support for the NonNativeKeyboard. [PR #655](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/655)
+* Add debug log reference to "this" in ToggleCollection. [PR #929](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/929)
 
 ### Changed
 
