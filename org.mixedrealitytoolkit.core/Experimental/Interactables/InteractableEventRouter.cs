@@ -13,13 +13,13 @@ namespace MixedReality.Toolkit.Experimental
     /// A Unity component that is capable of routing child events to other child and parent target objects that contain
     /// a <see cref="IXRInteractableEventRouteTarget"/> component.
     /// </summary>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
     [AddComponentMenu("MRTK/Core/Interactable Event Router")]
     public class InteractableEventRouter : MonoBehaviour
@@ -31,11 +31,11 @@ namespace MixedReality.Toolkit.Experimental
         [SerializeReference]
         [InterfaceSelector(true)]
         [Experimental]
-        IXRInteractableEventRoute[] eventRoutes = null;
+        private IXRInteractableEventRoute[] eventRoutes = null;
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
-        /// </summary> 
+        /// </summary>
         protected virtual void OnEnable()
         {
             EnableEventRoutes();
@@ -143,7 +143,7 @@ namespace MixedReality.Toolkit.Experimental
         /// Register the currently known <see cref="IXRInteractableEventRouteTarget"/> components with the specified <paramref name="eventRoute"/>.
         /// </summary>
         /// <param name="eventRoute">
-        /// The known <see cref="IXRInteractableEventRouteTarget"/> components with be registered with this <see cref="IXRInteractableEventRoute"/> object. 
+        /// The known <see cref="IXRInteractableEventRouteTarget"/> components with be registered with this <see cref="IXRInteractableEventRoute"/> object.
         /// </param>
         private void ConnectEventRouteToKnownInteractables(IXRInteractableEventRoute eventRoute)
         {
@@ -181,7 +181,7 @@ namespace MixedReality.Toolkit.Experimental
         /// Unregister the currently known <see cref="IXRInteractableEventRouteTarget"/> components with the specified <paramref name="eventRoute"/>.
         /// </summary>
         /// <param name="eventRoute">
-        /// The known <see cref="IXRInteractableEventRouteTarget"/> components with be unregistered with this <see cref="IXRInteractableEventRoute"/> object. 
+        /// The known <see cref="IXRInteractableEventRouteTarget"/> components with be unregistered with this <see cref="IXRInteractableEventRoute"/> object.
         /// </param>
         private void DisconnectEventRouteFromKnownInteractables(IXRInteractableEventRoute eventRoute)
         {
@@ -210,7 +210,7 @@ namespace MixedReality.Toolkit.Experimental
         /// Add the given event route type if not in the current set of routes.
         /// </summary>
         /// <typeparam name="T">The class type of the <see cref="IXRInteractableEventRoute"/> to add.</typeparam>
-        public void AddEventRoute<T>() where T : IXRInteractableEventRoute, new() 
+        public void AddEventRoute<T>() where T : IXRInteractableEventRoute, new()
         {
             bool added = true;
             if (eventRoutes != null)
@@ -288,13 +288,13 @@ namespace MixedReality.Toolkit.Experimental
     /// <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.0/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractable.html">IXRInteractable</see>
     /// events from interactables to game objects that contain <see cref="IXRInteractableEventRouteTarget"/> components.
     /// </summary>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
     public interface IXRInteractableEventRoute
     {
@@ -307,7 +307,7 @@ namespace MixedReality.Toolkit.Experimental
         void OnEnabled(GameObject origin);
 
         /// <summary>
-        /// Starts listening to events from an unregistered 
+        /// Starts listening to events from an unregistered
         /// <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.0/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractable.html">IXRInteractable</see>.
         /// </summary>
         /// <param name="interactable">
@@ -316,7 +316,7 @@ namespace MixedReality.Toolkit.Experimental
         void Register(IXRInteractable interactable);
 
         /// <summary>
-        /// Stop listening to events from a registered 
+        /// Stop listening to events from a registered
         /// <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.0/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractable.html">IXRInteractable</see>.
         /// </summary>
         /// <param name="interactable">
@@ -331,14 +331,14 @@ namespace MixedReality.Toolkit.Experimental
     /// <remarks>
     /// The <see cref="InteractableEventRouter"/> class will search for classes that
     /// implement this interface.
-    /// 
-    /// 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    ///
+    ///
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
     public interface IXRInteractableEventRouteTarget
     {
@@ -348,13 +348,13 @@ namespace MixedReality.Toolkit.Experimental
     /// A specialized <see cref="IXRInteractableEventRouteTarget"/> that represents a parent of a Unity
     /// <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.0/api/UnityEngine.XR.Interaction.Toolkit.IXRHoverInteractable.html">IXRHoverInteractable</see>.
     /// </summary>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
     public interface IXRHoverInteractableParent : IXRInteractableEventRouteTarget
     {
@@ -381,13 +381,13 @@ namespace MixedReality.Toolkit.Experimental
     /// A specialized <see cref="IXRInteractableEventRouteTarget"/> that represents a child of a Unity
     /// <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.0/api/UnityEngine.XR.Interaction.Toolkit.IXRHoverInteractable.html">IXRHoverInteractable</see>.
     /// </summary>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
     public interface IXRHoverInteractableChild : IXRInteractableEventRouteTarget
     {
@@ -414,13 +414,13 @@ namespace MixedReality.Toolkit.Experimental
     /// A specialized <see cref="IXRInteractableEventRouteTarget"/> that represents a parent of a Unity
     /// <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.0/api/UnityEngine.XR.Interaction.Toolkit.IXRSelectInteractable.html">IXRSelectInteractable</see>.
     /// </summary>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
     public interface IXRSelectInteractableParent : IXRInteractableEventRouteTarget
     {
@@ -447,13 +447,13 @@ namespace MixedReality.Toolkit.Experimental
     /// A specialized <see cref="IXRInteractableEventRouteTarget"/> that represents a child of a Unity
     /// <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.0/api/UnityEngine.XR.Interaction.Toolkit.IXRSelectInteractable.html">IXRSelectInteractable</see>.
     /// </summary>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
     public interface IXRSelectInteractableChild : IXRInteractableEventRouteTarget
     {
@@ -488,13 +488,13 @@ namespace MixedReality.Toolkit.Experimental
     /// <typeparam name="T">
     /// The specialized type of <see cref="IXRInteractableEventRouteTarget"/> that will receive events originating from an interactable component.
     /// </typeparam>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
     public abstract class InteractableEventRoute<S, T> : IXRInteractableEventRoute
         where S : IXRInteractable
@@ -616,19 +616,19 @@ namespace MixedReality.Toolkit.Experimental
     /// A <see cref="InteractableEventRoute{S, T}"/> that targets child game objects the are parents of interactables.
     /// </summary>
     /// <typeparam name="S">
-    /// The specialized type of <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.0/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractable.html">IXRInteractable</see> 
+    /// The specialized type of <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit%402.0/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractable.html">IXRInteractable</see>
     /// that will be registered with this. Only events originating from this type will be handled.
     /// </typeparam>
     /// <typeparam name="T">
     /// The specialized type of <see cref="IXRInteractableEventRouteTarget"/> that will receive interactable events.
     /// </typeparam>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
     public abstract class InteractableParentEventRoute<S, T> : InteractableEventRoute<S, T>
         where S : IXRInteractable
@@ -660,13 +660,13 @@ namespace MixedReality.Toolkit.Experimental
     /// <typeparam name="T">
     /// The specialized type of <see cref="IXRInteractableEventRouteTarget"/> that will receive interactables events.
     /// </typeparam>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
     public abstract class InteractableChildrenEventRoute<S, T> : InteractableEventRoute<S, T>
         where S : IXRInteractable
@@ -691,14 +691,15 @@ namespace MixedReality.Toolkit.Experimental
     /// A <see cref="InteractableParentEventRoute{S, T}"/> that retransmits hover events from
     /// child game objects up the hierarchy, to the child game object's parents.
     /// </summary>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
+    [Serializable]
     public sealed class BubbleChildHoverEvents : InteractableParentEventRoute<IXRHoverInteractable, IXRHoverInteractableParent>
     {
         /// <inheritdoc/>
@@ -720,14 +721,15 @@ namespace MixedReality.Toolkit.Experimental
     /// A <see cref="InteractableParentEventRoute{S, T}"/> that retransmits hover events from
     /// child game objects down the hierarchy, to the child game object's children.
     /// </summary>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
+    [Serializable]
     public sealed class TrickleChildHoverEvents : InteractableChildrenEventRoute<IXRHoverInteractable, IXRHoverInteractableChild>
     {
         /// <inheritdoc/>
@@ -749,14 +751,15 @@ namespace MixedReality.Toolkit.Experimental
     /// A <see cref="InteractableParentEventRoute{S, T}"/> that retransmits select events from
     /// child game objects up the hierarchy, to the child game object's parents.
     /// </summary>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
+    [Serializable]
     public sealed class BubbleChildSelectEvents : InteractableParentEventRoute<IXRSelectInteractable, IXRSelectInteractableParent>
     {
         /// <inheritdoc/>
@@ -778,14 +781,15 @@ namespace MixedReality.Toolkit.Experimental
     /// A <see cref="InteractableParentEventRoute{S, T}"/> that retransmits select events from
     /// child game objects down the hierarchy, to the child game object's children.
     /// </summary>
-    /// <remarks> 
-    /// This is an experimental feature. This class is early in the cycle, it has 
-    /// been labeled as experimental to indicate that it is still evolving, and 
-    /// subject to change over time. Parts of the MRTK, such as this class, appear 
-    /// to have a lot of value even if the details haven't fully been fleshed out. 
-    /// For these types of features, we want the community to see them and get 
-    /// value out of them early enough so to provide feedback. 
+    /// <remarks>
+    /// This is an experimental feature. This class is early in the cycle, it has
+    /// been labeled as experimental to indicate that it is still evolving, and
+    /// subject to change over time. Parts of the MRTK, such as this class, appear
+    /// to have a lot of value even if the details haven't fully been fleshed out.
+    /// For these types of features, we want the community to see them and get
+    /// value out of them early enough so to provide feedback.
     /// </remarks>
+    [Serializable]
     public sealed class TrickleChildSelectEvents : InteractableChildrenEventRoute<IXRSelectInteractable, IXRSelectInteractableChild>
     {
         /// <inheritdoc/>

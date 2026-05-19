@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 
 * Fix issue where `HandPoseDriver` could get into a state where it temporarily polyfilled, but then was unable to, and then got stuck in a "tracked" state. [PR #1088](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1088)
+* Fixed "leaked managed shell" issue in `InteractionModeManager`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
+* Fixed `EyeCalibrationChecker` build issue on UWP when the Mixed Reality OpenXR Plugin wasn't installed. [PR #1106](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1106)
 
 ### Added
 
@@ -18,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Updated `InteractionDetector` to work across all `XRRayInteractor` and `NearFarInteractor` implementations, instead of just MRTK-specific `MRTKRayInteractor` implementations. [PR #1090](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1090)
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
+* Reserialized MRTK XR Rig prefab to remove stale serialized fields. [PR #1110](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1110)
 
 ### Deprecated
 
@@ -108,12 +111,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Added a project validation rule to ensure the Unity XR Hands subsystem is enabled in the OpenXR settings when the corresponding MRTK subsystem is enabled. [PR #973](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/973)
 * Added support for Unity's com.unity.cloud.gltfast and com.unity.cloud.ktx packages when loading controller models. [PR #631](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/631)
+* Added hand tracking permission for AndroidXR. [PR #982](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/982)
 * Added toggle for frame rate independent smoothing in camera simulation. [PR #1011](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1011)
 * Added implementation for the synthesized TriggerButton, accounting for animation smoothing. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
 * Added a "squeeze" alias for the grip states, to account for broader input action mapping support. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
 
 ### Changed
 
+* Updated hands subsystem names for clarity. [PR #995](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/995)
 * Remapped the synthetic hands config to read the float "select value" action instead of the bool "select" action, since it's read as a float. [PR #1043](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1043)
 * Updated tests to follow existing MRTK test patterns. [PR #1046](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1046)
 

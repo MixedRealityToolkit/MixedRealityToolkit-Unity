@@ -35,7 +35,7 @@ namespace %NAMESPACE%
         /// <summary>
         /// Constructs a <c>%SUBSYSTEMBASECLASSNAME%Descriptor</c> based on the given parameters.
         /// </summary>
-        /// <param name=cinfo>The parameters required to initialize the descriptor.</param>
+        /// <param name="cinfo">The parameters required to initialize the descriptor.</param>
         %SUBSYSTEMBASECLASSNAME%Descriptor(%SUBSYSTEMBASECLASSNAME%Cinfo cinfo) : base(cinfo)
         {
             // TODO: Initialize subsystem specific properties.
@@ -47,7 +47,7 @@ namespace %NAMESPACE%
         /// Creates a <c>%SUBSYSTEMBASECLASSNAME%Descriptor</c> based on the given parameters validating that the
         /// <c>id</c> and <c>implentationType</c> properties are specified.
         /// </summary>
-        /// <param name='cinfo'>The parameters required to initialize the descriptor.</param>
+        /// <param name="cinfo">The parameters required to initialize the descriptor.</param>
         /// <returns>
         /// The created <c>%SUBSYSTEMBASECLASSNAME%Descriptor</c>.
         /// </returns>

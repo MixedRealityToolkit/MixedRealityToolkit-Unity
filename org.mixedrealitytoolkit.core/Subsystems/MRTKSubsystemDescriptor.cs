@@ -88,15 +88,15 @@ namespace MixedReality.Toolkit.Subsystems
         /// <summary>
         /// Initializes a new instance of the <see cref="MRTKSubsystemDescriptor{T, U}"/> class.
         /// </summary>
-        /// <param name='MRTKSubsystemCinfo'>The parameters required to initialize the descriptor.</param>
-        public MRTKSubsystemDescriptor(MRTKSubsystemCinfo MRTKSubsystemCinfo)
+        /// <param name="subsystemCinfo">The parameters required to initialize the descriptor.</param>
+        public MRTKSubsystemDescriptor(MRTKSubsystemCinfo subsystemCinfo)
         {
-            Name = MRTKSubsystemCinfo.Name;
-            DisplayName = MRTKSubsystemCinfo.DisplayName;
-            Author = MRTKSubsystemCinfo.Author;
-            ConfigType = MRTKSubsystemCinfo.ConfigType;
-            ProviderType = MRTKSubsystemCinfo.ProviderType;
-            SubsystemTypeOverride = MRTKSubsystemCinfo.SubsystemTypeOverride;
+            Name = subsystemCinfo.Name;
+            DisplayName = subsystemCinfo.DisplayName;
+            Author = subsystemCinfo.Author;
+            ConfigType = subsystemCinfo.ConfigType;
+            ProviderType = subsystemCinfo.ProviderType;
+            SubsystemTypeOverride = subsystemCinfo.SubsystemTypeOverride;
         }
 
         #region IMRTKDescriptor implementation
