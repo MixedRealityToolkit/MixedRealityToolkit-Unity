@@ -43,6 +43,12 @@ namespace MixedReality.Toolkit.Editor
         private string[] availableNamesArray = Array.Empty<string>();
         private bool requiresUpdate = false;
 
+        // Deferred State Variables
+        private uint? pendingIconToAdd = null;
+        private string pendingIconToRemove = null;
+        private string pendingIconToRenameOld = null;
+        private string pendingIconToRenameNew = null;
+
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
         /// </summary>
@@ -127,10 +133,30 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
-            if (requiresUpdate && Event.current.type == EventType.Layout)
+            if (Event.current.type == EventType.Layout)
             {
-                UpdateIconEntries();
-                requiresUpdate = false;
+                if (pendingIconToAdd.HasValue)
+                {
+                    AddIcon((FontIconSet)target, pendingIconToAdd.Value);
+                    pendingIconToAdd = null;
+                }
+                if (pendingIconToRemove != null)
+                {
+                    RemoveIcon((FontIconSet)target, pendingIconToRemove);
+                    pendingIconToRemove = null;
+                }
+                if (pendingIconToRenameOld != null && pendingIconToRenameNew != null)
+                {
+                    UpdateIconName((FontIconSet)target, pendingIconToRenameOld, pendingIconToRenameNew);
+                    pendingIconToRenameOld = null;
+                    pendingIconToRenameNew = null;
+                }
+
+                if (requiresUpdate)
+                {
+                    UpdateIconEntries();
+                    requiresUpdate = false;
+                }
             }
 
             bool showGlyphIconFoldout = SessionState.GetBool(ShowGlyphIconsFoldoutKey, false);
@@ -148,8 +174,7 @@ namespace MixedReality.Toolkit.Editor
                 if (EditorGUI.EndChangeCheck())
                 {
                     serializedObject.ApplyModifiedProperties();
-                    UpdateIconEntries();
-                    GUIUtility.ExitGUI();
+                    requiresUpdate = true;
                 }
 
                 if (iconFontAssetProp.objectReferenceValue == null)
@@ -190,7 +215,7 @@ namespace MixedReality.Toolkit.Editor
                                 Selection.activeObject = fontAsset;
                             }
 
-                            DrawFontGlyphsGrid(fontAsset, fontIconSet, MaxButtonsPerColumn);
+                            DrawFontGlyphsGrid(fontAsset, MaxButtonsPerColumn);
                         }
 
                         EditorGUILayout.Space();
@@ -227,14 +252,11 @@ namespace MixedReality.Toolkit.Editor
                                 // Catch edge cases where the external asset size changes while this inspector is still focused
                                 if (setDefinition.IconNames != null && validNames.Count != setDefinition.IconNames.Count)
                                 {
-                                    UpdateIconEntries();
-                                    GUIUtility.ExitGUI();
+                                    requiresUpdate = true;
                                 }
                             }
 
                             int column = 0;
-                            string iconToRemove = null;
-                            string iconToRename = null;
                             EditorGUILayout.BeginHorizontal();
                             foreach (KeyValuePair<uint, string> iconEntry in iconEntries)
                             {
@@ -251,7 +273,7 @@ namespace MixedReality.Toolkit.Editor
                                     GUILayout.Height(ButtonDimension),
                                     GUILayout.MaxWidth(ButtonDimension)))
                                 {
-                                    iconToRemove = iconEntry.Value;
+                                    pendingIconToRemove = iconEntry.Value;
                                 }
 
                                 Rect textureRect = GUILayoutUtility.GetLastRect();
@@ -275,8 +297,8 @@ namespace MixedReality.Toolkit.Editor
                                         int selected = EditorGUILayout.Popup(string.Empty, 0, availableNamesArray, GUILayout.MaxWidth(ButtonDimension));
                                         if (check.changed)
                                         {
-                                            iconToRename = availableNamesArray[selected];
-                                            iconToRemove = iconEntry.Value;
+                                            pendingIconToRenameNew = availableNamesArray[selected];
+                                            pendingIconToRenameOld = iconEntry.Value;
                                         }
                                         GUI.backgroundColor = oldColor;
                                     }
@@ -286,8 +308,8 @@ namespace MixedReality.Toolkit.Editor
                                     string currentName = EditorGUILayout.TextField(iconEntry.Value);
                                     if (currentName != iconEntry.Value)
                                     {
-                                        iconToRename = currentName;
-                                        iconToRemove = iconEntry.Value;
+                                        pendingIconToRenameNew = currentName;
+                                        pendingIconToRenameOld = iconEntry.Value;
                                     }
                                 }
                                 EditorGUILayout.EndVertical();
@@ -295,17 +317,6 @@ namespace MixedReality.Toolkit.Editor
                                 column++;
                             }
                             EditorGUILayout.EndHorizontal();
-
-                            if (iconToRename != null)
-                            {
-                                UpdateIconName(fontIconSet, iconToRemove, iconToRename);
-                                GUIUtility.ExitGUI();
-                            }
-                            else if (iconToRemove != null)
-                            {
-                                RemoveIcon(fontIconSet, iconToRemove);
-                                GUIUtility.ExitGUI();
-                            }
                         }
                         else
                         {
@@ -330,7 +341,7 @@ namespace MixedReality.Toolkit.Editor
         [Obsolete("This method has been deprecated in version 4.0 and will be removed in a future version.")]
         public void DrawFontGlyphsGrid(FontIconSet fontIconSet, int maxButtonsPerColumn)
         {
-            DrawFontGlyphsGrid(fontIconSet.IconFontAsset, fontIconSet, maxButtonsPerColumn);
+            DrawFontGlyphsGrid(fontIconSet.IconFontAsset, maxButtonsPerColumn);
         }
 
         /// <summary>
@@ -339,10 +350,9 @@ namespace MixedReality.Toolkit.Editor
         /// <param name="fontAsset">The font asset containing the glyphs.</param>
         /// <param name="fontIconSet">The set of font glyphs to draw.</param>
         /// <param name="maxButtonsPerColumn">The number of buttons per column.</param>
-        private void DrawFontGlyphsGrid(TMP_FontAsset fontAsset, FontIconSet fontIconSet, int maxButtonsPerColumn)
+        private void DrawFontGlyphsGrid(TMP_FontAsset fontAsset, int maxButtonsPerColumn)
         {
             int column = 0;
-            bool iconAdded = false;
             EditorGUILayout.BeginHorizontal();
             for (int i = 0; i < fontAsset.characterTable.Count; i++)
             {
@@ -359,8 +369,7 @@ namespace MixedReality.Toolkit.Editor
                         GUILayout.Height(ButtonDimension),
                         GUILayout.MaxWidth(ButtonDimension)))
                     {
-                        AddIcon(fontIconSet, fontAsset.characterTable[i].unicode);
-                        iconAdded = true;
+                        pendingIconToAdd = fontAsset.characterTable[i].unicode;
                     }
 
                     Rect textureRect = GUILayoutUtility.GetLastRect();
@@ -369,19 +378,9 @@ namespace MixedReality.Toolkit.Editor
                     EditorDrawTMPGlyph(textureRect, fontAsset, fontAsset.characterTable[i]);
                 }
 
-                if (iconAdded)
-                {
-                    break;
-                }
-
                 column++;
             }
             EditorGUILayout.EndHorizontal();
-
-            if (iconAdded)
-            {
-                GUIUtility.ExitGUI();
-            }
         }
 
         private bool AddIcon(FontIconSet fontIconSet, uint unicodeValue)
