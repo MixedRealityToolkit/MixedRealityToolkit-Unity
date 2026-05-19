@@ -327,7 +327,7 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         /// <param name="fontIconSet">The set of font glyphs to draw.</param>
         /// <param name="maxButtonsPerColumn">The number of buttons per column.</param>
-        [Obsolete("This method has been removed.")]
+        [Obsolete("This method has been deprecated in version 4.0 and will be removed in a future version.")]
         public void DrawFontGlyphsGrid(FontIconSet fontIconSet, int maxButtonsPerColumn)
         {
             DrawFontGlyphsGrid(fontIconSet.IconFontAsset, fontIconSet, maxButtonsPerColumn);
