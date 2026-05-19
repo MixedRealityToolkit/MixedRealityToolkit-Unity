@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: KeyboardPreviewBackPlate
   m_Shader: {fileID: 4800000, guid: 29b058829dc4dbf449bc59c038dfa631, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _IRIDESCENCE_ENABLE_
   m_InvalidKeywords:
@@ -31,6 +33,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -157,6 +160,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DirectionalLight: 0
     - _DstBlend: 0
+    - _DstBlendAlpha: 1
     - _EdgeSmoothingMode: 0
     - _EdgeSmoothingValue: 0.0002
     - _Edge_Only_: 0
@@ -227,7 +231,9 @@ Material:
     - _NearLightFade: 0
     - _NearPlaneFade: 0
     - _NormalMapScale: 1
+    - _Occluded_Intensity_: 1
     - _OcclusionStrength: 1
+    - _Orthographic_Distance_: 400
     - _Parallax: 0.02
     - _Pinched_: 0
     - _Power_: 1
@@ -262,12 +268,14 @@ Material:
     - _Sharpness_: 0
     - _Shininess_: 10
     - _Sky_Enabled_: 1
+    - _Smooth_Edges_: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 0
     - _Specular_: 0
     - _SphericalHarmonics: 0
     - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
     - _Stencil: 0
     - _StencilComp: 0
     - _StencilComparison: 0
@@ -339,3 +347,4 @@ Material:
     - _Top_Left_: {r: 1, g: 0.690196, b: 0.976471, a: 1}
     - _Top_Right_: {r: 0, g: 0.33, b: 0.88, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
