@@ -9,6 +9,29 @@ using UnityEngine.Playables;
 namespace MixedReality.Toolkit.UX
 {
     /// <summary>
+    /// Exposes tint color mutation on a <see cref="TintEffect{T}"/> without requiring knowledge of its generic type.
+    /// Used by external systems (e.g. theming) to set colors at runtime.
+    /// </summary>
+    internal interface ITintEffect
+    {
+        /// <summary>
+        /// The tint color applied by this effect.
+        /// </summary>
+        Color TintColor { get; set; }
+
+        /// <summary>
+        /// Returns <see langword="true"/> if <paramref name="obj"/> is one of the tintable
+        /// objects owned by this effect.
+        /// </summary>
+        /// <remarks>
+        /// The check is performed inside <see cref="TintEffect{T}"/> against the original
+        /// typed <c>List&lt;T&gt;</c>, so Unity's overloaded <c>==</c> operator fires correctly
+        /// without any upcast that would reduce the comparison to managed-wrapper reference equality.
+        /// </remarks>
+        bool HasTintable(UnityEngine.Object obj);
+    }
+
+    /// <summary>
     /// An <see cref="IEffect" /> that wraps a Unity <see href="https://docs.unity3d.com/ScriptReference/Playables.PlayableBehaviour.html">PlayableBehaviour</see>
     /// component, and can tint arbitrary types of components.
     /// </summary>
@@ -19,7 +42,7 @@ namespace MixedReality.Toolkit.UX
     /// Subclass this class to create tinting behaviour for arbitrary Unity components.
     /// </remarks>
     [Serializable]
-    internal abstract class TintEffect<T> : PlayableEffect, ISerializationCallbackReceiver
+    internal abstract class TintEffect<T> : PlayableEffect, ITintEffect, ISerializationCallbackReceiver
     {
         /// <summary>
         /// A PlayableBehavior that controls the tint effect, based on the
@@ -194,6 +217,9 @@ namespace MixedReality.Toolkit.UX
             Multiply
         }
 
+        // Used internally to hint to the editor that this is a variable/float-based state.
+        // Kept in sync with the concrete subclass name via OnBeforeSerialize/OnAfterDeserialize
+        // so the reorderable-list header in the Inspector stays readable.
         [SerializeField]
         [HideInInspector]
 #pragma warning disable CS0414 // Inspector uses this as a helpful label in lists.
@@ -211,9 +237,37 @@ namespace MixedReality.Toolkit.UX
         [Tooltip("The objects to tint. All of them must share the same tint color; use separate TintEffects for different colors.")]
         private List<T> tintables;
 
+        /// <inheritdoc />
+        bool ITintEffect.HasTintable(UnityEngine.Object obj)
+        {
+            if (tintables == null || obj == null)
+            {
+                return false;
+            }
+
+            // Iterate against the original List<T> so that Unity's overloaded == operator
+            // is used for the comparison, rather than managed-wrapper reference equality.
+            foreach (T item in tintables)
+            {
+                if (item is UnityEngine.Object unityObj && unityObj == obj)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         [SerializeField]
         [Tooltip("Tint color.")]
         private Color color = Color.white;
+
+        /// <inheritdoc />
+        Color ITintEffect.TintColor
+        {
+            get => color;
+            set => color = value;
+        }
 
         [SerializeField]
         [Tooltip("Should the playable be played back as a one-shot triggered effect, or should the playback time be directly driven by the state's value?")]
