@@ -32,7 +32,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7216918420766221479}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -105,20 +104,23 @@ MonoBehaviour:
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -185,7 +187,6 @@ RectTransform:
   - {fileID: 6412008622008300943}
   - {fileID: 1520311476867378557}
   m_Father: {fileID: 6922469056340231698}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -245,7 +246,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4185972052008607586}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -369,7 +369,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6922469056340231698}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -442,20 +441,23 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -525,7 +527,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7216918420766221479}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -614,7 +615,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7216918420766221479}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -687,20 +687,23 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -743,6 +746,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3705378105823492738, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
@@ -830,10 +834,6 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3705378105823492765, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3705378105823492765, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
       objectReference: {fileID: 0}
@@ -910,11 +910,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: managedReferences[1393819269385945089]
+      propertyPath: 'managedReferences[1393819269385945089]'
       value: MixedReality.Toolkit.UXCore MixedReality.Toolkit.UX.GraphicTintEffect
       objectReference: {fileID: 0}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: managedReferences[1393819269385945090]
+      propertyPath: 'managedReferences[1393819269385945090]'
       value: MixedReality.Toolkit.UXCore MixedReality.Toolkit.UX.GraphicTintEffect
       objectReference: {fileID: 0}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
@@ -990,27 +990,27 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: managedReferences[1393819269385945089].tintables.Array.data[0]
+      propertyPath: 'managedReferences[1393819269385945089].tintables.Array.data[0]'
       value: 
       objectReference: {fileID: 2228947736508096533}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: managedReferences[1393819269385945089].tintables.Array.data[1]
+      propertyPath: 'managedReferences[1393819269385945089].tintables.Array.data[1]'
       value: 
       objectReference: {fileID: 8493469810320727241}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: managedReferences[1393819269385945089].tintables.Array.data[2]
+      propertyPath: 'managedReferences[1393819269385945089].tintables.Array.data[2]'
       value: 
       objectReference: {fileID: 8467006667157818416}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: managedReferences[1393819269385945089].tintables.Array.data[3]
+      propertyPath: 'managedReferences[1393819269385945089].tintables.Array.data[3]'
       value: 
       objectReference: {fileID: 1922220768106560367}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: managedReferences[1393819269385945089].tintables.Array.data[4]
+      propertyPath: 'managedReferences[1393819269385945089].tintables.Array.data[4]'
       value: 
       objectReference: {fileID: 5095746839500215027}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: managedReferences[1393819269385945090].tintables.Array.data[0]
+      propertyPath: 'managedReferences[1393819269385945090].tintables.Array.data[0]'
       value: 
       objectReference: {fileID: 8467006667157818416}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
@@ -1022,11 +1022,11 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: stateContainers.entries.Array.data[0].value.effects.Array.data[1]
+      propertyPath: 'stateContainers.entries.Array.data[0].value.effects.Array.data[1]'
       value: 1393819269385945089
       objectReference: {fileID: 0}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: stateContainers.entries.Array.data[4].value.effects.Array.data[1]
+      propertyPath: 'stateContainers.entries.Array.data[4].value.effects.Array.data[1]'
       value: 1393819269385945090
       objectReference: {fileID: 0}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
@@ -1102,30 +1102,45 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: stateContainers.entries.Array.data[0].value.effects.Array.data[1].tintables.Array.data[0]
+      propertyPath: 'stateContainers.entries.Array.data[0].value.effects.Array.data[1].tintables.Array.data[0]'
       value: 
       objectReference: {fileID: 2228947736508096533}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: stateContainers.entries.Array.data[0].value.effects.Array.data[1].tintables.Array.data[1]
+      propertyPath: 'stateContainers.entries.Array.data[0].value.effects.Array.data[1].tintables.Array.data[1]'
       value: 
       objectReference: {fileID: 8493469810320727241}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: stateContainers.entries.Array.data[0].value.effects.Array.data[1].tintables.Array.data[2]
+      propertyPath: 'stateContainers.entries.Array.data[0].value.effects.Array.data[1].tintables.Array.data[2]'
       value: 
       objectReference: {fileID: 8467006667157818416}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: stateContainers.entries.Array.data[0].value.effects.Array.data[1].tintables.Array.data[3]
+      propertyPath: 'stateContainers.entries.Array.data[0].value.effects.Array.data[1].tintables.Array.data[3]'
       value: 
       objectReference: {fileID: 1922220768106560367}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: stateContainers.entries.Array.data[0].value.effects.Array.data[1].tintables.Array.data[4]
+      propertyPath: 'stateContainers.entries.Array.data[0].value.effects.Array.data[1].tintables.Array.data[4]'
       value: 
       objectReference: {fileID: 5095746839500215027}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: stateContainers.entries.Array.data[4].value.effects.Array.data[1].tintables.Array.data[0]
+      propertyPath: 'stateContainers.entries.Array.data[4].value.effects.Array.data[1].tintables.Array.data[0]'
       value: 
       objectReference: {fileID: 8467006667157818416}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9026472854072389794, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4897024374970528438}
+    - targetCorrespondingSourceObject: {fileID: 2828958436599032274, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7216918420766221479}
+    - targetCorrespondingSourceObject: {fileID: 2828958436599032274, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5319578128471115350}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2828958436599032273, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3015392985318836008}
   m_SourcePrefab: {fileID: 100100000, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
 --- !u!114 &3229655124915905850 stripped
 MonoBehaviour:
