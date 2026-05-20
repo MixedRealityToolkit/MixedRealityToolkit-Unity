@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
 * Reserialized prefabs and animations to remove stale serialized fields. [PR #1115](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1115)
 * Updated the Action Button prefab to have a more descriptive icon name. [PR #1117](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1117)
+* Updated various prefabs to be themeable. [PR #1119](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1119)
 
 ## [4.0.0-pre.2] - 2025-12-05
 

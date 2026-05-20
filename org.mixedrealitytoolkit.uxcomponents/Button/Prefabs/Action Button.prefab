@@ -905,10 +905,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7746750332524202746, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
       propertyPath: 'managedReferences[1393819269385945089]'
       value: MixedReality.Toolkit.UXCore MixedReality.Toolkit.UX.GraphicTintEffect
@@ -1138,6 +1134,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5319578128471115350}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3705378105823492738, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7344942429739044722}
     - targetCorrespondingSourceObject: {fileID: 2828958436599032273, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3015392985318836008}
@@ -1153,11 +1152,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4185972052008607584 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9026472854072389792, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+  m_PrefabInstance: {fileID: 5139722473249402816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4185972052008607586 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9026472854072389794, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
   m_PrefabInstance: {fileID: 5139722473249402816}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4585478379361187306 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8714766618717182506, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+  m_PrefabInstance: {fileID: 5139722473249402816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376646494505211202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02df0dfd31465cf42bd60027ac90b874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6922469056340231697 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2828958436599032273, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
@@ -1194,6 +1215,88 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2828958436599032274, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
   m_PrefabInstance: {fileID: 5139722473249402816}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8376646494505211202 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3705378105823492738, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+  m_PrefabInstance: {fileID: 5139722473249402816}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7344942429739044722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376646494505211202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
+  binders:
+  - rid: 6006879866990887121
+  - rid: 6006879866990887122
+  - rid: 6006879866990887123
+  - rid: 6006879866990887124
+  - rid: 6006879866990887125
+  - rid: 6006879866990887126
+  - rid: 6006879866990887127
+  - rid: 6006879866990887129
+  - rid: 6006879866990887128
+  references:
+    version: 2
+    RefIds:
+    - rid: 6006879866990887121
+      type: {class: FontIconSetBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField:
+          <IconSelector>k__BackingField: {fileID: 7245587814888172855}
+          <TextMeshProComponent>k__BackingField: {fileID: 5095746839500215027}
+        <ThemeDefinitionItemName>k__BackingField: Icon Set
+    - rid: 6006879866990887122
+      type: {class: TMP_TextFontAssetBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 1922220768106560367}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 6006879866990887123
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 1922220768106560367}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 6006879866990887124
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 8493469810320727241}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 6006879866990887125
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 5095746839500215027}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 6006879866990887126
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 2228947736508096533}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 6006879866990887127
+      type: {class: GraphicMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 8467006667157818416}
+        <ThemeDefinitionItemName>k__BackingField: Tab Indicator Material
+    - rid: 6006879866990887128
+      type: {class: StateVisualizerEffectColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 4585478379361187306}
+        <ThemeDefinitionItemName>k__BackingField: Primary Color
+        stateName: Toggle
+        tintTarget: {fileID: 8467006667157818416}
+    - rid: 6006879866990887129
+      type: {class: StateVisualizerEffectColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 4585478379361187306}
+        <ThemeDefinitionItemName>k__BackingField: Primary Color
+        stateName: Toggle
+        tintTarget: {fileID: 4185972052008607584}
 --- !u!224 &8376646494505211229 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3705378105823492765, guid: b85e005d231192249b7077b40a4d4e45, type: 3}

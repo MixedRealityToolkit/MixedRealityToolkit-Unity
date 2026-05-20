@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6434074875067239604}
   - component: {fileID: 4920426125932797076}
   - component: {fileID: 1755546517986312659}
+  - component: {fileID: 1109057887825850324}
   m_Layer: 5
   m_Name: ToggleSwitch
   m_TagString: Untagged
@@ -152,6 +153,43 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1109057887825850324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345098608517470577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
+  binders:
+  - rid: 1538473376477610083
+  - rid: 7636826640568287486
+  - rid: 1538473382797639794
+  references:
+    version: 2
+    RefIds:
+    - rid: 1538473376477610083
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 269199439855791924}
+        <ThemeDefinitionItemName>k__BackingField: Surface Container Color
+    - rid: 1538473382797639794
+      type: {class: StateVisualizerEffectColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6434074875067239604}
+        <ThemeDefinitionItemName>k__BackingField: Primary Color
+        stateName: Toggle
+        tintTarget: {fileID: 269199439855791924}
+    - rid: 7636826640568287486
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 8388226346315569560}
+        <ThemeDefinitionItemName>k__BackingField: Primary Color
 --- !u!1 &7189414470030404245
 GameObject:
   m_ObjectHideFlags: 0
