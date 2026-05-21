@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Theming
 {
-    [Serializable]
-    public class ThemeDefinition
+    [CreateAssetMenu(fileName = "Theme Definition", menuName = "MRTK/Theming/Theme Definition", order = 1)]
+    public class ThemeDefinition : ScriptableObject
     {
         [field: SerializeField]
         [Tooltip("The items defining the theme that can be bound to this source.")]

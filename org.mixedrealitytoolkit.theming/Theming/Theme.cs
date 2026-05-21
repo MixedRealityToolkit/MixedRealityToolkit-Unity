@@ -15,12 +15,12 @@ namespace MixedReality.Toolkit.Theming
     {
         [SerializeField]
         [Tooltip("The schema that this theme conforms to. Every theme item must map to an item defined here.")]
-        private ThemeDataSource definition;
+        private ThemeDefinition definition;
 
         /// <summary>
         /// The schema that this theme conforms to. Every theme item must map to an item defined here.
         /// </summary>
-        public ThemeDataSource Definition => definition;
+        public ThemeDefinition Definition => definition;
 
         [SerializeReference]
         [Tooltip("The items defining this theme's data mapped to the definition's items.")]
@@ -39,7 +39,7 @@ namespace MixedReality.Toolkit.Theming
             {
                 foreach (var themeItem in themeItems)
                 {
-                    if (themeItem.Name == itemName && themeItem.Data is T themeItemData)
+                    if (themeItem != null && themeItem.Name == itemName && themeItem.Data is T themeItemData)
                     {
                         itemValue = themeItemData;
                         return true;

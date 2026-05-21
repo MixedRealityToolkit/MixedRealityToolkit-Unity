@@ -8,6 +8,18 @@ namespace MixedReality.Toolkit.Theming.Editor
     [CustomEditor(typeof(ThemeDataSource), true)]
     public class ThemeDataSourceEditor : UnityEditor.Editor
     {
+        private UnityEditor.Editor themeDefinitionEditor = null;
+        private static bool themeDefinitionFoldout = false;
+
+        protected void OnDisable()
+        {
+            if (themeDefinitionEditor != null)
+            {
+                DestroyImmediate(themeDefinitionEditor);
+                themeDefinitionEditor = null;
+            }
+        }
+
         /// <summary>
         /// Called by the Unity editor to render custom inspector UI for this component.
         /// </summary>
@@ -24,15 +36,26 @@ namespace MixedReality.Toolkit.Theming.Editor
 
                 EditorGUILayout.PropertyField(iterator, true);
 
+                if (iterator.name == "themeDefinition" && iterator.objectReferenceValue != null)
+                {
+                    UnityEditor.Editor.CreateCachedEditor(iterator.objectReferenceValue, null, ref themeDefinitionEditor);
+
+                    themeDefinitionFoldout = EditorGUILayout.Foldout(themeDefinitionFoldout, "Definition Details", true);
+                    if (themeDefinitionFoldout && themeDefinitionEditor != null)
+                    {
+                        using (new EditorGUI.IndentLevelScope())
+                        {
+                            themeDefinitionEditor.OnInspectorGUI();
+                        }
+                    }
+                }
+
                 if (iterator.name == "activeTheme" && iterator.objectReferenceValue is Theme theme)
                 {
-                    SerializedProperty definitionProp = serializedObject.FindProperty("themeDefinition");
-                    UnityEngine.Object activeDefinition = definitionProp?.objectReferenceValue;
-
-                    if (theme.Definition != activeDefinition)
+                    UnityEngine.Object activeDefinition = serializedObject.FindProperty("themeDefinition")?.objectReferenceValue;
+                    if (theme.Definition != null && theme.Definition != activeDefinition)
                     {
-                        EditorGUILayout.HelpBox($"Assigned theme's definition ({(theme.Definition != null ? theme.Definition.name : "null")}) does not match this data source's " +
-                            $"active definition ({(activeDefinition != null ? activeDefinition.name : "null")}).\nThis will lead to undefined behavior at runtime.", MessageType.Error);
+                        EditorGUILayout.HelpBox($"Assigned theme's definition ({theme.Definition.name}) does not match this data source's definition ({(activeDefinition != null ? activeDefinition.name : "null")}).\nThis will lead to undefined behavior at runtime.", MessageType.Error);
                     }
                 }
             }

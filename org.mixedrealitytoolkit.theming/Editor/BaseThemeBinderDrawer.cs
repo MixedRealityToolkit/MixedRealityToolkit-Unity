@@ -11,16 +11,12 @@ namespace MixedReality.Toolkit.Theming.Editor
     [CustomPropertyDrawer(typeof(BaseThemeBinder<,>), true)]
     public class BaseThemeBinderDrawer : PropertyDrawer
     {
-        // Cached SerializedObject for the ThemeDataSource asset.
-        // PropertyDrawer is instantiated per-type, not per-property, so multiple
-        // binders may reference different data source assets — we track the last seen
-        // asset and rebuild the cache only when it changes.
-        private SerializedObject cachedDataSourceSerializedObject = null;
-        private int cachedDataSourceInstanceID = 0;
+        private static string themeDefinitionItemNameField;
+        private static string ThemeDefinitionItemNameField => themeDefinitionItemNameField ??= InspectorUIUtility.GetBackingField("ThemeDefinitionItemName");
 
-        private static readonly string ThemeDefinitionItemNameField = InspectorUIUtility.GetBackingField("ThemeDefinitionItemName");
         private static readonly Dictionary<string, string> cachedLabels = new Dictionary<string, string>();
         private static readonly Dictionary<System.Type, System.Type> cachedValueTypes = new Dictionary<System.Type, System.Type>();
+        private static readonly List<string> reusableMatchingItemNames = new List<string>();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -39,22 +35,16 @@ namespace MixedReality.Toolkit.Theming.Editor
             string[] names = null;
             SerializedProperty themeDefinitionItemName = null;
 
-            if (property.managedReferenceValue != null && themeDataSourceProperty != null && themeDataSourceProperty.objectReferenceValue != null)
+            // Only pay the cost of parsing available items when the property is actively expanded
+            if (property.isExpanded && property.managedReferenceValue != null && themeDataSourceProperty != null && themeDataSourceProperty.objectReferenceValue != null)
             {
                 themeDefinitionItemName = property.FindPropertyRelative(ThemeDefinitionItemNameField);
 
-                // Rebuild the cached SerializedObject only when the referenced asset changes.
-                int instanceID = themeDataSourceProperty.objectReferenceValue.GetInstanceID();
-                if (instanceID != cachedDataSourceInstanceID)
+                ThemeDataSource dataSource = themeDataSourceProperty.objectReferenceValue as ThemeDataSource;
+                if (dataSource != null)
                 {
-                    cachedDataSourceSerializedObject?.Dispose();
-                    cachedDataSourceSerializedObject = new SerializedObject(themeDataSourceProperty.objectReferenceValue);
-                    cachedDataSourceInstanceID = instanceID;
+                    names = ParseThemeItems(dataSource.Definition, property.managedReferenceValue);
                 }
-                cachedDataSourceSerializedObject.Update();
-
-                SerializedProperty themeDefinitionProperty = cachedDataSourceSerializedObject.FindProperty("themeDefinition");
-                names = ParseThemeItems(themeDefinitionProperty.boxedValue as ThemeDefinition, property.managedReferenceValue);
             }
 
             label = EditorGUI.BeginProperty(position, label, property);
@@ -141,7 +131,7 @@ namespace MixedReality.Toolkit.Theming.Editor
                 return null;
             }
 
-            List<string> matchingItemNames = new();
+            reusableMatchingItemNames.Clear();
 
             foreach (ThemeDefinition.ThemeDefinitionItem item in themeDefinition.ThemeDefinitionItems)
             {
@@ -151,11 +141,11 @@ namespace MixedReality.Toolkit.Theming.Editor
                     && item.DataType.Type.BaseType.GenericTypeArguments.Length > 0
                     && item.DataType.Type.BaseType.GenericTypeArguments[0].IsAssignableFrom(valueType))
                 {
-                    matchingItemNames.Add(item.Name);
+                    reusableMatchingItemNames.Add(item.Name);
                 }
             }
 
-            return matchingItemNames.Count > 0 ? matchingItemNames.ToArray() : null;
+            return reusableMatchingItemNames.Count > 0 ? reusableMatchingItemNames.ToArray() : null;
         }
     }
 }

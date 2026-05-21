@@ -3,7 +3,6 @@
   "version": "1.0.0-development.pre.1",
   "description": "Core theming scripts for building MR UI components. Intended to be consumed when building UX libraries. For pre-existing library of components, see the UX Components package.",
   "displayName": "MRTK UX Theming",
-  "msftFeatureCategory": "MRTK3",
   "author": "Mixed Reality Toolkit Contributors",
   "license": "BSD 3-Clause",
   "repository": {

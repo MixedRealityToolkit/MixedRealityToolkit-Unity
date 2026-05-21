@@ -19,6 +19,8 @@ namespace MixedReality.Toolkit.Theming
         [SerializeField]
         private ThemeDefinition themeDefinition;
 
+        public ThemeDefinition Definition => themeDefinition;
+
         #region INotifyValueChanged<Theme>
 
         /// <inheritdoc/>
@@ -27,9 +29,9 @@ namespace MixedReality.Toolkit.Theming
             get => activeTheme;
             set
             {
-                if (value != null && value.Definition != null && value.Definition != this)
+                if (value != null && value.Definition != null && value.Definition != themeDefinition)
                 {
-                    Debug.LogError($"New theme's definition ({value.Definition.name}) does not match this data source ({name})");
+                    Debug.LogError($"New theme's definition ({value.Definition.name}) does not match this data source's definition ({(themeDefinition != null ? themeDefinition.name : "null")})");
                 }
 
                 using (ChangeEvent<Theme> changeEvent = ChangeEvent<Theme>.GetPooled(activeTheme, value))

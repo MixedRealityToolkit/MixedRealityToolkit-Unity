@@ -14,28 +14,20 @@ namespace MixedReality.Toolkit.Theming.Editor
         private SerializedProperty themeDefinitionProp = null;
         private SerializedProperty themeItemsProp = null;
 
-        private SerializedObject themeDefinitionSerializedObject = null;
-        private UnityEngine.Object cachedThemeDefinitionRef = null;
-
         private static bool itemsFoldout = false;
 
-        private static readonly string ThemeDefinitionItemsField = InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItems));
-        private static readonly string NameField = InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItem.Name));
-        private static readonly string DataTypeField = InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItem.DataType));
-        private static readonly string DataField = InspectorUIUtility.GetBackingField(nameof(Theme.ThemeItem.Data));
-        private static readonly string ValueField = InspectorUIUtility.GetBackingField(nameof(BaseThemeItemData<object>.Value));
+        private string nameField;
+        private string dataField;
+        private string valueField;
 
         protected void OnEnable()
         {
             themeDefinitionProp = serializedObject.FindProperty("definition");
             themeItemsProp = serializedObject.FindProperty("themeItems");
-        }
 
-        protected void OnDisable()
-        {
-            themeDefinitionSerializedObject?.Dispose();
-            themeDefinitionSerializedObject = null;
-            cachedThemeDefinitionRef = null;
+            nameField = InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItem.Name));
+            dataField = InspectorUIUtility.GetBackingField(nameof(Theme.ThemeItem.Data));
+            valueField = InspectorUIUtility.GetBackingField(nameof(BaseThemeItemData<object>.Value));
         }
 
         /// <summary>
@@ -45,31 +37,16 @@ namespace MixedReality.Toolkit.Theming.Editor
         {
             EditorGUILayout.PropertyField(themeDefinitionProp);
 
-            // Rebuild the cached SerializedObject if the referenced definition asset has changed.
-            if (themeDefinitionProp.objectReferenceValue != cachedThemeDefinitionRef)
-            {
-                themeDefinitionSerializedObject?.Dispose();
-                cachedThemeDefinitionRef = themeDefinitionProp.objectReferenceValue;
-                themeDefinitionSerializedObject = cachedThemeDefinitionRef != null
-                    ? new SerializedObject(cachedThemeDefinitionRef)
-                    : null;
-            }
-            themeDefinitionSerializedObject?.Update();
+            ThemeDefinition themeDefinition = themeDefinitionProp.objectReferenceValue as ThemeDefinition;
 
-            SerializedProperty themeDefinitionArrayProp = themeDefinitionSerializedObject != null
-                ? themeDefinitionSerializedObject
-                    .FindProperty("themeDefinition")
-                    .FindPropertyRelative(ThemeDefinitionItemsField)
-                : null;
-
-            if (themeDefinitionArrayProp != null && themeItemsProp != null)
+            if (themeDefinition != null && themeDefinition.ThemeDefinitionItems != null && themeItemsProp != null)
             {
                 itemsFoldout = EditorGUILayout.Foldout(itemsFoldout, "Theme Values", true);
                 if (itemsFoldout)
                 {
                     if (Event.current.type == EventType.Layout)
                     {
-                        ReconcileThemeItems(themeDefinitionArrayProp, themeItemsProp);
+                        ReconcileThemeItems(themeDefinition, themeItemsProp);
                     }
 
                     using (new EditorGUI.IndentLevelScope())
@@ -77,14 +54,14 @@ namespace MixedReality.Toolkit.Theming.Editor
                         for (int i = 0; i < themeItemsProp.arraySize; i++)
                         {
                             SerializedProperty themeItemProp = themeItemsProp.GetArrayElementAtIndex(i);
-                            SerializedProperty dataProp = themeItemProp.FindPropertyRelative(DataField);
-                            SerializedProperty valueProp = dataProp?.FindPropertyRelative(ValueField);
+                            SerializedProperty dataProp = themeItemProp.FindPropertyRelative(dataField);
+                            SerializedProperty valueProp = dataProp?.FindPropertyRelative(valueField);
 
                             if (valueProp != null)
                             {
                                 // Draw just the Value field, labelled with the item name,
                                 // skipping the intermediate "Data" foldout entirely.
-                                string themeItemName = themeItemProp.FindPropertyRelative(NameField).stringValue;
+                                string themeItemName = themeItemProp.FindPropertyRelative(nameField).stringValue;
                                 EditorGUILayout.PropertyField(valueProp, new GUIContent(themeItemName), true);
                             }
                             else
@@ -101,16 +78,17 @@ namespace MixedReality.Toolkit.Theming.Editor
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void ReconcileThemeItems(SerializedProperty themeDefinitionArrayProp, SerializedProperty themeItemsProp)
+        private void ReconcileThemeItems(ThemeDefinition themeDefinition, SerializedProperty themeItemsProp)
         {
-            for (int i = 0; i < themeDefinitionArrayProp.arraySize; i++)
+            var definitionItems = themeDefinition.ThemeDefinitionItems;
+            for (int i = 0; i < definitionItems.Length; i++)
             {
-                SerializedProperty themeDefinitionItem = themeDefinitionArrayProp.GetArrayElementAtIndex(i);
-                string themeDefinitionItemName = themeDefinitionItem.FindPropertyRelative(NameField).stringValue;
+                var definitionItem = definitionItems[i];
+                string themeDefinitionItemName = definitionItem.Name;
 
                 SerializedProperty themeItem = themeItemsProp.arraySize > i ? themeItemsProp.GetArrayElementAtIndex(i) : null;
                 if (themeItem == null
-                    || themeItem.FindPropertyRelative(NameField).stringValue != themeDefinitionItemName)
+                    || themeItem.FindPropertyRelative(nameField).stringValue != themeDefinitionItemName)
                 {
                     // Search for an existing item with the matching name further in the list,
                     // so we can move it into position rather than discarding its saved values.
@@ -118,7 +96,7 @@ namespace MixedReality.Toolkit.Theming.Editor
                     for (int j = i + 1; j < themeItemsProp.arraySize; j++)
                     {
                         string existingName = themeItemsProp.GetArrayElementAtIndex(j)
-                            .FindPropertyRelative(NameField)
+                            .FindPropertyRelative(nameField)
                             .stringValue;
                         if (existingName == themeDefinitionItemName)
                         {
@@ -135,18 +113,34 @@ namespace MixedReality.Toolkit.Theming.Editor
                     else
                     {
                         // No existing item found — insert a fresh one with default values.
-                        string valueDataType = themeDefinitionItem.FindPropertyRelative(DataTypeField).FindPropertyRelative("reference").stringValue;
 
                         themeItemsProp.InsertArrayElementAtIndex(i);
                         themeItem = themeItemsProp.GetArrayElementAtIndex(i);
 
-                        Type dataType = Type.GetType(valueDataType);
-                        object dataInstance = dataType != null ? Activator.CreateInstance(dataType) : null;
+                        Type dataType = definitionItem.DataType?.Type;
+                        object dataInstance = null;
+
+                        if (dataType != null)
+                        {
+                            try
+                            {
+                                dataInstance = Activator.CreateInstance(dataType);
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.LogWarning($"Failed to instantiate data for ThemeItem '{themeDefinitionItemName}' (Type: {dataType.Name}). Falling back to null. Exception: {e.Message}");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"Could not resolve DataType for ThemeItem '{themeDefinitionItemName}'. Falling back to null.");
+                        }
+
                         themeItem.managedReferenceValue = new Theme.ThemeItem(themeDefinitionItemName, dataInstance);
                     }
                 }
             }
-            themeItemsProp.arraySize = themeDefinitionArrayProp.arraySize;
+            themeItemsProp.arraySize = definitionItems.Length;
         }
     }
 }

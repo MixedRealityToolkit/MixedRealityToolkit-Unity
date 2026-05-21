@@ -8,7 +8,8 @@ The system has three layers:
 
 | Layer | Asset / Component | Purpose |
 |---|---|---|
-| **Schema** | `ThemeDataSource` + `ThemeDefinition` | Declares what named items exist and what type each one is |
+| **Schema** | `ThemeDefinition` (ScriptableObject) | Declares what named items exist and what type each one is |
+| **State** | `ThemeDataSource` (ScriptableObject) | The single source of truth for the currently active theme |
 | **Values** | `Theme` (ScriptableObject) | Provides a concrete value for every item in the definition |
 | **Binding** | `ThemeBinding` (MonoBehaviour) + binders | Connects a theme item to a specific component on a GameObject |
 
@@ -26,13 +27,13 @@ A `ThemeDataSource` ScriptableObject is the single source of truth for which the
 The `ThemeDataSource` holds:
 
 - **`activeTheme`** — the currently applied `Theme` asset.
-- **`themeDefinition`** — the schema that all compatible themes must conform to.
+- **`themeDefinition`** — the `ThemeDefinition` asset (schema) that all compatible themes must conform to.
 
 To switch themes at runtime, assign a new `Theme` to `themeDataSource.value`. Every `ThemeBinding` component subscribed to that source will immediately receive and apply the new values.
 
 ### Theme definition
 
-A `ThemeDefinition` is a list of named items, each with a declared data type. It acts as the contract between the `ThemeDataSource` and all `Theme` assets that reference it — every `Theme` must provide a value for every item in the definition.
+A `ThemeDefinition` ScriptableObject is a list of named items, each with a declared data type. It acts as the contract between the `ThemeDataSource` and all `Theme` assets that reference it — every `Theme` must provide a value for every item in the definition.
 
 Each item has:
 
@@ -45,7 +46,7 @@ Each item has:
 
 ## Theme
 
-A `Theme` ScriptableObject is assigned to a `ThemeDataSource` and provides a concrete value for every item declared in that source's `ThemeDefinition`.
+A `Theme` ScriptableObject is assigned to a `ThemeDataSource` and provides a concrete value for every item declared in its referenced `ThemeDefinition` schema.
 
 ![TextColorMapping](./Documentation~/Images/TextColorMapping.png)
 
