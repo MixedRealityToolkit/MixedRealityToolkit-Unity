@@ -19,6 +19,12 @@ namespace MixedReality.Toolkit.Theming.Editor
 
         private static bool itemsFoldout = false;
 
+        private static readonly string ThemeDefinitionItemsField = InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItems));
+        private static readonly string NameField = InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItem.Name));
+        private static readonly string DataTypeField = InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItem.DataType));
+        private static readonly string DataField = InspectorUIUtility.GetBackingField(nameof(Theme.ThemeItem.Data));
+        private static readonly string ValueField = InspectorUIUtility.GetBackingField(nameof(BaseThemeItemData<object>.Value));
+
         protected void OnEnable()
         {
             themeDefinitionProp = serializedObject.FindProperty("definition");
@@ -53,65 +59,33 @@ namespace MixedReality.Toolkit.Theming.Editor
             SerializedProperty themeDefinitionArrayProp = themeDefinitionSerializedObject != null
                 ? themeDefinitionSerializedObject
                     .FindProperty("themeDefinition")
-                    .FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItems)))
+                    .FindPropertyRelative(ThemeDefinitionItemsField)
                 : null;
 
-            if (themeDefinitionArrayProp != null)
+            if (themeDefinitionArrayProp != null && themeItemsProp != null)
             {
                 itemsFoldout = EditorGUILayout.Foldout(itemsFoldout, "Theme Values", true);
                 if (itemsFoldout)
                 {
+                    if (Event.current.type == EventType.Layout)
+                    {
+                        ReconcileThemeItems(themeDefinitionArrayProp, themeItemsProp);
+                    }
+
                     using (new EditorGUI.IndentLevelScope())
                     {
-                        for (int i = 0; i < themeDefinitionArrayProp.arraySize; i++)
+                        for (int i = 0; i < themeItemsProp.arraySize; i++)
                         {
-                            SerializedProperty themeDefinitionItem = themeDefinitionArrayProp.GetArrayElementAtIndex(i);
-                            string themeDefinitionItemName = themeDefinitionItem.FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItem.Name))).stringValue;
-
-                            SerializedProperty themeItem = themeItemsProp.arraySize > i ? themeItemsProp.GetArrayElementAtIndex(i) : null;
-                            if (themeItem == null
-                                || themeItem.FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(Theme.ThemeItem.Name))).stringValue != themeDefinitionItemName)
-                            {
-                                // Search for an existing item with the matching name further in the list,
-                                // so we can move it into position rather than discarding its saved values.
-                                int existingIndex = -1;
-                                for (int j = i + 1; j < themeItemsProp.arraySize; j++)
-                                {
-                                    string existingName = themeItemsProp.GetArrayElementAtIndex(j)
-                                        .FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(Theme.ThemeItem.Name)))
-                                        .stringValue;
-                                    if (existingName == themeDefinitionItemName)
-                                    {
-                                        existingIndex = j;
-                                        break;
-                                    }
-                                }
-
-                                if (existingIndex >= 0)
-                                {
-                                    // Move the found item up to position i, preserving its saved values.
-                                    themeItemsProp.MoveArrayElement(existingIndex, i);
-                                }
-                                else
-                                {
-                                    // No existing item found — insert a fresh one with default values.
-                                    string valueDataType = themeDefinitionItem.FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItem.DataType))).FindPropertyRelative("reference").stringValue;
-
-                                    themeItemsProp.InsertArrayElementAtIndex(i);
-                                    themeItem = themeItemsProp.GetArrayElementAtIndex(i);
-                                    themeItem.managedReferenceValue = new Theme.ThemeItem(themeDefinitionItemName, Activator.CreateInstance(Type.GetType(valueDataType)));
-                                }
-                            }
-
                             SerializedProperty themeItemProp = themeItemsProp.GetArrayElementAtIndex(i);
-                            SerializedProperty dataProp = themeItemProp.FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(Theme.ThemeItem.Data)));
-                            SerializedProperty valueProp = dataProp?.FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(BaseThemeItemData<object>.Value)));
+                            SerializedProperty dataProp = themeItemProp.FindPropertyRelative(DataField);
+                            SerializedProperty valueProp = dataProp?.FindPropertyRelative(ValueField);
 
                             if (valueProp != null)
                             {
                                 // Draw just the Value field, labelled with the item name,
                                 // skipping the intermediate "Data" foldout entirely.
-                                EditorGUILayout.PropertyField(valueProp, new GUIContent(themeDefinitionItemName), true);
+                                string themeItemName = themeItemProp.FindPropertyRelative(NameField).stringValue;
+                                EditorGUILayout.PropertyField(valueProp, new GUIContent(themeItemName), true);
                             }
                             else
                             {
@@ -122,10 +96,57 @@ namespace MixedReality.Toolkit.Theming.Editor
                         }
                     }
                 }
-                themeItemsProp.arraySize = themeDefinitionArrayProp.arraySize;
             }
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void ReconcileThemeItems(SerializedProperty themeDefinitionArrayProp, SerializedProperty themeItemsProp)
+        {
+            for (int i = 0; i < themeDefinitionArrayProp.arraySize; i++)
+            {
+                SerializedProperty themeDefinitionItem = themeDefinitionArrayProp.GetArrayElementAtIndex(i);
+                string themeDefinitionItemName = themeDefinitionItem.FindPropertyRelative(NameField).stringValue;
+
+                SerializedProperty themeItem = themeItemsProp.arraySize > i ? themeItemsProp.GetArrayElementAtIndex(i) : null;
+                if (themeItem == null
+                    || themeItem.FindPropertyRelative(NameField).stringValue != themeDefinitionItemName)
+                {
+                    // Search for an existing item with the matching name further in the list,
+                    // so we can move it into position rather than discarding its saved values.
+                    int existingIndex = -1;
+                    for (int j = i + 1; j < themeItemsProp.arraySize; j++)
+                    {
+                        string existingName = themeItemsProp.GetArrayElementAtIndex(j)
+                            .FindPropertyRelative(NameField)
+                            .stringValue;
+                        if (existingName == themeDefinitionItemName)
+                        {
+                            existingIndex = j;
+                            break;
+                        }
+                    }
+
+                    if (existingIndex >= 0)
+                    {
+                        // Move the found item up to position i, preserving its saved values.
+                        themeItemsProp.MoveArrayElement(existingIndex, i);
+                    }
+                    else
+                    {
+                        // No existing item found — insert a fresh one with default values.
+                        string valueDataType = themeDefinitionItem.FindPropertyRelative(DataTypeField).FindPropertyRelative("reference").stringValue;
+
+                        themeItemsProp.InsertArrayElementAtIndex(i);
+                        themeItem = themeItemsProp.GetArrayElementAtIndex(i);
+
+                        Type dataType = Type.GetType(valueDataType);
+                        object dataInstance = dataType != null ? Activator.CreateInstance(dataType) : null;
+                        themeItem.managedReferenceValue = new Theme.ThemeItem(themeDefinitionItemName, dataInstance);
+                    }
+                }
+            }
+            themeItemsProp.arraySize = themeDefinitionArrayProp.arraySize;
         }
     }
 }

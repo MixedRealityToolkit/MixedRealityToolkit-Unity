@@ -4,7 +4,6 @@
 using MixedReality.Toolkit.Editor;
 using MixedReality.Toolkit.UX;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,6 +19,11 @@ namespace MixedReality.Toolkit.Theming.Editor
         private bool editToggled = false;
         private List<bool> foldoutStates = new();
 
+        // Deferred State Variables
+        private FontIconSet pendingIconSet = null;
+        private string pendingIconToRenameOld = null;
+        private string pendingIconToRenameNew = null;
+
         public void OnEnable()
         {
             setDefinitionProperty = serializedObject.FindProperty("setDefinition");
@@ -33,6 +37,18 @@ namespace MixedReality.Toolkit.Theming.Editor
 
         public override void OnInspectorGUI()
         {
+            if (Event.current.type == EventType.Layout)
+            {
+                if (pendingIconSet != null && pendingIconToRenameOld != null && pendingIconToRenameNew != null)
+                {
+                    pendingIconSet.UpdateIconName(pendingIconToRenameOld, pendingIconToRenameNew);
+                    EditorUtility.SetDirty(pendingIconSet);
+                    pendingIconSet = null;
+                    pendingIconToRenameOld = null;
+                    pendingIconToRenameNew = null;
+                }
+            }
+
             EditorGUILayout.PropertyField(setDefinitionProperty);
             EditorGUILayout.PropertyField(fontIconSetsProperty);
             editToggled = EditorGUILayout.Toggle("Edit Names", editToggled);
@@ -41,7 +57,6 @@ namespace MixedReality.Toolkit.Theming.Editor
             FontIconSetDefinition setDefinition = setDefinitionProperty.objectReferenceValue as FontIconSetDefinition;
             const int TileSize = 90;
 
-            List<string> validNames = new List<string>();
             Dictionary<string, List<FontIconSet>> iconMatches = new Dictionary<string, List<FontIconSet>>();
 
             for (int i = 0; i < fontIconSetsProperty.arraySize; i++)
@@ -52,7 +67,7 @@ namespace MixedReality.Toolkit.Theming.Editor
                     continue;
                 }
 
-                List<KeyValuePair<string, uint>> glyphs = iconSet.GlyphIconsByName.ToList();
+                List<KeyValuePair<string, uint>> glyphs = new List<KeyValuePair<string, uint>>(iconSet.GlyphIconsByName);
 
                 int column = 0;
 
@@ -67,6 +82,13 @@ namespace MixedReality.Toolkit.Theming.Editor
 
                     if (foldoutStates[i] = EditorGUILayout.Foldout(foldoutStates[i], iconSet.name, true))
                     {
+                        string[] availableNamesArray = null;
+                        if (setDefinition != null && setDefinition.IconNames != null)
+                        {
+                            availableNamesArray = FontIconSetInspector.GetAvailableIconNames(iconSet, setDefinition);
+                            FontIconSetInspector.DrawInvalidIconNameHelpBox(iconSet, setDefinition);
+                        }
+
                         EditorGUILayout.BeginHorizontal();
                         foreach (KeyValuePair<string, uint> kv in glyphs)
                         {
@@ -83,38 +105,11 @@ namespace MixedReality.Toolkit.Theming.Editor
                             EditorGUI.DrawRect(textureRect, new Color(0f, 0f, 0f, 0.1f));
                             FontIconSetInspector.EditorDrawTMPGlyph(textureRect, kv.Value, iconSet.IconFontAsset);
 
-                            if (setDefinition != null && setDefinition.IconNames != null)
+                            if (availableNamesArray != null && FontIconSetInspector.DrawIconNamePopup(kv.Key, availableNamesArray, setDefinition.IconNames, TileSize, out string newName))
                             {
-                                validNames.Clear();
-                                validNames.Add(kv.Key);
-                                foreach (string name in setDefinition.IconNames)
-                                {
-                                    if (!iconSet.GlyphIconsByName.Keys.Contains(name))
-                                    {
-                                        validNames.Add(name);
-                                    }
-                                }
-
-                                validNames.Sort();
-                                string[] validNamesArray = validNames.ToArray();
-
-                                using (var check = new EditorGUI.ChangeCheckScope())
-                                {
-                                    int selected = validNames.IndexOf(kv.Key);
-                                    // If the currently selected name isn't in our icon set map names, highlight the popup
-                                    Color oldColor = GUI.backgroundColor;
-                                    if (!validNames.Contains(kv.Key))
-                                    {
-                                        GUI.backgroundColor = Color.yellow;
-                                    }
-                                    selected = EditorGUILayout.Popup(string.Empty, selected, validNamesArray, GUILayout.MaxWidth(TileSize));
-                                    if (check.changed)
-                                    {
-                                        iconSet.UpdateIconName(kv.Key, validNamesArray[selected]);
-                                        EditorUtility.SetDirty(iconSet);
-                                    }
-                                    GUI.backgroundColor = oldColor;
-                                }
+                                pendingIconSet = iconSet;
+                                pendingIconToRenameOld = kv.Key;
+                                pendingIconToRenameNew = newName;
                             }
 
                             EditorGUILayout.EndVertical();
@@ -127,7 +122,6 @@ namespace MixedReality.Toolkit.Theming.Editor
                 }
                 else
                 {
-                    glyphs.Sort((pair1, pair2) => pair1.Key.CompareTo(pair2.Key));
                     foreach (KeyValuePair<string, uint> kv in glyphs)
                     {
                         if (iconMatches.TryGetValue(kv.Key, out List<FontIconSet> icons))
@@ -144,13 +138,19 @@ namespace MixedReality.Toolkit.Theming.Editor
 
             if (!editToggled)
             {
-                foreach (KeyValuePair<string, List<FontIconSet>> kv in iconMatches)
+                // Sort the matched keys so the icons display in a predictable alphabetical order.
+                List<string> sortedKeys = new List<string>(iconMatches.Keys);
+                sortedKeys.Sort();
+
+                foreach (string key in sortedKeys)
                 {
+                    List<FontIconSet> icons = iconMatches[key];
+
                     if (setDefinition != null && setDefinition.IconNames != null)
                     {
                         EditorGUILayout.BeginVertical();
 
-                        EditorGUILayout.LabelField(kv.Key, EditorStyles.boldLabel);
+                        EditorGUILayout.LabelField(key, EditorStyles.boldLabel);
 
                         EditorGUILayout.BeginHorizontal();
 
@@ -160,9 +160,9 @@ namespace MixedReality.Toolkit.Theming.Editor
                             Rect iconRect = GUILayoutUtility.GetRect(TileSize, TileSize, GUI.skin.box);
                             EditorGUI.DrawRect(iconRect, new Color(0f, 0f, 0f, 0.1f));
 
-                            if (kv.Value.Contains(iconSet))
+                            if (icons.Contains(iconSet))
                             {
-                                FontIconSetInspector.EditorDrawTMPGlyph(iconRect, iconSet.GlyphIconsByName[kv.Key], iconSet.IconFontAsset);
+                                FontIconSetInspector.EditorDrawTMPGlyph(iconRect, iconSet.GlyphIconsByName[key], iconSet.IconFontAsset);
                             }
                         }
 

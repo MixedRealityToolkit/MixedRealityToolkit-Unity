@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MixedReality.Toolkit.Theming
 {
@@ -14,7 +13,8 @@ namespace MixedReality.Toolkit.Theming
     [CreateAssetMenu(fileName = "Theme", menuName = "MRTK/Theming/Theme", order = 0)]
     public class Theme : ScriptableObject
     {
-        [SerializeField, FormerlySerializedAs("<ThemeDefinition>k__BackingField")]
+        [SerializeField]
+        [Tooltip("The schema that this theme conforms to. Every theme item must map to an item defined here.")]
         private ThemeDataSource definition;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace MixedReality.Toolkit.Theming
 
         [SerializeReference]
         [Tooltip("The items defining this theme's data mapped to the definition's items.")]
-        private List<ThemeItem> themeItems;
+        private List<ThemeItem> themeItems = new List<ThemeItem>();
 
         /// <summary>
         /// Attempts to retrieve the data for a specific theme item by its name and expected type.
@@ -35,12 +35,15 @@ namespace MixedReality.Toolkit.Theming
         /// <returns><see langword="true"/> if an item with the specified name and type is found; otherwise, <see langword="false"/>.</returns>
         public bool TryGetItemData<T>(string itemName, out T itemValue)
         {
-            foreach (var themeItem in themeItems)
+            if (themeItems != null)
             {
-                if (themeItem.Name == itemName && themeItem.Data is T themeItemData)
+                foreach (var themeItem in themeItems)
                 {
-                    itemValue = themeItemData;
-                    return true;
+                    if (themeItem.Name == itemName && themeItem.Data is T themeItemData)
+                    {
+                        itemValue = themeItemData;
+                        return true;
+                    }
                 }
             }
 

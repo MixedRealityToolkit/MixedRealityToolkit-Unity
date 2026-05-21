@@ -24,9 +24,16 @@ namespace MixedReality.Toolkit.Theming.Editor
 
                 EditorGUILayout.PropertyField(iterator, true);
 
-                if (iterator.name == "activeTheme" && iterator.boxedValue is Theme theme && theme.Definition != serializedObject.targetObject)
+                if (iterator.name == "activeTheme" && iterator.objectReferenceValue is Theme theme)
                 {
-                    EditorGUILayout.HelpBox($"Assigned theme's definition ({theme.Definition.name}) does not match this data source's active definition ({serializedObject.targetObject.name}).\nThis will lead to undefined behavior at runtime.", MessageType.Error);
+                    SerializedProperty definitionProp = serializedObject.FindProperty("themeDefinition");
+                    UnityEngine.Object activeDefinition = definitionProp?.objectReferenceValue;
+
+                    if (theme.Definition != activeDefinition)
+                    {
+                        EditorGUILayout.HelpBox($"Assigned theme's definition ({(theme.Definition != null ? theme.Definition.name : "null")}) does not match this data source's " +
+                            $"active definition ({(activeDefinition != null ? activeDefinition.name : "null")}).\nThis will lead to undefined behavior at runtime.", MessageType.Error);
+                    }
                 }
             }
 

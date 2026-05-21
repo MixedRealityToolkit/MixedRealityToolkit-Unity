@@ -18,18 +18,30 @@ namespace MixedReality.Toolkit.Theming.Editor
         private SerializedObject cachedDataSourceSerializedObject = null;
         private int cachedDataSourceInstanceID = 0;
 
+        private static readonly string ThemeDefinitionItemNameField = InspectorUIUtility.GetBackingField("ThemeDefinitionItemName");
+        private static readonly Dictionary<string, string> cachedLabels = new Dictionary<string, string>();
+        private static readonly Dictionary<System.Type, System.Type> cachedValueTypes = new Dictionary<System.Type, System.Type>();
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            label.text = label.text.Replace("Element", "Binder");
+            if (label.text.StartsWith("Element"))
+            {
+                if (!cachedLabels.TryGetValue(label.text, out string cachedLabel))
+                {
+                    cachedLabel = label.text.Replace("Element", "Binder");
+                    cachedLabels[label.text] = cachedLabel;
+                }
+                label.text = cachedLabel;
+            }
 
-            SerializedProperty themeDataSourceProperty = FindThemeDataSourceProperty(property);
+            SerializedProperty themeDataSourceProperty = property.serializedObject.FindProperty("themeDataSource");
 
-            List<string> names = null;
+            string[] names = null;
             SerializedProperty themeDefinitionItemName = null;
 
             if (property.managedReferenceValue != null && themeDataSourceProperty != null && themeDataSourceProperty.objectReferenceValue != null)
             {
-                themeDefinitionItemName = property.FindPropertyRelative(InspectorUIUtility.GetBackingField("ThemeDefinitionItemName"));
+                themeDefinitionItemName = property.FindPropertyRelative(ThemeDefinitionItemNameField);
 
                 // Rebuild the cached SerializedObject only when the referenced asset changes.
                 int instanceID = themeDataSourceProperty.objectReferenceValue.GetInstanceID();
@@ -42,7 +54,7 @@ namespace MixedReality.Toolkit.Theming.Editor
                 cachedDataSourceSerializedObject.Update();
 
                 SerializedProperty themeDefinitionProperty = cachedDataSourceSerializedObject.FindProperty("themeDefinition");
-                names = ParseThemeItems(themeDefinitionProperty.boxedValue as ThemeDefinition, (dynamic)property.managedReferenceValue);
+                names = ParseThemeItems(themeDefinitionProperty.boxedValue as ThemeDefinition, property.managedReferenceValue);
             }
 
             label = EditorGUI.BeginProperty(position, label, property);
@@ -59,7 +71,7 @@ namespace MixedReality.Toolkit.Theming.Editor
             // Draw the Bound Theme Item popup using the Rect API, within the allocated position.
             if (names != null && property.isExpanded)
             {
-                int selected = names.IndexOf(themeDefinitionItemName.stringValue);
+                int selected = System.Array.IndexOf(names, themeDefinitionItemName.stringValue);
 
                 // Child fields are indented 15px from position.x. Unity's label/control
                 // split is at position.x + labelWidth, so the label width is (labelWidth - 15f)
@@ -74,16 +86,12 @@ namespace MixedReality.Toolkit.Theming.Editor
                 using (var check = new EditorGUI.ChangeCheckScope())
                 {
                     EditorGUI.LabelField(labelRect, "Bound Theme Item");
-                    selected = EditorGUI.Popup(controlRect, selected, System.Array.ConvertAll(names.ToArray(), n => new GUIContent(n)));
+                    selected = EditorGUI.Popup(controlRect, selected, names);
                     if (check.changed)
                     {
                         themeDefinitionItemName.stringValue = names[selected];
                     }
                 }
-            }
-            else if (themeDefinitionItemName != null && names == null)
-            {
-                themeDefinitionItemName.stringValue = null;
             }
 
             EditorGUI.EndProperty();
@@ -98,7 +106,7 @@ namespace MixedReality.Toolkit.Theming.Editor
             // Add a line for the Bound Theme Item popup when the foldout is expanded and a data source is available.
             if (property.isExpanded && property.managedReferenceValue != null)
             {
-                SerializedProperty themeDataSourceProperty = FindThemeDataSourceProperty(property);
+                SerializedProperty themeDataSourceProperty = property.serializedObject.FindProperty("themeDataSource");
                 if (themeDataSourceProperty != null && themeDataSourceProperty.objectReferenceValue != null)
                 {
                     height += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
@@ -108,17 +116,27 @@ namespace MixedReality.Toolkit.Theming.Editor
             return height;
         }
 
-        private static SerializedProperty FindThemeDataSourceProperty(SerializedProperty property)
+        private string[] ParseThemeItems(ThemeDefinition themeDefinition, object binder)
         {
-            string path = property.propertyPath;
-            string parentPath = path.Substring(0, path.LastIndexOf(path.Contains(".Array.data[") ? ".Array.data[" : "."));
-            SerializedProperty parentProperty = property.serializedObject.FindProperty(parentPath);
-            return parentProperty?.serializedObject.FindProperty("themeDataSource");
-        }
+            if (themeDefinition == null || themeDefinition.ThemeDefinitionItems == null || binder == null)
+            {
+                return null;
+            }
 
-        private List<string> ParseThemeItems<T, K>(ThemeDefinition themeDefinition, BaseThemeBinder<T, K> _)
-        {
-            if (themeDefinition == null || themeDefinition.ThemeDefinitionItems == null)
+            System.Type binderType = binder.GetType();
+            if (!cachedValueTypes.TryGetValue(binderType, out System.Type valueType))
+            {
+                System.Type baseBinderType = binderType;
+                while (baseBinderType != null && (!baseBinderType.IsGenericType || baseBinderType.GetGenericTypeDefinition() != typeof(BaseThemeBinder<,>)))
+                {
+                    baseBinderType = baseBinderType.BaseType;
+                }
+
+                valueType = baseBinderType?.GenericTypeArguments[0];
+                cachedValueTypes[binderType] = valueType;
+            }
+
+            if (valueType == null)
             {
                 return null;
             }
@@ -131,13 +149,13 @@ namespace MixedReality.Toolkit.Theming.Editor
                     && item.DataType?.Type != null
                     && item.DataType.Type.BaseType != null
                     && item.DataType.Type.BaseType.GenericTypeArguments.Length > 0
-                    && item.DataType.Type.BaseType.GenericTypeArguments[0].IsAssignableFrom(typeof(T)))
+                    && item.DataType.Type.BaseType.GenericTypeArguments[0].IsAssignableFrom(valueType))
                 {
                     matchingItemNames.Add(item.Name);
                 }
             }
 
-            return matchingItemNames;
+            return matchingItemNames.Count > 0 ? matchingItemNames.ToArray() : null;
         }
     }
 }

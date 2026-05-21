@@ -27,9 +27,9 @@ namespace MixedReality.Toolkit.Theming
             get => activeTheme;
             set
             {
-                if (value != null && value.Definition != this)
+                if (value != null && value.Definition != null && value.Definition != this)
                 {
-                    Debug.LogError($"New theme's definition ({value.Definition.name}) does not match this data source's active definition ({name})");
+                    Debug.LogError($"New theme's definition ({value.Definition.name}) does not match this data source ({name})");
                 }
 
                 using (ChangeEvent<Theme> changeEvent = ChangeEvent<Theme>.GetPooled(activeTheme, value))

@@ -13,7 +13,13 @@ namespace MixedReality.Toolkit.Theming
     {
         protected override void Apply(BaseThemeItemData<FontIconSetData> themeItemData)
         {
-            if (Target != null && Target.TextMeshProComponent != null && Target.IconSelector != null && themeItemData.Value.FontIconSet.GlyphIconsByName.ContainsKey(Target.IconSelector.CurrentIconName))
+            if (Target != null &&
+                Target.TextMeshProComponent != null &&
+                Target.IconSelector != null &&
+                Target.IconSelector.CurrentIconName != null &&
+                themeItemData?.Value?.FontIconSet != null &&
+                themeItemData.Value.FontIconSet.GlyphIconsByName != null &&
+                themeItemData.Value.FontIconSet.GlyphIconsByName.ContainsKey(Target.IconSelector.CurrentIconName))
             {
                 // Clear the text to prevent missing character warnings when changing the font
                 Target.TextMeshProComponent.text = string.Empty;
