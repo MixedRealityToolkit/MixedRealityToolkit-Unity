@@ -12,6 +12,9 @@ The system has three layers:
 | **Values** | `Theme` (ScriptableObject) | Provides a concrete value for every item in the definition |
 | **Binding** | `ThemeBinding` (MonoBehaviour) + binders | Connects a theme item to a specific component on a GameObject |
 
+> [!NOTE]
+> `ThemeBinding` exists in the UX Core package for cross-package compatibility.
+
 ---
 
 ## Theme data source

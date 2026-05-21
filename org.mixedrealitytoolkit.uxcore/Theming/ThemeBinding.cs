@@ -1,12 +1,17 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+#if MRTK_THEMING_PRESENT
+using MixedReality.Toolkit.Theming;
+#endif
+
 using UnityEngine;
 
-namespace MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.UX
 {
     public class ThemeBinding : MonoBehaviour
     {
+#if MRTK_THEMING_PRESENT
         [SerializeField]
         [Tooltip("The theme data source manager.")]
         private ThemeDataSource themeDataSource;
@@ -47,5 +52,6 @@ namespace MixedReality.Toolkit.Theming
                 binder?.Unsubscribe(themeDataSource);
             }
         }
+#endif
     }
 }
