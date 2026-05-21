@@ -137,17 +137,26 @@ namespace MixedReality.Toolkit.Editor
             {
                 if (pendingIconToAdd.HasValue)
                 {
-                    AddIcon((FontIconSet)target, pendingIconToAdd.Value);
+                    foreach (var t in targets)
+                    {
+                        requiresUpdate |= AddIcon((FontIconSet)t, pendingIconToAdd.Value);
+                    }
                     pendingIconToAdd = null;
                 }
                 if (pendingIconToRemove != null)
                 {
-                    RemoveIcon((FontIconSet)target, pendingIconToRemove);
+                    foreach (var t in targets)
+                    {
+                        requiresUpdate |= RemoveIcon((FontIconSet)t, pendingIconToRemove);
+                    }
                     pendingIconToRemove = null;
                 }
                 if (pendingIconToRenameOld != null && pendingIconToRenameNew != null)
                 {
-                    UpdateIconName((FontIconSet)target, pendingIconToRenameOld, pendingIconToRenameNew);
+                    foreach (var t in targets)
+                    {
+                        requiresUpdate |= UpdateIconName((FontIconSet)t, pendingIconToRenameOld, pendingIconToRenameNew);
+                    }
                     pendingIconToRenameOld = null;
                     pendingIconToRenameNew = null;
                 }
@@ -363,7 +372,6 @@ namespace MixedReality.Toolkit.Editor
             Undo.RecordObject(fontIconSet, "Add Icon");
             if (fontIconSet.AddIcon(name, unicodeValue))
             {
-                UpdateIconEntries();
                 EditorUtility.SetDirty(fontIconSet);
                 return true;
             }
@@ -377,7 +385,6 @@ namespace MixedReality.Toolkit.Editor
                 Undo.RecordObject(fontIconSet, "Remove Icon");
                 if (fontIconSet.RemoveIcon(iconName))
                 {
-                    UpdateIconEntries();
                     EditorUtility.SetDirty(fontIconSet);
                     return true;
                 }
@@ -385,14 +392,15 @@ namespace MixedReality.Toolkit.Editor
             return false;
         }
 
-        private void UpdateIconName(FontIconSet fontIconSet, string oldName, string newName)
+        private bool UpdateIconName(FontIconSet fontIconSet, string oldName, string newName)
         {
             Undo.RecordObject(fontIconSet, "Rename Icon");
             if (fontIconSet.UpdateIconName(oldName, newName))
             {
-                UpdateIconEntries();
                 EditorUtility.SetDirty(fontIconSet);
+                return true;
             }
+            return false;
         }
 
         private bool CheckIfHoloLensIconFontExists()
@@ -578,10 +586,7 @@ namespace MixedReality.Toolkit.Editor
                 }
                 catch (Exception e)
                 {
-                    // Calling EditorGUILayout only during Repaint can cause
-                    // "Getting control N's position in a group with only N controls",
-                    // so we instead call GUI.Label to draw directly to the editor
-                    GUI.Label(glyphRect, new GUIContent("!", $"Couldn't draw icon: {e.Message}"));
+                    GUI.Label(glyphRect, new GUIContent($"Couldn't draw icon: {e.Message}"));
                 }
             }
         }

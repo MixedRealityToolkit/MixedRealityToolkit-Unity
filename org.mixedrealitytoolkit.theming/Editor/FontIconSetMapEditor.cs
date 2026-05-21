@@ -43,6 +43,7 @@ namespace MixedReality.Toolkit.Theming.Editor
             {
                 if (pendingIconSet != null && pendingIconToRenameOld != null && pendingIconToRenameNew != null)
                 {
+                    Undo.RecordObject(pendingIconSet, "Rename Icon");
                     pendingIconSet.UpdateIconName(pendingIconToRenameOld, pendingIconToRenameNew);
                     EditorUtility.SetDirty(pendingIconSet);
                     pendingIconSet = null;
