@@ -16,6 +16,8 @@ namespace MixedReality.Toolkit.Theming.Editor
 
         private static bool itemsFoldout = false;
 
+        private static readonly System.Collections.Generic.HashSet<Type> failedTypes = new System.Collections.Generic.HashSet<Type>();
+
         private string nameField;
         private string dataField;
         private string valueField;
@@ -35,6 +37,8 @@ namespace MixedReality.Toolkit.Theming.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
+            serializedObject.Update();
+
             EditorGUILayout.PropertyField(themeDefinitionProp);
 
             ThemeDefinition themeDefinition = themeDefinitionProp.objectReferenceValue as ThemeDefinition;
@@ -47,6 +51,12 @@ namespace MixedReality.Toolkit.Theming.Editor
                     if (Event.current.type == EventType.Layout)
                     {
                         ReconcileThemeItems(themeDefinition, themeItemsProp);
+
+                        // Force the SerializedObject to immediately sync any newly instantiated
+                        // [SerializeReference] payloads so their child properties (like 'Value')
+                        // are fully discoverable during this exact same Layout pass.
+                        serializedObject.ApplyModifiedProperties();
+                        serializedObject.Update();
                     }
 
                     using (new EditorGUI.IndentLevelScope())
@@ -57,18 +67,43 @@ namespace MixedReality.Toolkit.Theming.Editor
                             SerializedProperty dataProp = themeItemProp.FindPropertyRelative(dataField);
                             SerializedProperty valueProp = dataProp?.FindPropertyRelative(valueField);
 
+                            string themeItemName = themeItemProp.FindPropertyRelative(nameField).stringValue;
+                            string displayLabel = string.IsNullOrWhiteSpace(themeItemName) ? "(null)" : themeItemName;
+
                             if (valueProp != null)
                             {
-                                // Draw just the Value field, labelled with the item name,
+                                // Draw just the Value field, labeled with the item name,
                                 // skipping the intermediate "Data" foldout entirely.
-                                string themeItemName = themeItemProp.FindPropertyRelative(nameField).stringValue;
-                                EditorGUILayout.PropertyField(valueProp, new GUIContent(themeItemName), true);
+                                EditorGUILayout.PropertyField(valueProp, new GUIContent(displayLabel), true);
                             }
                             else
                             {
-                                // Fallback for any item whose Data doesn't follow the
-                                // BaseThemeItemData<T> shape (e.g. a null reference).
-                                EditorGUILayout.PropertyField(themeItemProp, true);
+                                if (dataProp?.managedReferenceValue == null)
+                                {
+                                    if (i < themeDefinition.ThemeDefinitionItems.Length)
+                                    {
+                                        var definitionItem = themeDefinition.ThemeDefinitionItems[i];
+                                        if (definitionItem.DataType?.Type == null)
+                                        {
+                                            EditorGUILayout.HelpBox($"'{displayLabel}' has no valid DataType selected in the ThemeDefinition.", MessageType.Warning);
+                                        }
+                                        else
+                                        {
+                                            EditorGUILayout.HelpBox($"Failed to initialize data for '{displayLabel}'. Ensure its DataType ({definitionItem.DataType.Type.Name}) is a concrete class with a default constructor.", MessageType.Warning);
+                                        }
+                                    }
+
+                                    using (new EditorGUI.DisabledScope(true))
+                                    {
+                                        EditorGUILayout.LabelField(displayLabel, "null");
+                                    }
+                                }
+                                else
+                                {
+                                    // Fallback for any item whose Data doesn't follow the
+                                    // BaseThemeItemData<T> shape.
+                                    EditorGUILayout.PropertyField(dataProp, new GUIContent(displayLabel), true);
+                                }
                             }
                         }
                     }
@@ -109,34 +144,31 @@ namespace MixedReality.Toolkit.Theming.Editor
                     {
                         // Move the found item up to position i, preserving its saved values.
                         themeItemsProp.MoveArrayElement(existingIndex, i);
+                        themeItem = themeItemsProp.GetArrayElementAtIndex(i);
                     }
                     else
                     {
                         // No existing item found — insert a fresh one with default values.
-
                         themeItemsProp.InsertArrayElementAtIndex(i);
                         themeItem = themeItemsProp.GetArrayElementAtIndex(i);
+                        themeItem.managedReferenceValue = new Theme.ThemeItem(themeDefinitionItemName, null);
+                    }
+                }
 
-                        Type dataType = definitionItem.DataType?.Type;
-                        object dataInstance = null;
+                // Unified instantiation and auto-healing for missing or mismatched data types
+                Type expectedType = definitionItem.DataType?.Type;
+                SerializedProperty dataProp = themeItem.FindPropertyRelative(dataField);
+                Type actualType = dataProp?.managedReferenceValue?.GetType();
 
-                        if (dataType != null)
-                        {
-                            try
-                            {
-                                dataInstance = Activator.CreateInstance(dataType);
-                            }
-                            catch (Exception e)
-                            {
-                                Debug.LogWarning($"Failed to instantiate data for ThemeItem '{themeDefinitionItemName}' (Type: {dataType.Name}). Falling back to null. Exception: {e.Message}");
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"Could not resolve DataType for ThemeItem '{themeDefinitionItemName}'. Falling back to null.");
-                        }
-
-                        themeItem.managedReferenceValue = new Theme.ThemeItem(themeDefinitionItemName, dataInstance);
+                if (expectedType != null && expectedType != actualType && !failedTypes.Contains(expectedType))
+                {
+                    try
+                    {
+                        dataProp.managedReferenceValue = Activator.CreateInstance(expectedType);
+                    }
+                    catch
+                    {
+                        failedTypes.Add(expectedType);
                     }
                 }
             }

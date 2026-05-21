@@ -37,6 +37,8 @@ namespace MixedReality.Toolkit.Theming.Editor
 
         public override void OnInspectorGUI()
         {
+            serializedObject.Update();
+
             if (Event.current.type == EventType.Layout)
             {
                 if (pendingIconSet != null && pendingIconToRenameOld != null && pendingIconToRenameNew != null)

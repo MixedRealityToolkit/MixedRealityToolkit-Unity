@@ -136,6 +136,9 @@ namespace MixedReality.Toolkit.Editor
                     GUILayout.Height(tileSize),
                     GUILayout.Width(tileSize)))
                 {
+                    // Flush any pending changes from other Inspector fields (e.g. lost focus) manually editing the icon name
+                    serializedObject.ApplyModifiedProperties();
+
                     if (fontIconSelector.TextMeshProComponent != null)
                     {
                         Undo.RecordObjects(new Object[] { fontIconSelector, fontIconSelector.TextMeshProComponent }, "Changed icon");
@@ -152,6 +155,9 @@ namespace MixedReality.Toolkit.Editor
                     {
                         PrefabUtility.RecordPrefabInstancePropertyModifications(fontIconSelector.TextMeshProComponent);
                     }
+
+                    // Resync the serialized object after manually editing the icon name
+                    serializedObject.Update();
                 }
 
                 Rect textureRect = GUILayoutUtility.GetLastRect();

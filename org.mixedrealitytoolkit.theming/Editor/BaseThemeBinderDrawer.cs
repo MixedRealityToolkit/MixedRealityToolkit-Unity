@@ -27,16 +27,17 @@ namespace MixedReality.Toolkit.Theming.Editor
                     cachedLabel = label.text.Replace("Element", "Binder");
                     cachedLabels[label.text] = cachedLabel;
                 }
-                label.text = cachedLabel;
+                label = new GUIContent(label) { text = cachedLabel };
             }
 
             SerializedProperty themeDataSourceProperty = property.serializedObject.FindProperty("themeDataSource");
 
             string[] names = null;
             SerializedProperty themeDefinitionItemName = null;
+            bool hasDataSource = themeDataSourceProperty != null && themeDataSourceProperty.objectReferenceValue != null;
 
             // Only pay the cost of parsing available items when the property is actively expanded
-            if (property.isExpanded && property.managedReferenceValue != null && themeDataSourceProperty != null && themeDataSourceProperty.objectReferenceValue != null)
+            if (property.isExpanded && property.managedReferenceValue != null && hasDataSource)
             {
                 themeDefinitionItemName = property.FindPropertyRelative(ThemeDefinitionItemNameField);
 
@@ -51,7 +52,7 @@ namespace MixedReality.Toolkit.Theming.Editor
 
             // Draw the foldout and all child properties within the allocated rect.
             Rect propertyRect = position;
-            if (names != null)
+            if (hasDataSource)
             {
                 // Reserve the last line for the Bound Theme Item popup when expanded.
                 propertyRect.height -= property.isExpanded ? EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing : 0;
@@ -59,10 +60,8 @@ namespace MixedReality.Toolkit.Theming.Editor
             EditorGUI.PropertyField(propertyRect, property, label, true);
 
             // Draw the Bound Theme Item popup using the Rect API, within the allocated position.
-            if (names != null && property.isExpanded)
+            if (hasDataSource && property.isExpanded)
             {
-                int selected = System.Array.IndexOf(names, themeDefinitionItemName.stringValue);
-
                 // Child fields are indented 15px from position.x. Unity's label/control
                 // split is at position.x + labelWidth, so the label width is (labelWidth - 15f)
                 // and the control starts at that same absolute split point.
@@ -73,20 +72,30 @@ namespace MixedReality.Toolkit.Theming.Editor
                 Rect labelRect = new Rect(position.x + indentWidth, rowY, EditorGUIUtility.labelWidth - indentWidth, EditorGUIUtility.singleLineHeight);
                 Rect controlRect = new Rect(splitX, rowY, rightEdge - splitX, EditorGUIUtility.singleLineHeight);
 
-                using (var check = new EditorGUI.ChangeCheckScope())
+                if (names != null)
                 {
-                    EditorGUI.LabelField(labelRect, "Bound Theme Item");
-                    selected = EditorGUI.Popup(controlRect, selected, names);
-                    if (check.changed)
+                    int selected = System.Array.IndexOf(names, themeDefinitionItemName.stringValue);
+                    using (var check = new EditorGUI.ChangeCheckScope())
                     {
-                        themeDefinitionItemName.stringValue = names[selected];
+                        EditorGUI.LabelField(labelRect, "Bound Theme Item");
+                        selected = EditorGUI.Popup(controlRect, selected, names);
+                        if (check.changed)
+                        {
+                            themeDefinitionItemName.stringValue = names[selected];
+                        }
+                    }
+                }
+                else
+                {
+                    using (new EditorGUI.DisabledScope(true))
+                    {
+                        EditorGUI.LabelField(labelRect, "Bound Theme Item");
+                        EditorGUI.Popup(controlRect, 0, new string[] { "(No matching items)" });
                     }
                 }
             }
 
             EditorGUI.EndProperty();
-
-            property.serializedObject.ApplyModifiedProperties();
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
