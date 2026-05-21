@@ -431,6 +431,9 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <summary>
+        /// Adds the provided effect to the state with name <paramref name="stateName"/>.
+        /// Creates the state if it doesn't exist.
+        /// </summary>
         /// <param name="stateName">The name of the state to add the effect to.</param>
         /// <param name="effect">The effect to add.</param>
         internal void AddEffect(string stateName, IEffect effect)

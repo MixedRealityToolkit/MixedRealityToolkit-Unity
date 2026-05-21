@@ -18,7 +18,10 @@ namespace MixedReality.Toolkit.UX
 
         [SerializeReference, InterfaceSelector]
         [Tooltip("The list of bound theme entries.")]
-        private IBinder[] binders;
+        private IBinder[] binders = System.Array.Empty<IBinder>();
+
+        private readonly System.Collections.Generic.List<IBinder> subscribedBinders = new System.Collections.Generic.List<IBinder>();
+        private ThemeDataSource subscribedDataSource;
 
         protected void OnEnable()
         {
@@ -28,28 +31,39 @@ namespace MixedReality.Toolkit.UX
                 return;
             }
 
-            foreach (IBinder binder in binders)
+            subscribedDataSource = themeDataSource;
+
+            if (binders != null)
             {
-                if (binder == null)
+                foreach (IBinder binder in binders)
                 {
-                    Debug.LogWarning($"{nameof(ThemeBinding)} on '{gameObject.name}' has a null binder entry.", this);
-                    continue;
-                }
+                    if (binder == null)
+                    {
+                        Debug.LogWarning($"{nameof(ThemeBinding)} on '{gameObject.name}' has a null binder entry.", this);
+                        continue;
+                    }
 
-                if (string.IsNullOrWhiteSpace(binder.ThemeDefinitionItemName))
-                {
-                    Debug.LogWarning($"{nameof(ThemeBinding)} on '{gameObject.name}' has a {binder.GetType().Name} with no theme item assigned.", this);
-                }
+                    if (string.IsNullOrWhiteSpace(binder.ThemeDefinitionItemName))
+                    {
+                        Debug.LogWarning($"{nameof(ThemeBinding)} on '{gameObject.name}' has a {binder.GetType().Name} with no theme item assigned.", this);
+                    }
 
-                binder.Subscribe(themeDataSource);
+                    binder.Subscribe(subscribedDataSource);
+                    subscribedBinders.Add(binder);
+                }
             }
         }
 
         protected void OnDisable()
         {
-            foreach (IBinder binder in binders)
+            if (subscribedDataSource != null)
             {
-                binder?.Unsubscribe(themeDataSource);
+                foreach (IBinder binder in subscribedBinders)
+                {
+                    binder?.Unsubscribe(subscribedDataSource);
+                }
+                subscribedBinders.Clear();
+                subscribedDataSource = null;
             }
         }
 #endif

@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.UX;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -116,9 +117,13 @@ namespace MixedReality.Toolkit.Editor
             scrollAmount = EditorGUILayout.BeginScrollView(scrollAmount, GUILayout.MaxHeight(128), GUILayout.MinHeight(64));
             EditorGUILayout.BeginHorizontal();
 
-            foreach (string iconName in fontIconSet.GlyphIconsByName.Keys)
+            List<KeyValuePair<string, uint>> sortedIcons = new List<KeyValuePair<string, uint>>(fontIconSet.GlyphIconsByName);
+            sortedIcons.Sort((a, b) => a.Key.CompareTo(b.Key));
+
+            foreach (KeyValuePair<string, uint> kvp in sortedIcons)
             {
-                uint unicodeValue = fontIconSet.GlyphIconsByName[iconName];
+                string iconName = kvp.Key;
+                uint unicodeValue = kvp.Value;
 
                 if (column >= numColumns)
                 {
