@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-* Updated icon names in MRTK_FluentIconSet.asset and Selawik-Semibold-MRTKIcons.asset to be more descriptive. [PR #1077](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1077)
+* Updated icon names in MRTK_FluentIconSet.asset and Selawik-Semibold-MRTKIcons.asset to be more descriptive. [PR #1077](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1077) & [PR #1119](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1119)
 
 ## [3.2.1] - 2025-11-12
 
