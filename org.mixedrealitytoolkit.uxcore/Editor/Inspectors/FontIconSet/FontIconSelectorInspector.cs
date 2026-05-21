@@ -107,6 +107,8 @@ namespace MixedReality.Toolkit.Editor
 
         private int numColumns = 4;
         private Vector2 scrollAmount;
+        private float cachedTileSize = 0f;
+        private GUILayoutOption[] cachedButtonOptions;
 
         public void DrawIconGrid(FontIconSelector fontIconSelector, float tileSize)
         {
@@ -120,6 +122,12 @@ namespace MixedReality.Toolkit.Editor
             List<KeyValuePair<string, uint>> sortedIcons = new List<KeyValuePair<string, uint>>(fontIconSet.GlyphIconsByName);
             sortedIcons.Sort((a, b) => a.Key.CompareTo(b.Key));
 
+            if (cachedTileSize != tileSize || cachedButtonOptions == null)
+            {
+                cachedTileSize = tileSize;
+                cachedButtonOptions = new GUILayoutOption[] { GUILayout.Height(tileSize), GUILayout.Width(tileSize) };
+            }
+
             foreach (KeyValuePair<string, uint> kvp in sortedIcons)
             {
                 string iconName = kvp.Key;
@@ -132,9 +140,7 @@ namespace MixedReality.Toolkit.Editor
                     EditorGUILayout.BeginHorizontal();
                 }
 
-                if (GUILayout.Button(" ",
-                    GUILayout.Height(tileSize),
-                    GUILayout.Width(tileSize)))
+                if (GUILayout.Button(" ", cachedButtonOptions))
                 {
                     // Flush any pending changes from other Inspector fields (e.g. lost focus) manually editing the icon name
                     serializedObject.ApplyModifiedProperties();
