@@ -144,7 +144,8 @@ namespace MixedReality.Toolkit.Theming.Editor
 
             foreach (ThemeDefinition.ThemeDefinitionItem item in themeDefinition.ThemeDefinitionItems)
             {
-                if (!string.IsNullOrWhiteSpace(item.Name)
+                if (item != null
+                    && !string.IsNullOrWhiteSpace(item.Name)
                     && item.DataType?.Type != null
                     && item.DataType.Type.BaseType != null
                     && item.DataType.Type.BaseType.GenericTypeArguments.Length > 0

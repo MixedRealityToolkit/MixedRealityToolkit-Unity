@@ -119,6 +119,7 @@ namespace MixedReality.Toolkit.Theming.Editor
             for (int i = 0; i < definitionItems.Length; i++)
             {
                 var definitionItem = definitionItems[i];
+                if (definitionItem == null) { continue; }
                 string themeDefinitionItemName = definitionItem.Name;
 
                 SerializedProperty themeItem = themeItemsProp.arraySize > i ? themeItemsProp.GetArrayElementAtIndex(i) : null;
@@ -160,7 +161,7 @@ namespace MixedReality.Toolkit.Theming.Editor
                 SerializedProperty dataProp = themeItem.FindPropertyRelative(dataField);
                 Type actualType = dataProp?.managedReferenceValue?.GetType();
 
-                if (expectedType != null && expectedType != actualType && !failedTypes.Contains(expectedType))
+                if (dataProp != null && expectedType != null && expectedType != actualType && !failedTypes.Contains(expectedType))
                 {
                     try
                     {

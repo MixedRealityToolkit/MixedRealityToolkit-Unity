@@ -203,6 +203,8 @@ namespace MixedReality.Toolkit.Editor
                 {
                     FontIconSet fontIconSet = target as FontIconSet;
                     TMP_FontAsset fontAsset = iconFontAssetProp.objectReferenceValue as TMP_FontAsset;
+                    if (fontAsset == null) { return; }
+
                     FontIconSetDefinition setDefinition = fontIconSetDefinitionProp.objectReferenceValue as FontIconSetDefinition;
 
                     showAvailableIcons = EditorGUILayout.Foldout(showAvailableIcons, "Available Icons", true);

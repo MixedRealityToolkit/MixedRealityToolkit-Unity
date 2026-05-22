@@ -19,6 +19,8 @@ namespace MixedReality.Toolkit.Theming.Editor
             {
                 foreach (var item in def.ThemeDefinitionItems)
                 {
+                    if (item == null) { continue; }
+
                     string displayLabel = string.IsNullOrWhiteSpace(item.Name) ? "(null)" : item.Name;
                     System.Type type = item.DataType?.Type;
 
