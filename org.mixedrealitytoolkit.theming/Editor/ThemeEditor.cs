@@ -22,6 +22,11 @@ namespace MixedReality.Toolkit.Theming.Editor
         private string dataField;
         private string valueField;
 
+        static ThemeEditor()
+        {
+            AssemblyReloadEvents.afterAssemblyReload += failedTypes.Clear;
+        }
+
         protected void OnEnable()
         {
             themeDefinitionProp = serializedObject.FindProperty("definition");
@@ -30,6 +35,9 @@ namespace MixedReality.Toolkit.Theming.Editor
             nameField = InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItem.Name));
             dataField = InspectorUIUtility.GetBackingField(nameof(Theme.ThemeItem.Data));
             valueField = InspectorUIUtility.GetBackingField(nameof(BaseThemeItemData<object>.Value));
+
+            // Clear the cache when the asset is (re)selected
+            failedTypes.Clear();
         }
 
         /// <summary>
