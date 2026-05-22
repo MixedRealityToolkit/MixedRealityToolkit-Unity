@@ -2,6 +2,13 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Removed
+
+* Moved `TrackedPoseDriverLookup` from the Core package into the Input package. [PR #1089](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1089)
+* Removed explicit dependency on `Unity.InputSystem`. [PR #1089](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1089)
+
 ## [4.0.0-pre.3] - 2026-05-20
 
 ### Added

@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+## Added
+
+* Added dependency on `MixedReality.Toolkit.Input` for access to `TrackedPoseDriverLookup`. [PR #1089](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1089)
+
 ### Changed
 
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
