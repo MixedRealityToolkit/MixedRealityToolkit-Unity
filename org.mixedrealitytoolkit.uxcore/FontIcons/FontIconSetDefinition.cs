@@ -16,5 +16,28 @@ namespace MixedReality.Toolkit.UX
         /// The list of icon names defined by this asset.
         /// </summary>
         public IReadOnlyList<string> IconNames => iconNames;
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// Sorts the icon names and removes duplicates for cleaner serialization.
+        /// </summary>
+        [ContextMenu("Sort and Deduplicate")]
+        public void SortAndDeduplicate()
+        {
+            if (iconNames == null || iconNames.Length == 0)
+            {
+                return;
+            }
+
+            UnityEditor.Undo.RecordObject(this, "Sort and Deduplicate Icon Names");
+
+            var uniqueSorted = new List<string>(new HashSet<string>(iconNames));
+            uniqueSorted.Sort();
+
+            iconNames = uniqueSorted.ToArray();
+
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+#endif
     }
 }

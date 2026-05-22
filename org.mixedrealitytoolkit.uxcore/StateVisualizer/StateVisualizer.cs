@@ -352,6 +352,85 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <summary>
+        /// Sets the tint color on all <see cref="ITintEffect"/> effects within the named state.
+        /// </summary>
+        /// <param name="stateName">The name of the state whose tint effects should be updated.</param>
+        /// <param name="color">The color to apply.</param>
+        /// <returns>
+        /// <see langword="true"/> if the state was found and at least one tint effect was updated,
+        /// <see langword="false"/> otherwise.
+        /// </returns>
+        public bool TrySetStateTintColor(string stateName, Color color)
+        {
+            if (!stateContainers.TryGetValue(stateName, out State state))
+            {
+                return false;
+            }
+
+            bool anyUpdated = false;
+            foreach (IEffect effect in state.Effects)
+            {
+                if (effect is ITintEffect tintEffect)
+                {
+                    tintEffect.TintColor = color;
+                    anyUpdated = true;
+                }
+            }
+
+            return anyUpdated;
+        }
+
+        /// <summary>
+        /// Sets the tint color on the <see cref="ITintEffect"/> within the named state whose
+        /// <see cref="ITintEffect.HasTintable"/> returns <see langword="true"/> for
+        /// <paramref name="tintTarget"/>.
+        /// </summary>
+        /// <remarks>
+        /// This is the preferred overload when a single state contains multiple tint effects that
+        /// need different colors (e.g. a background tint and an icon tint). Assign the
+        /// <c>UnityEngine.Object</c> reference directly in the Inspector — it is rename-proof and
+        /// breaks visibly (missing reference) rather than silently if the object is deleted.
+        /// <para/>
+        /// If <paramref name="tintTarget"/> is <see langword="null"/> this method behaves
+        /// identically to <see cref="TrySetStateTintColor(string, Color)"/> and updates every
+        /// tint effect in the state.
+        /// </remarks>
+        /// <param name="stateName">The name of the state whose tint effects should be updated.</param>
+        /// <param name="tintTarget">A <see cref="UnityEngine.Object"/> that appears in the
+        /// tintables list of the effect to update, or <see langword="null"/> to update all tint
+        /// effects in the state.</param>
+        /// <param name="color">The color to apply.</param>
+        /// <returns>
+        /// <see langword="true"/> if the state was found and at least one matching tint effect was
+        /// updated, <see langword="false"/> otherwise.
+        /// </returns>
+        public bool TrySetStateTintColor(string stateName, UnityEngine.Object tintTarget, Color color)
+        {
+            if (tintTarget == null)
+            {
+                return TrySetStateTintColor(stateName, color);
+            }
+
+            if (!stateContainers.TryGetValue(stateName, out State state))
+            {
+                return false;
+            }
+
+            bool anyUpdated = false;
+            foreach (IEffect effect in state.Effects)
+            {
+                if (effect is ITintEffect tintEffect &&
+                    tintEffect.HasTintable(tintTarget))
+                {
+                    tintEffect.TintColor = color;
+                    anyUpdated = true;
+                }
+            }
+
+            return anyUpdated;
+        }
+
+        /// <summary>
         /// Adds the provided effect to the state with name <paramref name="stateName"/>.
         /// Creates the state if it doesn't exist.
         /// </summary>

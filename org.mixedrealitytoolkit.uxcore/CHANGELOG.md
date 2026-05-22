@@ -2,15 +2,17 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## Unreleased
+## [4.0.0-pre.3] - 2026-05-20
 
 ### Added
 
 * Added the ability to map different icon sets together to have matching names (prerequisite for theming work). [PR #1077](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1077)
+* Add "Sort and Deduplicate" option to `FontIconSetDefinition`. [PR #1119](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1119)
 
 ### Changed
 
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
+* Updated `FontIconSelector`, `StateVisualizer`, and `TintEffect` to be themeable. [PR #1119](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1119)
 
 ### Fixed
 

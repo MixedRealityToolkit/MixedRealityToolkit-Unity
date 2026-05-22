@@ -13,163 +13,163 @@ MonoBehaviour:
   m_Name: MRTKFontIconSetDefinition
   m_EditorClassIdentifier: 
   iconNames:
-  - Wifi
-  - Bluetooth
-  - Brightness
-  - Airplane
-  - Settings
-  - Group
-  - Pin
-  - Bookmark
-  - Stop Circle
-  - Add Favorite
-  - Favorite
-  - Send
-  - Search
-  - Save
-  - Record Circle
-  - Question Mark
-  - Block
-  - Print
-  - Power Button
-  - Play Circle
-  - Play
-  - Unpin
-  - Devices
-  - Phone
-  - Person
-  - Home
-  - Zoom
-  - Calendar
-  - Camera
-  - Paste
-  - Phone
+  - Account Tree
   - Add
-  - Mail
-  - Mute
-  - Mic Off
-  - Copy
-  - Visibility On
-  - Visibility Off
-  - Link
-  - Attach
-  - Lightbulb
-  - Movie
-  - Thumb Up
-  - Thumb Down
-  - Thumb Down
-  - Videocam
-  - Location On
-  - Location Off
-  - Mic
-  - Undo
+  - Add Circle
+  - Add Favorite
+  - Add Group
+  - Add Location
+  - Add Note
+  - Add Tab
+  - Airplane
+  - Alarm
+  - Alarm Off
   - Apps
-  - Tag
+  - Arrow Down
   - Arrow Left
   - Arrow Right
   - Arrow Up
-  - Arrow Down
-  - Refresh
-  - Menu
-  - More Vertical
-  - More Horizontal
-  - Delete
+  - Attach
+  - Bar Chart
+  - Block
+  - Bluetooth
+  - Book
+  - Bookmark
+  - Brightness
+  - Cached
+  - Calendar
+  - Call
+  - Call End
+  - Camera
+  - Cancel
+  - Cast
+  - Check
+  - Chevron Down
   - Chevron Left
   - Chevron Right
   - Chevron Up
-  - Chevron Down
-  - Lock
-  - Unlock
-  - Repeat
-  - Cast
+  - Circle
   - Clipboard
-  - Erase
-  - History
-  - Notifications
-  - Notifications Off
-  - List
-  - Call
-  - Call End
-  - Check
-  - Edit
-  - Folder
-  - Alarm Off
-  - Warning
-  - Info
-  - Error
-  - Keyboard
-  - Cancel
-  - Dialpad
-  - Photo
-  - Save As
   - Close
+  - Cloud
+  - Color Palette
+  - Computer
+  - Copy
   - Cut
-  - Move
-  - Sticky Note
-  - Add Note
-  - Pan
-  - Add Group
-  - Book
-  - Settings Sliders
-  - Hierarchy
-  - Add Location
-  - Grid View
-  - Show Chart
-  - Cached
-  - Add Circle
-  - Music Info
-  - Remove Location
-  - Language
-  - Globe
-  - Headphones
-  - Heart Outline
-  - Exclamation Point
-  - Pushpin
-  - Pen Tip
-  - Flag Outline
-  - Keep
-  - Remove
-  - Sunny
-  - Report
-  - Graph 1
-  - Tune
-  - Mobile
-  - Newspaper
-  - No Sound
-  - Label
-  - Open In New
-  - Account Tree
+  - Delete
+  - Devices
+  - Dialpad
+  - Display
   - Doc
-  - My Location
-  - Write Mail
+  - Draft
+  - Edit
+  - Edit Doc
+  - Erase
+  - Error
+  - Exclamation Point
+  - Exit
+  - Favorite
+  - Flag Outline
+  - Folder
+  - Globe
+  - Graph
+  - Grid View
+  - Group
   - Hand Left
   - Hand Right
-  - Add Tab
-  - Sound
-  - Circle
-  - Tab
-  - Reset
-  - Music
-  - Music Mute
-  - Edit Doc
-  - Swap Vert
+  - Headphones
+  - Heart Outline
+  - Hierarchy
+  - History
+  - Home
   - Horizontal List
-  - Vertical List
+  - Info
+  - Keep
+  - Keyboard
+  - Label
+  - Language
+  - Layout
   - Layout Grid
-  - Uniform Grid
-  - Shopping Cart
-  - Messenger
-  - Message
-  - Alarm
-  - Color Palette
-  - Edit
-  - Draft
-  - User
-  - Bar Chart
-  - Pie Chart
+  - Lightbulb
   - Line Chart
+  - Link
+  - Link 2
+  - List
+  - Location Off
+  - Location On
+  - Lock
+  - Mail
+  - Menu
+  - Message
+  - Messenger
+  - Mic
+  - Mic Off
+  - Mobile
+  - More Horizontal
+  - More Vertical
+  - Move
+  - Movie
+  - Music
+  - Music Info
+  - Music Mute
+  - Mute
+  - My Location
+  - Newspaper
+  - No Sound
+  - Notifications
+  - Notifications Off
+  - Open In New
+  - Pan
+  - Paste
+  - Pen Tip
+  - Person
+  - Phone
+  - Photo
+  - Pie Chart
+  - Pin
+  - Play
+  - Play Circle
+  - Power Button
+  - Print
+  - Pushpin
+  - Question Mark
+  - Record Circle
+  - Refresh
+  - Remove
+  - Remove Location
+  - Repeat
+  - Report
+  - Reset
+  - Save
+  - Save As
+  - Search
+  - Send
+  - Settings
+  - Settings Sliders
+  - Shopping Cart
+  - Show Chart
   - Smiley
-  - Display
-  - Layout 2
+  - Sound
+  - Sticky Note
+  - Stop Circle
+  - Sunny
+  - Swap Vert
+  - Tab
+  - Tag
+  - Thumb Down
+  - Thumb Up
   - Time
-  - Exit
+  - Tune
+  - Undo
+  - Uniform Grid
+  - Unlock
+  - Unpin
+  - User
+  - Vertical List
+  - Videocam
+  - Visibility Off
+  - Visibility On
+  - Warning
+  - Wifi
+  - Write Mail
+  - Zoom

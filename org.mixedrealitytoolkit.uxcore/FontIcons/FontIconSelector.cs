@@ -89,6 +89,24 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <summary>
+        /// Updates the current <see cref="FontIconSet"/> and optionally refreshes the icon.
+        /// </summary>
+        /// <remarks>
+        /// If you plan on manually setting <see cref="CurrentIconName"/> after calling this method, it's recommended not to refresh the icon here.
+        /// </remarks>
+        /// <param name="fontIconSet">The new font icon set to use for this selector.</param>
+        /// <param name="refreshIcon">Whether to update the icon using the currently-set name using the new font icon set.</param>
+        public void SetFontIconSet(FontIconSet fontIconSet, bool refreshIcon = false)
+        {
+            fontIcons = fontIconSet;
+
+            if (refreshIcon)
+            {
+                SetIcon(currentIconName);
+            }
+        }
+
+        /// <summary>
         /// Looks up the Unicode value for the specified icon name and applies it to the text component.
         /// </summary>
         /// <param name="newIconName">The descriptive name of the icon to set.</param>

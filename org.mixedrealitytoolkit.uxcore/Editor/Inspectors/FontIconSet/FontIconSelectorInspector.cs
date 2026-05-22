@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.UX;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -106,6 +107,8 @@ namespace MixedReality.Toolkit.Editor
 
         private int numColumns = 4;
         private Vector2 scrollAmount;
+        private float cachedTileSize = 0f;
+        private GUILayoutOption[] cachedButtonOptions;
 
         public void DrawIconGrid(FontIconSelector fontIconSelector, float tileSize)
         {
@@ -116,9 +119,19 @@ namespace MixedReality.Toolkit.Editor
             scrollAmount = EditorGUILayout.BeginScrollView(scrollAmount, GUILayout.MaxHeight(128), GUILayout.MinHeight(64));
             EditorGUILayout.BeginHorizontal();
 
-            foreach (string iconName in fontIconSet.GlyphIconsByName.Keys)
+            List<KeyValuePair<string, uint>> sortedIcons = new List<KeyValuePair<string, uint>>(fontIconSet.GlyphIconsByName);
+            sortedIcons.Sort((a, b) => a.Key.CompareTo(b.Key));
+
+            if (cachedTileSize != tileSize || cachedButtonOptions == null)
             {
-                uint unicodeValue = fontIconSet.GlyphIconsByName[iconName];
+                cachedTileSize = tileSize;
+                cachedButtonOptions = new GUILayoutOption[] { GUILayout.Height(tileSize), GUILayout.Width(tileSize) };
+            }
+
+            foreach (KeyValuePair<string, uint> kvp in sortedIcons)
+            {
+                string iconName = kvp.Key;
+                uint unicodeValue = kvp.Value;
 
                 if (column >= numColumns)
                 {
@@ -127,10 +140,11 @@ namespace MixedReality.Toolkit.Editor
                     EditorGUILayout.BeginHorizontal();
                 }
 
-                if (GUILayout.Button(" ",
-                    GUILayout.Height(tileSize),
-                    GUILayout.Width(tileSize)))
+                if (GUILayout.Button(" ", cachedButtonOptions))
                 {
+                    // Flush any pending changes from other Inspector fields (e.g. lost focus) manually editing the icon name
+                    serializedObject.ApplyModifiedProperties();
+
                     if (fontIconSelector.TextMeshProComponent != null)
                     {
                         Undo.RecordObjects(new Object[] { fontIconSelector, fontIconSelector.TextMeshProComponent }, "Changed icon");
@@ -147,6 +161,9 @@ namespace MixedReality.Toolkit.Editor
                     {
                         PrefabUtility.RecordPrefabInstancePropertyModifications(fontIconSelector.TextMeshProComponent);
                     }
+
+                    // Resync the serialized object after manually editing the icon name
+                    serializedObject.Update();
                 }
 
                 Rect textureRect = GUILayoutUtility.GetLastRect();

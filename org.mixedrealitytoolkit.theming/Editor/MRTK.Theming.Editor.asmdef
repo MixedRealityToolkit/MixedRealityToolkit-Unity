@@ -1,0 +1,23 @@
+{
+    "name": "MixedReality.Toolkit.Theming.Editor",
+    "rootNamespace": "MixedReality.Toolkit.Theming.Editor",
+    "references": [
+        "GUID:56255bd5d851a6243b63cb370cfc40b1",
+        "GUID:1712c250045dc734ba8993abefec8428",
+        "GUID:2238d58cada9b6746a548c6bff32c381",
+        "GUID:9a9367d437335a947a847011f5575869",
+        "GUID:e76caf03ea6b3df499bbc873e017d102",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

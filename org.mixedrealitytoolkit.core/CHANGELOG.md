@@ -2,7 +2,11 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## Unreleased
+## [4.0.0-pre.3] - 2026-05-20
+
+### Added
+
+* Added `AllowGenericTypeDefinition` to `SystemType` to allow for generics. [PR #1119](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1119)
 
 ### Changed
 
@@ -13,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Fixed "The type MixedReality.Toolkit.Core MixedReality.Toolkit.Experimental.BubbleChildHoverEvents/TrickleChildHoverEvents/BubbleChildSelectEvents/TrickleChildSelectEvents is being serialized by `[SerializeReference]`, but is missing the `[Serializable]` attribute." on Unity 6.3. [PR #1107](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1107)
 
-## Deprecated
+### Deprecated
 
 * Deprecated `AdjustTrackingOrigin` on `CameraSettings`. This functionality has been deprecated by the XR Origin component. This property has never had an effect in MRTK3 and will be removed in a future release. [PR #1110](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1110)
 

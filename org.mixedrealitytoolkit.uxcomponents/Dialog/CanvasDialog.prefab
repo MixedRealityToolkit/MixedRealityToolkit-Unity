@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 3464395001938839902}
   - component: {fileID: 4665157281537287932}
   - component: {fileID: 941895475344048534}
+  - component: {fileID: 3304842204257264291}
   m_Layer: 5
   m_Name: CanvasDialog
   m_TagString: Untagged
@@ -281,6 +282,53 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3304842204257264291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6930810733556124559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
+  binders:
+  - rid: 7617100121658622016
+  - rid: 7617100121658622018
+  - rid: 7617100121658622019
+  - rid: 7617100121658622020
+  - rid: 7617100121658622021
+  references:
+    version: 2
+    RefIds:
+    - rid: 7617100121658622016
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6930810734963254062}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 7617100121658622018
+      type: {class: TMP_TextFontAssetBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6930810734963254062}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 7617100121658622019
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6930810734943986774}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 7617100121658622020
+      type: {class: TMP_TextFontAssetBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6930810734943986774}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 7617100121658622021
+      type: {class: GraphicMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 8902223861511733022}
+        <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!1 &6930810734943986772
 GameObject:
   m_ObjectHideFlags: 0

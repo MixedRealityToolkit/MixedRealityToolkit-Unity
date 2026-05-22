@@ -674,6 +674,7 @@ GameObject:
   - component: {fileID: 3220012215463627515}
   - component: {fileID: 8084989196684289760}
   - component: {fileID: 5404797170367061738}
+  - component: {fileID: 863618738849702724}
   m_Layer: 5
   m_Name: DescriptionPanel
   m_TagString: Untagged
@@ -750,7 +751,84 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
+--- !u!114 &863618738849702724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6540126486176102408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
+  binders:
+  - rid: 7617100123102511104
+  - rid: 7617100123102511105
+  - rid: 7617100123102511106
+  - rid: 7617100123102511107
+  - rid: 7617100123102511108
+  - rid: 7617100123102511109
+  - rid: 7617100123102511110
+  - rid: 7617100123102511111
+  - rid: 7617100123102511113
+  - rid: 7617100459693309976
+  references:
+    version: 2
+    RefIds:
+    - rid: 7617100123102511104
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6809291684801504143}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 7617100123102511105
+      type: {class: TMP_TextFontAssetBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6809291684801504143}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 7617100123102511106
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 4568172237328552037}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 7617100123102511107
+      type: {class: TMP_TextFontAssetBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 4568172237328552037}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 7617100123102511108
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 2446705927233332293}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 7617100123102511109
+      type: {class: TMP_TextFontAssetBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 2446705927233332293}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 7617100123102511110
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 4376175471552893095}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 7617100123102511111
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 5822078602719066722}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color
+    - rid: 7617100123102511113
+      type: {class: SpriteRendererSpriteBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 1051251617942771901}
+        <ThemeDefinitionItemName>k__BackingField: MRTK Logo
+    - rid: 7617100459693309976
+      type: {class: RendererMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6676203961570324161}
+        <ThemeDefinitionItemName>k__BackingField: Non-Canvas Backplate (8mm) Material
 --- !u!1 &7368034384095272423
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +873,7 @@ GameObject:
   - component: {fileID: 3732017194820540582}
   - component: {fileID: 1051251617942771901}
   m_Layer: 0
-  m_Name: MRTK_Logo_White
+  m_Name: MRTK_Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

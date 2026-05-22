@@ -24,6 +24,12 @@ namespace MixedReality.Toolkit
         public bool AllowAbstract { get; set; } = false;
 
         /// <summary>
+        /// Gets or sets whether generic classes can be selected from drop-down.
+        /// Defaults to a value of <see langword="false"/> unless explicitly specified.
+        /// </summary>
+        public bool AllowGenericTypeDefinition { get; set; } = false;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SystemTypeAttribute"/> class.
         /// </summary>
         /// <param name="type">Initializes a new instance of the <see cref="SystemTypeAttribute"/> class.</param>
@@ -45,7 +51,7 @@ namespace MixedReality.Toolkit
         /// </returns>
         public virtual bool IsConstraintSatisfied(Type type)
         {
-            return AllowAbstract || !type.IsAbstract;
+            return (AllowAbstract || !type.IsAbstract) && (AllowGenericTypeDefinition || !type.IsGenericTypeDefinition);
         }
     }
 }

@@ -142,7 +142,7 @@ MonoBehaviour:
       value: 62174
     - key: Alarm
       value: 62178
-    - key: Zoom
+    - key: Cloud
       value: 62181
     - key: Open In New
       value: 62194
@@ -166,7 +166,7 @@ MonoBehaviour:
       value: 62277
     - key: Delete
       value: 62285
-    - key: Icon 62298
+    - key: Computer
       value: 62298
     - key: Dialpad
       value: 62303
@@ -174,7 +174,7 @@ MonoBehaviour:
       value: 62314
     - key: Cancel
       value: 62318
-    - key: Layout 2
+    - key: Layout
       value: 62326
     - key: Doc
       value: 62329
@@ -216,7 +216,7 @@ MonoBehaviour:
       value: 62679
     - key: Link
       value: 62693
-    - key: Icon 62700
+    - key: Link 2
       value: 62700
     - key: Location On
       value: 62713
