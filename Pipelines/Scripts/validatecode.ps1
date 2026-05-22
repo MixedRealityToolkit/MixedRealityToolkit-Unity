@@ -183,7 +183,12 @@ function CheckForMetaFile {
         [string]$FileName
     )
     process {
-        if (-not $FileName.EndsWith("~") -and -not (Test-Path ($FileName + ".meta"))) {
+        $isIgnoredByUnity = $FileName -match "~([\\/]|$)" -or 
+                            $FileName -match "[\\/]\." -or 
+                            $FileName -match "[\\/]cvs([\\/]|$)" -or 
+                            $FileName.EndsWith(".tmp")
+
+        if (-not $isIgnoredByUnity -and -not (Test-Path ($FileName + ".meta"))) {
             Write-Warning "Meta file missing for $FileName. Please be sure to check it in alongside this file."
             $true;
         }
