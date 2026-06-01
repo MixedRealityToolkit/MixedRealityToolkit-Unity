@@ -94,3 +94,6 @@ MonoBehaviour:
   - <Name>k__BackingField: Surface Container Color
     <DataType>k__BackingField:
       reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Skybox
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
