@@ -183,6 +183,34 @@ namespace MixedReality.Toolkit.UX
         }
 
         /// <summary>
+        /// Tears down the current <see cref="PlayableGraph"/> and rebuilds it from the
+        /// current state of <see cref="stateContainers"/>.
+        /// </summary>
+        /// <remarks>
+        /// Call this after modifying the effect lists at runtime — for example, after a
+        /// theme switch via <see cref="MixedReality.Toolkit.Theming.StateVisualizerEffectSetBinder"/>.
+        /// Any effects added since the last <see cref="Start"/> call will not participate in
+        /// the graph until <see cref="Rebuild"/> is called.
+        /// </remarks>
+        internal void Rebuild()
+        {
+            // Unsubscribe all existing interactable event listeners before rebuilding,
+            // otherwise Start() will add duplicates on top of the existing ones.
+            foreach (UnityAction unsubscribe in unsubscribeActions)
+            {
+                unsubscribe();
+            }
+            unsubscribeActions.Clear();
+
+            if (playableGraph.IsValid())
+            {
+                playableGraph.Destroy();
+            }
+            mixableIndices.Clear();
+            Start();
+        }
+
+        /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
         /// </summary> 
         protected virtual void Start()
