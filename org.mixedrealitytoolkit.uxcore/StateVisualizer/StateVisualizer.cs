@@ -569,6 +569,11 @@ namespace MixedReality.Toolkit.UX
         /// Adds the provided effect to the state with name <paramref name="stateName"/>.
         /// Creates the state if it doesn't exist.
         /// </summary>
+        /// <remarks>
+        /// If this method is called at runtime after the component has been initialized,
+        /// you must manually call <see cref="Rebuild"/> to regenerate the <see cref="PlayableGraph"/>
+        /// so the new effect's playables are properly evaluated and connected.
+        /// </remarks>
         /// <param name="stateName">The name of the state to add the effect to.</param>
         /// <param name="effect">The effect to add.</param>
         internal void AddEffect(string stateName, IEffect effect)
@@ -584,6 +589,11 @@ namespace MixedReality.Toolkit.UX
         /// <summary>
         /// Removes the specified effect from the state with name <paramref name="stateName"/>.
         /// </summary>
+        /// <remarks>
+        /// If this method is called at runtime after the component has been initialized,
+        /// you must manually call <see cref="Rebuild"/> to properly disconnect and destroy
+        /// the removed effect's playables from the <see cref="PlayableGraph"/>.
+        /// </remarks>
         /// <param name="stateName">The name of the state to remove the effect from.</param>
         /// <param name="effect">The effect to remove.</param>
         /// <returns><see langword="true"/> if the effect was removed, <see langword="false"/> otherwise.</returns>
