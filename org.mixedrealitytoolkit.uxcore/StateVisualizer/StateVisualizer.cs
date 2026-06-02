@@ -117,7 +117,17 @@ namespace MixedReality.Toolkit.UX
 
                 return interactable;
             }
-            set => interactable = value;
+            set
+            {
+                if (interactable != value)
+                {
+                    interactable = value;
+                    if (Application.isPlaying && playableGraph.IsValid())
+                    {
+                        UpdateInteractableSubscription();
+                    }
+                }
+            }
         }
 
         [SerializeField]
@@ -188,6 +198,40 @@ namespace MixedReality.Toolkit.UX
             return () => evt.RemoveListener(callback);
         }
 
+        private void UpdateInteractableSubscription()
+        {
+            if (interactable != subscribedInteractable)
+            {
+                // Unsubscribe from any previous interactable if we are hot-swapping
+                foreach (UnityAction unsubscribe in unsubscribeActions)
+                {
+                    unsubscribe();
+                }
+                unsubscribeActions.Clear();
+
+                if (interactable != null)
+                {
+                    unsubscribeActions.Add(Subscribe(interactable.hoverEntered, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.hoverExited, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.selectEntered, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.selectExited, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.IsToggled.OnEntered, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.IsToggled.OnExited, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.OnEnabled, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.OnDisabled, WakeUp));
+                }
+
+                subscribedInteractable = interactable;
+
+                // If we hot-swapped at runtime, immediately wake up so the visualizer
+                // evaluates the new interactable's current state (e.g. if it is already hovered).
+                if (Application.isPlaying && playableGraph.IsValid())
+                {
+                    WakeUp();
+                }
+            }
+        }
+
         /// <summary>
         /// Tears down the current <see cref="PlayableGraph"/> and rebuilds it from the
         /// current state of <see cref="stateContainers"/>.
@@ -223,26 +267,7 @@ namespace MixedReality.Toolkit.UX
 
             OnValidate();
 
-            if (interactable != null && interactable != subscribedInteractable)
-            {
-                // Unsubscribe from any previous interactable if we are hot-swapping
-                foreach (UnityAction unsubscribe in unsubscribeActions)
-                {
-                    unsubscribe();
-                }
-                unsubscribeActions.Clear();
-
-                unsubscribeActions.Add(Subscribe(interactable.hoverEntered, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.hoverExited, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.selectEntered, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.selectExited, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.IsToggled.OnEntered, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.IsToggled.OnExited, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.OnEnabled, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.OnDisabled, WakeUp));
-
-                subscribedInteractable = interactable;
-            }
+            UpdateInteractableSubscription();
 
             // Creates the graph, the mixer and binds them to the Animator.
             playableGraph = PlayableGraph.Create();
