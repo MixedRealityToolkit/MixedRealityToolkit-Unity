@@ -212,7 +212,7 @@ namespace MixedReality.Toolkit.UX
 
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
-        /// </summary> 
+        /// </summary>
         protected virtual void Start()
         {
             OnValidate();
@@ -255,6 +255,14 @@ namespace MixedReality.Toolkit.UX
                         // Connect all AnimationEffects to our single, reusable AnimationMixer.
                         if (effect is IAnimationMixableEffect mixableEffect)
                         {
+                            // Guard against duplicate entries, which can occur if the same
+                            // effect instance appears more than once across stateContainers.
+                            if (mixableIndices.ContainsKey(mixableEffect))
+                            {
+                                Debug.LogWarning($"{nameof(StateVisualizer)}: Duplicate IAnimationMixableEffect instance detected in stateContainers ({effect.GetType().Name}). Skipping duplicate.");
+                                continue;
+                            }
+
                             // Expand the mixer's slots to fit our new playable.
                             int currentSlot = animationMixerPlayable.GetInputCount();
                             animationMixerPlayable.SetInputCount(currentSlot + 1);
@@ -329,10 +337,10 @@ namespace MixedReality.Toolkit.UX
             }
 
             // If we're asleep, quit early.
-            if (!animator.enabled) 
+            if (!animator.enabled)
             {
                 enabled = false;
-                return; 
+                return;
             }
 
             // Returns true if all effects are done playing.
@@ -497,7 +505,7 @@ namespace MixedReality.Toolkit.UX
         // is a non-issue for now.
 
         /// <summary>
-        /// Sets the parameter value on each state. 
+        /// Sets the parameter value on each state.
         /// Override + extend this method to implement custom state parameters.
         /// </summary>
         /// <returns>
@@ -554,11 +562,11 @@ namespace MixedReality.Toolkit.UX
         /// Call <see cref="StateVisualizer.UpdateStateValues"/> before calling this method.
         /// </summary>
         /// <remarks>
-        /// The <see cref="StateVisualizer"/> and connected <see cref="Animator"/> will be put to 
+        /// The <see cref="StateVisualizer"/> and connected <see cref="Animator"/> will be put to
         /// sleep if this returns <see langword="true"/>.
         /// </remarks>
         /// <returns>
-        /// <see langword="true"/> if all effects are done playing, <see langword="false"/> otherwise. 
+        /// <see langword="true"/> if all effects are done playing, <see langword="false"/> otherwise.
         /// </returns>
         private bool EvaluateEffects()
         {
