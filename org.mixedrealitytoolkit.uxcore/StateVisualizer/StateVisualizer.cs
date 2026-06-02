@@ -149,6 +149,9 @@ namespace MixedReality.Toolkit.UX
         // A runtime scratchpad for recording where each IMixableEffect is connected on the mixer.
         private Dictionary<IEffect, int> mixableIndices = new Dictionary<IEffect, int>();
 
+        // A shared scratchpad for counting unique mixable effects during graph construction without allocating.
+        private static readonly HashSet<IEffect> mixableEffectScratchpad = new HashSet<IEffect>();
+
         /// <summary>
         /// A Unity Editor only event function that is called when the script is loaded or a value changes in the Unity Inspector.
         /// </summary>
@@ -235,10 +238,28 @@ namespace MixedReality.Toolkit.UX
             // We can use a single animation output for all animation-based playables.
             var animationPlayableOutput = AnimationPlayableOutput.Create(playableGraph, "Animation", GetComponent<Animator>());
 
+            // AnimationLayerMixerPlayable does not support dynamic resizing via SetInputCount well.
+            // We must pre-calculate the required number of inputs before creation to prevent Playable exceptions.
+            mixableEffectScratchpad.Clear();
+            foreach (var kvp in stateContainers)
+            {
+                foreach (IEffect effect in kvp.Value.Effects)
+                {
+                    if (effect is IAnimationMixableEffect)
+                    {
+                        mixableEffectScratchpad.Add(effect);
+                    }
+                }
+            }
+
             // We use a single master mixer for all animation-based playables.
             // Two-way animation playables mix into this mixer.
-            animationMixerPlayable = AnimationLayerMixerPlayable.Create(playableGraph, 1);
+            // We start with at least 1 input to prevent Playable API issues with 0-input layer mixers.
+            animationMixerPlayable = AnimationLayerMixerPlayable.Create(playableGraph, Mathf.Max(1, mixableEffectScratchpad.Count));
             animationPlayableOutput.SetSourcePlayable(animationMixerPlayable);
+            mixableEffectScratchpad.Clear();
+
+            int currentSlot = 0;
 
             foreach (var kvp in stateContainers)
             {
@@ -263,11 +284,6 @@ namespace MixedReality.Toolkit.UX
                                 continue;
                             }
 
-                            // Expand the mixer's slots to fit our new playable.
-                            int currentSlot = animationMixerPlayable.GetInputCount();
-                            animationMixerPlayable.SetInputCount(currentSlot + 1);
-                            // animationMixerPlayable.SetInputWeight(currentSlot, 1);
-
                             // Configure the layer in the mixer, based on the effect's settings.
                             // For now, additive mixing is blocked by a Unity bug, described at the following links.
                             // AnimationLayerMixerPlayable writes defaults into the object's state upon being disabled,
@@ -280,6 +296,8 @@ namespace MixedReality.Toolkit.UX
 
                             // Record the index for later retrieval.
                             mixableIndices.Add(mixableEffect, currentSlot);
+
+                            currentSlot++;
                         }
                         else
                         {
@@ -295,10 +313,41 @@ namespace MixedReality.Toolkit.UX
                 }
             }
 
-            // Start awake. We'll go back to sleep if nothing happens.
-            animator.enabled = true;
-            playableGraph.Play();
-            enabled = true;
+            // Update state values to match the current interactable state before setting weights.
+            UpdateStateValues();
+
+            // Snap the weights to the current state value initially so Rebuild() doesn't cause
+            // a visual glitch by lerping from 0, or flashing the bind pose.
+            foreach (var kvp in stateContainers)
+            {
+                foreach (IEffect effect in kvp.Value.Effects)
+                {
+                    if (effect is IAnimationMixableEffect mixableEffect && mixableIndices.TryGetValue(mixableEffect, out int slot))
+                    {
+                        animationMixerPlayable.SetInputWeight(slot, kvp.Value.Value);
+                    }
+                }
+            }
+
+            // Determine if we actually need to be awake.
+            bool allEffectsDone = EvaluateEffects();
+
+            if (allEffectsDone && interactable != null && !interactable.isSelected && !interactable.isHovered)
+            {
+                // Start asleep if nothing is happening. This prevents the Animator from
+                // briefly waking up and applying bind poses with 0 weights, which overwrites
+                // values set by other components (like theme binders).
+                animator.enabled = false;
+                playableGraph.Stop();
+                enabled = false;
+            }
+            else
+            {
+                animator.enabled = true;
+                playableGraph.Play();
+                enabled = true;
+                sleepTimer = keepAliveTime;
+            }
         }
 
         /// <summary>
