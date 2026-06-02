@@ -122,7 +122,7 @@ namespace MixedReality.Toolkit.UX
                 if (interactable != value)
                 {
                     interactable = value;
-                    if (Application.isPlaying && playableGraph.IsValid())
+                    if (playableGraph.IsValid())
                     {
                         UpdateInteractableSubscription();
                     }
@@ -140,11 +140,24 @@ namespace MixedReality.Toolkit.UX
         public Animator Animator
         {
             get => animator;
-            set => animator = value;
+            set
+            {
+                if (animator != value)
+                {
+                    animator = value;
+                    if (playableGraph.IsValid())
+                    {
+                        animationPlayableOutput.SetTarget(animator);
+                    }
+                }
+            }
         }
 
         // The PlayableGraph that injects animation data into the Animator.
         private PlayableGraph playableGraph;
+
+        // The animation output for the PlayableGraph.
+        private AnimationPlayableOutput animationPlayableOutput;
 
         // The single animation mixer that all animation-based effects mix into.
         private AnimationLayerMixerPlayable animationMixerPlayable;
@@ -225,7 +238,7 @@ namespace MixedReality.Toolkit.UX
 
                 // If we hot-swapped at runtime, immediately wake up so the visualizer
                 // evaluates the new interactable's current state (e.g. if it is already hovered).
-                if (Application.isPlaying && playableGraph.IsValid())
+                if (playableGraph.IsValid())
                 {
                     WakeUp();
                 }
@@ -273,7 +286,7 @@ namespace MixedReality.Toolkit.UX
             playableGraph = PlayableGraph.Create();
 
             // We can use a single animation output for all animation-based playables.
-            var animationPlayableOutput = AnimationPlayableOutput.Create(playableGraph, "Animation", GetComponent<Animator>());
+            animationPlayableOutput = AnimationPlayableOutput.Create(playableGraph, "Animation", animator);
 
             // AnimationLayerMixerPlayable does not support dynamic resizing via SetInputCount well.
             // We must pre-calculate the required number of inputs before creation to prevent Playable exceptions.
