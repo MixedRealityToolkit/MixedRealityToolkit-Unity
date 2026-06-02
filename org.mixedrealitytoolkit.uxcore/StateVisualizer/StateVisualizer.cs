@@ -152,6 +152,9 @@ namespace MixedReality.Toolkit.UX
         // A shared scratchpad for counting unique mixable effects during graph construction without allocating.
         private static readonly HashSet<IEffect> mixableEffectScratchpad = new HashSet<IEffect>();
 
+        // Tracks which interactable we are currently subscribed to, to prevent redundant delegate allocations.
+        private StatefulInteractable subscribedInteractable;
+
         /// <summary>
         /// A Unity Editor only event function that is called when the script is loaded or a value changes in the Unity Inspector.
         /// </summary>
@@ -197,14 +200,6 @@ namespace MixedReality.Toolkit.UX
         /// </remarks>
         internal void Rebuild()
         {
-            // Unsubscribe all existing interactable event listeners before rebuilding,
-            // otherwise Start() will add duplicates on top of the existing ones.
-            foreach (UnityAction unsubscribe in unsubscribeActions)
-            {
-                unsubscribe();
-            }
-            unsubscribeActions.Clear();
-
             if (playableGraph.IsValid())
             {
                 playableGraph.Destroy();
@@ -218,10 +213,25 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         protected virtual void Start()
         {
+            // If the graph is already valid, Start() has already executed (e.g. manually invoked
+            // by Rebuild() before Unity's natural Start lifecycle). Return early to prevent
+            // memory leaks of unmanaged PlayableGraphs and duplicate event subscriptions.
+            if (playableGraph.IsValid())
+            {
+                return;
+            }
+
             OnValidate();
 
-            if (interactable != null)
+            if (interactable != null && interactable != subscribedInteractable)
             {
+                // Unsubscribe from any previous interactable if we are hot-swapping
+                foreach (UnityAction unsubscribe in unsubscribeActions)
+                {
+                    unsubscribe();
+                }
+                unsubscribeActions.Clear();
+
                 unsubscribeActions.Add(Subscribe(interactable.hoverEntered, WakeUp));
                 unsubscribeActions.Add(Subscribe(interactable.hoverExited, WakeUp));
                 unsubscribeActions.Add(Subscribe(interactable.selectEntered, WakeUp));
@@ -230,6 +240,8 @@ namespace MixedReality.Toolkit.UX
                 unsubscribeActions.Add(Subscribe(interactable.IsToggled.OnExited, WakeUp));
                 unsubscribeActions.Add(Subscribe(interactable.OnEnabled, WakeUp));
                 unsubscribeActions.Add(Subscribe(interactable.OnDisabled, WakeUp));
+
+                subscribedInteractable = interactable;
             }
 
             // Creates the graph, the mixer and binds them to the Animator.
