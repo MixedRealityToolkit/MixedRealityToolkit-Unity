@@ -380,9 +380,7 @@ namespace MixedReality.Toolkit.UX
             }
 
             // Determine if we actually need to be awake.
-            bool allEffectsDone = EvaluateEffects();
-
-            if (allEffectsDone && interactable != null && !interactable.isSelected && !interactable.isHovered)
+            if (EvaluateEffects() && interactable != null && !interactable.isSelected && !interactable.isHovered)
             {
                 // Start asleep if nothing is happening. This prevents the Animator from
                 // briefly waking up and applying bind poses with 0 weights, which overwrites
