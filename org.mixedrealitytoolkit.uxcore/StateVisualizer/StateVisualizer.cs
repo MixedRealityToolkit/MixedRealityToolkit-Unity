@@ -720,16 +720,17 @@ namespace MixedReality.Toolkit.UX
         private bool UpdateWeight(IAnimationMixableEffect mixableEffect, State state)
         {
             bool done = true;
+            int inputIndex = mixableIndices[mixableEffect];
 
             if (mixableEffect.WeightMode == WeightType.MatchStateValue)
             {
                 // Set the playable's weight directly to the state's value.
-                animationMixerPlayable.SetInputWeight(mixableEffect.Playable, state.Value);
+                animationMixerPlayable.SetInputWeight(inputIndex, state.Value);
             }
             else if (mixableEffect.WeightMode == WeightType.Transition)
             {
                 // Grab the current weight, using our cached mixable indices.
-                float currentWeight = animationMixerPlayable.GetInputWeight(mixableIndices[mixableEffect]);
+                float currentWeight = animationMixerPlayable.GetInputWeight(inputIndex);
 
                 // Compute the direction of the transition.
                 bool shouldBeActive = !Mathf.Approximately(state.Value, 0.0f);
@@ -748,7 +749,7 @@ namespace MixedReality.Toolkit.UX
             else
             {
                 // WeightType.Constant is the only remaining option; the weight is always 1.0.
-                animationMixerPlayable.SetInputWeight(mixableEffect.Playable, 1.0f);
+                animationMixerPlayable.SetInputWeight(inputIndex, 1.0f);
             }
 
             return done;
