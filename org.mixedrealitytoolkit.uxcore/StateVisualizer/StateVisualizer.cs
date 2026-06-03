@@ -144,10 +144,20 @@ namespace MixedReality.Toolkit.UX
             {
                 if (animator != value)
                 {
+                    if (animator != null)
+                    {
+                        animator.enabled = false;
+                    }
+
                     animator = value;
+
                     if (playableGraph.IsValid())
                     {
                         animationPlayableOutput.SetTarget(animator);
+                        if (animator != null)
+                        {
+                            animator.enabled = playableGraph.IsPlaying();
+                        }
                     }
                 }
             }
