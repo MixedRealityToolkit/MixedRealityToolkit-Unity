@@ -475,6 +475,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             Assert.IsFalse(anim2.enabled, "The old Animator should still be disabled after hot-swap.");
             Assert.IsFalse(anim3.enabled, "The newly swapped Animator should remain asleep because the PlayableGraph is stopped.");
+            Assert.AreEqual(42f, cube3.transform.localPosition.y, 0.001f, "The newly swapped Animator should instantly inherit the evaluated pose before being put back to sleep.");
 
             yield return rightHand.MoveTo(cube1.transform.position);
             yield return RuntimeTestUtilities.WaitForUpdates();

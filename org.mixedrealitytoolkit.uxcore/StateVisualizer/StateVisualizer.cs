@@ -154,6 +154,7 @@ namespace MixedReality.Toolkit.UX
                     if (playableGraph.IsValid())
                     {
                         animationPlayableOutput.SetTarget(animator);
+                        playableGraph.Evaluate();
                         if (animator != null)
                         {
                             animator.enabled = playableGraph.IsPlaying();
@@ -395,6 +396,7 @@ namespace MixedReality.Toolkit.UX
                 // Start asleep if nothing is happening. This prevents the Animator from
                 // briefly waking up and applying bind poses with 0 weights, which overwrites
                 // values set by other components (like theme binders).
+                playableGraph.Evaluate();
                 animator.enabled = false;
                 playableGraph.Stop();
                 enabled = false;
@@ -465,6 +467,7 @@ namespace MixedReality.Toolkit.UX
                 if (sleepTimer <= 0 && interactable != null && !interactable.isSelected && !interactable.isHovered)
                 {
                     // All effects are done, let's go to sleep.
+                    playableGraph.Evaluate();
                     animator.enabled = false;
                     playableGraph.Stop();
                     enabled = false;
