@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 * Updated code style in `HandsSubsystemDescriptor`, `MRTKSubsystemDescriptor`, `DictationSubsystemDescriptor`, and `XRSubsystemHelpers`. [PR #1109](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1109)
+* Updated `PackageValidator` to only be valid if `UNITY_EDITOR` is true. [PR #1125](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1125)
 
 ### Fixed
 
