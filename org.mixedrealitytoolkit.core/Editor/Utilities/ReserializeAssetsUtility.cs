@@ -49,16 +49,32 @@ namespace MixedReality.Toolkit.Editor
         {
             Object[] selectedAssets = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
 
-            // Transform asset object to asset paths.
+            // Transform asset object to asset paths and GameObjects.
             List<string> assetsPath = new List<string>();
+            List<GameObject> assetsGameObjects = new List<GameObject>();
             foreach (Object asset in selectedAssets)
             {
                 assetsPath.Add(AssetDatabase.GetAssetPath(asset));
+                if (asset is GameObject rootGo)
+                {
+                    Transform[] children = rootGo.GetComponentsInChildren<Transform>(true);
+                    foreach (Transform child in children)
+                    {
+                        if (PrefabUtility.IsAnyPrefabInstanceRoot(child.gameObject))
+                        {
+                            assetsGameObjects.Add(child.gameObject);
+                        }
+                    }
+                }
             }
 
             string[] array = assetsPath.ToArray();
             AssetDatabase.ForceReserializeAssets(array);
-            Debug.Log($"Reserialized {array.Length} assets.");
+            if (assetsGameObjects.Count > 0)
+            {
+                PrefabUtility.RemoveUnusedOverrides(assetsGameObjects.ToArray(), InteractionMode.UserAction);
+            }
+            Debug.Log($"Reserialized {array.Length} assets. ({assetsGameObjects.Count} prefab instances had unused overrides removed)");
         }
 
         private static string[] GetAssets(string filter)
