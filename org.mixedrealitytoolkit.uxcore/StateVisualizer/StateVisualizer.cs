@@ -117,7 +117,17 @@ namespace MixedReality.Toolkit.UX
 
                 return interactable;
             }
-            set => interactable = value;
+            set
+            {
+                if (interactable != value)
+                {
+                    interactable = value;
+                    if (playableGraph.IsValid())
+                    {
+                        UpdateInteractableSubscription();
+                    }
+                }
+            }
         }
 
         [SerializeField]
@@ -130,11 +140,35 @@ namespace MixedReality.Toolkit.UX
         public Animator Animator
         {
             get => animator;
-            set => animator = value;
+            set
+            {
+                if (animator != value)
+                {
+                    if (animator != null)
+                    {
+                        animator.enabled = false;
+                    }
+
+                    animator = value;
+
+                    if (playableGraph.IsValid())
+                    {
+                        animationPlayableOutput.SetTarget(animator);
+                        playableGraph.Evaluate();
+                        if (animator != null)
+                        {
+                            animator.enabled = playableGraph.IsPlaying();
+                        }
+                    }
+                }
+            }
         }
 
         // The PlayableGraph that injects animation data into the Animator.
         private PlayableGraph playableGraph;
+
+        // The animation output for the PlayableGraph.
+        private AnimationPlayableOutput animationPlayableOutput;
 
         // The single animation mixer that all animation-based effects mix into.
         private AnimationLayerMixerPlayable animationMixerPlayable;
@@ -148,6 +182,12 @@ namespace MixedReality.Toolkit.UX
 
         // A runtime scratchpad for recording where each IMixableEffect is connected on the mixer.
         private Dictionary<IEffect, int> mixableIndices = new Dictionary<IEffect, int>();
+
+        // A shared scratchpad for counting unique mixable effects during graph construction without allocating.
+        private static readonly HashSet<IEffect> mixableEffectScratchpad = new HashSet<IEffect>();
+
+        // Tracks which interactable we are currently subscribed to, to prevent redundant delegate allocations.
+        private StatefulInteractable subscribedInteractable;
 
         /// <summary>
         /// A Unity Editor only event function that is called when the script is loaded or a value changes in the Unity Inspector.
@@ -182,35 +222,105 @@ namespace MixedReality.Toolkit.UX
             return () => evt.RemoveListener(callback);
         }
 
+        private void UpdateInteractableSubscription()
+        {
+            if (interactable != subscribedInteractable)
+            {
+                // Unsubscribe from any previous interactable if we are hot-swapping
+                foreach (UnityAction unsubscribe in unsubscribeActions)
+                {
+                    unsubscribe();
+                }
+                unsubscribeActions.Clear();
+
+                if (interactable != null)
+                {
+                    unsubscribeActions.Add(Subscribe(interactable.hoverEntered, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.hoverExited, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.selectEntered, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.selectExited, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.IsToggled.OnEntered, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.IsToggled.OnExited, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.OnEnabled, WakeUp));
+                    unsubscribeActions.Add(Subscribe(interactable.OnDisabled, WakeUp));
+                }
+
+                subscribedInteractable = interactable;
+
+                // If we hot-swapped at runtime, immediately wake up so the visualizer
+                // evaluates the new interactable's current state (e.g. if it is already hovered).
+                if (playableGraph.IsValid())
+                {
+                    WakeUp();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Tears down the current <see cref="PlayableGraph"/> and rebuilds it from the
+        /// current state of <see cref="stateContainers"/>.
+        /// </summary>
+        /// <remarks>
+        /// Call this after modifying the effect lists at runtime — for example, after a
+        /// theme switch via <see cref="MixedReality.Toolkit.Theming.StateVisualizerEffectSetBinder"/>.
+        /// Any effects added since the last <see cref="Start"/> call will not participate in
+        /// the graph until <see cref="Rebuild"/> is called.
+        /// </remarks>
+        internal void Rebuild()
+        {
+            if (playableGraph.IsValid())
+            {
+                playableGraph.Destroy();
+            }
+            mixableIndices.Clear();
+            Start();
+        }
+
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
-        /// </summary> 
+        /// </summary>
         protected virtual void Start()
         {
+            // If the graph is already valid, Start() has already executed (e.g. manually invoked
+            // by Rebuild() before Unity's natural Start lifecycle). Return early to prevent
+            // memory leaks of unmanaged PlayableGraphs and duplicate event subscriptions.
+            if (playableGraph.IsValid())
+            {
+                return;
+            }
+
             OnValidate();
 
-            if (interactable != null)
-            {
-                unsubscribeActions.Add(Subscribe(interactable.hoverEntered, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.hoverExited, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.selectEntered, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.selectExited, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.IsToggled.OnEntered, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.IsToggled.OnExited, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.OnEnabled, WakeUp));
-                unsubscribeActions.Add(Subscribe(interactable.OnDisabled, WakeUp));
-            }
+            UpdateInteractableSubscription();
 
             // Creates the graph, the mixer and binds them to the Animator.
             playableGraph = PlayableGraph.Create();
 
             // We can use a single animation output for all animation-based playables.
-            var animationPlayableOutput = AnimationPlayableOutput.Create(playableGraph, "Animation", GetComponent<Animator>());
+            animationPlayableOutput = AnimationPlayableOutput.Create(playableGraph, "Animation", animator);
+
+            // AnimationLayerMixerPlayable does not support dynamic resizing via SetInputCount well.
+            // We must pre-calculate the required number of inputs before creation to prevent Playable exceptions.
+            mixableEffectScratchpad.Clear();
+            foreach (var kvp in stateContainers)
+            {
+                foreach (IEffect effect in kvp.Value.Effects)
+                {
+                    if (effect is IAnimationMixableEffect)
+                    {
+                        mixableEffectScratchpad.Add(effect);
+                    }
+                }
+            }
 
             // We use a single master mixer for all animation-based playables.
             // Two-way animation playables mix into this mixer.
-            animationMixerPlayable = AnimationLayerMixerPlayable.Create(playableGraph, 1);
+            // We start with at least 1 input to prevent Playable API issues with 0-input layer mixers.
+            animationMixerPlayable = AnimationLayerMixerPlayable.Create(playableGraph, Mathf.Max(1, mixableEffectScratchpad.Count));
             animationPlayableOutput.SetSourcePlayable(animationMixerPlayable);
+            mixableEffectScratchpad.Clear();
+
+            int currentSlot = 0;
 
             foreach (var kvp in stateContainers)
             {
@@ -227,10 +337,13 @@ namespace MixedReality.Toolkit.UX
                         // Connect all AnimationEffects to our single, reusable AnimationMixer.
                         if (effect is IAnimationMixableEffect mixableEffect)
                         {
-                            // Expand the mixer's slots to fit our new playable.
-                            int currentSlot = animationMixerPlayable.GetInputCount();
-                            animationMixerPlayable.SetInputCount(currentSlot + 1);
-                            // animationMixerPlayable.SetInputWeight(currentSlot, 1);
+                            // Guard against duplicate entries, which can occur if the same
+                            // effect instance appears more than once across stateContainers.
+                            if (mixableIndices.ContainsKey(mixableEffect))
+                            {
+                                Debug.LogWarning($"{nameof(StateVisualizer)}: Duplicate IAnimationMixableEffect instance detected in stateContainers ({effect.GetType().Name}). Skipping duplicate.");
+                                continue;
+                            }
 
                             // Configure the layer in the mixer, based on the effect's settings.
                             // For now, additive mixing is blocked by a Unity bug, described at the following links.
@@ -244,6 +357,8 @@ namespace MixedReality.Toolkit.UX
 
                             // Record the index for later retrieval.
                             mixableIndices.Add(mixableEffect, currentSlot);
+
+                            currentSlot++;
                         }
                         else
                         {
@@ -259,10 +374,40 @@ namespace MixedReality.Toolkit.UX
                 }
             }
 
-            // Start awake. We'll go back to sleep if nothing happens.
-            animator.enabled = true;
-            playableGraph.Play();
-            enabled = true;
+            // Update state values to match the current interactable state before setting weights.
+            UpdateStateValues();
+
+            // Snap the weights to the current state value initially so Rebuild() doesn't cause
+            // a visual glitch by lerping from 0, or flashing the bind pose.
+            foreach (var kvp in stateContainers)
+            {
+                foreach (IEffect effect in kvp.Value.Effects)
+                {
+                    if (effect is IAnimationMixableEffect mixableEffect && mixableIndices.TryGetValue(mixableEffect, out int slot))
+                    {
+                        animationMixerPlayable.SetInputWeight(slot, kvp.Value.Value);
+                    }
+                }
+            }
+
+            // Determine if we actually need to be awake.
+            if (EvaluateEffects() && interactable != null && !interactable.isSelected && !interactable.isHovered)
+            {
+                // Start asleep if nothing is happening. This prevents the Animator from
+                // briefly waking up and applying bind poses with 0 weights, which overwrites
+                // values set by other components (like theme binders).
+                playableGraph.Evaluate();
+                animator.enabled = false;
+                playableGraph.Stop();
+                enabled = false;
+            }
+            else
+            {
+                animator.enabled = true;
+                playableGraph.Play();
+                enabled = true;
+                sleepTimer = keepAliveTime;
+            }
         }
 
         /// <summary>
@@ -301,10 +446,10 @@ namespace MixedReality.Toolkit.UX
             }
 
             // If we're asleep, quit early.
-            if (!animator.enabled) 
+            if (!animator.enabled)
             {
                 enabled = false;
-                return; 
+                return;
             }
 
             // Returns true if all effects are done playing.
@@ -322,6 +467,7 @@ namespace MixedReality.Toolkit.UX
                 if (sleepTimer <= 0 && interactable != null && !interactable.isSelected && !interactable.isHovered)
                 {
                     // All effects are done, let's go to sleep.
+                    playableGraph.Evaluate();
                     animator.enabled = false;
                     playableGraph.Stop();
                     enabled = false;
@@ -434,6 +580,11 @@ namespace MixedReality.Toolkit.UX
         /// Adds the provided effect to the state with name <paramref name="stateName"/>.
         /// Creates the state if it doesn't exist.
         /// </summary>
+        /// <remarks>
+        /// If this method is called at runtime after the component has been initialized,
+        /// you must manually call <see cref="Rebuild"/> to regenerate the <see cref="PlayableGraph"/>
+        /// so the new effect's playables are properly evaluated and connected.
+        /// </remarks>
         /// <param name="stateName">The name of the state to add the effect to.</param>
         /// <param name="effect">The effect to add.</param>
         internal void AddEffect(string stateName, IEffect effect)
@@ -449,6 +600,11 @@ namespace MixedReality.Toolkit.UX
         /// <summary>
         /// Removes the specified effect from the state with name <paramref name="stateName"/>.
         /// </summary>
+        /// <remarks>
+        /// If this method is called at runtime after the component has been initialized,
+        /// you must manually call <see cref="Rebuild"/> to properly disconnect and destroy
+        /// the removed effect's playables from the <see cref="PlayableGraph"/>.
+        /// </remarks>
         /// <param name="stateName">The name of the state to remove the effect from.</param>
         /// <param name="effect">The effect to remove.</param>
         /// <returns><see langword="true"/> if the effect was removed, <see langword="false"/> otherwise.</returns>
@@ -469,7 +625,7 @@ namespace MixedReality.Toolkit.UX
         // is a non-issue for now.
 
         /// <summary>
-        /// Sets the parameter value on each state. 
+        /// Sets the parameter value on each state.
         /// Override + extend this method to implement custom state parameters.
         /// </summary>
         /// <returns>
@@ -526,11 +682,11 @@ namespace MixedReality.Toolkit.UX
         /// Call <see cref="StateVisualizer.UpdateStateValues"/> before calling this method.
         /// </summary>
         /// <remarks>
-        /// The <see cref="StateVisualizer"/> and connected <see cref="Animator"/> will be put to 
+        /// The <see cref="StateVisualizer"/> and connected <see cref="Animator"/> will be put to
         /// sleep if this returns <see langword="true"/>.
         /// </remarks>
         /// <returns>
-        /// <see langword="true"/> if all effects are done playing, <see langword="false"/> otherwise. 
+        /// <see langword="true"/> if all effects are done playing, <see langword="false"/> otherwise.
         /// </returns>
         private bool EvaluateEffects()
         {
@@ -564,16 +720,17 @@ namespace MixedReality.Toolkit.UX
         private bool UpdateWeight(IAnimationMixableEffect mixableEffect, State state)
         {
             bool done = true;
+            int inputIndex = mixableIndices[mixableEffect];
 
             if (mixableEffect.WeightMode == WeightType.MatchStateValue)
             {
                 // Set the playable's weight directly to the state's value.
-                animationMixerPlayable.SetInputWeight(mixableEffect.Playable, state.Value);
+                animationMixerPlayable.SetInputWeight(inputIndex, state.Value);
             }
             else if (mixableEffect.WeightMode == WeightType.Transition)
             {
                 // Grab the current weight, using our cached mixable indices.
-                float currentWeight = animationMixerPlayable.GetInputWeight(mixableIndices[mixableEffect]);
+                float currentWeight = animationMixerPlayable.GetInputWeight(inputIndex);
 
                 // Compute the direction of the transition.
                 bool shouldBeActive = !Mathf.Approximately(state.Value, 0.0f);
@@ -592,7 +749,7 @@ namespace MixedReality.Toolkit.UX
             else
             {
                 // WeightType.Constant is the only remaining option; the weight is always 1.0.
-                animationMixerPlayable.SetInputWeight(mixableEffect.Playable, 1.0f);
+                animationMixerPlayable.SetInputWeight(inputIndex, 1.0f);
             }
 
             return done;
