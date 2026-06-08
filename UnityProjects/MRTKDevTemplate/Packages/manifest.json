@@ -82,6 +82,7 @@
     "org.mixedrealitytoolkit.input",
     "org.mixedrealitytoolkit.spatialmanipulation",
     "org.mixedrealitytoolkit.standardassets",
+    "org.mixedrealitytoolkit.theming",
     "org.mixedrealitytoolkit.uxcomponents",
     "org.mixedrealitytoolkit.uxcomponents.noncanvas",
     "org.mixedrealitytoolkit.uxcore",
