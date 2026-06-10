@@ -97,6 +97,9 @@ MonoBehaviour:
   - <Name>k__BackingField: Skybox
     <DataType>k__BackingField:
       reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
-  - <Name>k__BackingField: List Shared Backplate
+  - <Name>k__BackingField: Enable Shared List Backplate
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.BoolItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Enable Button Select Pulse
     <DataType>k__BackingField:
       reference: MixedReality.Toolkit.Theming.BoolItemData, MixedReality.Toolkit.Theming
