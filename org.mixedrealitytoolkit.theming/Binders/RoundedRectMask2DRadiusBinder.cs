@@ -6,9 +6,13 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Theming
 {
+    /// <summary>
+    /// Binds a float theme data value to the corner radii property of a <see cref="Microsoft.MixedReality.GraphicsTools.RoundedRectMask2D"/>.
+    /// </summary>
     [System.Serializable]
     public class RoundedRectMask2DRadiusBinder : BaseThemeBinder<float, RoundedRectMask2D>
     {
+        /// <inheritdoc />
         protected override void Apply(BaseThemeItemData<float> themeItemData)
         {
             if (Target != null)
