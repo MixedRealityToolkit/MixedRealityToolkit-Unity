@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+
+* Added `AlphaBlend` tint mode to `TintEffect`. [PR #1131](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1131)
+
 ### Fixed
 
 * Fixed "leaked managed shell" issue in `UGUIInputAdapter`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
