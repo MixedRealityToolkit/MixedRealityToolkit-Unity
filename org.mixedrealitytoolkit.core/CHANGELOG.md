@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Added
+
+* Added new `editorDefault` field for debugging the various `DisplayType`s in-editor. [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
+
 ## [4.0.0-pre.3] - 2026-05-20
 
 ### Added

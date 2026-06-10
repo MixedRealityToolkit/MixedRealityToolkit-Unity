@@ -1,6 +1,6 @@
 {
   "name": "org.mixedrealitytoolkit.theming",
-  "version": "1.0.0-development.pre.1",
+  "version": "1.0.0-development.pre.2",
   "description": "Core theming scripts for building MR UI components. Intended to be consumed when building UX libraries. For pre-existing library of components, see the UX Components package.",
   "displayName": "MRTK UX Theming",
   "author": "Mixed Reality Toolkit Contributors",
