@@ -4,20 +4,21 @@
 // Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
 #pragma warning disable CS1591
 
-using MixedReality.Toolkit;
 using MixedReality.Toolkit.Core.Tests;
-using MixedReality.Toolkit.Input.Tests;
+using MixedReality.Toolkit.Input;
 using MixedReality.Toolkit.Input.Simulation;
+using MixedReality.Toolkit.Input.Tests;
 using NUnit.Framework;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 using HandshapeId = MixedReality.Toolkit.Input.HandshapeTypes.HandshapeId;
 using MovementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType;
-using MixedReality.Toolkit.Input;
 
 namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 {
@@ -538,7 +539,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             }
         }
 
-
         /// <summary>
         /// This tests that the gaze pointer can be used to directly invoke the manipulation logic via simulated pointer events, used
         /// for scenarios like voice-driven movement using the gaze pointer.
@@ -748,26 +748,24 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 
             // Cube2 should be facing the user.
             Assert.IsTrue(cube2.transform.forward.CloseEnoughTo(-(cube2.transform.position - Camera.main.transform.position).normalized), "Cube2 didn't stay facing user!");
-
         }
 
         #endregion
 
         #region Two Handed Manipulation Tests
 
-        // This test is not yet working due to some confusion as to how the centroid math works with the current object manipulator
-
-        /*
         /// <summary>
         /// Test that the grab centroid is calculated correctly while rotating
         /// the hands during a two-hand near interaction grab.
         /// </summary>
-        [UnityTest]
+        [UnityTest, Ignore("This test is not yet working due to some confusion as to how the centroid math works with the current object manipulator")]
         public IEnumerator ObjectManipulatorTwoHandedCentroid()
         {
             InputTestUtilities.DisableGazeInteractor();
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
             InputTestUtilities.InitializeCameraToOriginAndForward();
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Set up cube with ObjectManipulator
             var testObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -781,17 +779,21 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             objectManipulator.SmoothingFar = false;
             objectManipulator.SmoothingNear = false;
             // Configuring for two-handed interaction
-            objectManipulator.selectMode = UnityEngine.XR.Interaction.Toolkit.InteractableSelectMode.Multiple;
+            objectManipulator.selectMode = InteractableSelectMode.Multiple;
 
             TestHand rightHand = new TestHand(Handedness.Right);
             TestHand leftHand = new TestHand(Handedness.Left);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
             yield return rightHand.Show(Vector3.zero);
+            yield return RuntimeTestUtilities.WaitForUpdates();
             yield return leftHand.Show(Vector3.zero);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
             yield return rightHand.MoveTo(new Vector3(0.1f, -0.1f, 0.8f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
             yield return leftHand.MoveTo(new Vector3(-0.1f, -0.1f, 0.8f));
-            yield return null;
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Only testing move/rotate centroid position
             objectManipulator.AllowedManipulations = TransformFlags.Move | TransformFlags.Scale;
@@ -805,8 +807,10 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             objectManipulator.selectExited.AddListener((med) => manipulationEndedCount++);
 
             // Grab the box.
-            yield return rightHand.SetGesture(GestureId.Pinch);
-            yield return leftHand.SetGesture(GestureId.Pinch);
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return leftHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Previously we checked that we didn't move after two pinches, however, due to the hand position shifting slighting on pinch, this is not applicable
             // TODO, address in the future?
@@ -816,14 +820,11 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // The ObjectManipulator should recognize that we've begun manipulation.
             Assert.IsTrue(manipulationStartedCount > 0);
 
-            yield return RuntimeTestUtilities.WaitForEnterKey();
-
             // Move both hands outwards; the object may be scaled but the position should remain the same.
             yield return rightHand.MoveTo(new Vector3(0.2f, -0.1f, 0.8f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
             yield return leftHand.MoveTo(new Vector3(-0.2f, -0.1f, 0.8f));
-
-
-            yield return RuntimeTestUtilities.WaitForEnterKey();
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Should *still* not have moved!
             // TestUtilities.AssertAboutEqual(testObject.transform.position, initialObjectPosition, $"Object moved when it shouldn't have! Position: {testObject.transform.position:F5}", 0.00001f);
@@ -854,8 +855,10 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
                 yield return MoveHandsAndCheckCentroid(testCondition.Item1, testCondition.Item2, leftHand, rightHand, objectManipulator, initialObjectPosition, originalCentroid, testObject.transform);
             }
 
-            yield return rightHand.SetGesture(GestureId.Open);
-            yield return leftHand.SetGesture(GestureId.Open);
+            yield return rightHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return leftHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
         }
 
         /// <summary>
@@ -871,11 +874,15 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
         {
             // Rotate the hands.
             yield return rightHand.RotateTo(Quaternion.Euler(handRotationEuler.x, handRotationEuler.y, handRotationEuler.z));
+            yield return RuntimeTestUtilities.WaitForUpdates();
             yield return leftHand.RotateTo(Quaternion.Euler(handRotationEuler.x, -handRotationEuler.y, -handRotationEuler.z));
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Move the hands.
             yield return rightHand.MoveTo(new Vector3(handPosition.x, handPosition.y, handPosition.z));
+            yield return RuntimeTestUtilities.WaitForUpdates();
             yield return leftHand.MoveTo(new Vector3(-handPosition.x, handPosition.y, handPosition.z));
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
             // Recalculate the new grab centroid.
             var leftGrabPoint = om.interactorsSelecting[0].transform.position;
@@ -889,7 +896,6 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             TestUtilities.AssertAboutEqual(testObject.transform.position, originalObjectPosition + centroidDelta,
                                            $"Object moved did not move according to the delta! Actual position: {testObject.transform.position:F5}, should be {originalObjectPosition + centroidDelta}", 0.00001f);
         }
-        */
 
         #endregion
 
