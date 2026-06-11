@@ -6,10 +6,10 @@ using UnityEngine;
 namespace MixedReality.Toolkit.Theming
 {
     /// <summary>
-    /// Binds a material theme data value to the material property of a <see cref="UnityEngine.Renderer"/>.
+    /// Binds a material theme data value to the material property of a <see cref="UnityEngine.Skybox"/>.
     /// </summary>
     [System.Serializable]
-    public class RendererMaterialBinder : BaseThemeBinder<Material, Renderer>
+    public class SkyboxMaterialBinder : BaseThemeBinder<Material, Skybox>
     {
         /// <inheritdoc />
         protected override void Apply(BaseThemeItemData<Material> themeItemData)

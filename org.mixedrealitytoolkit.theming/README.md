@@ -92,7 +92,9 @@ When the active theme changes, the binder looks up its named item in the new the
 | `TransformLocalScaleBinder` | `Vector3` | `Transform` | `Transform.localScale` |
 | `LayoutGroupPaddingBinder` | `RectOffset` | `HorizontalOrVerticalLayoutGroup` | Padding |
 | `RoundedRectMask2DRadiusBinder` | `float` | `RoundedRectMask2D` | Corner radius |
-| `FontIconSetBinder` | `FontIconSetData` | — | Font + icon set |
+| `FontIconSetBinder` | `FontIconSetData` | `FontIconSetBinding` | Font + icon set |
+| `BehaviourEnabledBinder` | `bool` | `Behaviour` | `Behaviour.enabled` |
+| `SkyboxMaterialBinder` | `Material` | `Skybox` | `Skybox.material` |
 | `StateVisualizerEffectColorBinder` | `Color` | `StateVisualizer` | Tint effect color per state |
 
 ---

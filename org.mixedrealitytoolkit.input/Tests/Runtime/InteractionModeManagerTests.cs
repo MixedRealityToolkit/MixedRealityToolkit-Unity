@@ -84,7 +84,7 @@ namespace MixedReality.Toolkit.Input.Tests
             XRBaseController rightHandController = CachedLookup.RightHandController;
             Assert.IsTrue(rightHandController != null, "No controllers found for right hand.");
 
-            // Moving the hand to a position where it's far ray is hovering over the cube
+            // Moving the hand to a position where its far ray is hovering over the cube
             yield return rightHand.AimAt(cube.transform.position);
             yield return RuntimeTestUtilities.WaitForUpdates();
 
@@ -198,7 +198,7 @@ namespace MixedReality.Toolkit.Input.Tests
 
             ValidateInteractionModeActive(rightHandController, nearMode);
 
-            // Moving the hand to a position where it's far ray is hovering over the cube
+            // Moving the hand to a position where its far ray is hovering over the cube
             yield return rightHand.MoveTo(cube.transform.position + new Vector3(0.02f, -0.1f, -0.8f));
             yield return RuntimeTestUtilities.WaitForUpdates(frameCount: 120);
 

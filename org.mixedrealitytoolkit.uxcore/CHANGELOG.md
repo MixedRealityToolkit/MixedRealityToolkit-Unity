@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Updated `PressableButton` to work across all `IXRInteractionStrengthInteractor` implementations, instead of just MRTK-specific `IVariableSelectInteractor` implementations. [PR #1085](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1085)
 
+## [4.0.0-pre.4] - 2026-06-10
+
+### Added
+
+* Added `AlphaBlend` tint mode to `TintEffect`. [PR #1131](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1131)
+
+### Fixed
+
+* Fixed build issue caused by `FontIconSelectorMigrationUtility` not being in an Editor-only assembly.
+
 ## [4.0.0-pre.3] - 2026-05-20
 
 ### Added

@@ -15,12 +15,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Added `MRTKFocusFeature` to provide XrSession focus info to MRTK components. [PR #1057](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1057)
 * Added input action focus handling to disable controller/hand tracked state when the XrSession goes out of focus. [PR #1057](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1057)
 * Added support for XR_MSFT_hand_tracking_mesh and XR_ANDROID_hand_mesh on compatible runtimes. [PR #993](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/993)
+* Added `Skybox` component to "MRTK XR Rig.prefab" for theming the skybox material. [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
 
 ### Changed
 
 * Updated `InteractionDetector` to work across all `XRRayInteractor` and `NearFarInteractor` implementations, instead of just MRTK-specific `MRTKRayInteractor` implementations. [PR #1090](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1090)
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
 * Reserialized MRTK XR Rig prefab to remove stale serialized fields. [PR #1110](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1110)
+* Updated tests to follow existing MRTK test patterns. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
 
 ### Deprecated
 
