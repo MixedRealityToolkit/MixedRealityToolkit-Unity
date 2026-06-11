@@ -2,6 +2,19 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Added
+
+* Added new `editorDefault` field for debugging the various `DisplayType`s in-editor. [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
+* Added edit mode tests for `AssemblyExtensions`, `SystemType`, and `SerializableDictionary`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
+
+### Changed
+
+* Updated `PackageValidator` to only be valid if `UNITY_EDITOR` is true. [PR #1125](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1125)
+* `AssemblyExtensions.GetLoadableTypes` now throws `ArgumentNullException` when called on a null assembly instead of `NullReferenceException`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
+* Updated `MRTKBaseInteractable` to follow MRTK style. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
+
 ## [4.0.0-pre.3] - 2026-05-20
 
 ### Added
@@ -15,7 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
-* Fixed "The type MixedReality.Toolkit.Core MixedReality.Toolkit.Experimental.BubbleChildHoverEvents/TrickleChildHoverEvents/BubbleChildSelectEvents/TrickleChildSelectEvents is being serialized by `[SerializeReference]`, but is missing the `[Serializable]` attribute." on Unity 6.3. [PR #1107](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1107)
+* Fixed "The type `MixedReality.Toolkit.Core MixedReality.Toolkit.Experimental.BubbleChildHoverEvents/TrickleChildHoverEvents/BubbleChildSelectEvents/TrickleChildSelectEvents` is being serialized by `[SerializeReference]`, but is missing the `[Serializable]` attribute." on Unity 6.3. [PR #1107](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1107)
 
 ### Deprecated
 

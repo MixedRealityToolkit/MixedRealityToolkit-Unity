@@ -12,7 +12,10 @@ namespace MixedReality.Toolkit
     [AddComponentMenu("MRTK/Core/Camera Settings Manager")]
     public class CameraSettingsManager : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("The default display type in the editor.")]
+        private DisplayType editorDefault = DisplayType.Transparent;
+
+        [SerializeField, Tooltip("The settings to apply when the display is opaque (VR).")]
         private CameraSettings opaqueDisplay = new CameraSettings(DisplayType.Opaque);
 
         /// <summary>
@@ -24,7 +27,7 @@ namespace MixedReality.Toolkit
             set => opaqueDisplay = value;
         }
 
-        [SerializeField]
+        [SerializeField, Tooltip("The settings to apply when the display is transparent (AR).")]
         private CameraSettings transparentDisplay = new CameraSettings(DisplayType.Transparent);
 
         /// <summary>
@@ -81,7 +84,7 @@ namespace MixedReality.Toolkit
         {
             using (UpdateCameraSettingsPerfMarker.Auto())
             {
-                UnityEngine.Camera mainCamera = Camera.main;
+                Camera mainCamera = Camera.main;
 
                 switch (type)
                 {
@@ -133,7 +136,7 @@ namespace MixedReality.Toolkit
         {
             using (GetDisplayTypePerfMarker.Auto())
             {
-                if (XRSubsystemHelpers.DisplaySubsystem == null) { return DisplayType.Unknown; }
+                if (XRSubsystemHelpers.DisplaySubsystem == null) { return Application.isEditor ? editorDefault : DisplayType.Unknown; }
                 return XRSubsystemHelpers.DisplaySubsystem.displayOpaque ? DisplayType.Opaque : DisplayType.Transparent;
             }
         }
