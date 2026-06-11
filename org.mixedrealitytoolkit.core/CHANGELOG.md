@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * `AssemblyExtensions.GetLoadableTypes` now throws `ArgumentNullException` when called on a null assembly instead of `NullReferenceException`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
 * Updated `MRTKBaseInteractable` to follow MRTK style. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
 
+### Deprecated
+
+* Deprecated `EnumFlagsAttribute` in favor of `Unity.XR.CoreUtils.GUI.FlagsPropertyAttribute`. [PR #1075](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1075)
+
 ## [4.0.0-pre.3] - 2026-05-20
 
 ### Added
@@ -53,12 +57,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Removed
 
-* Removed ITrackedInteractor, as it was supporting an unused codepath and there are better ways to get this data (like querying the attach transform). [PR #1044](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1044)
+* Removed `ITrackedInteractor`, as it was supporting an unused codepath and there are better ways to get this data (like querying the attach transform). [PR #1044](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1044)
 
 ### Deprecated
 
-* Deprecated IHandedInteractor, as its info is now queryable directly from IXRInteractor's handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
-* Deprecated FindObjectUtility, as it was a backwards-compatibility layer for pre-2021.3.18. Since our min version is now 2022.3, we can just call the API directly. [PR #1058](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1058)
+* Deprecated `IHandedInteractor`, as its info is now queryable directly from IXRInteractor's handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
+* Deprecated `FindObjectUtility`, as it was a backwards-compatibility layer for pre-2021.3.18. Since our min version is now 2022.3, we can just call the API directly. [PR #1058](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1058)
 
 ## [4.0.0-pre.1] - 2024-07-09
 
