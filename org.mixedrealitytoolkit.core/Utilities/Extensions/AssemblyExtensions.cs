@@ -14,10 +14,15 @@ namespace MixedReality.Toolkit
     public static class AssemblyExtensions
     {
         /// <summary>
-        /// Assembly.GetTypes() can throw in some cases.  This extension will catch that exception and return only the types which were successfully loaded from the assembly.
+        /// Assembly.GetTypes() can throw in some cases. This extension will catch that exception and return only the types which were successfully loaded from the assembly.
         /// </summary>
         public static IEnumerable<Type> GetLoadableTypes(this Assembly @this)
         {
+            if (@this == null)
+            {
+                throw new ArgumentNullException(nameof(@this), "Assembly cannot be null.");
+            }
+
             try
             {
                 return @this.GetTypes();

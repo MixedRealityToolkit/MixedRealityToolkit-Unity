@@ -19,7 +19,7 @@ namespace MixedReality.Toolkit
     {
         #region Gaze
 
-        readonly List<IGazeInteractor> hoveringGazeInteractors = new List<IGazeInteractor>();
+        private readonly List<IGazeInteractor> hoveringGazeInteractors = new List<IGazeInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGazeInteractor"/> components currently gazing this object.
@@ -30,14 +30,14 @@ namespace MixedReality.Toolkit
 
         #region GazePinch
 
-        readonly List<IGazePinchInteractor> hoveringGazePinchInteractors = new List<IGazePinchInteractor>();
+        private readonly List<IGazePinchInteractor> hoveringGazePinchInteractors = new List<IGazePinchInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGazePinchInteractor"/> components currently hovering this object.
         /// </summary>
         public List<IGazePinchInteractor> HoveringGazePinchInteractors => hoveringGazePinchInteractors;
 
-        readonly List<IGazePinchInteractor> selectingGazePinchInteractors = new List<IGazePinchInteractor>();
+        private readonly List<IGazePinchInteractor> selectingGazePinchInteractors = new List<IGazePinchInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGazePinchInteractor"/> components currently selecting this object.
@@ -48,7 +48,7 @@ namespace MixedReality.Toolkit
 
         #region Poke
 
-        readonly List<IPokeInteractor> hoveringPokeInteractors = new List<IPokeInteractor>();
+        private readonly List<IPokeInteractor> hoveringPokeInteractors = new List<IPokeInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IPokeInteractor"/> components currently hovering this object.
@@ -59,14 +59,14 @@ namespace MixedReality.Toolkit
 
         #region Grab
 
-        readonly List<IGrabInteractor> hoveringGrabInteractors = new List<IGrabInteractor>();
+        private readonly List<IGrabInteractor> hoveringGrabInteractors = new List<IGrabInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGrabInteractor"/> components currently hovering this object.
         /// </summary>]
         public List<IGrabInteractor> HoveringGrabInteractors => hoveringGrabInteractors;
 
-        readonly List<IGrabInteractor> selectingGrabInteractors = new List<IGrabInteractor>();
+        private readonly List<IGrabInteractor> selectingGrabInteractors = new List<IGrabInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGrabInteractor"/> components currently selecting this object.
@@ -77,7 +77,7 @@ namespace MixedReality.Toolkit
 
         #region Ray
 
-        readonly List<IRayInteractor> hoveringRayInteractors = new List<IRayInteractor>();
+        private readonly List<IRayInteractor> hoveringRayInteractors = new List<IRayInteractor>();
 
         /// <summary>
         /// (Read Only) The list of <see cref="IRayInteractor"/> components currently hovering this object.
@@ -95,7 +95,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object selected by a gaze-pinch interactor?
         /// </summary>
-        public TimedFlag IsGazePinchSelected { get => isGazePinchSelected; }
+        public TimedFlag IsGazePinchSelected => isGazePinchSelected;
 
         [SerializeField]
         [Tooltip("Is this object selected by a non-gaze ray interactor?")]
@@ -104,7 +104,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object selected by a non-gaze ray interactor?
         /// </summary>
-        public TimedFlag IsRaySelected { get => isRaySelected; }
+        public TimedFlag IsRaySelected => isRaySelected;
 
         [SerializeField]
         [Tooltip("Is this object selected by a poke interactor?")]
@@ -113,7 +113,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object selected by a poke interactor?
         /// </summary>
-        public TimedFlag IsPokeSelected { get => isPokeSelected; }
+        public TimedFlag IsPokeSelected => isPokeSelected;
 
         [SerializeField]
         [Tooltip("Is this object selected by a grab interactor?")]
@@ -122,7 +122,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object selected by a grab interactor?
         /// </summary>
-        public TimedFlag IsGrabSelected { get => isGrabSelected; }
+        public TimedFlag IsGrabSelected => isGrabSelected;
 
         [SerializeField]
         [Tooltip("Is this object hovered by any gaze interactor?")]
@@ -131,7 +131,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object hovered by any gaze interactor?
         /// </summary>
-        public TimedFlag IsGazeHovered { get => isGazeHovered; }
+        public TimedFlag IsGazeHovered => isGazeHovered;
 
         [SerializeField]
         [Tooltip("Is this object hovered by a gaze-pinch interactor?")]
@@ -140,7 +140,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object hovered by a gaze-pinch interactor?
         /// </summary>
-        public TimedFlag IsGazePinchHovered { get => isGazePinchHovered; }
+        public TimedFlag IsGazePinchHovered => isGazePinchHovered;
 
         [SerializeField]
         [Tooltip("Is this object hovered by a non-gaze ray interactor?")]
@@ -149,7 +149,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object hovered by a non-gaze ray interactor?
         /// </summary>
-        public TimedFlag IsRayHovered { get => isRayHovered; }
+        public TimedFlag IsRayHovered => isRayHovered;
 
         [SerializeField]
         [Tooltip("Is this object hovered by a grab interactor?")]
@@ -158,7 +158,7 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object hovered by a grab interactor?
         /// </summary>
-        public TimedFlag IsGrabHovered { get => isGrabHovered; }
+        public TimedFlag IsGrabHovered => isGrabHovered;
 
         [SerializeField]
         [Tooltip("Is this object hovered by a near touch/poke interactor?")]
@@ -168,12 +168,12 @@ namespace MixedReality.Toolkit
         /// <summary>
         /// Is this object hovered by a near touch/poke interactor?
         /// </summary>
-        public TimedFlag IsPokeHovered { get => isPokeHovered; }
+        public TimedFlag IsPokeHovered => isPokeHovered;
 
         /// <summary>
         /// Is this object hovered by any interactor other than passive targeting interactors?
         /// </summary>
-        public TimedFlag IsActiveHovered { get => isActiveHovered; }
+        public TimedFlag IsActiveHovered => isActiveHovered;
 
         [SerializeField]
         [Tooltip("Is this object hovered by any interactor other than only passive targeting interactors?")]
@@ -201,7 +201,7 @@ namespace MixedReality.Toolkit
             }
         }
         /// <summary>
-        /// Removes the specified type to the set of interactors which cannot select this interactable
+        /// Removes the specified type from the set of interactors which cannot select this interactable
         /// </summary>
         public void EnableInteractorType(SystemInterfaceType type)
         {

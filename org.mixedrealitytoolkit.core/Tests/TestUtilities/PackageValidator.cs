@@ -1,9 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-// Disable "missing XML comment" warning for tests. While nice to have, this documentation is not required.
-#pragma warning disable CS1591
-#if HAS_ASSET_STORE_VALIDATION
+#if HAS_ASSET_STORE_VALIDATION && UNITY_EDITOR
 
 using System;
 using System.Collections.Generic;
@@ -26,12 +24,7 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         /// </exception>
         public static PackageValidatorResults Validate(string packageName)
         {
-            PackageInfo info = UpmPackageInfo(packageName);
-            if (info == null)
-            {
-                throw new ArgumentException($"No package found with name \"{packageName}\"");
-            }
-
+            PackageInfo info = UpmPackageInfo(packageName) ?? throw new ArgumentException($"No package found with name \"{packageName}\"");
             string packageId = $"{info.name}@{info.version}";
             ValidationSuite.ValidatePackage(packageId, ValidationType.AssetStore);
 
@@ -70,5 +63,5 @@ namespace MixedReality.Toolkit.Core.Tests.EditMode
         }
     }
 }
-#endif // HAS_ASSET_STORE_VALIDATION
-#pragma warning restore CS1591
+
+#endif // HAS_ASSET_STORE_VALIDATION && UNITY_EDITOR
