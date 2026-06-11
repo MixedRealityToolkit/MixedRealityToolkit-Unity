@@ -1,10 +1,6 @@
 ﻿// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-// Disable "missing XML comment" warning for samples. While nice to have, this XML documentation is not required for samples.
-#pragma warning disable CS1591
-
-using MixedReality.Toolkit.Input;
 using MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
@@ -30,10 +26,8 @@ namespace MixedReality.Toolkit.Examples.Demos
         [SerializeField]
         private TextMeshPro debugMessage = null;
 
-#pragma warning disable 0414
         [SerializeField]
         private KeyboardPreview mixedRealityKeyboardPreview = null;
-#pragma warning restore 0414
 
         /// <summary>
         /// Opens a platform specific keyboard.
@@ -43,7 +37,10 @@ namespace MixedReality.Toolkit.Examples.Demos
 #if WINDOWS_UWP
             wmrKeyboard.ShowKeyboard(wmrKeyboard.Text, false);
 #elif UNITY_IOS || UNITY_ANDROID
-            touchscreenKeyboard = TouchScreenKeyboard.Open(string.Empty, TouchScreenKeyboardType.Default, false, false, false, false);
+            if (TouchScreenKeyboard.isSupported)
+            {
+                touchscreenKeyboard = TouchScreenKeyboard.Open(string.Empty, TouchScreenKeyboardType.Default, false, false, false, false);
+            }
 #endif
         }
 
@@ -51,7 +48,7 @@ namespace MixedReality.Toolkit.Examples.Demos
 
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
-        /// </summary> 
+        /// </summary>
         private void Start()
         {
             // Initially hide the preview.
@@ -91,7 +88,6 @@ namespace MixedReality.Toolkit.Examples.Demos
 #endif
         }
 
-        
 #if WINDOWS_UWP
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
@@ -149,19 +145,19 @@ namespace MixedReality.Toolkit.Examples.Demos
             // touch screen keyboard.
             if (touchscreenKeyboard != null)
             {
-                string KeyboardText = touchscreenKeyboard.text;
+                string keyboardText = touchscreenKeyboard.text;
                 if (TouchScreenKeyboard.visible)
                 {
                     if (debugMessage != null)
                     {
-                        debugMessage.text = "typing... " + KeyboardText;
+                        debugMessage.text = "typing... " + keyboardText;
                     }
                 }
                 else
                 {
                     if (debugMessage != null)
                     {
-                        debugMessage.text = "typed " + KeyboardText;
+                        debugMessage.text = "typed " + keyboardText;
                     }
 
                     touchscreenKeyboard = null;
@@ -173,4 +169,3 @@ namespace MixedReality.Toolkit.Examples.Demos
         #endregion MonoBehaviour Implementation
     }
 }
-#pragma warning restore CS1591
