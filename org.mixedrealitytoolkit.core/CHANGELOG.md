@@ -30,6 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
 * Updated code style in `HandsSubsystemDescriptor`, `MRTKSubsystemDescriptor`, `DictationSubsystemDescriptor`, and `XRSubsystemHelpers`. [PR #1109](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1109)
+* Updated `ReserializeUtility` to remove unused prefab overrides. [PR #1126](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1126)
 
 ### Fixed
 

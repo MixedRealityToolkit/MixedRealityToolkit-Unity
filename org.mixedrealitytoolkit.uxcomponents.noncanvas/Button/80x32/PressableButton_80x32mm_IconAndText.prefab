@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 391159300930857138, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
@@ -54,10 +55,6 @@ PrefabInstance:
     - target: {fileID: 7256543901087109448, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: m_Name
       value: PressableButton_80x32mm_IconAndText
-      objectReference: {fileID: 0}
-    - target: {fileID: 7256543901607729065, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7256543901607729065, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
       propertyPath: m_LocalPosition.x
@@ -112,4 +109,7 @@ PrefabInstance:
       value: -0.024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc7ef7d5625c3454ab5097673a207485, type: 3}
