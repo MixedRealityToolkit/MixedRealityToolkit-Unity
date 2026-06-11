@@ -7,6 +7,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 * Added new `editorDefault` field for debugging the various `DisplayType`s in-editor. [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
+* Added edit mode tests for `AssemblyExtensions`, `SystemType`, and `SerializableDictionary`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
+
+### Changed
+
+* Updated `PackageValidator` to only be valid if `UNITY_EDITOR` is true. [PR #1125](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1125)
+* `AssemblyExtensions.GetLoadableTypes` now throws `ArgumentNullException` when called on a null assembly instead of `NullReferenceException`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
+* Updated `MRTKBaseInteractable` to follow MRTK style. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
 
 ## [4.0.0-pre.3] - 2026-05-20
 
@@ -18,13 +25,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
 * Updated code style in `HandsSubsystemDescriptor`, `MRTKSubsystemDescriptor`, `DictationSubsystemDescriptor`, and `XRSubsystemHelpers`. [PR #1109](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1109)
-* Updated `PackageValidator` to only be valid if `UNITY_EDITOR` is true. [PR #1125](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1125)
-* `AssemblyExtensions.GetLoadableTypes` now throws `ArgumentNullException` when called on a null assembly instead of `NullReferenceException`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
-* Updated `MRTKBaseInteractable` to follow MRTK style. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
-
-### Added
-
-* Added edit mode tests for `AssemblyExtensions`, `SystemType`, and `SerializableDictionary`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
 
 ### Fixed
 

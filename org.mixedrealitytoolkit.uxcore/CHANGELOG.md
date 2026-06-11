@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [4.0.0-pre.4] - 2026-06-10
 
+### Added
+
+* Added `AlphaBlend` tint mode to `TintEffect`. [PR #1131](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1131)
+
 ### Fixed
 
 * Fixed build issue caused by `FontIconSelectorMigrationUtility` not being in an Editor-only assembly.
@@ -20,10 +24,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
 * Updated `FontIconSelector`, `StateVisualizer`, and `TintEffect` to be themeable. [PR #1119](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1119)
-
-### Added
-
-* Added `AlphaBlend` tint mode to `TintEffect`. [PR #1131](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1131)
 
 ### Fixed
 
