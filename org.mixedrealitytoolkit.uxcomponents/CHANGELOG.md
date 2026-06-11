@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Added "Enable Button Select Pulse" binding to "Empty Button.prefab". [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
 
+### Changed
+
+* Reserialized prefabs and materials to remove additional stale serialized fields. [PR #1126](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1126)
+
 ## [4.0.0-pre.3] - 2026-05-20
 
 ### Changed

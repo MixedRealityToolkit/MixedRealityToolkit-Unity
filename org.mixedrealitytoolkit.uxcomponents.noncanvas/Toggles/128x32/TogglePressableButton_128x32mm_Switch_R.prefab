@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4490143932523709208}
     m_Modifications:
     - target: {fileID: 6293017779727346121, guid: 73fe1e0781857a548bdd21f3e344f650, type: 3}
@@ -56,14 +57,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7844508667005061968, guid: 73fe1e0781857a548bdd21f3e344f650, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a5e18561b49fc5148824ed7c16d531f5, type: 2}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6293017779727346121, guid: 73fe1e0781857a548bdd21f3e344f650, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9142581645191163662}
   m_SourcePrefab: {fileID: 100100000, guid: 73fe1e0781857a548bdd21f3e344f650, type: 3}
 --- !u!1 &6616608981005156477 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6293017779010451976, guid: 73fe1e0781857a548bdd21f3e344f650, type: 3}
+  m_PrefabInstance: {fileID: 902866841538034293}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6616608981442352003 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6293017779727346166, guid: 73fe1e0781857a548bdd21f3e344f650, type: 3}
   m_PrefabInstance: {fileID: 902866841538034293}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6616608981442352060 stripped
@@ -125,10 +137,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 954131435394119071, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
-      propertyPath: managedReferences[1393819269385945091]
+      propertyPath: 'managedReferences[1393819269385945091]'
       value: MixedReality.Toolkit.UXCore MixedReality.Toolkit.UX.AnimationEffect
       objectReference: {fileID: 0}
     - target: {fileID: 954131435394119071, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
@@ -160,7 +173,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 954131435394119071, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
-      propertyPath: stateContainers.entries.Array.data[4].value.effects.Array.data[0]
+      propertyPath: 'stateContainers.entries.Array.data[4].value.effects.Array.data[0]'
       value: 1393819269385945091
       objectReference: {fileID: 0}
     - target: {fileID: 954131435394119071, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
@@ -320,6 +333,12 @@ PrefabInstance:
       value: -0.01041
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8829903862454882072, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6616608981442352003}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72dfeb9ecf5ad884b87eff8bc5b49276, type: 3}
 --- !u!114 &3866738496716522142 stripped
 MonoBehaviour:
