@@ -11,7 +11,7 @@ namespace MixedReality.Toolkit.Input
     public static class InputTrackingStateExtensions
     {
         /// <summary>
-        /// Returns true iff the state is at least both positionally and rotationally tracked.
+        /// Returns true if and only if the state is at least both positionally and rotationally tracked.
         /// </summary>
         public static bool HasPositionAndRotation(this InputTrackingState state)
         {

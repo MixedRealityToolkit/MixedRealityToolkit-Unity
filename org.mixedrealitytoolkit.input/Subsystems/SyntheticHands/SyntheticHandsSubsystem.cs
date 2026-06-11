@@ -67,42 +67,6 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <summary>
-        /// Requests the neutral pose for the specified hand.
-        /// </summary>
-        /// <param name="handNode">The hand for which the neutral pose is being requested.</param>
-        /// <returns>
-        /// Identifier representing the hand pose.
-        /// </returns>
-        [Obsolete("Please use the GetNeutralHandshape(handNode) instead.")]
-        public HandshapeId GetNeutralPose(XRNode handNode) => GetNeutralHandshape(handNode);
-
-        /// <summary>
-        /// Sets the neutral pose for the specified hand.
-        /// </summary>
-        /// <param name="handNode">The hand for which the neutral pose is being set.</param>
-        /// <param name="poseId">The desired hand pose.</param>
-        [Obsolete("Please use the SetNeutralHandshape(handNode, handshapeId) instead.")]
-        public void SetNeutralPose(XRNode handNode, HandshapeId poseId) => SetNeutralHandshape(handNode, poseId);
-
-        /// <summary>
-        /// Requests the selection pose for the specified hand.
-        /// </summary>
-        /// <param name="handNode">The hand for which the selection pose is being requested.</param>
-        /// <returns>
-        /// Identifier representing the hand pose.
-        /// </returns>
-        [Obsolete("Please use the GetSelectionHandshape(handNode) instead.")]
-        public HandshapeId GetSelectionPose(XRNode handNode) => GetSelectionHandshape(handNode);
-
-        /// <summary>
-        /// Sets the selection pose for the specified hand.
-        /// </summary>
-        /// <param name="handNode">The hand for which the selection pose is being set.</param>
-        /// <param name="poseId">The desired hand pose.</param>
-        [Obsolete("Please use the SetSelectionHandshape(handNode, handshapeId) instead.")]
-        public void SetSelectionPose(XRNode handNode, HandshapeId poseId) => SetSelectionHandshape(handNode, poseId);
-
-        /// <summary>
         /// Requests the neutral hand shape for the specified hand.
         /// </summary>
         /// <param name="handNode">The hand for which the neutral hand shape is being requested.</param>
@@ -458,42 +422,6 @@ namespace MixedReality.Toolkit.Input
                 hands[XRNode.LeftHand].Reset();
                 hands[XRNode.RightHand].Reset();
             }
-
-            /// <summary>
-            /// Requests the neutral pose for the specified hand.
-            /// </summary>
-            /// <param name="handNode">The hand for which the neutral pose is being requested.</param>
-            /// <returns>
-            /// Identifier representing the hand pose.
-            /// </returns>
-            [Obsolete("Please use the GetNeutralHandshape(handNode) instead.")]
-            public HandshapeId GetNeutralPose(XRNode handNode) => GetNeutralHandshape(handNode);
-
-            /// <summary>
-            /// Sets the neutral pose for the specified hand.
-            /// </summary>
-            /// <param name="handNode">The hand for which the neutral pose is being set.</param>
-            /// <param name="poseId">The desired hand pose.</param>
-            [Obsolete("Please use the SetNeutralHandshape(handNode, handshapeId) instead.")]
-            public void SetNeutralPose(XRNode handNode, HandshapeId poseId) => SetNeutralHandshape(handNode, poseId);
-
-            /// <summary>
-            /// Requests the selection pose for the specified hand.
-            /// </summary>
-            /// <param name="handNode">The hand for which the selection pose is being requested.</param>
-            /// <returns>
-            /// Identifier representing the hand pose.
-            /// </returns>
-            [Obsolete("Please use the GetSelectionHandshape(handNode) instead.")]
-            public HandshapeId GetSelectionPose(XRNode handNode) => GetSelectionHandshape(handNode);
-
-            /// <summary>
-            /// Sets the selection pose for the specified hand.
-            /// </summary>
-            /// <param name="handNode">The hand for which the selection pose is being set.</param>
-            /// <param name="poseId">The desired hand pose.</param>
-            [Obsolete("Please use the SetSelectionHandshape(handNode, handshapeId) instead.")]
-            public void SetSelectionPose(XRNode handNode, HandshapeId poseId) => SetSelectionHandshape(handNode, poseId);
 
             /// <summary>
             /// Requests the neutral handshape for the specified hand.

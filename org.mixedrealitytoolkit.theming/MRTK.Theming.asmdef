@@ -1,0 +1,19 @@
+{
+    "name": "MixedReality.Toolkit.Theming",
+    "rootNamespace": "MixedReality.Toolkit.Theming",
+    "references": [
+        "GUID:22213891bfe50254781c448a2277a9a5",
+        "GUID:56255bd5d851a6243b63cb370cfc40b1",
+        "GUID:9a9367d437335a947a847011f5575869",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -17,6 +17,7 @@ namespace MixedReality.Toolkit.Input
     /// This is able to support variable pinch select through the use of <see cref="HandsAggregatorSubsystem"/>.
     /// </remarks>
     [AddComponentMenu("MRTK/Input/XR Controller (Articulated Hand)")]
+    [Obsolete("ArticulatedHandController has been deprecated in version 4.0.0. Its functionality has been distributed into different components.")]
     public class ArticulatedHandController : ActionBasedController
     {
         #region Associated hand select values
@@ -40,15 +41,6 @@ namespace MixedReality.Toolkit.Input
         #endregion Associated hand select values
 
         #region Properties
-        
-        /// <summary>
-        /// The currently loaded and running hands aggregator, if any.
-        /// </summary>
-        /// <remarks>
-        /// This is deprecated, please use <see cref="XRSubsystemHelpers.HandsAggregator"/> instead.
-        /// </remarks>
-        [Obsolete("Deprecated, please use XRSubsystemHelpers.HandsAggregator instead.")]
-        protected HandsAggregatorSubsystem HandsAggregator => XRSubsystemHelpers.HandsAggregator as HandsAggregatorSubsystem;
 
         #endregion Properties
 
@@ -145,7 +137,8 @@ namespace MixedReality.Toolkit.Input
             // This could show up on runtimes where a controller is disconnected, hand tracking spins up,
             // but the interaction profile is not cleared. This is allowed, per-spec: "The runtime may
             // return the last-known interaction profile in the event that no controllers are active."
-            if ((!positionAction.action.HasAnyControls() || controllerState.inputTrackingState == InputTrackingState.None)
+            // Also check that the action was updated this frame by an active control, if is wasn't use polyfill pose.
+            if ((!positionAction.action.HasAnyControls() || controllerState.inputTrackingState == InputTrackingState.None || positionAction.action.activeControl == null)
                 && TryGetPolyfillDevicePose(out Pose devicePose))
             {
                 controllerState.position = devicePose.position;

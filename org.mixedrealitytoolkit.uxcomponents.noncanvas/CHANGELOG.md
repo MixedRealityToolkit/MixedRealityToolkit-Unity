@@ -2,6 +2,25 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
+* Reserialized prefabs, materials, and animations to remove stale serialized fields. [PR #1126](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1126)
+
+## [4.0.0-pre.2] - 2025-12-05
+
+### Changed
+
+* Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
+
+## [4.0.0-pre.1] - 2024-07-09
+
+### Changed
+
+* Updated package com.unity.xr.interaction.toolkit to 3.0.4
+
 ## [3.1.5] - 2025-11-12
 
 ### Fixed

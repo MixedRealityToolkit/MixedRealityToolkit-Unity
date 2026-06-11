@@ -50,7 +50,7 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (PrepassZ)" {
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
                 // Inflate/deflate hand based on thickness.
-                o.vertex = UnityObjectToClipPos(v.vertex + v.normal * _HandThickness);
+                o.vertex = UnityObjectToClipPos(v.vertex + normalize(v.normal) * _HandThickness);
 
                 return o;
             }

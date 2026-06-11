@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6e110c23f5e404dbbfdc87cb47ff23, type: 3}
+  m_Name: MRTK_Theming_DefaultDefinition
+  m_EditorClassIdentifier: 
+  <ThemeDefinitionItems>k__BackingField:
+  - <Name>k__BackingField: Backplate Material
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Non-Canvas Backplate (8mm) Material
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Non-Canvas Backplate (10mm) Material
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Non-Canvas Backplate (13mm) Material
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Text Font
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.TMP_FontAssetThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Icon Set
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.FontIconSetItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: MRTK Logo
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.SpriteThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Canvas Backplate Quad Material
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Panel Group Padding
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.RectOffsetItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Button Corner Radius
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.FloatItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Tab Indicator Material
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Horizontal Tab Indicator Scale
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.Vector3ItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Primary Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: On Primary Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Primary Container Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: On Primary Container Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Secondary Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: On Secondary Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Secondary Container Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: On Secondary Container Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Tertiary Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: On Tertiary Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Tertiary Container Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: On Tertiary Container Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Surface Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: On Surface Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Surface Container Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Skybox
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Enable Shared List Backplate
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.BoolItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Enable Button Select Pulse
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.BoolItemData, MixedReality.Toolkit.Theming

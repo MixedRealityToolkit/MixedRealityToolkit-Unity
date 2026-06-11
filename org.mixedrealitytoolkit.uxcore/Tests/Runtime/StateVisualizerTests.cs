@@ -10,6 +10,7 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.Playables;
 using UnityEngine.TestTools;
 
@@ -138,6 +139,27 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
                 LastSetParameter = parameter;
                 return true;
             }
+        }
+
+        /// <summary>
+        /// A minimal mixable effect to verify PlayableGraph connections.
+        /// </summary>
+        private class TestMixableEffect : IAnimationMixableEffect, IPlayableEffect
+        {
+            public Playable Playable { get; private set; }
+
+            public float TransitionDuration => 0f;
+
+            public IAnimationMixableEffect.WeightType WeightMode => IAnimationMixableEffect.WeightType.MatchStateValue;
+
+            public void Setup(PlayableGraph graph, GameObject owner)
+            {
+                AnimationClip clip = new AnimationClip();
+                clip.SetCurve("", typeof(Transform), "localPosition.y", AnimationCurve.Constant(0f, 1f, 42f));
+                Playable = AnimationClipPlayable.Create(graph, clip);
+            }
+
+            public bool Evaluate(float parameter) => true;
         }
 
         /// <summary>
@@ -292,7 +314,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             Assert.IsTrue(sv.Animator.enabled, "The animator should still be enabled after a short delay.");
 
             // Wait for the keepAliveTime
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.12f);
 
             Assert.IsFalse(sv.Animator.enabled, "The animator should be disabled after the keepAliveTime has elapsed.");
 
@@ -339,6 +361,173 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             yield return null;
 
             Assert.IsTrue(cube.GetComponent<Animator>() != null, "An animator wasn't automatically added when it was missing!");
+        }
+
+        /// <summary>
+        /// Tests that setting a new Interactable safely unsubscribes from the old and subscribes to the new.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestInteractableHotSwap()
+        {
+            GameObject cube1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            StatefulInteractable interactable1 = cube1.AddComponent<StatefulInteractable>();
+            interactable1.DisableInteractorType(typeof(IPokeInteractor));
+            cube1.AddComponent<Animator>();
+            StateVisualizer sv = cube1.AddComponent<StateVisualizer>();
+
+            cube1.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(-0.2f, 0.1f, 1));
+            cube1.transform.localScale = Vector3.one * 0.1f;
+
+            GameObject cube2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            StatefulInteractable interactable2 = cube2.AddComponent<StatefulInteractable>();
+            interactable2.DisableInteractorType(typeof(IPokeInteractor));
+            cube2.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0.2f, 0.1f, 1));
+            cube2.transform.localScale = Vector3.one * 0.1f;
+
+            CustomTestEffect customEffect = new CustomTestEffect();
+            sv.AddEffect("Select", customEffect);
+
+            var rightHand = new TestHand(Handedness.Right);
+            yield return rightHand.Show(InputTestUtilities.InFrontOfUser(0.5f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Interact with cube 1
+            yield return rightHand.MoveTo(cube1.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.AreEqual(1.0f, customEffect.LastSetParameter, 0.00001f, "Effect should trigger on interactable 1.");
+
+            yield return rightHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.AreEqual(0.0f, customEffect.LastSetParameter, 0.00001f, "Effect should reset.");
+
+            // Swap interactable
+            sv.Interactable = interactable2;
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Interact with cube 1 again (should NOT trigger)
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.AreEqual(0.0f, customEffect.LastSetParameter, 0.00001f, "Effect should NOT trigger on interactable 1 after hot-swap.");
+
+            yield return rightHand.SetHandshape(HandshapeId.Open);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // Interact with cube 2
+            yield return rightHand.MoveTo(cube2.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.AreEqual(1.0f, customEffect.LastSetParameter, 0.00001f, "Effect should trigger on interactable 2 after hot-swap.");
+        }
+
+        /// <summary>
+        /// Tests that setting a new Animator at runtime successfully triggers a Rebuild and updates the target.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestAnimatorHotSwap()
+        {
+            GameObject cube1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            StatefulInteractable interactable = cube1.AddComponent<StatefulInteractable>();
+            interactable.DisableInteractorType(typeof(IPokeInteractor));
+            Animator anim1 = cube1.AddComponent<Animator>();
+            StateVisualizer sv = cube1.AddComponent<StateVisualizer>();
+
+            cube1.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0.1f, 0.1f, 1));
+            cube1.transform.localScale = Vector3.one * 0.1f;
+
+            // Add the effect BEFORE Start() so we don't need to manually Rebuild() to pick it up.
+            CustomTestEffect customEffect = new CustomTestEffect();
+            sv.AddEffect("Select", customEffect);
+
+            TestMixableEffect mixableEffect = new TestMixableEffect();
+            sv.AddEffect("Select", mixableEffect);
+
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            GameObject cube2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            Animator anim2 = cube2.AddComponent<Animator>();
+
+            var rightHand = new TestHand(Handedness.Right);
+            yield return rightHand.Show(cube1.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.AreEqual(anim1, sv.Animator, "SV should default to Animator on the same GameObject.");
+            Assert.IsTrue(anim1.enabled, "The initial Animator should be enabled because the StateVisualizer is hovered.");
+
+            // Swap animator while awake
+            sv.Animator = anim2;
+
+            Assert.IsFalse(anim1.enabled, "The old Animator should be disabled immediately after hot-swap.");
+            Assert.IsTrue(anim2.enabled, "The new Animator should instantly inherit the playing state from the PlayableGraph.");
+            Assert.AreEqual(anim2, sv.Animator, "SV Animator should be updated.");
+
+            // Wait for it to go to sleep
+            yield return rightHand.MoveTo(Vector3.zero);
+            yield return new WaitForSeconds(0.25f);
+            Assert.IsFalse(anim2.enabled, "The new Animator should have been put to sleep by the visualizer after keepAliveTime elapsed.");
+
+            // Hot swap while asleep
+            GameObject cube3 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            Animator anim3 = cube3.AddComponent<Animator>();
+            sv.Animator = anim3;
+
+            Assert.IsFalse(anim2.enabled, "The old Animator should still be disabled after hot-swap.");
+            Assert.IsFalse(anim3.enabled, "The newly swapped Animator should remain asleep because the PlayableGraph is stopped.");
+            Assert.AreEqual(42f, cube3.transform.localPosition.y, 0.001f, "The newly swapped Animator should instantly inherit the evaluated pose before being put back to sleep.");
+
+            yield return rightHand.MoveTo(cube1.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.IsTrue(anim3.enabled, "The new Animator should be enabled when the StateVisualizer wakes up.");
+
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            Assert.AreEqual(1.0f, customEffect.LastSetParameter, 0.00001f, "Effect should trigger after Animator hot-swap.");
+            Assert.AreEqual(42f, cube3.transform.localPosition.y, 0.001f, "The mixable effect should have animated the new Animator's GameObject.");
+
+            // Verify destruction doesn't cause PlayableGraph leaks/errors
+            Object.Destroy(cube1);
+            Object.Destroy(cube2);
+            Object.Destroy(cube3);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+        }
+
+        /// <summary>
+        /// Tests that calling Rebuild() multiple times doesn't cause crashes, leaks, or break existing effects.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestRebuild()
+        {
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            StatefulInteractable interactable = cube.AddComponent<StatefulInteractable>();
+            interactable.DisableInteractorType(typeof(IPokeInteractor));
+            cube.AddComponent<Animator>();
+            StateVisualizer sv = cube.AddComponent<StateVisualizer>();
+            cube.transform.position = InputTestUtilities.InFrontOfUser(new Vector3(0.1f, 0.1f, 1));
+            cube.transform.localScale = Vector3.one * 0.1f;
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            CustomTestEffect customEffect = new CustomTestEffect();
+            sv.AddEffect("Select", customEffect);
+
+            // Call rebuild multiple times to ensure no crashes or obvious leaks.
+            sv.Rebuild();
+            sv.Rebuild();
+            sv.Rebuild();
+
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            var rightHand = new TestHand(Handedness.Right);
+            yield return rightHand.Show(InputTestUtilities.InFrontOfUser(0.5f));
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.MoveTo(cube.transform.position);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+            yield return rightHand.SetHandshape(HandshapeId.Pinch);
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            Assert.AreEqual(1.0f, customEffect.LastSetParameter, 0.00001f, "Effect should trigger after multiple Rebuilds.");
         }
     }
 }

@@ -1,18 +1,19 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using global::Unity.XR.CoreUtils;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Inputs;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.Serialization;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Examples
 {
     /// <summary>
     /// Sample for allowing the game object that this script is attached to follow the user's eye gaze
-    /// at a given distance of <see cref="defaultDistanceInMeters"/>. 
+    /// at a given distance of <see cref="defaultDistanceInMeters"/>.
     /// </summary>
     [AddComponentMenu("Scripts/MRTK/Examples/FollowEyeGaze")]
     public class FollowEyeGaze : MonoBehaviour
@@ -26,68 +27,62 @@ namespace MixedReality.Toolkit.Examples
         private Color idleStateColor;
 
         [Tooltip("The highlight color of the GameObject when hovered over another StatefulInteractable.")]
-        [SerializeField]
-        private Color hightlightStateColor;
+        [SerializeField, FormerlySerializedAs("hightlightStateColor")]
+        private Color highlightStateColor;
 
         private Material material;
 
         [SerializeField]
-        private ActionBasedController gazeController;
+        [Tooltip("The TrackedPoseDriver that represents the gaze pose.")]
+        private TrackedPoseDriver gazePoseDriver;
 
         [SerializeField]
-        private InputActionProperty _gazeTranslationAction;
+        [Tooltip("The IGazeInteractor that represents the gaze interaction.")]
+        private XRBaseInputInteractor gazeInteractor;
 
-        private IGazeInteractor gazeInteractor;
         private List<IXRInteractable> targets;
 
         private void Awake()
         {
             material = GetComponent<Renderer>().material;
-
-            gazeInteractor = gazeController.GetComponentInChildren<IGazeInteractor>();
-
             targets = new List<IXRInteractable>();
-        }
-
-        private void OnEnable()
-        {
-            if (_gazeTranslationAction == null || _gazeTranslationAction.action == null)
-            {
-                return;
-            }
-
-            _gazeTranslationAction.action.performed += FollowEyeGazeAction;
-            _gazeTranslationAction.EnableDirectAction();
-        }
-        
-        private void OnDisable()
-        {
-            if (_gazeTranslationAction == null || _gazeTranslationAction.action == null)
-            {
-                return;
-            }
-
-            _gazeTranslationAction.DisableDirectAction();
-            _gazeTranslationAction.action.performed -= FollowEyeGazeAction;
         }
 
         private void Update()
         {
+            if (gazeInteractor == null)
+            {
+                return;
+            }
+
             targets.Clear();
-
             gazeInteractor.GetValidTargets(targets);
-            material.color = targets.Count > 0 ? hightlightStateColor : idleStateColor;
+            material.color = targets.Count > 0 ? highlightStateColor : idleStateColor;
 
-            // Note: A better workflow would be to create and attach a prefab to the MRTK Gaze Controller object.
-            // Doing this will parent the cursor to the gaze controller transform and be updated automatically.
-            var pose = gazeController.transform.GetWorldPose();
-            transform.position = pose.position + gazeController.transform.forward * defaultDistanceInMeters;
+            if (TryGetGazeTransform(out Transform gazeTransform))
+            {
+                // Note: A better workflow would be to create and attach a prefab to the MRTK Gaze Controller object.
+                // Doing this will parent the cursor to the gaze controller transform and be updated automatically.
+                var pose = gazeTransform.GetWorldPose();
+                transform.position = pose.position + gazeTransform.forward * defaultDistanceInMeters;
+            }
         }
 
-        private void FollowEyeGazeAction(InputAction.CallbackContext obj)
+        /// <summary>
+        /// Attempt to obtain the gaze transform.
+        /// </summary>
+        private bool TryGetGazeTransform(out Transform transform)
         {
-            // Example of obtaining gaze input action properties
-            Vector3 translation = _gazeTranslationAction.action.ReadValue<Vector3>();
+            if (gazePoseDriver != null)
+            {
+                transform = gazePoseDriver.transform;
+                return true;
+            }
+            else
+            {
+                transform = null;
+                return false;
+            }
         }
     }
 }

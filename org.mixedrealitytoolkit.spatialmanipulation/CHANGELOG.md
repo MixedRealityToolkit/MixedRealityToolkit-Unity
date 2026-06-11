@@ -4,13 +4,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Changed
+
+* Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
+* Updated tests to follow existing MRTK test patterns. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
+
 ### Fixed
 
 * Fixed "leaked managed shell" issue in `BoundsCalculator`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
 
+## [4.0.0-pre.2] - 2025-12-05
+
 ### Changed
 
-* Updated tests to follow existing MRTK test patterns. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
+* Updated ObjectManipulator and ObjectManipulatorTests to be compatible with renamed rigidbody properties in Unity 6.
+* Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
+
+## [4.0.0-pre.1] - 2024-07-09
+
+### Added
+
+* SolverTapToPlaceTestsForControllerlessRig Unity-tests.
+* Ported SolverTapToPlaceTests so that they also test the new controllerless prefabs.
+* Updated TapToPlace logic to handle both deprecated XRController and new controllerless actions.
+* Updated HandConstraintPalmUp logic to handle both deprecated XRController and new controllerless actions.
+* Updated Solver logic to handle both deprecated XRController and new controllerless actions.
+
+### Changed
+
+* Updated package com.unity.xr.interaction.toolkit to 3.0.4
 
 ## [3.4.0] - 2025-11-12
 

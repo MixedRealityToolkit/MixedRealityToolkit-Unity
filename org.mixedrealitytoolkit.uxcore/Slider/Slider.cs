@@ -6,6 +6,8 @@ using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 using SliderEvent = UnityEngine.Events.UnityEvent<MixedReality.Toolkit.UX.SliderEventData>;
 
@@ -136,12 +138,6 @@ namespace MixedReality.Toolkit.UX
         [FormerlySerializedAs("sliderValue")]
         [SerializeField]
         private float value = 0.5f;
-
-        /// <summary>
-        /// The current value of the slider.
-        /// </summary>
-        [Obsolete("Use Value instead")]
-        public float SliderValue => Value;
 
         /// <summary>
         /// The current value of the slider

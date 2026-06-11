@@ -21,9 +21,16 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
     public class SolverHandlerTests : BaseRuntimeInputTests
     {
         /// <summary>
+        /// Override of the rig version to use for these tests. These tests validate that the old rig remain functional.
+        /// The <see cref="SolverHandlerTestsForControllerlessRig"/> will validate the new rig.
+        /// </summary>
+        protected override InputTestUtilities.RigVersion RigVersion => InputTestUtilities.RigVersion.Version1;
+
+        /// <summary>
         /// This checks if the SolverHandler correctly switches to the active hand when tracking
         /// two interactors
         /// </summary>
+#pragma warning disable CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ControllerLookup
         [UnityTest]
         public IEnumerator SolverHandlerInteractorSwitchesToActiveHand()
         {
@@ -37,7 +44,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = Handedness.Both;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
+            var lookup = Object.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -95,7 +102,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = (Handedness)(-1);
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
+            var lookup = Object.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -150,7 +157,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = Handedness.Left;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
+            var lookup = Object.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -205,7 +212,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Set it to track interactors
             solverHandler.TrackedHandedness = Handedness.Right;
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
+            var lookup = Object.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -261,7 +268,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return RuntimeTestUtilities.WaitForUpdates();
             // Set it to track interactors
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
+            var lookup = Object.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -302,7 +309,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 
             // Set it to track interactors
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
+            var lookup = Object.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -344,7 +351,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
 
             // Set it to track interactors
             solverHandler.TrackedTargetType = TrackedObjectType.Interactor;
-            var lookup = FindObjectUtility.FindAnyObjectByType<ControllerLookup>();
+            var lookup = Object.FindAnyObjectByType<ControllerLookup>();
             var leftInteractor = lookup.LeftHandController.GetComponentInChildren<MRTKRayInteractor>();
             var rightInteractor = lookup.RightHandController.GetComponentInChildren<MRTKRayInteractor>();
             solverHandler.LeftInteractor = leftInteractor;
@@ -369,6 +376,7 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             // Check that the SolverHandler keeps tracking the right hand
             Assert.IsTrue(solverHandler.TransformTarget.position == solverHandler.RightInteractor.transform.position, $"Solver Handler did not follow hand");
         }
+#pragma warning restore CS0618 // Adding this pragma because all the encompassed tests depend on deprecated ControllerLookup
 
         /// <summary>
         /// This checks if the SolverHandler moves with head when tracking the head

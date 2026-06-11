@@ -23,7 +23,7 @@ namespace MixedReality.Toolkit.Subsystems
         /// <summary>
         /// The list of <see cref="IMRTKManagedSubsystem"/> objects being managed by this class.
         /// </summary>
-        protected  List<IMRTKManagedSubsystem> ManagedSubsystems
+        protected List<IMRTKManagedSubsystem> ManagedSubsystems
         {
             get => managedSubsystems;
             set => managedSubsystems = value;
@@ -111,7 +111,7 @@ namespace MixedReality.Toolkit.Subsystems
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
-        /// </summary> 
+        /// </summary>
         private void OnEnable()
         {
             using (OnEnableProfilerMarker.Auto())

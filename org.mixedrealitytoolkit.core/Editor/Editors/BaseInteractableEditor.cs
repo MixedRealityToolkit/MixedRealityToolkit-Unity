@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.XR.Interaction.Toolkit;
+using UnityEditor.XR.Interaction.Toolkit.Interactables;
 using UnityEngine;
 
 namespace MixedReality.Toolkit.Editor

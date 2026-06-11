@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 189245729653895548, guid: ecbf05ce2121a744cb893e82377ba3cd, type: 3}
@@ -192,10 +193,6 @@ PrefabInstance:
       value: ScaledBoundingBoxWithTraditionalHandles
       objectReference: {fileID: 0}
     - target: {fileID: 5671351296789090343, guid: ecbf05ce2121a744cb893e82377ba3cd, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5671351296789090343, guid: ecbf05ce2121a744cb893e82377ba3cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -376,4 +373,7 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecbf05ce2121a744cb893e82377ba3cd, type: 3}

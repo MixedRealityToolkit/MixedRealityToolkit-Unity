@@ -1,10 +1,12 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -84,42 +86,33 @@ namespace MixedReality.Toolkit.Input
         }
 
         /// <inheritdoc />
-        public InteractionMode ModeOnDetection => GetDetectedMode();
-
-        /// <summary>
-        /// Determines which mode should be set.
-        /// </summary>
-        /// <returns>The detected mode.</returns>
-        private InteractionMode GetDetectedMode()
-        {
-            if (interactor.hasSelection)
-            {
-                return modeOnSelect;
-            }
-            else
-            {
-                return modeOnHover;
-            }
-
-        }
+        public InteractionMode ModeOnDetection => interactor.hasSelection ? modeOnSelect : modeOnHover;
 
         [SerializeField]
         [FormerlySerializedAs("Controllers")]
-        [Tooltip("List of GameObjects which represent the 'controllers' that this interaction mode detector has jurisdiction over. Interaction modes will be set on all specified controllers.")]
-        private List<GameObject> controllers;
+        [FormerlySerializedAs("controllers")]
+        [Tooltip("List of GameObjects which represent the interactor groups that this interaction mode detector has jurisdiction over. Interaction modes will be set on all specified groups.")]
+        private List<GameObject> interactorGroups;
 
         /// <inheritdoc />
-        public List<GameObject> GetControllers() => controllers;
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in a future version. Please use GetInteractorGroups instead.")]
+        public List<GameObject> GetControllers() => GetInteractorGroups();
+
+        /// <inheritdoc />
+        public List<GameObject> GetInteractorGroups() => interactorGroups;
 
         /// <inheritdoc />
         public bool IsModeDetected()
         {
             bool isDetected = (interactor.hasHover && detectHover) || (interactor.hasSelection && detectSelect);
 
-            // Remove if/when XRI sets hasHover/Selection when their ray interactor is hovering/selecting legacy UI.
-            if (interactor is MRTKRayInteractor rayInteractor)
+            if (interactor is XRRayInteractor rayInteractor)
             {
-                isDetected |= (rayInteractor.HasUIHover && detectHover) || (rayInteractor.HasUISelection && detectSelect);
+                isDetected |= rayInteractor.TryGetUIModel(out TrackedDeviceModel model) && model.currentRaycast.isValid && (detectHover || (model.select && detectSelect));
+            }
+            else if (interactor is NearFarInteractor nearFarInteractor)
+            {
+                isDetected |= nearFarInteractor.TryGetUIModel(out TrackedDeviceModel model) && model.currentRaycast.isValid && (detectHover || (model.select && detectSelect));
             }
 
             return isDetected;

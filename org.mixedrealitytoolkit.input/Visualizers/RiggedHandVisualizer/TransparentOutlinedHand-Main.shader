@@ -12,9 +12,12 @@
 Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Main)" {
     Properties {
         _HandColor ("Hand Color", Color) = (1,1,1,1)
-        _HandThickness ("_HandThickness", Range(-0.0001,0.0001)) = 0.0
+        _HandThickness ("Hand Thickness", Range(-0.01,0.01)) = 0.0
         _IlluminationExponent ("Illumination Exponent", Range(0,10)) = 1
         _IlluminationAmount ("Illumination Amount", Range(0,10)) = 1
+        [PerRendererData]_FadeSphereCenter ("Fade Sphere Center", Vector) = (0,0,0,1)
+        [PerRendererData]_FadeSphereRadius ("Fade Sphere Radius", Range(0,1)) = 0.05
+        [PerRendererData]_FadeDistance ("Fade Distance", Range(0,1)) = 0.025
     }
 
     SubShader {
@@ -46,6 +49,7 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Main)" {
                 float4 color : COLOR;
                 float3 normal : NORMAL;
                 float3 viewDir: TEXCOORD1;
+                float3 worldPos : TEXCOORD2;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
@@ -58,9 +62,11 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Main)" {
                 UNITY_INITIALIZE_OUTPUT(v2f, o);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+                float4 objectPos = v.vertex + normalize(v.normal) * _HandThickness;
                 o.normal = UnityObjectToWorldNormal(v.normal);
-                o.vertex = UnityObjectToClipPos(v.vertex + v.normal * _HandThickness);
+                o.vertex = UnityObjectToClipPos(objectPos);
                 o.color = v.color;
+                o.worldPos = mul(unity_ObjectToWorld, objectPos).xyz;
 
                 // Distance-invariant view pos. Create "normalized view point"
                 // offset from object origin, then construct a new view vector
@@ -76,6 +82,9 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Main)" {
             uniform float _IlluminationAmount;
             uniform float _IlluminationExponent;
             uniform float4 _HandColor;
+            uniform float4 _FadeSphereCenter;
+            uniform float _FadeSphereRadius;
+            uniform float _FadeDistance;
 
             fixed4 frag(v2f i) : SV_Target
             {
@@ -84,7 +93,8 @@ Shader "Mixed Reality Toolkit/Transparent Outlined Hand (Main)" {
 
                 // Blend base color with the illumination/spotlight.
                 float4 hand = _HandColor + pow(spotlight, _IlluminationExponent) * _IlluminationAmount;
-                return hand * float4(1,1,1,i.color.r);
+                return hand * float4(1,1,1,
+                    ((_FadeSphereCenter.w * i.color.r) + ((1 - _FadeSphereCenter.w) * smoothstep(_FadeSphereRadius, _FadeSphereRadius + _FadeDistance, distance(i.worldPos, _FadeSphereCenter)))));
             }
 
             ENDCG

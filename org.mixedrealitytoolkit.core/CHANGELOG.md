@@ -4,24 +4,84 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+
+* Added new `editorDefault` field for debugging the various `DisplayType`s in-editor. [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
+* Added edit mode tests for `AssemblyExtensions`, `SystemType`, and `SerializableDictionary`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
+
 ### Changed
 
-* Updated code style in `HandsSubsystemDescriptor`, `MRTKSubsystemDescriptor`, `DictationSubsystemDescriptor`, and `XRSubsystemHelpers`. [PR #1109](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1109)
 * Updated `PackageValidator` to only be valid if `UNITY_EDITOR` is true. [PR #1125](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1125)
 * `AssemblyExtensions.GetLoadableTypes` now throws `ArgumentNullException` when called on a null assembly instead of `NullReferenceException`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
 * Updated `MRTKBaseInteractable` to follow MRTK style. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
 
+## [4.0.0-pre.3] - 2026-05-20
+
 ### Added
 
-* Added edit mode tests for `AssemblyExtensions`, `SystemType`, and `SerializableDictionary`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
+* Added `AllowGenericTypeDefinition` to `SystemType` to allow for generics. [PR #1119](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1119)
+
+### Changed
+
+* Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
+* Updated code style in `HandsSubsystemDescriptor`, `MRTKSubsystemDescriptor`, `DictationSubsystemDescriptor`, and `XRSubsystemHelpers`. [PR #1109](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1109)
+* Updated `ReserializeUtility` to remove unused prefab overrides. [PR #1126](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1126)
 
 ### Fixed
 
 * Fixed "The type `MixedReality.Toolkit.Core MixedReality.Toolkit.Experimental.BubbleChildHoverEvents/TrickleChildHoverEvents/BubbleChildSelectEvents/TrickleChildSelectEvents` is being serialized by `[SerializeReference]`, but is missing the `[Serializable]` attribute." on Unity 6.3. [PR #1107](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1107)
 
-## Deprecated
+### Deprecated
 
 * Deprecated `AdjustTrackingOrigin` on `CameraSettings`. This functionality has been deprecated by the XR Origin component. This property has never had an effect in MRTK3 and will be removed in a future release. [PR #1110](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1110)
+
+### Removed
+
+* Removed input action focus handling from `MRTKLifecycleManager` and moved to the Input package. [PR #1057](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1057)
+
+## [4.0.0-pre.2] - 2025-12-05
+
+### Added
+
+* Added input action focus handling to disable controller/hand tracked state when the application goes out of focus. [PR #1039](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1039)
+* Added ToInteractorHandedness extension for XRNode. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
+
+### Changed
+
+* Updated the MRTK Default Profile to use the Unity XR Hands subsystem by default instead of the Microsoft OpenXR Plugin subsystem. [PR #973](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/973)
+* Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
+
+### Removed
+
+* Removed ITrackedInteractor, as it was supporting an unused codepath and there are better ways to get this data (like querying the attach transform). [PR #1044](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1044)
+
+### Deprecated
+
+* Deprecated IHandedInteractor, as its info is now queryable directly from IXRInteractor's handedness property. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
+* Deprecated FindObjectUtility, as it was a backwards-compatibility layer for pre-2021.3.18. Since our min version is now 2022.3, we can just call the API directly. [PR #1058](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1058)
+
+## [4.0.0-pre.1] - 2024-07-09
+
+### Added
+
+* Added ITrackedInteractor to represent interactor with parent pose backed by a tracked input device.
+
+### Changed
+
+* Updated package com.unity.xr.interaction.toolkit to 3.0.4
+* Updated InteractorHandednessExtensions.
+
+### Removed
+
+* Removed obsolete HandednessExtensions::IsRight method.
+* Removed obsolete HandednessExtensions::IsLeft method.
+* Removed obsolete HandsUtils::GetSubsystem method.
+* Removed obsolete PlayspaceUtilities.ReferenceTransform field.
+* Removed obsolete XRSubsystemHelpers::GetAllRunningSubsystemsNonAlloc method.
+
+### Deprecated
+
+* ControllerLookup marked as Obsolete.
 
 ## [3.3.0] - 2025-11-12
 

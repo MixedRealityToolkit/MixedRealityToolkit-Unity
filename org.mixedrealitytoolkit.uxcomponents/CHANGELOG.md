@@ -2,6 +2,37 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Added
+
+* Added "Enable Button Select Pulse" binding to "Empty Button.prefab". [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
+
+### Changed
+
+* Reserialized prefabs and materials to remove additional stale serialized fields. [PR #1126](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1126)
+
+## [4.0.0-pre.3] - 2026-05-20
+
+### Changed
+
+* Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
+* Reserialized prefabs and animations to remove stale serialized fields. [PR #1115](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1115)
+* Updated the Action Button prefab to have a more descriptive icon name. [PR #1117](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1117)
+* Updated various prefabs to be themeable. [PR #1119](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1119)
+
+## [4.0.0-pre.2] - 2025-12-05
+
+### Changed
+
+* Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
+
+## [4.0.0-pre.1] - 2024-07-09
+
+### Changed
+
+* Updated package com.unity.xr.interaction.toolkit to 3.0.4
+
 ## [3.4.0] - 2025-11-12
 
 ### Added

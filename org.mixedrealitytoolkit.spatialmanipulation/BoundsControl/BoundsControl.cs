@@ -710,7 +710,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private bool ComputeBounds(bool isSecondPass = false)
         {
             // currentBounds are local to Target.
-            // needsBoundsRecompute will be set to true iff we find a UGUI autolayout.
+            // needsBoundsRecompute will be set to true if and only if we find a UGUI autolayout.
 
             // Use the bounds override if we have one.
             Transform searchStart = (overrideBounds && boundsOverride != null) ? boundsOverride : Target;

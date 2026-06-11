@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -248,12 +249,12 @@ namespace MixedReality.Toolkit.Input
 
             if (castRadius > 0.0f)
             {
-                raycastHitCounts[targetPrecision] = UnityEngine.Physics.SphereCastNonAlloc(effectiveRayOrigin.position, castRadius, effectiveRayOrigin.forward,
+                raycastHitCounts[targetPrecision] = Physics.SphereCastNonAlloc(effectiveRayOrigin.position, castRadius, effectiveRayOrigin.forward,
                            AllRaycastHits[targetPrecision], maxRaycastDistance, raycastMask, raycastTriggerInteraction);
             }
             else
             {
-                raycastHitCounts[targetPrecision] = UnityEngine.Physics.RaycastNonAlloc(effectiveRayOrigin.position, effectiveRayOrigin.forward,
+                raycastHitCounts[targetPrecision] = Physics.RaycastNonAlloc(effectiveRayOrigin.position, effectiveRayOrigin.forward,
                            AllRaycastHits[targetPrecision], maxRaycastDistance, raycastMask, raycastTriggerInteraction);
             }
         }

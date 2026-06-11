@@ -2,7 +2,7 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## Unreleased
+## [4.0.0-pre.4] - 2026-06-10
 
 ### Added
 
@@ -10,8 +10,53 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+* Fixed build issue caused by `FontIconSelectorMigrationUtility` not being in an Editor-only assembly.
+
+## [4.0.0-pre.3] - 2026-05-20
+
+### Added
+
+* Added the ability to map different icon sets together to have matching names (prerequisite for theming work). [PR #1077](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1077)
+* Added "Sort and Deduplicate" option to `FontIconSetDefinition`. [PR #1119](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1119)
+* Added tests for hot-swapping `Interactable` and `Animator` on `StatefulVisualizer`. [PR #1123](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1123)
+
+### Changed
+
+* Updated the minimum editor version to 6000.0.66f2 [PR #1112](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1112)
+* Updated `FontIconSelector`, `StateVisualizer`, and `TintEffect` to be themeable. [PR #1119](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1119)
+
+### Fixed
+
 * Fixed "leaked managed shell" issue in `UGUIInputAdapter`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
 * Fixed "Attribute 'SerializeField' is not valid on this declaration type. It is only valid on 'field' declarations" error on `DialogButton` in Unity 6.3. [PR #1108](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1108)
+* Fixed bug where the interactable could be changed but the visualizer would stay subscribed to the old interactable. [PR #1123](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1123)
+* Fixed bug where the animator could be changed but the visualizer wouldn't update the `AnimationPlayableOutput`. [PR #1123](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1123)
+
+## [4.0.0-pre.2] - 2025-12-05
+
+### Changed
+
+* Updated the minimum editor version to 2022.3.6f1 [PR #1003](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1003)
+* Updated InteractablePulse to work across all IXRInteractor implementations, instead of just MRTK-specific IHandedInteractor implementations. [PR #1042](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1042)
+
+## [4.0.0-pre.1] - 2024-07-09
+
+### Changed
+
+* Updated package com.unity.xr.interaction.toolkit to 3.0.3
+
+### Removed
+
+* Removed LegacyDialog/Dialog files.
+* Removed LegacyDialog/DialogButton files.
+* Removed LegacyDialog/DialogButtonContext files.
+* Removed LegacyDialog/DialogButtonHelpers files.
+* Removed LegacyDialog/DialogButtonTypes files.
+* Removed LegacyDialog/DialogProperty files.
+* Removed LegacyDialog/DialogShell files.
+* Removed LegacyDialog/DialogState files.
+* Removed LegacyDialog/README files.
+* Removed obsolete Slider.SliderValue fields.
 
 ## [3.3.0] - 2025-11-12
 

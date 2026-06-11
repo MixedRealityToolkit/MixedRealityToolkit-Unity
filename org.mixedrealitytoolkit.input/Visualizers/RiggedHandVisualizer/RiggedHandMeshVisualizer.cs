@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using UnityEngine.XR.Interaction.Toolkit;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -20,33 +19,8 @@ namespace MixedReality.Toolkit.Input
     /// can be more distracting than it's worth. However, for opaque platforms, this is a great solution.
     /// </remarks>
     [AddComponentMenu("MRTK/Input/Visualizers/Rigged Hand Mesh Visualizer")]
-    public class RiggedHandMeshVisualizer : MonoBehaviour
+    public class RiggedHandMeshVisualizer : HandMeshVisualizer
     {
-        [SerializeField]
-        [Tooltip("The XRNode on which this hand is located.")]
-        private XRNode handNode = XRNode.LeftHand;
-
-        /// <summary> The XRNode on which this hand is located. </summary>
-        public XRNode HandNode { get => handNode; set => handNode = value; }
-
-        [SerializeField]
-        [Tooltip("When true, this visualizer will render rigged hands even on XR devices " +
-                 "with transparent displays. When false, the rigged hands will only render " +
-                 "on devices with opaque displays.")]
-        private bool showHandsOnTransparentDisplays;
-
-        /// <summary>
-        /// When true, this visualizer will render rigged hands even on XR devices with transparent displays.
-        /// When false, the rigged hands will only render on devices with opaque displays.
-        /// Usually, it's recommended not to show hand visualization on transparent displays as it can
-        /// distract from the user's real hands, and cause a "double image" effect that can be disconcerting.
-        /// </summary>
-        public bool ShowHandsOnTransparentDisplays
-        {
-            get => showHandsOnTransparentDisplays;
-            set => showHandsOnTransparentDisplays = value;
-        }
-
         [SerializeField]
         [Tooltip("The transform of the wrist joint.")]
         private Transform wrist;
@@ -56,25 +30,18 @@ namespace MixedReality.Toolkit.Input
         private SkinnedMeshRenderer handRenderer = null;
 
         [SerializeField]
-        [Tooltip("Name of the shader property used to drive pinch-amount-based visual effects. " +
-                 "Generally, maps to something like a glow or an outline color!")]
-        private string pinchAmountMaterialProperty = "_PinchAmount";
+        [Tooltip("The primary visualizer. Rigged hand will not render if the primary is rendering.")]
+        private HandMeshVisualizer primaryMeshVisualizer = null;
+
+        /// <inheritdoc/>
+        protected override Renderer HandRenderer => handRenderer;
 
         // Automatically calculated over time, based on the accumulated error
         // between the user's actual joint locations and the armature's bones/joints.
         private float handScale = 1.0f;
 
-        // The property block used to modify the pinch amount property on the material
-        private MaterialPropertyBlock propertyBlock = null;
-
-        // Caching local references 
+        // Caching local references
         private HandsAggregatorSubsystem handsSubsystem;
-
-        // Scratch list for checking for the presence of display subsystems.
-        private List<XRDisplaySubsystem> displaySubsystems = new List<XRDisplaySubsystem>();
-
-        // The XRController that is used to determine the pinch strength (i.e., select value!)
-        private XRBaseController controller;
 
         // The actual, physical, rigged joints that drive the skinned mesh.
         // Otherwise referred to as "armature". Must be in OpenXR order.
@@ -87,9 +54,9 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// A Unity event function that is called when an enabled script instance is being loaded.
         /// </summary>
-        protected virtual void Awake()
+        protected override void Awake()
         {
-            propertyBlock = new MaterialPropertyBlock();
+            base.Awake();
 
             if (handRenderer == null)
             {
@@ -131,16 +98,10 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
-        /// <summary>
-        /// A Unity event function that is called when the script component has been enabled.
-        /// </summary>
-        protected void OnEnable()
+        /// <inheritdoc/>
+        protected override void OnEnable()
         {
-            // Ensure hand is not visible until we can update position first time.
-            handRenderer.enabled = false;
-
-            Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand,
-                         $"HandVisualizer has an invalid XRNode ({handNode})!");
+            base.OnEnable();
 
             handsSubsystem = XRSubsystemHelpers.GetFirstRunningSubsystem<HandsAggregatorSubsystem>();
 
@@ -148,15 +109,6 @@ namespace MixedReality.Toolkit.Input
             {
                 StartCoroutine(EnableWhenSubsystemAvailable());
             }
-        }
-
-        /// <summary>
-        /// A Unity event function that is called when the script component has been disabled.
-        /// </summary>
-        protected void OnDisable()
-        {
-            // Disable the rigged hand renderer when this component is disabled
-            handRenderer.enabled = false;
         }
 
         /// <summary>
@@ -171,11 +123,11 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
         /// </summary>
-        private void Update()
+        protected void Update()
         {
             // Query all joints in the hand.
             if (!ShouldRenderHand() ||
-                !handsSubsystem.TryGetEntireHand(handNode, out IReadOnlyList<HandJointPose> joints))
+                !handsSubsystem.TryGetEntireHand(HandNode, out IReadOnlyList<HandJointPose> joints))
             {
                 // Hide the hand and abort if we shouldn't be
                 // showing the hand, for whatever reason.
@@ -260,7 +212,7 @@ namespace MixedReality.Toolkit.Input
             // Apply.
             handScale += -error * errorGainFactor;
             handScale = Mathf.Clamp(handScale, minScale, maxScale);
-            transform.localScale = new Vector3(handNode == XRNode.LeftHand ? -handScale : handScale, handScale, handScale);
+            transform.localScale = new Vector3(HandNode == XRNode.LeftHand ? -handScale : handScale, handScale, handScale);
 
             // Update the hand material based on selectedness value
             UpdateHandMaterial();
@@ -276,48 +228,15 @@ namespace MixedReality.Toolkit.Input
             return Vector3.Dot((armatureJointPosition - userJointPosition), fingerVector);
         }
 
-        private bool ShouldRenderHand()
+        protected override bool ShouldRenderHand()
         {
             // If we're missing anything, don't render the hand.
-            if (handsSubsystem == null || wrist == null || handRenderer == null)
-            {
-                return false;
-            }
-
-            if (displaySubsystems.Count == 0)
-            {
-                SubsystemManager.GetSubsystems(displaySubsystems);
-            }
-
-            // Are we running on an XR display and it happens to be transparent?
-            // Probably shouldn't be showing rigged hands! (Users can
-            // specify showHandsOnTransparentDisplays if they disagree.)
-            if (displaySubsystems.Count > 0 &&
-                displaySubsystems[0].running &&
-                !displaySubsystems[0].displayOpaque &&
-                !showHandsOnTransparentDisplays)
-            {
-                return false;
-            }
-
-            // All checks out!
-            return true;
-        }
-
-        private void UpdateHandMaterial()
-        {
-            if (controller == null)
-            {
-                controller = GetComponentInParent<XRBaseController>();
-            }
-
-            if (controller == null || handRenderer == null) { return; }
-
-            // Update the hand material
-            float pinchAmount = Mathf.Pow(controller.selectInteractionState.value, 2.0f);
-            handRenderer.GetPropertyBlock(propertyBlock);
-            propertyBlock.SetFloat(pinchAmountMaterialProperty, pinchAmount);
-            handRenderer.SetPropertyBlock(propertyBlock);
+            // Also don't render if the preferred visualizer is rendering.
+            return handsSubsystem != null
+                && wrist != null
+                && handRenderer != null
+                && (primaryMeshVisualizer == null || !primaryMeshVisualizer.IsRendering)
+                && base.ShouldRenderHand();
         }
     }
 }

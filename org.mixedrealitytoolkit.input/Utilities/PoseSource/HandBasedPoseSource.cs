@@ -12,12 +12,6 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     public abstract class HandBasedPoseSource : IPoseSource
     {
-        /// <summary>
-        /// Cached reference to hands aggregator for efficient per-frame use.
-        /// </summary>
-        [Obsolete("Deprecated, please use XRSubsystemHelpers.HandsAggregator instead.")]
-        protected HandsAggregatorSubsystem HandsAggregator => XRSubsystemHelpers.HandsAggregator as HandsAggregatorSubsystem;
-
         [SerializeField]
         [Tooltip("The hand on which to track the joint.")]
         private Handedness hand;

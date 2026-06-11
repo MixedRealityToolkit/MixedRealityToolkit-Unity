@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4920426125932797076}
   - component: {fileID: 1755546517986312659}
   - component: {fileID: 1333775942222694079}
+  - component: {fileID: 5024593287958842062}
   m_Layer: 5
   m_Name: Checkbox
   m_TagString: Untagged
@@ -34,7 +35,6 @@ RectTransform:
   m_Children:
   - {fileID: 1203832545719423472}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -113,7 +113,7 @@ MonoBehaviour:
         inactiveSprite: {fileID: 21300000, guid: 5cd8ced9e22ece448acdc3a8df358a0b, type: 3}
 --- !u!95 &4920426125932797076
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,6 +127,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -160,6 +161,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345098608517470577}
   m_CullTransparentMesh: 1
+--- !u!114 &5024593287958842062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345098608517470577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
+  binders:
+  - rid: 6006879866990887130
+  references:
+    version: 2
+    RefIds:
+    - rid: 6006879866990887130
+      type: {class: StateVisualizerEffectColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6434074875067239604}
+        <ThemeDefinitionItemName>k__BackingField: Primary Color
+        stateName: Toggle
+        tintTarget: {fileID: 269199439855791924}
 --- !u!1 &7189414470030404245
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +198,7 @@ GameObject:
   - component: {fileID: 1989956866083351710}
   - component: {fileID: 269199439855791924}
   - component: {fileID: 6136921357999623811}
+  - component: {fileID: 5834772403435721670}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -192,7 +219,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3514389556853228399}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -249,3 +275,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fda4953718e0264291c42cb2a637fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5834772403435721670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7189414470030404245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
+  binders:
+  - rid: 7636826640568287483
+  references:
+    version: 2
+    RefIds:
+    - rid: 7636826640568287483
+      type: {class: GraphicColorBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 269199439855791924}
+        <ThemeDefinitionItemName>k__BackingField: On Surface Color

@@ -1,9 +1,12 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.Input
 {
@@ -15,8 +18,35 @@ namespace MixedReality.Toolkit.Input
     /// </summary>
     public abstract class HandJointInteractor :
         XRDirectInteractor,
+        IModeManagedInteractor,
+#pragma warning disable CS0618 // Type or member is obsolete
         IHandedInteractor
+#pragma warning restore CS0618 // Type or member is obsolete
     {
+        #region Serialized Fields
+
+        [SerializeField, Tooltip("Holds a reference to the TrackedPoseDriver associated with this interactor, if it exists.")]
+        private TrackedPoseDriver trackedPoseDriver = null;
+
+        [SerializeField]
+        [Tooltip("The root management GameObject that interactor belongs to.")]
+        private GameObject modeManagedRoot = null;
+
+        /// <summary>
+        /// Returns the GameObject that this interactor belongs to. This GameObject is governed by the
+        /// interaction mode manager and is assigned an interaction mode. This GameObject represents the group that this interactor belongs to.
+        /// </summary>
+        /// <remarks>
+        /// This will default to the GameObject that this attached to a parent <see cref="TrackedPoseDriver"/>.
+        /// </remarks>
+        public GameObject ModeManagedRoot
+        {
+            get => modeManagedRoot;
+            set => modeManagedRoot = value;
+        }
+
+        #endregion Serialized Fields
+
         #region HandJointInteractor
 
         /// <summary>
@@ -30,37 +60,68 @@ namespace MixedReality.Toolkit.Input
 
         #region IHandedInteractor
 
-        /// <inheritdoc/>
-        Handedness IHandedInteractor.Handedness => (xrController is ArticulatedHandController handController) ? handController.HandNode.ToHandedness() : Handedness.None;
+        /// <inheritdoc />
+        [Obsolete("Use handedness from IXRInteractor instead.")]
+        Handedness IHandedInteractor.Handedness
+        {
+            get
+            {
+                if (forceDeprecatedInput &&
+                    xrController is ArticulatedHandController handController)
+                {
+                    return handController.HandNode.ToHandedness();
+                }
+
+                return handedness.ToHandedness();
+            }
+        }
 
         #endregion IHandedInteractor
 
         #region XRBaseInteractor
 
         /// <summary>
-        /// Used to keep track of whether the controller has an interaction point.
+        /// Used to keep track of whether the `TrackedPoseDriver` or controller (if using deprecated XRI) has an interaction point.
         /// </summary>
         private bool interactionPointTracked;
 
-        /// <summary>
-        /// Indicates whether this Interactor is in a state where it could hover.
-        /// </summary>
+        /// <inheritdoc />
         public override bool isHoverActive
         {
-            // Only be available for hovering if the controller is tracked or we have joint data.
-            get => base.isHoverActive && (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || interactionPointTracked);
+            // Only be available for hovering if the `TrackedPoseDriver` or controller (if using deprecated XRI) pose driver is tracked or we have joint data.
+            get
+            {
+                bool result = base.isHoverActive;
+
+#pragma warning disable CS0618 // xrController is obsolete
+                if (forceDeprecatedInput)
+                {
+                    result &= (xrController.currentControllerState.inputTrackingState.HasPositionAndRotation() || interactionPointTracked);
+                }
+#pragma warning restore CS0618 // xrController is obsolete
+                else if (trackedPoseDriver != null)
+                {
+                    result &= (trackedPoseDriver.GetInputTrackingState().HasPositionAndRotation() || interactionPointTracked);
+                }
+                else
+                {
+                    result &= interactionPointTracked;
+                }
+
+                return result;
+            }
         }
 
         #endregion XRBaseInteractor
 
-        #region XRBaseControllerInteractor
+        #region XRBaseInputInteractor
 
         private static readonly ProfilerMarker ProcessInteractorPerfMarker =
             new ProfilerMarker("[MRTK] HandJointInteractor.ProcessInteractor");
 
         /// <summary>
-        /// Unity's <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.XRInteractionManager.html">XRInteractionManager</see> 
-        /// or containing <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractionGroup.html">IXRInteractionGroup</see> 
+        /// Unity's <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.XRInteractionManager.html">XRInteractionManager</see>
+        /// or containing <see href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.IXRInteractionGroup.html">IXRInteractionGroup</see>
         /// calls this method to update the Interactor before interaction events occur. See Unity's documentation for more information.
         /// </summary>
         /// <param name="updatePhase">The update phase this is called during.</param>
@@ -85,9 +146,8 @@ namespace MixedReality.Toolkit.Input
                     }
                     else
                     {
-                        // If we don't have a joint pose, reset to whatever our parent XRController's pose is.
-                        transform.localPosition = Vector3.zero;
-                        transform.localRotation = Quaternion.identity;
+                        // If we don't have a joint pose, reset to whatever our parent `TrackedPoseDriver` pose is.
+                        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                     }
 
                     // Ensure that the attachTransform tightly follows the interactor's transform
@@ -96,6 +156,41 @@ namespace MixedReality.Toolkit.Input
             }
         }
 
-        #endregion XRBaseControllerInteractor
+        #endregion XRBaseInputInteractor
+
+        #region IModeManagedInteractor
+
+        /// <inheritdoc/>
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        public GameObject GetModeManagedController()
+        {
+            // Legacy controller-based interactors should return null, so the legacy controller-based logic in the
+            // interaction mode manager is used instead.
+            return forceDeprecatedInput ? null : ModeManagedRoot;
+        }
+
+        #endregion IModeManagedInteractor
+
+        #region Unity Event Functions
+
+        /// <inheritdoc/>
+        protected override void Start()
+        {
+            base.Start();
+
+            // Try to get the TrackedPoseDriver component from the parent if it hasn't been set yet
+            if (trackedPoseDriver == null)
+            {
+                trackedPoseDriver = GetComponentInParent<TrackedPoseDriver>();
+            }
+
+            // If mode managed root is not defined, default to the tracked pose driver's game object
+            if (modeManagedRoot == null && trackedPoseDriver != null)
+            {
+                modeManagedRoot = trackedPoseDriver.gameObject;
+            }
+        }
+
+        #endregion Unity Event Functions
     }
 }

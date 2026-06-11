@@ -1,10 +1,9 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
-
 
 namespace MixedReality.Toolkit.Input
 {
@@ -31,6 +30,13 @@ namespace MixedReality.Toolkit.Input
         /// Get a list of the <see cref="GameObject"/> instances which represent the controllers that this interaction mode detector has jurisdiction over.
         /// </summary>
         /// <returns>The list of the <see cref="GameObject"/> instances which represent the controllers that this interaction mode detector has jurisdiction over.</returns>
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in a future version. Please use GetInteractorGroups instead.")]
         List<GameObject> GetControllers();
+
+        /// <summary>
+        /// Get a list of the <see cref="GameObject"/> instances which represent the interactor groups that this interaction mode detector has jurisdiction over.
+        /// </summary>
+        /// <returns>The list of the <see cref="GameObject"/> instances which represent the interactor groups that this interaction mode detector has jurisdiction over.</returns>
+        List<GameObject> GetInteractorGroups();
     }
 }

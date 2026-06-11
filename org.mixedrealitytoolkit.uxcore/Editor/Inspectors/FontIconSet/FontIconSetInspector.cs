@@ -1,4 +1,3 @@
-
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
@@ -23,49 +22,110 @@ namespace MixedReality.Toolkit.Editor
         private const string AvailableIconsFoldoutKey = "MixedRealityToolkit.FontIconSet.ShowAvailableIcons";
         private const string SelectedIconsFoldoutKey = "MixedRealityToolkit.FontIconSet.ShowSelectedIcons";
 
-        private const string defaultShaderName = "TextMeshPro/Distance Field SSD"; // Only used for presentation in inspector, not at runtime.
-        private const int glyphDrawSize = 75;
-        private const int buttonWidth = 75;
-        private const int buttonHeight = 90;
-        private const int maxButtonsPerColumn = 6;
+        private const string DefaultShaderName = "TextMeshPro/Distance Field SSD"; // Only used for presentation in inspector, not at runtime.
+        private const int GlyphDrawSize = 75;
+        private const int ButtonDimension = 75;
+        private const int MaxButtonsPerColumn = 6;
 
-        private static Material fontRenderMaterial;
-
-        private const string noIconFontMessage = "No icon font asset selected. Icon fonts will be unavailable.";
-        private const string downloadIconFontMessage = "For instructions on how to install the HoloLens icon font asset, click the button below.";
-        private const string hololensIconFontUrl = "https://docs.microsoft.com/windows/mixed-reality/mrtk-unity/features/ux-building-blocks/button";
-        private const string mdl2IconFontName = "holomdl2";
-        private const string textMeshProMenuItem = "Window/TextMeshPro/Font Asset Creator";
+        private const string NoIconFontMessage = "No icon font asset selected. Icon fonts will be unavailable.";
+        private const string DownloadIconFontMessage = "For instructions on how to install the HoloLens icon font asset, click the button below.";
+        private const string HoloLensIconFontUrl = "https://docs.microsoft.com/windows/mixed-reality/mrtk-unity/features/ux-building-blocks/button";
+        private const string MDL2IconFontName = "holomdl2";
+        private const string TextMeshProMenuItem = "Window/TextMeshPro/Font Asset Creator";
 
         private SerializedProperty iconFontAssetProp = null;
+        private SerializedProperty fontIconSetDefinitionProp = null;
 
-        private class IconEntry
-        {
-            public string Name;
-            public uint UnicodeValue;
+        private List<KeyValuePair<uint, string>> iconEntries = new List<KeyValuePair<uint, string>>();
+        private List<string> validNames = new List<string>();
+        private HashSet<uint> selectedUnicodeValues = new HashSet<uint>();
+        private string[] availableNamesArray = Array.Empty<string>();
+        private bool requiresUpdate = false;
 
-            public IconEntry(string name, uint unicodeValue)
-            {
-                Name = name;
-                UnicodeValue = unicodeValue;
-            }
-        }
-
-        private List<IconEntry> iconEntries = new List<IconEntry>();
+        // Deferred State Variables
+        private uint? pendingIconToAdd = null;
+        private string pendingIconToRemove = null;
+        private string pendingIconToRenameOld = null;
+        private string pendingIconToRenameNew = null;
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
         /// </summary>
         private void OnEnable()
         {
-            FontIconSet fontIconSet = (FontIconSet)target;
             iconFontAssetProp = serializedObject.FindProperty("iconFontAsset");
+            fontIconSetDefinitionProp = serializedObject.FindProperty("fontIconSetDefinition");
 
-            // Make a list out of dictionary to avoid changing order while editing names
+            foreach (UnityEngine.Object targetObject in targets)
+            {
+                FontIconSet fontIconSet = targetObject as FontIconSet;
+                if (fontIconSet != null && fontIconSet.SortIcons())
+                {
+                    EditorUtility.SetDirty(fontIconSet);
+                }
+            }
+
+            // Listen for undo/redo events to ensure our local iconEntries cache stays in sync
+            Undo.undoRedoPerformed += OnUndoRedo;
+            UpdateIconEntries();
+        }
+
+        private void OnDisable()
+        {
+            Undo.undoRedoPerformed -= OnUndoRedo;
+        }
+
+        private void OnUndoRedo()
+        {
+            requiresUpdate = true;
+            Repaint();
+        }
+
+        private void UpdateIconEntries()
+        {
+            FontIconSet fontIconSet = target as FontIconSet;
+            if (fontIconSet == null) { return; }
+
+            iconEntries.Clear();
+
+            if (iconEntries.Capacity < fontIconSet.GlyphIconsByName.Count)
+            {
+                iconEntries.Capacity = fontIconSet.GlyphIconsByName.Count;
+            }
+
+            selectedUnicodeValues.Clear();
+
             foreach (KeyValuePair<string, uint> kv in fontIconSet.GlyphIconsByName)
             {
-                iconEntries.Add(new IconEntry(kv.Key, kv.Value));
+                iconEntries.Add(new KeyValuePair<uint, string>(kv.Value, kv.Key));
+                selectedUnicodeValues.Add(kv.Value);
             }
+            iconEntries.Sort((a, b) => a.Key.CompareTo(b.Key));
+
+            validNames.Clear();
+
+            if (fontIconSetDefinitionProp != null)
+            {
+                FontIconSetDefinition setDefinition = fontIconSetDefinitionProp.objectReferenceValue as FontIconSetDefinition;
+                if (setDefinition != null && setDefinition.IconNames != null)
+                {
+                    foreach (string name in setDefinition.IconNames)
+                    {
+                        validNames.Add(name);
+                    }
+                    availableNamesArray = GetAvailableIconNames(fontIconSet, setDefinition);
+                }
+                else
+                {
+                    availableNamesArray = new string[] { string.Empty };
+                }
+            }
+            else
+            {
+                availableNamesArray = new string[] { string.Empty };
+            }
+
+            Repaint();
         }
 
         /// <summary>
@@ -73,7 +133,40 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
-            FontIconSet fontIconSet = (FontIconSet)target;
+            if (Event.current.type == EventType.Layout)
+            {
+                if (pendingIconToAdd.HasValue)
+                {
+                    foreach (var t in targets)
+                    {
+                        requiresUpdate |= AddIcon((FontIconSet)t, pendingIconToAdd.Value);
+                    }
+                    pendingIconToAdd = null;
+                }
+                if (pendingIconToRemove != null)
+                {
+                    foreach (var t in targets)
+                    {
+                        requiresUpdate |= RemoveIcon((FontIconSet)t, pendingIconToRemove);
+                    }
+                    pendingIconToRemove = null;
+                }
+                if (pendingIconToRenameOld != null && pendingIconToRenameNew != null)
+                {
+                    foreach (var t in targets)
+                    {
+                        requiresUpdate |= UpdateIconName((FontIconSet)t, pendingIconToRenameOld, pendingIconToRenameNew);
+                    }
+                    pendingIconToRenameOld = null;
+                    pendingIconToRenameNew = null;
+                }
+
+                if (requiresUpdate)
+                {
+                    UpdateIconEntries();
+                    requiresUpdate = false;
+                }
+            }
 
             bool showGlyphIconFoldout = SessionState.GetBool(ShowGlyphIconsFoldoutKey, false);
             bool showAvailableIcons = SessionState.GetBool(AvailableIconsFoldoutKey, true);
@@ -81,31 +174,40 @@ namespace MixedReality.Toolkit.Editor
 
             serializedObject.Update();
 
-            showGlyphIconFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(showGlyphIconFoldout, "Font Icons");
-            EditorGUILayout.EndFoldoutHeaderGroup();
-
+            showGlyphIconFoldout = EditorGUILayout.Foldout(showGlyphIconFoldout, "Font Icons", true);
             if (showGlyphIconFoldout)
             {
                 EditorGUILayout.PropertyField(iconFontAssetProp);
+                EditorGUI.BeginChangeCheck();
+                EditorGUILayout.PropertyField(fontIconSetDefinitionProp);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    serializedObject.ApplyModifiedProperties();
+                    requiresUpdate = true;
+                }
 
                 if (iconFontAssetProp.objectReferenceValue == null)
                 {
-                    EditorGUILayout.HelpBox(noIconFontMessage, MessageType.Warning);
-                    if (!CheckIfHololensIconFontExists())
+                    EditorGUILayout.HelpBox(NoIconFontMessage, MessageType.Warning);
+                    if (!CheckIfHoloLensIconFontExists())
                     {
-                        EditorGUILayout.HelpBox(downloadIconFontMessage, MessageType.Info);
+                        EditorGUILayout.HelpBox(DownloadIconFontMessage, MessageType.Info);
                         if (GUILayout.Button("View Font Asset Icons Documentation"))
                         {
-                            EditorApplication.ExecuteMenuItem(textMeshProMenuItem);
-                            Application.OpenURL(hololensIconFontUrl);
+                            EditorApplication.ExecuteMenuItem(TextMeshProMenuItem);
+                            Application.OpenURL(HoloLensIconFontUrl);
                         }
                     }
                 }
                 else
                 {
-                    TMP_FontAsset fontAsset = (TMP_FontAsset)iconFontAssetProp.objectReferenceValue;
+                    FontIconSet fontIconSet = target as FontIconSet;
+                    TMP_FontAsset fontAsset = iconFontAssetProp.objectReferenceValue as TMP_FontAsset;
+                    if (fontAsset == null) { return; }
 
-                    showAvailableIcons = EditorGUILayout.BeginFoldoutHeaderGroup(showAvailableIcons, "Available Icons");
+                    FontIconSetDefinition setDefinition = fontIconSetDefinitionProp.objectReferenceValue as FontIconSetDefinition;
+
+                    showAvailableIcons = EditorGUILayout.Foldout(showAvailableIcons, "Available Icons", true);
                     if (showAvailableIcons)
                     {
                         if (fontAsset.characterTable.Count == 0)
@@ -113,7 +215,7 @@ namespace MixedReality.Toolkit.Editor
                             EditorGUILayout.HelpBox("No icons are available in this font. The font may be configured incorrectly.", MessageType.Warning);
                             if (GUILayout.Button("Open Font Editor"))
                             {
-                                Selection.activeObject = fontIconSet.IconFontAsset;
+                                Selection.activeObject = fontAsset;
                             }
                         }
                         else
@@ -121,64 +223,90 @@ namespace MixedReality.Toolkit.Editor
                             EditorGUILayout.HelpBox("Click an icon to add it to your selected icons.", MessageType.Info);
                             if (GUILayout.Button("Open Font Editor"))
                             {
-                                Selection.activeObject = fontIconSet.IconFontAsset;
+                                Selection.activeObject = fontAsset;
                             }
 
-                            DrawFontGlyphsGrid(fontIconSet, maxButtonsPerColumn);
+                            DrawFontGlyphsGrid(fontAsset, MaxButtonsPerColumn);
                         }
 
                         EditorGUILayout.Space();
                     }
 
-                    EditorGUILayout.EndFoldoutHeaderGroup();
-                    showSelectedIcons = EditorGUILayout.BeginFoldoutHeaderGroup(showSelectedIcons, "Selected Icons");
+                    showSelectedIcons = EditorGUILayout.Foldout(showSelectedIcons, "Selected Icons", true);
                     if (showSelectedIcons)
                     {
-                        if (fontIconSet.GlyphIconsByName.Count > 0)
+                        if (iconEntries.Count > 0)
                         {
                             EditorGUILayout.HelpBox("These icons will appear in the button config helper inspector. Click an icon to remove it from this list.", MessageType.Info);
 
-                            using (new EditorGUILayout.VerticalScope())
+                            if (fontIconSetDefinitionProp.objectReferenceValue == null)
                             {
-                                string iconToRemove = null;
-                                foreach (IconEntry iconEntry in iconEntries)
+                                EditorGUILayout.HelpBox("It's recommended to use a Font Icon Set Definition to ensure consistent icon names across icon sets.", MessageType.Warning);
+                            }
+                            else
+                            {
+                                DrawInvalidIconNameHelpBox(fontIconSet, setDefinition);
+
+                                // Catch edge cases where the external asset size changes while this inspector is still focused
+                                if (setDefinition.IconNames != null && validNames.Count != setDefinition.IconNames.Count)
                                 {
-                                    using (new EditorGUILayout.HorizontalScope())
-                                    {
-                                        if (GUILayout.Button(" ", GUILayout.MinHeight(buttonHeight), GUILayout.MaxHeight(buttonHeight), GUILayout.MaxWidth(buttonWidth)))
-                                        {
-                                            iconToRemove = iconEntry.Name;
-                                        }
-                                        Rect textureRect = GUILayoutUtility.GetLastRect();
-                                        textureRect.width = glyphDrawSize;
-                                        textureRect.height = glyphDrawSize;
-                                        EditorDrawTMPGlyph(textureRect, iconEntry.UnicodeValue, fontAsset);
-
-                                        string currentName = iconEntry.Name;
-                                        currentName = EditorGUILayout.TextField(currentName);
-                                        if (currentName != iconEntry.Name)
-                                        {
-                                            UpdateIconName(fontIconSet, iconEntry.Name, currentName);
-                                        }
-                                        EditorGUILayout.Space();
-                                    }
-
-                                    EditorGUILayout.Space();
-                                }
-
-                                if (iconToRemove != null)
-                                {
-                                    RemoveIcon(fontIconSet, iconToRemove);
+                                    requiresUpdate = true;
                                 }
                             }
+
+                            int column = 0;
+                            EditorGUILayout.BeginHorizontal();
+                            foreach (KeyValuePair<uint, string> iconEntry in iconEntries)
+                            {
+                                if (column >= MaxButtonsPerColumn)
+                                {
+                                    column = 0;
+                                    EditorGUILayout.EndHorizontal();
+                                    EditorGUILayout.BeginHorizontal();
+                                }
+
+                                EditorGUILayout.BeginVertical(GUILayout.Width(ButtonDimension));
+
+                                if (GUILayout.Button(" ",
+                                    GUILayout.Height(ButtonDimension),
+                                    GUILayout.MaxWidth(ButtonDimension)))
+                                {
+                                    pendingIconToRemove = iconEntry.Value;
+                                }
+
+                                Rect textureRect = GUILayoutUtility.GetLastRect();
+                                textureRect.width = GlyphDrawSize;
+                                textureRect.height = GlyphDrawSize;
+                                EditorDrawTMPGlyph(textureRect, iconEntry.Key, fontAsset);
+
+                                if (fontIconSetDefinitionProp.objectReferenceValue != null)
+                                {
+                                    if (DrawIconNamePopup(iconEntry.Value, availableNamesArray, validNames, ButtonDimension, out string newName))
+                                    {
+                                        pendingIconToRenameNew = newName;
+                                        pendingIconToRenameOld = iconEntry.Value;
+                                    }
+                                }
+                                else
+                                {
+                                    string currentName = EditorGUILayout.TextField(iconEntry.Value);
+                                    if (currentName != iconEntry.Value)
+                                    {
+                                        pendingIconToRenameNew = currentName;
+                                        pendingIconToRenameOld = iconEntry.Value;
+                                    }
+                                }
+                                EditorGUILayout.EndVertical();
+
+                                column++;
+                            }
+                            EditorGUILayout.EndHorizontal();
                         }
                         else
                         {
                             EditorGUILayout.HelpBox("No icons added yet. Click available icons to add.", MessageType.Info);
                         }
                     }
-
-                    EditorGUILayout.EndFoldoutHeaderGroup();
                 }
             }
 
@@ -194,9 +322,20 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         /// <param name="fontIconSet">The set of font glyphs to draw.</param>
         /// <param name="maxButtonsPerColumn">The number of buttons per column.</param>
+        [Obsolete("This method has been deprecated in version 4.0 and will be removed in a future version.")]
         public void DrawFontGlyphsGrid(FontIconSet fontIconSet, int maxButtonsPerColumn)
         {
-            TMP_FontAsset fontAsset = fontIconSet.IconFontAsset;
+            DrawFontGlyphsGrid(fontIconSet.IconFontAsset, maxButtonsPerColumn);
+        }
+
+        /// <summary>
+        /// Draw a grid of buttons than can be clicked to select a glyph from a set up glyphs.
+        /// </summary>
+        /// <param name="fontAsset">The font asset containing the glyphs.</param>
+        /// <param name="fontIconSet">The set of font glyphs to draw.</param>
+        /// <param name="maxButtonsPerColumn">The number of buttons per column.</param>
+        private void DrawFontGlyphsGrid(TMP_FontAsset fontAsset, int maxButtonsPerColumn)
+        {
             int column = 0;
             EditorGUILayout.BeginHorizontal();
             for (int i = 0; i < fontAsset.characterTable.Count; i++)
@@ -207,79 +346,70 @@ namespace MixedReality.Toolkit.Editor
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
                 }
-                if (GUILayout.Button(" ",
-                    GUILayout.MinHeight(buttonHeight),
-                    GUILayout.MaxHeight(buttonHeight),
-                    GUILayout.MaxWidth(buttonWidth)))
+
+                using (new EditorGUI.DisabledGroupScope(selectedUnicodeValues.Contains(fontAsset.characterTable[i].unicode)))
                 {
-                    AddIcon(fontIconSet, fontAsset.characterTable[i].unicode);
-                    EditorUtility.SetDirty(target);
+                    if (GUILayout.Button(" ",
+                        GUILayout.Height(ButtonDimension),
+                        GUILayout.MaxWidth(ButtonDimension)))
+                    {
+                        pendingIconToAdd = fontAsset.characterTable[i].unicode;
+                    }
+
+                    Rect textureRect = GUILayoutUtility.GetLastRect();
+                    textureRect.width = GlyphDrawSize;
+                    textureRect.height = GlyphDrawSize;
+                    EditorDrawTMPGlyph(textureRect, fontAsset, fontAsset.characterTable[i]);
                 }
-                Rect textureRect = GUILayoutUtility.GetLastRect();
-                textureRect.width = glyphDrawSize;
-                textureRect.height = glyphDrawSize;
-                EditorDrawTMPGlyph(textureRect, fontAsset, fontAsset.characterTable[i]);
+
                 column++;
             }
-
-            if (column > 0)
-            {
-                EditorGUILayout.EndHorizontal();
-            }
+            EditorGUILayout.EndHorizontal();
         }
 
         private bool AddIcon(FontIconSet fontIconSet, uint unicodeValue)
         {
-            string name = "Icon " + (iconEntries.Count + 1);
+            string name = $"Icon {unicodeValue}";
+
+            Undo.RecordObject(fontIconSet, "Add Icon");
             if (fontIconSet.AddIcon(name, unicodeValue))
             {
-                iconEntries.Add(new IconEntry(name, unicodeValue));
+                EditorUtility.SetDirty(fontIconSet);
+                return true;
             }
-            return true;
+            return false;
         }
 
         private bool RemoveIcon(FontIconSet fontIconSet, string iconName)
         {
-            bool removed = fontIconSet.RemoveIcon(iconName);
-            if (removed)
+            if (fontIconSet.TryGetGlyphIcon(iconName, out uint unicodeValue))
             {
-                if (FindIconIndexByName(iconName, out int index))
+                Undo.RecordObject(fontIconSet, "Remove Icon");
+                if (fontIconSet.RemoveIcon(iconName))
                 {
-                    iconEntries.RemoveAt(index);
-                }
-            }
-            return removed;
-        }
-
-        private bool FindIconIndexByName(string iconName, out int outIndex)
-        {
-            for (outIndex = 0; outIndex < iconEntries.Count; outIndex++)
-            {
-                if (iconEntries[outIndex].Name == iconName)
-                {
+                    EditorUtility.SetDirty(fontIconSet);
                     return true;
                 }
             }
-            outIndex = -1;
             return false;
         }
 
-        private void UpdateIconName(FontIconSet fontIconSet, string oldName, string newName)
+        private bool UpdateIconName(FontIconSet fontIconSet, string oldName, string newName)
         {
+            Undo.RecordObject(fontIconSet, "Rename Icon");
             if (fontIconSet.UpdateIconName(oldName, newName))
             {
-                if (FindIconIndexByName(oldName, out int index))
-                {
-                    iconEntries[index].Name = newName;
-                }
+                EditorUtility.SetDirty(fontIconSet);
+                return true;
             }
+            return false;
         }
 
-        private bool CheckIfHololensIconFontExists()
+        private bool CheckIfHoloLensIconFontExists()
         {
-            foreach (string guid in AssetDatabase.FindAssets($"t:{typeof(UnityEngine.Font).Name}"))
+            foreach (string guid in AssetDatabase.FindAssets($"t:{nameof(Font)}"))
             {
-                if (AssetDatabase.GUIDToAssetPath(guid).Contains(mdl2IconFontName))
+                if (AssetDatabase.GUIDToAssetPath(guid).Contains(MDL2IconFontName))
                 {
                     return true;
                 }
@@ -288,11 +418,111 @@ namespace MixedReality.Toolkit.Editor
         }
 
         /// <summary>
+        /// Generates an array of available icon names (those present in the definition but not yet assigned in the icon set),
+        /// with an empty string at index 0 to act as a placeholder for the currently selected icon name.
+        /// </summary>
+        public static string[] GetAvailableIconNames(FontIconSet iconSet, FontIconSetDefinition setDefinition)
+        {
+            if (iconSet == null || setDefinition == null || setDefinition.IconNames == null)
+            {
+                return null;
+            }
+
+            List<string> availableNames = new List<string>();
+            foreach (string name in setDefinition.IconNames)
+            {
+                if (!iconSet.GlyphIconsByName.ContainsKey(name))
+                {
+                    availableNames.Add(name);
+                }
+            }
+            availableNames.Sort();
+            availableNames.Insert(0, string.Empty);
+            return availableNames.ToArray();
+        }
+
+        /// <summary>
+        /// Draws a warning HelpBox if the provided <see cref="FontIconSet"/> contains assigned icon names that are not present in the <see cref="FontIconSetDefinition"/>.
+        /// </summary>
+        public static void DrawInvalidIconNameHelpBox(FontIconSet iconSet, FontIconSetDefinition setDefinition)
+        {
+            if (iconSet == null || setDefinition == null || setDefinition.IconNames == null)
+            {
+                return;
+            }
+
+            foreach (string assignedName in iconSet.GlyphIconsByName.Keys)
+            {
+                bool isNameValid = false;
+                foreach (string validName in setDefinition.IconNames)
+                {
+                    if (validName == assignedName)
+                    {
+                        isNameValid = true;
+                        break;
+                    }
+                }
+
+                if (!isNameValid)
+                {
+                    EditorGUILayout.HelpBox("Icon names highlighted yellow are not present in the selected Font Icon Set Definition and should be updated.", MessageType.Warning);
+                    return;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Draws a popup for renaming an icon, highlighting it yellow if the name is invalid/missing from the definition.
+        /// </summary>
+        public static bool DrawIconNamePopup(string currentName, string[] availableNamesArray, IEnumerable<string> validNames, float maxWidth, out string newName)
+        {
+            newName = currentName;
+            if (availableNamesArray == null || availableNamesArray.Length == 0)
+            {
+                return false;
+            }
+
+            availableNamesArray[0] = currentName;
+
+            bool changed = false;
+            using (var check = new EditorGUI.ChangeCheckScope())
+            {
+                Color oldColor = GUI.backgroundColor;
+
+                bool isNameValid = false;
+                foreach (string validName in validNames)
+                {
+                    if (validName == currentName)
+                    {
+                        isNameValid = true;
+                        break;
+                    }
+                }
+
+                if (!isNameValid)
+                {
+                    GUI.backgroundColor = Color.yellow;
+                }
+
+                int selected = EditorGUILayout.Popup(string.Empty, 0, availableNamesArray, GUILayout.MaxWidth(maxWidth));
+                if (check.changed)
+                {
+                    newName = availableNamesArray[selected];
+                    changed = true;
+                }
+
+                GUI.backgroundColor = oldColor;
+            }
+
+            return changed;
+        }
+
+        /// <summary>
         /// Draws a Text Mesh Pro glyph in the supplied <see cref="Rect"/>.
         /// </summary>
         public static void EditorDrawTMPGlyph(Rect position, uint unicode, TMP_FontAsset fontAsset, bool selected = false, Material fontRenderMaterial = null)
         {
-            if (fontAsset.characterLookupTable.TryGetValue(unicode, out TMP_Character character))
+            if (fontAsset != null && fontAsset.characterLookupTable.TryGetValue(unicode, out TMP_Character character))
             {
                 EditorDrawTMPGlyph(position, fontAsset, character, selected, fontRenderMaterial);
             }
@@ -301,13 +531,13 @@ namespace MixedReality.Toolkit.Editor
         /// <summary>
         /// Draws a Text Mesh Pro glyph in the supplied <see cref="Rect"/>.
         /// </summary>
-        public static void EditorDrawTMPGlyph(Rect glyphRect, TMP_FontAsset fontAsset, TMP_Character character, bool selected = false, Material fontRenderMaterial = null)
+        private static void EditorDrawTMPGlyph(Rect glyphRect, TMP_FontAsset fontAsset, TMP_Character character, bool selected = false, Material fontRenderMaterial = null)
         {
             if (Event.current.type == EventType.Repaint)
             {
                 try
                 {
-                    float iconSizeMultiplier = 0.625f;
+                    const float IconSizeMultiplier = 0.625f;
 
                     // Get a reference to the Glyph Table
                     int glyphIndex = (int)character.glyphIndex;
@@ -325,20 +555,12 @@ namespace MixedReality.Toolkit.Editor
                         {
                             if (fontRenderMaterial == null)
                             {
-                                fontRenderMaterial = new Material(Shader.Find(defaultShaderName));
+                                fontRenderMaterial = new Material(Shader.Find(DefaultShaderName));
                             }
 
                             Material glyphMaterial = fontRenderMaterial;
                             glyphMaterial.mainTexture = atlasTexture;
-
-                            if (selected)
-                            {
-                                glyphMaterial.SetColor("_Color", Color.green);
-                            }
-                            else
-                            {
-                                glyphMaterial.SetColor("_Color", Color.white);
-                            }
+                            glyphMaterial.SetColor("_FaceColor", selected ? Color.green : Color.white);
 
                             int glyphOriginX = glyph.glyphRect.x;
                             int glyphOriginY = glyph.glyphRect.y;
@@ -346,13 +568,13 @@ namespace MixedReality.Toolkit.Editor
                             int glyphHeight = glyph.glyphRect.height;
 
                             float normalizedHeight = fontAsset.faceInfo.ascentLine - fontAsset.faceInfo.descentLine;
-                            float scale = Mathf.Min(glyphRect.width, glyphRect.height) / normalizedHeight * iconSizeMultiplier;
+                            float scale = Mathf.Min(glyphRect.width, glyphRect.height) / normalizedHeight * IconSizeMultiplier;
 
                             // Compute the normalized texture coordinates
                             Rect texCoords = new Rect((float)glyphOriginX / atlasTexture.width, (float)glyphOriginY / atlasTexture.height, (float)glyphWidth / atlasTexture.width, (float)glyphHeight / atlasTexture.height);
 
-                            glyphWidth = (int)Mathf.Min(glyphDrawSize, glyphWidth * scale);
-                            glyphHeight = (int)Mathf.Min(glyphDrawSize, glyphHeight * scale);
+                            glyphWidth = (int)Mathf.Min(GlyphDrawSize, glyphWidth * scale);
+                            glyphHeight = (int)Mathf.Min(GlyphDrawSize, glyphHeight * scale);
 
                             glyphRect.x += (glyphRect.width - glyphWidth) / 2;
                             glyphRect.y += (glyphRect.height - glyphHeight) / 2;
@@ -364,9 +586,9 @@ namespace MixedReality.Toolkit.Editor
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    EditorGUILayout.LabelField("Couldn't draw character icon. UnicodeValue may not be available in the font asset.");
+                    GUI.Label(glyphRect, new GUIContent($"Couldn't draw icon: {e.Message}"));
                 }
             }
         }

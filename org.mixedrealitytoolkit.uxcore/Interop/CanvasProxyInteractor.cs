@@ -1,9 +1,11 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX
 {
@@ -11,7 +13,10 @@ namespace MixedReality.Toolkit.UX
     /// A simple proxy interactor which will select and hover things on MRTK's behalf, for canvas input.
     /// </summary>
     [AddComponentMenu("MRTK/UX/Canvas Proxy Interactor")]
-    public class CanvasProxyInteractor : XRBaseInteractor, IProxyInteractor, IModeManagedInteractor
+    public class CanvasProxyInteractor :
+        XRBaseInteractor,
+        IProxyInteractor,
+        IModeManagedInteractor
     {
         /// <summary>
         /// The hash set containing a collection of valid interactable targets for this this interactor.
@@ -27,6 +32,9 @@ namespace MixedReality.Toolkit.UX
         // We set this flag whenever we're cancelling an interaction. This will suppress
         // events (like OnClicked) on any StatefulInteractable.
         private bool isCancellingInteraction = false;
+
+        /// <inheritdoc />
+        public GameObject ModeManagedRoot => gameObject;
 
         /// <inheritdoc />
         public void StartHover(IXRHoverInteractable target)
@@ -104,7 +112,7 @@ namespace MixedReality.Toolkit.UX
                 }
             }
         }
-        
+
         /// <inheritdoc />
         public override void GetValidTargets(List<IXRInteractable> targets)
         {
@@ -143,6 +151,7 @@ namespace MixedReality.Toolkit.UX
         public override bool isHoverActive => base.isHoverActive && !isCancellingInteraction;
 
         /// <inheritdoc />
-        public GameObject GetModeManagedController() => gameObject;
+        [Obsolete("This function has been deprecated in version 4.0.0 and will be removed in the next major release. Use ModeManagedRoot instead.")]
+        public GameObject GetModeManagedController() => ModeManagedRoot;
     }
 }

@@ -250,6 +250,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
 
             // Ony two steps! Very fast.
             yield return hand.MoveTo(testButton.transform.position + p2, 2);
+            yield return RuntimeTestUtilities.WaitForUpdates();
 
             Assert.IsTrue(buttonPressed, "Button did not get pressed when hand moved to press it.");
 

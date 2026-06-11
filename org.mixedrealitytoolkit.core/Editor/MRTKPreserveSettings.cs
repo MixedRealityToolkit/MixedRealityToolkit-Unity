@@ -74,10 +74,5 @@ namespace MixedReality.Toolkit.Editor
         }
 
         private static string FormatForXml(string value) => value.Replace('+', '/').Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
-
-#if !UNITY_2021_2_OR_NEWER
-        void IUnityLinkerProcessor.OnAfterRun(BuildReport report, UnityLinkerBuildPipelineData data) { }
-        void IUnityLinkerProcessor.OnBeforeRun(BuildReport report, UnityLinkerBuildPipelineData data) { }
-#endif // !UNITY_2021_2_OR_NEWER
     }
 }

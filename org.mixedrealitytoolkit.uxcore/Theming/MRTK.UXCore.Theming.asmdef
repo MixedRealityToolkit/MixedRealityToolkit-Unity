@@ -1,0 +1,23 @@
+{
+    "name": "MixedReality.Toolkit.UXCore.Theming",
+    "rootNamespace": "MixedReality.Toolkit.UX",
+    "references": [
+        "GUID:56255bd5d851a6243b63cb370cfc40b1",
+        "GUID:2238d58cada9b6746a548c6bff32c381"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "org.mixedrealitytoolkit.theming",
+            "expression": "",
+            "define": "MRTK_THEMING_PRESENT"
+        }
+    ],
+    "noEngineReferences": false
+}

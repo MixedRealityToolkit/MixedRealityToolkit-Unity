@@ -1,8 +1,8 @@
-
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.UX;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -13,22 +13,16 @@ namespace MixedReality.Toolkit.Editor
     [CanEditMultipleObjects]
     class FontIconSelectorInspector : UnityEditor.Editor
     {
-
-        private const string defaultShaderName = "TextMeshPro/Distance Field SSD";
-        private float fontTileSize = 32;
-
-        private static Material fontRenderMaterial;
-
-        private const string noFontIconsMessage = "No IconFontSet profile selected. No icons available.";
-        private const string emptyFontIconSetMessage = "The selected IconFontSet profile has no icons defined. Please edit the IconFontSet.";
+        private const string NoFontIconsMessage = "No FontIconSet profile selected. No icons available.";
+        private const string EmptyFontIconSetMessage = "The selected FontIconSet profile has no icons defined. Please edit the FontIconSet.";
 
         private SerializedProperty fontIconsProp = null;
         private SerializedProperty currentIconNameProp = null;
         private SerializedProperty tmProProp = null;
 
-        private GUIStyle currentButtonStyle;
+        private GUIStyle currentButtonStyle = null;
 
-        private bool initializedStyle = false;
+        private float fontTileSize = 32;
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
@@ -38,7 +32,31 @@ namespace MixedReality.Toolkit.Editor
             fontIconsProp = serializedObject.FindProperty("fontIcons");
             currentIconNameProp = serializedObject.FindProperty("currentIconName");
             tmProProp = serializedObject.FindProperty("textMeshProComponent");
-            
+
+            bool migratedAny = false;
+            foreach (Object targetObject in targets)
+            {
+                FontIconSelector selector = targetObject as FontIconSelector;
+                if (selector != null)
+                {
+                    Undo.RecordObject(selector, "Migrate Font Icon Selector");
+
+                    if (selector.TryMigrate())
+                    {
+                        EditorUtility.SetDirty(selector);
+                        if (PrefabUtility.IsPartOfPrefabInstance(selector))
+                        {
+                            PrefabUtility.RecordPrefabInstancePropertyModifications(selector);
+                        }
+                        migratedAny = true;
+                    }
+                }
+            }
+
+            if (migratedAny)
+            {
+                serializedObject.Update();
+            }
         }
 
         /// <summary>
@@ -46,11 +64,9 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
-            if (!initializedStyle)
-            {
-                currentButtonStyle = new GUIStyle(GUI.skin.button);
-                initializedStyle = true;
-            }
+            serializedObject.Update();
+
+            currentButtonStyle ??= new GUIStyle(GUI.skin.button);
 
             FontIconSelector fontIconSelector = (FontIconSelector)target;
             FontIconSet fontIconSet = fontIconSelector.FontIcons;
@@ -66,11 +82,11 @@ namespace MixedReality.Toolkit.Editor
 
             if (fontIconsProp.objectReferenceValue == null)
             {
-                EditorGUILayout.HelpBox(noFontIconsMessage, MessageType.Warning);
+                EditorGUILayout.HelpBox(NoFontIconsMessage, MessageType.Warning);
             }
             else if (!fontIconSet || fontIconSet.GlyphIconsByName.Count == 0)
             {
-                EditorGUILayout.HelpBox(emptyFontIconSetMessage, MessageType.Warning);
+                EditorGUILayout.HelpBox(EmptyFontIconSetMessage, MessageType.Warning);
             }
             else
             {
@@ -90,8 +106,9 @@ namespace MixedReality.Toolkit.Editor
         }
 
         private int numColumns = 4;
-
         private Vector2 scrollAmount;
+        private float cachedTileSize = 0f;
+        private GUILayoutOption[] cachedButtonOptions;
 
         public void DrawIconGrid(FontIconSelector fontIconSelector, float tileSize)
         {
@@ -101,45 +118,68 @@ namespace MixedReality.Toolkit.Editor
 
             scrollAmount = EditorGUILayout.BeginScrollView(scrollAmount, GUILayout.MaxHeight(128), GUILayout.MinHeight(64));
             EditorGUILayout.BeginHorizontal();
-            
-            foreach (string iconName in fontIconSet.GlyphIconsByName.Keys)
+
+            List<KeyValuePair<string, uint>> sortedIcons = new List<KeyValuePair<string, uint>>(fontIconSet.GlyphIconsByName);
+            sortedIcons.Sort((a, b) => a.Key.CompareTo(b.Key));
+
+            if (cachedTileSize != tileSize || cachedButtonOptions == null)
             {
-                uint unicodeValue = fontIconSet.GlyphIconsByName[iconName];
-                bool selected = (iconName == fontIconSelector.CurrentIconName);
+                cachedTileSize = tileSize;
+                cachedButtonOptions = new GUILayoutOption[] { GUILayout.Height(tileSize), GUILayout.Width(tileSize) };
+            }
+
+            foreach (KeyValuePair<string, uint> kvp in sortedIcons)
+            {
+                string iconName = kvp.Key;
+                uint unicodeValue = kvp.Value;
+
                 if (column >= numColumns)
                 {
                     column = 0;
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
                 }
-                if (GUILayout.Button(" ",
-                    GUILayout.MinHeight(tileSize),
-                    GUILayout.MaxHeight(tileSize),
-                    GUILayout.MinWidth(tileSize),
-                    GUILayout.MaxWidth(tileSize)))
+
+                if (GUILayout.Button(" ", cachedButtonOptions))
                 {
-                    Undo.RecordObjects(new UnityEngine.Object[]{fontIconSelector, fontIconSelector.TextMeshProComponent}, "Changed icon");
+                    // Flush any pending changes from other Inspector fields (e.g. lost focus) manually editing the icon name
+                    serializedObject.ApplyModifiedProperties();
+
+                    if (fontIconSelector.TextMeshProComponent != null)
+                    {
+                        Undo.RecordObjects(new Object[] { fontIconSelector, fontIconSelector.TextMeshProComponent }, "Changed icon");
+                    }
+                    else
+                    {
+                        Undo.RecordObject(fontIconSelector, "Changed icon");
+                    }
+
                     fontIconSelector.CurrentIconName = iconName;
+
                     PrefabUtility.RecordPrefabInstancePropertyModifications(fontIconSelector);
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(fontIconSelector.TextMeshProComponent);
+                    if (fontIconSelector.TextMeshProComponent != null)
+                    {
+                        PrefabUtility.RecordPrefabInstancePropertyModifications(fontIconSelector.TextMeshProComponent);
+                    }
+
+                    // Resync the serialized object after manually editing the icon name
+                    serializedObject.Update();
                 }
+
                 Rect textureRect = GUILayoutUtility.GetLastRect();
                 if (textureRect.yMin + 8 < scrollAmount.y || textureRect.yMax - 8 > scrollAmount.y + 128)
                 {
                     unicodeValue = 0;
                 }
-
                 textureRect.width = tileSize;
                 textureRect.height = tileSize;
-                FontIconSetInspector.EditorDrawTMPGlyph(textureRect, unicodeValue, fontAsset, selected);
+                FontIconSetInspector.EditorDrawTMPGlyph(textureRect, unicodeValue, fontAsset, iconName == fontIconSelector.CurrentIconName);
+
                 column++;
             }
 
-            if (column > 0)
-            {
-                EditorGUILayout.EndHorizontal();
-            }
-            
+            EditorGUILayout.EndHorizontal();
+
             if (Event.current.type == EventType.Repaint)
             {
                 float editorWindowWidth = GUILayoutUtility.GetLastRect().width;

@@ -6,11 +6,12 @@
 
 using MixedReality.Toolkit.Core.Tests;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Inputs.Interactions;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Composites;
-using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Interactions;
+using static MixedReality.Toolkit.Input.Tests.InputTestUtilities;
 
 namespace MixedReality.Toolkit.Input.Tests
 {
@@ -21,6 +22,7 @@ namespace MixedReality.Toolkit.Input.Tests
     /// </summary>
     public abstract class BaseRuntimeInputTests : BaseRuntimeTests
     {
+
         // Isolates/sandboxes the input system state for each test instance.
         private InputTestFixture input = new InputTestFixture();
 
@@ -36,12 +38,39 @@ namespace MixedReality.Toolkit.Input.Tests
             {
                 if (cachedInteractionManager == null)
                 {
-                    cachedInteractionManager = FindObjectUtility.FindAnyObjectByType<XRInteractionManager>();
+                    cachedInteractionManager = Object.FindAnyObjectByType<XRInteractionManager>();
                 }
                 return cachedInteractionManager;
             }
         }
 
+        private TrackedPoseDriverLookup cachedTrackedPoseDriverLookup;
+
+        /// <summary>
+        /// A cached reference to the <see cref="TrackedPoseDriverLookup"/> on the XRI3+ rig.
+        /// Cleared during <see cref="TearDown"/> at the end of each test.
+        /// </summary>
+        protected TrackedPoseDriverLookup CachedTrackedPoseDriverLookup
+        {
+            get
+            {
+                if (cachedTrackedPoseDriverLookup == null && CachedInteractionManager == null)
+                {
+                    Debug.LogError("Unable to get a reference to Rig's TrackedPoseDriverLookup because CachedInteractionManager is null.");
+                    return null;
+                }
+                cachedTrackedPoseDriverLookup = CachedInteractionManager.gameObject.GetComponent<TrackedPoseDriverLookup>();
+
+                return cachedTrackedPoseDriverLookup;
+            }
+        }
+
+        /// <summary>
+        /// Get the version of the input rig to use with these tests
+        /// </summary>
+        protected virtual RigVersion RigVersion { get; } = RigVersion.Default;
+
+#pragma warning disable CS0618 // Type or member is obsolete
         private ControllerLookup cachedLookup = null;
 
         /// <summary>
@@ -63,24 +92,35 @@ namespace MixedReality.Toolkit.Input.Tests
                 return cachedLookup;
             }
         }
+#pragma warning restore CS0618 // Type or member is obsolete
 
         public override IEnumerator Setup()
         {
             yield return base.Setup();
+            InputSystemSetup();
+            XRISetup();
 
-            input.Setup();
 
-            // XRI needs these... ugh
-            InputSystem.RegisterInteraction<SectorInteraction>();
-            InputSystem.RegisterBindingComposite<Vector3FallbackComposite>();
-            InputSystem.RegisterBindingComposite<QuaternionFallbackComposite>();
-            InputSystem.RegisterBindingComposite<IntegerFallbackComposite>();
-
-            InputTestUtilities.InstantiateRig();
+            InputTestUtilities.InstantiateRig(RigVersion);
             InputTestUtilities.SetupSimulation(0.0f);
 
             // Wait for simulation HMD to update camera poses
             yield return RuntimeTestUtilities.WaitForUpdates();
+        }
+
+        private void InputSystemSetup()
+        {
+            input.Setup();
+            InputSystem.onAfterUpdate += OnAfterUpdate;
+        }
+
+        private void XRISetup()
+        {
+            // XRI needs these
+            InputSystem.RegisterInteraction<SectorInteraction>();
+            InputSystem.RegisterBindingComposite<Vector3FallbackComposite>();
+            InputSystem.RegisterBindingComposite<QuaternionFallbackComposite>();
+            InputSystem.RegisterBindingComposite<IntegerFallbackComposite>();
         }
 
         public override IEnumerator TearDown()
@@ -90,10 +130,20 @@ namespace MixedReality.Toolkit.Input.Tests
             InputTestUtilities.TeardownSimulation();
             cachedInteractionManager = null;
             cachedLookup = null;
+            cachedTrackedPoseDriverLookup = null;
 
             input.TearDown();
+            InputSystem.onAfterUpdate -= OnAfterUpdate;
 
             yield return base.TearDown();
+        }
+
+        /// <summary>
+        /// Update the simulation immediately after the input system has updated. For more details see <see cref="InputTestUtilities.HandUpdate"/>.
+        /// </summary>
+        private void OnAfterUpdate()
+        {
+            InputTestUtilities.UpdateSimulation();
         }
     }
 }

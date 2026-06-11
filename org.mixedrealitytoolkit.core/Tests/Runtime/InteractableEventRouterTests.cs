@@ -11,6 +11,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
 {
@@ -47,7 +48,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             {
                 if (cachedInteractionManager == null)
                 {
-                    cachedInteractionManager = FindObjectUtility.FindAnyObjectByType<XRInteractionManager>();
+                    cachedInteractionManager = Object.FindAnyObjectByType<XRInteractionManager>();
                 }
                 return cachedInteractionManager;
             }
@@ -364,7 +365,6 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             level2 = new GameObject("level 2");
 
             // Setup interactor
-            interactorObject.AddComponent<XRController>();
             interactor = interactorObject.AddComponent<XRRayInteractor>();
             interactorObject.transform.SetParent(level0.transform, worldPositionStays: true);
 

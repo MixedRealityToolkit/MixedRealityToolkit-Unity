@@ -4,6 +4,7 @@
 using System.Collections;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
 
@@ -274,21 +275,48 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 Ray? gazeRay = null;
                 bool usedEyeGaze = false;
 
-                if (ControllerLookup != null &&
-                    ControllerLookup.GazeController != null &&
-                    (ControllerLookup.GazeController.currentControllerState.inputTrackingState &
-                    (InputTrackingState.Position | InputTrackingState.Rotation)) > 0)
+                #pragma warning disable CS0618 // Type or member is obsolete
+                if (ControllerLookup != null)
                 {
-                    gazeRay = new Ray(
-                            ControllerLookup.GazeController.transform.position,
-                            ControllerLookup.GazeController.transform.forward);
-                    usedEyeGaze = true;
+                    if (ControllerLookup.GazeController != null &&
+                        (ControllerLookup.GazeController.currentControllerState.inputTrackingState &
+                        (InputTrackingState.Position | InputTrackingState.Rotation)) > 0)
+                    {
+                        gazeRay = new Ray(
+                                ControllerLookup.GazeController.transform.position,
+                                ControllerLookup.GazeController.transform.forward);
+                        usedEyeGaze = true;
+                    }
+                    else
+                    {
+                        gazeRay = new Ray(
+                            Camera.main.transform.position,
+                            Camera.main.transform.forward);
+                    }
+                }
+                #pragma warning restore CS0618
+                else if (TrackedPoseDriverLookup != null)
+                {
+                    InputTrackingState gazeTrackingStateInput = GetGazeInputTrackingState(TrackedPoseDriverLookup.GazeTrackedPoseDriver);
+                    if (gazeTrackingStateInput.HasFlag(InputTrackingState.Position) &&
+                        gazeTrackingStateInput.HasFlag(InputTrackingState.Rotation))
+                    {
+                        gazeRay = new Ray(
+                            TrackedPoseDriverLookup.GazeTrackedPoseDriver.transform.position,
+                            TrackedPoseDriverLookup.GazeTrackedPoseDriver.transform.forward);
+                        usedEyeGaze = true;
+                    }
+                    else
+                    {
+                        gazeRay = new Ray(
+                            Camera.main.transform.position,
+                            Camera.main.transform.forward);
+                    }
                 }
                 else
                 {
-                    gazeRay = new Ray(
-                        Camera.main.transform.position,
-                        Camera.main.transform.forward);
+                    Debug.LogWarning("Neither ControllerLookup nor TrackedPoseDriverLookup are set, unable to determine whether user gaze meets threashold requirements or not.");
+                    return false;
                 }
 
                 if (gazeRay.HasValue)
@@ -325,6 +353,47 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private static readonly ProfilerMarker TryGenerateHandPlaneAndActivationPointPerfMarker =
             new ProfilerMarker("[MRTK] HandConstraintPalmUp.TryGenerateHandPlaneAndActivationPoint");
+
+        /// <summary>
+        /// Get the input tracking state for the given gaze pose gazePoseDriver.
+        /// </summary>
+        private InputTrackingState GetGazeInputTrackingState(TrackedPoseDriver gazePoseDriver)
+        {
+            // Special case for when the gazePoseDriver is null, we return None so caller can fallback to head pose.
+            if (gazePoseDriver == null)
+            {
+                return InputTrackingState.None;
+            }
+
+            // Note, that the logic in this class is meant to reproduce the same logic as the base. The base
+            // `TrackedPoseDriver` also sets the tracking state in a similar manner. Please see 
+            // `TrackedPoseDriver::ReadTrackingState`. Replicating this logic is not ideal, but it is
+            // necessary since the class does not expose its tracking status logic. Note this
+            // code also exists in the MRTK3 input package in `TrackedPoseDriverExtensions::GetGazeInputTrackingState`,
+            // but to avoid pulling in the `input` package, we've replicated the logic here.
+
+            var trackingStateAction = gazePoseDriver.trackingStateInput.action;
+            if (trackingStateAction == null || trackingStateAction.bindings.Count == 0)
+            {
+                // Treat an Input Action Reference with no reference the same as
+                // an enabled Input Action with no authored bindings, and allow driving the Transform pose.
+                return InputTrackingState.Position | InputTrackingState.Rotation;
+            }
+
+            if (!trackingStateAction.enabled)
+            {
+                // Treat a disabled action as the default None value for the ReadValue call
+                return InputTrackingState.None;
+            }
+
+            InputTrackingState result = InputTrackingState.None;
+            if (trackingStateAction.controls.Count > 0)
+            {
+                result = (InputTrackingState)trackingStateAction.ReadValue<int>();
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// This function attempts to generate a hand plane based on the wrist, index knuckle and pinky

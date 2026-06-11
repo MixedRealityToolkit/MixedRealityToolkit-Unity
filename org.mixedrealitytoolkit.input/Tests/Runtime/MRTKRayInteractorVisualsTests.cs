@@ -18,6 +18,12 @@ namespace MixedReality.Toolkit.Input.Tests
     public class MRTKRayInteractorVisualsTests : BaseRuntimeInputTests
     {
         /// <summary>
+        /// Override of the rig version to use for these tests. These tests validate that the old rig remain functional.
+        /// The <see cref="MRTKRayInteractorVisualsTestsForControllerlessRig"/> will validate the new rig.
+        /// </summary>
+        protected override InputTestUtilities.RigVersion RigVersion => InputTestUtilities.RigVersion.Version1;
+
+        /// <summary>
         /// Ensure that far ray interactor visuals are set active/inactive appropriately.
         /// </summary>
         [UnityTest]
