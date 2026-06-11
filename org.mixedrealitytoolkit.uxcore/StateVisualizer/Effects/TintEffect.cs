@@ -155,7 +155,6 @@ namespace MixedReality.Toolkit.UX
                 {
                     ApplyColor(startColors[i], tintables[i]);
                 }
-                
             }
 
             /// <inheritdoc />
@@ -184,6 +183,12 @@ namespace MixedReality.Toolkit.UX
                     else if (BlendMode == BlendType.Multiply)
                     {
                         targetColor = currentColor * TintColor;
+                    }
+                    else if (BlendMode == BlendType.AlphaBlend)
+                    {
+                        // Simulate layering a transparent color over the current color
+                        targetColor = Color.Lerp(currentColor, TintColor, TintColor.a);
+                        targetColor.a = currentColor.a; // Preserve the graphic's original overall opacity
                     }
                     else
                     {
@@ -214,7 +219,12 @@ namespace MixedReality.Toolkit.UX
             /// <summary>
             /// Multiply the tint color onto the existing color stack.
             /// </summary>
-            Multiply
+            Multiply,
+
+            /// <summary>
+            /// Alpha-blends the tint color onto the existing color stack using the tint color's alpha value.
+            /// </summary>
+            AlphaBlend
         }
 
         // Used internally to hint to the editor that this is a variable/float-based state.
