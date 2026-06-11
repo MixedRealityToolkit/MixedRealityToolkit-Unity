@@ -15,6 +15,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * `AssemblyExtensions.GetLoadableTypes` now throws `ArgumentNullException` when called on a null assembly instead of `NullReferenceException`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
 * Updated `MRTKBaseInteractable` to follow MRTK style. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
 
+### Removed
+
+* Moved `TrackedPoseDriverLookup` from the Core package into the Input package. [PR #1089](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1089)
+* Removed explicit dependency on `Unity.InputSystem`. [PR #1089](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1089)
+
 ## [4.0.0-pre.3] - 2026-05-20
 
 ### Added

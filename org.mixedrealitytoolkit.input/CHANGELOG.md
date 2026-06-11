@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Added input action focus handling to disable controller/hand tracked state when the XrSession goes out of focus. [PR #1057](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1057)
 * Added support for XR_MSFT_hand_tracking_mesh and XR_ANDROID_hand_mesh on compatible runtimes. [PR #993](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/993)
 * Added `Skybox` component to "MRTK XR Rig.prefab" for theming the skybox material. [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
+* Added `TrackedPoseDriverLookup` from the Core package into the Input package. [PR #1089](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1089)
 
 ### Changed
 
