@@ -1,0 +1,31 @@
+{
+    "name": "MixedReality.Toolkit.Theming.Editor.Tests",
+    "rootNamespace": "MixedReality.Toolkit.Theming.Tests.EditMode",
+    "references": [
+        "MixedReality.Toolkit.Theming",
+        "MixedReality.Toolkit.UXCore",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.asset-store-validation",
+            "expression": "",
+            "define": "HAS_ASSET_STORE_VALIDATION"
+        }
+    ],
+    "noEngineReferences": false
+}
