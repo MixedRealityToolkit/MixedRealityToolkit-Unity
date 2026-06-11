@@ -1019,6 +1019,7 @@ MonoBehaviour:
   binders:
   - rid: 1538473242837123161
   - rid: 1538473242837123160
+  - rid: 8397413649693540611
   references:
     version: 2
     RefIds:
@@ -1032,6 +1033,11 @@ MonoBehaviour:
       data:
         <Target>k__BackingField: {fileID: 9026472854072389792}
         <ThemeDefinitionItemName>k__BackingField: Canvas Backplate Quad Material
+    - rid: 8397413649693540611
+      type: {class: BehaviourEnabledBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 7976009683108370513}
+        <ThemeDefinitionItemName>k__BackingField: Enable Button Select Pulse
 --- !u!1 &9026472854072389795
 GameObject:
   m_ObjectHideFlags: 0

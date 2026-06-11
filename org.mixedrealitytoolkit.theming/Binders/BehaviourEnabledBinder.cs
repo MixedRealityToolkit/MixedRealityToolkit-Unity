@@ -6,17 +6,17 @@ using UnityEngine;
 namespace MixedReality.Toolkit.Theming
 {
     /// <summary>
-    /// Binds a material theme data value to the material property of a <see cref="UnityEngine.Renderer"/>.
+    /// Binds a boolean theme data value to the enabled state of a <see cref="UnityEngine.Behaviour"/>.
     /// </summary>
     [System.Serializable]
-    public class RendererMaterialBinder : BaseThemeBinder<Material, Renderer>
+    public class BehaviourEnabledBinder : BaseThemeBinder<bool, Behaviour>
     {
         /// <inheritdoc />
-        protected override void Apply(BaseThemeItemData<Material> themeItemData)
+        protected override void Apply(BaseThemeItemData<bool> themeItemData)
         {
             if (Target != null)
             {
-                Target.material = themeItemData.Value;
+                Target.enabled = themeItemData.Value;
             }
         }
     }
