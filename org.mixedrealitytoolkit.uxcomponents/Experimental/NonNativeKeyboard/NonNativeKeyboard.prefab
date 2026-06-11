@@ -33582,9 +33582,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
-  currentIconName: Icon 42
+  currentIconName: Arrow Right
   textMeshProComponent: {fileID: 1851442636371205706}
-  iconFontAsset: {fileID: 0}
+  migratedSuccessfully: 1
 --- !u!1 &457749926282753362
 GameObject:
   m_ObjectHideFlags: 0
@@ -33736,9 +33736,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
-  currentIconName: Icon 44
+  currentIconName: Arrow Up
   textMeshProComponent: {fileID: 4700198312997907203}
-  iconFontAsset: {fileID: 0}
+  migratedSuccessfully: 1
 --- !u!1 &1195796392646670598
 GameObject:
   m_ObjectHideFlags: 0
@@ -34141,9 +34141,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
-  currentIconName: Icon 39
+  currentIconName: Arrow Left
   textMeshProComponent: {fileID: 9102639994062334726}
-  iconFontAsset: {fileID: 0}
+  migratedSuccessfully: 1
 --- !u!1 &6916386755006368770
 GameObject:
   m_ObjectHideFlags: 0
@@ -34356,6 +34356,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fontIcons: {fileID: 11400000, guid: b490f983baa13694cb7e5ecc6bd0dae3, type: 2}
-  currentIconName: Icon 44
+  currentIconName: Arrow Up
   textMeshProComponent: {fileID: 3229080939679983313}
-  iconFontAsset: {fileID: 0}
+  migratedSuccessfully: 1

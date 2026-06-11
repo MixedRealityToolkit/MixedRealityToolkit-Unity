@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 38152025106030147, guid: 180d4d2203473be4fa3fef18d0bec80e, type: 3}
@@ -34,10 +35,6 @@ PrefabInstance:
     - target: {fileID: 1960850289780299974, guid: 180d4d2203473be4fa3fef18d0bec80e, type: 3}
       propertyPath: m_Name
       value: ButtonGroup_32x32mm_H3_ToggleButtons
-      objectReference: {fileID: 0}
-    - target: {fileID: 1960850291408215591, guid: 180d4d2203473be4fa3fef18d0bec80e, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1960850291408215591, guid: 180d4d2203473be4fa3fef18d0bec80e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -128,4 +125,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 180d4d2203473be4fa3fef18d0bec80e, type: 3}
