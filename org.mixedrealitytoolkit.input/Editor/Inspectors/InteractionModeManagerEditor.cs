@@ -80,15 +80,24 @@ namespace MixedReality.Toolkit.Input.Editor
 
             if (entries != null && entries.arraySize > 0)
             {
+#if UNITY_6000_4_OR_NEWER
+                HashSet<EntityId> seenInstanceIDs = new HashSet<EntityId>();
+#else
                 HashSet<int> seenInstanceIDs = new HashSet<int>();
+#endif
 
                 for (int i = 0; i < entries.arraySize; ++i)
                 {
                     SerializedProperty entry = entries.GetArrayElementAtIndex(i);
                     SerializedProperty key = entry.FindPropertyRelative("key");
 
+#if UNITY_6000_4_OR_NEWER
+                    EntityId instanceID = key != null && key.objectReferenceValue != null ?
+                        key.objectReferenceValue.GetEntityId() : EntityId.None;
+#else
                     int instanceID = key != null && key.objectReferenceValue != null ?
                         key.objectReferenceValue.GetInstanceID() : 0;
+#endif
                         
                     if (seenInstanceIDs.Contains(instanceID))
                     {
