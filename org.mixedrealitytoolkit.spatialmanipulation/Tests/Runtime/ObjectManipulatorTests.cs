@@ -987,7 +987,11 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
             yield return hand.Move(Vector3.forward * 3f);
             yield return RuntimeTestUtilities.WaitForFixedUpdates();
 
+#if UNITY_6000_0_OR_NEWER
+            Assert.AreNotEqual(Vector3.zero, backgroundRigidbody.linearVelocity);
+#else
             Assert.AreNotEqual(Vector3.zero, backgroundRigidbody.velocity);
+#endif
             Assert.AreEqual(1, collisionListener.CollisionCount);
         }
 
@@ -1228,7 +1232,11 @@ namespace MixedReality.Toolkit.SpatialManipulation.Runtime.Tests
            // With simulated hand angular velocity would not be equal to 0, because of how simulation
            // moves hand when releasing the Pitch. Even though it doesn't directly follow from hand movement, there will always be some rotation.
            // Assert.NotZero(rigidBody.angularVelocity.magnitude, "ObjectManipulator should apply angular velocity to rigidBody upon release.");
+#if UNITY_6000_0_OR_NEWER
+           Assert.AreEqual(hand.GetVelocity(), rigidBody.linearVelocity, "ObjectManipulator should apply hand velocity to rigidBody upon release.");
+#else
            Assert.AreEqual(hand.GetVelocity(), rigidBody.velocity, "ObjectManipulator should apply hand velocity to rigidBody upon release.");
+#endif
 
            // This is just for debugging purposes, so object's movement after release can be seen.
            yield return hand.MoveTo(initialHandPosition);

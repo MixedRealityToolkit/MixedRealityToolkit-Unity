@@ -10,6 +10,7 @@ namespace MixedReality.Toolkit.Input
     /// <summary>
     /// Helps define a pose source that's based on a specific handedness with access to the current <see cref="HandsAggregatorSubsystem"/>.
     /// </summary>
+    [Serializable]
     public abstract class HandBasedPoseSource : IPoseSource
     {
         /// <summary>
