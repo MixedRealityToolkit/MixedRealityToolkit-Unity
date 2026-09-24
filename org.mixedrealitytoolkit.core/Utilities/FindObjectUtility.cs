@@ -16,15 +16,17 @@ namespace MixedReality.Toolkit
         /// Returns the first object matching the specified type.
         /// </summary>
         /// <remarks>
-        /// If Unity >= 2021.3.18, calls FindFirstObjectByType. Otherwise calls FindObjectOfType.
+        /// If Unity >= 6000.4, calls FindAnyObjectByType. If Unity >= 2021.3.18, calls FindFirstObjectByType. Otherwise calls FindObjectOfType.
         /// </remarks>
         /// <param name="includeInactive">If true, inactive objects will be included in the search. False by default.</param>
         public static T FindFirstObjectByType<T>(bool includeInactive = false) where T : Component
         {
-#if UNITY_2021_3_18_OR_NEWER
-        return UnityEngine.Object.FindFirstObjectByType<T>(includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude);
+#if UNITY_6000_4_OR_NEWER
+            return UnityEngine.Object.FindAnyObjectByType<T>(includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude);
+#elif UNITY_2021_3_18_OR_NEWER
+            return UnityEngine.Object.FindFirstObjectByType<T>(includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude);
 #else
-        return UnityEngine.Object.FindObjectOfType<T>(includeInactive);
+            return UnityEngine.Object.FindObjectOfType<T>(includeInactive);
 #endif
         }
 
@@ -38,9 +40,9 @@ namespace MixedReality.Toolkit
         public static T FindAnyObjectByType<T>(bool includeInactive = false) where T : Component
         {
 #if UNITY_2021_3_18_OR_NEWER
-        return UnityEngine.Object.FindAnyObjectByType<T>(includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude);
+            return UnityEngine.Object.FindAnyObjectByType<T>(includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude);
 #else
-        return UnityEngine.Object.FindObjectOfType<T>(includeInactive);
+            return UnityEngine.Object.FindObjectOfType<T>(includeInactive);
 #endif
         }
 
@@ -48,14 +50,16 @@ namespace MixedReality.Toolkit
         /// Returns all objects matching the specified type.
         /// </summary>
         /// <remarks>
-        /// If Unity >= 2021.3.18, calls FindObjectsByType. Otherwise calls FindObjectsOfType.
+        /// If Unity >= 6000.4, calls FindObjectsByType without sorting. If Unity >= 2021.3.18, calls FindObjectsByType. Otherwise calls FindObjectsOfType.
         /// </remarks>
         /// <param name="includeInactive">If true, inactive objects will be included in the search. False by default.</param>
-        /// <param name="sort">If false, results will not sorted by InstanceID. True by default.</param>
+        /// <param name="sort">If false, results will not sorted by InstanceID. True by default. Ignored on Unity 6.4 and newer.</param>
         public static T[] FindObjectsByType<T>(bool includeInactive = false, bool sort = true) where T : Component
         {
-#if UNITY_2021_3_18_OR_NEWER
-        return UnityEngine.Object.FindObjectsByType<T>(includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude, sort ? FindObjectsSortMode.InstanceID : FindObjectsSortMode.None);
+#if UNITY_6000_4_OR_NEWER
+            return UnityEngine.Object.FindObjectsByType<T>(includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude);
+#elif UNITY_2021_3_18_OR_NEWER
+            return UnityEngine.Object.FindObjectsByType<T>(includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude, sort ? FindObjectsSortMode.InstanceID : FindObjectsSortMode.None);
 #else
             return UnityEngine.Object.FindObjectsOfType<T>(includeInactive);
 #endif
@@ -65,14 +69,16 @@ namespace MixedReality.Toolkit
         /// Returns all objects matching the specified type.
         /// </summary>
         /// <remarks>
-        /// If Unity >= 2021.3.18, calls FindObjectsByType. Otherwise calls FindObjectsOfType.
+        /// If Unity >= 6000.4, calls FindObjectsByType without sorting. If Unity >= 2021.3.18, calls FindObjectsByType. Otherwise calls FindObjectsOfType.
         /// </remarks>
         /// <param name="includeInactive">If true, inactive objects will be included in the search. False by default.</param>
-        /// <param name="sort">If false, results will not sorted by InstanceID. True by default.</param>
+        /// <param name="sort">If false, results will not sorted by InstanceID. True by default. Ignored on Unity 6.4 and newer.</param>
         /// <param name="type">The type to search for.</param>
         public static UnityEngine.Object[] FindObjectsByType(Type type, bool includeInactive = false, bool sort = true)
         {
-#if UNITY_2021_3_18_OR_NEWER
+#if UNITY_6000_4_OR_NEWER
+            return UnityEngine.Object.FindObjectsByType(type, includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude);
+#elif UNITY_2021_3_18_OR_NEWER
             return UnityEngine.Object.FindObjectsByType(type, includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude, sort ? FindObjectsSortMode.InstanceID : FindObjectsSortMode.None);
 #else
             return UnityEngine.Object.FindObjectsOfType(type, includeInactive);

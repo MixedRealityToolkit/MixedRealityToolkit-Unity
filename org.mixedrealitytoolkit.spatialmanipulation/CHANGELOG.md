@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 
 * Fixed "leaked managed shell" issue in `BoundsCalculator`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
+* Fixed object identity API usages for Unity 6.4 and newer in `ConstraintManagerEditor`. [PR #1136](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1136)
 
 ### Changed
 

@@ -283,12 +283,16 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                             break;
                     }
 
-                    // we render the instance id of this component so our highlighting function can distinguish between 
+                    // we render the object id of this component so our highlighting function can distinguish between
                     // the different instances of constraint manager - highlighting in the inspector is currently 
                     // only available for string search which causes problems with multiple components of the same type 
                     // attached to the same GameObject.
                     EditorGUILayout.Space();
+#if UNITY_6000_4_OR_NEWER
+                    EditorGUILayout.LabelField("ComponentId: " + constraintManager.GetEntityId(), EditorStyles.miniLabel);
+#else
                     EditorGUILayout.LabelField("ComponentId: " + constraintManager.GetInstanceID(), EditorStyles.miniLabel);
+#endif
 
                     // deferred delete elements from array to not break unity layout
                     for (int i = indicesToRemove.Count - 1; i > -1; i--)
@@ -370,7 +374,11 @@ namespace MixedReality.Toolkit.SpatialManipulation.Editor
                     if (GUILayout.Button("Go to component"))
                     {
                         EditorGUIUtility.PingObject(selectedConstraintManager);
+#if UNITY_6000_4_OR_NEWER
+                        Highlighter.Highlight("Inspector", $"ComponentId: {selectedConstraintManager.GetEntityId()}");
+#else
                         Highlighter.Highlight("Inspector", $"ComponentId: {selectedConstraintManager.GetInstanceID()}");
+#endif
                         GUIUtility.ExitGUI();
                     }
                 }
