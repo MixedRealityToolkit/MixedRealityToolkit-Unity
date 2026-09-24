@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System;
@@ -496,6 +496,7 @@ namespace MixedReality.Toolkit.Experimental
     /// For these types of features, we want the community to see them and get
     /// value out of them early enough so to provide feedback.
     /// </remarks>
+    [Serializable]
     public abstract class InteractableEventRoute<S, T> : IXRInteractableEventRoute
         where S : IXRInteractable
         where T : IXRInteractableEventRouteTarget
@@ -630,6 +631,7 @@ namespace MixedReality.Toolkit.Experimental
     /// For these types of features, we want the community to see them and get
     /// value out of them early enough so to provide feedback.
     /// </remarks>
+    [Serializable]
     public abstract class InteractableParentEventRoute<S, T> : InteractableEventRoute<S, T>
         where S : IXRInteractable
         where T : IXRInteractableEventRouteTarget
@@ -668,6 +670,7 @@ namespace MixedReality.Toolkit.Experimental
     /// For these types of features, we want the community to see them and get
     /// value out of them early enough so to provide feedback.
     /// </remarks>
+    [Serializable]
     public abstract class InteractableChildrenEventRoute<S, T> : InteractableEventRoute<S, T>
         where S : IXRInteractable
         where T : IXRInteractableEventRouteTarget

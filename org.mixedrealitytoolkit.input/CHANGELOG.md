@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Fixed "leaked managed shell" issue in `InteractionModeManager`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
 * Fixed `EyeCalibrationChecker` build issue on UWP when the Mixed Reality OpenXR Plugin wasn't installed. [PR #1106](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1106)
 * Fixed object identity API usages for Unity 6.4 and newer in `InteractionModeManagerEditor`. [PR #1136](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1136)
+* Fixed incomplete serialization hierarchy warning (UAC1002) in Unity 6 by adding `[Serializable]` to `HandBasedPoseSource`. [PR #1136](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1136)
 
 ## [3.3.0] - 2025-11-12
 
