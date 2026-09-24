@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Fixed
+
+* Enabled "Force To Mono" on UI audio clips to reduce build and memory footprint and ensure inspector consistency. [PR #1138](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1138)
+
 ## [3.2.1] - 2025-11-12
 
 ### Fixed
