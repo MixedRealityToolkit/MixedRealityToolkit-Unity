@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Fixed
+
+* Enabled "Force To Mono" on piano note audio clips to reduce build and memory footprint. [PR #1138](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1138)
+
 ## [3.0.4] - 2025-11-12
 
 ### Fixed
