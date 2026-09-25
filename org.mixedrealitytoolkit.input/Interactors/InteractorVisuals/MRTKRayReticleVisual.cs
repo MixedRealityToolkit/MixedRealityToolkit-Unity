@@ -48,7 +48,10 @@ namespace MixedReality.Toolkit.Input
         {
             base.OnEnable();
 
-            rayInteractor.selectEntered.AddListener(LocateTargetHitPoint);
+            if (rayInteractor != null)
+            {
+                rayInteractor.selectEntered.AddListener(LocateTargetHitPoint);
+            }
             Application.onBeforeRender += UpdateReticle;
             UpdateReticle();
         }
@@ -58,7 +61,10 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         protected virtual void OnDisable()
         {
-            rayInteractor.selectEntered.RemoveListener(LocateTargetHitPoint);
+            if (rayInteractor != null)
+            {
+                rayInteractor.selectEntered.RemoveListener(LocateTargetHitPoint);
+            }
             Application.onBeforeRender -= UpdateReticle;
 
             ReticleSetActive(false);
@@ -86,8 +92,11 @@ namespace MixedReality.Toolkit.Input
             {
                 if (Reticle != null)
                 {
-                    bool showReticle = VisibilitySettings == ReticleVisibilitySettings.AllValidSurfaces || rayInteractor.hasHover || rayInteractor.hasSelection ||
-                        rayInteractor.enableUIInteraction && rayInteractor.TryGetCurrentUIRaycastResult(out _);
+                    bool showReticle = rayInteractor != null && (rayInteractor.isHoverActive || rayInteractor.hasSelection) && (
+                        VisibilitySettings == ReticleVisibilitySettings.AllValidSurfaces ||
+                        rayInteractor.hasHover ||
+                        rayInteractor.hasSelection ||
+                        (rayInteractor.enableUIInteraction && rayInteractor.TryGetCurrentUIRaycastResult(out _)));
 
                     if (showReticle)
                     {
@@ -148,7 +157,10 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private void LocateTargetHitPoint(SelectEnterEventArgs args)
         {
-            rayInteractor.TryLocateTargetHitPoint(args.interactableObject, out selectedHitDetails);
+            if (rayInteractor != null)
+            {
+                rayInteractor.TryLocateTargetHitPoint(args.interactableObject, out selectedHitDetails);
+            }
         }
 
         /// <summary>
