@@ -16,9 +16,12 @@ namespace MixedReality.Toolkit.UX
     {
         [SerializeField]
         [HideInInspector]
-#pragma warning disable CS0414 // Inspector uses this as a helpful label in lists.
         private string name = "Set Targets Active/Inactive";
-#pragma warning restore CS0414 // Inspector uses this as a helpful label in lists.
+
+        /// <summary>
+        /// The display name of this effect.
+        /// </summary>
+        internal string Name => name;
 
         [SerializeField]
         [Tooltip("If true, the specified objects will be set inactive when the state is on, and vice versa.")]

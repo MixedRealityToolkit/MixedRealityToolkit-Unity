@@ -16,9 +16,12 @@ namespace MixedReality.Toolkit.UX
     {
         [SerializeField]
         [HideInInspector]
-#pragma warning disable CS0414 // Inspector uses this as a helpful label in lists.
         private string name = "Sprite Swap";
-#pragma warning restore CS0414 // Inspector uses this as a helpful label in lists.
+
+        /// <summary>
+        /// The display name of this effect.
+        /// </summary>
+        internal string Name => name;
 
         [SerializeField]
         [Tooltip("Threshold value to activate this effect. When the state value is above this number, the effect will activate.")]
