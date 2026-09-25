@@ -19,9 +19,12 @@ namespace MixedReality.Toolkit.UX
     {
         [SerializeField]
         [HideInInspector]
-#pragma warning disable CS0414 // Inspector uses this as a helpful label in lists.
         private string name = "Two Way Animation";
-#pragma warning restore CS0414 // Inspector uses this as a helpful label in lists.
+
+        /// <summary>
+        /// The display name of this effect.
+        /// </summary>
+        internal string Name => name;
 
         [SerializeField]
         [Tooltip("The animation clip for the forward direction.")]

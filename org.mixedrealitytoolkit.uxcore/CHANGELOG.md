@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Added `AlphaBlend` tint mode to `TintEffect`. [PR #1131](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1131)
 
+### Changed
+
+* Replaced `#pragma warning disable CS0414` with `Name` properties across `StateVisualizer` effects. [PR #1143](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1143)
+
 ### Fixed
 
 * Fixed "leaked managed shell" issue in `UGUIInputAdapter`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
