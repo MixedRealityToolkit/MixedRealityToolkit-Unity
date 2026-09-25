@@ -22,7 +22,7 @@ The following table describes the Mixed Reality Toolkit package dependencies.
 | MRTK Core Definitions |  org.mixedrealitytoolkit.core | Shared definitions, utilities and components. | com.unity.xr.interaction.toolkit <br> com.unity.xr.management | |
 | MRTK Accessibility | org.mixedrealitytoolkit.accessibility | Definitions, features and subsystem for building accessible mixed reality experiences. | org.mixedrealitytoolkit.core <br> org.mixedrealitytoolkit.graphicstools.unity <br> com.unity.textmeshpro | |
 | MRTK Audio Effects | org.mixedrealitytoolkit.audio | Effects and features that enhance the audio in mixed reality experiences. | org.mixedrealitytoolkit.core | |
-| MRTK Data Binding and Theming | org.mixedrealitytoolkit.data | Support for data binding and UI element theming. | org.mixedrealitytoolkit.core <br> com.unity.nuget.newtonsoft-json <br> com.unity.textmeshpro |  |
+| MRTK Data Binding and Theming (Deprecated) | org.mixedrealitytoolkit.data | Support for data binding and UI element theming. Deprecated in favor of the theming system in org.mixedrealitytoolkit.uxcore. | org.mixedrealitytoolkit.core <br> com.unity.nuget.newtonsoft-json <br> com.unity.textmeshpro |  |
 | MRTK Diagnostics | org.mixedrealitytoolkit.diagnostics | Diagnostics and performance monitoring subsystems and tools. | org.mixedrealitytoolkit.core <br> com.unity.xr.management | |
 | MRTK Environment | org.mixedrealitytoolkit.environment | Environmental features and subsystems, such as Spatial Awareness and boundaries. | org.mixedrealitytoolkit.core <br> com.unity.xr.management |  |
 | MRTK Extended Assets | org.mixedrealitytoolkit.extendedassets | Additional audio, font, texture and other assets for use in applications. | org.mixedrealitytoolkit.standardassets <br> org.mixedrealitytoolkit.graphicstools.unity | |
@@ -49,7 +49,7 @@ In order to place minimal overhead on applications importing the Mixed Reality T
 | ------------ | ------------ | ----------------- |
 | MRTK Core Definitions | org.mixedrealitytoolkit.core  | |
 | MRTK Accessibility | org.mixedrealitytoolkit.accessibility | |
-| MRTK Data Binding and Theming | org.mixedrealitytoolkit.data | |
+| MRTK Data Binding and Theming (Deprecated) | org.mixedrealitytoolkit.data | |
 | MRTK Diagnostics | org.mixedrealitytoolkit.diagnostics | |
 | MRTK Environment | org.mixedrealitytoolkit.environment | |
 | MRTK Extended Assets | org.mixedrealitytoolkit.extendedassets | |

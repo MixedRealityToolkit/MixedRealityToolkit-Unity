@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Deprecated
+
+* Deprecated this package in favor of the theming system in `org.mixedrealitytoolkit.uxcore`. [PR #1142](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1142)
+
 ## [1.0.3-development.pre.20] - 2024-04-23
 
 ### Fixed

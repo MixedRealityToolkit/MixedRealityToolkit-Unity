@@ -1,3 +1,4 @@
-# MRTK Data Binding and Theming
+# MRTK Data Binding and Theming (Deprecated)
 
-Data binding and theming features contained within this package are experimental and are not recommended for use in production applications and may be changed or removed.
+> [!WARNING]
+> This package has been deprecated and is no longer actively maintained. For theming and data binding, please use the theming system in [`org.mixedrealitytoolkit.uxcore`](../org.mixedrealitytoolkit.uxcore).
