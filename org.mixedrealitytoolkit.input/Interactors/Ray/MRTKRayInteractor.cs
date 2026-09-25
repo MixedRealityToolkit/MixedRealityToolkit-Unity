@@ -33,7 +33,7 @@ namespace MixedReality.Toolkit.Input
         /// <summary>
         /// Is this ray currently hovering a UnityUI/Canvas element?
         /// </summary>
-        public bool HasUIHover => TryGetUIModel(out TrackedDeviceModel model) && model.currentRaycast.isValid;
+        public bool HasUIHover => isHoverActive && TryGetUIModel(out TrackedDeviceModel model) && model.currentRaycast.isValid;
 
         /// <summary>
         /// Is this ray currently selecting a UnityUI/Canvas element?
@@ -44,7 +44,7 @@ namespace MixedReality.Toolkit.Input
         /// Used to check if the parent controller is tracked or not
         /// Hopefully this becomes part of the base Unity XRI API.
         /// </summary>
-        private bool IsTracked => xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
+        private bool IsTracked => xrController != null && xrController.currentControllerState.inputTrackingState.HasPositionAndRotation();
 
         /// <summary>
         /// Cached reference to hands aggregator for efficient per-frame use.
@@ -227,6 +227,43 @@ namespace MixedReality.Toolkit.Input
         }
 
         #endregion XRBaseInteractor
+
+        #region IUIInteractor
+
+        private bool wasUIInteractionActive = false;
+
+        /// <inheritdoc />
+        public override void UpdateUIModel(ref TrackedDeviceModel model)
+        {
+            bool isInteractionActive = isHoverActive || hasSelection;
+            if (!isInteractionActive)
+            {
+                model.select = false;
+                if (model.raycastPoints.Count > 0)
+                {
+                    // Assigning a new empty list causes TrackedDeviceModel.raycastPoints setter to see
+                    // m_RaycastPoints.Count != value.Count, setting changedThisFrame = true so UIInputModule
+                    // processes the transition, dispatches pointerExit to any hovered UI elements, and resets currentRaycast.
+                    model.raycastPoints = new List<Vector3>();
+                }
+                wasUIInteractionActive = false;
+                return;
+            }
+
+            base.UpdateUIModel(ref model);
+
+            if (!wasUIInteractionActive)
+            {
+                wasUIInteractionActive = true;
+                // Transitioning from inactive to active: ensure changedThisFrame is true so UIInputModule
+                // processes the new raycast points even if position/rotation remained identical across the transition.
+                var newPoints = new List<Vector3>(model.raycastPoints);
+                model.raycastPoints.Clear();
+                model.raycastPoints = newPoints;
+            }
+        }
+
+        #endregion IUIInteractor
 
         /// <summary>
         /// A Unity event function that is called every frame, if this object is enabled.
