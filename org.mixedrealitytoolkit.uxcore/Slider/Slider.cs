@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System;
@@ -103,14 +103,8 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public float MinValue
         {
-            get
-            {
-                return minValue;
-            }
-            set
-            {
-                minValue = Mathf.Min(value, maxValue);
-            }
+            get => minValue;
+            set => minValue = Mathf.Min(value, maxValue);
         }
 
         [SerializeField]
@@ -122,14 +116,8 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public float MaxValue
         {
-            get
-            {
-                return maxValue;
-            }
-            set
-            {
-                maxValue = Mathf.Max(minValue, value);
-            }
+            get => maxValue;
+            set => maxValue = Mathf.Max(minValue, value);
         }
 
         [VariableRange("minValue", "maxValue")]
@@ -149,16 +137,7 @@ namespace MixedReality.Toolkit.UX
         public float Value
         {
             get => value;
-            set
-            {
-                if (this.value != value)
-                {
-                    value = Mathf.Clamp(value, minValue, maxValue);
-                    var oldSliderValue = this.value;
-                    this.value = value;
-                    OnValueUpdated.Invoke(new SliderEventData(oldSliderValue, value));
-                }
-            }
+            set => UpdateValue(value);
         }
 
         /// <summary>
@@ -176,7 +155,14 @@ namespace MixedReality.Toolkit.UX
         public bool UseSliderStepDivisions
         {
             get => useSliderStepDivisions;
-            set => useSliderStepDivisions = value;
+            set
+            {
+                useSliderStepDivisions = value;
+                if (useSliderStepDivisions)
+                {
+                    UpdateValue(this.value);
+                }
+            }
         }
 
         [SerializeField]
@@ -190,7 +176,14 @@ namespace MixedReality.Toolkit.UX
         public int SliderStepDivisions
         {
             get => sliderStepDivisions;
-            set => sliderStepDivisions = value;
+            set
+            {
+                sliderStepDivisions = value;
+                if (useSliderStepDivisions)
+                {
+                    UpdateValue(this.value);
+                }
+            }
         }
 
         [Header("Layout")]
@@ -240,6 +233,7 @@ namespace MixedReality.Toolkit.UX
         /// A Unity event that is invoked when <see cref="Value"/> changes.
         /// </summary>
         public SliderEvent OnValueUpdated => onValueUpdated;
+
         #endregion
 
         #region Private Fields
@@ -285,7 +279,7 @@ namespace MixedReality.Toolkit.UX
 
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
-        /// </summary> 
+        /// </summary>
         protected virtual void Start()
         {
             // Turn on/off colliders at Start() to avoid bugs with
@@ -324,14 +318,15 @@ namespace MixedReality.Toolkit.UX
             // Ensure that the proper constraints are applied to the possible values of the slider
             MinValue = minValue;
             MaxValue = maxValue;
-            Value = value;
+            UpdateValue(value, forceUpdate: true);
         }
 
         #endregion
 
         #region Protected Methods
+
         /// <summary>
-        /// Invoked on <see cref="Start"/>, <see cref="Awake"/>, and <see cref="Reset"/> to apply required 
+        /// Invoked on <see cref="Start"/>, <see cref="Awake"/>, and <see cref="Reset"/> to apply required
         /// settings to this <see cref="Slider"/> instance.
         /// </summary>
         /// <remarks>
@@ -344,22 +339,45 @@ namespace MixedReality.Toolkit.UX
             // been acquired.
             selectMode = InteractableSelectMode.Single;
         }
+
         #endregion Protected Methods
 
         #region Private Methods
-        /// <summary> 
+
+        /// <summary>
         /// Private method used to adjust initial slider value to stepwise values
         /// </summary>
         private void InitializeStepDivisions()
         {
-            Value = SnapSliderToStepPositions(Value);
+            UpdateValue(value);
+        }
+
+        private float ClampAndSnapValue(float rawValue)
+        {
+            float clamped = Mathf.Clamp(rawValue, minValue, maxValue);
+            if (useSliderStepDivisions)
+            {
+                clamped = SnapSliderToStepPositions(clamped);
+            }
+            return Mathf.Clamp(clamped, minValue, maxValue);
+        }
+
+        private void UpdateValue(float newValue, bool forceUpdate = false)
+        {
+            float clampedValue = ClampAndSnapValue(newValue);
+
+            if (forceUpdate || this.value != clampedValue)
+            {
+                var oldSliderValue = this.value;
+                this.value = clampedValue;
+                OnValueUpdated.Invoke(new SliderEventData(oldSliderValue, clampedValue));
+            }
         }
 
         private float SnapSliderToStepPositions(float value)
         {
             var stepCount = value / SliderStepVal;
             var snappedValue = SliderStepVal * Mathf.RoundToInt(stepCount);
-            Mathf.Clamp(snappedValue, 0f, 1.0f);
             return snappedValue;
         }
 
@@ -373,8 +391,7 @@ namespace MixedReality.Toolkit.UX
             var normalizedStartValue = (StartSliderValue - MinValue) / (MaxValue - MinValue);
             float normalizedValue = Mathf.Clamp(normalizedStartValue + handDelta / SliderTrackDirection.magnitude, 0f, 1.0f);
 
-            var unsnappedValue = normalizedValue * (MaxValue - MinValue) + MinValue;
-            Value = useSliderStepDivisions ? SnapSliderToStepPositions(unsnappedValue) : unsnappedValue;
+            UpdateValue(normalizedValue * (MaxValue - MinValue) + MinValue);
         }
 
         #endregion
