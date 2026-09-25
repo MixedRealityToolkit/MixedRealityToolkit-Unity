@@ -1,8 +1,8 @@
 {
   "name": "org.mixedrealitytoolkit.data",
-  "version": "1.0.3-development.pre.20",
-  "description": "Data binding and theming features contained within this package are experimental and are not recommended for use in production applications and may be changed or removed.",
-  "displayName": "MRTK3 Data Binding and Theming (Experimental)",
+  "version": "1.0.4-development.pre.0",
+  "description": "This package is deprecated. Please use the theming and data binding features in org.mixedrealitytoolkit.uxcore.",
+  "displayName": "MRTK3 Data Binding and Theming (Deprecated)",
   "msftFeatureCategory": "Experimental",
   "author": "Mixed Reality Toolkit Contributors",
   "license": "BSD 3-Clause",

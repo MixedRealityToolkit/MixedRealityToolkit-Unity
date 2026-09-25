@@ -10,7 +10,7 @@ MRTK3 is now shipping as [a set of individually versioned packages](index.md#ver
 - [MRTK Core Definitions](https://aka.ms/mrtk3coreapi)
 - [MRTK Accessibility](https://aka.ms/mrtk3accessibilityapi)
 - [MRTK Audio Effects](https://aka.ms/mrtk3audioapi)
-- [MRTK Data Binding and Theming](https://aka.ms/mrtk3dataapi)
+- [MRTK Data Binding and Theming (Deprecated)](https://aka.ms/mrtk3dataapi)
 - [MRTK Diagnostics](https://aka.ms/mrtk3diagnosticsapi)
 - [MRTK Graphics Tools](https://learn.microsoft.com/dotnet/api/Microsoft.MixedReality.GraphicsTools)
 - [MRTK Input](https://aka.ms/mrtk3inputapi)
