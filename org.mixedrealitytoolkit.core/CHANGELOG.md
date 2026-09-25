@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 * Added edit mode tests for `AssemblyExtensions`, `SystemType`, and `SerializableDictionary`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
+* Added `DebugLogging` property to `MRTKLifecycleManager` to allow toggling lifecycle debug logs. [PR #1140](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1140)
 
 ### Fixed
 
