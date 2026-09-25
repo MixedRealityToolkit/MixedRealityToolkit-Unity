@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System;
@@ -23,11 +23,17 @@ namespace MixedReality.Toolkit.Subsystems
         /// <summary>
         /// The list of <see cref="IMRTKManagedSubsystem"/> objects being managed by this class.
         /// </summary>
-        protected  List<IMRTKManagedSubsystem> ManagedSubsystems
+        protected List<IMRTKManagedSubsystem> ManagedSubsystems
         {
             get => managedSubsystems;
             set => managedSubsystems = value;
         }
+
+        /// <summary>
+        /// Whether to output debug log messages when managing subsystems.
+        /// </summary>
+        [field: SerializeField, Tooltip("Whether to output debug log messages when managing subsystems.")]
+        public bool DebugLogging { get; set; } = true;
 
         #region MonoBehaviour
 
@@ -68,7 +74,10 @@ namespace MixedReality.Toolkit.Subsystems
                     continue;
                 }
 
-                Debug.Log($"[MRTKLifecycleManager] Creating {mrtkDescriptor.SubsystemTypeOverride}");
+                if (DebugLogging)
+                {
+                    Debug.Log($"[MRTKLifecycleManager] Creating {mrtkDescriptor.SubsystemTypeOverride}");
+                }
 
                 // Create the subsystem.
                 ISubsystem subsystem = descriptor.Create();
@@ -111,7 +120,7 @@ namespace MixedReality.Toolkit.Subsystems
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
-        /// </summary> 
+        /// </summary>
         private void OnEnable()
         {
             using (OnEnableProfilerMarker.Auto())
@@ -119,7 +128,10 @@ namespace MixedReality.Toolkit.Subsystems
                 foreach (IMRTKManagedSubsystem subsystem in managedSubsystems)
                 {
                     // TODO Do we want to call start on all of these when we onEnable?
-                    Debug.Log($"[MRTKLifecycleManager] Starting {subsystem}");
+                    if (DebugLogging)
+                    {
+                        Debug.Log($"[MRTKLifecycleManager] Starting {subsystem}");
+                    }
                     subsystem.Start();
                 }
             }
@@ -191,7 +203,7 @@ namespace MixedReality.Toolkit.Subsystems
         /// and started at launch. Use this method to override the active profile and
         /// create the subsystem even if the user did not select it.
         /// </remarks>
-        /// <returns> The created and started subsystem. </returns>s
+        /// <returns>The created and started subsystem.</returns>
         public IMRTKManagedSubsystem ForceAddSubsystem(Type concreteType)
         {
             Debug.Assert(typeof(IMRTKManagedSubsystem).IsAssignableFrom(concreteType),
@@ -231,7 +243,10 @@ namespace MixedReality.Toolkit.Subsystems
                     continue;
                 }
 
-                Debug.Log($"[MRTKLifecycleManager] ForceAddSubsystem creating {mrtkDescriptor.SubsystemTypeOverride}");
+                if (DebugLogging)
+                {
+                    Debug.Log($"[MRTKLifecycleManager] ForceAddSubsystem creating {mrtkDescriptor.SubsystemTypeOverride}");
+                }
 
                 // Create the subsystem.
                 ISubsystem subsystem = descriptor.Create();
@@ -240,7 +255,10 @@ namespace MixedReality.Toolkit.Subsystems
                 // This will ensure we can call lifecycle events on the subsystem.
                 Debug.Assert(subsystem is IMRTKManagedSubsystem);
 
-                Debug.Log($"[MRTKLifecycleManager] ForceAddSubsystem starting {mrtkDescriptor.SubsystemTypeOverride}");
+                if (DebugLogging)
+                {
+                    Debug.Log($"[MRTKLifecycleManager] ForceAddSubsystem starting {mrtkDescriptor.SubsystemTypeOverride}");
+                }
 
                 // Start the subsystem.
                 subsystem.Start();
@@ -296,7 +314,10 @@ namespace MixedReality.Toolkit.Subsystems
         {
             foreach (IMRTKManagedSubsystem s in managedSubsystems)
             {
-                // Debug.Log("Calling destroy on " + s);
+                if (DebugLogging)
+                {
+                    Debug.Log($"[MRTKLifecycleManager] Destroying {s}");
+                }
                 s.Destroy();
             }
             managedSubsystems.Clear();
