@@ -32,14 +32,23 @@ namespace MixedReality.Toolkit.Speech.Windows
         [SerializeField, Tooltip("The confidence threshold for the recognizer to return its result.")]
         private WindowsSpeechConfidenceLevel confidenceLevel = WindowsSpeechConfidenceLevel.Medium;
 
+        /// <summary>
+        /// The recognition confidence level for this subsystem configuration.
+        /// </summary>
+        internal WindowsSpeechConfidenceLevel SpeechConfidenceLevel
+        {
+            get => confidenceLevel;
+            set => confidenceLevel = value;
+        }
+
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_WSA
         /// <summary>
         /// The confidence threshold for the recognizer to return its result.
         /// </summary>
         public ConfidenceLevel ConfidenceLevel
         {
-            get => confidenceLevel.ToUnityConfidenceLevel();
-            set => confidenceLevel = value.ToWindowsSpeechConfidenceLevel();
+            get => SpeechConfidenceLevel.ToUnityConfidenceLevel();
+            set => SpeechConfidenceLevel = value.ToWindowsSpeechConfidenceLevel();
         }
 #endif // UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN
     }
