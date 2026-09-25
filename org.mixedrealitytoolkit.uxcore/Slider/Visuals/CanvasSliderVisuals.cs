@@ -130,9 +130,13 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         private void OnEnable()
         {
-            sliderStart = SliderState.SliderStart.EnsureComponent<RectTransform>();
-            sliderEnd = SliderState.SliderEnd.EnsureComponent<RectTransform>();
-            touchableFitter = TrackArea.GetComponent<RectTransformColliderFitter>();
+            EnsureSliderEndpoints();
+
+            if (TrackArea != null)
+            {
+                touchableFitter = TrackArea.GetComponent<RectTransformColliderFitter>();
+            }
+
             uguiInputAdapter = GetComponent<UGUIInputAdapter>();
 
             if (sliderStart == null || sliderEnd == null)
@@ -140,10 +144,14 @@ namespace MixedReality.Toolkit.UX
                 Debug.LogError("Slider is missing start/end transforms.");
             }
 
-            SliderState.OnValueUpdated.AddListener(UpdateHandle);
+            if (SliderState != null)
+            {
+                SliderState.OnValueUpdated.AddListener(UpdateHandle);
 
-            // Initial update. We may miss the first OnValueUpdated, depending on execution order.
-            UpdateHandle(SliderState.NormalizedValue);
+                // Initial update. We may miss the first OnValueUpdated, depending on execution order.
+                UpdateHandle(SliderState.NormalizedValue);
+            }
+
             SetLayout(sliderDirection);
         }
 
@@ -156,17 +164,22 @@ namespace MixedReality.Toolkit.UX
         }
 
 #if UNITY_EDITOR
-
         // Keep track of the last direction, so we can re-layout if needed.
         private Direction prevDirection;
 
         /// <summary>
-        /// A Unity event function that is called every frame, if this object is enabled.
+        /// A Unity Editor only event function that is called when the script is loaded or a value changes in the Unity Inspector.
         /// </summary>
-        private void Update()
+        private void OnValidate()
         {
-            // Only do this in edit mode, for performance.
-            if (Application.isPlaying)
+            if (trackArea == null || handle == null || fillVisual == null)
+            {
+                return;
+            }
+
+            EnsureSliderEndpoints();
+
+            if (sliderStart == null || sliderEnd == null)
             {
                 return;
             }
@@ -179,14 +192,17 @@ namespace MixedReality.Toolkit.UX
             trackArea.anchoredPosition = Vector3.zero;
 
             // Helper to apply layout if set from inspector.
-            if (SliderDirection != prevDirection)
+            if (sliderDirection != prevDirection)
             {
-                SetLayout(SliderDirection);
-                prevDirection = SliderDirection;
+                SetLayout(sliderDirection);
+                prevDirection = sliderDirection;
             }
 
             // Update handle in editor view.
-            UpdateHandle(SliderState.NormalizedValue);
+            if (SliderState != null)
+            {
+                UpdateHandle(SliderState.NormalizedValue);
+            }
         }
 #endif // UNITY_EDITOR
 
@@ -199,6 +215,11 @@ namespace MixedReality.Toolkit.UX
         // Update the things that depend on the slider value.
         void UpdateHandle(float value)
         {
+            if (handle == null || fillVisual == null)
+            {
+                return;
+            }
+
             switch (SliderDirection)
             {
                 case Direction.LeftToRight:
@@ -225,17 +246,47 @@ namespace MixedReality.Toolkit.UX
             handle.anchoredPosition = Vector3.zero;
         }
 
+        private void EnsureSliderEndpoints()
+        {
+            if (sliderStart == null && SliderState != null && SliderState.SliderStart != null)
+            {
+                sliderStart = Application.isPlaying
+                    ? SliderState.SliderStart.EnsureComponent<RectTransform>()
+                    : SliderState.SliderStart.GetComponent<RectTransform>();
+            }
+
+            if (sliderEnd == null && SliderState != null && SliderState.SliderEnd != null)
+            {
+                sliderEnd = Application.isPlaying
+                    ? SliderState.SliderEnd.EnsureComponent<RectTransform>()
+                    : SliderState.SliderEnd.GetComponent<RectTransform>();
+            }
+        }
+
         void SetLayout(Direction direction)
         {
+            // Ensure sliderStart and sliderEnd are rooted at 0, we change the positions of these points via their anchors
+            sliderStart.anchoredPosition = Vector3.zero;
+            sliderEnd.anchoredPosition = Vector3.zero;
+
+            if (uguiInputAdapter == null)
+            {
+                uguiInputAdapter = GetComponent<UGUIInputAdapter>();
+            }
+
+            // Make sure UGUI understands which axis we can
+            // slide on. (Affects dpad/gamepad/etc)
+            if (uguiInputAdapter != null)
+            {
+                uguiInputAdapter.MovableAxes = (direction == Direction.LeftToRight || direction == Direction.RightToLeft)
+                    ? AxisFlags.XAxis
+                    : AxisFlags.YAxis;
+            }
+
             float trackWidth = Mathf.Max(trackArea.sizeDelta.x, trackArea.sizeDelta.y);
             switch (direction)
             {
                 case Direction.LeftToRight:
-
-                    // Make sure UGUI understands which axis we can
-                    // slide on. (Affects dpad/gamepad/etc)
-                    uguiInputAdapter.MovableAxes = AxisFlags.XAxis;
-
                     sliderStart.anchorMin = new Vector2(0.0f, 0.5f);
                     sliderStart.anchorMax = new Vector2(0.0f, 0.5f);
                     sliderEnd.anchorMin = new Vector2(1.0f, 0.5f);
@@ -251,11 +302,6 @@ namespace MixedReality.Toolkit.UX
                     break;
 
                 case Direction.RightToLeft:
-
-                    // Make sure UGUI understands which axis we can
-                    // slide on. (Affects dpad/gamepad/etc)
-                    uguiInputAdapter.MovableAxes = AxisFlags.XAxis;
-
                     sliderStart.anchorMin = new Vector2(1.0f, 0.5f);
                     sliderStart.anchorMax = new Vector2(1.0f, 0.5f);
                     sliderEnd.anchorMin = new Vector2(0.0f, 0.5f);
@@ -271,11 +317,6 @@ namespace MixedReality.Toolkit.UX
                     break;
 
                 case Direction.BottomToTop:
-
-                    // Make sure UGUI understands which axis we can
-                    // slide on. (Affects dpad/gamepad/etc)
-                    uguiInputAdapter.MovableAxes = AxisFlags.YAxis;
-
                     sliderStart.anchorMin = new Vector2(0.5f, 0.0f);
                     sliderStart.anchorMax = new Vector2(0.5f, 0.0f);
                     sliderEnd.anchorMin = new Vector2(0.5f, 1.0f);
@@ -291,11 +332,6 @@ namespace MixedReality.Toolkit.UX
                     break;
 
                 case Direction.TopToBottom:
-
-                    // Make sure UGUI understands which axis we can
-                    // slide on. (Affects dpad/gamepad/etc)
-                    uguiInputAdapter.MovableAxes = AxisFlags.YAxis;
-
                     sliderStart.anchorMin = new Vector2(0.5f, 1);
                     sliderStart.anchorMax = new Vector2(0.5f, 1);
                     sliderEnd.anchorMin = new Vector2(0.5f, 0);
