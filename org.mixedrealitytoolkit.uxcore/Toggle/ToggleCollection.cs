@@ -43,7 +43,7 @@ namespace MixedReality.Toolkit.UX
                     // Add listeners to new list
                     AddSelectionListeners();
 
-                    int index = Mathf.Clamp(CurrentIndex, 0, toggles.Count - 1);
+                    int index = Mathf.Clamp(CurrentIndex, allowSwitchOff ? -1 : 0, toggles.Count - 1);
                     SetSelection(index);
                 }
             }
@@ -71,7 +71,7 @@ namespace MixedReality.Toolkit.UX
         }
 
         [SerializeField]
-        [Tooltip("Currently selected index in the ToggleCollection, default is 0")]
+        [Tooltip("Currently selected index in the ToggleCollection, default is 0. Set to -1 to start with no toggle selected (requires AllowSwitchOff).")]
         private int currentIndex;
 
         /// <summary>
@@ -83,12 +83,12 @@ namespace MixedReality.Toolkit.UX
             set => SetSelection(value);
         }
 
-        [Tooltip("This event is triggered when any of the toggles in the ToggleCollection are selected. The event data is the index of the toggle button with in the ToggleCollection.")]
+        [Tooltip("This event is triggered when any of the toggles in the ToggleCollection are selected, or when all toggles are deselected (-1). The event data is the index of the toggle button within the ToggleCollection.")]
         [SerializeField]
         private ToggleSelectedEvent onToggleSelected = new ToggleSelectedEvent();
 
         /// <summary>
-        /// This event is triggered when any of the toggles in the <see cref="ToggleCollection"/> are selected. The event data is the index of the toggle button within the <see cref="ToggleCollection"/>.
+        /// This event is triggered when any of the toggles in the <see cref="ToggleCollection"/> are selected, or when all toggles are deselected (-1). The event data is the index of the toggle button within the <see cref="ToggleCollection"/>.
         /// </summary>
         public ToggleSelectedEvent OnToggleSelected
         {
@@ -97,6 +97,7 @@ namespace MixedReality.Toolkit.UX
 
         // List of the actions for the toggles in ToggleCollection.
         private List<UnityAction<float>> toggleActions = new List<UnityAction<float>>();
+        private List<UnityAction<float>> toggleDeselectionActions = new List<UnityAction<float>>();
 
         /// <summary>
         /// A Unity Editor only event function that is called when the script is loaded or a value changes in the Unity Inspector.
@@ -143,6 +144,10 @@ namespace MixedReality.Toolkit.UX
                     SetSelection(CurrentIndex, true);
                     Toggles[CurrentIndex].ForceSetToggled(true);
                 }
+                else if (CurrentIndex == -1 && allowSwitchOff)
+                {
+                    SetSelection(-1, true);
+                }
             }
 
             // Initialize the interactables with the proper allow-toggle-off setting.
@@ -156,7 +161,7 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public void SetSelection(int index, bool force = false)
         {
-            if (index < 0 || Toggles.Count <= index || Toggles == null || !isActiveAndEnabled)
+            if (index < (allowSwitchOff ? -1 : 0) || Toggles.Count <= index || Toggles == null || !isActiveAndEnabled)
             {
                 Debug.LogWarning("Index out of range of ToggleCollection: " + index, this);
                 return;
@@ -202,10 +207,19 @@ namespace MixedReality.Toolkit.UX
                 
                 int itemIndex = i;
                 UnityAction<float> setSelectionAction = (_) => SetSelection(itemIndex);
+                UnityAction<float> setDeselectionAction = (_) =>
+                {
+                    if (allowSwitchOff && CurrentIndex == itemIndex)
+                    {
+                        SetSelection(-1);
+                    }
+                };
 
                 toggleActions.Add(setSelectionAction);
+                toggleDeselectionActions.Add(setDeselectionAction);
 
                 Toggles[i].IsToggled.OnEntered.AddListener(setSelectionAction);
+                Toggles[i].IsToggled.OnExited.AddListener(setDeselectionAction);
                 Toggles[i].ToggleMode = allowSwitchOff ? StatefulInteractable.ToggleType.Toggle : StatefulInteractable.ToggleType.OneWayToggle;
             }
         }
@@ -217,9 +231,11 @@ namespace MixedReality.Toolkit.UX
                 if (Toggles[i] == null) { continue; }
                 
                 Toggles[i].IsToggled.OnEntered.RemoveListener(toggleActions[i]);
+                Toggles[i].IsToggled.OnExited.RemoveListener(toggleDeselectionActions[i]);
             }
 
             toggleActions.Clear();
+            toggleDeselectionActions.Clear();
         }
 
         /// <summary>

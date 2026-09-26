@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 * Added `AlphaBlend` tint mode to `TintEffect`. [PR #1131](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1131)
+* Allowed `ToggleCollection` to start with all toggles in an off state (`CurrentIndex = -1`) when `AllowSwitchOff` is true, and updated `CurrentIndex` to `-1` when an active toggle is switched off at runtime. [PR #1146](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1146)
 
 ### Fixed
 
