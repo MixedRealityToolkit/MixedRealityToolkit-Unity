@@ -148,6 +148,124 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             testInteractor.EndManualInteraction();
 
             Assert.IsFalse(toggleCollection.Toggles[5].IsToggled, "Interactable didn't get detoggled! ToggleCollection should have allowed it.");
+            Assert.AreEqual(-1, toggleCollection.CurrentIndex, "ToggleCollection should update CurrentIndex to -1 when active toggle is detoggled!");
+        }
+
+        /// <summary>
+        /// Ensures ToggleCollection can start with all toggles switched off when AllowSwitchOff is true.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestStartSwitchedOff()
+        {
+            var parent = new GameObject();
+
+            for (int i = 0; i < 5; i++)
+            {
+                var toggleObject = new GameObject();
+                toggleObject.transform.parent = parent.transform;
+                var interactable = toggleObject.AddComponent<StatefulInteractable>();
+                interactable.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+            }
+
+            var toggleCollection = parent.AddComponent<ToggleCollection>();
+            toggleCollection.AllowSwitchOff = true;
+            toggleCollection.CurrentIndex = -1;
+            yield return null;
+
+            Assert.AreEqual(5, toggleCollection.Toggles.Count, "ToggleCollection didn't detect all of the toggles!");
+            Assert.AreEqual(-1, toggleCollection.CurrentIndex, "ToggleCollection should remain at CurrentIndex = -1 when starting switched off!");
+            foreach (var toggle in toggleCollection.Toggles)
+            {
+                Assert.IsFalse(toggle.IsToggled, "No toggle should be toggled when starting switched off!");
+            }
+        }
+
+        /// <summary>
+        /// Ensures setting CurrentIndex to -1 deselects all toggles when AllowSwitchOff is true,
+        /// but is rejected when AllowSwitchOff is false.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestSetSelectionMinusOne()
+        {
+            var parent = new GameObject();
+
+            for (int i = 0; i < 5; i++)
+            {
+                var toggleObject = new GameObject();
+                toggleObject.transform.parent = parent.transform;
+                var interactable = toggleObject.AddComponent<StatefulInteractable>();
+                interactable.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+            }
+
+            var toggleCollection = parent.AddComponent<ToggleCollection>();
+            toggleCollection.AllowSwitchOff = true;
+            yield return null;
+
+            // Select toggle 2
+            toggleCollection.CurrentIndex = 2;
+            Assert.AreEqual(2, toggleCollection.CurrentIndex);
+            Assert.IsTrue(toggleCollection.Toggles[2].IsToggled);
+
+            // Set selection to -1 to deselect all
+            toggleCollection.CurrentIndex = -1;
+            Assert.AreEqual(-1, toggleCollection.CurrentIndex, "CurrentIndex should be -1 after setting selection to -1 with AllowSwitchOff = true!");
+            foreach (var toggle in toggleCollection.Toggles)
+            {
+                Assert.IsFalse(toggle.IsToggled, "All toggles should be untoggled after setting CurrentIndex to -1!");
+            }
+
+            // When AllowSwitchOff is false, setting CurrentIndex to -1 should be rejected
+            toggleCollection.AllowSwitchOff = false;
+            toggleCollection.CurrentIndex = 3;
+            Assert.AreEqual(3, toggleCollection.CurrentIndex);
+
+            LogAssert.Expect(LogType.Warning, "Index out of range of ToggleCollection: -1");
+            toggleCollection.CurrentIndex = -1;
+            Assert.AreEqual(3, toggleCollection.CurrentIndex, "CurrentIndex should remain unchanged when AllowSwitchOff is false!");
+        }
+
+        /// <summary>
+        /// Ensures OnToggleSelected fires with -1 when an active toggle is detoggled.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator TestSwitchOffEvent()
+        {
+            var parent = new GameObject();
+
+            for (int i = 0; i < 5; i++)
+            {
+                var toggleObject = new GameObject();
+                toggleObject.transform.parent = parent.transform;
+                var interactable = toggleObject.AddComponent<StatefulInteractable>();
+                interactable.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+            }
+
+            var toggleCollection = parent.AddComponent<ToggleCollection>();
+            toggleCollection.AllowSwitchOff = true;
+            yield return null;
+
+            int lastSelected = -999;
+            toggleCollection.OnToggleSelected.AddListener((index) => lastSelected = index);
+
+            var testInteractor = parent.AddComponent<TestInteractor>();
+
+            // Toggle on toggle 2
+            testInteractor.StartManualInteraction(toggleCollection.Toggles[2] as IXRSelectInteractable);
+            yield return null;
+            yield return null;
+            testInteractor.EndManualInteraction();
+
+            Assert.AreEqual(2, lastSelected, "OnToggleSelected should have fired with index 2!");
+            Assert.AreEqual(2, toggleCollection.CurrentIndex);
+
+            // Toggle off toggle 2
+            testInteractor.StartManualInteraction(toggleCollection.Toggles[2] as IXRSelectInteractable);
+            yield return null;
+            yield return null;
+            testInteractor.EndManualInteraction();
+
+            Assert.AreEqual(-1, lastSelected, "OnToggleSelected should have fired with index -1 when detoggled!");
+            Assert.AreEqual(-1, toggleCollection.CurrentIndex);
         }
     }
 }
