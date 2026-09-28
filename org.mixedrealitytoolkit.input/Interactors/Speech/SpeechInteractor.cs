@@ -9,6 +9,27 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
+    /// Specifies which hover state satisfies the focus requirement for voice commands on a <see cref="SpeechInteractor"/>.
+    /// </summary>
+    public enum SpeechHoverMode
+    {
+        /// <summary>
+        /// Any hover state satisfies the focus requirement.
+        /// </summary>
+        Any = 0,
+
+        /// <summary>
+        /// Only passive gaze hover (e.g. eye gaze, head gaze) satisfies the focus requirement.
+        /// </summary>
+        Gaze = 1,
+
+        /// <summary>
+        /// Only active hover (e.g. ray, poke, grab) satisfies the focus requirement.
+        /// </summary>
+        Active = 2,
+    }
+
+    /// <summary>
     /// A <see cref="ISpeechInteractor"/> that is driven by a <see cref="Subsystems.IKeywordRecognitionSubsystem"/>.
     /// </summary>
     /// <remarks>
@@ -18,13 +39,26 @@ namespace MixedReality.Toolkit.Input
     /// <br/>
     /// At the time <see cref="SpeechInteractor"/> was created Unity's XRI did not support selecting
     /// more than one interactable at a time. Because of this limitation, the
-    /// <see cref="SpeechInteractor"/> drops part of the selection lifecycle management provided by 
+    /// <see cref="SpeechInteractor"/> drops part of the selection lifecycle management provided by
     /// Unity's XRI and manually informs the interaction manager to enter and exit selection states.
     /// </para>
     /// </remarks>
     [AddComponentMenu("MRTK/Input/Speech Interactor")]
     public class SpeechInteractor : XRBaseInteractor, ISpeechInteractor
     {
+        [SerializeField]
+        [Tooltip("Which hover state is required on an interactable (when VoiceRequiresFocus is true) for a voice command to select it?")]
+        private SpeechHoverMode hoverMode = SpeechHoverMode.Any;
+
+        /// <summary>
+        /// Which hover state is required on an interactable (when VoiceRequiresFocus is true) for a voice command to select it?
+        /// </summary>
+        public SpeechHoverMode HoverMode
+        {
+            get => hoverMode;
+            set => hoverMode = value;
+        }
+
         [SerializeField]
         [Tooltip("How long does the interactor remain selecting the interactable after recognizing a voice command?")]
         private float voiceCommandTriggerTime = 0.3f;
@@ -47,7 +81,7 @@ namespace MixedReality.Toolkit.Input
         /// Register a new <see cref="StatefulInteractable"/> and an associated keyword with this <see cref="SpeechInteractor"/>.
         /// </summary>
         /// <remarks>
-        /// When this <see cref="SpeechInteractor"/> recognizes the provided <paramref name="keyword"/>, 
+        /// When this <see cref="SpeechInteractor"/> recognizes the provided <paramref name="keyword"/>,
         /// <see cref="XRInteractionManager.SelectEnter(IXRSelectInteractor, IXRSelectInteractable)"/> is called, passing along the provided
         /// <paramref name="interactable"/>.
         /// </remarks>
@@ -103,7 +137,11 @@ namespace MixedReality.Toolkit.Input
         private static readonly ProfilerMarker OnKeywordRecognizedPerfMarker =
             new ProfilerMarker("[MRTK] SpeechInteractor.OnKeywordRecognized");
 
-        private void OnKeywordRecognized(string keyword)
+        /// <summary>
+        /// Invoked when a keyword registered with this interactor is recognized.
+        /// </summary>
+        /// <param name="keyword">The recognized keyword.</param>
+        protected internal virtual void OnKeywordRecognized(string keyword)
         {
             using (OnKeywordRecognizedPerfMarker.Auto())
             {
@@ -117,13 +155,37 @@ namespace MixedReality.Toolkit.Input
 
                     foreach (var interactable in interactableList)
                     {
-                        if (!interactable.VoiceRequiresFocus || interactable.isHovered)
+                        if (!interactable.VoiceRequiresFocus || IsHoverRequirementMet(interactable))
                         {
                             selectedInteractables.Insert(0, (interactable, VoiceCommandTriggerTime));
                             interactionManager.SelectEnter(this, interactable as IXRSelectInteractable);
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the hover condition is met for the given interactable based on <see cref="HoverMode"/>.
+        /// </summary>
+        /// <param name="interactable">The interactable to evaluate.</param>
+        /// <returns><see langword="true"/> if the hover requirement is met, otherwise <see langword="false"/>.</returns>
+        protected virtual bool IsHoverRequirementMet(StatefulInteractable interactable)
+        {
+            if (interactable == null)
+            {
+                return false;
+            }
+
+            switch (hoverMode)
+            {
+                case SpeechHoverMode.Gaze:
+                    return interactable.IsGazeHovered?.Active == true;
+                case SpeechHoverMode.Active:
+                    return interactable.IsActiveHovered?.Active == true;
+                case SpeechHoverMode.Any:
+                default:
+                    return interactable.isHovered;
             }
         }
 
