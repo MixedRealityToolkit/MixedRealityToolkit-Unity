@@ -59,12 +59,21 @@ namespace MixedReality.Toolkit
         }
 
 #if UNITY_EDITOR
+        /// <summary>
+        /// Removes all keys and values from the <see cref="SerializableDictionary{TKey, TValue}"/>.
+        /// </summary>
         public new void Clear()
         {
             entries.Clear();
             base.Clear();
         }
 
+        /// <summary>
+        /// Removes the value with the specified key from the <see cref="SerializableDictionary{TKey, TValue}"/>, and copies the element to the value parameter.
+        /// </summary>
+        /// <param name="key">The key of the element to remove.</param>
+        /// <param name="value">The value of the element that was removed, or the default value if key was not found.</param>
+        /// <returns><see langword="true"/> if the element is successfully found and removed; otherwise, <see langword="false"/>.</returns>
         public new bool Remove(TKey key, out TValue value)
         {
             if (base.Remove(key, out value))
@@ -80,6 +89,11 @@ namespace MixedReality.Toolkit
             return false;
         }
 
+        /// <summary>
+        /// Removes the value with the specified key from the <see cref="SerializableDictionary{TKey, TValue}"/>.
+        /// </summary>
+        /// <param name="key">The key of the element to remove.</param>
+        /// <returns><see langword="true"/> if the element is successfully found and removed; otherwise, <see langword="false"/>.</returns>
         public new bool Remove(TKey key)
         {
             return Remove(key, out _);

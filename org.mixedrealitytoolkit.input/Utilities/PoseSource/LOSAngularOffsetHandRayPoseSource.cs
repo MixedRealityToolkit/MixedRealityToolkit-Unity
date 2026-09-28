@@ -37,6 +37,9 @@ namespace MixedReality.Toolkit.Input
         private readonly Vector2 MinMaxPitchAngleOffset = new Vector2(-24f, -85f);
         private const float MinMaxAngleAdjustHandProximity = .5f;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LOSAngularOffsetHandRayPoseSource"/> class.
+        /// </summary>
         public LOSAngularOffsetHandRayPoseSource()
         {
             StabilizedHandRay = new Lazy<StabilizedRay>(() =>

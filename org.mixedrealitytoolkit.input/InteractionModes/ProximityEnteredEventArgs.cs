@@ -3,6 +3,9 @@
 
 namespace MixedReality.Toolkit.Input
 {
+    /// <summary>
+    /// Event data associated with proximity entered events triggered by a <see cref="NearInteractionModeDetector"/>.
+    /// </summary>
     public class ProximityEnteredEventArgs : BaseProximityEventArgs
     {
         /// <summary>

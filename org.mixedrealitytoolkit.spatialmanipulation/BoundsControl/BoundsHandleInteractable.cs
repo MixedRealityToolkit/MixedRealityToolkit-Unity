@@ -78,8 +78,10 @@ namespace MixedReality.Toolkit.SpatialManipulation
             set => scaleMaintainType = value ? ScaleMaintainType.GlobalSize : ScaleMaintainType.FixedScale;
         }
 
+        /// <inheritdoc />
         public void OnBeforeSerialize() { }
 
+        /// <inheritdoc />
         public void OnAfterDeserialize()
         {
             // Only update the scaleMaintainType if it hasn't been set and the old property was not migrated yet
@@ -184,6 +186,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
             UpdateLocalScale();
         }
 
+        /// <summary>
+        /// Maintains the aspect ratio/proportion of the handles based on <see cref="scaleMaintainType"/>.
+        /// </summary>
         protected virtual void UpdateLocalScale()
         {
             transform.localScale = Vector3.one;
@@ -234,7 +239,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
-        // Returns the local scale this transform needs to have in order to have the desired lossy scale
+        /// <summary>
+        /// Returns the local scale this transform needs to have in order to have the desired lossy scale.
+        /// </summary>
+        /// <param name="lossyScale">The desired lossy scale.</param>
+        /// <returns>The local scale vector to produce the target lossy scale.</returns>
         protected Vector3 GetLocalScale(float lossyScale) => new(
             transform.lossyScale.x == 0 ? transform.localScale.x : (lossyScale / transform.lossyScale.x),
             transform.lossyScale.y == 0 ? transform.localScale.y : (lossyScale / transform.lossyScale.y),

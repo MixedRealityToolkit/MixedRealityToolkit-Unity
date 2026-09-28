@@ -93,6 +93,9 @@ namespace MixedReality.Toolkit.UX
         private const float CanvasOffset = -10f;
         private const float NonCanvasOffset = -0.004f;
 
+        /// <summary>
+        /// A Unity event function that is called when the script instance is being loaded.
+        /// </summary>
         protected virtual void Awake()
         {
             pressableButton = GetComponent<PressableButton>();
@@ -163,6 +166,9 @@ namespace MixedReality.Toolkit.UX
             }
         }
 
+        /// <summary>
+        /// A Unity event function that is called when the MonoBehaviour will be destroyed.
+        /// </summary>
         protected virtual void OnDestroy()
         {
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
@@ -179,6 +185,10 @@ namespace MixedReality.Toolkit.UX
 #endif
         }
 
+        /// <summary>
+        /// Updates the See-It Say-It label text based on the specified speech recognition keyword.
+        /// </summary>
+        /// <param name="keyword">The speech recognition keyword to display.</param>
         protected virtual void UpdateLabel(string keyword)
         {
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT
@@ -197,6 +207,10 @@ namespace MixedReality.Toolkit.UX
         }
 
 #if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT && UNITY_LOCALIZATION_PRESENT
+        /// <summary>
+        /// Callback invoked when the localized label pattern string changes.
+        /// </summary>
+        /// <param name="value">The updated localized string value.</param>
         protected virtual void OnLocalizedPatternChanged(string value)
         {
             UpdateLabel(pressableButton.SpeechRecognitionKeyword);
