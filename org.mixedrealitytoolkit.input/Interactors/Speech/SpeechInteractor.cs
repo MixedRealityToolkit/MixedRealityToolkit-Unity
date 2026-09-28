@@ -68,7 +68,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         public float VoiceCommandTriggerTime => voiceCommandTriggerTime;
 
-        private Dictionary<string, List<StatefulInteractable>> keywordDictionary = new Dictionary<string, List<StatefulInteractable>>();
+        private readonly Dictionary<string, HashSet<StatefulInteractable>> keywordDictionary = new Dictionary<string, HashSet<StatefulInteractable>>();
         private List<(StatefulInteractable, float)> selectedInteractables = new List<(StatefulInteractable, float)>();
 
         /// <summary>
@@ -92,13 +92,13 @@ namespace MixedReality.Toolkit.Input
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 keyword = keyword.ToLower();
-                if (keywordDictionary.TryGetValue(keyword, out List<StatefulInteractable> interactableList))
+                if (keywordDictionary.TryGetValue(keyword, out HashSet<StatefulInteractable> interactables))
                 {
-                    interactableList.Add(interactable);
+                    interactables.Add(interactable);
                 }
                 else
                 {
-                    keywordDictionary.Add(keyword, new List<StatefulInteractable> { interactable });
+                    keywordDictionary.Add(keyword, new HashSet<StatefulInteractable> { interactable });
                     var subsystem = XRSubsystemHelpers.KeywordRecognitionSubsystem;
                     if (subsystem != null)
                     {
@@ -123,7 +123,7 @@ namespace MixedReality.Toolkit.Input
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 keyword = keyword.ToLower();
-                if (keywordDictionary.TryGetValue(keyword, out List<StatefulInteractable> interactableList) && interactableList.Remove(interactable))
+                if (keywordDictionary.TryGetValue(keyword, out HashSet<StatefulInteractable> interactables) && interactables.Remove(interactable))
                 {
                     return;
                 }
@@ -145,15 +145,15 @@ namespace MixedReality.Toolkit.Input
         {
             using (OnKeywordRecognizedPerfMarker.Auto())
             {
-                if (keywordDictionary.TryGetValue(keyword, out List<StatefulInteractable> interactableList))
+                if (keywordDictionary.TryGetValue(keyword, out HashSet<StatefulInteractable> interactables))
                 {
-                    if (interactableList.Count > 0 && interactionManager == null)
+                    if (interactables.Count > 0 && interactionManager == null)
                     {
                         Debug.LogError("The speech interactor does not have an Interaction Manager.");
                         return;
                     }
 
-                    foreach (var interactable in interactableList)
+                    foreach (var interactable in interactables)
                     {
                         if (!interactable.VoiceRequiresFocus || IsHoverRequirementMet(interactable))
                         {
