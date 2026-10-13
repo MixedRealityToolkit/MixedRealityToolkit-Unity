@@ -18,6 +18,11 @@
             "name": "com.microsoft.mixedreality.openxr",
             "expression": "1.5.0",
             "define": "MSFT_OPENXR_1_5_0_OR_NEWER"
+        },
+        {
+            "name": "com.microsoft.mrtk.tts.windows",
+            "expression": "",
+            "define": "MSFT_TTS_WIN_PRESENT"
         }
     ],
     "noEngineReferences": false

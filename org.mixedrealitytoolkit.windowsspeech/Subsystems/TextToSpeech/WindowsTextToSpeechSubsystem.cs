@@ -2,15 +2,13 @@
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.Subsystems;
-using System;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Scripting;
 
 #if WINDOWS_UWP
-using Windows.Foundation;
+using System;
+using System.Linq;
 using Windows.Media.SpeechSynthesis;
 using Windows.Storage.Streams;
 #endif // WINDOWS_UWP
@@ -41,7 +39,7 @@ namespace MixedReality.Toolkit.Speech.Windows
             // Fetch subsystem metadata from the attribute.
             var cinfo = XRSubsystemHelpers.ConstructCinfo<WindowsTextToSpeechSubsystem, TextToSpeechSubsystemCinfo>();
 
-            if (!WindowsTextToSpeechSubsystem.Register(cinfo))
+            if (!Register(cinfo))
             {
                 Debug.LogError($"Failed to register the {cinfo.Name} subsystem.");
             }
@@ -72,6 +70,7 @@ namespace MixedReality.Toolkit.Speech.Windows
 #endif
             }
 
+            /// <inheritdoc/>
             public override void Destroy()
             {
 #if WINDOWS_UWP
@@ -85,7 +84,7 @@ namespace MixedReality.Toolkit.Speech.Windows
 
             #region ITextToSpeechSubsystem implementation
 
-#if !(WINDOWS_UWP || UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN)
+#if !(WINDOWS_UWP || ((UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN) && MSFT_TTS_WIN_PRESENT))
             private bool haveLogged = false;
 #endif
 
@@ -124,7 +123,7 @@ namespace MixedReality.Toolkit.Speech.Windows
                     sampleRate);
 
                 audioSource.Play();
-                
+
                 return true;
             }
 
@@ -186,17 +185,17 @@ namespace MixedReality.Toolkit.Speech.Windows
                 }
 
                 return waveData;
-#elif (UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN)
-                return await Task<byte[]>.Run(() =>
+#elif (UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN) && MSFT_TTS_WIN_PRESENT
+                return await Task.Run(() =>
                 {
-                    if (!Microsoft.MixedReality.Toolkit.Speech.Windows.WinRTTextToSpeechPInvokes.TrySynthesizePhraseWithCustomVoice(phrase, config.VoiceName, out IntPtr nativeData, out int length))
+                    if (!Microsoft.MixedReality.Toolkit.Speech.Windows.WinRTTextToSpeechPInvokes.TrySynthesizePhraseWithCustomVoice(phrase, config.VoiceName, out System.IntPtr nativeData, out int length))
                     {
                         Debug.LogError("Failed to synthesize the phrase");
                         return null;
                     }
 
                     byte[] waveData = new byte[length];
-                    Marshal.Copy(nativeData, waveData, 0, length);
+                    System.Runtime.InteropServices.Marshal.Copy(nativeData, waveData, 0, length);
                     // We can safely free the native data.
                     Microsoft.MixedReality.Toolkit.Speech.Windows.WinRTTextToSpeechPInvokes.FreeSynthesizedData(nativeData);
 
