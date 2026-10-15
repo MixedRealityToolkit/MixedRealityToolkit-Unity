@@ -1,6 +1,8 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
@@ -20,6 +22,14 @@ namespace MixedReality.Toolkit.Theming
         private ThemeDefinition themeDefinition;
 
         public ThemeDefinition Definition => themeDefinition;
+
+        [NonSerialized]
+        private List<UnityAction<ChangeEvent<Theme>>> dynamicListeners = new List<UnityAction<ChangeEvent<Theme>>>(16);
+
+        private void OnEnable()
+        {
+            dynamicListeners ??= new List<UnityAction<ChangeEvent<Theme>>>(16);
+        }
 
         #region INotifyValueChanged<Theme>
 
@@ -41,6 +51,14 @@ namespace MixedReality.Toolkit.Theming
                     // and object pooling
                     SetValueWithoutNotify(value);
                     onThemeChanged.Invoke(changeEvent);
+
+                    if (dynamicListeners != null)
+                    {
+                        for (int i = 0; i < dynamicListeners.Count; i++)
+                        {
+                            dynamicListeners[i]?.Invoke(changeEvent);
+                        }
+                    }
                 }
             }
         }
@@ -56,7 +74,11 @@ namespace MixedReality.Toolkit.Theming
         public void AddListener(UnityAction<ChangeEvent<Theme>> action)
         {
             if (action == null) { return; }
-            onThemeChanged.AddListener(action);
+            dynamicListeners ??= new List<UnityAction<ChangeEvent<Theme>>>(16);
+            if (!dynamicListeners.Contains(action))
+            {
+                dynamicListeners.Add(action);
+            }
             if (activeTheme == null) { return; }
             using ChangeEvent<Theme> changeEvent = ChangeEvent<Theme>.GetPooled(null, activeTheme);
             action.Invoke(changeEvent);
@@ -64,8 +86,8 @@ namespace MixedReality.Toolkit.Theming
 
         public void RemoveListener(UnityAction<ChangeEvent<Theme>> action)
         {
-            if (action == null) { return; }
-            onThemeChanged.RemoveListener(action);
+            if (action == null || dynamicListeners == null) { return; }
+            dynamicListeners.Remove(action);
         }
     }
 }

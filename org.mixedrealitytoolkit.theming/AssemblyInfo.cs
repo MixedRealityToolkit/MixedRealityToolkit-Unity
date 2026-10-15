@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyCopyright("Copyright (c) Mixed Reality Toolkit Contributors")]
 
 [assembly: InternalsVisibleTo("MixedReality.Toolkit.Theming.Editor")]
+[assembly: InternalsVisibleTo("MixedReality.Toolkit.Theming.Editor.Tests")]
+[assembly: InternalsVisibleTo("MixedReality.Toolkit.Theming.Runtime.Tests")]
 
 // The AssemblyVersion attribute is checked-in and is recommended not to be changed often.
 // https://docs.microsoft.com/troubleshoot/visualstudio/general/assembly-version-assembly-file-version

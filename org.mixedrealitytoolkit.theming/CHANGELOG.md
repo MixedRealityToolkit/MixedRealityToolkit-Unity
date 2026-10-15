@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Added serializable theme item data types for booleans. [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
 * Added built-in binders for skybox materials and behaviour enabled states. [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
+* Added edit mode tests for validating custom theming types and their dependencies. [PR #1133](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1133)
+* Added runtime performance benchmark and regression tests for theming hot paths. [PR #1133](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1133)
+
+### Changed
+
+* Optimized `Theme.TryGetItemData<T>` from an $O(N)$ linear list scan to an $O(1)$ hash table lookup with automatic cache invalidation on deserialization, inspector modifications, and enable events. [PR #1133](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1133)
+* Optimized `BaseThemeBinder` by caching `UnityAction<ChangeEvent<Theme>>` delegates, eliminating heap allocations during repeated subscribe/unsubscribe cycles. [PR #1133](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1133)
+* Optimized `ThemeDataSource` to route programmatic subscribers through a Zero-GC dynamic listener list, avoiding delegate allocations while preserving inspector `UnityEvent` invocations. [PR #1133](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1133)
 
 ## [1.0.0-pre.1] - 2026-05-20
 

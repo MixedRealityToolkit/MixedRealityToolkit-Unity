@@ -11,7 +11,7 @@ namespace MixedReality.Toolkit.Theming
     /// A ScriptableObject that provides concrete values for every item declared in a <see cref="ThemeDataSource"/>'s definition.
     /// </summary>
     [CreateAssetMenu(fileName = "Theme", menuName = "MRTK/Theming/Theme", order = 0)]
-    public class Theme : ScriptableObject
+    public class Theme : ScriptableObject, ISerializationCallbackReceiver
     {
         [SerializeField]
         [Tooltip("The schema that this theme conforms to. Every theme item must map to an item defined here.")]
@@ -26,6 +26,58 @@ namespace MixedReality.Toolkit.Theming
         [Tooltip("The items defining this theme's data mapped to the definition's items.")]
         private List<ThemeItem> themeItems = new List<ThemeItem>();
 
+        [NonSerialized]
+        private Dictionary<string, object> itemCache;
+
+        private void EnsureCache()
+        {
+            if (itemCache != null)
+            {
+                return;
+            }
+
+            if (themeItems == null)
+            {
+                itemCache = new Dictionary<string, object>(0);
+                return;
+            }
+
+            itemCache = new Dictionary<string, object>(themeItems.Count);
+            for (int i = 0; i < themeItems.Count; i++)
+            {
+                ThemeItem item = themeItems[i];
+                if (item != null && !string.IsNullOrEmpty(item.Name) && !itemCache.ContainsKey(item.Name))
+                {
+                    itemCache.Add(item.Name, item.Data);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Invalidates the internal theme item lookup cache.
+        /// </summary>
+        public void InvalidateCache()
+        {
+            itemCache = null;
+        }
+
+        private void OnEnable()
+        {
+            InvalidateCache();
+        }
+
+        private void OnValidate()
+        {
+            InvalidateCache();
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize() { }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            InvalidateCache();
+        }
+
         /// <summary>
         /// Attempts to retrieve the data for a specific theme item by its name and expected type.
         /// </summary>
@@ -35,15 +87,13 @@ namespace MixedReality.Toolkit.Theming
         /// <returns><see langword="true"/> if an item with the specified name and type is found; otherwise, <see langword="false"/>.</returns>
         public bool TryGetItemData<T>(string itemName, out T itemValue)
         {
-            if (themeItems != null)
+            if (!string.IsNullOrEmpty(itemName))
             {
-                foreach (var themeItem in themeItems)
+                EnsureCache();
+                if (itemCache.TryGetValue(itemName, out object data) && data is T themeItemData)
                 {
-                    if (themeItem != null && themeItem.Name == itemName && themeItem.Data is T themeItemData)
-                    {
-                        itemValue = themeItemData;
-                        return true;
-                    }
+                    itemValue = themeItemData;
+                    return true;
                 }
             }
 

@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Optimized `ThemeBinding` lifecycle to pre-allocate list capacity and use indexed loops, eliminating heap allocations during repeated `OnEnable` and `OnDisable` cycles. [PR #1133](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1133)
+
 ## [4.0.0-pre.4] - 2026-06-10
 
 ### Added

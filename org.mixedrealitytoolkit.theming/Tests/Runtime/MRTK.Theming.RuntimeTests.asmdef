@@ -1,0 +1,27 @@
+{
+    "name": "MixedReality.Toolkit.Theming.Runtime.Tests",
+    "rootNamespace": "MixedReality.Toolkit.Theming.Tests.Runtime",
+    "references": [
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core.TestUtilities",
+        "MixedReality.Toolkit.Theming",
+        "MixedReality.Toolkit.UXCore",
+        "MixedReality.Toolkit.UXCore.Theming",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

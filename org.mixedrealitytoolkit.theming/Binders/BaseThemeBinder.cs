@@ -48,19 +48,22 @@ namespace MixedReality.Toolkit.Theming
             Apply(value);
         }
 
+        private UnityEngine.Events.UnityAction<ChangeEvent<Theme>> cachedOnThemeChanged;
+
         void IBinder.Subscribe(ThemeDataSource themeDataSource)
         {
             if (themeDataSource != null)
             {
-                themeDataSource.AddListener(OnThemeChanged);
+                cachedOnThemeChanged ??= OnThemeChanged;
+                themeDataSource.AddListener(cachedOnThemeChanged);
             }
         }
 
         void IBinder.Unsubscribe(ThemeDataSource themeDataSource)
         {
-            if (themeDataSource != null)
+            if (themeDataSource != null && cachedOnThemeChanged != null)
             {
-                themeDataSource.RemoveListener(OnThemeChanged);
+                themeDataSource.RemoveListener(cachedOnThemeChanged);
             }
         }
     }
