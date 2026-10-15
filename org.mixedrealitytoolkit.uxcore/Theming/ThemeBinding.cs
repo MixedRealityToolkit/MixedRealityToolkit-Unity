@@ -35,8 +35,14 @@ namespace MixedReality.Toolkit.UX
 
             if (binders != null)
             {
-                foreach (IBinder binder in binders)
+                if (subscribedBinders.Capacity < binders.Length)
                 {
+                    subscribedBinders.Capacity = binders.Length;
+                }
+
+                for (int i = 0; i < binders.Length; i++)
+                {
+                    IBinder binder = binders[i];
                     if (binder == null)
                     {
                         Debug.LogWarning($"{nameof(ThemeBinding)} on '{gameObject.name}' has a null binder entry.", this);
@@ -58,9 +64,9 @@ namespace MixedReality.Toolkit.UX
         {
             if (subscribedDataSource != null)
             {
-                foreach (IBinder binder in subscribedBinders)
+                for (int i = 0; i < subscribedBinders.Count; i++)
                 {
-                    binder?.Unsubscribe(subscribedDataSource);
+                    subscribedBinders[i]?.Unsubscribe(subscribedDataSource);
                 }
                 subscribedBinders.Clear();
                 subscribedDataSource = null;
