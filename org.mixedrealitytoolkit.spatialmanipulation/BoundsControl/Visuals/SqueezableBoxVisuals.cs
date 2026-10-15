@@ -190,7 +190,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 unpinchScaleOffset = (Vector3.one * (2.0f * (padding)));
                 pinchScaleOffset = (Vector3.one * (2.0f * (padding * shrinkFraction)));
             }
-            
 
             // Compute flatten vector at startup.
             flattenVector = BoundsCalculator.CalculateFlattenVector(transform.lossyScale);
@@ -372,12 +371,24 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             using (ConvexHullPerfMarker.Auto())
             {
+                Camera cam = Camera.main;
+                if (cam == null)
+                {
+                    return;
+                }
+
+                Vector3 centerPos = transform.position;
                 for (int i = 0; i < projectedHandles.Count; i++)
                 {
+                    Vector3 handlePos = projectedHandles[i].Handle.transform.position;
+                    Vector3 diff = handlePos - centerPos;
+                    float sqrMag = diff.sqrMagnitude;
+                    Vector3 offset = sqrMag > MathUtilities.ZeroTolerance ? (diff / Mathf.Sqrt(sqrMag)) * convexPadding : Vector3.zero;
+
                     projectedHandles[i] = new HandlePoint()
                     {
                         Handle = projectedHandles[i].Handle,
-                        Position = Camera.main.WorldToScreenPoint(projectedHandles[i].Handle.transform.position + (projectedHandles[i].Handle.transform.position - transform.position).normalized * convexPadding),
+                        Position = cam.WorldToScreenPoint(handlePos + offset),
                     };
                 }
 
@@ -435,7 +446,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 // If the vector points away, we need to correct it to point towards the user.
                 // Handles use this vector to determine their orientation for flattened visuals.
                 bool flattenPointsAway = Vector3.Dot(handlesContainer.TransformVector(flattenVector),
-                                                    handlesContainer.position - Camera.main.transform.position) > 0;
+                                                     handlesContainer.position - Camera.main.transform.position) > 0;
                 if (flattenPointsAway)
                 {
                     flattenVector = -flattenVector;

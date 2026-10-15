@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+* Added `MathUtilities.ZeroTolerance` (1e-6f) as a standardized geometric tolerance constant for float equality and vector squared-magnitude checks. [PR #1150](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1150)
 * Added edit mode tests for `AssemblyExtensions`, `SystemType`, and `SerializableDictionary`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
 
 ### Fixed

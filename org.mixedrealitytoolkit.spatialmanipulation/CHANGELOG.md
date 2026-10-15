@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Fixed "leaked managed shell" issue in `BoundsCalculator`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
 * Fixed object identity API usages for Unity 6.4 and newer in `ConstraintManagerEditor`. [PR #1136](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1136)
+* Fixed potential division-by-zero, NaN, and null camera crashes across `FaceUserConstraint`, `FixedDistanceConstraint`, `MaintainApparentSizeConstraint`, `SqueezableBoxVisuals`, and `ScaleLogic` using `MathUtilities.ZeroTolerance`. [PR #1150](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1150)
 
 ### Changed
 

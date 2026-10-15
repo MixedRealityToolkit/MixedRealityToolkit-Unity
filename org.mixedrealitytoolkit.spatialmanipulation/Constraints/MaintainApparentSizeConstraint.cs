@@ -32,7 +32,8 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             base.OnManipulationStarted(worldPose);
 
-            initialDist = (worldPose.Position - Camera.main.transform.position).magnitude;
+            Camera cam = Camera.main;
+            initialDist = cam != null ? (worldPose.Position - cam.transform.position).magnitude : 0f;
         }
 
         /// <summary>
@@ -42,7 +43,13 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         public override void ApplyConstraint(ref MixedRealityTransform transform)
         {
-            float dist = (transform.Position - Camera.main.transform.position).magnitude;
+            Camera cam = Camera.main;
+            if (cam == null || initialDist <= MathUtilities.ZeroTolerance)
+            {
+                return;
+            }
+
+            float dist = (transform.Position - cam.transform.position).magnitude;
             transform.Scale = (dist / initialDist) * WorldPoseOnManipulationStart.Scale;
         }
 

@@ -19,6 +19,13 @@ namespace MixedReality.Toolkit
         public const int Megabyte = 1048576; // 1024 * 1024
 
         /// <summary>
+        /// A default tolerance (1e-6f) used for floating-point equality comparisons
+        /// and minimum vector squared-magnitude checks to prevent division by zero
+        /// and floating-point cancellation noise.
+        /// </summary>
+        public const float ZeroTolerance = 1e-6f;
+
+        /// <summary>
         /// Converts megabytes to bytes.
         /// </summary>
         /// <param name="megabytes">Value in megabytes.</param>
