@@ -114,7 +114,7 @@ namespace MixedReality.Toolkit.Diagnostics
                     if (elapsedTime >= samplePeriod)
                     {
                         // Calculate the frame rate.
-                        FrameRate = 1f / (elapsedTime / frameCount);
+                        FrameRate = elapsedTime > MathUtilities.ZeroTolerance ? (float)frameCount / elapsedTime : 0f;
 
                         // Reset state for the next sampling.
                         frameCount = 0;

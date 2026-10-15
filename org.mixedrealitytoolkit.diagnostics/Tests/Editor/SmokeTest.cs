@@ -6,12 +6,12 @@
 
 using NUnit.Framework;
 
-namespace MixedReality.Toolkit.Performance.Tests.EditMode
+namespace MixedReality.Toolkit.Diagnostics.Tests.EditMode
 {
     internal class SmokeTest
     {
         [Test]
-        public void PerformancePackageTest()
+        public void DiagnosticsPackageTest()
         {
             Assert.IsTrue(true);
         }

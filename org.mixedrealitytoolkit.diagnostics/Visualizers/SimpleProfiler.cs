@@ -1,6 +1,8 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -88,17 +90,41 @@ namespace MixedReality.Toolkit.Diagnostics
 
         private const string noData = "--";
 
+        private readonly StringBuilder stringBuilder = new StringBuilder(64);
+        private readonly char[] digitBuffer = new char[32];
+
+        private ulong lastRamLimit = ulong.MaxValue;
+        private ulong lastAllocatedRam = ulong.MaxValue;
+        private ulong lastPeakAllocatedRam = ulong.MaxValue;
+        private float lastFrameRate = -1f;
+        private float lastRefreshRate = -1f;
+
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
         /// </summary> 
         private void Start()
         {
-            RamLimit.text = noData;
-            AllocatedRam.text = noData;
-            PeakAllocatedRam.text = noData;
+            if (RamLimit != null)
+            {
+                RamLimit.text = noData;
+            }
+            if (AllocatedRam != null)
+            {
+                AllocatedRam.text = noData;
+            }
+            if (PeakAllocatedRam != null)
+            {
+                PeakAllocatedRam.text = noData;
+            }
 
-            FrameRate.text = noData;
-            RefreshRate.text = noData;
+            if (FrameRate != null)
+            {
+                FrameRate.text = noData;
+            }
+            if (RefreshRate != null)
+            {
+                RefreshRate.text = noData;
+            }
         }
 
         /// <summary>
@@ -106,27 +132,112 @@ namespace MixedReality.Toolkit.Diagnostics
         /// </summary>
         private void FixedUpdate()
         {
+            UpdateCounters();
+        }
+
+        /// <summary>
+        /// Formats and updates the visualizer text counters.
+        /// </summary>
+        internal void UpdateCounters()
+        {
             if (PerformanceStatsHelpers.Subsystem != null)
             {
-                ulong limitBytes = PerformanceStatsHelpers.Subsystem.RamLimit;
-                float limitMegabytes = MathUtilities.BytesToMegabytes(limitBytes);
-                RamLimit.text = $"{limitBytes} ({limitMegabytes:0.00})";
+                UpdateRamText(RamLimit, ref lastRamLimit, PerformanceStatsHelpers.Subsystem.RamLimit);
+                UpdateRamText(AllocatedRam, ref lastAllocatedRam, PerformanceStatsHelpers.Subsystem.AllocatedRam);
+                UpdateRamText(PeakAllocatedRam, ref lastPeakAllocatedRam, PerformanceStatsHelpers.Subsystem.PeakAllocatedRam);
 
-                ulong allocatedBytes = PerformanceStatsHelpers.Subsystem.AllocatedRam;
-                float allocatedMegabytes = MathUtilities.BytesToMegabytes(allocatedBytes);
-                AllocatedRam.text = $"{allocatedBytes} ({allocatedMegabytes:0.00})";
-
-                ulong peakBytes = PerformanceStatsHelpers.Subsystem.PeakAllocatedRam;
-                float peakMegabytes = MathUtilities.BytesToMegabytes(peakBytes);
-                PeakAllocatedRam.text = $"{peakBytes} ({peakMegabytes:0.00})";
-
-                FrameRate.text = PerformanceStatsHelpers.Subsystem.FrameRate.ToString("0.00");
+                if (FrameRate != null)
+                {
+                    float fps = PerformanceStatsHelpers.Subsystem.FrameRate;
+                    if (Mathf.Abs(fps - lastFrameRate) > MathUtilities.ZeroTolerance)
+                    {
+                        lastFrameRate = fps;
+                        FrameRate.SetText("{0:0.00}", fps);
+                    }
+                }
             }
 
-            float refRate = -1f;
-            bool? haveRefreshRate = XRSubsystemHelpers.DisplaySubsystem?.TryGetDisplayRefreshRate(out refRate);
-            RefreshRate.text = (haveRefreshRate.HasValue && haveRefreshRate.Value) ?
-                refRate.ToString("0.00") : noData;
+            if (RefreshRate != null)
+            {
+                float refRate = -1f;
+                bool? haveRefreshRate = XRSubsystemHelpers.DisplaySubsystem?.TryGetDisplayRefreshRate(out refRate);
+                if (haveRefreshRate.HasValue && haveRefreshRate.Value)
+                {
+                    if (Mathf.Abs(refRate - lastRefreshRate) > MathUtilities.ZeroTolerance)
+                    {
+                        lastRefreshRate = refRate;
+                        RefreshRate.SetText("{0:0.00}", refRate);
+                    }
+                }
+                else if (lastRefreshRate >= 0f || RefreshRate.text != noData)
+                {
+                    lastRefreshRate = -1f;
+                    RefreshRate.text = noData;
+                }
+            }
+        }
+
+        private void UpdateRamText(TMP_Text textComponent, ref ulong lastBytes, ulong currentBytes)
+        {
+            if (textComponent == null)
+            {
+                return;
+            }
+
+            if (currentBytes != lastBytes)
+            {
+                lastBytes = currentBytes;
+                float megabytes = MathUtilities.BytesToMegabytes(currentBytes);
+                stringBuilder.Clear();
+                FormatRamString(stringBuilder, currentBytes, megabytes);
+                textComponent.SetText(stringBuilder);
+            }
+        }
+
+        internal void FormatRamString(StringBuilder sb, ulong bytes, float megabytes)
+        {
+            AppendULong(sb, bytes);
+            sb.Append(" (");
+            AppendFixed2(sb, megabytes);
+            sb.Append(')');
+        }
+
+        private void AppendULong(StringBuilder sb, ulong value)
+        {
+            if (value == 0)
+            {
+                sb.Append('0');
+                return;
+            }
+
+            int startIndex = digitBuffer.Length;
+            while (value > 0)
+            {
+                digitBuffer[--startIndex] = (char)('0' + (value % 10));
+                value /= 10;
+            }
+            for (int i = startIndex; i < digitBuffer.Length; i++)
+            {
+                sb.Append(digitBuffer[i]);
+            }
+        }
+
+        private void AppendFixed2(StringBuilder sb, float value)
+        {
+            if (value < 0f)
+            {
+                sb.Append('-');
+                value = -value;
+            }
+
+            ulong totalHundredths = (ulong)(value * 100f + 0.5f);
+            ulong whole = totalHundredths / 100UL;
+            ulong fraction = totalHundredths % 100UL;
+
+            AppendULong(sb, whole);
+            sb.Append('.');
+            sb.Append((char)('0' + (fraction / 10)));
+            sb.Append((char)('0' + (fraction % 10)));
         }
     }
 }

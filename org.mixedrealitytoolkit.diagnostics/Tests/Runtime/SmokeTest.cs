@@ -7,12 +7,12 @@
 using System.Collections;
 using UnityEngine.TestTools;
 
-namespace MixedReality.Toolkit.Performance.Tests
+namespace MixedReality.Toolkit.Diagnostics.Tests
 {
     internal class SmokeTest
     {
         [UnityTest]
-        public IEnumerator PerformancePackageTest()
+        public IEnumerator DiagnosticsPackageTest()
         {
             yield return null;
         }
