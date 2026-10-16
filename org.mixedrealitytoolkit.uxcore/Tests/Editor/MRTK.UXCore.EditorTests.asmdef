@@ -2,8 +2,11 @@
     "name": "MixedReality.Toolkit.UXCore.Editor.Tests",
     "rootNamespace": "",
     "references": [
+        "MixedReality.Toolkit.Core",
         "MixedReality.Toolkit.Core.TestUtilities",
         "MixedReality.Toolkit.UXCore",
+        "Unity.XR.Interaction.Toolkit",
+        "Unity.XR.CoreUtils",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

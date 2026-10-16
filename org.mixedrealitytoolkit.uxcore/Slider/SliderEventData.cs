@@ -28,5 +28,14 @@ namespace MixedReality.Toolkit.UX
         /// The current value of the slider.
         /// </summary>
         public float NewValue { get; private set; }
+
+        /// <summary>
+        /// Reinitializes this instance with updated values to avoid GC allocations in hot interaction paths.
+        /// </summary>
+        internal void Initialize(float oldValue, float newValue)
+        {
+            OldValue = oldValue;
+            NewValue = newValue;
+        }
     }
 }
