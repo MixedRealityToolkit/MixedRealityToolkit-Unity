@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 * Removed redundant `Update()` from `CanvasSliderVisuals` in favor of event-driven updates and `OnValidate()`. [PR #1144](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1144)
+* Eliminated heap allocations across `Slider` and `SliderSounds` event delivery hot paths. [PR #1144](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1144)
 
 ### Fixed
 

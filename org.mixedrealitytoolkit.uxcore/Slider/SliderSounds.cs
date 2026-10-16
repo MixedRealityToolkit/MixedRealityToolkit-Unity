@@ -22,7 +22,6 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public bool PlaySoundsOnlyOnInteract { get => playSoundsOnlyOnInteract; set => playSoundsOnlyOnInteract = value; }
 
-
         [Header("Audio Clips")]
         [SerializeField]
         [Tooltip("Sound to play when interaction with slider starts")]
@@ -117,6 +116,7 @@ namespace MixedReality.Toolkit.UX
         public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
 
         #region Private members
+
         private Slider slider;
 
         // Check to see if the slider is being interacted with
@@ -125,11 +125,20 @@ namespace MixedReality.Toolkit.UX
         // Play sound when passing through slider notches
         private float accumulatedDeltaSliderValue = 0;
         private float lastSoundPlayTime;
+
+        // Cached delegates to prevent GC allocations during enable/disable cycles
+        private UnityEngine.Events.UnityAction<SelectEnterEventArgs> onInteractionStartedAction;
+        private UnityEngine.Events.UnityAction<SelectExitEventArgs> onInteractionEndedAction;
+        private UnityEngine.Events.UnityAction<SliderEventData> onValueUpdatedAction;
+
         #endregion
 
         private void Awake()
         {
             slider = GetComponent<Slider>();
+            onInteractionStartedAction = OnInteractionStarted;
+            onInteractionEndedAction = OnInteractionEnded;
+            onValueUpdatedAction = OnValueUpdated;
         }
 
         private void Start()
@@ -151,9 +160,9 @@ namespace MixedReality.Toolkit.UX
         {
             if (slider != null)
             {
-                slider.firstSelectEntered.AddListener(OnInteractionStarted);
-                slider.lastSelectExited.AddListener(OnInteractionEnded);
-                slider.OnValueUpdated.AddListener(OnValueUpdated);
+                slider.firstSelectEntered.AddListener(onInteractionStartedAction);
+                slider.lastSelectExited.AddListener(onInteractionEndedAction);
+                slider.OnValueUpdated.AddListener(onValueUpdatedAction);
             }
         }
 
@@ -161,14 +170,14 @@ namespace MixedReality.Toolkit.UX
         {
             if (slider != null)
             {
-                slider.firstSelectEntered.RemoveListener(OnInteractionStarted);
-                slider.lastSelectExited.RemoveListener(OnInteractionEnded);
-                slider.OnValueUpdated.RemoveListener(OnValueUpdated);
+                slider.firstSelectEntered.RemoveListener(onInteractionStartedAction);
+                slider.lastSelectExited.RemoveListener(onInteractionEndedAction);
+                slider.OnValueUpdated.RemoveListener(onValueUpdatedAction);
             }
         }
 
         private const float NeutralPitchShift = 1f;
- 
+
         internal void OnValueUpdated(SliderEventData eventData)
         {
             if (!(playSoundsOnlyOnInteract && !isInteracting) && playTickSounds && AudioSource != null && passNotchSound != null)

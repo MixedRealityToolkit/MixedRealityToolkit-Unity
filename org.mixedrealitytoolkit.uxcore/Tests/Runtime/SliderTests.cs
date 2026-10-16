@@ -7,8 +7,12 @@
 using MixedReality.Toolkit.Core.Tests;
 using NUnit.Framework;
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.TestTools.Constraints;
+using Debug = UnityEngine.Debug;
+using Is = UnityEngine.TestTools.Constraints.Is;
 using Object = UnityEngine.Object;
 
 namespace MixedReality.Toolkit.UX.Runtime.Tests
@@ -124,6 +128,45 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             // Value at 4.6f should snap to 5.0f
             slider.Value = 4.6f;
             Assert.AreEqual(5.0f, slider.Value, 1e-4f);
+
+            Object.Destroy(go);
+            yield return null;
+        }
+
+        [UnityTest]
+        [Category("Performance")]
+        public IEnumerator Slider_ValueChange_AllocatesZeroGC()
+        {
+            const int BenchmarkIterations = 1000;
+            GameObject go = new GameObject("SliderPerf");
+            Slider slider = go.AddComponent<Slider>();
+            slider.MinValue = 0f;
+            slider.MaxValue = 100f;
+            slider.Value = 10f;
+
+            slider.OnValueUpdated.AddListener((SliderEventData data) => { });
+
+            // Warm up
+            slider.Value = 20f;
+
+            // 1. Throughput measurement
+            Stopwatch sw = Stopwatch.StartNew();
+            for (int i = 0; i < BenchmarkIterations; i++)
+            {
+                slider.Value = 20f + (i * 0.05f);
+            }
+            sw.Stop();
+            double usPerCall = (sw.Elapsed.TotalMilliseconds * 1000.0) / BenchmarkIterations;
+            Debug.Log($"[Perf] Slider.Value change: {usPerCall:F4} µs/call across {BenchmarkIterations} iterations");
+
+            // 2. Unity Native Zero-GC assertion
+            Assert.That(() =>
+            {
+                for (int i = 0; i < 50; i++)
+                {
+                    slider.Value = 20f + (i * 0.5f);
+                }
+            }, Is.Not.AllocatingGCMemory());
 
             Object.Destroy(go);
             yield return null;

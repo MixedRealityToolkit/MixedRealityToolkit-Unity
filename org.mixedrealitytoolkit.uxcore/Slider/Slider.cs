@@ -246,7 +246,7 @@ namespace MixedReality.Toolkit.UX
         #region Private Fields
 
         private const float ZeroTolerance = 1e-6f;
-
+        private readonly SliderEventData sliderEventData = new SliderEventData(0f, 0f);
         private bool hasStarted;
 
         /// <summary>
@@ -326,7 +326,8 @@ namespace MixedReality.Toolkit.UX
                 InitializeStepDivisions();
             }
 
-            OnValueUpdated.Invoke(new SliderEventData(value, value));
+            sliderEventData.Initialize(value, value);
+            OnValueUpdated.Invoke(sliderEventData);
         }
 
         /// <summary>
@@ -391,7 +392,8 @@ namespace MixedReality.Toolkit.UX
             {
                 var oldSliderValue = this.value;
                 this.value = clampedValue;
-                OnValueUpdated.Invoke(new SliderEventData(oldSliderValue, clampedValue));
+                sliderEventData.Initialize(oldSliderValue, clampedValue);
+                OnValueUpdated.Invoke(sliderEventData);
             }
         }
 
