@@ -1,10 +1,10 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
 
 namespace MixedReality.Toolkit.Input
-{    
+{
     /// <summary>
     /// A hand ray which is used by far pointers to direct interactions.
     /// </summary>
@@ -42,7 +42,7 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
-                if (headForward.magnitude < Mathf.Epsilon)
+                if (headForward.sqrMagnitude < MathUtilities.ZeroTolerance)
                 {
                     return false;
                 }
@@ -50,7 +50,7 @@ namespace MixedReality.Toolkit.Input
                 if (CursorBeamBackwardTolerance >= 0)
                 {
                     Vector3 cameraBackward = -headForward;
-                    if (Vector3.Dot(palmNormal.normalized, cameraBackward) > CursorBeamBackwardTolerance)
+                    if (Vector3.Dot(palmNormal, cameraBackward) > CursorBeamBackwardTolerance)
                     {
                         valid = false;
                     }
@@ -91,7 +91,7 @@ namespace MixedReality.Toolkit.Input
             Vector3 rayPivotPoint = ComputeRayPivotPosition(handPosition, headTransform, sourceHandedness);
             Vector3 measuredRayPosition = handPosition;
             Vector3 measuredDirection = measuredRayPosition - rayPivotPoint;
-            this.palmNormal = palmNormal;
+            this.palmNormal = palmNormal.sqrMagnitude > MathUtilities.ZeroTolerance ? palmNormal.normalized : palmNormal;
             this.headForward = headTransform.forward;
 
             stabilizedRay.AddSample(new Ray(measuredRayPosition, measuredDirection));

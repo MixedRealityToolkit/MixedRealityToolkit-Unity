@@ -66,9 +66,18 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         public override void ApplyConstraint(ref MixedRealityTransform transform)
         {
-            Vector3 constraintToPose = transform.Position - constraintTransform.position;
-            constraintToPose = constraintToPose.normalized * distanceAtManipulationStart;
-            transform.Position = constraintTransform.position + constraintToPose;
+            if (constraintTransform == null)
+            {
+                return;
+            }
+
+            Vector3 center = constraintTransform.position;
+            Vector3 constraintToPose = transform.Position - center;
+            float sqrMag = constraintToPose.sqrMagnitude;
+            if (sqrMag > MathUtilities.ZeroTolerance)
+            {
+                transform.Position = center + (constraintToPose / Mathf.Sqrt(sqrMag)) * distanceAtManipulationStart;
+            }
         }
 
         #endregion Public Methods
@@ -77,7 +86,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             if (ConstraintTransform == null)
             {
-                ConstraintTransform = Camera.main.transform;
+                Camera cam = Camera.main;
+                if (cam != null)
+                {
+                    ConstraintTransform = cam.transform;
+                }
             }
         }
     }

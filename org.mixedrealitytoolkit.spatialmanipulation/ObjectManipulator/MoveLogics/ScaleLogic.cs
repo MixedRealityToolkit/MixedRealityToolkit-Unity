@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System.Collections.Generic;
@@ -54,7 +54,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
             else
             {
-                var ratioMultiplier = GetScaleBetweenInteractors(interactors, interactable) / startHandDistanceMeters;
+                var ratioMultiplier = startHandDistanceMeters > MathUtilities.ZeroTolerance ? GetScaleBetweenInteractors(interactors, interactable) / startHandDistanceMeters : 1.0f;
                 return startObjectScale * ratioMultiplier;
             }
         }

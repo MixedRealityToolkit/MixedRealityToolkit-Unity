@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System;
@@ -68,15 +68,8 @@ namespace MixedReality.Toolkit.Audio
         /// </remarks>
         public float UpdateInterval
         {
-            get 
-            {
-                 return updateInterval;
-            }
-
-            set
-            {
-                updateInterval = Mathf.Clamp(value, 0.0f, 1.0f);
-            }
+            get => updateInterval;
+            set => updateInterval = Mathf.Clamp(value, 0.0f, 1.0f);
         }
 
         [Tooltip("Maximum distance, in meters, to look when attempting to find the user and any influencers.")]
@@ -93,15 +86,8 @@ namespace MixedReality.Toolkit.Audio
         /// </remarks>
         public float MaxDistance
         {
-            get 
-            {
-                 return maxDistance; 
-            }
-
-            set
-            {
-                maxDistance = Mathf.Clamp(value, 1.0f, 50.0f);
-            }
+            get => maxDistance;
+            set => maxDistance = Mathf.Clamp(value, 1.0f, 50.0f);
         }
 
         /// <summary>
@@ -270,6 +256,11 @@ namespace MixedReality.Toolkit.Audio
             // Perform a raycast from the user toward the object.
             Vector3 direction = (gameObject.transform.position - cameraTransform.position).normalized;
             float distance = Vector3.Distance(cameraTransform.position, gameObject.transform.position);
+
+            if (distance < MathUtilities.ZeroTolerance)
+            {
+                return;
+            }
 
             int count = UnityPhysics.RaycastNonAlloc(cameraTransform.position,
                                                 direction,
