@@ -6,7 +6,9 @@
         "Unity.InputSystem",
         "UnityEditor.TestRunner",
         "UnityEngine.TestRunner",
-        "Unity.asset-store-validation.Editor"
+        "Unity.asset-store-validation.Editor",
+        "Unity.XR.Management",
+        "Unity.XR.Management.Editor"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

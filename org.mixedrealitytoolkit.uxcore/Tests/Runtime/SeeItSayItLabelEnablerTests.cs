@@ -34,10 +34,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             interactor.gameObject.SetActive(true);
 
             yield return null;
-            if (Application.isBatchMode)
-            {
-                LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
-            }
+            ExpectSpeechRecognitionNotSupportedException();
 
             Transform sublabel = label.transform.GetChild(0);
             Assert.IsTrue(label.gameObject.activeSelf, "Label is enabled");
@@ -64,10 +61,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             interactor.gameObject.SetActive(true);
 
             yield return null;
-            if (Application.isBatchMode)
-            {
-                LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
-            }
+            ExpectSpeechRecognitionNotSupportedException();
 
             Transform sublabel = label.transform.GetChild(0);
             TMP_Text text = label.gameObject.GetComponentInChildren<TMP_Text>(true);
@@ -84,10 +78,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             // Wait for a frame to give Unity a change to actually destroy the object
             yield return null;
             // The speech recognition keyword change will trigger this exception at next update when speech recognition is not supported
-            if (Application.isBatchMode)
-            {
-                LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
-            }
+            ExpectSpeechRecognitionNotSupportedException();
         }
 
         [UnityTest]
@@ -115,10 +106,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             interactor.gameObject.SetActive(true);
 
             yield return null;
-            if (Application.isBatchMode)
-            {
-                LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
-            }
+            ExpectSpeechRecognitionNotSupportedException();
 
             RectTransform sublabel = label.transform.GetChild(0) as RectTransform;
             Assert.AreEqual(sublabel.anchoredPosition3D, new Vector3(10, -30, -10), "Label is positioned correctly");
@@ -142,10 +130,7 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             interactor.gameObject.SetActive(true);
 
             yield return null;
-            if (Application.isBatchMode)
-            {
-                LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
-            }
+            ExpectSpeechRecognitionNotSupportedException();
 
             Assert.AreEqual(label.transform.localPosition, new Vector3(10f, -.504f, -.004f), "Label is positioned correctly");
 #else
@@ -201,6 +186,16 @@ namespace MixedReality.Toolkit.UX.Runtime.Tests
             enabler.PositionControl = positionControl;
 
             return testButton;
+        }
+
+        private static void ExpectSpeechRecognitionNotSupportedException()
+        {
+#if MRTK_INPUT_PRESENT && MRTK_SPEECH_PRESENT && (UNITY_STANDALONE_WIN || UNITY_WSA || UNITY_EDITOR_WIN)
+            if (!UnityEngine.Windows.Speech.PhraseRecognitionSystem.isSupported)
+            {
+                LogAssert.Expect(LogType.Exception, new Regex("Speech recognition is not supported on this machine"));
+            }
+#endif
         }
 
         private enum Control

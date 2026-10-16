@@ -12,6 +12,8 @@ namespace MixedReality.Toolkit.Core.Tests
     /// <summary>
     /// Base class to handle typical code setup/teardown and test utilities
     /// </summary>
+    [PrebuildSetup(typeof(PlayModeTestXRDisabler))]
+    [PostBuildCleanup(typeof(PlayModeTestXRDisabler))]
     public abstract class BaseRuntimeTests
     {
         int originalTargetFrameRate = 0;
