@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+
+* Added `SpeechHoverMode` and `HoverMode` configuration to `SpeechInteractor` to specify which hover state satisfies the focus requirement for voice commands. [PR #1147](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1147)
+
 ### Changed
 
 * Reserialized MRTK XR Rig prefab to remove stale serialized fields. [PR #1110](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1110)
