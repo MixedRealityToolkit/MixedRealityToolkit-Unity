@@ -140,31 +140,37 @@ namespace MixedReality.Toolkit.UX
                 audioSource = gameObject.EnsureComponent<AudioSource>();
             }
 
-            if (alignWithStepSlider && slider.UseSliderStepDivisions)
+            if (alignWithStepSlider && slider != null && slider.UseSliderStepDivisions)
             {
-                tickEvery = 1.0f / slider.SliderStepDivisions;
+                int divisions = Mathf.Max(1, slider.SliderStepDivisions);
+                tickEvery = 1.0f / divisions;
             }
         }
 
         private void OnEnable()
         {
-            slider.firstSelectEntered.AddListener(OnInteractionStarted);
-            slider.lastSelectExited.AddListener(OnInteractionEnded);
-            slider.OnValueUpdated.AddListener(OnValueUpdated);
+            if (slider != null)
+            {
+                slider.firstSelectEntered.AddListener(OnInteractionStarted);
+                slider.lastSelectExited.AddListener(OnInteractionEnded);
+                slider.OnValueUpdated.AddListener(OnValueUpdated);
+            }
         }
 
         private void OnDisable()
         {
-            slider.firstSelectEntered.RemoveListener(OnInteractionStarted);
-            slider.lastSelectExited.RemoveListener(OnInteractionEnded);
-            slider.OnValueUpdated.RemoveListener(OnValueUpdated);
+            if (slider != null)
+            {
+                slider.firstSelectEntered.RemoveListener(OnInteractionStarted);
+                slider.lastSelectExited.RemoveListener(OnInteractionEnded);
+                slider.OnValueUpdated.RemoveListener(OnValueUpdated);
+            }
         }
 
         private const float NeutralPitchShift = 1f;
  
-        private void OnValueUpdated(SliderEventData eventData)
+        internal void OnValueUpdated(SliderEventData eventData)
         {
-
             if (!(playSoundsOnlyOnInteract && !isInteracting) && playTickSounds && AudioSource != null && passNotchSound != null)
             {
                 float delta = eventData.NewValue - eventData.OldValue;
@@ -172,7 +178,8 @@ namespace MixedReality.Toolkit.UX
                 var now = Time.timeSinceLevelLoad;
                 if (accumulatedDeltaSliderValue >= tickEvery && now - lastSoundPlayTime > minSecondsBetweenTicks)
                 {
-                    AudioSource.pitch = Mathf.Lerp(startPitch, endPitch, eventData.NewValue);
+                    float normalizedProgress = slider != null ? slider.NormalizedValue : eventData.NewValue;
+                    AudioSource.pitch = Mathf.Lerp(startPitch, endPitch, normalizedProgress);
                     if (AudioSource.isActiveAndEnabled)
                     {
                         AudioSource.PlayOneShot(passNotchSound);

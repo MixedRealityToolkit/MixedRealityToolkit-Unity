@@ -143,7 +143,14 @@ namespace MixedReality.Toolkit.UX
         /// <summary>
         /// The slider's normalized value calculated using the <see cref="MinValue"/> and <see cref="MaxValue"/> properties.
         /// </summary>
-        public float NormalizedValue => (MaxValue - MinValue) != 0 ? (value - MinValue) / (MaxValue - MinValue) : 0;
+        public float NormalizedValue
+        {
+            get
+            {
+                float range = MaxValue - MinValue;
+                return range > ZeroTolerance ? (value - MinValue) / range : 0f;
+            }
+        }
 
         [SerializeField]
         [Tooltip("Controls whether this slider is increments in steps or continuously.")]
@@ -238,12 +245,22 @@ namespace MixedReality.Toolkit.UX
 
         #region Private Fields
 
+        private const float ZeroTolerance = 1e-6f;
+
         private bool hasStarted;
 
         /// <summary>
         /// Private member used to adjust slider values
         /// </summary>
-        private float SliderStepVal => (MaxValue - MinValue) / sliderStepDivisions;
+        private float SliderStepVal
+        {
+            get
+            {
+                int divisions = Mathf.Max(1, sliderStepDivisions);
+                float range = MaxValue - MinValue;
+                return range > ZeroTolerance ? range / divisions : 0f;
+            }
+        }
 
         #endregion
 
@@ -378,24 +395,38 @@ namespace MixedReality.Toolkit.UX
             }
         }
 
-        private float SnapSliderToStepPositions(float value)
+        internal float SnapSliderToStepPositions(float value)
         {
-            var stepCount = value / SliderStepVal;
-            var snappedValue = SliderStepVal * Mathf.RoundToInt(stepCount);
-            return snappedValue;
+            float stepVal = SliderStepVal;
+            if (stepVal <= ZeroTolerance)
+            {
+                return value;
+            }
+
+            var stepCount = (value - MinValue) / stepVal;
+            var snappedValue = MinValue + stepVal * Mathf.Round(stepCount);
+            return Mathf.Clamp(snappedValue, MinValue, MaxValue);
         }
 
-        private void UpdateSliderValue()
+        internal void UpdateSliderValue()
         {
+            if (interactorsSelecting.Count == 0)
+            {
+                return;
+            }
+
             Vector3 interactionPoint = interactorsSelecting[0].GetAttachTransform(this).position;
             Vector3 interactorDelta = interactionPoint - StartInteractionPoint;
+            Vector3 trackDir = SliderTrackDirection;
+            float sqrMag = trackDir.sqrMagnitude;
 
-            var handDelta = Vector3.Dot(SliderTrackDirection.normalized, interactorDelta);
+            float handDelta = sqrMag > ZeroTolerance ? Vector3.Dot(trackDir, interactorDelta) / sqrMag : 0f;
 
-            var normalizedStartValue = (StartSliderValue - MinValue) / (MaxValue - MinValue);
-            float normalizedValue = Mathf.Clamp(normalizedStartValue + handDelta / SliderTrackDirection.magnitude, 0f, 1.0f);
+            float range = MaxValue - MinValue;
+            float normalizedStartValue = range > ZeroTolerance ? (StartSliderValue - MinValue) / range : 0f;
+            float normalizedValue = Mathf.Clamp01(normalizedStartValue + handDelta);
 
-            UpdateValue(normalizedValue * (MaxValue - MinValue) + MinValue);
+            UpdateValue(normalizedValue * range + MinValue);
         }
 
         #endregion

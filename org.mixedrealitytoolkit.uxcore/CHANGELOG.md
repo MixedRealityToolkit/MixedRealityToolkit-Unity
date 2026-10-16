@@ -18,6 +18,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Fixed "Attribute 'SerializeField' is not valid on this declaration type. It is only valid on 'field' declarations" error on `DialogButton` in Unity 6.3. [PR #1108](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1108)
 * Fixed `SeeItSayItLabelEnablerTests` failure when running on platforms without speech recognition support. [PR #1141](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1141)
 * Fixed slider handle visuals not updating when slider value is modified from Inspector in play mode. [PR #1144](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1144)
+* Guarded against division by zero and zero-length tracks in `Slider`. [PR #1144](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1144)
+* Fixed `Slider.SnapSliderToStepPositions` snapping relative to 0 instead of `MinValue` when using custom ranges. [PR #1144](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1144)
+* Fixed `SliderSounds` pitch calculation to normalize against slider range instead of passing raw unnormalized values. [PR #1144](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1144)
+* Guarded against division by zero and null references in `SliderSounds`. [PR #1144](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1144)
 
 ## [3.3.0] - 2025-11-12
 
