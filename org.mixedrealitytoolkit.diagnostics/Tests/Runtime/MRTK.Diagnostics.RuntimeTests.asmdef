@@ -2,7 +2,11 @@
     "name": "MixedReality.Toolkit.Diagnostics.Runtime.Tests",
     "rootNamespace": "",
     "references": [
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Core.TestUtilities",
         "MixedReality.Toolkit.Diagnostics",
+        "MixedReality.Toolkit.Diagnostics.Visualization",
+        "Unity.TextMeshPro",
         "UnityEditor.TestRunner",
         "UnityEngine.TestRunner"
     ],
